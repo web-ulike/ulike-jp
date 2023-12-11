@@ -358,6 +358,13 @@ th {
   transition: transform 0.25s ease-in-out;
 }
 
+.p-hide {
+  display: none;
+}
+.p-show {
+  display: block;
+}
+
 @supports (padding: max(0px)) {
   .pswp__dots-nav-wrapper {
     padding-bottom: max(20px, env(safe-area-inset-bottom, 0px) + 20px);
@@ -981,6 +988,12 @@ p a:not(.button),
   .table tfoot td,
   .rte table tfoot td {
     padding-top: 16px;
+  }
+  .p-hide {
+    display: block;
+  }
+  .p-show {
+    display: none;
   }
 }
 
