@@ -1,0 +1,226 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    --progress-bar-color: {{ section.blocks.first.settings.text_color.red }}, {{ section.blocks.first.settings.text_color.green }}, {{ section.blocks.first.settings.text_color.blue }};
+    --section-autoplay-duration: {% if section.settings.autoplay %}{{ section.settings.cycle_speed }}s{% else %}0s{% endif %};
+    --section-animation-play-state: paused;
+  }
+.swiper-diy {
+    padding-bottom: 70px;
+    overflow: hidden;
+    background: {{ section.settings.background }};
+}
+
+.swiper-diy .swiper-diy-cont {
+    width: 100%;
+    height: 390px;
+    position: relative;
+}
+
+.swiper-diy .swiper-diy-cont .swiper-diy-list {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+}
+
+.swiper-diy .swiper-diy-cont .swiper-diy-list .swiper-diy-item {
+    margin-right: 19px;
+    overflow: hidden;
+    flex-shrink: 0;
+    height: 100%;
+}
+
+.swiper-diy .swiper-diy-cont .swiper-diy-list .swiper-diy-item img {
+    display: block;
+    height: 100%;
+    width:auto;
+    pointer-events: none;
+}
+  .swiper-diy .swiper-title {
+    max-width: 796px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+.swiper-diy .swiper-des{
+margin-bottom: 50px;
+}
+
+@media (max-width:991px) {
+    .swiper-diy {
+        padding-bottom: 50px;
+    }
+
+    .swiper-diy .swiper-diy-cont {
+        height: 185px;
+    }
+
+    .swiper-diy .swiper-diy-cont .swiper-diy-list .swiper-diy-item {
+        margin-right: 10px;
+    }
+}
+</style>
+<section class="swiper-diy-section">
+  <div class="swiper-diy">
+    <div class="swiper-title">
+        {%- if section.settings.main_title != blank -%}
+        <h3 class="heading h3 text--center">
+          {{ section.settings.main_title | escape }}
+        </h3>
+        {%- endif -%}
+        {%- if section.settings.main_sub != blank -%}
+          <div class="swiper-des text--center">
+            {{ section.settings.main_sub | escape }}
+          </div>
+        {%- endif -%}
+      </div>
+      <div class="swiper-diy-cont">
+          <div class="swiper-diy-list">
+            {%- for block in section.blocks -%}
+              <div class="swiper-diy-item appear-k">
+                {%- if block.settings.image != blank -%}
+                    <img loading="lazy" {% render 'image-attributes', image: block.settings.image %}>
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          </div>
+      </div>
+  </div>
+</section>
+<script>
+  function swiperDiySwiperFn(boxName) {
+      let isHover = false
+      let bodyWidth = $('body').width()
+      let width = $('.swiper-diy').width()
+      let $pbox = $('.' + boxName)
+      let $box = $pbox.find('.swiper-diy-list')
+      let info = $box[0].getBoundingClientRect()
+      let length = $box.find('.swiper-diy-item').length
+      let itemWidth = $box.find('.swiper-diy-item').width()
+      let listWidth = itemWidth * length + length * 20
+      let tleft = 0
+      let maxLeft = info.left + listWidth
+      let scrollTopNum = $(document).scrollTop()
+      if (listWidth < bodyWidth - info.left) return
+      if (listWidth > bodyWidth) {
+          $box.append($box.html())
+      } else {
+          $box.append($box.html()).append($box.html())
+      }
+      $box.hover(function () {
+          isHover = true
+      }, function () {
+          isHover = false
+          swiperDiy()
+      })
+
+      function boxDisplacement(num) {
+          tleft += num - 0.6
+          if (listWidth > bodyWidth) {
+              if (tleft >= maxLeft) {
+                  tleft = info.left
+              }
+              if (tleft < 0) {
+                  tleft = listWidth
+              }
+              tleft += num - 0.6
+          } else {
+              if (tleft >= maxLeft * 2) {
+                  tleft = info.left
+              }
+              if (tleft < 0) {
+                  tleft = listWidth
+              }
+              tleft += num - 0.6
+          }
+          $box.css({
+              'transform': 'translateX(-' + tleft + 'px)'
+          })
+      }
+
+      let x1, x2;
+      $('.swiper-diy').on('touchstart mousedown', function (e) {
+          e = e || window.event;
+          if (e.stopPropagation) e.stopPropagation();
+          if (e.preventDefault) e.preventDefault();
+          e.cancelBubble = true;
+          e.returnValue = false;
+          if (e.type == 'touchstart') {
+              x1 = e.originalEvent.changedTouches[0].clientX;
+          } else if (e.type == 'mousedown') {
+              x1 = e.clientX;
+          }
+          $('.swiper-diy').on('touchmove mousemove', function (e) {
+              if (e.type == 'touchmove') {
+                  x2 = e.originalEvent.changedTouches[0].clientX;
+              } else if (e.type == 'mousemove') {
+                  x2 = e.clientX;
+              }
+              console.log(x1 - x2);
+              boxDisplacement(x1 - x2)
+              x1 = x2
+          })
+          $(document).on('touchend mouseup', function (e) {
+              $(".swiper-diy").unbind('touchmove mousemove');
+              $(document).unbind('touchend mouseup');
+          })
+          return false;
+      })
+
+      function swiperDiy() {
+          if (isHover) return
+          boxDisplacement(1)
+          requestAnimationFrame(swiperDiy)
+      }
+      swiperDiy()
+  }
+
+  window.onload = function () {
+      // 执行代码
+      swiperDiySwiperFn('swiper-diy')
+  }
+</script>
+{% schema %}
+{
+  "name": "swiper-diy",
+  "class": "swiper-diy-box",
+  "blocks": [
+    {
+    "type":"item",
+    "name":"item",
+    "settings":[
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          }
+      ]
+    }
+  ],
+  "settings": [
+     {
+      "type": "text",
+      "id": "main_title",
+      "label": "Product Heading"
+    },
+    {
+      "type": "text",
+      "id": "main_sub",
+      "label": "Product subheading"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "info": "Used while",
+      "default": "rgba(0,0,0,0)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "swiper-diy",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

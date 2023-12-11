@@ -1,0 +1,592 @@
+<div class="table-comparison-container container {% if section.settings.show_divider %} section--divider{% endif %} page-width">
+  <div class="table-comparison">
+    {%- for block in section.blocks -%}
+        <div class="tc-block" id="tc-row-{{ forloop.index }}">
+            <div class="tc-data wtitle frow" >
+                {%- if block.settings.icon != blank -%}
+                    <div class="tc-data-wimg">
+                        <div class="tc-data-wimg__wrapper">
+                          {{ block.settings.icon | img_url: 'master' | img_tag }}
+                        </div>
+                        <p {% if forloop.index != 1 %}class="tcpHeading"{% endif %} style="display:none;">{{ block.settings.title }}</p>
+                    </div>
+                {%- else -%}
+                    <h3>{{ block.settings.title }}</h3>
+                {%- endif -%}
+            </div>
+            {%- if block.settings.text_1 != blank -%}
+              <div class="tc-data srow">
+                  {%- if block.settings.data_content_type_1 == 'text' -%}
+                      <div class="tc-data-th">
+                          {{ block.settings.text_1 }}
+                      </div>
+                  {%- else -%}
+                      <div class="tc-data-icon">
+                          <span class="tc-icon-big">{{ block.settings.icon_1_1 | image_url: 'master' | img_tag }}</span>
+                          <span class="tc-icon-small">{{ block.settings.icon_1_1 | image_url: 'master' | img_tag }}</span>
+                          <div class="tc-text-small">{{ block.settings.text_1_2 }}</div>
+                      </div>
+                  {%- endif -%}
+              </div>
+             {%- endif -%}
+            {%- if block.settings.text_2 != blank -%}
+              <div class="tc-data srow">
+                  {%- if block.settings.data_content_type_2 == 'text' -%}
+                      <div class="tc-data-th">
+                          {{ block.settings.text_2 }}
+                      </div>
+                  {%- else -%}
+                      <div class="tc-data-icon">
+                        <span class="tc-icon-big">{{ block.settings.icon_2_1 | image_url: 'master' | img_tag }}</span>
+                        <span class="tc-icon-small">{{ block.settings.icon_2_1 | image_url: 'master' | img_tag }}</span>
+                        <div class="tc-text-small">{{ block.settings.text_2_2 }}</div>
+                      </div>
+                  {%- endif -%}
+              </div>
+            {%- endif -%}
+            {%- if block.settings.text_3 != blank -%}
+              <div class="tc-data srow">
+                  {%- if block.settings.data_content_type_3 == 'text' -%}
+                      <div class="tc-data-th">
+                          {{ block.settings.text_3 }}
+                      </div>
+                  {%- else -%}
+                      <div class="tc-data-icon">
+                        <span class="tc-icon-big">{{ block.settings.icon_3_1 | image_url: 'master' | img_tag }}</span>
+                        <span class="tc-icon-small">{{ block.settings.icon_3_1 | image_url: 'master' | img_tag }}</span>
+                        <div class="tc-text-small">{{ block.settings.text_3_2 }}</div>
+                      </div>
+                  {%- endif -%}
+              </div>
+            {%- endif -%}
+            {%- if block.settings.text_4 != blank -%}
+              <div class="tc-data srow">
+                  {%- if block.settings.data_content_type_4 == 'text' -%}
+                      <div class="tc-data-th">
+                          {{ block.settings.text_4 }}
+                      </div>
+                  {%- else -%}
+                      <div class="tc-data-icon">
+                        <span class="tc-icon-big">{{ block.settings.icon_4_1 | image_url: 'master' | img_tag }}</span>
+                        <span class="tc-icon-small">{{ block.settings.icon_4_1 | image_url: 'master' | img_tag }}</span>
+                        <div class="tc-text-small">{{ block.settings.text_4_2 }}</div>
+                      </div>
+                  {%- endif -%}
+              </div>
+            {%- endif -%}
+            {%- if block.settings.text_5 != blank -%}
+              <div class="tc-data srow">
+                  {%- if block.settings.data_content_type_5 == 'text' -%}
+                      <div class="tc-data-th">
+                          {{ block.settings.text_5 }}
+                      </div>
+                  {%- else -%}
+                      <div class="tc-data-icon">
+                        <span class="tc-icon-big">{{ block.settings.icon_5_1 | image_url: 'master' | img_tag }}</span>
+                        <span class="tc-icon-small">{{ block.settings.icon_5_1 | image_url: 'master' | img_tag }}</span>
+                        <div class="tc-text-small">{{ block.settings.text_5_2 }}</div>
+                      </div>
+                  {%- endif -%}
+              </div>
+            {%- endif -%}
+            {%- if block.settings.text_6 != blank -%}
+              <div class="tc-data srow">
+                  {%- if block.settings.data_content_type_6 == 'text' -%}
+                      <div class="tc-data-th">
+                          {{ block.settings.text_6 }}
+                      </div>
+                  {%- else -%}
+                      <div class="tc-data-icon">
+                        <span class="tc-icon-big">{{ block.settings.icon_6_1 | image_url: 'master' | img_tag }}</span>
+                        <span class="tc-icon-small">{{ block.settings.icon_6_1 | image_url: 'master' | img_tag }}</span>
+                        <div class="tc-text-small">{{ block.settings.text_6_2 }}</div>
+                      </div>
+                  {%- endif -%}
+              </div>
+            {%- endif -%}
+            {%- if block.settings.button_text != blank -%}
+              <a href="{{ block.settings.button_link }}" class="button-table button--animate">{{ block.settings.button_text | escape }}</a>
+            {%- endif -%}
+        </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% style %}
+    .table-comparison-container{
+        background-color: {{ section.settings.background_color }};
+        padding-top: {{ section.settings.padding_top }}px;
+        {% comment %} padding-right: {{ section.settings.padding_right }}px; {% endcomment %}
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+        {% comment %} padding-left: {{ section.settings.padding_left }}px; {% endcomment %}
+    }
+    .button-table{
+      display: inline-block;
+      padding-left: 35px;
+      position: relative;
+      padding-right: 35px;
+      overflow: hidden;
+      z-index: 3;
+      font-size: 12px;
+      border: 1px solid #040000;
+      text-transform: uppercase;
+      background: #040000ff;
+      color:#ffffff;
+      line-height: 36px;
+      margin-top:19px;
+      border-radius: 2px;
+    }
+    .button-table.button--animate:hover {
+      color: #040000;
+    }
+    .button-table.button--animate:after {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      position: absolute;
+      left: 0;
+      transition: all .5s;
+      z-index: -1;
+    }
+    .button-table.button--animate:hover:after {
+      transition: all .3s;
+      transform: translateY(-100%);
+    }
+    .table-comparison{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .tc-block{
+        width: 22%;
+    }
+    #tc-row-1.tc-block{
+        width: 34%;
+    }
+    .tc-data-wimg__wrapper {
+      width: 150px;
+      height: 150px;
+      display: flex;
+      align-items: flex-start;
+    }
+    .tc-data-wimg__wrapper img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+    .tc-data{
+        border-bottom: 1px solid #ECECEC;
+    }
+    .tc-data .tc-data-wimg,
+    .tc-data .tc-data-icon{
+        text-align: center;
+    }
+    .tc-data .tc-data-wimg p{
+        margin: 0;
+        font-size: 19px;
+        line-height: 34.2px;
+        font-weight: 700;
+    }
+    .tc-data h3{
+        font-size: 36px;
+        line-height: 56px;
+        margin: 0;
+    }
+    .tc-data.frow{
+        min-height: 170px;
+        display: flex;
+        align-items: center;
+    }
+    .tc-data.srow{
+        min-height: 66px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .tc-icon-big{display:inline;}
+    .tc-icon-small,
+    .tc-text-small{display:none;}
+    .vs-text{display:block;}
+    .tc-data-icon .tc-icon-big img{
+      max-width: 36px;
+    }
+    .tc-data .tc-data-wimg p,
+    .tc-data-th{
+      font-size: 16px;
+      line-height: 19px;
+      text-align: center;
+      max-width: 150px;
+    }
+    #tc-row-1 .tc-data-th{
+      text-align: left;
+      max-width: auto;
+    }
+    @media screen and (max-width: 740px){
+      .table-comparison-product-section .container{
+        padding: 0;
+      }
+      .tc-data.frow {
+        min-height: 110px;
+        padding: 0 10px;
+      }
+      .tc-data h3{
+         font-size: 14px;
+         line-height: 18px;
+      }
+      .tc-data-wimg__wrapper{
+        width: 60px;
+        height: auto;
+      }
+      .tc-data .tc-data-wimg p, .tc-data-th{
+        font-size:12px;
+        line-height: 16px;
+      }
+      .button-table{
+        padding-left: 9px;
+        padding-right: 9px;
+        text-transform: initial;
+        line-height: 32px;
+      }
+      #tc-row-1.tc-block{
+        width: 25%;
+      }
+      .tc-block {
+          width: 25%;
+      }
+      #tc-row-1 .tc-data.srow{
+        background: #fafafaff;
+        font-weight:bold;
+        padding: 0 10px;
+      }
+    }
+{% endstyle %}
+
+{% schema %}
+  {
+  "name": "Table Comparison Product",
+  "class": "table-comparison-product-section",
+  "max_blocks": 5,
+  "tag": "section",
+  "settings": [
+    {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background Color"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "label": "Padding Top",
+        "min": 1,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "default": 1
+      },
+      {
+        "type": "range",
+        "id": "padding_right",
+        "label": "Padding Right",
+        "min": 1,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "default": 1
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "label": "Padding Bottom",
+        "min": 1,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "default": 1
+      },
+      {
+        "type": "range",
+        "id": "padding_left",
+        "label": "Padding Left",
+        "min": 1,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "default": 1
+      }
+  ],
+  "blocks": [
+    {
+      "name": "Column",
+      "type": "column",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "header",
+          "content": "Data 1"
+        },
+        {
+          "type": "radio",
+          "id": "data_content_type_1",
+          "label": "Data Content Type",
+          "options": [
+            {
+              "value": "text",
+              "label": "Text"
+            },
+            {
+              "value": "icon",
+              "label": "Icon"
+            }
+          ],
+          "default": "text"
+        },
+        {
+          "type": "text",
+          "id": "text_1",
+          "label": "Text"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_1",
+          "label": "Icon"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_1_1",
+          "label": "Icon Mobile"
+        },
+        {
+          "type": "text",
+          "id": "text_1_2",
+          "label": "Icon Mobile Text"
+        },
+        {
+          "type": "header",
+          "content": "Data 2"
+        },
+        {
+          "type": "radio",
+          "id": "data_content_type_2",
+          "label": "Data Content Type",
+          "options": [
+            {
+              "value": "text",
+              "label": "Text"
+            },
+            {
+              "value": "icon",
+              "label": "Icon"
+            }
+          ],
+          "default": "text"
+        },
+        {
+          "type": "text",
+          "id": "text_2",
+          "label": "Text"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_2",
+          "label": "Icon"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_2_1",
+          "label": "Icon Mobile"
+        },
+        {
+          "type": "text",
+          "id": "text_2_2",
+          "label": "Icon Mobile Text"
+        },
+        {
+          "type": "header",
+          "content": "Data 3"
+        },
+        {
+          "type": "radio",
+          "id": "data_content_type_3",
+          "label": "Data Content Type",
+          "options": [
+            {
+              "value": "text",
+              "label": "Text"
+            },
+            {
+              "value": "icon",
+              "label": "Icon"
+            }
+          ],
+          "default": "text"
+        },
+        {
+          "type": "text",
+          "id": "text_3",
+          "label": "Text"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_3",
+          "label": "Icon"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_3_1",
+          "label": "Icon Mobile"
+        },
+        {
+          "type": "text",
+          "id": "text_3_2",
+          "label": "Icon Mobile Text"
+        },
+        {
+          "type": "header",
+          "content": "Data 4"
+        },
+        {
+          "type": "radio",
+          "id": "data_content_type_4",
+          "label": "Data Content Type",
+          "options": [
+            {
+              "value": "text",
+              "label": "Text"
+            },
+            {
+              "value": "icon",
+              "label": "Icon"
+            }
+          ],
+          "default": "text"
+        },
+        {
+          "type": "text",
+          "id": "text_4",
+          "label": "Text"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_4",
+          "label": "Icon"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_4_1",
+          "label": "Icon Mobile"
+        },
+        {
+          "type": "text",
+          "id": "text_4_2",
+          "label": "Icon Mobile Text"
+        },
+        {
+          "type": "header",
+          "content": "Data 5"
+        },
+        {
+          "type": "radio",
+          "id": "data_content_type_5",
+          "label": "Data Content Type",
+          "options": [
+            {
+              "value": "text",
+              "label": "Text"
+            },
+            {
+              "value": "icon",
+              "label": "Icon"
+            }
+          ],
+          "default": "text"
+        },
+        {
+          "type": "text",
+          "id": "text_5",
+          "label": "Text"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_5",
+          "label": "Icon"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_5_1",
+          "label": "Icon Mobile"
+        },
+        {
+          "type": "text",
+          "id": "text_5_2",
+          "label": "Icon Mobile Text"
+        },
+        {
+          "type": "header",
+          "content": "Data 6"
+        },
+        {
+          "type": "radio",
+          "id": "data_content_type_6",
+          "label": "Data Content Type",
+          "options": [
+            {
+              "value": "text",
+              "label": "Text"
+            },
+            {
+              "value": "icon",
+              "label": "Icon"
+            }
+          ],
+          "default": "text"
+        },
+        {
+          "type": "text",
+          "id": "text_6",
+          "label": "Text"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_6",
+          "label": "Icon"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_6_1",
+          "label": "Icon Mobile"
+        },
+        {
+          "type": "text",
+          "id": "text_6_2",
+          "label": "Icon Mobile Text"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Table Comparison Product"
+    }
+  ]
+}
+{% endschema %}

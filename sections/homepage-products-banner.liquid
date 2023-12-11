@@ -1,0 +1,368 @@
+{%- liquid
+  if section.blocks.size == 1
+    assign img_width = 0
+    assign img_space = '0'
+  elsif section.blocks.size == 2
+    assign img_width = 1
+    assign img_space = '20px'
+  elsif section.blocks.size == 3
+    assign img_width = 2
+     assign img_space = '20px'
+  endif
+-%}
+
+<style>
+  
+  #shopify-section-{{ section.id }} {
+    {%- if section.settings.text_color == 'rgba(0,0,0,0)' -%}
+      {%- assign heading_color = settings.heading_color -%}
+      {%- assign text_color = settings.text_color -%}
+    {%- else -%}
+      {%- assign heading_color = section.settings.text_color -%}
+      {%- assign text_color = section.settings.text_color -%}
+    {%- endif -%}
+
+    {%- if section.settings.button_background == 'rgba(0,0,0,0)' -%}
+      {%- assign button_background = settings.primary_button_background -%}
+    {%- else -%}
+      {%- assign button_background = section.settings.button_background -%}
+    {%- endif -%}
+
+    {%- if section.settings.button_text_color == 'rgba(0,0,0,0)' -%}
+      {%- assign button_text_color = settings.primary_button_text_color -%}
+    {%- else -%}
+      {%- assign button_text_color = section.settings.button_text_color -%}
+    {%- endif -%}
+
+    --heading-color: {{ heading_color.red }}, {{ heading_color.green }}, {{ heading_color.blue }};
+    --text-color: {{ text_color.red }}, {{ text_color.green }}, {{ text_color.blue }};
+    --primary-button-background: {{ button_background.red }}, {{ button_background.green }}, {{ button_background.blue }};
+    --primary-button-text-color: {{ button_text_color.red }}, {{ button_text_color.green }}, {{ button_text_color.blue }};
+
+    --section-overlay-color: {{ section.settings.overlay_color.red }}, {{ section.settings.overlay_color.green }}, {{ section.settings.overlay_color.blue }};
+    --section-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    --columns: {{ section.blocks.size }};
+    --gutter-width: 12px;
+  }
+  @media screen and (max-width: 734px) and (min-width: 0px) {
+      #shopify-section-{{ section.id }} {
+            --content-height: 500px;
+            --columns: 1;
+            --gutter-width: 12px;
+            --gutter-half-width: 6px;
+            --gutter-and-half-width: 18px;
+        }
+    }
+  ul {
+      list-style: none;
+  }
+  .homepage-products-banner .heading-h2--homepage{
+    display: block;
+    font-family: var(--heading-font-family);
+    font-weight: var(--heading-font-weight);
+    font-style: var(--heading-font-style);
+    color: rgb(var(--heading-color));
+    font-size:40px;
+    line-height:60px;
+    margin-bottom:0px;
+  }
+  .homepage-products-banner .heading-h3-homepage{
+     font-size:24px;
+    line-height:36px;
+    margin-bottom:5px;
+  }
+  .multi-column__link{
+    position: relative;
+    z-index: 400;
+    font-size:14px;
+    line-height:21px;
+    transition: all .3s ease;
+    cursor: pointer;
+  }
+  .multi-column__link:hover{
+    text-decoration: underline;
+  }
+  /* yujie 模块新增 start*/
+
+.homepage-products-banner {
+  /*padding: 0 16px;*/
+  }
+.homepage-products-banner ul.products-banner-list {
+      display: grid;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 0;
+     grid-template-columns: repeat(var(--columns), 1fr);
+    grid-gap: var(--gutter-width);
+  }
+.homepage-active-banner ul.active-banner-list li.active-banner-item,.homepage-products-banner ul.products-banner-list li.products-banner-item {
+      position: relative;
+      /* width: calc(50vw - 24px); */
+      height: 624px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      
+}
+.homepage-products-banner ul.products-banner-list.products-banner-list-2 li.products-banner-item{
+  height: 580px;
+}
+.homepage-active-banner ul.active-banner-list a.active-banner-link,.homepage-products-banner ul.products-banner-list a.products-banner-link,.homepage-stories-module ul.stories-module-list li.stories-module-item a.banner-link {
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: block;
+      height: 100%;
+      width: 100%;
+      z-index: 300;
+      cursor: pointer;
+  }
+.homepage-active-banner ul.active-banner-list .active-banner-text,.homepage-products-banner ul.products-banner-list .products-banner-text {
+      max-width: 520px;
+      padding-top: 35px;
+      margin: auto;
+      text-align: center;
+  }
+
+  @media (max-width: 1230px) {
+  .homepage-active-banner ul.active-banner-list li.active-banner-item,.homepage-products-banner ul.products-banner-list li.products-banner-item {
+      /* width: 591px; */
+    }
+  }
+  @media (max-width: 1068px) {
+    .homepage-active-banner ul.active-banner-list .active-banner-text,.homepage-products-banner ul.products-banner-list .products-banner-text {
+     max-width: 265px;
+     padding-top:35px;
+  }
+   .homepage-products-banner .heading-h2--homepage{
+    font-size: 32px;
+    line-height: 1.2;
+   }
+   /*
+   .homepage-products-banner .heading-h3-homepage {
+      font-size: 19px;
+      line-height: 1.21053;
+    }
+    */
+  }
+  @media (max-height: 900px){
+    .homepage-active-banner li.active-banner-item, .homepage-products-banner li.products-banner-item {
+      min-height: 520px!important;
+   }
+  }
+  @media (max-width: 734px){
+  .homepage-active-banner ul.active-banner-list .active-banner-text, .homepage-products-banner ul.products-banner-list .products-banner-text{
+    max-width: none;
+    padding: 40px 32px 0;
+  }
+  .button-group__wrapper {
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+  }
+  .multi-column__link{
+     margin: 0 15px;
+  }
+  .homepage-products-banner ul.products-banner-list.products-banner-list-2 li.products-banner-item, .homepage-products-banner ul.products-banner-list li.products-banner-item{
+    height:528px;
+  }
+  }
+/* yujie 模块新增 end*/
+</style>
+
+<section class="section mt12 mb12" lang="{{ request.user_agent }}">
+  <image-with-text-overlay reveal-on-scroll>
+    <div class="homepage-products-banner">
+      <ul class="products-banner-list {% if section.blocks.size == 2 %}products-banner-list-2{% endif %}">
+        {%- for block in section.blocks -%}
+          {% comment %} {%- assign background_image = block.settings.image | img_url: '3080x624' -%}
+          {%- assign mobile_background_image = block.settings.mobile_image | img_url: '734x528' -%}  {% endcomment %}
+            {% if request.user_agent contains 'iPhone' or request.user_agent contains 'Android' %}
+               {%- assign background_image = block.settings.mobile_image | img_url: '734x528' -%} 
+            {%- else -%}
+              {%- assign background_image = block.settings.image | img_url: '3080x624' -%}
+            {%- endif -%} 
+          <li class="products-banner-item mobile-visibile" style="background-image: url({{ background_image }});">
+            <a href="{{ block.settings.button_link_bg }}" class="products-banner-link ga-data"></a>
+            <div class="products-banner-text theme-dark">
+              {%- if block.settings.subheading != blank -%}
+                <h4 class="heading-h2--homepage">
+                  <split-lines reveal>{{ block.settings.subheading  }}</split-lines>
+                </h4>
+              {%- endif -%}
+              {%- if block.settings.title != blank -%}
+                <div class="heading-h3-homepage">
+                  <split-lines reveal>{{ block.settings.title  }}</split-lines>
+                </div>
+              {%- endif -%}
+              {%- capture buttons -%}
+                {%- if block.settings.button_1_text != blank -%}
+                  <a href="{{ block.settings.button_1_link }}" class="multi-column__link heading heading--small">
+                    <split-lines reveal> {{ block.settings.button_1_text | escape }} >
+                    </split-lines>
+                    
+                  </a>
+                {%- endif -%}
+                {%- if block.settings.button_2_text != blank -%}
+                  <a href="{{ block.settings.button_2_link }}"class="multi-column__link heading heading--small">
+                  {% comment %} {{ block.settings.button_2_text | escape }} {% endcomment %}
+                   <split-lines reveal> {{ block.settings.button_2_text | escape }} >
+                   </split-lines>
+                  </a>
+                {%- endif -%}
+              {%- endcapture -%}
+              {%- if block.settings.button_1_text != blank and block.settings.button_2_text != blank -%}
+                <div class="button-group">
+                  <div class="button-group__wrapper">
+                    {{- buttons -}}
+                  </div>
+                </div>
+              {%- elsif buttons != blank -%}
+                <div class="button-wrapper">
+                  {{- buttons -}}
+                </div>
+              {%- endif -%}
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </image-with-text-overlay>
+</section>
+
+{% schema %}
+{
+  "name": "Homepage Products Banner",
+  "class": "shopify-section--homepage-products-banner", 
+  "settings": [
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Overlay opacity",
+      "default": 30
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Item",
+      "type": "item",
+      "settings": [
+        {
+          "type": "url",
+          "id": "button_link_bg",
+          "label": "Backgroud Button link"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "info": "3080 x 624px .jpg recommended, 1080 x 1080px .jpg recommended if split",
+          "label": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "split_image",
+          "info": "1080 x 1080px .jpg recommended. Won't show up on mobile.",
+          "label": "Split image"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile image",
+          "info": "734 x 548px .jpg recommended. If none is set, desktop image will be used."
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "Subheading"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Image with text overlay"
+        },
+        {
+          "type": "text",
+          "id": "button_1_text",
+          "label": "Button 1 text"
+        },
+        {
+          "type": "url",
+          "id": "button_1_link",
+          "label": "Button 1 link",
+          "info": "Leave the \"Button 1 text\" and \"Button 2\" settings empty to make the slide fully clickable."
+        },
+        {
+          "type": "text",
+          "id": "button_2_text",
+          "label": "Button 2 text"
+        },
+        {
+          "type": "url",
+          "id": "button_2_link",
+          "label": "Button 2 link"
+        },
+        {
+          "type": "select",
+          "id": "link_style",
+          "label": "Link style",
+          "options": [
+            {
+              "value": "link",
+              "label": "Link"
+            },
+            {
+              "value": "button",
+              "label": "Button"
+            }
+          ],
+          "default": "link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Homepage Products Banner",
+      "blocks": [
+        {
+          "type": "item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,590 @@
+{%- if section.settings.background != settings.background and section.settings.background != 'rgba(0,0,0,0)' -%}
+  {%- assign blends_with_background = false -%}
+{%- else -%}
+  {%- assign blends_with_background = true -%}
+{%- endif -%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    {%- if section.settings.background == 'rgba(0,0,0,0)' -%}
+      {%- assign section_background = settings.background -%}
+    {%- else -%}
+      {%- assign section_background = section.settings.background -%}
+    {%- endif -%}
+
+    {%- if section.settings.text_color == 'rgba(0,0,0,0)' -%}
+      {%- assign heading_color = settings.heading_color -%}
+      {%- assign text_color = settings.text_color -%}
+    {%- else -%}
+      {%- assign heading_color = section.settings.text_color -%}
+      {%- assign text_color = section.settings.text_color -%}
+    {%- endif -%}
+
+    --heading-color: {{ heading_color.red }}, {{ heading_color.green }}, {{ heading_color.blue }};
+    --text-color: {{ text_color.red }}, {{ text_color.green }}, {{ text_color.blue }};
+    --prev-next-button-background: {{ settings.background.red }}, {{ settings.background.green }}, {{ settings.background.blue }};
+    --prev-next-button-color: {{ settings.text_color.red }}, {{ settings.text_color.green }}, {{ settings.text_color.blue }};
+
+    --section-background: {{ section_background.red }}, {{ section_background.green }}, {{ section_background.blue }};
+  }
+
+  {%- if section.settings.title == blank and section.settings.subheading == blank and section.settings.content == blank -%}
+    #shopify-section-{{ section.id }} {
+      --vertical-breather: 40px; /* Only on multi-column section, due to its specific usage we reduce spacing when no content */
+    }
+
+    {%- if blends_with_background or section.settings.mobile_item_size == 'small' -%}
+      /* Reduce the margin on small devices to create a slightly better layout */
+      @media screen and (max-width: 999px) {
+        #shopify-section-{{ section.id }} {
+          --vertical-breather: var(--container-gutter);
+        }
+      }
+    {%- endif -%}
+  {%- endif -%}
+
+  {%- for block in section.blocks -%}
+    {%- if block.settings.image_border != 'rgba(0,0,0,0)' -%}
+      #block-{{ section.id }}-{{ block.id }} .multi-column__image-wrapper {
+        border: 1px solid {{ block.settings.image_border }};
+      }
+    {%- endif -%}
+  {%- endfor -%}
+  .multi-column .pos_relative{
+    position:relative;
+  }
+  .multi-column .popu-video {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+ .multi-column .popu-video:hover svg {
+    transform: scale(1.2);
+    transition: all 0.3s;
+  }
+  .ipl-multi-column__image{
+    display: none;
+  }
+  .ipl-block-image .heading.h2{
+    font-size: 48px;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  @media screen and (max-width: 740px){
+    .ipl-block-image .multi-column__image{
+      display: none;
+    }
+    .ipl-block-image .ipl-multi-column__image{
+      display: block;
+    }
+    .ipl-block-image .multi-column__text-container{
+      display: none;
+    }
+    .ipl-block-image .heading.h2{
+        font-size: 28px;
+    }
+  }
+</style>
+
+<section class="section {% unless blends_with_background %}section--flush{% endunless %}">
+  <div class="section__color-wrapper">
+    <div class="container {% unless blends_with_background %}vertical-breather{% endunless %}">
+      {%- if section.settings.title != blank or section.settings.subheading != blank or section.settings.content != blank -%}
+        <header class="section__header {% if section.settings.content != blank %}section__header--tight{% endif %} section__header--{{ section.settings.column_alignment }}">
+          <div class="text-container">
+            {%- if section.settings.subheading != blank -%}
+              <h2 class="heading heading--small">{{ section.settings.subheading }}</h2>
+            {%- endif -%}
+
+            {%- if section.settings.title != blank -%}
+              <h3 class="heading h2">{{ section.settings.title }}</h3>
+            {%- endif -%}
+
+            {%- if section.settings.content != blank -%}
+              {{- section.settings.content -}}
+            {%- endif -%}
+          </div>
+        </header>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <multi-column {% if section.settings.stack_items %}stack{% endif %} {% if section.settings.reveal_on_scroll %}stagger-apparition{% endif %} class="multi-column multi-column--pocket-{{ section.settings.mobile_item_size }} multi-column--{{ section.settings.desktop_item_size }} multi-column--spacing-{{ section.settings.spacing }}">
+          {%- assign align_arrows_on_image = true -%}
+          {%- assign smallest_image_aspect_ratio = 0 -%}
+
+          <div {% unless section.settings.stack_items %}class="scroller"{% endunless %}>
+            <scrollable-content class="multi-column__inner multi-column__inner--{{ section.settings.column_alignment }} {% unless section.settings.stack_items %}multi-column__inner--scroller{% endunless %}">
+              {%- case section.settings.desktop_item_size -%}
+                {%- when 'pico' -%}
+                  {%- assign desktop_items_per_row = 8 -%}
+
+                {%- when 'small' -%}
+                  {%- assign desktop_items_per_row = 7 -%}
+
+                {%- when 'medium' -%}
+                  {%- assign desktop_items_per_row = 5 -%}
+
+                {%- when 'large' -%}
+                  {%- assign desktop_items_per_row = 3 -%}
+
+                {%- when 'mast' -%}
+                  {%- assign desktop_items_per_row = 2 -%}
+
+              {%- endcase -%}
+
+              {%- if section.settings.stack_items -%}
+                {%- case section.settings.mobile_item_size -%}
+                  {%- when 'small' -%}
+                    {%- assign mobile_calculated_size = 'calc(50vw - 48px)' -%}
+                    {%- assign tablet_calculated_size = 'calc(20vw - 80px)' -%}
+
+                  {%- when 'medium' -%}
+                    {%- assign mobile_calculated_size = 'calc(100vw - 48px)' -%}
+                    {%- assign tablet_calculated_size = 'calc(25vw - 80px)' -%}
+
+                  {%- when 'large' -%}
+                    {%- assign mobile_calculated_size = 'calc(100vw - 48px)' -%}
+                    {%- assign tablet_calculated_size = 'calc(33vw - 80px)' -%}
+                {%- endcase -%}
+              {%- else -%}
+                {%- case section.settings.mobile_item_size -%}
+                  {%- when 'small' -%}
+                    {%- assign mobile_calculated_size = '25vw' -%}
+                    {%- assign tablet_calculated_size = '20vw' -%}
+
+                  {%- when 'medium' -%}
+                    {%- assign mobile_calculated_size = '35vw' -%}
+                    {%- assign tablet_calculated_size = '26vw' -%}
+
+                  {%- when 'large' -%}
+                    {%- assign mobile_calculated_size = '56vw' -%}
+                    {%- assign tablet_calculated_size = '36vw' -%}
+                {%- endcase -%}
+              {%- endif -%}
+
+              {%- case section.settings.spacing -%}
+                {%- when 'tight' -%}
+                  {%- assign desktop_item_gap = 24 -%}
+
+                {%- when 'normal' -%}
+                  {%- assign desktop_item_gap = 40 -%}
+
+                {%- when 'loose' -%}
+                  {%- assign desktop_item_gap = 60 -%}
+              {%- endcase -%}
+
+              {%- assign desktop_items_per_row_minus_one = desktop_items_per_row | minus: 1 -%}
+              {%- assign gap_width = desktop_item_gap | divided_by: desktop_items_per_row | times: desktop_items_per_row_minus_one -%}
+
+              {%- for block in section.blocks -%}
+                {%- capture block_content -%}
+                  {%- if block.settings.image != blank -%}
+                    {%- assign smallest_image_aspect_ratio = smallest_image_aspect_ratio | at_least: block.settings.image.aspect_ratio -%}
+                    {%- capture sizes_attribute -%}(max-width: 740px) {{ mobile_calculated_size }}, (max-width: 999px) {{ tablet_calculated_size }}, {{ 1520.0 | divided_by: desktop_items_per_row | minus: gap_width | ceil }}px{%- endcapture -%}
+
+                    {%- if block.settings.link_url != blank and block.settings.video_play_button == false -%}
+                      <a href="{{ block.settings.link_url }}" class="multi-column__image-wrapper" style="max-width: {{ block.settings.image_width }}%; width: {{ block.settings.image.width }}px">
+                        {{- block.settings.image | image_url: width: block.settings.image.width | image_tag: loading: 'lazy', sizes: sizes_attribute, widths: '200,300,400,500,600,700,800,900,1000,1100,1200', class: 'multi-column__image' -}}
+                      </a>
+                    {%- else -%}
+                      <div class="multi-column__image-wrapper {% if block.settings.video_play_button == true %}pos_relative{% endif %}" style="max-width: {{ block.settings.image_width }}%; width: {{ block.settings.image.width }}px">
+                        {{- block.settings.image | image_url: width: block.settings.image.width | image_tag: loading: 'lazy', sizes: sizes_attribute, widths: '200,300,400,500,600,700,800,900,1000,1100,1200', class: 'multi-column__image' -}}
+                        {%- if block.settings.video_play_button == true -%}
+                          {%- if block.settings.video_url.type == 'youtube' -%}
+                            <div class="popu-video" href="https://www.youtube.com/embed/{{ block.settings.video_url.id }}?playsinline=1&autoplay=false&playlist={{ block.settings.video_url.id }}&enablejsapi=1&rel=0&modestbranding=1&origin={{ 'https://' | append: request.host | url_encode }}">
+                              <svg id="" data-name="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50"><defs><style>.cls-1{fill:none;}.cls-2{clip-path:url(#clip-path);}.cls-3{fill:#fff;}</style><clipPath id="clip-path"><circle class="cls-1" cx="25.06" cy="25.02" r="24.5" transform="translate(-4.06 45.16) rotate(-79.62)"/></clipPath></defs><g class="cls-2"><path class="cls-3" d="M25.06,1.88A23.14,23.14,0,0,1,48.2,25h2.72A25.86,25.86,0,0,0,25.06-.84ZM1.92,25A23.14,23.14,0,0,1,25.06,1.88V-.84A25.86,25.86,0,0,0-.8,25ZM25.06,48.16A23.14,23.14,0,0,1,1.92,25H-.8A25.86,25.86,0,0,0,25.06,50.88ZM48.2,25A23.14,23.14,0,0,1,25.06,48.16v2.72A25.86,25.86,0,0,0,50.92,25Z"/></g><path class="cls-3" d="M20.12,36.5A2.34,2.34,0,0,1,19,36.2a2.28,2.28,0,0,1-1.18-2V15.86a2.32,2.32,0,0,1,3.53-2L36.25,23a2.33,2.33,0,0,1,0,4L21.33,36.16A2.34,2.34,0,0,1,20.12,36.5Zm0-21.6a.93.93,0,0,0-.46.12,1,1,0,0,0-.49.84V34.18a1,1,0,0,0,.49.84.94.94,0,0,0,1,0l14.92-9.17A.92.92,0,0,0,36,25a1,1,0,0,0-.46-.82L20.61,15A1,1,0,0,0,20.11,14.9Z"/></svg>
+                            </div>
+                          {%- elsif block.settings.video_url.type == 'vimeo' -%}
+                            <div class="popu-video" href="https://player.vimeo.com/video/{{ block.settings.video_url.id }}?background=1&loop=1&transparent=0&responsive=1&portrait=0&title=0&byline=0&color={{ settings.text_color | remove_first: '#' }}">
+                              <svg id="" data-name="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50"><defs><style>.cls-1{fill:none;}.cls-2{clip-path:url(#clip-path);}.cls-3{fill:#fff;}</style><clipPath id="clip-path"><circle class="cls-1" cx="25.06" cy="25.02" r="24.5" transform="translate(-4.06 45.16) rotate(-79.62)"/></clipPath></defs><g class="cls-2"><path class="cls-3" d="M25.06,1.88A23.14,23.14,0,0,1,48.2,25h2.72A25.86,25.86,0,0,0,25.06-.84ZM1.92,25A23.14,23.14,0,0,1,25.06,1.88V-.84A25.86,25.86,0,0,0-.8,25ZM25.06,48.16A23.14,23.14,0,0,1,1.92,25H-.8A25.86,25.86,0,0,0,25.06,50.88ZM48.2,25A23.14,23.14,0,0,1,25.06,48.16v2.72A25.86,25.86,0,0,0,50.92,25Z"/></g><path class="cls-3" d="M20.12,36.5A2.34,2.34,0,0,1,19,36.2a2.28,2.28,0,0,1-1.18-2V15.86a2.32,2.32,0,0,1,3.53-2L36.25,23a2.33,2.33,0,0,1,0,4L21.33,36.16A2.34,2.34,0,0,1,20.12,36.5Zm0-21.6a.93.93,0,0,0-.46.12,1,1,0,0,0-.49.84V34.18a1,1,0,0,0,.49.84.94.94,0,0,0,1,0l14.92-9.17A.92.92,0,0,0,36,25a1,1,0,0,0-.46-.82L20.61,15A1,1,0,0,0,20.11,14.9Z"/></svg>
+                            </div>
+                           {%- else -%}
+                            <div class="popu-video" href="{{ block.settings.link_url }}">
+                              <svg id="" data-name="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50"><defs><style>.cls-1{fill:none;}.cls-2{clip-path:url(#clip-path);}.cls-3{fill:#fff;}</style><clipPath id="clip-path"><circle class="cls-1" cx="25.06" cy="25.02" r="24.5" transform="translate(-4.06 45.16) rotate(-79.62)"/></clipPath></defs><g class="cls-2"><path class="cls-3" d="M25.06,1.88A23.14,23.14,0,0,1,48.2,25h2.72A25.86,25.86,0,0,0,25.06-.84ZM1.92,25A23.14,23.14,0,0,1,25.06,1.88V-.84A25.86,25.86,0,0,0-.8,25ZM25.06,48.16A23.14,23.14,0,0,1,1.92,25H-.8A25.86,25.86,0,0,0,25.06,50.88ZM48.2,25A23.14,23.14,0,0,1,25.06,48.16v2.72A25.86,25.86,0,0,0,50.92,25Z"/></g><path class="cls-3" d="M20.12,36.5A2.34,2.34,0,0,1,19,36.2a2.28,2.28,0,0,1-1.18-2V15.86a2.32,2.32,0,0,1,3.53-2L36.25,23a2.33,2.33,0,0,1,0,4L21.33,36.16A2.34,2.34,0,0,1,20.12,36.5Zm0-21.6a.93.93,0,0,0-.46.12,1,1,0,0,0-.49.84V34.18a1,1,0,0,0,.49.84.94.94,0,0,0,1,0l14.92-9.17A.92.92,0,0,0,36,25a1,1,0,0,0-.46-.82L20.61,15A1,1,0,0,0,20.11,14.9Z"/></svg>
+                            </div>
+                          {%- endif -%}
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+                  {%- else -%}
+                    {%- assign align_arrows_on_image = false -%}
+                  {%- endif -%}
+
+                  {%- if block.settings.title != blank or block.settings.content != blank or block.settings.link_text != blank -%}
+                    <div class="multi-column__text-container text--{{ block.settings.text_alignment }} text-container">
+                      {%- if block.settings.title != blank -%}
+                        <p class="heading {{ block.settings.title_size }}">{{ block.settings.title | escape }}</p>
+                      {%- endif -%}
+
+                      {%- if block.settings.content != blank -%}
+                        <div class="multi-column__content">
+                          {{- block.settings.content -}}
+                        </div>
+                      {%- endif -%}
+
+                      {%- if block.settings.link_text != blank -%}
+                        {%- if block.settings.link_style == 'link' -%}
+                          {% comment %} <a href="{{ block.settings.link_url }}" class="multi-column__link heading heading--small link">{{ block.settings.link_text | escape }}</a> {% endcomment %}
+                          <a href="{{ block.settings.link_url }}" class="multi-column__link link multi-column__btn">
+                            <span class="multi-column__text">{{ block.settings.link_text | escape }}</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="presentation" class="icon icon-arrow" fill="none" viewBox="0 0 14 10">
+                              <path fill-rule="evenodd" clip-rule="evenodd" d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1a.5.5 0 010-1h10.793L8.646 1.354a.5.5 0 01-.109-.546z" fill="currentColor"></path>
+                            </svg>
+                          </a>
+                        {%- else -%}
+                          <div class="button-wrapper">
+                            <a href="{{ block.settings.link_url }}" class="multi-column__button button button--small button--primary">{{ block.settings.link_text | escape }}</a>
+                          </div>
+                        {%- endif -%}
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+                {%- endcapture -%}
+
+                {%- if block_content != blank -%}
+                  <div id="block-{{ section.id }}-{{ block.id }}" class="multi-column__item multi-column__item--align-{{ block.settings.vertical_alignment }} {% if block.settings.link_url != blank %}image-zoom{% endif %}" {% if section.settings.reveal_on_scroll %}reveal{% endif %} {{ block.shopify_attributes }}>
+                    {{- block_content -}}
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+            </scrollable-content>
+
+            {%- unless section.settings.stack_items -%}
+              <prev-next-buttons class="multi-column__prev-next {% unless align_arrows_on_image %}multi-column__prev-next--no-image{% endunless %} hidden-pocket" {% if align_arrows_on_image %}style="--smallest-image-aspect-ratio: {{ smallest_image_aspect_ratio }}"{% endif %}>
+                <button class="multi-column__arrow prev-next-button prev-next-button--prev" disabled>
+                  <span class="visually-hidden">{{ 'general.accessibility.previous' | t }}</span>
+                  {%- include 'icon' with 'nav-arrow-left', block: true, direction_aware: true -%}
+                </button>
+
+                <button class="multi-column__arrow prev-next-button prev-next-button--next">
+                  <span class="visually-hidden">{{ 'general.accessibility.next' | t }}</span>
+                  {%- include 'icon' with 'nav-arrow-right', block: true, direction_aware: true -%}
+                </button>
+              </prev-next-buttons>
+            {%- endunless -%}
+          </div>
+        </multi-column>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Multi-column",
+  "class": "shopify-section--multi-column",
+  "blocks": [
+    {
+      "name": "Column",
+      "type": "item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "1200 x 1200px .jpg recommended"
+        },
+        {
+          "type": "checkbox",
+          "id": "video_play_button",
+          "label": "Video Play Button",
+          "info": "Show Video Play Button",
+          "default": false
+        },
+        {
+          "type": "video_url",
+          "id": "video_url",
+          "accept": ["vimeo", "youtube"],
+          "label": "External video",
+          "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
+        },
+        {
+          "type": "range",
+          "id": "image_width",
+          "min": 10,
+          "max": 100,
+          "unit": "%",
+          "step": 1,
+          "label": "Image width",
+          "default": 100
+        },
+        {
+          "type": "color",
+          "id": "image_border",
+          "label": "Image border",
+          "default": "rgba(0,0,0,0)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Your content"
+        },
+        {
+          "type": "select",
+          "id": "title_size",
+          "options": [
+            {
+              "value": "h5",
+              "label": "Small"
+            },
+            {
+              "value": "h4",
+              "label": "Medium"
+            },
+            {
+              "value": "h3",
+              "label": "Large"
+            }
+          ],
+          "default": "h5",
+          "label": "Heading Size"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link text"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link"
+        },
+        {
+          "type": "select",
+          "id": "link_style",
+          "label": "Link style",
+          "options": [
+            {
+              "value": "link",
+              "label": "Link"
+            },
+            {
+              "value": "button",
+              "label": "Button"
+            }
+          ],
+          "default": "link"
+        },
+        {
+          "type": "select",
+          "id": "text_alignment",
+          "label": "Text alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "select",
+          "id": "vertical_alignment",
+          "label": "Vertical alignment",
+          "options": [
+            {
+              "value": "start",
+              "label": "Top"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "Bottom"
+            }
+          ],
+          "default": "start"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "reveal_on_scroll",
+      "label": "Reveal on scroll",
+      "info": "Show animation when section becomes visible.",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "stack_items",
+      "label": "Stack items",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Subheading"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Multi-column"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Content"
+    },
+    {
+      "type": "select",
+      "id": "column_alignment",
+      "label": "Column/header alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "mobile_item_size",
+      "label": "Mobile/tablet column size",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "select",
+      "id": "desktop_item_size",
+      "label": "Desktop column size",
+      "options": [
+        {
+          "value": "pico",
+          "label": "X-Small"
+        },
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+         {
+          "value": "mast",
+          "label": "X-Large"
+        }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "select",
+      "id": "spacing",
+      "label": "Spacing",
+      "options": [
+        {
+          "value": "tight",
+          "label": "Small"
+        },
+        {
+          "value": "normal",
+          "label": "Medium"
+        },
+        {
+          "value": "loose",
+          "label": "Large"
+        }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Multi-column",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "title": "Column 1"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "title": "Column 1"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "title": "Column 1"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "title": "Column 1"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

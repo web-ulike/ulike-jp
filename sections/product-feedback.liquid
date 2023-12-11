@@ -1,0 +1,150 @@
+
+{%- style -%}
+ 
+{%- endstyle -%}
+
+{{ 'section-product-endorsement.css' | asset_url | stylesheet_tag }}
+<div class="product-why-box">
+  <div class="product-why page-width container">
+    {%- if section.settings.title != blank -%}
+      <h2 class="heading h2">
+        <split-lines>{{ section.settings.title | escape }}</split-lines>
+      </h2>
+    {%- endif -%}
+    <div class="why-box">
+     <div class="why-list">
+      <div class="start">
+        <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 95 14" class="design-iconfont">
+          <path d="M7.09934 0L9.19227 4.58407L14.1987 5.15794L10.4857 8.56499L11.487 13.5038L7.09934 11.0254L2.71167 13.5038L3.71294 8.56499L0 5.15794L5.0064 4.58407L7.09934 0Z" fill="#E0004D"/>
+          <path d="M47.0993 0L49.1923 4.58407L54.1987 5.15794L50.4857 8.56499L51.487 13.5038L47.0993 11.0254L42.7117 13.5038L43.7129 8.56499L40 5.15794L45.0064 4.58407L47.0993 0Z" fill="#E0004D"/>
+          <path d="M27.0993 0L29.1923 4.58407L34.1987 5.15794L30.4857 8.56499L31.487 13.5038L27.0993 11.0254L22.7117 13.5038L23.7129 8.56499L20 5.15794L25.0064 4.58407L27.0993 0Z" fill="#E0004D"/>
+          <path d="M67.0993 0L69.1923 4.58407L74.1987 5.15794L70.4857 8.56499L71.487 13.5038L67.0993 11.0254L62.7117 13.5038L63.7129 8.56499L60 5.15794L65.0064 4.58407L67.0993 0Z" fill="#E0004D"/>
+          <path d="M87.0993 0L89.1923 4.58407L94.1987 5.15794L90.4857 8.56499L91.487 13.5038L87.0993 11.0254L82.7117 13.5038L83.7129 8.56499L80 5.15794L85.0064 4.58407L87.0993 0Z" fill="#E0004D"/>
+        </svg>
+      </div>
+      <div class="des">
+           I have sensitive skin and am afraid of hair removal with wax, which is painful and makes the skin red and itchy. So I bought Ulike with the idea of giving......
+      </div>
+      <div class="line">
+      </div>
+      <div class="name">
+         Kelly
+      </div>
+     </div>
+     <div class="img-why-box">
+        {{- section.settings.image1 | image_url: width: section.settings.image1.width | image_tag: id: id_attribute, loading: 'lazy', sizes: '(max-width: 740px) calc(100vw - 96px), (max-width: 999px) calc(100vw - 160px), 600px', widths: '600,700,800,1000,1200,1400', class: 'product-feedback__image' -}}
+     </div>
+     <div class="why-list">
+      <div class="start">
+        <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 95 14" class="design-iconfont">
+          <path d="M7.09934 0L9.19227 4.58407L14.1987 5.15794L10.4857 8.56499L11.487 13.5038L7.09934 11.0254L2.71167 13.5038L3.71294 8.56499L0 5.15794L5.0064 4.58407L7.09934 0Z" fill="#E0004D"/>
+          <path d="M47.0993 0L49.1923 4.58407L54.1987 5.15794L50.4857 8.56499L51.487 13.5038L47.0993 11.0254L42.7117 13.5038L43.7129 8.56499L40 5.15794L45.0064 4.58407L47.0993 0Z" fill="#E0004D"/>
+          <path d="M27.0993 0L29.1923 4.58407L34.1987 5.15794L30.4857 8.56499L31.487 13.5038L27.0993 11.0254L22.7117 13.5038L23.7129 8.56499L20 5.15794L25.0064 4.58407L27.0993 0Z" fill="#E0004D"/>
+          <path d="M67.0993 0L69.1923 4.58407L74.1987 5.15794L70.4857 8.56499L71.487 13.5038L67.0993 11.0254L62.7117 13.5038L63.7129 8.56499L60 5.15794L65.0064 4.58407L67.0993 0Z" fill="#E0004D"/>
+          <path d="M87.0993 0L89.1923 4.58407L94.1987 5.15794L90.4857 8.56499L91.487 13.5038L87.0993 11.0254L82.7117 13.5038L83.7129 8.56499L80 5.15794L85.0064 4.58407L87.0993 0Z" fill="#E0004D"/>
+        </svg>
+      </div>
+      <div class="des">
+          I've only used it for 3 weeks and found significant reduction in hair growth, so I don't have to shave every next day.
+      </div>
+      <div class="line">
+      </div>
+      <div class="name">
+         Jennifer
+      </div>
+     </div>
+     <div class="img-why-box">
+       {{- section.settings.image2 | image_url: width: section.settings.image2.width | image_tag: id: id_attribute, loading: 'lazy', sizes: '(max-width: 740px) calc(100vw - 96px), (max-width: 999px) calc(100vw - 160px), 600px', widths: '600,700,800,1000,1200,1400', class: 'product-feedback__image' -}}
+     </div>
+     <div class="img-why-box order-lt">
+       {{- section.settings.image3 | image_url: width: section.settings.image3.width | image_tag: id: id_attribute, loading: 'lazy', sizes: '(max-width: 740px) calc(100vw - 96px), (max-width: 999px) calc(100vw - 160px), 600px', widths: '600,700,800,1000,1200,1400', class: 'product-feedback__image' -}}
+     </div>
+     <div class="why-list">
+      <div class="start">
+        <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 95 14" class="design-iconfont">
+          <path d="M7.09934 0L9.19227 4.58407L14.1987 5.15794L10.4857 8.56499L11.487 13.5038L7.09934 11.0254L2.71167 13.5038L3.71294 8.56499L0 5.15794L5.0064 4.58407L7.09934 0Z" fill="#E0004D"/>
+          <path d="M47.0993 0L49.1923 4.58407L54.1987 5.15794L50.4857 8.56499L51.487 13.5038L47.0993 11.0254L42.7117 13.5038L43.7129 8.56499L40 5.15794L45.0064 4.58407L47.0993 0Z" fill="#E0004D"/>
+          <path d="M27.0993 0L29.1923 4.58407L34.1987 5.15794L30.4857 8.56499L31.487 13.5038L27.0993 11.0254L22.7117 13.5038L23.7129 8.56499L20 5.15794L25.0064 4.58407L27.0993 0Z" fill="#E0004D"/>
+          <path d="M67.0993 0L69.1923 4.58407L74.1987 5.15794L70.4857 8.56499L71.487 13.5038L67.0993 11.0254L62.7117 13.5038L63.7129 8.56499L60 5.15794L65.0064 4.58407L67.0993 0Z" fill="#E0004D"/>
+          <path d="M87.0993 0L89.1923 4.58407L94.1987 5.15794L90.4857 8.56499L91.487 13.5038L87.0993 11.0254L82.7117 13.5038L83.7129 8.56499L80 5.15794L85.0064 4.58407L87.0993 0Z" fill="#E0004D"/>
+        </svg>
+      </div>
+      <div class="des">
+           Ulike Hair Removal Device is really cost-effective. It used to cost $400 to go to salon once for the same result, and was charged according to the body parts......
+      </div>
+      <div class="line">
+      </div>
+      <div class="name">
+         Chloe
+      </div>
+     </div>
+     <div class="img-why-box">
+       {{- section.settings.image4 | image_url: width: section.settings.image4.width | image_tag: id: id_attribute, loading: 'lazy', sizes: '(max-width: 740px) calc(100vw - 96px), (max-width: 999px) calc(100vw - 160px), 600px', widths: '600,700,800,1000,1200,1400', class: 'product-feedback__image' -}}
+     </div>
+     <div class="why-list">
+      <div class="start">
+        <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 95 14" class="design-iconfont">
+          <path d="M7.09934 0L9.19227 4.58407L14.1987 5.15794L10.4857 8.56499L11.487 13.5038L7.09934 11.0254L2.71167 13.5038L3.71294 8.56499L0 5.15794L5.0064 4.58407L7.09934 0Z" fill="#E0004D"/>
+          <path d="M47.0993 0L49.1923 4.58407L54.1987 5.15794L50.4857 8.56499L51.487 13.5038L47.0993 11.0254L42.7117 13.5038L43.7129 8.56499L40 5.15794L45.0064 4.58407L47.0993 0Z" fill="#E0004D"/>
+          <path d="M27.0993 0L29.1923 4.58407L34.1987 5.15794L30.4857 8.56499L31.487 13.5038L27.0993 11.0254L22.7117 13.5038L23.7129 8.56499L20 5.15794L25.0064 4.58407L27.0993 0Z" fill="#E0004D"/>
+          <path d="M67.0993 0L69.1923 4.58407L74.1987 5.15794L70.4857 8.56499L71.487 13.5038L67.0993 11.0254L62.7117 13.5038L63.7129 8.56499L60 5.15794L65.0064 4.58407L67.0993 0Z" fill="#E0004D"/>
+          <path d="M87.0993 0L89.1923 4.58407L94.1987 5.15794L90.4857 8.56499L91.487 13.5038L87.0993 11.0254L82.7117 13.5038L83.7129 8.56499L80 5.15794L85.0064 4.58407L87.0993 0Z" fill="#E0004D"/>
+        </svg>
+      </div>
+      <div class="des">
+           I was skeptical that a home device could deliver results, but wow. First, this is a luxury item. The packaging, the quality, the accessories that are included all.......
+      </div>
+      <div class="line">
+      </div>
+      <div class="name">
+         Dean
+      </div>
+     </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Feedback",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Product Endorsement",
+      "label": "Heading"
+    },
+    {
+      "type": "image_picker",
+      "id": "image1",
+      "label": "Image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image2",
+      "label": "Image 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "image3",
+      "label": "Image 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "image4",
+      "label": "Image 4"
+    }
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "Product Feedback",
+      "blocks": [
+      ]
+    }
+  ]
+}
+{% endschema %}

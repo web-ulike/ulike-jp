@@ -1,0 +1,386 @@
+{%- if section.settings.background != settings.background and section.settings.background != 'rgba(0,0,0,0)' -%}
+  {%- assign blends_with_background = false -%}
+{%- else -%}
+  {%- assign blends_with_background = true -%}
+{%- endif -%}
+{%- assign text_position = section.settings.text_position | split: '_' | last -%}
+{%- comment -%}
+------------------------------------------------------------------------------------------------------------------------
+  CSS
+------------------------------------------------------------------------------------------------------------------------
+{%- endcomment -%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    {%- if section.settings.background == 'rgba(0,0,0,0)' -%}
+      {%- assign section_background = settings.background -%}
+    {%- else -%}
+      {%- assign section_background = section.settings.background -%}
+    {%- endif -%}
+
+    {%- if section.settings.text_color == 'rgba(0,0,0,0)' -%}
+      {%- assign heading_color = settings.heading_color -%}
+      {%- assign text_color = settings.text_color -%}
+    {%- else -%}
+      {%- assign heading_color = section.settings.text_color -%}
+      {%- assign text_color = section.settings.text_color -%}
+    {%- endif -%}
+
+    {%- assign play_button_background = text_color -%}
+    {%- assign play_button_arrow = settings.heading_color -%}
+
+    --heading-color: {{ text_color.red }}, {{ text_color.green }}, {{ text_color.blue }};
+    --text-color: {{ text_color.red }}, {{ text_color.green }}, {{ text_color.blue }};
+    --play-button-background: {{ play_button_background.red }}, {{ play_button_background.green }}, {{ play_button_background.blue }};
+    --play-button-arrow: {{ play_button_arrow.red }}, {{ play_button_arrow.green }}, {{ play_button_arrow.blue }};
+    --section-background: {{ section_background.red }}, {{ section_background.green }}, {{ section_background.blue }};
+      --primary-button-background: {{ section.settings.button_background.red }}, {{ section.settings.button_background.green }}, {{ section.settings.button_background.blue }};
+      --primary-button-text-color: {{ section.settings.button_text_color.red }}, {{ section.settings.button_text_color.green }}, {{ section.settings.button_text_color.blue }};
+      --section-blocks-overlay-color: {{ section.settings.overlay_color.red }}, {{ section.settings.overlay_color.green }}, {{ section.settings.overlay_color.blue }};
+      --section-blocks-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+      .video-section--large{
+          --video-height: 960px;
+      }
+      .video-section--medium{
+          --video-height: 850px;
+      }
+      .video-section--small{
+          --video-height: 720px;
+      }
+       @media screen and (max-width: 741px) {
+        .video-section--large{
+          --video-height: calc(1024 * 100vw / 768);;
+        }
+        .video-section--medium{ 
+           --video-height: calc(1024 * 100vw / 768);;
+        }
+        .video-section--small{
+          --video-height: calc(1024 * 100vw / 768);;
+        }
+        .transition-gs-video .video-wrapper{
+        }
+       }
+  }
+  .section-video__bg {
+    background: rgb(var(--background));
+    background: rgb(var(--section-background, var(--background)));
+}
+  .shopify-section-transition--video {
+    overflow: hidden;
+  }
+  .media-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px);
+  }
+  .content-box-trantision{
+    position: relative;
+    z-index: 1;
+    max-width: 834px;
+    margin-top: 150px;
+  }
+  .transition-gs-video .video-wrapper__poster{
+        align-items: flex-start;
+  }
+  @media screen and (max-width: 768px){
+    .media-{{ section.id }}-padding {
+      padding-top: calc({{ section.settings.padding_top }}px * 0.6);
+      padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.6);
+    }
+    .content-box-trantision{
+      margin-top: 50px;
+    }
+  }
+</style>
+
+{%- comment -%}
+------------------------------------------------------------------------------------------------------------------------
+  JavaScript: This section composes the "external-video" element, but does not have dedicated custom element
+------------------------------------------------------------------------------------------------------------------------
+{%- endcomment -%}
+
+<section class="section-video__bg media-{{ section.id }}-padding">
+  {%- capture section_header -%}
+    {%- if section.settings.subheading != blank or section.settings.title != blank -%}
+      <header class="text-container text--{{ text_position }}">
+        {%- if section.settings.subheading != blank -%}
+          <h3 class="heading h3">{{ section.settings.subheading | escape }}</h2>
+        {%- endif -%}
+        {%- if section.settings.title != blank -%}
+          <h3 class="heading heading--small video-subtle">{{ section.settings.title | escape }}</h3>
+        {%- endif -%}
+        {%- if section.settings.content != blank -%}
+          <div class="video__text-wrapper">
+            {{- section.settings.content -}}
+          </div>
+        {%- endif -%}
+      </header>
+      {%- capture buttons -%}
+        {%- if  section.settings.button_1_text != blank -%}
+          {%- if section.settings.video_url.type == 'youtube' -%}
+            <div href="https://www.youtube.com/embed/{{ section.settings.video_url.id }}?ref=0&playsinline=1&autoplay=false&playlist={{ section.settings.video_url.id }}&enablejsapi=1&rel=0&modestbranding=1&origin={{ 'https://' | append: request.host | url_encode }}" class="button button--primary popu-video video--btn-large">{{  section.settings.button_1_text | escape }} 
+            </div>
+            {%- elsif section.settings.video_url.type == 'vimeo' -%}
+            <div href="https://player.vimeo.com/video/{{ section.settings.video_url.id }}?autoplay=1&autopause=1&transparent=0&responsive=1&portrait=0&title=0&byline=0&color={{ settings.text_color | remove_first: '#' }}" class="button button--primary popu-video video--btn-large">{{  section.settings.button_1_text | escape }} 
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+
+        {%- if  section.settings.button_2_text != blank -%}
+          <a href="{{  section.settings.button_2_link }}" class="button button--primary video--btn-large">
+          {{  section.settings.button_2_text | escape }}
+          </a>
+        {%- endif -%}
+      {%- endcapture -%}
+      {%- if  section.settings.button_1_text != blank and  section.settings.button_2_text != blank -%}
+        <div class="button-group" style="margin-top:40px;">
+          <div class="button-group__wrapper text--{{ text_position }}">
+            {{- buttons -}}
+          </div>
+        </div>
+      {%- elsif buttons != blank -%}
+        <div class="button-wrapper text--{{ text_position }}" style="margin-top:40px;">
+          {{- buttons -}}
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+  {%- endcapture -%}
+
+  {%- capture video_content -%}
+    <div class="video-section transition-gs-video video-section--full video-section--{{ section.settings.video_size }}" id="video-{{ section.id }}" width="width: 1280px;" style="margin: 0 auto;width: 1280px;">
+      {%- capture video_poster -%}
+        <div class="video-wrapper__poster">
+          <div class="container">
+            <div class="content-box-trantision" id="content-{{ section.id }}">
+              {{- section_header -}}
+            </div>
+          </div>
+        </div>
+      {%- endcapture -%}
+    {%- if section.settings.video != blank -%}
+      <native-video autoplay class="video-wrapper video-wrapper--native{% if section.settings.mobile_video != blank %} hidden-pocket{% endif %}">
+        {{- video_poster -}}
+        <template>
+          {{- section.settings.video | video_tag: controls: false, autoplay: true, muted: true, playsinline: true, loop: true -}}
+        </template>
+      </native-video>
+      {%- endif -%}
+    {%- if section.settings.mobile_video != blank -%}
+         <native-video autoplay class="video-wrapper video-wrapper--native mobile-video-wrapper hidden-lap-and-up">
+          {{- video_poster -}}
+
+          <template>
+            {{- section.settings.mobile_video | video_tag: controls: false, autoplay: true, muted: true, playsinline: true, loop: true -}}
+          </template>
+        </native-video>
+        {%- endif -%}
+    </div>
+  {%- endcapture -%}
+
+  {{- video_content -}}
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.11/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.11/dist/ScrollTrigger.min.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // 获取需要应用动画效果的元素
+  var element = document.getElementById('video-{{ section.id }}');
+  var textElement = document.getElementById('content-{{ section.id }}');
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  ScrollTrigger.create({
+    trigger: element,
+     start: 'top 90%', // 触发动画的滚动位置
+      end: 'bottom 110%', // 结束动画的滚动位置
+    onUpdate: (self) => {
+      var progress = self.progress; // 获取滚动进度，范围从 0 到 1
+      var width = gsap.utils.interpolate('50vw', '100vw', progress); // 根据滚动进度计算宽度
+
+      gsap.to(element, { width, duration: 0.8 }); // 使用 gsap 动画设置宽度变化
+    },
+  });
+  
+  gsap.fromTo(
+    textElement,
+    { opacity: 0 },
+    {
+      opacity: 1,
+      duration: 1, // 过渡时间为1秒
+      ease: 'power1.out',
+      scrollTrigger: {
+        trigger: textElement,
+        start: 'top 80%', // 触发动画的滚动位置
+        end: 'bottom 70%', // 结束动画的滚动位置
+        scrub: true, // 允许平滑滚动时的动画效果
+        markers: false,
+      },
+    }
+  )
+})
+</script>
+{% schema %}
+{
+  "name": "Trantision Video", 
+  "class": "shopify-section-transition--video",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading"
+    },
+    {
+        "type": "richtext",
+        "id": "content",
+        "label": "Content"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video",
+      "info": "Replaces the external video if both are set."
+    },
+    {
+      "type": "video",
+      "id": "mobile_video",
+      "label": "Mobile Video",
+      "info": "Replaces the external video if both are set."
+    },
+    {
+      "type": "video_url",
+      "id": "video_url",
+      "accept": ["vimeo", "youtube"],
+      "label": "External video",
+      "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
+    },
+    
+    {
+      "type": "select",
+      "id": "video_size",
+      "label": "Video size",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ],
+      "default": "medium"
+    },
+    {
+        "type": "text",
+        "id": "button_1_text",
+        "label": "Button 1 text"
+      },
+      {
+        "type": "url",
+        "id": "button_1_link",
+        "label": "Button 1 link",
+        "info": "Leave the \"Button 1 text\" and \"Button 2\" settings empty to make the slide fully clickable."
+      },
+      {
+        "type": "text",
+        "id": "button_2_text",
+        "label": "Button 2 text"
+      },
+      {
+        "type": "url",
+        "id": "button_2_link",
+        "label": "Button 2 link"
+      },
+    {
+      "type": "select",
+      "id": "text_position",
+      "label": "Video text position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "rgba(0,0,0,0)",
+      "info": "Only used for boxed background."
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trantision Video"
+    }
+  ]
+}
+{% endschema %}

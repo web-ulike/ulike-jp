@@ -1,0 +1,648 @@
+<style>
+.media-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px);
+  }
+  @media screen and (min-width: 750px) {
+      .media-{{ section.id }}-padding {
+         padding-top: calc({{ section.settings.padding_top }}px * 0.6);
+         padding-bottom: calc({{ section.settings.padding_bottom }}px  * 0.6);
+      }
+  }
+  {%- if section.settings.background != settings.background and section.settings.background != 'rgba(0,0,0,0)' -%}
+  {%- assign blends_with_background = false -%}
+{%- else -%}
+  {%- assign blends_with_background = true -%}
+{%- endif -%}
+  #shopify-section-{{ section.id }} {
+    {%- if section.settings.background == 'rgba(0,0,0,0)' -%}
+      {%- assign section_background = settings.background -%}
+    {%- else -%}
+      {%- assign section_background = section.settings.background -%}
+    {%- endif -%}
+
+    {%- if section.settings.text_color == 'rgba(0,0,0,0)' -%}
+      {%- assign text_color = settings.text_color -%}
+    {%- else -%}
+      {%- assign text_color = section.settings.text_color -%}
+    {%- endif -%}
+    --text-color: {{ text_color.red }}, {{ text_color.green }}, {{ text_color.blue }};
+    --section-background: {{ section_background.red }}, {{ section_background.green }}, {{ section_background.blue }};
+    --color-border: {{ section.settings.colors_line.red }}, {{ section.settings.colors_line.green }}, {{ section.settings.colors_line.blue }};
+  }
+  .product__result-wrapper {
+    background: rgb(var(--background));
+    background: rgb(var(--section-background, var(--background)));
+}
+.product-results__sliders-list{
+  transition: opacity .2s;
+  /* opacity: 0; */
+  display: none;
+}
+.product-results__sliders-list:first-child{
+  display:block;
+}
+.product-results__accordions-list:first-child .product-results__content{
+  display:block;
+}
+
+.product-results__accordions-list .product-results__content{
+  display:none;
+  padding-bottom:10px;
+}
+.product__result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.product-results__accordions {
+    flex-basis: 35%;
+}
+.product-results__sliders {
+    flex-basis: 52%;
+}
+.product-results__sliders-list.is-active {
+    opacity: 1;
+    display:block;
+}
+.product-results__heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+      height: 65px;
+    line-height: 65px;
+}
+.product-results__accordions-list {
+    border-bottom: 1px solid #000000;
+    overflow: hidden;
+    /* height: 65px; */
+    transition: height 0.5s ease-out;
+}
+.product-results__label{
+  font-weight: 700;
+}
+.product-results__accordions .heading{
+  margin:0;
+  padding-bottom:33px;
+  border-bottom: 1px solid #000000;
+  
+}
+.heading.mobile__heading{
+  display:none;
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 36px;
+}
+.product-results__icon {
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+.product-results__icon.is-plus{
+  display: flex;
+}
+.product-results__accordions-list.is-active .is-minus{
+  display:flex;
+}
+.product-results__accordions-list.is-active .is-plus{
+  display:none;
+}
+.product-results__tabs {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size:20px;
+    margin: 20px 0;
+    line-height: 50px;
+}
+.product-results__tab{
+  margin:0;
+  cursor:pointer;
+  color:#C1C1C1;
+}
+.product-results__tab.is-active {
+    color: #000000;
+    border-bottom: 2px solid #000000;
+  z-index: 1;
+}
+.mobile__nav .article-dot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #E6E6E6;
+    position: relative;
+    height: 2px;
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+    z-index: 0;
+}
+.mobile__nav .article-dot-item{
+  width: 100px;
+    height: 2px;
+    border-radius: 15px;
+    margin: 0;
+    position: absolute;
+    left: 0;
+    background: #1B1B1B;
+    top: 0;
+    transition: all .8s;
+    display: none;
+}
+.mobile__nav {
+  display:none;
+  position: relative;
+}
+.image__comparison-note{
+  margin-top:26px;
+}
+.image__comparison-note.mobile-note{
+  display:none;
+}
+.procust-results__link{
+  margin-top:20px;
+}
+.procust-results__link a{
+font-size: 15px;
+text-decoration-line: underline;
+text-transform: capitalize;
+color: #2BA8E7;
+}
+  .product-results__content p {
+    line-height: 1.4;
+}
+@media screen and (max-width: 992px){
+  .mobile__nav {
+    display:block;
+  }
+  .image__comparison-note{
+    display:none;
+  }
+.product__result-item{
+    flex-direction: column-reverse;
+}
+.product-results__heading, .product-results__accordions .heading {
+    display:none;
+}
+.product-results__accordions-list{
+  display:none;
+    border: none;
+    height: auto;
+    padding: 16px 0 0;
+    text-align: center;
+}
+.product-results__content{
+  font-size: 14px;
+}
+.product-results__accordions-list.is-active{
+  display:block;
+}
+.image__comparison-note.mobile-note{
+  display:block;
+  color:#888888;
+  font-size: 12px;
+  margin-top:16px;
+}
+.procust-results__link {
+    text-align: center;
+}
+.heading.mobile__heading{
+  display:block;
+}
+}
+@media screen and (max-width: 768px){
+  .media-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * 0.6);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.6);
+  }
+}
+</style>
+{{ 'section-image-comparison.css' | asset_url | stylesheet_tag }}
+<section class="section {% unless blends_with_background %}section--flush{% endunless %}">
+  <div class="product__result-wrapper media-{{ section.id }}-padding">
+    <div class="container">
+        <div class="product__result-item">
+          <div class="product-results__accordions">
+            {%- if section.settings.title != blank -%}
+              <h3 class="heading h3">{{ section.settings.title }}</h3>
+            {%- endif -%}
+            <div class="mobile__nav">
+              <div class="product-results__tabs">
+                {%- for block in section.blocks -%}
+                  <h5 class="product-results__tab {% if forloop.index == 1 %}is-active{% endif %}" data-target="#content{{forloop.index}}">{{ block.settings.result_title }}</h5>
+                {%- endfor -%}
+              </div>
+              <div class="article-dot">
+                  <div class="article-dot-item"></div>
+              </div>
+            </div>
+            <div>
+            {%- for block in section.blocks -%}
+              <div class="product-results__accordions-list {% if forloop.index == 1 %}is-active{% endif %}" data-target="#content{{forloop.index}}">
+                <div class="product-results__heading">
+                 <div class="product-results__label"> {{ block.settings.result_title }}</div>
+<!--                   <div class="product-results__icon is-minus">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="4" viewBox="0 0 14 4" fill="none">
+                      <path d="M0.835906 3.424H13.7479V0.543999H0.835906V3.424Z" fill="black"/>
+                    </svg>
+                  </div>
+                  <div class="product-results__icon is-plus">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="19" viewBox="0 0 20 19" fill="none">
+                      <path d="M19.0199 10.768V8.608H11.0279V0.615999H8.86791V8.608H0.875906V10.768H8.86791V18.724H11.0279V10.768H19.0199Z" fill="black"/>
+                    </svg>
+                  </div> -->
+                  <span class="animated-plus"></span>
+                </div>
+                <div class="product-results__content"> {{ block.settings.result_content }} </div>
+                <div class="image__comparison-note mobile-note">{{  block.settings.result_note }}</div>
+              </div>
+            {%- endfor -%}
+            </div>
+            <div class="procust-results__link">
+              <a class="show-match-box">
+                {{ section.settings.link_text }} {{ section.settings.show_match }}
+              </a>
+            </div>
+          </div>
+          <div class="product-results__sliders">
+            {%- if section.settings.title != blank -%}
+              <h3 class="heading h3 mobile__heading">{{ section.settings.title }}</h3>
+            {%- endif -%}
+            {%- if section.settings.single_video != blank -%}
+              {%- capture video_poster -%}
+                <div class="video-wrapper__poster">
+                    {%- if section.settings.single_image != blank -%}
+                      {{- section.settings.single_image | image_url: width: section.settings.single_image.width | image_tag: loading: 'lazy', sizes: '(max-width: 740px) calc(100vw - 24px * 2), 1600px', widths: '400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800', class: 'video-wrapper__poster-image' -}}
+                    {%- else -%}
+                      {{- 'lifestyle-1' | placeholder_svg_tag: 'video-wrapper__poster-image placeholder-background' -}}
+                    {%- endif -%}
+                  <div class="video-wrapper__poster-content">
+                      <button type="button" class="video-wrapper__play-button video-wrapper__play-button--large video-wrapper__play-button--ripple" title="{{ 'general.accessibility.play_video' | t | escape }}">
+                        {%- render 'icon' with 'play1', width: 68, height: 68 -%}
+                      </button>
+                  </div>
+                </div>
+              {%- endcapture -%}
+            
+              <native-video class="video-wrapper video-wrapper--native" style="--aspect-ratio: 1.79">
+                {{- video_poster -}}
+                <template>
+                  {{- section.settings.single_video | video_tag: controls: section.settings.show_video_controls, autoplay: section.settings.autoplay, muted: true, playsinline: section.settings.autoplay, loop: true -}}
+                </template>
+              </native-video>
+            {%- endif -%}
+            <div>
+            {%- for block in section.blocks -%}
+              <div class="product-results__sliders-list" id="content{{forloop.index}}">
+                {%- liquid
+                  assign before = block.settings.before_img
+                  assign after = block.settings.after_img
+                  assign image_ratio_percent = 75
+
+                  if before != blank
+                    assign image_ratio_percent = 1 | divided_by: before.aspect_ratio | times: 100
+                  elsif after != blank
+                    assign image_ratio_percent = 1 | divided_by: after.aspect_ratio | times: 100
+                  endif
+                -%}
+                {%- if block.settings.video != blank -%}
+                  {%- capture video_poster -%}
+                    <div class="video-wrapper__poster">
+                        {%- if block.settings.image != blank -%}
+                          {{- block.settings.image | image_url: width: block.settings.image.width | image_tag: loading: 'lazy', sizes: '(max-width: 740px) calc(100vw - 24px * 2), 1600px', widths: '400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800', class: 'video-wrapper__poster-image' -}}
+                        {%- else -%}
+                          {{- 'lifestyle-1' | placeholder_svg_tag: 'video-wrapper__poster-image placeholder-background' -}}
+                        {%- endif -%}
+                      <div class="video-wrapper__poster-content">
+                          <button type="button" class="video-wrapper__play-button video-wrapper__play-button--large video-wrapper__play-button--ripple" title="{{ 'general.accessibility.play_video' | t | escape }}">
+                            {%- render 'icon' with 'play1', width: 68, height: 68 -%}
+                          </button>
+                      </div>
+                    </div>
+                  {%- endcapture -%}
+                
+                  <native-video class="video-wrapper video-wrapper--native" style="--aspect-ratio: 1.79">
+                    {{- video_poster -}}
+                    <template>
+                      {{- block.settings.video | video_tag: controls: block.settings.show_video_controls, autoplay: block.settings.autoplay, muted: true, playsinline: section.settings.autoplay, loop: section.settings.autoplay -}}
+                    </template>
+                  </native-video>
+                {%- endif -%}
+
+                {%- if before != blank -%}
+                  <image-comparison class="image-comparison" data-layout="horizontal" style="--image-ratio-percent: {{ image_ratio_percent }}%;" >
+                    <span class="image-comparison__animate"></span>
+                    {%- if before != blank -%}
+                      <div class="image-comparison__before media-wrapper image-comparison__item--start" {{ before.shopify_attributes }}>
+                        {%- if before != blank -%}
+                          <div class="media media--adapt" style="max-height:459px">
+                            <img
+                              srcset="{%- if before.width >= 375 -%}{{ before | image_url: width: 375 }} 375w{%- endif -%}
+                                {%- if before.width >= 750 -%},{{ before | image_url: width: 750 }} 750w{%- endif -%}
+                                {%- if before.width >= 1100 -%},{{ before | image_url: width: 1100 }} 1100w{%- endif -%}
+                                {%- if before.width >= 1500 -%},{{ before | image_url: width: 1500 }} 1500w{%- endif -%}
+                                {%- if before.width >= 2200 -%},{{ before | image_url: width: 2200 }} 2200w{%- endif -%}
+                                {%- if before.width >= 3000 -%},{{ before | image_url: width: 3000 }} 3000w{%- endif -%},
+                                {{ before | image_url }} {{ before.width }}w"
+                              src="{{ before | image_url: width: 750 }}"
+                              sizes="100vw"
+                              loading="lazy"
+                              alt="{{ before.alt | escape }}"
+                              width="{{ before.width }}"
+                              height="{{ before.height }}"
+                            />
+                          </div>
+                        {%- else -%}
+                          <div class="media media--adapt">
+                            {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder' }}
+                          </div>
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+                    {%- if after != blank -%}
+                      <div class="image-comparison__after media-wrapper image-comparison__item--start">
+                        {%- if after != blank -%}
+                          <div class="media media--adapt">
+                            <img
+                              srcset="{%- if after.width >= 375 -%}{{ after | image_url: width: 375 }} 375w{%- endif -%}
+                                {%- if after.width >= 750 -%},{{ after | image_url: width: 750 }} 750w{%- endif -%}
+                                {%- if after.width >= 1100 -%},{{ after | image_url: width: 1100 }} 1100w{%- endif -%}
+                                {%- if after.width >= 1500 -%},{{ after | image_url: width: 1500 }} 1500w{%- endif -%}
+                                {%- if after.width >= 2200 -%},{{ after | image_url: width: 2200 }} 2200w{%- endif -%}
+                                {%- if after.width >= 3000 -%},{{ after | image_url: width: 3000 }} 3000w{%- endif -%},
+                                {{ after | image_url }} {{ after.width }}w"
+                              src="{{ after | image_url: width: 750 }}"
+                              sizes="100vw"
+                              loading="lazy"
+                              alt="{{ after.alt | escape }}"
+                              width="{{ after.width }}"
+                              height="{{ after.height }}"
+                            />
+                          </div>
+                        {%- else -%}
+                          <div class="media media--adapt">
+                            {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder' }}
+                          </div>
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+
+                    {%- if before != blank and after != blank -%}
+                      <button type="button" class="image-comparison__button">
+                        <span></span>
+                      </button>
+                    {%- endif -%}
+                  </image-comparison>
+                 {%- endif -%}
+                <div class="image__comparison-note">{{  block.settings.result_note }}</div>
+              </div>
+            {%- endfor -%}
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</section>
+<script>
+window.addEventListener('load',()=>{
+  $('html').on('click','.product__result-wrapper .product-results__heading',function(){
+      let $this=$(this)
+      let index = $this.parents('.product-results__accordions-list').index()
+      $this.siblings('.product-results__content').slideToggle()
+      $this.parents('.product-results__accordions-list').toggleClass('is-active').siblings('.product-results__accordions-list').removeClass('is-active').find('.product-results__content').slideUp()
+      $this.closest('.product__result-wrapper').find('.product-results__sliders-list').hide().eq(index).fadeIn()
+      $this.closest('.product__result-wrapper').find('.product-results__tab').removeClass('is-active').eq(index).addClass('is-active')
+  })
+  
+  $('html').on('click','.product__result-wrapper .product-results__tab',function(){
+      let $this=$(this)
+      let index = $this.index()
+      $this.addClass('is-active').siblings('.product-results__tab').removeClass('is-active')
+      $this.closest('.product__result-wrapper').find('.product-results__accordions-list').removeClass('is-active').find('.product-results__content').hide()
+      $this.closest('.product__result-wrapper').find('.product-results__accordions-list').eq(index).addClass('is-active').find('.product-results__content').show()
+      $this.closest('.product__result-wrapper').find('.product-results__sliders-list').hide().eq(index).show()
+  })
+})
+function initModule(module) {
+  // 使用 module.querySelector 和 module.querySelectorAll 替换 document.querySelector 和 document.querySelectorAll
+  // 这样，我们只会选择当前模块中的元素
+
+ let documentWidth = document.documentElement.clientWidth || document.body.clientWidth;
+  
+ if( documentWidth > 992){
+      module.querySelectorAll('.product-results__accordions-list').forEach((menuItem,index) => {
+        function handleClick() {
+        let contentHeight = this.scrollHeight;
+        const targetId = menuItem.getAttribute('data-target');
+        const targetContent = module.querySelector(targetId);
+        // 移除其他菜单项的 'show' 类，为当前点击的菜单项添加 'show' 类
+          module.querySelectorAll('.product-results__accordions-list').forEach(function (item,idx) {
+           item.style.height = '65px';
+            item.classList.remove("is-active");
+          });
+          this.classList.add("is-active");
+         this.style.height = (contentHeight + 20 ) + 'px';
+/*           this.style.height =  'auto'; */
+          module.querySelectorAll('.product-results__sliders-list.is-active').forEach((content) => {
+            if (content !== targetContent) {
+              content.classList.remove('is-active');
+            }
+          });
+          targetContent.classList.add('is-active');
+        }
+      menuItem.addEventListener('click',handleClick );
+      });
+    // 模拟第一个菜单项的点击事件
+        module.querySelectorAll('.product-results__accordions-list')[0].click();
+    } else {
+      module.querySelectorAll('.product-results__tab').forEach((menuItem) => {
+      menuItem.addEventListener('click', function() {
+        const targetId = menuItem.getAttribute('data-target');
+        const targetContent = module.querySelector(targetId);
+        // 移除其他菜单项的 'show' 类，为当前点击的菜单项添加 'show' 类
+        module.querySelectorAll('.product-results__tab').forEach(function (item) {
+          item.classList.remove("is-active");
+        });
+        this.classList.add("is-active");
+        module.querySelectorAll('.product-results__sliders-list.is-active').forEach((content) => {
+          if (content !== targetContent) {
+            content.classList.remove('is-active');
+          }
+        });
+        targetContent.classList.add('is-active');
+        module.querySelectorAll('.product-results__accordions-list').forEach(function (list) {
+            list.classList.remove('is-active');
+            if (list.getAttribute('data-target') == targetId){
+              list.classList.add('is-active');
+            }
+        });
+      });
+    });
+    // 模拟第一个菜单项的点击事件
+    module.querySelectorAll('.product-results__tab')[0].click();
+    }
+}
+// 在 DOMContentLoaded 事件触发后，为每个模块调用 initModule 函数
+document.addEventListener("DOMContentLoaded", function () {
+  {%- if section.settings.autoplay -%}
+    document.querySelectorAll(".video-wrapper__play-button").forEach(function (module) {
+      module.click()
+    });
+  {%- endif -%}
+});
+</script>
+{% schema %}
+{
+  "name": "Product-results",
+  "class": "product-results",
+  "blocks": [
+    {
+      "name": "Column",
+      "type": "item",
+      "settings": [
+         {
+          "type": "image_picker",
+          "id": "before_img",
+          "label": "Before"
+        },
+        {
+          "type": "image_picker",
+          "id": "after_img",
+          "label": "After"
+        },
+        {
+          "type": "text",
+          "id": "result_title",
+          "label": "Heading",
+          "default": "Your content"
+        },
+        {
+          "type": "text",
+          "id": "result_note",
+          "label": "Note",
+          "default": "Note"
+        },
+        {
+          "type": "richtext",
+          "id": "result_content",
+          "label": "Content",
+          "default": "<p>Unlike some devices which can burn the skin, the Ulike Sapphire Air has a significantly cooler head, making it more comfortable and practically painless to use. You’ll become obsessed with the results.</p>"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video",
+          "info": "Replaces the external video if both are set."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Cover image",
+          "info": "2000 x 1125px .jpg recommended. Required if you turn off autoplay."
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Your content"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "Link text"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link"
+    },
+    {
+          "type": "image_picker",
+          "id": "single_image",
+          "label": "Single Cover image",
+          "info": "2000 x 1125px .jpg recommended. Required if you turn off autoplay."
+      },
+    {
+        "type": "video",
+        "id": "single_video",
+        "label": "Single Video",
+        "info": "Replaces the external video if both are set."
+      },
+      {
+        "type": "checkbox",
+        "id": "autoplay",
+        "label": "Video autoplay",
+        "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "colors_line",
+      "label": "Colors Line",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product-results",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

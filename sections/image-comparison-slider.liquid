@@ -1,0 +1,478 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} .image-comparison {
+    --color-border: {{ section.settings.colors_line.red }}, {{ section.settings.colors_line.green }}, {{ section.settings.colors_line.blue }};
+  }
+
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * 0.75);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px  * 0.75);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{{ 'section-image-comparison.css' | asset_url | stylesheet_tag }}
+
+<div class="image-comparison-slider container section-{{ section.id }}-padding {% if section.settings.show_divider %} section--divider{% endif %}">
+  <header class="section__header container text-container{% if section.settings.heading == blank %} title-wrapper--no-heading{% endif %} {{ section.settings.text_alignment }} mobile-{{ section.settings.mobile_text_alignment }}">
+   <h3 class="heading {{ section.settings.heading_size }}">{{ section.settings.heading | escape }}</h3>
+  </header>
+
+  <div class="slider-mobile-gutter grid__item grid__item--full-width">
+    <ul class="image-comparison-list">
+      {%- for block in section.blocks -%}
+        <li id="Slide-{{ section.id }}-{{ forloop.index }}" class="grid__item slider__slide {{ section.settings.column_alignment }}" {{ block.shopify_attributes }} >
+           {%- liquid
+            assign before = block.settings.before_img
+            assign after = block.settings.after_img
+            assign image_ratio_percent = 75
+
+            if before != blank
+              assign image_ratio_percent = 1 | divided_by: before.aspect_ratio | times: 100
+            elsif after != blank
+              assign image_ratio_percent = 1 | divided_by: after.aspect_ratio | times: 100
+            endif
+          -%}
+
+          <image-comparison class="image-comparison" data-layout="{{ section.settings.layout }}" style="--image-ratio-percent: {{ image_ratio_percent }}%;" >
+            <span class="image-comparison__animate"></span>
+            {%- if before != blank -%}
+              <div class="image-comparison__before media-wrapper image-comparison__item--{{ block.settings.before_title_position }}" {{ before.shopify_attributes }}>
+                <h3 class="image-comparison__title button button--{{ block.settings.before_title_size }} small-hide">{{ block.settings.before_title | escape }}</h3>
+
+                {%- if before != blank -%}
+                  <div class="media media--adapt" style="max-height:650px">
+                    <img
+                      srcset="{%- if before.width >= 375 -%}{{ before | image_url: width: 375 }} 375w{%- endif -%}
+                        {%- if before.width >= 750 -%},{{ before | image_url: width: 750 }} 750w{%- endif -%}
+                        {%- if before.width >= 1100 -%},{{ before | image_url: width: 1100 }} 1100w{%- endif -%}
+                        {%- if before.width >= 1500 -%},{{ before | image_url: width: 1500 }} 1500w{%- endif -%}
+                        {%- if before.width >= 2200 -%},{{ before | image_url: width: 2200 }} 2200w{%- endif -%}
+                        {%- if before.width >= 3000 -%},{{ before | image_url: width: 3000 }} 3000w{%- endif -%},
+                        {{ before | image_url }} {{ before.width }}w"
+                      src="{{ before | image_url: width: 750 }}"
+                      sizes="100vw"
+                      loading="lazy"
+                      alt="{{ before.alt | escape }}"
+                      width="{{ before.width }}"
+                      height="{{ before.height }}"
+                    />
+                  </div>
+                {%- else -%}
+                  <div class="media media--adapt">
+                    {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder' }}
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+
+            {%- if after != blank -%}
+              <div class="image-comparison__after media-wrapper image-comparison__item--{{ block.settings.before_title_position }}">
+                <h3 class="image-comparison__title button button--{{ block.settings.after_title_size }} small-hide">{{ block.settings.after_title | escape }}</h3>
+
+                {%- if after != blank -%}
+                  <div class="media media--adapt">
+                    <img
+                      srcset="{%- if after.width >= 375 -%}{{ after | image_url: width: 375 }} 375w{%- endif -%}
+                        {%- if after.width >= 750 -%},{{ after | image_url: width: 750 }} 750w{%- endif -%}
+                        {%- if after.width >= 1100 -%},{{ after | image_url: width: 1100 }} 1100w{%- endif -%}
+                        {%- if after.width >= 1500 -%},{{ after | image_url: width: 1500 }} 1500w{%- endif -%}
+                        {%- if after.width >= 2200 -%},{{ after | image_url: width: 2200 }} 2200w{%- endif -%}
+                        {%- if after.width >= 3000 -%},{{ after | image_url: width: 3000 }} 3000w{%- endif -%},
+                        {{ after | image_url }} {{ after.width }}w"
+                      src="{{ after | image_url: width: 750 }}"
+                      sizes="100vw"
+                      loading="lazy"
+                      alt="{{ after.alt | escape }}"
+                      width="{{ after.width }}"
+                      height="{{ after.height }}"
+                    />
+                  </div>
+                {%- else -%}
+                  <div class="media media--adapt">
+                    {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder' }}
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+
+            {%- if before != blank and after != blank -%}
+              <button type="button" class="image-comparison__button">
+                <span></span>
+              </button>
+            {%- endif -%}
+          </image-comparison>
+
+          <h3 class="{{ block.settings.title_size }}">{{ block.settings.title }}</h3>
+          <div class="rte typeset"><p>{{ block.settings.desc | strip_html }}</p></div>
+          {%- if block.settings.button_label != blank -%}
+            {%- if block.settings.button_style_secondary -%}
+              <a class="button button--cta"{% if block.settings.button_link != blank %} href="{{ block.settings.button_link }}"{% else %} role="link" aria-disabled="true"{% endif %}>
+                <span class="label">{{ block.settings.button_label | escape }}</span>
+                {% render 'icon', icon: 'arrow' %}
+              </a>
+            {%- else -%}
+              <a class="button button--tertiary"{% if block.settings.button_link != blank %} href="{{ block.settings.button_link }}"{% else %} role="link" aria-disabled="true"{% endif %}>
+                {{ block.settings.button_label | escape }}
+              </a>
+            {%- endif -%}
+          {%- endif -%}
+        </li>
+
+        {% assign loopIndex = forloop.index %}
+      {%- endfor -%}
+    </ul>
+  </div>
+<div>
+
+<style>
+.image-comparison-slider {
+  padding-top: {{ section.settings.padding_top }}px;
+  padding-bottom: {{ section.settings.padding_bottom }}px;
+}
+.image-comparison-slider .slider-mobile-gutter , .image-comparison-slider ul li img {
+  width: 100%;
+}
+.image-comparison-slider .slider-buttons {
+  display: flex;
+}
+.image-comparison-slider .slider.slider--desktop {
+  position: unset;
+  flex-wrap: inherit;
+  overflow-y: hidden;
+  overflow-x: unset;
+  scroll-snap-type: unset;
+  scroll-behavior: smooth;
+  margin-left: -6rem;
+}
+@media screen and (max-width: 750px) {
+  .image-comparison-slider .slider.slider--desktop {
+      margin-left: -4rem;
+  }
+}
+@media screen and (max-width: 480px) {
+  .image-comparison-slider .slider.slider--desktop {
+      margin-left: -2rem;
+  }
+}
+.image-comparison-slider .slider-mobile-gutter {
+  position: unset;
+}
+.image-comparison-slider .slider-mobile-gutter .slider-buttons {
+  position: relative;
+  display: flex;
+  justify-content: right;
+  margin-top: -7rem;
+}
+@media screen and (min-width: 990px) {
+  .image-comparison-slider .slider-buttons {
+      margin-bottom: 2rem;
+  }
+}
+
+.image-comparison-slider .grid__item{
+  padding: 0 0 1rem 0;
+}
+ul.image-comparison-list{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  list-style-type: none;
+  padding: 0;
+  margin: 0 0 2rem 0;
+  gap: 27px;
+}
+ul.image-comparison-list li.slider__slide{
+  padding: 0 0 1rem 0;
+  max-width: 100%;
+}
+{% if loopIndex == 3 %}
+  @media (max-width: 1024px){
+    ul.image-comparison-list li.slider__slide{
+      flex: 0 0 48%;
+    }
+  }
+  @media (max-width: 767px){
+    ul.image-comparison-list li.slider__slide{
+      flex: 1 1 100%;
+    }
+  }
+{% else %}
+  @media (max-width: 1024px){
+    ul.image-comparison-list li.slider__slide{
+      flex: 1 1 48%;
+    }
+  }
+{% endif %}
+</style>
+
+{% schema %}
+{
+  "name": "Image comparison slider",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "Image comparison",
+      "label": "Heading"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "Small"
+        },
+        {
+          "value": "h1",
+          "label": "Medium"
+        },
+        {
+          "value": "h0",
+          "label": "Large"
+        }
+      ],
+      "default": "h1",
+      "label": "Heading Size"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "options": [
+        {
+          "value": "horizontal",
+          "label": "Horizontal"
+        },
+        {
+          "value": "vertical",
+          "label": "Vertical"
+        }
+      ],
+      "default": "horizontal",
+      "label": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": false,
+      "label": "Full Width"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_divider",
+      "default": false,
+      "label": "Show Divider"
+    },
+    {
+      "type": "color",
+      "id": "colors_line",
+      "label": "Colors Line",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "block",
+      "name": "Image comparison",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Before"
+        },
+        {
+          "type": "image_picker",
+          "id": "before_img",
+          "label": "Before"
+        },
+        {
+          "type": "text",
+          "id": "before_title",
+          "label": "Heading"
+        },
+        {
+          "type": "select",
+          "id": "before_title_size",
+          "options": [
+            {
+              "value": "small",
+              "label": "Small"
+            },
+            {
+              "value": "default",
+              "label": "Medium"
+            },
+            {
+              "value": "large",
+              "label": "Large"
+            }
+          ],
+          "default": "small",
+          "label": "Heading Size"
+        },
+        {
+          "type": "select",
+          "id": "before_title_position",
+          "options": [
+            {
+              "value": "start",
+              "label": "Start"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "End"
+            }
+          ],
+          "default": "start",
+          "label": "Header Position"
+        },
+        {
+          "type": "header",
+          "content": "After"
+        },
+        {
+          "type": "image_picker",
+          "id": "after_img",
+          "label": "After"
+        },
+        {
+          "type": "text",
+          "id": "after_title",
+          "label": "Heading"
+        },
+        {
+          "type": "select",
+          "id": "after_title_size",
+          "options": [
+            {
+              "value": "small",
+              "label": "Small"
+            },
+            {
+              "value": "default",
+              "label": "Medium"
+            },
+            {
+              "value": "large",
+              "label": "Large"
+            }
+          ],
+          "default": "small",
+          "label": "Heading Size"
+        },
+        {
+          "type": "select",
+          "id": "after_title_position",
+          "options": [
+            {
+              "value": "start",
+              "label": "Start"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "end",
+              "label": "End"
+            }
+          ],
+          "default": "start",
+          "label": "Header Position"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "default": "Column",
+          "label": "Title"
+        },
+        {
+          "type": "select",
+          "id": "title_size",
+          "options": [
+            {
+              "value": "h4",
+              "label": "Small"
+            },
+            {
+              "value": "h3",
+              "label": "Medium"
+            },
+            {
+              "value": "h2",
+              "label": "Large"
+            }
+          ],
+          "default": "h3",
+          "label": "Title Size"
+        },
+        {
+          "type": "richtext",
+          "id": "desc",
+          "default": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "Button label",
+          "label": "Button label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "checkbox",
+          "id": "button_style_secondary",
+          "default": false,
+          "label": "Button Style Secondary"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image comparison slider",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}

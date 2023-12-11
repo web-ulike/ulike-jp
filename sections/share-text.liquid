@@ -1,0 +1,251 @@
+<style>
+body.visbile{
+  overflow:hidden;
+}
+.share-box{
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    border: 1px solid #eae7e4;
+}
+.badge-txt{
+  text-align: center;
+  padding: 10px 0;
+}
+.share-link{
+    text-decoration: underline;
+    white-space: nowrap;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: #17120f;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+ #popu-cont {
+      position: fixed;
+      padding: 0 20px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 999999999;
+      transition: all linear .4s;
+      background: rgba(0, 0, 0, .86)
+    }
+    header{
+      display: block;
+      width: 100%;
+    }
+    .popup-scroll {
+        height: 100%;
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
+    #popu-cont .popu-wrap {
+      display: inline-flex;
+      position: relative;
+      z-index: 2;
+      padding: 40px 15px 70px;
+      width: 100%;
+      max-width: 800px;
+      left: 50%;
+      top: 50%;
+      flex-wrap: wrap;
+      background: #fff;
+      transform: translate(-50%, -50%);
+      flex-direction: column;
+      height: 80%;
+    }
+
+    #popu-cont .popu-wrap.popu-wrap-other {
+      padding: 0;
+      left: 50%;
+      top: 50%;
+      border-radius: 0;
+      transform: translate(-50%, -50%)
+    }
+
+    #popu-cont .popu-btn {
+      width: 100%;
+      text-align: center
+    }
+
+    #popu-cont .popu-btn a {
+      justify-content: center
+    }
+
+    #popu-cont .popu-wrap picture {
+      display: inline-flex
+    }
+
+    #popu-cont .close-btn {
+     position: absolute;
+    z-index: 1;
+    color: #ffffff;
+    right: 15px;
+    top: 9px;
+    text-align: center;
+    border-radius: 100%;
+    }
+    #popu-cont .close-btn:hover {
+      cursor: pointer;
+      color: #e0004d
+    }
+
+    #popu-cont iframe {
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 451px;
+      border: none;
+      background: #000
+    }
+
+    .video-wrap {
+      margin: 20px auto;
+      max-width: 680px
+    }
+
+    .video-wrap .youtube-video {
+      position: relative;
+      padding-bottom: 56.25%;
+      width: 100%;
+      height: 0;
+      background: #000
+    }
+
+    .video-wrap .youtube-video .bg {
+      position: absolute;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      background-size: cover;
+      background-position: 50%
+    }
+
+    .video-wrap .youtube-video .bg:hover:before {
+      opacity: 1;
+      cursor: pointer;
+      color: #e0004d
+    }
+
+    .video-wrap .youtube-video .bg:before {
+      content: '';
+      position: absolute;
+      width: 78px;
+      height: 78px;
+      left: 50%;
+      top: 50%;
+      opacity: .8;
+      border-radius: 68px;
+      background-color: #fff;
+      box-shadow: 0 8px 32px rgba(43, 43, 88, .3);
+      transform: translate(-50%, -50%)
+    }
+
+    .video-wrap .youtube-video .bg:after {
+      content: '';
+      position: absolute;
+      left: calc(50% + 4px);
+      top: 50%;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 12px 0 12px 18px;
+      border-color: transparent transparent transparent currentColor;
+      transform: translate(-50%, -50%)
+    }
+
+    .video-wrap .youtube-video iframe {
+      position: absolute;
+      border: none;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 100%
+    }
+
+    .blur-eff {
+      filter: blur(1.8px);
+      transition: all linear .4s
+    }
+
+    .popu-video {
+      cursor: pointer
+    }
+
+    .popu-video:hover {
+      text-decoration: underline
+    }
+    .btn-box {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding-right: 51px;
+        padding-left: 15px;
+        padding-top: 15px;
+    }
+    .btn {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      flex-shrink: 0;
+      border-style: solid;
+      border-width: 1px;
+      position: relative;
+      z-index: 0;
+      min-height: 0px;
+      min-width: 0px;
+      background-color: rgb(14, 14, 15);
+      border-color: rgba(255, 255, 255, 0);
+      border-radius: 0px;
+      height: 50px;
+      justify-content: center;
+      padding-left: 24px;
+      padding-right: 24px;
+      color:#fff;
+      margin-bottom: 15px;
+      cursor:pointer;
+    }
+    #popu-cont h1{
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    #popu-cont p{
+      margin-bottom: 20px;
+      padding: 0 15px;
+    }
+</style>
+<div class="share-box">
+  <div class="badge-txt">
+    <p class="text">Share your thoughts and earn up to $30 cashback! <button class="share-link" id="share-link">Learn More</button></p>
+  </div>
+</div>
+<script src="{{ 'share-poupop.aio.min.js' | asset_url }}" defer="defer"></script>
+{% schema %}
+{
+  "name": "Share Text",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "Share Text",
+      "blocks": [
+      ]
+    }
+  ]
+}
+{% endschema %}

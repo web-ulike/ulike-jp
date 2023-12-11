@@ -1,0 +1,476 @@
+{%- if section.settings.background_type == 'boxed' -%}
+  {%- assign is_boxed = true -%}
+{%- else -%}
+  {%- assign is_boxed = false -%}
+{%- endif -%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    {%- if section.settings.background == 'rgba(0,0,0,0)' -%}
+      {%- assign section_background = settings.background -%}
+    {%- else -%}
+      {%- assign section_background = section.settings.background -%}
+    {%- endif -%}
+
+    {%- if section.settings.text_color == 'rgba(0,0,0,0)' -%}
+      {%- assign heading_color = settings.heading_color -%}
+      {%- assign text_color = settings.text_color -%}
+    {%- else -%}
+      {%- assign heading_color = section.settings.text_color -%}
+      {%- assign text_color = section.settings.text_color -%}
+    {%- endif -%}
+
+    {%- if section.settings.button_background == 'rgba(0,0,0,0)' -%}
+      {%- assign button_background = settings.primary_button_background -%}
+    {%- else -%}
+      {%- assign button_background = section.settings.button_background -%}
+    {%- endif -%}
+
+    {%- if section.settings.button_text_color == 'rgba(0,0,0,0)' -%}
+      {%- assign button_text_color = settings.primary_button_text_color -%}
+    {%- else -%}
+      {%- assign button_text_color = section.settings.button_text_color -%}
+    {%- endif -%}
+
+    --heading-color: {{ heading_color.red }}, {{ heading_color.green }}, {{ heading_color.blue }};
+    --text-color: {{ text_color.red }}, {{ text_color.green }}, {{ text_color.blue }};
+    --primary-button-background: {{ button_background.red }}, {{ button_background.green }}, {{ button_background.blue }};
+    --primary-button-text-color: {{ button_text_color.red }}, {{ button_text_color.green }}, {{ button_text_color.blue }};
+
+    --section-accent-background: {{ section.settings.accent_background.red }} {{ section.settings.accent_background.green }} {{ section.settings.accent_background.blue }} / {{ section.settings.accent_background.alpha }};
+    --section-autoplay-duration: {{ section.settings.cycle_speed }}s;
+    --section-animation-play-state: paused;
+    --section-background: {{ section_background.red }}, {{ section_background.green }}, {{ section_background.blue }};
+    background: rgb(var(--section-background, var(--background)));
+  }
+
+  {%- if section.settings.background_overlap != 'both' -%}
+    /* We have to remove some extra spacing adding in non-overlap mode */
+    @media screen and (max-width: 999px) {
+      {%- if section.settings.background_overlap == 'image' -%}
+        {%- unless is_boxed -%}
+          #shopify-section-{{ section.id }} .section {
+            margin-top: 0;
+          }
+
+          #shopify-section-{{ section.id }} .image-with-text {
+            margin-bottom: calc(-1 * var(--vertical-breather)) !important;
+          }
+        {%- else -%}
+          #shopify-section-{{ section.id }} .image-with-text {
+            margin-bottom: calc(-1 * var(--container-gutter)) !important;
+          }
+        {%- endunless -%}
+      {%- elsif section.settings.background_overlap == 'text' -%}
+        {%- unless is_boxed -%}
+          #shopify-section-{{ section.id }} .section {
+            margin-bottom: 0;
+          }
+
+          #shopify-section-{{ section.id }} .image-with-text {
+            margin-top: calc(-1 * var(--vertical-breather)) !important;
+          }
+        {%- else -%}
+          #shopify-section-{{ section.id }} .image-with-text {
+            margin-top: calc(-1 * var(--container-gutter)) !important;
+          }
+        {%- endunless -%}
+      {%- endif -%}
+    }
+  {%- endif -%}
+</style>
+
+<section class="section{% if section.settings.custom_class_one != blank %} {{section.settings.custom_class_one}}{% endif %} {% if section.settings.background_overlap == 'both' and is_boxed == false %}section--flush{% endif %}">
+  <div {% if is_boxed %}class="container"{% endif %}>
+    {%- assign first_block = section.blocks.first -%}
+
+    <image-with-text {% if section.settings.reveal_on_scroll %}reveal-on-scroll{% endif %} class="image-with-text {% if is_boxed %}image-with-text--boxed{% endif %} {% if section.settings.image_position == 'right' %}image-with-text--reverse{% endif %} image-with-text--overlap-{{ section.settings.background_overlap }}" style="--image-aspect-ratio: {{ first_block.settings.image.aspect_ratio | default: 1 }}; --image-max-height: {{ first_block.settings.image.height }}px">
+      <div class="{% unless is_boxed %}container{% endunless %}">
+        <div class="image-with-text__wrapper{% if section.settings.custom_class != blank %} {{section.settings.custom_class}}{% endif %}">
+          {%- assign first_image_aspect_ratio = first_block.settings.image.aspect_ratio | default: 1 -%}
+          {%- assign image_count = 0 -%}
+
+          <div class="image-with-text__image-wrapper">
+            {%- for block in section.blocks -%}
+              {%- if block.settings.image != blank -%}
+                {%- capture id_attribute -%}block-{{ block.id }}-{{ block.settings.image.id }}{%- endcapture -%}
+                {%- assign is_hidden = true -%}
+
+                {%- if image_count == 0 -%}
+                  {%- assign is_hidden = false -%}
+                {%- endif -%}
+
+                {%- if section.settings.reveal_on_scroll -%}
+                  {%- if is_hidden -%}
+                    {{- block.settings.image | image_url: width: block.settings.image.width | image_tag: id: id_attribute, loading: 'lazy', sizes: '(max-width: 740px) calc(100vw - 96px), (max-width: 999px) calc(100vw - 160px), 600px', widths: '600,700,800,1000,1200,1400', reveal-visibility: true, hidden: true, class: 'image-with-text__image' -}}
+                  {%- else -%}
+                    {{- block.settings.image | image_url: width: block.settings.image.width | image_tag: id: id_attribute, loading: 'lazy', sizes: '(max-width: 740px) calc(100vw - 96px), (max-width: 999px) calc(100vw - 160px), 600px', widths: '600,700,800,1000,1200,1400', reveal-visibility: true, class: 'image-with-text__image' -}}
+                  {%- endif -%}
+                {%- else -%}
+                  {%- if is_hidden -%}
+                    {{- block.settings.image | image_url: width: block.settings.image.width | image_tag: id: id_attribute, loading: 'lazy', sizes: '(max-width: 740px) calc(100vw - 96px), (max-width: 999px) calc(100vw - 160px), 600px', widths: '600,700,800,1000,1200,1400', hidden: true, class: 'image-with-text__image' -}}
+                  {%- else -%}
+                    {{- block.settings.image | image_url: width: block.settings.image.width | image_tag: id: id_attribute, loading: 'lazy', sizes: '(max-width: 740px) calc(100vw - 96px), (max-width: 999px) calc(100vw - 160px), 600px', widths: '600,700,800,1000,1200,1400', class: 'image-with-text__image' -}}
+                  {%- endif -%}
+                {%- endif -%}
+
+                {%- assign image_count = image_count | plus: 1 -%}
+              {%- endif -%}
+            {%- endfor -%}
+
+            {%- if image_count == 0 -%}
+              {%- if section.settings.reveal_on_scroll -%}
+                {{- 'image' | placeholder_svg_tag: 'image-with-text__image placeholder-background' | replace: '<svg', '<svg reveal-visibility' -}}
+              {%- else -%}
+                {{- 'image' | placeholder_svg_tag: 'image-with-text__image placeholder-background' -}}
+              {%- endif -%}
+            {%- endif -%}
+          </div>
+
+          <div class="image-with-text__content-wrapper">
+            <div class="image-with-text__content-list">
+              {%- for block in section.blocks -%}
+                <image-with-text-item {% if block.settings.image != blank and image_count > 1 %}attached-image="block-{{ block.id }}-{{ block.settings.image.id }}"{% endif %} {% unless forloop.first %}hidden{% endunless %} class="image-with-text__content text-container text--{{ section.settings.text_alignment }}" {{ block.shopify_attributes }}>
+                  {%- if block.settings.subheading != blank -%}
+                    <h2 class="heading heading--small">
+                      <split-lines {% if section.settings.reveal_on_scroll or forloop.first != true %}reveal{% endif %}>{{ block.settings.subheading | escape }}</split-lines>
+                    </h2>
+                  {%- endif -%}
+
+                  {%- if block.settings.title != blank -%}
+                    <h3 class="heading h3">
+                      <split-lines {% if section.settings.reveal_on_scroll or forloop.first != true %}reveal{% endif %}>{{ block.settings.title | escape }}</split-lines>
+                    </h3>
+                  {%- endif -%}
+
+                  {%- if block.settings.real_price_text != blank -%}
+                    <div class="price-box">
+                      <h3 class="heading h3">
+                        <split-lines {% if section.settings.reveal_on_scroll or forloop.first != true %}reveal{% endif %}>{{ block.settings.real_price_text | escape }}</split-lines>
+                      </h3>
+                      <h3 class="heading h5">
+                        <split-lines {% if section.settings.reveal_on_scroll or forloop.first != true %}reveal{% endif %}>{{ block.settings.price_text | escape }}</split-lines>
+                      </h3>
+                    </div>
+                  {%- endif -%}
+
+                  {%- if block.settings.stack_items -%}
+                    <div class="image-with-text-badge__box">
+                      <div class="image-with-text-badge__item">
+                        <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" class="design-iconfont">
+                          <path d="M15.2843 6.50854L16.8655 11.1784" stroke="#040000" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="square"/>
+                          <path d="M20.8608 5.6001V10.5266" stroke="#040000" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="square"/>
+                          <path d="M10.2936 9.03809L13.2889 12.9585" stroke="#040000" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="square"/>
+                          <path d="M26.5689 6.53296L24.8588 11.1542" stroke="#040000" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="square"/>
+                          <path d="M31.819 9.4886L32.1897 9.01681L31.2461 8.27544L30.8754 8.74724L31.819 9.4886ZM30.8754 8.74724L27.8279 12.626L28.7715 13.3674L31.819 9.4886L30.8754 8.74724Z" fill="#040000"/>
+                          <path d="M35.1681 13.0596L31.2325 16.0398" stroke="#040000" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="square"/>
+                          <path d="M37.8152 18.0308L33.1273 19.6024" stroke="#040000" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="square"/>
+                          <path d="M38.7487 23.7174L33.8066 23.5752" stroke="#040000" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="square"/>
+                          <path d="M37.8152 29.0529L33.1517 27.4119" stroke="#040000" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="square"/>
+                          <path d="M8.41599 15.0234C8.41599 15.0234 3.94051 20.9873 6.51434 28.5541C9.08818 36.1208 16.1863 38.029 16.1863 38.029" stroke="#040000" stroke-width="1.33688" stroke-miterlimit="10"/>
+                          <path d="M4 16.8689L8.44761 13.2434L9.89997 18.784L4 16.8689Z" fill="#040000"/>
+                          <path d="M19.8224 25.3796C20.2531 25.3796 20.6023 25.0333 20.6023 24.6063C20.6023 24.1792 20.2531 23.833 19.8224 23.833C19.3917 23.833 19.0426 24.1792 19.0426 24.6063C19.0426 25.0333 19.3917 25.3796 19.8224 25.3796Z" stroke="#040000" stroke-width=".891255" stroke-miterlimit="10"/>
+                          <path d="M19.8607 15.4458V23.6128" stroke="#040000" stroke-width=".891255" stroke-miterlimit="10" stroke-linecap="round"/>
+                          <path d="M28.8114 24.6479H20.6162" stroke="#040000" stroke-width=".891255" stroke-miterlimit="10" stroke-linecap="round"/>
+                          <path d="M20.0005 39.066C20.9605 39.066 21.5605 38.478 21.5605 37.776C21.5605 37.23 21.2485 36.912 20.8465 36.774C21.1885 36.642 21.4465 36.288 21.4465 35.85C21.4465 35.142 20.9125 34.626 20.0245 34.626C19.1185 34.626 18.5425 35.22 18.4345 35.952L19.2385 36.072C19.3105 35.652 19.5805 35.358 19.9945 35.358C20.3785 35.358 20.6005 35.568 20.6005 35.904C20.6005 36.258 20.3425 36.426 19.9225 36.426H19.5205V37.152H19.9345C20.3845 37.152 20.7025 37.32 20.7025 37.716C20.7025 38.118 20.4025 38.334 19.9885 38.334C19.5745 38.334 19.2445 38.064 19.1785 37.59L18.3205 37.74C18.4465 38.604 19.1245 39.066 20.0005 39.066ZM25.3838 34.692L24.6398 37.68L23.8898 34.692H22.9718L24.1298 39H24.9938L25.7558 36.102L26.5178 39H27.3818L28.5338 34.692H27.6458L26.8898 37.68L26.1458 34.692H25.3838ZM28.962 34.692V39H31.938V38.238H29.832V37.17H31.596V36.414H29.832V35.454H31.938V34.692H28.962ZM32.5421 34.692V39H35.5181V38.238H33.4121V37.17H35.1761V36.414H33.4121V35.454H35.5181V34.692H32.5421ZM37.0041 34.692H36.1221V39H37.0041V37.764L37.5021 37.2L38.7681 39H39.8001L38.0841 36.534L39.6981 34.692H38.6661L37.0041 36.648V34.692Z" fill="#000"/>
+                        </svg>
+                        <span>Visible Results in 3 weeks</span>
+                      </div>
+                      <div class="image-with-text-badge__item">
+                        
+
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 44 44" class="design-iconfont">
+                          <path d="M5.04907 14.501H3.49994V29.5324H5.04907V14.501Z" fill="#181818"/>
+                          <path d="M14.6984 20.7983H13.1493V29.5323H14.6984V20.7983Z" fill="#181818"/>
+                          <path d="M17.1637 20.7983H15.6146V26.9489H17.1637V20.7983Z" fill="#181818"/>
+                          <path d="M18.5314 16.055V14.5059H3.49997V16.055H18.5314Z" fill="#181818"/>
+                          <path d="M18.5309 18.4075V16.8584H5.91333V18.4075H18.5309Z" fill="#181818"/>
+                          <path d="M18.5307 29.5328V27.9836H13.1493V29.5328H18.5307Z" fill="#181818"/>
+                          <path d="M40.0255 29.5328V27.9836H29.5396V29.5328H40.0255Z" fill="#181818"/>
+                          <path d="M31.8749 16.553L24.0003 29.5321H25.8091L31.8749 19.5376L36.4312 27.0506H38.2401L31.8749 16.553Z" fill="#181818"/>
+                          <path d="M38.2356 27.0506L37.2293 25.5015H29.5296V27.0506H38.2356Z" fill="#181818"/>
+                          <path d="M18.5316 26.9442V25.395H15.6146V26.9442H18.5316Z" fill="#181818"/>
+                          <path d="M7.46246 16.8528H5.91333V22.3415H7.46246V16.8528Z" fill="#181818"/>
+                          <path d="M7.46246 23.1504H5.91333V29.5327H7.46246V23.1504V23.1504Z" fill="#181818"/>
+                          <path d="M12.2151 22.3419V20.7927H5.91132V22.3419H12.2142H12.2151Z" fill="#181818"/>
+                          <path d="M12.2151 24.6995V23.1504H5.91132V24.6995H12.2142H12.2151Z" fill="#181818"/>
+                          <path d="M18.5309 14.5012V16.0504C21.8266 16.0504 24.4948 18.7185 24.4948 22.0142C24.4948 25.31 21.8266 27.9781 18.5309 27.9781V29.5273C22.6805 29.5273 26.0439 26.1639 26.0439 22.0142C26.0439 17.8646 22.6805 14.5012 18.5309 14.5012V14.5012Z" fill="#181818"/>
+                          <path d="M18.5309 16.8528V18.4019C20.4641 18.4019 22.0241 19.9682 22.0241 21.8951C22.0241 23.8221 20.4578 25.3883 18.5309 25.3883V26.9375C21.3181 26.9375 23.5732 24.676 23.5732 21.8951C23.5732 19.1143 21.3117 16.8528 18.5309 16.8528V16.8528Z" fill="#181818"/>
+                          <path d="M33.4647 14.5009H30.2366L24.1879 24.0716L24.9345 25.9481L31.8542 14.5009L40.0282 27.9832L41.0516 26.5865L33.4656 14.5L33.4647 14.5009Z" fill="#181818"/>
+                        </svg>
+                        <span>FDA CLEARED</span>
+                      </div>
+                      <div class="image-with-text-badge__item">
+                        
+                        <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" class="design-iconfont">
+                          <path d="M10.6785 21.98L10.6785 16.8796L14.1935 13.4443L29.7335 13.4443L33.2485 16.8796L33.2485 21.98L33.2485 27.0805L29.7335 30.5158L14.1935 30.5158L10.6785 27.0805L10.6785 21.98Z" stroke="#000" stroke-width="1.2" stroke-miterlimit="10"/>
+                          <path d="M5.92682 21.9798L5.92682 14.7317L10.9218 9.8501L33.005 9.8501L38 14.7317L38 21.9798L38 29.2279L33.005 34.1095L10.9218 34.1095L5.92682 29.2279L5.92682 21.9798Z" stroke="#000" stroke-width="1.2" stroke-miterlimit="10"/>
+                          <path d="M33.0255 9.8501L29.8807 13.4441M29.8807 30.5155L33.0255 34.1095M33.4747 26.9215L37.9672 29.1678M33.4747 17.0381L37.9672 14.7918M14.1571 13.4441L11.0123 9.8501M10.5631 17.0381L6.07059 14.7918M10.5631 26.9215L6.07059 29.1678M14.1571 30.5155L11.0123 33.6602" stroke="#000" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Icy Painless Treatment</span>
+                      </div>
+                      <div class="image-with-text-badge__item">
+                        
+                        <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" class="design-iconfont">
+                          <path stroke="#000" stroke-width="1.2" d="M21.9982 5.700099999999999A16.2983 16.2983 0 1 0 21.9982 38.2967A16.2983 16.2983 0 1 0 21.9982 5.700099999999999Z"/>
+                          <path d="M16.0348 26.2036C17.0351 28.186 19.4644 29.4531 21.9958 29.4531C24.8946 29.4531 27.3239 27.7159 27.3239 24.9774C27.3239 21.871 24.6496 21.3601 22.2203 20.7879C20.1585 20.2974 18.7907 19.9704 18.7907 18.4172C18.7907 17.0071 20.0768 16.0261 21.8529 16.0261C23.7514 16.0261 24.915 16.9866 25.6704 18.3968L27.1606 17.2114C26.2828 15.556 24.4455 14.3298 21.8937 14.3298C19.1173 14.3298 16.8922 16.0057 16.8922 18.5807C16.8922 21.3397 19.1786 21.9732 21.4854 22.525C23.7106 23.0563 25.405 23.3629 25.405 25.1409C25.405 26.8167 23.9351 27.7568 22.0366 27.7568C20.1381 27.7568 18.4845 26.735 17.5658 24.9774L16.0348 26.2036Z" fill="#000"/>
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M21.1469 32.4353V28.8152H22.6375V32.4353H21.1469Z" fill="#000"/>
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M21.1469 15.6072V11.9871H22.6375V15.6072H21.1469Z" fill="#000"/>
+                        </svg>
+                        <span>90-Day Money Back Guarantee</span>
+                      </div>
+                    </div>
+                  {%- endif -%}
+
+                  <div class="image-with-text__text-wrapper" {% if section.settings.reveal_on_scroll or forloop.first != true %}reveal{% endif %}>
+                    {%- if block.settings.content != blank -%}
+                      {{- block.settings.content -}}
+                    {%- endif -%}
+
+                    {%- if block.settings.button_text != blank -%}
+                      <div class="button-wrapper {{block.settings.custom_cls}}">
+                        <a href="{{ block.settings.button_link }}" class="button button--primary button--animate">{{ block.settings.button_text }}</a>
+                      </div>
+                    {%- endif -%}
+                  </div>
+                </image-with-text-item>
+              {%- endfor -%}
+            </div>
+
+            {%- comment -%}If we have two blocks we show the navigation{%- endcomment -%}
+            {%- if section.blocks.size > 1 -%}
+              <page-dots animation-timer class="image-with-text__navigation">
+                {%- for block in section.blocks -%}
+                  <button type="button" class="image-with-text__navigation-item" {% if forloop.first %}aria-current="true"{% endif %}>
+                    <span class="heading heading--small">{{- block.settings.tab_label | escape -}}</span>
+                  </button>
+                {%- endfor -%}
+              </page-dots>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </image-with-text>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Image with text",
+  "class": "shopify-section--image-with-text",
+  "max_blocks": 2,
+  "settings": [
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom Class"
+    },
+    {
+      "type": "text",
+      "id": "custom_class_one",
+      "label": "Custom Class 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "reveal_on_scroll",
+      "label": "Reveal on scroll",
+      "info": "Show animation when section becomes visible.",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "background_type",
+      "label": "Background",
+      "options": [
+        {
+          "value": "full_width",
+          "label": "Full width"
+        },
+        {
+          "value": "boxed",
+          "label": "Boxed"
+        }
+      ],
+      "default": "full_width"
+    },
+    {
+      "type": "select",
+      "id": "background_overlap",
+      "label": "Background overlap",
+      "info": "Add an accent background color below.",
+      "options": [
+        {
+          "value": "image",
+          "label": "Image"
+        },
+        {
+          "value": "text",
+          "label": "Text"
+        },
+        {
+          "value": "both",
+          "label": "Both"
+        }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Desktop image position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "cycle_speed",
+      "min": 3,
+      "max": 20,
+      "step": 1,
+      "unit": "s",
+      "label": "Change text every",
+      "default": 8
+    },
+    {
+      "type": "color",
+      "id": "accent_background",
+      "label": "Accent background",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "rgba(0,0,0,0)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "1400 x 1400px .jpg recommended"
+        },
+        {
+          "type": "text",
+          "id": "tab_label",
+          "label": "Tab label",
+          "info": "Only shown if 2 text blocks are set",
+          "default": "Item"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "Subheading"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Image with text"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>Use image with text to give your customers insight into your brand. Select imagery and text that relates to your style and story.</p>"
+        },
+        {
+          "type": "text",
+          "id": "real_price_text",
+          "label": "Real Price text"
+        },
+        {
+          "type": "text",
+          "id": "price_text",
+          "label": "Price text"
+        },
+        {
+          "type": "checkbox",
+          "id": "stack_items",
+          "label": "Stack items",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "custom_cls",
+          "label": "Custom Class"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image with text",
+      "settings": {},
+      "blocks": [
+        {
+          "type": "item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

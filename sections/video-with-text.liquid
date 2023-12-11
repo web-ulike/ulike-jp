@@ -1,0 +1,426 @@
+{%- if section.settings.background_type == 'boxed' -%}
+  {%- assign is_boxed = true -%}
+{%- else -%}
+  {%- assign is_boxed = false -%}
+{%- endif -%}
+
+<style>
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px);
+  }
+  @media screen and (max-width: 768px){
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * 0.6);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.6);
+  }
+}
+  {%- if section.settings.background != settings.background and section.settings.background != 'rgba(0,0,0,0)' -%}
+  {%- assign blends_with_background = false -%}
+{%- else -%}
+  {%- assign blends_with_background = true -%}
+{%- endif -%}
+  #shopify-section-{{ section.id }} {
+    {%- if section.settings.background == 'rgba(0,0,0,0)' -%}
+      {%- assign section_background = settings.background -%}
+    {%- else -%}
+      {%- assign section_background = section.settings.background -%}
+    {%- endif -%}
+
+    {%- if section.settings.text_color == 'rgba(0,0,0,0)' -%}
+      {%- assign heading_color = settings.heading_color -%}
+      {%- assign text_color = settings.text_color -%}
+    {%- else -%}
+      {%- assign heading_color = section.settings.text_color -%}
+      {%- assign text_color = section.settings.text_color -%}
+    {%- endif -%}
+
+    {%- if section.settings.button_background == 'rgba(0,0,0,0)' -%}
+      {%- assign button_background = settings.primary_button_background -%}
+    {%- else -%}
+      {%- assign button_background = section.settings.button_background -%}
+    {%- endif -%}
+
+    {%- if section.settings.button_text_color == 'rgba(0,0,0,0)' -%}
+      {%- assign button_text_color = settings.primary_button_text_color -%}
+    {%- else -%}
+      {%- assign button_text_color = section.settings.button_text_color -%}
+    {%- endif -%}
+
+    --heading-color: {{ heading_color.red }}, {{ heading_color.green }}, {{ heading_color.blue }};
+    --text-color: {{ text_color.red }}, {{ text_color.green }}, {{ text_color.blue }};
+    --primary-button-background: {{ button_background.red }}, {{ button_background.green }}, {{ button_background.blue }};
+    --primary-button-text-color: {{ button_text_color.red }}, {{ button_text_color.green }}, {{ button_text_color.blue }};
+
+    --section-accent-background: {{ section.settings.accent_background.red }} {{ section.settings.accent_background.green }} {{ section.settings.accent_background.blue }} / {{ section.settings.accent_background.alpha }};
+    --section-autoplay-duration: {{ section.settings.cycle_speed }}s;
+    --section-animation-play-state: paused;
+    --section-background: {{ section_background.red }}, {{ section_background.green }}, {{ section_background.blue }};
+    background: rgb(var(--section-background, var(--background)));
+  }
+ .video__text__box {
+      display: flex;
+      align-items: center;
+  }
+  .video__text__box.video-with-text--reverse{
+    flex-direction: row-reverse;
+  }
+  .video__left {
+    width: calc(var(--grid-column-width) * 10 + (var(--grid-gap) * 7));
+  }
+  .video-with-text__content-wrapper {
+    margin: 0 auto;
+    max-width: 550px;
+  }
+  .button--link{
+    color: rgb(var(--primary-button-text-color));
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    -webkit-text-decoration-color: rgba(var(--primary-button-text-color),.35);
+    text-decoration-color: rgba(var(--primary-button-text-color),.35);
+    transition: color .2s ease-in-out,-webkit-text-decoration-color .2s ease-in-out;
+    transition: text-decoration-color .2s ease-in-out,color .2s ease-in-out;
+    transition: text-decoration-color .2s ease-in-out,color .2s ease-in-out,-webkit-text-decoration-color .2s ease-in-out;
+  }
+  .video__text__box.video-with-text--reverse .video-with-text__content-wrapper{
+   margin-left:0;
+  }
+  .video-with-text__content .extend-image {
+      margin-top: 60px;
+  }
+  @media screen and (max-width: 768px){
+    .video__text__box {
+    flex-direction: column-reverse !important;
+  }
+    .video__text__box {
+    justify-content: center;
+  }
+    .video__text__box.video-with-text--reverse .video-with-text__content-wrapper{
+      margin-bottom: 36px;
+    }
+    .video-with-text__content {
+    text-align: center !important;
+}
+     .video-with-text__content-wrapper {
+    margin-bottom: 36px;
+  }
+    .video__left{
+      width:auto;
+    }
+   .ilp-none-image .video__left{
+    display:none;
+   }
+   .ilp-none-image .video-with-text__content-wrapper{
+        margin-bottom: 0px;
+   }
+   .ilp-none-image .video-with-text__content{
+        text-align: left !important;
+   }
+}
+</style>
+
+<section class="section{% unless blends_with_background %}section--flush{% endunless %}{% if section.settings.custom_class_one != blank %} {{section.settings.custom_class_one}}{% endif %}">
+  <div class="section-{{ section.id }}-padding">
+    <div {% if is_boxed %}class="container"{% endif %}>
+   <div class="video__text__box {% if section.settings.image_position == 'right' %}video-with-text--reverse{% endif %}">
+      <div class="video__left">
+        {%- if section.settings.image != blank -%}
+          <div class="hidden-pocket">
+            {{- section.settings.image | image_url: width: section.settings.image.width | image_tag: loading: 'lazy', sizes: '100vw', widths: '600,700,800,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000' -}}
+          </div>
+        {%- endif -%}
+        {%- if section.settings.mobile_image != blank -%}
+          <div class="hidden-lap-and-up">
+            {{- section.settings.mobile_image | image_url: width: section.settings.mobile_image.width | image_tag: loading: 'lazy', sizes: '100vw', widths: '600,700,800,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000' -}}
+          </div>
+        {%- endif -%}
+        {%- if section.settings.video != blank -%}
+          <native-video autoplay class="video-wrapper video-wrapper--native">
+          {{- section.settings.video | video_tag: controls: false, autoplay: true, playsinline: true, muted: true, loop: true , image_size: '740x' -}}
+          </native-video>
+        {%- endif -%}
+      </div>
+      <div class="video-with-text__content-wrapper">
+        <div class="video-with-text__content text--{{ section.settings.text_alignment }}">
+          {%- if section.settings.subheading != blank -%}
+            <h2 class="heading heading--small">
+              <split-lines>{{ section.settings.subheading | escape }}</split-lines>
+            </h2>
+          {%- endif -%}
+
+          {%- if section.settings.title != blank -%}
+            <h3 class="heading h3">
+              <split-lines>{{ section.settings.title | escape }}</split-lines>
+            </h3>
+          {%- endif -%}
+
+          <div class="video-with-text__text-wrapper">
+            {%- if section.settings.content != blank -%}
+              {{- section.settings.content -}}
+            {%- endif -%}
+
+            {%- if section.settings.button_text != blank -%}
+              {%- if section.settings.link_style == 'link' -%}
+                <div class="button-wrapper">
+                  <a class="button--link show-match-box">{{ section.settings.button_text }}</a>
+                </div>
+              {%- else -%}
+                <div class="button-wrapper">
+                  <a class="button button--primary button--animate show-match-box">{{ section.settings.button_text }}</a>
+                </div>
+              {%- endif -%}
+            {%- endif -%}
+            
+            {%- if section.settings.button_text_1 != blank -%}
+              {%- if section.settings.link_style == 'link' -%}
+                <div class="button-wrapper">
+                  <a href="{{ section.settings.button_link_1 }}" class="button--link">{{ section.settings.button_text_1 }}</a>
+                </div>
+              {%- else -%}
+                <div class="button-wrapper">
+                  <a href="{{ section.settings.button_link_1 }}" class="button button--primary button--animate">{{ section.settings.button_text_1 }}</a>
+                </div>
+              {%- endif -%}
+            {%- endif -%}
+          </div>
+
+          {%- if section.settings.extend_image != blank -%}
+            <div class="extend-image">
+              {{- section.settings.extend_image | image_url: width: section.settings.extend_image.width | image_tag: loading: '', sizes: '100vw', widths: '600,700,800,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000' -}}
+            </div>
+          {%- endif -%}
+          
+        </div>
+      </div>
+   </div>
+  </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Video with text",
+  "class": "shopify-section--video-with-text",
+  "settings": [
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom Class"
+    },
+    {
+      "type": "text",
+      "id": "custom_class_one",
+      "label": "Custom Class 1"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video",
+      "info": "Replaces the external video if both are set."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "extend_image",
+      "label": "Extend Image"
+    },
+    {
+        "type": "image_picker",
+        "id": "mobile_image",
+        "label": "Mobile image",
+        "info": "1000 x 1400px .jpg recommended. If none is set, desktop image will be used."
+      },
+    {
+        "type": "text",
+        "id": "subheading",
+        "label": "Subheading",
+        "default": "Subheading"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Image with text"
+      },
+      {
+        "type": "richtext",
+        "id": "content",
+        "label": "Content",
+        "default": "<p>Use image with text to give your customers insight into your brand. Select imagery and text that relates to your style and story.</p>"
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button text"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button link"
+      },
+    {
+        "type": "text",
+        "id": "button_text_1",
+        "label": "Button text 1"
+      },
+      {
+        "type": "url",
+        "id": "button_link_1",
+        "label": "Button link 1"
+      },
+      {
+        "type": "select",
+        "id": "link_style",
+        "label": "Link style",
+        "options": [
+          {
+            "value": "link",
+            "label": "Link"
+          },
+          {
+            "value": "button",
+            "label": "Button"
+          }
+        ],
+        "default": "button"
+      },
+      {
+      "type": "select",
+      "id": "background_type",
+      "label": "Background",
+      "options": [
+        {
+          "value": "full_width",
+          "label": "Full width"
+        },
+        {
+          "value": "boxed",
+          "label": "Boxed"
+        }
+      ],
+      "default": "full_width"
+    },
+    {
+      "type": "select",
+      "id": "background_overlap",
+      "label": "Background overlap",
+      "info": "Add an accent background color below.",
+      "options": [
+        {
+          "value": "image",
+          "label": "Image"
+        },
+        {
+          "value": "text",
+          "label": "Text"
+        },
+        {
+          "value": "both",
+          "label": "Both"
+        }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Desktop image position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "color",
+      "id": "accent_background",
+      "label": "Accent background",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "Video with text",
+      "settings": {},
+      "blocks": [
+      ]
+    }
+  ]
+}
+{% endschema %}

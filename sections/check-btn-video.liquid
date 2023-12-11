@@ -1,0 +1,104 @@
+  <style>
+  .video_box.page-width {
+    text-align: center;
+  }
+  .check_box_video {
+    display: inline-flex;
+  }
+  .check_video_btn {
+    padding: 8px 15px;
+    background: #ffffff;
+    cursor: pointer;
+    color: #fff;
+    border: 1px solid #040000;
+    color: #040000;
+    min-width: 180px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+  }
+   .check_video_btn.active{
+     background: #040000;
+     color: #fff;
+   }
+  </style>
+  <div class="video_box page-width">
+    <div class="check_box_video">
+    {%- for block in section.blocks -%}
+      <div class="check_video_btn" data-index="{{ block.settings.button_label_index }}"> {{ block.settings.button_label }}</div>
+    {%- endfor -%}
+    </div>
+  </div>
+  <script>
+
+    function ready(fn){
+      if(document.addEventListener){		//标准浏览器
+        document.addEventListener('DOMContentLoaded',function(){
+          //注销时间，避免重复触发
+          document.removeEventListener('DOMContentLoaded',arguments.callee,false);
+          fn();		//运行函数
+        },false);
+      }else if(document.attachEvent){		//IE浏览器
+        document.attachEvent('onreadystatechange',function(){
+          if(document.readyState=='complete'){
+            document.detachEvent('onreadystatechange',arguments.callee);
+            fn();		//函数运行
+          }
+        });
+      }
+    };
+   document.querySelector(".check_box_video").addEventListener("click", function(e){
+      document.querySelectorAll(".check_video_btn").forEach(function(item){
+        item.classList.remove('active');
+      })
+      e.target.classList.add('active');
+         document.querySelectorAll(".multi-column").forEach(function(item){
+        item.style.display = "none";
+      });
+      document.querySelectorAll(".multi-column")[e.target.dataset.index].style.display = "block";
+    }, false);
+    function first(){
+      document.getElementsByClassName('check_video_btn')[0].click();
+    };
+    ready(first);
+  </script>
+
+{% schema %}
+{
+  "name": "Check Video Button",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+  ],
+   "blocks": [
+    {
+      "type": "column",
+      "name": "Column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "Button label",
+          "label": "Button Text"
+        },
+        {
+          "type": "text",
+          "id": "button_label_index",
+          "default": "0",
+          "label": "Button Index"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Check Video Button",
+       "blocks": [
+        {
+          "type": "column"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

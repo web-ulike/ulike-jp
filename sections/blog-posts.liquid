@@ -1,0 +1,461 @@
+{%- assign blog = section.settings.blog -%}
+
+{%- if section.settings.background != settings.background and section.settings.background != 'rgba(0,0,0,0)' -%}
+  {%- assign blends_with_background = false -%}
+{%- else -%}
+  {%- assign blends_with_background = true -%}
+{%- endif -%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    {%- if section.settings.background == 'rgba(0,0,0,0)' -%}
+      {%- assign section_background = settings.background -%}
+    {%- else -%}
+      {%- assign section_background = section.settings.background -%}
+    {%- endif -%}
+
+    {%- if section.settings.text_color == 'rgba(0,0,0,0)' -%}
+      {%- assign heading_color = settings.heading_color -%}
+      {%- assign text_color = settings.text_color -%}
+    {%- else -%}
+      {%- assign heading_color = section.settings.text_color -%}
+      {%- assign text_color = section.settings.text_color -%}
+    {%- endif -%}
+
+    --heading-color: {{ heading_color.red }}, {{ heading_color.green }}, {{ heading_color.blue }};
+    --text-color: {{ text_color.red }}, {{ text_color.green }}, {{ text_color.blue }};
+
+    --section-background: {{ section_background.red }}, {{ section_background.green }}, {{ section_background.blue }};
+    --section-articles-count: {% if blog == blank or blog.articles_count == 0 %}{{ section.settings.articles_count }}{% else %}{{ blog.articles_count | at_most: section.settings.articles_count }}{% endif %};
+  }
+
+  @media (max-width:640px){
+.k-swiper .article-list{
+display: flex;
+width: 100%;
+}
+
+.k-swiper .posts-header-scroller{
+display: block;
+overflow: hidden;
+}
+.k-swiper .scroller__inner{
+  min-width: auto;
+  position:relative;
+}
+.k-swiper .article-list .article-item,.k-swiper .article-list .article-list__secondary-list{
+width: 100%;
+flex-shrink: 0;
+}
+.k-swiper .article-list .article-item{
+margin-right:30px;
+}
+
+.k-swiper .article-list .article-list__secondary-list{
+display: flex;
+flex-direction: row;
+  margin-top:0;
+}
+.change-blog-box .article-item--featured, .change-blog-box .article-list__secondary-list {
+    flex: auto;
+}
+.change-blog-box .article-item--horizontal{
+  flex: auto;
+}
+.change-blog-box .article-list__secondary-list .article-item__image-container {
+    height: auto;
+}
+}
+</style>
+<section class="posts-section section change-blog-box">
+  <div class="section__color-wrapper">
+    <div class="">
+      <header class="section__header text-container posts-header">
+        <div class="container">
+          <div class="posts-header-box">
+            {%- if section.settings.title != blank -%}
+              <h3 class="heading h2 mobile-title" style="margin:0;"> {{ section.settings.title | escape }}</h3>
+            {%- endif -%}
+            {%- if section.settings.header_txt != blank -%}
+              <div class="heading__txt"> {{ section.settings.header_txt | escape }}</div>
+            {%- endif -%}
+            {% comment %} <button type="button" is="toggle-button" aria-controls="posts-bar-mobile-drawer" aria-expanded="false" class="posts-header-link-box-mobile-box">
+              <div class="posts-header-link-box-mobile">
+                  <span>All</span>
+                  <svg t="1649300472433" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9218" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><defs><style type="text/css">@font-face { font-family: feedback-iconfont; src: url("//at.alicdn.com/t/font_1031158_u69w8yhxdu.woff2?t=1630033759944") format("woff2"), url("//at.alicdn.com/t/font_1031158_u69w8yhxdu.woff?t=1630033759944") format("woff"), url("//at.alicdn.com/t/font_1031158_u69w8yhxdu.ttf?t=1630033759944") format("truetype"); }
+                  </style></defs><path d="M478.31207 644.159081C502.692194 671.061286 542.819471 670.698193 566.819471 643.269621L837.388303 334.048098C845.146852 325.181184 844.248346 311.703582 835.381431 303.94503 826.514517 296.186481 813.036915 297.084988 805.278364 305.951902L534.709532 615.173423C527.507586 623.40422 517.168621 623.497773 509.927514 615.507586L229.141056 305.674253C221.229163 296.943889 207.737949 296.280386 199.007586 304.192277 190.277222 312.104171 189.61372 325.595383 197.525612 334.325747L478.31207 644.159081Z" p-id="9219"></path></svg>
+              </div>
+            </button> {% endcomment %}
+          </div>
+        </div>
+      </header>
+      <div class="container k-swiper">
+        {%- if section.settings.articles_count == 4 and blog == blank or blog.articles_count >= 4 or blog.articles_count == 0 -%}
+          {%- assign use_featured_layout = true -%}
+        {%- else -%}
+          {%- assign use_featured_layout = true -%}
+        {%- endif -%}
+
+        {%- capture section_content -%}
+          {%- if use_featured_layout -%}
+            <div class="scroller posts-header-scroller">
+              <div class="scroller__inner posts-header-scroller-div">
+                <article-list {% if settings.stagger_blog_posts_apparition %}stagger-apparition{% endif %} class="article-list article-list--section article-list--collage">
+                  {%- if blog != blank and blog.articles_count > 0 -%}
+                    {%- render 'article-item', article: blog.articles.first, use_featured_layout: true, is_first: true, heading_size: 'h3' -%}
+
+                    <div class="article-list__secondary-list">
+                      {%- for article in blog.articles offset: 1 limit: 2 -%}
+                        {%- render 'article-item', article: article, use_featured_layout: true, is_first: false, heading_size: 'h5' -%}
+                      {%- endfor -%}
+                    </div>
+                  {%- else -%}
+                    <div {% if settings.stagger_blog_posts_apparition %}reveal{% endif %} class="article-item {% if use_featured_layout %}article-item--featured{% endif %}">
+                      <div class="article-item__image-container">
+                        <div class="placeholder-image" style="padding-bottom: 75%">
+                          {{ 'image' | placeholder_svg_tag }}
+                        </div>
+                      </div>
+
+                      <div class="article-item__content">
+                        {%- if section.settings.show_category -%}
+                          <p class="article-item__category heading heading--xsmall">{{ 'general.onboarding.blog_post_category' | t }}</p>
+                        {%- endif -%}
+
+                        <h3 class="article-item__title heading h3">{{ 'general.onboarding.blog_post_title' | t }}</h3>
+                      </div>
+                    </div>
+
+                    <div class="article-list__secondary-list">
+                      {%- for i in (1..2) -%}
+                        <div {% if settings.stagger_blog_posts_apparition %}reveal{% endif %} class="article-item {% if use_featured_layout %}{% if is_first %}article-item--featured{% else %}article-item--horizontal{% endif %}{% endif %}">
+                          <div class="article-item__image-container">
+                            <div class="placeholder-image" style="padding-bottom: 75%">
+                              {{ 'image' | placeholder_svg_tag }}
+                            </div>
+                          </div>
+
+                          <div class="article-item__content">
+                            {%- if section.settings.show_category -%}
+                              <p class="article-item__category heading heading--xsmall">{{ 'general.onboarding.blog_post_category' | t }}</p>
+                            {%- endif -%}
+
+                            <h3 class="article-item__title heading h6">{{ 'general.onboarding.blog_post_title' | t }}</h3>
+                          </div>
+                        </div>
+                      {%- endfor -%}
+                    </div>
+                  {%- endif -%}
+                </article-list>
+                <div class="article-dot">
+                  <div class="article-dot-item"></div>
+                </div>
+                <div class="controls">
+                  <div class="prev-button">
+                    <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" class="design-iconfont">
+                      <mask id="fo23klz2p__3cpv3dnfha" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="5" y="4" width="31" height="31">
+                        <path transform="matrix(-1 0 0 1 36 4)" fill="#D9D9D9" d="M0 0H31V31H0z"></path>
+                      </mask>
+                      <g mask="url(#fo23klz2p__3cpv3dnfha)">
+                        <path d="M25.458 3.45751L9.37303 19.5425L25.458 35.6274" stroke="#fff" stroke-width="1.5"></path>
+                      </g>
+                      <mask id="fo23klz2p__j8h2lhv24b" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="4" y="3" width="33" height="33">
+                        <path transform="matrix(-1 0 0 1 37 3)" fill="#D9D9D9" d="M0 0H33V33H0z"></path>
+                      </mask>
+                      <g mask="url(#fo23klz2p__j8h2lhv24b)">
+                        <path d="M24.4582 2.45776L7.37352 19.5425L24.4582 36.6272" stroke="#040000" stroke-width="1.5"></path>
+                      </g>
+                    </svg>
+                  </div>
+                  <div class="next-button">
+                    <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" class="design-iconfont">
+                        <mask id="f6v4xaqwh__fqcktyk72a" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="4" y="4" width="31" height="31">
+                          <path fill="#D9D9D9" d="M4 4H35V35H4z"></path>
+                        </mask>
+                        <g mask="url(#f6v4xaqwh__fqcktyk72a)">
+                          <path d="M14.542 3.45751L30.627 19.5425L14.542 35.6274" stroke="#fff" stroke-width="1.5"></path>
+                        </g>
+                        <mask id="f6v4xaqwh__ij7zspkldb" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="3" y="3" width="33" height="33">
+                          <path fill="#D9D9D9" d="M3 3H36V36H3z"></path>
+                        </mask>
+                        <g mask="url(#f6v4xaqwh__ij7zspkldb)">
+                          <path d="M15.5418 2.45776L32.6265 19.5425L15.5418 36.6272" stroke="#040000" stroke-width="1.5"></path>
+                        </g>
+                      </svg>
+                    </div>
+                </div>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endcapture -%}
+
+        {%- if section.settings.stack_mobile -%}
+          {{- section_content -}}
+        {%- else -%}
+          <div class="scroller">
+            <div class="scroller__inner">
+              {{- section_content -}}
+            </div>
+          </div>
+        {%- endif -%}
+        {% comment %} <link-bar class="">
+          <div class="container content-box--text-center">
+            <div class="link-bar__wrapper">
+              <span class="link-bar__title heading heading--small text--subdued" style="display:none">{{ 'blog.general.view' | t }}</span>
+              <div class="hide-scrollbar">
+                <ul class="link-bar__linklist list--unstyled" role="list">
+                  <li class="link-bar__link-item {% if current_tags == blank %}link-bar__link-item--selected{% endif %}">
+                    <a href="{{ blog.url }}" class="link-bar__link link--animated {% if current_tags == blank %}text--underlined{% endif %}">{{ 'blog.general.all_posts' | t }}</a>
+                  </li>
+                  {%- for tag in blog.all_tags -%}
+                    <li class="link-bar__link-item {% if current_tags contains tag %}link-bar__link-item--selected{% endif %}">
+                      {%- capture link_to_tag_replacement -%}class="link-bar__link link--animated {% if current_tags contains tag %}text--underlined{% endif %}" title={%- endcapture -%}
+
+                      {%- if current_tags contains tag -%}
+                        {{ tag | link_to_remove_tag: tag | replace: 'title=', link_to_tag_replacement }}
+                      {%- else -%}
+                        {{- tag | link_to_tag: tag | replace: 'title=', link_to_tag_replacement -}}
+                      {%- endif -%}
+                    </li>
+                  {%- endfor -%}
+
+                </ul>
+              </div>
+            </div>
+          </div>
+        </link-bar> {% endcomment %}
+        <div class="blog__cate__link">
+          <a href="{{ blog.url }}" class="blog__cate__link">{{ 'blog.general.all_posts' | t }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <drawer-content id="posts-bar-mobile-drawer" class="posts-bar-mobile-drawer">
+      <div id="posts-bar-mobile-box" class="posts-bar-mobile-box">
+        <ul>
+          <li class="link-bar__link-item {% if current_tags == blank %}link-bar__link-item--selected{% endif %}">
+            <a href="{{ blog.url }}" class="link-bar__link link--animated {% if current_tags == blank %}text--underlined{% endif %}">{{ 'blog.general.all_posts' | t }}</a>
+          </li>
+          {%- for tag in blog.all_tags -%}
+            <li class="link-bar__link-item {% if current_tags contains tag %}link-bar__link-item--selected{% endif %}">
+              {%- capture link_to_tag_replacement -%}class="link-bar__link link--animated {% if current_tags contains tag %}text--underlined{% endif %}" title={%- endcapture -%}
+
+              {%- if current_tags contains tag -%} 
+                {{ tag | link_to_remove_tag: tag | replace: 'title=', link_to_tag_replacement }}
+              {%- else -%}
+                {{- tag | link_to_tag: tag | replace: 'title=', link_to_tag_replacement -}}
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+  </drawer-content>
+  <script type="text/javascript">
+  (function(){
+    document.getElementById("posts-bar-mobile-box").addEventListener("click", e => e.stopPropagation()); // 阻止冒泡
+    document.getElementById("posts-bar-mobile-drawer").addEventListener("click", (e) => {
+        document.getElementById('posts-bar-mobile-drawer').open = false;
+    });
+    let documentWidth = document.documentElement.clientWidth || document.body.clientWidth;
+    if(documentWidth < 639 ) {
+      const slider = document.querySelector('.scroller__inner');
+      const sliderContainer = document.querySelector('.article-list');
+      const slides = document.querySelectorAll('.article-list .article-item');
+      const sliderPrev = document.querySelector('.prev-button');
+      const sliderNext = document.querySelector('.next-button');
+      // const dots = document.querySelectorAll('.article-dot .article-dot-item');
+      const dott = document.querySelector('.article-dot .article-dot-item');
+      const imageCount = slides.length;
+      const slidesWidth = slides[0].offsetWidth;
+      let currentIndex = 0;
+      let intervalId;
+      
+      let startX = 0;
+      let startY = 0;
+      let endX = 0;
+      let currentSlide = 0;
+      // 绑定事件
+      slider.addEventListener('touchstart', startDrag)
+      document.addEventListener('touchmove',drag, { passive: false });
+      document.addEventListener('touchend', endDrag);
+
+      dott.style.width = ( slidesWidth * ((currentIndex+1) / imageCount)) + 'px';
+      dott.style.left = 0;
+      // Move the slider to the current index
+      function moveSlider() {
+        sliderContainer.style.transform = `translateX(-${currentIndex * slidesWidth + currentIndex*30}px)`;
+        dott.style.left = ( slidesWidth * ((currentIndex) / imageCount)) + 'px';
+      }
+      // Move to the next image
+      function moveToNext() {
+        currentIndex++;
+        if (currentIndex >= imageCount) {
+          currentIndex = 0;
+        }
+        moveSlider();
+      }
+      // Move to the previous image
+      function moveToPrev() {
+        currentIndex--;
+        if (currentIndex < 0) {
+          currentIndex = imageCount - 1;
+        }
+        moveSlider();
+      }
+      // Automatically move to the next image every 5 seconds
+      function startAutoPlay() {
+        intervalId = setInterval(moveToNext, 3000);
+      }
+
+      // Stop automatic playing
+      function stopAutoPlay() {
+        clearInterval(intervalId);
+      }
+
+      // Attach event listeners to the prev and next buttons
+      sliderPrev.addEventListener('click', () => {
+        stopAutoPlay();
+        moveToPrev();
+      });
+
+      sliderNext.addEventListener('click', () => {
+        stopAutoPlay();
+        moveToNext();
+      });
+
+      function startDrag(event) {
+        stopAutoPlay()
+        startX = event.clientX || event.touches[0].clientX;
+        startY = event.clientX || event.touches[0].clientY;
+      }
+
+      function drag(e) {
+        const moveX = event.touches[0].clientX;
+        const moveY = event.touches[0].clientY;
+        const diffX = moveX - startX;
+        const diffY = moveY - startY;
+        if (startX === null) {
+          return;
+        }
+        // 如果水平移动距离大于垂直移动距离，则阻止默认滚动行为
+        if (Math.abs(diffX) > Math.abs(diffY)) {
+          e.preventDefault();
+        }
+        let x = e.clientX || e.touches[0].clientX;
+        let delta = startX - x;
+        sliderContainer.style.transform = 'translateX(' + (-currentIndex * slidesWidth - delta) + 'px)';
+      }
+
+      function endDrag(e) {
+        endX = e.clientX || e.changedTouches[0].clientX;
+        let delta = startX - endX;
+        // 判断滑动距离，决定是否滑动到下一个轮播项
+        if(delta > slidesWidth / 3 && currentIndex < imageCount - 1) {
+          currentIndex++
+        } else if (delta < -slidesWidth / 3 && currentIndex > 0) {
+          currentIndex--
+        } 
+        // 滑动到下一个轮播项
+        moveSlider();
+        // 重置开始和结束位置
+        startX = null;
+        endX = null;
+      }
+      // Start automatic playing when the page is loaded
+      startAutoPlay();
+      }
+    })()
+  </script>
+</section>
+
+{% schema %}
+{
+  "name": "Blog posts",
+  "class": "shopify-section--blog-posts",
+  "settings": [
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Stay up-to-date"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Blog posts"
+    },
+    {
+      "type": "text",
+      "id": "header_txt",
+      "label": "Heading Txt",
+      "default": "Blog posts"
+    },
+    {
+      "type": "range",
+      "id": "articles_count",
+      "label": "Blog posts to show",
+      "info": "Layout automatically adapts based on the number of blog posts.",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "checkbox",
+      "id": "stack_mobile",
+      "label": "Stack on mobile",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_category",
+      "label": "Show category",
+      "info": "The first article's tag will be shown as category.",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_time",
+      "label": "Show Date",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_excerpt",
+      "label": "Show excerpt",
+      "info": "Change excerpts by editing your blog posts. [Learn more](https://help.shopify.com/en/manual/online-store/blogs/writing-blogs#display-an-excerpt-from-a-blog-post)",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog posts",
+      "settings": {
+        "blog": "news"
+      }
+    }
+  ]
+}
+{% endschema %}
