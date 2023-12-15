@@ -8,8 +8,10 @@
   {% assign my_array = se_stts.videoid | split: '?v=' %}
   <div class="box-video">
     <div class="title">{{ se_stts.title }}</div>
-    <div class="info">{{ se_stts.info }}</div>
-    {% if video.videoid and my_array.last != '' %}
+    <div class="info">
+      {{ se_stts.info -}}
+    </div>
+    {% if se_stts.videoid %}
       <iframe
         width="100%"
         src="https://www.youtube.com/embed/{{ my_array.last}}"
@@ -35,7 +37,6 @@
     font-family: Noto Sans JP;
     font-size: 40px;
     font-weight: 500;
-    {% comment %} letter-spacing: 6px; {% endcomment %}
     text-transform: uppercase;
   }
   .video-block_{{se_id}} .info {
@@ -46,6 +47,9 @@
     font-weight: 500;
     line-height: 36px;
     margin-bottom: 50px;
+  }
+  .video-block_{{se_id}} iframe {
+    height: {{ se_stts.videoHeight }}px;
   }
   @media screen and (max-width: 720px) {
     .video-block_{{se_id}} {
@@ -59,6 +63,9 @@
       font-size: 22px;
       margin-bottom: 20px;
       line-height: 26px;
+    }
+    .video-block_{{se_id}} iframe {
+      height: {{ se_stts.mVideoHeight }}px;
     }
   }
 </style>
