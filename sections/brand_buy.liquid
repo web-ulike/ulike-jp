@@ -6,33 +6,37 @@
 
 <div class=" brand_buy_{{se_id}}">
   <div class="container">
-  <div class="title">{{ se_stts.title }}</div>
-  <div class="box-store">
-    <div class="name">EC店舗</div>
-    <div class="image-list">
-      <a class="item" target="_blank" href="https://www.amazon.co.jp/stores/page/B7A5B586-697F-465C-91D0-7472D34EC918?channel=brandambassadord" >
-        <img src="https://cdn.shopify.com/s/files/1/0553/7392/2352/files/Amazon-logo-RGB_1.jpg?v=1702281797"/>
-      </a>
-      <a class="item" target="_blank" href="https://www.rakuten.ne.jp/gold/ulike-store/" >
-        <img src="https://cdn.shopify.com/s/files/1/0553/7392/2352/files/Rakuten_3x_1.jpg?v=1702281797"/>
-      </a>
+    <div class="title">{{ se_stts.title }}</div>
+    <div class="box-store">
+      <div class="name">EC店舗{{ se_stts.one_info }}</div>
+      <div class="image-list">
+        <a
+          class="item"
+          target="_blank"
+          href="https://www.amazon.co.jp/stores/page/B7A5B586-697F-465C-91D0-7472D34EC918?channel=brandambassadord"
+        >
+          <img src="https://cdn.shopify.com/s/files/1/0553/7392/2352/files/Amazon-logo-RGB_1.jpg?v=1702281797">
+        </a>
+        <a class="item" target="_blank" href="https://www.rakuten.ne.jp/gold/ulike-store/">
+          <img src="https://cdn.shopify.com/s/files/1/0553/7392/2352/files/Rakuten_3x_1.jpg?v=1702281797">
+        </a>
+      </div>
     </div>
-  </div>
-  <div class="box-store">
-    <div class="name two-name">取扱店舗</div>
-    <div class="image-list four-item">
-      {%- for block in se_bks -%}
-        {%- assign item = block.settings -%}
-        {% if block.type == 'item' %}
-            <a class="item" href="{{ item.url }}" target="_blank" >
+    <div class="box-store">
+      <div class="name two-name">取扱店舗{{ se_stts.two_info }}</div>
+      <div class="image-list four-item">
+        {%- for block in se_bks -%}
+          {%- assign item = block.settings -%}
+          {% if block.type == 'item' %}
+            <a class="item" href="{{ item.url }}" target="_blank">
               {{ item.image | image_url: width: item.image.width | image_tag: loading: 'lazy' -}}
             </a>
-        {% endif %}
-      {% endfor %}
+          {% endif %}
+        {% endfor %}
+      </div>
     </div>
+    <p class="tips">※一部店舗ではお取り扱いのない場合がございます</p>
   </div>
-  <p class="tips">※一部店舗ではお取り扱いのない場合がございます</p>
-</div>
 </div>
 <style>
   .brand_buy_{{se_id}} {
@@ -133,7 +137,7 @@
       grid-template-columns: repeat(4, 20%);
     }
     .brand_buy_{{se_id}} .box-store .four-item img{
-      width: 100%; 
+      width: 100%;
     }
     .brand_buy_{{se_id}}  .tips {
       font-size: 12px;
@@ -160,31 +164,33 @@
     },
     {
       "type": "textarea",
-      "id": "info",
-      "label": "描述"
+      "id": "one_info",
+      "label": "副标题1"
     },
     {
-      "type": "color",
-      "id": "b_color",
-      "label": "背景颜色"
+      "type": "textarea",
+      "id": "two_info",
+      "label": "副标题2"
     }
   ],
-  "blocks": [{
-    "type": "item",
-    "name": "item",
-    "settings": [
-      {
-        "type": "image_picker",
-        "id": "image",
-        "label": "图片"
-      },
-      {
-        "type": "text",
-        "id": "url",
-        "label": "链接"
-      }
-    ]
-  }],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "图片"
+        },
+        {
+          "type": "text",
+          "id": "url",
+          "label": "链接"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
       "name": "brand-Buy Block",
