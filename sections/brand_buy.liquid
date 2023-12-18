@@ -8,7 +8,7 @@
   <div class="container">
     <div class="title">{{ se_stts.title }}</div>
     <div class="box-store">
-      <div class="name">EC店舗{{ se_stts.one_info }}</div>
+      <div class="name">{{ se_stts.one_info }}</div>
       <div class="image-list">
         <a
           class="item"
@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="box-store">
-      <div class="name two-name">取扱店舗{{ se_stts.two_info }}</div>
+      <div class="name two-name">{{ se_stts.two_info }}</div>
       <div class="image-list four-item">
         {%- for block in se_bks -%}
           {%- assign item = block.settings -%}
