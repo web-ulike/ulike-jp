@@ -19,13 +19,13 @@
     {{-
       Banner.image
       | image_url: width: Banner.image.width
-      | image_tag: loading: 'lazy', draggable: false, class: 'p-show'
+      | image_tag: loading: 'lazy', draggable: false, class: 'p-show', alt: Banner.txt_alt
     -}}
     {%- if Banner.mobile_image != '' -%}
       {{-
         Banner.mobile_image
         | image_url: width: Banner.mobile_image.width
-        | image_tag: loading: 'lazy', draggable: false, class: 'p-hide'
+        | image_tag: loading: 'lazy', draggable: false, class: 'p-hide', alt: Banner.txt_alt
       -}}
     {%- endif -%}
   {%- endif -%}
