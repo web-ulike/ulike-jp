@@ -15,7 +15,7 @@ if((temp_name_orig != 'product' && temp_names && temp_names.indexOf(temp_name_or
 	{% assign shopurlnew = shopurl | append: product.handle%}
 
 	var url2 = '{{ shopurlnew  }}';
-	var url = window.location.href;
+	var prec_url = window.location.href;
 	var proId = '{{product.id}}';
 	var proTitle = '{{product.title  |escape}}';
 	var proPrice ='{{product.price  | money_without_currency}}';
@@ -69,7 +69,7 @@ if((temp_name_orig != 'product' && temp_names && temp_names.indexOf(temp_name_or
 	</script>
 	{% if template == 'product' %}
 	<!---------------------------Product Pixel Start---------------------------------- --> 
-	<script src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
+	<script src='https://apppartner.preciso.net/assets/js/jquery.min.js'></script>
 	<script type='text/javascript'>
 	function stripHtml(htmlString)
 	{
@@ -79,7 +79,7 @@ if((temp_name_orig != 'product' && temp_names && temp_names.indexOf(temp_name_or
 	{% assign shopurlnew = shopurl | append: product.handle%}
 
 	var url2 = '{{ shopurlnew  }}';
-	var url = window.location.href; 
+	var prec_url = window.location.href; 
 	var proId = '{{product.id}}';
 	var proTitle = '{{product.title  |escape}}';
 	var proPrice ='{{product.price  | money_without_currency}}';
@@ -134,18 +134,18 @@ if((temp_name_orig != 'product' && temp_names && temp_names.indexOf(temp_name_or
 		{% endif %}
 		{% if template.name == 'collection' %}
 		<!---------------------------Category Pixel Start---------------------------------- --> 
-		<script src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
+		<script src='https://apppartner.preciso.net/assets/js/jquery.min.js'></script>
 		<script type='text/javascript'>
 
-		var url = window.location.href;
-		var res = url.split('/');
+		var prec_url = window.location.href;
+		var url_res = prec_url.split('/');
 
 		var newdata = '{% for product in collections[collection.handle].products %}{% assign newvar =  product.id %}{% if forloop.last == true %}{{ newvar }}{% else %}{{ newvar | append: '|'}}{% endif %}{% endfor %}';
 		var newdataescape = escape(newdata);
 		rtgsettings ={
 
-			'pdt_url': url,
-			'pdt_category_list': res[4],
+			'pdt_url': prec_url,
+			'pdt_category_list': url_res[4],
 			'pdt_id': newdata,
 			'pagetype': 'category',
 			'key': 'SPY',
@@ -164,9 +164,9 @@ if((temp_name_orig != 'product' && temp_names && temp_names.indexOf(temp_name_or
 
 			{% if template == 'cart' %}
 			<!---------------------------Basket Pixel Start------------------------------------> 
-			<script src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
+			<script src='https://apppartner.preciso.net/assets/js/jquery.min.js'></script>
 			<script type='text/javascript'>
-			var url = window.location.href; 
+			var prec_url = window.location.href; 
 
 			var cartitems = '{% for item in cart.items %}{% assign newvar =  item.product_id %}{% if forloop.last == true %}{{ newvar }}{% else %}{{ newvar | append: '|'}}{% endif %}{% endfor %}';
 			var cartcolltitle ='{% for item in cart.items %}{% for collection in item.product.collections %} {% assign newvar =   escape(collection.title|escape) %}{% if forloop.last == true %}{{ newvar }}{% else %}{{ newvar | append: '|'}}{% endif %}{% endfor %}{% endfor %}';
@@ -178,7 +178,7 @@ if((temp_name_orig != 'product' && temp_names && temp_names.indexOf(temp_name_or
 				'pdt_id': cartitems,
 				'pdt_sku':cartsku,
 				'pdt_category_list': cartcolltitle,
-				'pdt_url': url,
+				'pdt_url': prec_url,
 				'ty_orderamt':'$',
 				'ty_orderdate':'$',
 				'ty_orderstatus':'$',
@@ -199,11 +199,11 @@ if((temp_name_orig != 'product' && temp_names && temp_names.indexOf(temp_name_or
 
 				{% if template.name == 'index' %}
 				<!---------------------------Home Pixel Start---------------------------------- --> 
-				<script src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
+				<script src='https://apppartner.preciso.net/assets/js/jquery.min.js'></script>
 				<script type='text/javascript'>
 
-				var url = window.location.href; 
-				var ecacpeurl = escape(url);
+				var prec_url = window.location.href; 
+				var ecacpeurl = escape(prec_url);
 
 				rtgsettings ={
 

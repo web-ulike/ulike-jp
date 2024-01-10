@@ -100,8 +100,20 @@
       "announcement-bar": {
         "type": "announcement-bar",
         "blocks": {
+          "bae9f609-6405-4e48-99d0-3b9b479091ce": {
+            "type": "message",
+            "settings": {
+              "text": "新年期間限定SALE - 15％OFF | 1月16日まで",
+              "learn_more_text": "今すぐチェック",
+              "title": "",
+              "content": "",
+              "button_text": "今すぐチェック",
+              "button_link": "shopify:\/\/products\/air3"
+            }
+          },
           "message-1": {
             "type": "message",
+            "disabled": true,
             "settings": {
               "text": "２年間メーカー保証・送料無料（公式オンライン販売限定）",
               "learn_more_text": "Learn more",
@@ -137,6 +149,7 @@
           }
         },
         "block_order": [
+          "bae9f609-6405-4e48-99d0-3b9b479091ce",
           "message-1",
           "6d4b6969-4035-4b27-98d8-6ac83e9aba6d",
           "62c7670a-c43f-49f8-9154-5bb2eb97911e"
@@ -177,7 +190,7 @@
             "type": "text",
             "settings": {
               "title": "お問合わせ",
-              "content": "<p>050-5479-9151 <\/p><p>受付時間：10:00 -17:00（土日・祝日・年末年始を除く）<\/p><p>jpsupport@ulikeglobal.com<\/p>"
+              "content": "<p>jpsupport@ulikeglobal.com<\/p><p>〒107-0061 東京都港区北青山 2-14-4 the ARGYLE aoyama 6F<\/p><p>050-5479-9151 <\/p><p>受付時間：10:00 -17:00（土日・祝日・年末年始を除く）<\/p>"
             }
           },
           "social_media": {
@@ -345,6 +358,18 @@
         "type": "shopify:\/\/apps\/omega-multi-facebook-pixels\/blocks\/app-embed-block\/ecdcc423-3dbd-480c-85e8-fdb9789cf058",
         "disabled": false,
         "settings": {
+        }
+      },
+      "15683396631634586217": {
+        "type": "shopify:\/\/apps\/inbox\/blocks\/chat\/841fc607-4181-4ad1-842d-e24d7f8bad6b",
+        "disabled": true,
+        "settings": {
+          "button_color": "#e7004c",
+          "button_icon": "chat_bubble",
+          "button_text": "no_text",
+          "button_horizontal_position": "bottom_right",
+          "button_vertical_position": "lowest",
+          "greeting_message": "👋こんにちは、ご質問等ございましたら、メッセージを送信してください。私たちが喜んでサポートいたします。"
         }
       }
     }

@@ -47,7 +47,7 @@
     color: #000;
     text-align: center;
     font-family: Noto Sans JP;
-    font-size: 75px;
+    font-size: 36px;
     font-weight: 500;
   }
   .brand_buy_{{se_id}} .box-store {
@@ -58,9 +58,9 @@
     color: #000;
     text-align: center;
     font-family: Noto Sans JP;
-    font-size: 50px;
+    font-size: 28px;
     font-weight: 500;
-    letter-spacing: 12.5px;
+    {% comment %} letter-spacing: 12.5px; {% endcomment %}
     position: relative;
     text-align: center;
     overflow: hidden;
@@ -81,6 +81,10 @@
   }
   .brand_buy_{{se_id}} .box-store .name::after{
       margin-left: 20px;
+  }
+
+  .brand_buy_{{se_id}} .box-store .two-name {
+    letter-spacing: 10px;
   }
 
   .brand_buy_{{se_id}} .box-store .image-list {
@@ -121,10 +125,10 @@
     }
     .brand_buy_{{se_id}} .box-store .name{
       font-size: 18px;
-      letter-spacing: 6px;
+      letter-spacing: 0px;
     }
     .brand_buy_{{se_id}} .box-store .two-name {
-      letter-spacing: 3px;
+      letter-spacing: 10px;
     }
     .brand_buy_{{se_id}} .box-store .image-list {
       padding: 20px 20px 0px;
