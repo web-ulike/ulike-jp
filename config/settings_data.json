@@ -241,15 +241,6 @@
               "content": "<p>グローバルへの無料配送と90日返品 - 関税および税金込み<\/p>"
             }
           },
-          "static-text-with-icons-1": {
-            "type": "item",
-            "settings": {
-              "icon": "picto-phone",
-              "custom_icon_width": 50,
-              "title": "お問い合わせ",
-              "content": "<p>月曜日から金曜日まで<\/p>"
-            }
-          },
           "static-text-with-icons-2": {
             "type": "item",
             "settings": {
@@ -259,20 +250,30 @@
               "content": "<p>お客様の支払い情報は安全に処理されています。<\/p>"
             }
           },
+          "static-text-with-icons-1": {
+            "type": "item",
+            "disabled": true,
+            "settings": {
+              "icon": "picto-phone",
+              "custom_icon_width": 50,
+              "title": "お問い合わせ",
+              "content": "<p>月曜日から金曜日まで<\/p>"
+            }
+          },
           "static-text-with-icons-3": {
             "type": "item",
             "settings": {
               "icon": "picto-email",
               "custom_icon_width": 50,
-              "title": "お問合わせ",
+              "title": "お問い合わせ",
               "content": "<p>メール：jpsupport@ulikeglobal.com<\/p><p>電話：050-5479-9151<\/p><p>受付時間：10:00 -17:00（土日・祝日・年末年始を除く）<\/p>"
             }
           }
         },
         "block_order": [
           "static-text-with-icons-0",
-          "static-text-with-icons-1",
           "static-text-with-icons-2",
+          "static-text-with-icons-1",
           "static-text-with-icons-3"
         ],
         "settings": {
