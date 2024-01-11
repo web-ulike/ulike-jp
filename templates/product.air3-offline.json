@@ -3,6 +3,16 @@
     "main": {
       "type": "main-product",
       "blocks": {
+        "bf3b03ac-7829-4c71-966e-37fd71fe5809": {
+          "type": "button",
+          "settings": {
+            "link": "shopify:\/\/pages\/where-to-pruchase",
+            "text": "詳しくは、各販売店のページでご確認ください  >>",
+            "stretch": false,
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)"
+          }
+        },
         "fdd7de7a-a951-4301-9d72-b4980f4bf66f": {
           "type": "description",
           "settings": {
@@ -41,26 +51,15 @@
           "settings": {
             "liquid": "{% render \"product-assure\" %}"
           }
-        },
-        "bf3b03ac-7829-4c71-966e-37fd71fe5809": {
-          "type": "button",
-          "disabled": true,
-          "settings": {
-            "link": "shopify:\/\/pages\/where-to-pruchase",
-            "text": "今すぐ購入",
-            "stretch": false,
-            "background": "rgba(0,0,0,0)",
-            "text_color": "rgba(0,0,0,0)"
-          }
         }
       },
       "block_order": [
+        "bf3b03ac-7829-4c71-966e-37fd71fe5809",
         "fdd7de7a-a951-4301-9d72-b4980f4bf66f",
         "variant_picker",
         "27e1d052-59da-4188-9697-908ef6e4bd86",
         "buy_buttons",
-        "ca4ddb60-e89c-4b9a-a11b-cae201c4074b",
-        "bf3b03ac-7829-4c71-966e-37fd71fe5809"
+        "ca4ddb60-e89c-4b9a-a11b-cae201c4074b"
       ],
       "settings": {
         "show_vendor": false,
@@ -252,7 +251,7 @@
         "template--15065189351472__18d98795-c584-4467-a1bf-8a4db30aabd8-1684142115ec7649ad-0": {
           "type": "image",
           "settings": {
-            "image": "shopify:\/\/shop_images\/Group_4093_f9dd9e68-f771-44cc-a62c-91044eb8f3f0.jpg",
+            "image": "shopify:\/\/shop_images\/f22259756039b2bc055c259f64d4cc9c.jpg",
             "mobile_image": "shopify:\/\/shop_images\/Group_4488.jpg",
             "text_position": "middle_center",
             "mobile_text_position": "middle_center",
