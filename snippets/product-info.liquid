@@ -49,7 +49,6 @@
             {%- endif -%}
           </span>
         {%- else -%}
-          <span style="margin-right: 10px;">税込</span>
           <span class="price price--large">
             <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
             {%- if settings.currency_code_enabled -%}
@@ -58,6 +57,7 @@
               {{- product.selected_or_first_available_variant.price | money -}}
             {%- endif -%}
           </span>
+          <span style="margin-right: 10px;">税込</span>
         {%- endif -%}
 
         {%- if product.selected_or_first_available_variant.unit_price_measurement -%}
