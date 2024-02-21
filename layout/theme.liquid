@@ -15,7 +15,7 @@
     {%- assign direction = 'rtl' -%}
 {%- endcase -%}
 <html class="no-js" lang="{{ request.locale.iso_code }}" dir="{{ direction }}">
-  <head>{% render 'pagefly-head' %}
+  <head>
 
     <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -105,7 +105,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <script>(() => {const installerKey = 'docapp-discount-auto-install'; const urlParams = new URLSearchParams(window.location.search); if (urlParams.get(installerKey)) {window.sessionStorage.setItem(installerKey, JSON.stringify({integrationId: urlParams.get('docapp-integration-id'), divClass: urlParams.get('docapp-install-class'), check: urlParams.get('docapp-check')}));}})();</script>
 
 <script>(() => {const previewKey = 'docapp-discount-test'; const urlParams = new URLSearchParams(window.location.search); if (urlParams.get(previewKey)) {window.sessionStorage.setItem(previewKey, JSON.stringify({active: true, integrationId: urlParams.get('docapp-discount-inst-test')}));}})();</script>
-</head>
+
+{% include 'pagefly-app-header' %}</head>
 
   {%- assign feature_classes = '' -%}
 
@@ -204,7 +205,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           </button>
         </div>
       {%- endif -%}
-      {{ content_for_layout }}
+      
+  {% capture pagefly_content_for_layout %}
+    {{ content_for_layout }}
+  {% endcapture %}
+  {% render 'pagefly-render-section', pagefly_content_for_layout: pagefly_content_for_layout %}
+  
 
       {%- unless request.page_type == 'index' or request.page_type == 'password' or request.page_type == 'gift_card' -%}
         {%- section 'static-text-with-icons' -%}
