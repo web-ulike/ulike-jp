@@ -110,6 +110,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <script>(() => {const previewKey = 'docapp-discount-test'; const urlParams = new URLSearchParams(window.location.search); if (urlParams.get(previewKey)) {window.sessionStorage.setItem(previewKey, JSON.stringify({active: true, integrationId: urlParams.get('docapp-discount-inst-test')}));}})();</script>
 
+
 {% include 'pagefly-app-header' %}</head>
 
   {%- assign feature_classes = '' -%}
@@ -119,9 +120,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   {%- endif -%}
 
   <body class="no-focus-outline {{ feature_classes }}" data-instant-allow-query-string><div class="pagefly-container">
-            {% capture pagefly_content_for_layout %}
               {{ content_for_layout }}
-            {% endcapture %}
-            {% render 'pagefly-render-section', pagefly_content_for_layout: pagefly_content_for_layout %}
             </div></body>
 </html>
