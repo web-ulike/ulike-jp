@@ -1,6 +1,8 @@
 
 {% if section.settings.section_id.size > 0 %}
   <!-- PageFlyGlobalSection -->
+  {% render 'pagefly-main-js' %}
+  {% render 'pagefly-main-css' %}
   {% include section.settings.section_id %}
 {% else %}
   
@@ -17,11 +19,6 @@
 {% schema %}
 {
   "name": "PageFly Section",
-  "disabled_on": {
-    "groups": [
-      "*"
-    ]
-  },
   "settings": [
     {
       "id": "section_id",
