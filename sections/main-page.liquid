@@ -1,67 +1,166 @@
-<section>
-  <div class="container">
-    <div class="page-header">
-      {% comment %} <nav aria-label="{{ 'general.breadcrumb.title' | t }}" class="breadcrumb breadcrumb--floating text--xsmall hidden-phone">
-        <ol class="breadcrumb__list" role="list">
-          <li class="breadcrumb__item">
-            <a class="breadcrumb__link" href="{{ routes.root_url }}">{{ 'general.breadcrumb.home' | t }}</a>
-          </li>
+<style>
+  #shopify-section-{{ section.id }} {
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+</style>
 
-          <li class="breadcrumb__item">
-            <span class="breadcrumb__link" aria-current="page">{{ page.title }}</span>
-          </li>
-        </ol>
-      </nav> {% endcomment %}
-
-      <div class="page-header__text-wrapper text-container">
-        {%- if section.settings.show_title -%}
-          <h1 class="heading h2">{{ page.title }}</h1>
-        {%- endif -%}
-
-        {%- if template.suffix contains 'contact' or template.suffix contains 'faq' -%}
-          {{- page.content -}}
-        {%- endif -%}
-      </div>
+<div class="section section--padding{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded relative{% endif %}">
+  <div class="page-width{% if section.settings.narrow %} page-width--narrow{% endif %} relative">
+    <div class="title-wrapper leading-none">
+      <{{ section.settings.heading_tag }} class="heading font-bold {{ section.settings.heading_size }}">
+        <split-words class="split-words flex flex-wrap" data-animate="fade-up-large">{{ page.title }}</split-words>
+      </{{ section.settings.heading_tag }}>
     </div>
 
-    {%- unless template.suffix contains 'contact' or template.suffix contains 'faq' -%}
-      <div class="page-content page-content--{{ section.settings.page_width }} rte">
-        {{- page.content -}}
-      </div>
-    {%- endunless -%}
+    <div class="page rte {{ section.settings.text_size }}">
+      {{- page.content -}}
+    </div>
   </div>
-</section>
+</div>
 
 {% schema %}
 {
-  "name": "Page",
-  "class": "shopify-section--main-page",
+  "name": "t:sections.main-page.name",
   "settings": [
     {
-      "type": "checkbox",
-      "id": "show_title",
-      "label": "Show page title",
-      "default": true
+      "type": "header",
+      "content": "t:sections.global.settings.header__heading.content"
     },
     {
       "type": "select",
-      "id": "page_width",
-      "label": "Page width",
+      "id": "heading_size",
       "options": [
         {
-          "value": "small",
-          "label": "Small"
+          "value": "title-sm",
+          "label": "t:sections.global.settings.heading_size.options__1.label"
         },
         {
-          "value": "medium",
-          "label": "Medium"
+          "value": "title-md",
+          "label": "t:sections.global.settings.heading_size.options__2.label"
         },
         {
-          "value": "large",
-          "label": "Large"
+          "value": "title-lg tracking-heading",
+          "label": "t:sections.global.settings.heading_size.options__3.label"
+        },
+        {
+          "value": "title-xl tracking-heading",
+          "label": "t:sections.global.settings.heading_size.options__4.label"
         }
       ],
-      "default": "medium"
+      "default": "title-xl tracking-heading",
+      "label": "t:sections.global.settings.heading_size.label"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "options": [
+        {
+          "value": "h1",
+          "label": "t:sections.global.settings.heading_tag.options__1.label"
+        },
+        {
+          "value": "h2",
+          "label": "t:sections.global.settings.heading_tag.options__2.label"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.global.settings.heading_tag.options__3.label"
+        },
+        {
+          "value": "h4",
+          "label": "t:sections.global.settings.heading_tag.options__4.label"
+        },
+        {
+          "value": "h5",
+          "label": "t:sections.global.settings.heading_tag.options__5.label"
+        },
+        {
+          "value": "h6",
+          "label": "t:sections.global.settings.heading_tag.options__6.label"
+        },
+        {
+          "value": "div",
+          "label": "t:sections.global.settings.heading_tag.options__7.label"
+        },
+        {
+          "value": "span",
+          "label": "t:sections.global.settings.heading_tag.options__8.label"
+        },
+        {
+          "value": "p",
+          "label": "t:sections.global.settings.heading_tag.options__9.label"
+        }
+      ],
+      "default": "h1",
+      "label": "t:sections.global.settings.heading_tag.label",
+      "info": "t:sections.global.settings.heading_tag.info"
+    },
+    {
+      "type": "select",
+      "id": "text_size",
+      "options": [
+        {
+          "value": "text-sm",
+          "label": "t:sections.global.settings.text_size.options__1.label"
+        },
+        {
+          "value": "text-base",
+          "label": "t:sections.global.settings.text_size.options__2.label"
+        },
+        {
+          "value": "text-lg md:text-2xl",
+          "label": "t:sections.global.settings.text_size.options__3.label"
+        },
+        {
+          "value": "subtext-xl",
+          "label": "t:sections.global.settings.text_size.options__4.label"
+        }
+      ],
+      "default": "text-base",
+      "label": "t:sections.global.settings.text_size.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.global.settings.header__section.content"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_top.label",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_bottom.label",
+      "default": 100
+    },
+    {
+      "type": "checkbox",
+      "id": "divider",
+      "label": "t:sections.global.settings.divider.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "narrow",
+      "label": "t:sections.global.settings.narrow.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "rounded",
+      "default": false,
+      "label": "t:sections.global.settings.rounded.label"
     }
   ]
 }

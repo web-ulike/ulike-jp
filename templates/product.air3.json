@@ -1,887 +1,522 @@
 {
   "sections": {
-    "main": {
+    "main-product": {
       "type": "main-product",
       "blocks": {
-        "text_Y4GjiK": {
+        "vendor": {
           "type": "text",
+          "disabled": true,
           "settings": {
-            "text": "<p><\/p><p>3月31日まで限定セール: <strong>コード「SP25」で25％OFFで購入！<\/strong><\/p><p><\/p>"
+            "text": "{{ product.vendor }}",
+            "text_size": "text-base"
           }
         },
-        "fdd7de7a-a951-4301-9d72-b4980f4bf66f": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "title_size": "product-title-sm",
+            "title_size_mobile": "product-title-md",
+            "show_price": true,
+            "show_rating": false
+          }
+        },
+        "description": {
           "type": "description",
           "settings": {
+            "text_size": "text-sm"
+          }
+        },
+        "countdown": {
+          "type": "countdown",
+          "settings": {
+            "heading": "Hurry up!",
+            "subheading": "Sale end in:",
+            "color_text": "#e11d48",
+            "color_background": "#fff1f2",
+            "gradient_background": ""
           }
         },
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
-            "hide_sold_out_variants": false,
-            "selector_mode": "block",
-            "color_mode": "variant_image",
-            "size_chart_page": ""
+            "show_variant_labels": true,
+            "picker_type": "button",
+            "enable_color_swatches": true,
+            "color_swatch_type": "variant",
+            "size_chart": ""
           }
         },
-        "27e1d052-59da-4188-9697-908ef6e4bd86": {
-          "type": "quantity_selector",
+        "inventory": {
+          "type": "inventory",
+          "disabled": true,
           "settings": {
+            "inventory_threshold": 15,
+            "show_inventory_transfer": true,
+            "color_scheme": "accent-1"
+          }
+        },
+        "liquid_t7kfmR": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "{%  render 'couponcode' %}"
           }
         },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
-            "show_payment_button": true,
-            "atc_button_background": "#040000",
-            "atc_button_text_color": "#ffffff",
-            "buy_now_button_background": "#ffffff",
-            "buy_now_button_text_color": "#040000"
+            "show_quantity_selector": true,
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": false
           }
         },
-        "ca4ddb60-e89c-4b9a-a11b-cae201c4074b": {
-          "type": "liquid",
+        "collapsible_tab_y7mde9": {
+          "type": "collapsible_tab",
           "settings": {
-            "liquid": "{% render \"product-assure\" %}"
+            "icon": "truck",
+            "heading": "全国送料無料：通常1-3日以内の配達。",
+            "content": "<p>発送後のお届け先の変更、配送方法の変更はできません。<\/p>",
+            "page": "",
+            "liquid": ""
           }
+        },
+        "collapsible_tab_b3E8r7": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "return",
+            "heading": "90日返金・返品保証",
+            "content": "<p>返品・交換をご希望の場合は、jpsupport@ulikeglobal.comまでお客様のお名前、注文番号、返品商品の写真をご連絡ください。<\/p>",
+            "page": "",
+            "liquid": ""
+          }
+        },
+        "custom_text_hErVPr": {
+          "type": "custom_text",
+          "settings": {
+            "text": "*1. 当社調べ。トリートメントスケジュールに従った場合。効果には個人差があります。*2. 本製品は家庭用光美容器です。医療機器ではありません。 痛みの感じ方には個人差があります。*3. 当社調べ。一般的に全身のお手入れに必要な照射回数を基づき算出。お手入れにかかる時間には個人差があります。 ",
+            "text_size": "text-3xs"
+          }
+        },
+        "pickup_availability": {
+          "type": "pickup_availability",
+          "settings": {}
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share",
+            "show_help_desk": false,
+            "help_label": "Need help?",
+            "help_type": "drawer",
+            "help_page": ""
+          }
+        },
+        "complementary": {
+          "type": "complementary",
+          "settings": {
+            "heading": "あなたも好きかも",
+            "product_limit": 4,
+            "show_vendor": false,
+            "show_price": true
+          }
+        },
+        "sticky_buy_button": {
+          "type": "sticky_buy_button",
+          "disabled": true,
+          "settings": {}
         }
       },
       "block_order": [
-        "text_Y4GjiK",
-        "fdd7de7a-a951-4301-9d72-b4980f4bf66f",
+        "vendor",
+        "title",
+        "description",
+        "countdown",
         "variant_picker",
-        "27e1d052-59da-4188-9697-908ef6e4bd86",
+        "inventory",
+        "liquid_t7kfmR",
         "buy_buttons",
-        "ca4ddb60-e89c-4b9a-a11b-cae201c4074b"
+        "collapsible_tab_y7mde9",
+        "collapsible_tab_b3E8r7",
+        "custom_text_hErVPr",
+        "pickup_availability",
+        "share",
+        "complementary",
+        "sticky_buy_button"
       ],
       "settings": {
-        "show_vendor": false,
-        "show_sku": false,
-        "show_taxes_included": false,
-        "show_product_rating": false,
-        "show_sticky_add_to_cart": true,
-        "show_share_buttons": false,
-        "help_page": "",
+        "code_num": "20%OFF",
+        "code": "All20",
+        "enable_sticky_info": true,
+        "media_size": 66,
+        "gallery_layout": "thumbnail",
+        "thumbnail_position": "below",
+        "image_ratio": "adapt_first",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
         "enable_video_autoplay": true,
-        "enable_video_looping": false,
-        "enable_image_zoom": true,
-        "show_thumbnails_on_mobile": false,
-        "desktop_thumbnails_position": "bottom",
-        "transition_effect": "slide"
+        "enable_video_looping": true,
+        "mobile_layout": "full_width",
+        "image_ratio_mobile": "adapt_first",
+        "mobile_thumbnail": false,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "divider": false,
+        "full_width": true,
+        "rounded": false
       }
     },
-    "cca7811b-f4d1-4210-914e-f2d87ce7d5d7": {
-      "type": "main-image",
+    "help-drawer": {
+      "type": "help-drawer",
       "blocks": {
-        "template--15065189351472__cca7811b-f4d1-4210-914e-f2d87ce7d5d7-16885196108d673c93-0": {
-          "type": "image",
-          "disabled": true,
+        "content-1": {
+          "type": "content",
           "settings": {
-            "image": "shopify:\/\/shop_images\/Group_457393170.jpg",
-            "mobile_image": "shopify:\/\/shop_images\/Group_457393181_1.jpg",
-            "text_position": "middle_center",
-            "overlay_opacity": 30
+            "icon": "rocket",
+            "heading": "Shipping Information",
+            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.<\/p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "color_text": "#b45309",
+            "color_background": "#fffbeb",
+            "gradient_background": "",
+            "color_highlight": "#ffddbf",
+            "gradient_highlight": ""
           }
         },
-        "e42d986c-ac95-4751-a2af-15b2e426d4d2": {
-          "type": "image",
-          "disabled": true,
+        "content-2": {
+          "type": "content",
           "settings": {
-            "image": "shopify:\/\/shop_images\/A3_-_-3040x400_1_1.jpg",
-            "mobile_image": "shopify:\/\/shop_images\/A3_-_-1080x1080.jpg",
-            "text_position": "middle_center",
-            "overlay_opacity": 30
+            "icon": "headphone",
+            "heading": "Customer Support",
+            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.<\/p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "color_text": "#0369a1",
+            "color_background": "#f0f9ff",
+            "gradient_background": "",
+            "color_highlight": "#ffddbf",
+            "gradient_highlight": ""
           }
         },
-        "f7353ebb-4bf7-4169-9c06-dc6bfb44ab5a": {
-          "type": "image",
-          "disabled": true,
+        "content-3": {
+          "type": "content",
           "settings": {
-            "image": "shopify:\/\/shop_images\/Air3_PC-1.png",
-            "text_position": "middle_center",
-            "overlay_opacity": 30
+            "icon": "chat_bubble",
+            "heading": "FAQ’s",
+            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.<\/p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "color_text": "#be123c",
+            "color_background": "#fff1f2",
+            "gradient_background": "",
+            "color_highlight": "#ffddbf",
+            "gradient_highlight": ""
+          }
+        },
+        "content-4": {
+          "type": "content",
+          "settings": {
+            "icon": "phone",
+            "heading": "Contact Us",
+            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.<\/p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "color_text": "#4d7c0f",
+            "color_background": "#f7fee7",
+            "gradient_background": "",
+            "color_highlight": "#ffddbf",
+            "gradient_highlight": ""
           }
         }
       },
       "block_order": [
-        "template--15065189351472__cca7811b-f4d1-4210-914e-f2d87ce7d5d7-16885196108d673c93-0",
-        "e42d986c-ac95-4751-a2af-15b2e426d4d2",
-        "f7353ebb-4bf7-4169-9c06-dc6bfb44ab5a"
+        "content-1",
+        "content-2",
+        "content-3",
+        "content-4"
       ],
       "disabled": true,
       "settings": {
-        "custom_class": "",
-        "subheading": "",
-        "title": "",
-        "content": "",
-        "subheading_1": "",
-        "des_1": "",
-        "link_1_text": "",
-        "link_1_link": "",
-        "text_alignment": "left",
-        "section_height": "auto",
-        "transition_type": "sweep",
-        "autoplay": true,
-        "cycle_speed": 5,
-        "button_1_text": "",
-        "button_1_link": "",
-        "button_2_text": "",
-        "button_2_link": "",
-        "buttom_size": "medium",
-        "text_color": "#ffffff",
-        "button_background": "#ffffff",
-        "button_text_color": "#000000",
-        "overlay_color": "#000000",
-        "background": "rgba(0,0,0,0)",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "heading": "Need help?",
+        "description": "<p>If you have any questions, you are always welcome to contact us. We'll get back to you as soon as possible, within 24 hours on weekdays.<\/p>"
       }
     },
-    "23120f2a-4a9f-4ec2-9ef9-a6efed273be6": {
-      "type": "media-logo-slider",
-      "blocks": {
-        "template--15055376547888__23120f2a-4a9f-4ec2-9ef9-a6efed273be6-168387276375e2b406-0": {
-          "type": "item",
-          "settings": {
-            "title": "01",
-            "content": "<p>頻繁に剃らないとムダ毛がすぐに生えてくる<\/p>"
-          }
-        },
-        "template--15055376547888__23120f2a-4a9f-4ec2-9ef9-a6efed273be6-168387276375e2b406-1": {
-          "type": "item",
-          "settings": {
-            "title": "02",
-            "content": "<p>剃った後の黒ずみが目立つ<\/p>"
-          }
-        },
-        "template--15055376547888__23120f2a-4a9f-4ec2-9ef9-a6efed273be6-168387276375e2b406-2": {
-          "type": "item",
-          "settings": {
-            "title": "03",
-            "content": "<p>肌みせファッションを楽しめない <\/p>"
-          }
-        },
-        "226680c2-b496-471c-ba11-73203a71dbeb": {
-          "type": "item",
-          "settings": {
-            "title": "04",
-            "content": "<p>サロンに通う時間も費用もない<\/p>"
-          }
-        }
-      },
-      "block_order": [
-        "template--15055376547888__23120f2a-4a9f-4ec2-9ef9-a6efed273be6-168387276375e2b406-0",
-        "template--15055376547888__23120f2a-4a9f-4ec2-9ef9-a6efed273be6-168387276375e2b406-1",
-        "template--15055376547888__23120f2a-4a9f-4ec2-9ef9-a6efed273be6-168387276375e2b406-2",
-        "226680c2-b496-471c-ba11-73203a71dbeb"
-      ],
-      "settings": {
-        "check_position": false,
-        "title": "あなたも、こんなムダ毛ケアの悩みはありませんか？",
-        "subheading": "",
-        "media_content": "<p><\/p><p><\/p>",
-        "background": "#f9f9f9",
-        "text_color": "#e0004d",
-        "padding_top": 76,
-        "padding_bottom": 100
-      }
-    },
-    "cad1f44d-2303-4f96-84e8-e19314e73259": {
-      "type": "empty-block-padding",
-      "disabled": true,
-      "settings": {
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "f8a12b4f-1742-429f-8e01-d5c7cc39e12c": {
-      "type": "main-image",
-      "blocks": {
-        "98d2f351-bc02-44de-b7f7-83a01b654226": {
-          "type": "image",
-          "settings": {
-            "image": "shopify:\/\/shop_images\/26c42e15-2c75-4110-a2f0-fb874bb7a032.png",
-            "mobile_image": "shopify:\/\/shop_images\/c711fd52-ff0f-4e00-a382-9f78e6701f2d.png",
-            "text_position": "middle_center",
-            "overlay_opacity": 30
-          }
-        }
-      },
-      "block_order": [
-        "98d2f351-bc02-44de-b7f7-83a01b654226"
-      ],
-      "settings": {
-        "custom_class": "",
-        "subheading": "",
-        "title": "Ulike Air3そのお悩みすっきり解決",
-        "content": "",
-        "subheading_1": "",
-        "des_1": "",
-        "link_1_text": "",
-        "link_1_link": "",
-        "text_alignment": "center",
-        "section_height": "auto",
-        "transition_type": "sweep",
-        "autoplay": true,
-        "cycle_speed": 5,
-        "button_1_text": "",
-        "button_1_link": "",
-        "button_2_text": "",
-        "button_2_link": "",
-        "buttom_size": "medium",
-        "text_color": "#ffffff",
-        "button_background": "#ffffff",
-        "button_text_color": "#000000",
-        "overlay_color": "#000000",
-        "background": "rgba(0,0,0,0)",
-        "padding_top": 0,
-        "padding_bottom": 36
-      }
-    },
-    "18d98795-c584-4467-a1bf-8a4db30aabd8": {
-      "type": "slideshow",
-      "blocks": {
-        "template--15065189351472__18d98795-c584-4467-a1bf-8a4db30aabd8-1684142115ec7649ad-0": {
-          "type": "image",
-          "settings": {
-            "image": "shopify:\/\/shop_images\/f22259756039b2bc055c259f64d4cc9c.jpg",
-            "mobile_image": "shopify:\/\/shop_images\/Group_4488.jpg",
-            "text_position": "middle_center",
-            "mobile_text_position": "middle_center",
-            "subheading": "",
-            "title": "",
-            "title_1": "",
-            "subheading_1": "",
-            "button_1_text": "",
-            "button_1_link": "",
-            "button_2_text": "",
-            "button_2_link": "",
-            "custom_cls": "",
-            "text_color": "#ffffff",
-            "button_background": "#ffffff",
-            "button_text_color": "#000000",
-            "discount_text_color": "#000000",
-            "overlay_color": "#000000",
-            "overlay_opacity": 0
-          }
-        }
-      },
-      "block_order": [
-        "template--15065189351472__18d98795-c584-4467-a1bf-8a4db30aabd8-1684142115ec7649ad-0"
-      ],
-      "settings": {
-        "section_height": "auto",
-        "transition_type": "sweep",
-        "autoplay": true,
-        "fixed_height": false,
-        "cycle_speed": 5,
-        "background": "rgba(0,0,0,0)"
-      }
-    },
-    "a7a1e098-a290-49fc-bc5f-f2591d330a04": {
+    "rich_text_6KTLPC": {
       "type": "rich-text",
+      "blocks": {
+        "heading_Mcw4UC": {
+          "type": "heading",
+          "settings": {
+            "heading": "<em>毛髪密度が2週間で85.37％減少、4週間で93.29％減少*<\/em>",
+            "heading_size": "title-sm",
+            "heading_tag": "h2",
+            "highlighted_text": "text",
+            "highlighted_scribble": "circle"
+          }
+        }
+      },
+      "block_order": [
+        "heading_Mcw4UC"
+      ],
       "settings": {
-        "subheading": "",
-        "title": "専門医コメント",
-        "content": "",
-        "button_text": "",
-        "button_link": "",
-        "background_type": "full_width",
-        "text_width": "small",
-        "text_position": "center",
         "text_alignment": "center",
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)",
-        "button_background": "rgba(0,0,0,0)",
-        "button_text_color": "rgba(0,0,0,0)"
+        "text_alignment_mobile": "center",
+        "heading": "",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "button_label": "",
+        "button_link": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "#000000",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 20,
+        "padding_bottom": 0,
+        "divider": false,
+        "narrow": false,
+        "rounded": false
       }
     },
-    "54b4e0f8-f319-4dd7-9ffe-664a374f8bf1": {
-      "type": "swiper-extend",
+    "rich_text_ME6Dqq": {
+      "type": "rich-text",
       "blocks": {
-        "a9117c78-da7b-46e9-bfce-67a9e3454845": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify:\/\/shop_images\/Group_4515.jpg",
-            "image_mobile": "shopify:\/\/shop_images\/Group_4501_9d47cd00-ab02-4900-9780-5f7f9348377e.jpg",
-            "link": "",
-            "title": "",
-            "subTitle": "",
-            "description": ""
-          }
-        },
-        "template--15065189351472__54b4e0f8-f319-4dd7-9ffe-664a374f8bf1-168413209130db391c-0": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify:\/\/shop_images\/Group_4342_1.png",
-            "image_mobile": "shopify:\/\/shop_images\/1025.png",
-            "link": "",
-            "title": "",
-            "subTitle": "",
-            "description": ""
-          }
-        },
-        "template--15065189351472__54b4e0f8-f319-4dd7-9ffe-664a374f8bf1-168413209130db391c-1": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify:\/\/shop_images\/Group_4514_dc3269bd-8e11-4f50-a3a4-2f41b2c2c1c6.jpg",
-            "image_mobile": "shopify:\/\/shop_images\/Group_4502_3cb94f65-f9be-4a80-8dba-b781962f8d2b.jpg",
-            "link": "",
-            "title": "",
-            "subTitle": "",
-            "description": ""
-          }
-        },
-        "template--15065189351472__54b4e0f8-f319-4dd7-9ffe-664a374f8bf1-168413209130db391c-2": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify:\/\/shop_images\/Group_4510.jpg",
-            "image_mobile": "shopify:\/\/shop_images\/Group_4531_f7232722-1b0c-4a4b-a66a-87277bb587ef.jpg",
-            "link": "",
-            "title": "",
-            "subTitle": "",
-            "description": ""
-          }
-        },
-        "7aa39a1f-3858-46b9-8d55-d0e99285cb15": {
-          "type": "logo",
+        "text_m4KxmR": {
+          "type": "text",
           "disabled": true,
           "settings": {
-            "image": "shopify:\/\/shop_images\/Group_4516.jpg",
-            "image_mobile": "shopify:\/\/shop_images\/Group_4530.jpg",
-            "link": "",
-            "title": "NEW ERA OF",
-            "subTitle": "50℉ Sapphire System",
-            "description": "Only Hair"
+            "text": "<h2>毛髪密度が2週間で85.37％減少、4週間*¹で93.29％減少*⁴<\/h2>",
+            "text_size": "subtext-xl",
+            "text_max_size": 32,
+            "text_font": "heading",
+            "secondary_color": false,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "text_QmPcmU": {
+          "type": "text",
+          "settings": {
+            "text": "<p><em>*国際認証機関SGSにて、20～50代の男女34名を対象とした試験結果です。<\/em><\/p>",
+            "text_size": "subtext-custom",
+            "text_max_size": 12,
+            "text_font": "body",
+            "secondary_color": false,
+            "highlighted_text": "text",
+            "highlighted_scribble": "circle"
           }
         }
       },
       "block_order": [
-        "a9117c78-da7b-46e9-bfce-67a9e3454845",
-        "template--15065189351472__54b4e0f8-f319-4dd7-9ffe-664a374f8bf1-168413209130db391c-0",
-        "template--15065189351472__54b4e0f8-f319-4dd7-9ffe-664a374f8bf1-168413209130db391c-1",
-        "template--15065189351472__54b4e0f8-f319-4dd7-9ffe-664a374f8bf1-168413209130db391c-2",
-        "7aa39a1f-3858-46b9-8d55-d0e99285cb15"
+        "text_m4KxmR",
+        "text_QmPcmU"
       ],
       "settings": {
-        "show_image_with_txt_carousel": false,
-        "padding_top": 32,
-        "padding_bottom": 0
-      }
-    },
-    "8c41911a-23a5-4100-9ca7-a5516f1caba0": {
-      "type": "gallery",
-      "blocks": {
-        "template--15055376547888__8c41911a-23a5-4100-9ca7-a5516f1caba0-1683873541fd80266b-0": {
-          "type": "image",
-          "settings": {
-            "image": "shopify:\/\/shop_images\/Mask_group_12.jpg",
-            "caption": "<h6>たった６回で減毛効果を実感し始める<\/h6><p>最大21Jのハイパワーで、減毛効果や効率UP。週3回の継続使用で2週間後には毛の量や質の変化を実感できます。                          <\/p>"
-          }
-        },
-        "template--15055376547888__8c41911a-23a5-4100-9ca7-a5516f1caba0-1683873541fd80266b-1": {
-          "type": "image",
-          "settings": {
-            "image": "shopify:\/\/shop_images\/Mask_group-1_1f6e2e42-2c68-42b2-be43-787d98c2674d.jpg",
-            "caption": "<h6><strong>ムダ毛ケア新体験 ヒンヤリ快適ケア<\/strong><\/h6><p>サファイヤの瞬間冷却により、お肌を冷やして照射時の熱さや痛みを和らげ、快適ムダ毛ケアを実現します。肌を優しく守りながら、効率的にムダ毛ケアを行い、30分間、20℃の心地よいひんやり感をキープします。<\/p>"
-          }
-        },
-        "template--15055376547888__8c41911a-23a5-4100-9ca7-a5516f1caba0-1683873541fd80266b-2": {
-          "type": "image",
-          "settings": {
-            "image": "shopify:\/\/shop_images\/Mask_group_be6e7744-3762-4850-93b0-cf7e76a6331e.jpg",
-            "caption": "<h6><strong>トリプルクーリング技術を搭載、肌への刺激が低い<\/strong><\/h6><p>痛みレスで、お肌に優しいサロンクオリティのムダ毛ケアを自宅で体験できます。<\/p>"
-          }
-        }
-      },
-      "block_order": [
-        "template--15055376547888__8c41911a-23a5-4100-9ca7-a5516f1caba0-1683873541fd80266b-0",
-        "template--15055376547888__8c41911a-23a5-4100-9ca7-a5516f1caba0-1683873541fd80266b-1",
-        "template--15055376547888__8c41911a-23a5-4100-9ca7-a5516f1caba0-1683873541fd80266b-2"
-      ],
-      "settings": {
+        "text_alignment": "center",
+        "text_alignment_mobile": "center",
+        "heading": "",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
         "subheading": "",
-        "title": "ハイパワーなのに、痛みレス",
-        "show_arrows": true,
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)"
+        "description": "",
+        "button_label": "",
+        "button_link": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "#999999",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "divider": false,
+        "narrow": false,
+        "rounded": false
       }
     },
-    "818d006d-f7d1-4274-aec4-c57e408e3a1b": {
-      "type": "image-comparison-slider",
+    "multicolumn_bXT9x4": {
+      "type": "multicolumn",
       "blocks": {
-        "f9a27095-3e44-4bd0-b079-2a8c9b7f7e7f": {
-          "type": "block",
+        "column_XTxkYP": {
+          "type": "column",
           "settings": {
-            "before_img": "shopify:\/\/shop_images\/before.jpg",
-            "before_title": "使用前-ムダ毛が現れる　",
-            "before_title_size": "small",
-            "before_title_position": "start",
-            "after_img": "shopify:\/\/shop_images\/after.jpg",
-            "after_title": "6回後-抑毛効果を実感",
-            "after_title_size": "small",
-            "after_title_position": "start",
-            "title": "",
-            "title_size": "h3",
-            "desc": "",
+            "show_border": false,
+            "text_alignment": "left",
+            "text_alignment_mobile": "left",
+            "image": "shopify:\/\/shop_images\/AB03_048c8892-485b-4adb-a620-3fde1a990419.jpg",
+            "image_ratio": "adapt",
+            "heading": "",
+            "heading_size": "text-lg-2xl",
+            "text": "",
             "button_label": "",
             "button_link": "",
-            "button_style_secondary": false
-          }
-        }
-      },
-      "block_order": [
-        "f9a27095-3e44-4bd0-b079-2a8c9b7f7e7f"
-      ],
-      "disabled": true,
-      "settings": {
-        "heading": "６回のお手入れで、驚きの抑毛効果をあなたに",
-        "heading_size": "h2",
-        "layout": "horizontal",
-        "full_width": false,
-        "show_divider": false,
-        "colors_line": "#ffffff",
-        "padding_top": 36,
-        "padding_bottom": 0
-      }
-    },
-    "fdc99d78-7af3-4812-91bc-f430980403e1": {
-      "type": "slideshow",
-      "blocks": {
-        "template--15055376547888__fdc99d78-7af3-4812-91bc-f430980403e1-1683873506bdf89d5c-0": {
-          "type": "image",
-          "settings": {
-            "image": "shopify:\/\/shop_images\/Group_4438.jpg",
-            "mobile_image": "shopify:\/\/shop_images\/Group_4487.jpg",
-            "text_position": "middle_center",
-            "mobile_text_position": "middle_center",
-            "subheading": "",
-            "title": "",
-            "title_1": "アップグレードしたAI連続照射モード、お肌に当てるだけのラクラク操作",
-            "subheading_1": "スマートなAI連続照射モードや肌自動検知機能が搭載され、連続モードに切り替えれば、フラッシュボタンを押すことは不要。お肌に照射口を当てることで、全身ケアがよりラクにできます。",
-            "button_1_text": "",
-            "button_1_link": "",
-            "button_2_text": "",
-            "button_2_link": "",
-            "custom_cls": "",
-            "text_color": "#ffffff",
-            "button_background": "#ffffff",
-            "button_text_color": "rgba(0,0,0,0)",
-            "discount_text_color": "#ffffff",
-            "overlay_color": "rgba(0,0,0,0)",
-            "overlay_opacity": 0
-          }
-        }
-      },
-      "block_order": [
-        "template--15055376547888__fdc99d78-7af3-4812-91bc-f430980403e1-1683873506bdf89d5c-0"
-      ],
-      "settings": {
-        "section_height": "auto",
-        "transition_type": "sweep",
-        "autoplay": true,
-        "fixed_height": false,
-        "cycle_speed": 5,
-        "background": "rgba(0,0,0,0)"
-      }
-    },
-    "286ab055-fd38-497d-bc16-c81d97208239": {
-      "type": "gallery",
-      "blocks": {
-        "template--15065189351472__286ab055-fd38-497d-bc16-c81d97208239-1684118455be64704b-0": {
-          "type": "image",
-          "settings": {
-            "image": "shopify:\/\/shop_images\/Group_4426_8c61c59b-1aea-4562-9441-e4829fe98b46.jpg",
-            "caption": "<h6><strong>ソフトモード<\/strong><\/h6><p>敏感部位にピッタリ<\/p>"
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
           }
         },
-        "template--15065189351472__286ab055-fd38-497d-bc16-c81d97208239-1684118455be64704b-1": {
-          "type": "image",
+        "column_dVYKFh": {
+          "type": "column",
           "settings": {
-            "image": "shopify:\/\/shop_images\/Group_4427_8a503201-e4d8-48e9-bd38-96cc465646bf.jpg",
-            "caption": "<h6><strong>ボディモード<\/strong><\/h6><p>大きい範囲も速く対応<\/p>"
+            "show_border": false,
+            "text_alignment": "left",
+            "text_alignment_mobile": "left",
+            "image": "shopify:\/\/shop_images\/AB02_f0521c1f-5bab-4da5-83c2-6b3b8aa5c904.jpg",
+            "image_ratio": "adapt",
+            "heading": "",
+            "heading_size": "text-lg-2xl",
+            "text": "",
+            "button_label": "",
+            "button_link": "",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
           }
         },
-        "template--15065189351472__286ab055-fd38-497d-bc16-c81d97208239-1684118455be64704b-2": {
-          "type": "image",
+        "column_BLUKzj": {
+          "type": "column",
           "settings": {
-            "image": "shopify:\/\/shop_images\/Group_4428_d44bb0b9-e291-4e88-b92f-7609a715e2a0.jpg",
-            "caption": "<h6><strong>パワーモード<\/strong><\/h6><p>剛毛に対応<\/p>"
+            "show_border": false,
+            "text_alignment": "left",
+            "text_alignment_mobile": "left",
+            "image": "shopify:\/\/shop_images\/AB01_e5c32cb3-4b85-46d5-beab-d35edbeeefa1.jpg",
+            "image_ratio": "adapt",
+            "heading": "",
+            "heading_size": "text-lg-2xl",
+            "text": "",
+            "button_label": "",
+            "button_link": "",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
           }
         }
       },
       "block_order": [
-        "template--15065189351472__286ab055-fd38-497d-bc16-c81d97208239-1684118455be64704b-0",
-        "template--15065189351472__286ab055-fd38-497d-bc16-c81d97208239-1684118455be64704b-1",
-        "template--15065189351472__286ab055-fd38-497d-bc16-c81d97208239-1684118455be64704b-2"
+        "column_XTxkYP",
+        "column_dVYKFh",
+        "column_BLUKzj"
       ],
       "settings": {
+        "columns": 3,
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "heading": "",
+        "heading_size": "title-sm",
+        "heading_alignment": "text-center md:items-center",
+        "heading_tag": "h2",
         "subheading": "",
-        "title": "自動連射モード搭載、あらゆる部位に対応可能",
-        "show_arrows": true,
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)"
-      }
-    },
-    "8f73cb5f-9a74-4c8a-9c93-b59f41d04d96": {
-      "type": "video-with-text",
-      "settings": {
-        "custom_class": "",
-        "custom_class_one": "",
-        "image": "shopify:\/\/shop_images\/Group_4429.jpg",
-        "mobile_image": "shopify:\/\/shop_images\/Group_4429.jpg",
-        "subheading": "",
-        "title": "顔もVIOも全身ケアが問題なし",
-        "content": "<p>人間工学に基づいた設計で、1つのヘッドで大きな部位から小さな部位まで対応します。照射カウントの効率ロスを回避し、操作性とコスパも抜群です。<\/p>",
-        "button_text": "",
-        "button_link": "",
-        "button_text_1": "",
-        "button_link_1": "",
-        "link_style": "button",
-        "background_type": "boxed",
-        "background_overlap": "image",
-        "image_position": "right",
-        "text_alignment": "left",
-        "accent_background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)",
-        "button_background": "rgba(0,0,0,0)",
-        "button_text_color": "rgba(0,0,0,0)",
-        "background": "rgba(0,0,0,0)",
-        "padding_top": 76,
-        "padding_bottom": 36
-      }
-    },
-    "3ca4da25-ea45-4b01-9391-267e689c6d0f": {
-      "type": "video-with-text",
-      "settings": {
-        "custom_class": "",
-        "custom_class_one": "",
-        "image": "shopify:\/\/shop_images\/Group_4430.jpg",
-        "mobile_image": "shopify:\/\/shop_images\/Group_4430.jpg",
-        "subheading": "",
-        "title": "最高パワーでも85万回以上照射可能",
-        "content": "<h6>カートリッジの交換が不要で、他社製品と比べても圧倒的なコスパ。一回の全身ケアにかかる費用はわずか56円です。<\/h6><p><\/p><p><\/p><p><\/p><p>合計金額が株式会社PLAN-Bのアンケートより調べ<br\/>・アンケート内容：全身脱毛に関するアンケート<br\/>・調査方法：インターネット調査<br\/>・調査対象：10代〜60代の303人<br\/>・調査機関：2021年8月6日〜8月10日<br\/>アンケート詳細URL：https:\/\/elabel.plan-b.co.jp\/epilation\/2919\/<\/p>",
-        "button_text": "",
-        "button_link": "",
-        "button_text_1": "",
-        "button_link_1": "",
-        "link_style": "button",
-        "background_type": "boxed",
-        "background_overlap": "image",
-        "image_position": "right",
-        "text_alignment": "left",
-        "accent_background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)",
-        "button_background": "rgba(0,0,0,0)",
-        "button_text_color": "rgba(0,0,0,0)",
-        "background": "#f9f9f9",
-        "padding_top": 100,
-        "padding_bottom": 100
-      }
-    },
-    "59ff2f13-71c4-4522-b886-f77623b29396": {
-      "type": "empty-block-padding",
-      "settings": {
-        "padding_top": 12,
-        "padding_bottom": 12
-      }
-    },
-    "ecff8781-95c2-4971-a58a-859daae5d392": {
-      "type": "faq",
-      "blocks": {
-        "template--16687203844337__ecff8781-95c2-4971-a58a-859daae5d392-1677825285ffd6bb41-1": {
-          "type": "question",
-          "settings": {
-            "title": "全身に使用可能ですか。",
-            "answer": "<p>全身に使用可能です。また、カートリッジの交換も不要ですので、お肌に直接冷却することも可能です。<\/p>"
-          }
-        },
-        "template--16687203844337__ecff8781-95c2-4971-a58a-859daae5d392-1677825285ffd6bb41-2": {
-          "type": "question",
-          "settings": {
-            "title": "VIOには使用可能ですか。",
-            "answer": "<p>VIOには使用可能です。平面冷却ヘッドを使用することで、毛包を刺激せず、皮膚を傷めることなく、痛みや赤みの発生も少なくなります。保冷剤も必要ありません。<\/p>"
-          }
-        },
-        "template--16687203844337__ecff8781-95c2-4971-a58a-859daae5d392-1677825285ffd6bb41-4": {
-          "type": "question",
-          "settings": {
-            "title": "太く硬いヒゲには使用可能ですか。",
-            "answer": "<p>髭には使用可能です。なお、使用周期は毛の質や毛周期によって個人差があります。<\/p><p>※ご購入者様のレビューによると、体毛がより太く硬い方は4か月以上の長い周期でのご使用が効果的です。<\/p>"
-          }
-        },
-        "4a01d920-dcc1-4e10-9401-fd40cc83faf0": {
-          "type": "question",
-          "settings": {
-            "title": "照射回数はどれぐらいですか。",
-            "answer": "<p>無制限回数で光照射が可能です。<\/p>"
-          }
-        },
-        "9e10d118-99e8-4c7e-acc1-e7435f88f51b": {
-          "type": "question",
-          "disabled": true,
-          "settings": {
-            "title": "効果はいつから現れますか？効果は永久に続きますか？",
-            "answer": "<p>ほとんどの方が、3～4週間後に明らかな毛の減少を実感し始めます。1週間に2～3回のお手入れで、12週間後には効果が完全に現れます。各処置の後、毛はまばらに、より薄く育ちます。最終的には、毛の減少は永久的なものになります。肌の滑らかさを維持するためには、2～3ヶ月に1回、または必要に応じて施術を行う必要があります。治療結果も治療頻度もケースバイケースです。<br\/><br\/><br\/>FDAの規定では、永久脱毛とは「長期間にわたり継続的かつ安定的に毛が減少すること」とされており、当社ではこれを提供していますが、「永久」という言葉の解釈が異なる方もいらっしゃいます。クリニックで使用されている光治療でも完全な永久脱毛ではないことをご承知おきください。<\/p>"
-          }
-        },
-        "ebc04c0c-96d5-4e98-9acd-fe580ca82005": {
-          "type": "question",
-          "settings": {
-            "title": "本製品を使用してはいけない人はございますか？",
-            "answer": "<p>以下の場合は、本製品は適していません。<br\/>- 既知の皮膚疾患をお持ちの方<br\/>- アレルギー性皮膚炎や湿疹などの皮膚疾患をお持ちの方<br\/>- 光過敏性てんかんまたは光線過敏症をお持ちの方<br\/>- 生理中、妊娠中、または授乳中の方<br\/>- 肌が真っ黒、または日焼けしている方（肌色チャートを参照してください）<br\/>- 皮膚に傷やかさぶたがある、傷が治ったばかりの方、がんや血管腫をお持ちの方<br\/>- 人工的なエステティック、プロテーゼ、プラスティックを使用している方<br\/>- 刺青（タトゥー）のある部分をお持ちの方<\/p>"
-          }
-        },
-        "8db6b3a6-1474-480c-a338-4a38c221c264": {
-          "type": "question",
-          "settings": {
-            "title": "注文してからどれくらいで届きますか？",
-            "answer": "<p>発送にかかる時間は場所によって異なりますが、私たちは運送業者と緊密に連携し、できるだけ早くお客様のもとに商品をお届けする努力をしています。発送までには1〜3営業日かかりますので、ご了承ください。また、配送にかかる日数は通常5〜7営業日であり、エクスプレス便の場合は2〜4営業日です。<\/p><p>*輸送会社の処理状況によって、上記の時間枠に影響を及ぼす可能性があります。<\/p>"
-          }
-        },
-        "aa3f3f78-107c-492c-b390-e866524729b8": {
-          "type": "question",
-          "settings": {
-            "title": "返品について",
-            "answer": "<p>ご注文された商品は、発送後90日以内であれば返品が可能です。<br\/>返金は、商品到着後10〜15営業日以内に、購入時に使用された同じ支払方法で行われます。<\/p><p>セットやキットを返品される場合は、元のセットやキットの内容物をすべてご返却ください。ただし、セットまたはキットの一部の商品は返金されません。安全および衛生上の理由から、Ulikeは未開封のパッケージに対して10%の返品手数料を、開封されたパッケージに対しては30%の返品手数料を請求させていただきます（返品手数料は返金額から差し引かれます）。<\/p><p>返品または交換をご希望の場合は、jpsupport@ulikeglobal.comまでお客様のお名前、注文番号、返品商品の写真、返品を希望される商品をご連絡ください。返品手続きについて順を追ってご案内いたします。<\/p><p><strong>以下の条件に該当する商品の返品はお受けできません。<\/strong><\/p><ul><li>jp.ulike.comで購入されたものではない商品<\/li><li>小売店の箱、マニュアル、ケーブル、その他製品に元々付属していたものを含む、すべてのパッケージや付属品がない状態で返品された製品<\/li><li>物理的な損傷が見られる製品<\/li><li>使用により自然に汚れた製品<\/li><li>保証期間が終了した製品<\/li><li>90日間を超えるご注文の場合<\/li><\/ul>"
-          }
-        }
-      },
-      "block_order": [
-        "template--16687203844337__ecff8781-95c2-4971-a58a-859daae5d392-1677825285ffd6bb41-1",
-        "template--16687203844337__ecff8781-95c2-4971-a58a-859daae5d392-1677825285ffd6bb41-2",
-        "template--16687203844337__ecff8781-95c2-4971-a58a-859daae5d392-1677825285ffd6bb41-4",
-        "4a01d920-dcc1-4e10-9401-fd40cc83faf0",
-        "9e10d118-99e8-4c7e-acc1-e7435f88f51b",
-        "ebc04c0c-96d5-4e98-9acd-fe580ca82005",
-        "8db6b3a6-1474-480c-a338-4a38c221c264",
-        "aa3f3f78-107c-492c-b390-e866524729b8"
-      ],
-      "settings": {
-        "show_navigation": false,
-        "title": "よくある質問",
-        "content": "",
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)"
-      }
-    },
-    "d55adfca-3c26-4d0d-8e34-cb57d05547f1": {
-      "type": "timeline",
-      "blocks": {
-        "template--15065189351472__d55adfca-3c26-4d0d-8e34-cb57d05547f1-1684121516a257bba0-0": {
-          "type": "item",
-          "settings": {
-            "image": "shopify:\/\/shop_images\/Mask_group-3_f3b12153-cf7f-44dd-86e2-ea986f0872a8.jpg",
-            "label": "",
-            "title": "気軽にムダ毛ケア始められますよ！",
-            "image_logo": "shopify:\/\/shop_images\/Group_4602.png",
-            "content": "<p>使ってみてよかった機能は、ワンショット照射モードです。狭い部位のムダ毛処理です。唇や顎の周りです。肌質に合わせて3モード用意されている点も嬉しいです。肌にしっかりと密着させてフラッシュボタンを押してください。光が漏れると効果はありません。照射中痛みは感じませんでした。２回使用しましたが、効果はまだ現れません。今後は週1で続けてみますサングラスも付属品で付いてます。シェイバーもあるので届いたら直ぐに使用出来るのは、購入者としては本当に助かります。ムダ毛を必ず、シェイバーで処理してからU Iikeを使用して下さい。長い毛があると怪我の心配があります。注意点ですが、取説にも書いてありますが、使用後は電源ボタンで切りましょう。コンセントプラグを抜かないように注意して下さい。故障の原因になります。<\/p><p><\/p><p>＊痛みには個人差があります<\/p>",
-            "button_text": "",
-            "button_link": ""
-          }
-        },
-        "template--15065189351472__d55adfca-3c26-4d0d-8e34-cb57d05547f1-1684121516a257bba0-1": {
-          "type": "item",
-          "settings": {
-            "image": "shopify:\/\/shop_images\/Mask_group-8_0bb2b064-56a1-418a-a264-fb8dcaa5330e.jpg",
-            "label": "",
-            "title": "良い製品",
-            "image_logo": "shopify:\/\/shop_images\/Group_4605.png",
-            "content": "<p>分かり易い取説がついており、容易に使用出来ます。パッケージはかなり豪華な感じです。使用方法は①電源ボタンを押す。②電源ボタンを押す回数で強さを選ぶ（3段階）③ムダ毛ケアしたい部分に当てフラッシュキーを押すと単発で、フラッシュキーの長押しで連続照射に変えられます。冷却機能が付いているから冷っな感じで照射されるので、痛みはレベル3でもちょっとチクッとするだけです。照射した部分の毛を見ると効いてるようです。サングラスがついているので、目の保護の為にも必ずつけた方が良いです。照射回数がわからないので、何回使えるかがわからないのは残念です。<\/p>",
-            "button_text": "",
-            "button_link": ""
-          }
-        },
-        "template--15065189351472__d55adfca-3c26-4d0d-8e34-cb57d05547f1-1684121516a257bba0-2": {
-          "type": "item",
-          "settings": {
-            "image": "shopify:\/\/shop_images\/Mask_group-13.jpg",
-            "label": "",
-            "title": "プレゼントにもよさそうなケース入り",
-            "image_logo": "shopify:\/\/shop_images\/Group_4611.png",
-            "content": "<p>数回、レベル2で使用、少し熱いくらいでした。効果はまだわかりません。取説もクイックスタートなどがあり、わかりやすいです。扱いやすいので、今後に期待したいですね。<\/p>",
-            "button_text": "",
-            "button_link": ""
-          }
-        },
-        "25696927-a0ea-4af5-bd36-d213b606c4ea": {
-          "type": "item",
-          "settings": {
-            "image": "shopify:\/\/shop_images\/Mask_group-18.jpg",
-            "label": "",
-            "title": "白くて可愛いです！",
-            "image_logo": "shopify:\/\/shop_images\/Group_4608.png",
-            "content": "<p>友たちは緑の方を持っているので、興味を持って白い方を手に入れました！やはり可愛いですね！プレゼント用でもいいと思います！早速使ってみました、説明書が丁寧に説明されたので、安心して使いました。自分にとってはあんまり痛みを感じていないです。そして、毛の生えるスピードは遅くなったようです。これからの減毛効果に期待しています～<\/p><p><\/p><p>＊痛みには個人差があります<\/p>",
-            "button_text": "",
-            "button_link": ""
-          }
-        },
-        "015688aa-6158-470b-b096-939d6a6ea2c1": {
-          "type": "item",
-          "settings": {
-            "image": "shopify:\/\/shop_images\/Mask_group-22.jpg",
-            "label": "",
-            "title": "全く痛くない！簡単操作",
-            "image_logo": "shopify:\/\/shop_images\/Group_4614.png",
-            "content": "<p>注文後すぐ届いた。<br\/>重厚感のある箱に入った丁寧な梱包。<br\/>説明書も操作もわかりやすい。<br\/>痛いかなーと思いつつ恐る恐る使ってみたら、<br\/>全く痛くない！でも、毛が焼けるような匂いはしてくるから、効果はありそう。<br\/>冷却効果がとてもあるから熱さもほとんど感じないから、これなら続けられそうって思った。<br\/>夏までにツルツル目指します！<\/p><p><\/p><p>＊痛みには個人差があります<\/p>",
-            "button_text": "",
-            "button_link": ""
-          }
-        }
-      },
-      "block_order": [
-        "template--15065189351472__d55adfca-3c26-4d0d-8e34-cb57d05547f1-1684121516a257bba0-0",
-        "template--15065189351472__d55adfca-3c26-4d0d-8e34-cb57d05547f1-1684121516a257bba0-1",
-        "template--15065189351472__d55adfca-3c26-4d0d-8e34-cb57d05547f1-1684121516a257bba0-2",
-        "25696927-a0ea-4af5-bd36-d213b606c4ea",
-        "015688aa-6158-470b-b096-939d6a6ea2c1"
-      ],
-      "settings": {
-        "subheading": "",
-        "title": "利用者の声",
-        "text_position": "middle",
-        "button_background": "#000000",
-        "button_text_color": "#ffffff",
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)",
-        "item_background": "rgba(0,0,0,0)",
-        "item_text_color": "rgba(0,0,0,0)"
-      }
-    },
-    "1da6b395-b317-430e-9202-04401ce7d6c5": {
-      "type": "text-with-icons",
-      "blocks": {
-        "template--15055376547888__1da6b395-b317-430e-9202-04401ce7d6c5-16838736853c444da8-0": {
-          "type": "item",
-          "settings": {
-            "icon": "picto-email",
-            "custom_icon_width": 50,
-            "title": "お得な情報をお知らせする",
-            "content": "<p>キャンペーン情報や会員限定の特別販売など<\/p><p>お得な情報満載です。<\/p>"
-          }
-        },
-        "template--15055376547888__1da6b395-b317-430e-9202-04401ce7d6c5-16838736853c444da8-1": {
-          "type": "item",
-          "settings": {
-            "icon": "picto-fast-delivery",
-            "custom_icon_width": 50,
-            "title": "送料無料",
-            "content": "<p>配送料（660円）のところ、<\/p><p>公式通販サイトからのご購入で0円！<\/p>"
-          }
-        },
-        "template--15055376547888__1da6b395-b317-430e-9202-04401ce7d6c5-16838736853c444da8-2": {
-          "type": "item",
-          "settings": {
-            "icon": "picto-warranty",
-            "custom_icon_width": 50,
-            "title": "メーカー2年保証",
-            "content": "<p>ご購入2年以内であれば、<\/p><p>何かあった際もメーカー保証がつくので安心！<\/p>"
-          }
-        },
-        "template--15055376547888__1da6b395-b317-430e-9202-04401ce7d6c5-16838736853c444da8-3": {
-          "type": "item",
-          "settings": {
-            "icon": "picto-return-box",
-            "custom_icon_width": 50,
-            "title": "安心の90日返品・返金保証",
-            "content": "<p>万が一Ulike商品の効果にご満足いただけない場合は、商品到着後90日以内でご返品・返金に応じさせていただきます。<\/p>"
-          }
-        }
-      },
-      "block_order": [
-        "template--15055376547888__1da6b395-b317-430e-9202-04401ce7d6c5-16838736853c444da8-0",
-        "template--15055376547888__1da6b395-b317-430e-9202-04401ce7d6c5-16838736853c444da8-1",
-        "template--15055376547888__1da6b395-b317-430e-9202-04401ce7d6c5-16838736853c444da8-2",
-        "template--15055376547888__1da6b395-b317-430e-9202-04401ce7d6c5-16838736853c444da8-3"
-      ],
-      "settings": {
-        "is_background_gradient": false,
-        "img_link": "",
-        "is_full_image": false,
-        "title": "",
-        "text_alignment": "left",
-        "sub_title": "",
         "description": "",
-        "background": "#f9f9f9",
-        "text_color": "rgba(0,0,0,0)"
+        "button_label": "",
+        "button_link": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 0,
+        "padding_bottom": 40,
+        "divider": false,
+        "full_width": false,
+        "rounded": false
       }
     },
-    "adfa46d4-e28c-42b9-8a8e-ba2210728944": {
-      "type": "slideshow",
-      "blocks": {
-        "template--15055376547888__adfa46d4-e28c-42b9-8a8e-ba2210728944-1683873506bdf89d5c-0": {
-          "type": "image",
-          "settings": {
-            "image": "shopify:\/\/shop_images\/Group_4435.jpg",
-            "mobile_image": "shopify:\/\/shop_images\/Group_4498_1.jpg",
-            "text_position": "middle_left",
-            "mobile_text_position": "top_center",
-            "subheading": "",
-            "title": "",
-            "title_1": "自分や大切な人へのギフトに最適",
-            "subheading_1": "シンプルでおしゃれなボックスや収納ケースをご用意しています。",
-            "button_1_text": "",
-            "button_1_link": "",
-            "button_2_text": "",
-            "button_2_link": "",
-            "custom_cls": "",
-            "text_color": "#ffffff",
-            "button_background": "#ffffff",
-            "button_text_color": "#ffffff",
-            "discount_text_color": "#ffffff",
-            "overlay_color": "#000000",
-            "overlay_opacity": 0
-          }
-        }
-      },
-      "block_order": [
-        "template--15055376547888__adfa46d4-e28c-42b9-8a8e-ba2210728944-1683873506bdf89d5c-0"
-      ],
+    "pagefly_section_4Bcet7": {
+      "type": "pagefly-section",
       "settings": {
-        "section_height": "auto",
-        "transition_type": "sweep",
-        "autoplay": true,
-        "fixed_height": false,
-        "cycle_speed": 5,
-        "background": "rgba(0,0,0,0)"
+        "section_id": "pf-bf340d64"
       }
     },
-    "product-content": {
-      "type": "product-content",
-      "blocks": {
-        "description": {
-          "type": "description",
-          "settings": {
-          }
-        }
-      },
-      "block_order": [
-        "description"
-      ],
+    "product-recommendations": {
+      "type": "product-recommendations",
       "disabled": true,
       "settings": {
+        "product_limit": 3,
+        "columns": 3,
+        "carousel_on_desktop": false,
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "heading": "あなたも好きかも",
+        "heading_size": "title-sm",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "divider": false,
+        "full_width": false,
+        "rounded": true
+      }
+    },
+    "17098718307bcd2722": {
+      "type": "apps",
+      "blocks": {
+        "ryviu_reviews_qa_ryviu_widget_yigzrd": {
+          "type": "shopify:\/\/apps\/ryviu-reviews-qa\/blocks\/ryviu-widget\/807ad6ed-1a6a-4559-abea-ed062858d9da",
+          "settings": {
+            "r_wapper_class": "",
+            "r_max_width": 1440,
+            "r_padding_block": 0,
+            "hide_when_no_reviews": false,
+            "one_col_on_mobile": false,
+            "hide_title_image_form": false
+          }
+        }
+      },
+      "block_order": [
+        "ryviu_reviews_qa_ryviu_widget_yigzrd"
+      ],
+      "settings": {
+        "enable_reviews_integration": true,
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 40,
+        "padding_bottom": 80,
+        "divider": false,
+        "full_width": false,
+        "rounded": false
       }
     }
   },
   "order": [
-    "main",
-    "cca7811b-f4d1-4210-914e-f2d87ce7d5d7",
-    "23120f2a-4a9f-4ec2-9ef9-a6efed273be6",
-    "cad1f44d-2303-4f96-84e8-e19314e73259",
-    "f8a12b4f-1742-429f-8e01-d5c7cc39e12c",
-    "18d98795-c584-4467-a1bf-8a4db30aabd8",
-    "a7a1e098-a290-49fc-bc5f-f2591d330a04",
-    "54b4e0f8-f319-4dd7-9ffe-664a374f8bf1",
-    "8c41911a-23a5-4100-9ca7-a5516f1caba0",
-    "818d006d-f7d1-4274-aec4-c57e408e3a1b",
-    "fdc99d78-7af3-4812-91bc-f430980403e1",
-    "286ab055-fd38-497d-bc16-c81d97208239",
-    "8f73cb5f-9a74-4c8a-9c93-b59f41d04d96",
-    "3ca4da25-ea45-4b01-9391-267e689c6d0f",
-    "59ff2f13-71c4-4522-b886-f77623b29396",
-    "ecff8781-95c2-4971-a58a-859daae5d392",
-    "d55adfca-3c26-4d0d-8e34-cb57d05547f1",
-    "1da6b395-b317-430e-9202-04401ce7d6c5",
-    "adfa46d4-e28c-42b9-8a8e-ba2210728944",
-    "product-content"
+    "main-product",
+    "help-drawer",
+    "rich_text_6KTLPC",
+    "rich_text_ME6Dqq",
+    "multicolumn_bXT9x4",
+    "pagefly_section_4Bcet7",
+    "product-recommendations",
+    "17098718307bcd2722"
   ]
 }

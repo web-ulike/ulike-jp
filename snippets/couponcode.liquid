@@ -1,28 +1,106 @@
-<div class="product_coupon_box">
-<!--     <button class="coupon_btn">
-      <svg class="ProductCoupon_faq__tRwtq" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5775" width="32" height="32"><path d="M514 63.2c-242.6 0-439.3 200.6-439.3 448.1S271.4 959.4 514 959.4s439.3-200.6 439.3-448.1S756.6 63.2 514 63.2z m50.8 704.3H450V659.6h114.8v107.9zM611.7 512c-43.8 29.7-63.3 58.6-58.6 86.7v18.8h-93.8v-25.8c-1.6-48.4 18.8-87.5 60.9-117.2 39-31.2 57.8-59.4 56.3-84.4-3.1-32.8-21.1-50.8-53.9-53.9-43.8 0-71.1 28.9-82 86.7l-105.5-23.4c18.8-106.2 86.7-157.8 203.9-154.7 96.9 4.7 149.2 48.4 157 131.3 3.2 50-24.9 95.3-84.3 135.9z" p-id="5776"></path></svg>
-      <div class="coupon_btn_text">
-        Hurry! Offer Ends Soon!
-      </div>
-    </button> -->
-    <div class="coupon_info">
-      <div class="coupon_priceBox">
-        <span class="coupon_price">
-          $100
-        </span>
-        <span class="coupon_off">
-          OFF
-        </span>
-      </div>
-      <div class="coupon_copy">
-        <div class="coupon_code"> 
-          <span class="code_tle">Code:</span>
-          <span id="cpnCode">UPOWER</span>
-        </div>
-        <button class="coupon_copyBtn" id="cpnBtn">
-          Copy Code
-        </button>
+<style>
+  .coupon-box {
+    margin-top: 5px;
+    position: relative;
+    margin-bottom: -10px;
+}
+   .coupon-box .coupon-cont {
+    display: flex;
+    width: 100%;
+    max-width: 390px;
+    height: 55px;
+    position: relative;
+    margin-top: 10px;
+}
+ .coupon-box .coupon-cont::before {
+    position: absolute;
+    display: block;
+    content: '';
+    height: 100%;
+    border-left: 2px dashed #fff;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+}
+ .coupon-box .coupon-left {
+    font-size: 32px;
+}
+.coupon-box .coupon-cont-item {
+    background: #e7004c;
+    font-size: 18px;
+    color: #fff;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+}
+ .coupon-box .coupon-left .left-txt {
+    display: flex;
+    align-items: flex-start;
+}
+  .coupon-box .coupon-right {
+    cursor: pointer;
+    transition: all .4s ease;
+}
+
+ .coupon-box .coupon-cont-item {
+    background: #e7004c;
+    font-size: 18px;
+    color: #fff;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+}
+  .coupon-box .cpnCode {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+  @media screen and (max-width: 740px){
+   .coupon-box .coupon-cont {
+    margin-top: 0;
+}
+   .coupon-box .coupon-left {
+    font-size: 20px;
+}
+   .coupon-box .coupon-left .span {
+    font-size: 14px;
+    margin-top: 8px;
+}
+  }
+</style>
+  <div class="coupon-box">
+  <div class="coupon-cont">
+    <div class="coupon-cont-item coupon-left">
+      <div class="left-txt">
+        {{ section.settings.code_num }}
       </div>
     </div>
-    <div class="coupon-txt">Buy 2, get extra $100 OFF</div>
+    <div
+      class="coupon-cont-item coupon-right copyButton"
+      data-txt="コピー完了"
+      data-txt1="コードをコピー"
+    >
+      コードをコピー  >>
+    </div>
   </div>
+  <span class="cpnCode"> {{ section.settings.code }}</span>
+</div>
+<script>
+  document.querySelector('.copyButton').addEventListener('click', function () {
+    let textToCopy = document.querySelector('.cpnCode');
+    let range = document.createRange();
+    range.selectNode(textToCopy);
+    window.getSelection().removeAllRanges(); // 清除之前的选区
+    window.getSelection().addRange(range);
+    document.execCommand('copy');
+    window.getSelection().removeAllRanges(); // 清除选区
+    this.innerHTML = this.getAttribute('data-txt');
+    setTimeout(() => {
+      this.innerHTML = this.getAttribute('data-txt1');
+    }, 2000);
+  });
+</script>

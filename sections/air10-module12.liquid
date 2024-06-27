@@ -1,0 +1,256 @@
+<style>
+   .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px);
+  }
+  @media screen and (max-width: 768px){
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * 0.6);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.6);
+  }
+}
+.module12_box{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.module12_box .module12_left{
+  width: 53%;
+}
+.module12_box .module12_right{
+  width: 42.5%;
+}
+.module12_box .module12_left .module12_tle{
+  color: #000;
+font-family: var(--font-hd-family);
+font-size: 30px;
+font-style: normal;
+font-weight: 400;
+line-height: 150%;
+letter-spacing: 1.5px;
+}
+.module12_box .module12_left .module12_tle1{
+  color: #000;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 180%;
+  letter-spacing: 0.18px;
+  margin-top: 17px;
+}
+.module12_box .module12_left .module12_tle2{
+display: inline-flex;
+flex-direction: column;
+margin-top: 30px;
+text-align: center;
+}
+.module12_tle2-p1{
+  font-family: var(--font-ro-family);
+  color: #E0004D;
+  font-size: 96px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 180%;
+  letter-spacing: 0.96px;
+}
+.module12_tle2-p1 span{
+      font-family: var(--font-body-family);
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 180%;
+  letter-spacing: 0.18px;
+}
+.module12_tle2-p2{
+  color: rgba(0, 0, 0, 0.70);
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.18px;
+}
+.module12_tle3{
+  color: rgba(0, 0, 0, 0.50);
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 180%;
+letter-spacing: 0.12px;
+margin-top: 60px;
+}
+@media (max-width: 767px){
+  .module12_box{
+    flex-direction: column;
+  }
+  .module12_box .module12_left,.module12_box .module12_right{
+    width: 100%;
+  }
+  .module12_box .module12_left .module12_tle{
+    font-size: 16px;
+  }
+  .module12_box .module12_left .module12_tle1{
+    font-size: 14px;
+    margin-top: 8px;
+  }
+  .module12_box .module12_left .module12_tle2{
+    margin-top: 0;
+  }
+  .module12_tle2-p1{
+    font-size: 48px;
+    line-height: 180%;
+  }
+  .module12_tle2-p2{
+    font-size: 10px;
+  }
+  .module12_tle3{
+    margin-top: 30px;
+    margin-bottom: 30px;
+     font-size: 10px;
+  }
+}
+</style>
+   <section>
+    <div class="air_module12_wrapper section-{{ section.id }}-padding">
+      <div class="custom_container">
+        <div class="module12_box">
+          <div class="module12_left to-top">
+            {%- if section.settings.tle_1 != blank -%}
+            <div class="module12_tle">
+               {{ section.settings.tle_1 }}
+            </div>
+            {%- endif -%}
+             {%- if section.settings.tle_2 != blank -%}
+            <div class="module12_tle1">
+             {{ section.settings.tle_2 }}
+            </div>
+               {%- endif -%}
+            <div class="module12_tle2">
+              <div class="module12_tle2-p1">50%<span>短縮*³</span></div>
+              <div class="module12_tle2-p2">全身照射時間</div>
+            </div>
+            {%- if section.settings.tle_2 != blank -%}
+            <div class="module12_tle3">
+             {{ section.settings.tle_3 }}
+            </div>
+             {%- endif -%}
+          </div>
+          <div class="module12_right to-top" style="transition-delay: 0.2s;">
+             <picture>
+            {%- if section.settings.image_mobile -%}
+           <source
+              media="(max-width: 767px)"
+              srcset="{{ section.settings.image_mobile | image_url: width: '400x' }} 400w, {{ section.settings.image_mobile | image_url: width: '600x' }} 600w, {{ section.settings.image_mobile | image_url: width: '800x' }} 800w, {{ section.settings.image_mobile | image_url: width: '1000x' }} 1000w"
+              width="{{ section.settings.image_mobile.width }}"
+              height="{{ section.settings.image_mobile.height }}"
+            >
+            {%- endif -%}
+            {%- if section.settings.image -%}
+             {{- section.settings.image | image_url: width: section.settings.image.width | image_tag: loading: 'eager', sizes: '100vw', widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200', class: 'trade_banner__image' -}}
+            {%- endif -%}
+          </picture>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<script>
+</script>
+{% schema %}
+{
+  "name": "Air10 Point Module12",
+  "class": "shopify-section--air10-point-module12", 
+  "settings": [
+
+       {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        },
+     {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile Images"
+        },
+     {
+      "type": "richtext",
+      "id": "tle_1",
+      "label": "Text 1"
+    },
+     {
+      "type": "richtext",
+      "id": "tle_2",
+      "label": "Text 2"
+    },
+     {
+      "type": "richtext",
+      "id": "tle_3",
+      "label": "Text 3"
+    },
+      {
+          "type": "image_picker",
+          "id": "product_image",
+          "label": "Product Images"
+        },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_top.label",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_bottom.label",
+      "default": 48
+    }
+  ],
+  "blocks": [
+        {
+        "type": "item",
+        "name": "item",
+        "settings": [
+           {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        },
+     {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile Images"
+        },
+           {
+      "type": "richtext",
+      "id": "tle",
+      "label": "Text"
+    }
+        ]
+      }
+  ],
+  "presets": [
+    {
+      "name": "Air10 Module12"
+    }
+  ]
+}
+{% endschema %}

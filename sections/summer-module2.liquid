@@ -1,0 +1,560 @@
+<style>
+  {%- liquid
+  assign product_form_id = 'ProductForm-' | append: section.id
+  assign product = section.settings.product
+-%}
+/* number_two-box */
+  #shopify-section-{{ section.id }} {
+    --text-color: {{  section.settings.text_color.red }}, {{  section.settings.text_color.green }}, {{  section.settings.text_color.blue }};
+    --section-background: {{ section.settings.background.red }}, {{ section.settings.background.green }}, {{ section.settings.background.blue }};
+    --color-border: 255, 255, 255;
+    background: rgb(var(--section-background, var(--background))); 
+  }
+      .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px);
+  }
+  @media screen and (max-width: 768px){
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * 0.6);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.6);
+        --buttons-border-width: 1px;
+  }
+}
+  .container_three {
+    --container-max-width: 1416px;
+    --container-gutter: 40px;
+    width: 100%;
+    max-width: var(--container-max-width);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--container-gutter);
+    padding-right: var(--container-gutter);
+    --container-outer-margin: 0px;
+}
+.number_two-box{
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+.number_two-box .two_img{
+  width: 50%;
+}
+.number_two-box .two_img img{
+  width: 100%;
+}
+.two_cnt h3{
+  color: #5B7C9D;
+ font-family: var(--font-hd-family);
+font-size: 40px;
+font-style: normal;
+font-weight: 500;
+line-height: 130%; /* 52px */
+margin-bottom: 14px;
+}
+.two_cnt ul{
+  color: #000;
+font-size: 20px;
+font-style: normal;
+font-weight: 300;
+line-height: 180%;
+}
+.price_two-box {
+  display: flex;
+  margin-top: 47px;
+  align-items: center;
+  gap: 26px;
+}
+.ori_price_cus {
+  color: #000;
+font-size: 34px;
+font-style: normal;
+font-weight: 400;
+line-height: 130%;
+}
+.price_cus{
+  color:  #5B7C9D;
+font-size: 45px;
+font-style: normal;
+font-weight: 500;
+line-height: 130%; /* 74.921px */
+}
+.wang{
+  opacity: 0.5;
+color: #000;
+font-size: 24.504px;
+font-style: normal;
+font-weight: 500;
+line-height: 130%;
+}
+.shuir{
+  opacity: 0.5;
+color: #000;
+font-size: 18.055px;
+font-style: normal;
+font-weight: 500;
+line-height: 130%;
+}
+.price_cus .wang{
+  color:  #5B7C9D;
+font-size: 31.811px;
+font-style: normal;
+font-weight: 500;
+line-height: 130%;
+opacity: 1;
+}
+.price_cus .shuir{
+  color:  #5B7C9D;
+font-size: 22.953px;
+font-style: normal;
+font-weight: 500;
+line-height: 130%;
+opacity: 1;
+}
+.number_two-btn{
+margin-top: 47px;
+display: flex;
+gap: 30px;
+flex-wrap: wrap;
+}
+.two_cnt{
+  flex: 1;
+}
+.number_two-btn a{
+  display: flex;
+padding: 10px 58px;
+border-radius: 34px;
+border: var(--buttons-border-width) solid #5B7C9D;
+color: #5B7C9D;
+text-align: center;
+/* font-size: 27px; */
+    line-height: 1;
+    font-weight: var(--font-medium);
+    font-family: var(--font-navigation-family);
+    font-size: var(--font-button-size);
+      align-items: center;
+}
+.number_two-btn a:hover{
+  background: #5B7C9D;
+  color: #fff;
+}
+.line_th{
+  text-decoration: line-through;
+}
+ .ori_price_cus span:first-child{
+  font-family: var(--font-it-family);
+}
+   .price_cus span:first-child{
+  font-family: var(--font-it-family);
+}
+.number_two-box.number_two-box-reverse{
+  flex-direction: row-reverse;
+}
+  .product-form-wrapper.product-form-wrapper-cus{
+    margin:0;
+  }
+  .product-form-wrapper.product-form-wrapper-cus .button.shopify-payment-button__button--unbranded, .button--secondary{
+    color:#5B7C9D;
+  }
+   .product-form-wrapper.product-form-wrapper-cus .button--secondary .btn-fill {
+    background: #5B7C9D;
+    background-color: #5B7C9D;
+}
+
+   .product-form-wrapper.product-form-wrapper-cus .button:after {
+    border: var(--buttons-border-width) solid #5B7C9D;;
+}
+@media (max-width: 768px) {
+  .number_two-box-pd{
+    padding-left:20px;
+  }
+   .product-form-wrapper.product-form-wrapper-cus .button {
+    padding: 8px 16px;
+     width: fit-content;
+     min-width: auto;
+}
+  .container_three{
+    padding: 0;
+  }
+  .container_three.container_three-reverse{
+    /* padding-right: 20px; */
+  }
+  .number_two-box{
+    flex-direction: column;
+    position: relative;
+  }
+  .number_two-box .two_img {
+    width: 100%;
+} 
+.two_cnt{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 35px 20px;
+}
+.two_cnt h3{
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.two_cnt ul{
+  font-size: 14px;
+  padding-left: 20px;
+}
+  .number_two-box.number_two-box-reverse .two_cnt ul{
+  padding-left: 0px;
+  padding-right:20px;
+}
+.price_two-box{
+  flex-direction: column;
+  margin-top: 29px;
+  align-items: flex-start;
+  gap: 0px;
+}
+.ori_price_cus{
+  font-size: 17px;
+}
+.wang {
+    font-size: 12px;
+}
+.shuir{
+  font-size: 10px;
+}
+.price_two-box svg{
+display: none;
+}
+.price_cus{
+  font-size: 29px;
+}
+.price_cus .wang {
+    font-size: 16px;
+}
+.price_cus .shuir {
+    font-size: 11px;
+}
+.number_two-btn {
+    margin-top: 30px;
+    gap: 15px;
+    flex-direction: column;
+}
+.number_two-btn a{
+  display: inline-flex;
+  font-size: 14px;
+  padding: 5px 35px;
+  width: fit-content;
+}
+.number_two-box.number_two-box-reverse .two_cnt {
+        text-align: right;
+    }
+    .number_two-box.number_two-box-reverse .price_two-box {
+        align-items: flex-end;
+    }
+    .number_two-box.number_two-box-reverse .number_two-btn {
+      align-items: flex-end;
+    }
+    .number_two-box.number_two-box-reverse .price_two-box{
+      margin-top: 55px;
+      padding-right: 20px;
+    }
+    .number_two-box.number_two-box-reverse .number_two-btn{
+      padding-right: 20px;
+    }
+}
+/* number_two-box */
+</style>
+ <section class="section-{{ section.id }}-padding">
+    <div class="container_three {% if section.settings.image_position == 'right' %}number_two-box-reverse{% endif %}">
+      <div class="number_two-box {% if section.settings.image_position == 'right' %}number_two-box-reverse{% endif %}">
+        <div class="two_img to-top" style="transition-delay: 0.1s;">
+          <picture>
+                {%- if section.settings.image_mobile -%}
+               <source
+                  media="(max-width: 767px)"
+                  srcset="{{ section.settings.image_mobile | image_url: width: '400x' }} 400w, {{ section.settings.image_mobile | image_url: width: '600x' }} 600w, {{ section.settings.image_mobile | image_url: width: '800x' }} 800w, {{ section.settings.image_mobile | image_url: width: '1000x' }} 1000w"
+                  width="{{ section.settings.image_mobile.width }}"
+                  height="{{ section.settings.image_mobile.height }}"
+                >
+                {%- endif -%}
+                {%- if section.settings.image -%}
+                 {{- section.settings.image | image_url: width: section.settings.image.width | image_tag: loading: 'eager', sizes: '100vw', widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200', class: '' -}}
+                {%- endif -%}
+              </picture>
+        </div>
+        <div class="two_cnt to-top" style="transition-delay: 0.2s;">
+          <h3 class="to-top" style="transition-delay: 0.3s;">{{ section.settings.tle }}</h3>
+          <div class="to-top" style="transition-delay: 0.4s;">
+           {{ section.settings.ul_txt }}
+          </div>
+          <div class="price_two-box to-top {% if section.settings.tle_position == 'right' %}number_two-box-pd{% endif %}" style="transition-delay: 0.5s;">
+            <div class="ori_price_cus"><span class="line_th">{{ section.settings.origin_price1 }}</span><span class="wang">{{ section.settings.origin_price2 }}</span><span class="shuir">{{ section.settings.origin_price3 }}</span></div>
+              
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="32" viewBox="0 0 20 32" fill="none">
+                <path d="M19.5215 15.8218L0.0436711 31.2517L0.0436725 0.391895L19.5215 15.8218Z" fill="#5B7C9D"/>
+              </svg>
+                
+            <div class="price_cus"><span class="">{{ section.settings.price1 }}</span><span class="wang">{{ section.settings.price2 }}</span><span class="shuir">{{ section.settings.price3 }}</span></div>
+          </div>
+          <div class="number_two-btn to-top {% if section.settings.tle_position == 'right' %}number_two-box-pd{% endif %}" style="transition-delay: 0.6s;">
+            {%- if section.settings.add_bt_txt != blank -%}
+            <!-- <a href="javascript:;" class="add_to_cart">{{ section.settings.add_bt_txt }}</a> -->
+
+
+
+
+
+                  <div class="product-form-wrapper product-form-wrapper-cus" {{ block.shopify_attributes }}>
+                    {%- liquid
+                      assign gift_card_recipient_feature_active = false
+                      if block.settings.show_gift_card_recipient and product.gift_card?
+                        assign gift_card_recipient_feature_active = true
+                      endif
+                    -%}
+                    {%- form 'product',
+                      product,
+                      id: product_form_id,
+                      novalidate: 'novalidate',
+                      data-type: 'add-to-cart-form',
+                      data-hide-errors: gift_card_recipient_feature_active,
+                      class: 'product-form grid gap-8',
+                      is: 'product-form'
+                    -%}
+                      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" disabled />
+                  
+                      {%- liquid
+                        if gift_card_recipient_feature_active
+                          render 'gift-card-recipient-form', product: product, form: form, section_id: section_id
+                        endif
+                  
+                        assign check_against_inventory = true
+                        if product.selected_or_first_available_variant.inventory_management != 'shopify' or  product.selected_or_first_available_variant.inventory_policy == 'continue'
+                          assign check_against_inventory = false
+                        endif
+                        if product.selected_or_first_available_variant.quantity_rule.min > product.selected_or_first_available_variant.inventory_quantity and check_against_inventory
+                          assign quantity_rule_soldout = true
+                        endif
+                      -%}
+                  
+                      <div class="product-form__buttons grid gap-4">
+                        <div class="product-form__error-message alert alert--error text-sm font-medium leading-tight" role="alert" hidden></div>
+                        <div class="flex gap-4">
+                          <button
+                            type="submit"
+                            name="add"
+                            form="{{ product_form_id }}"
+                            class="product-form__submit button button--secondary button--fixed w-full mt-2"
+                            is="hover-button"
+                            {%- if product.selected_or_first_available_variant.available == false or quantity_rule_soldout %} disabled{% endif -%}
+                            {%- if product.template_suffix == 'pre-order' %} data-pre-order="true"{% endif -%}
+                          >
+                            <span class="btn-fill" data-fill></span>
+                            <span class="btn-text">
+                              {%- liquid
+                                if product.selected_or_first_available_variant.available == false or quantity_rule_soldout
+                                  echo 'products.product.sold_out' | t
+                                elsif product.template_suffix != 'pre-order'
+                                  echo 'products.product.add_to_cart' | t
+                                else
+                                  echo 'products.product.pre_order' | t
+                                endif
+                              -%}
+                            </span>
+                          </button>
+                        </div>
+                  
+                      </div>
+                    {%- endform -%}
+                  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+              
+            {%- endif -%}
+            {%- if section.settings.buy_txt != blank -%}
+            <a href="{{ section.settings.buy_link_url }}" class="buy_btn">
+             {{ section.settings.buy_txt }}
+            <!-- <span class="btn-fill" data-fill></span>
+          <span class="btn-text">
+            {{ section.settings.buy_txt }}
+          </span> -->
+            
+            </a>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<script>
+</script>
+{% schema %}
+{
+  "name": "Summer Module2",
+  "class": "shopify-section--summer-module2", 
+  "settings": [
+     {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    },
+     {
+      "type": "select",
+      "id": "image_position",
+      "label": "Desktop image position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+
+     {
+      "type": "select",
+      "id": "tle_position",
+      "label": "Mobile Txt position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    
+    {
+      "type": "text",
+      "id": "tle",
+      "label": "Title"
+    },
+    
+    {
+      "type": "richtext",
+      "id": "ul_txt",
+      "label": "subTitle"
+    },
+    {
+      "type": "richtext",
+      "id": "sub_tle",
+      "label": "Sub Title"
+    },
+     {
+      "type": "text",
+      "id": "note",
+      "label": "Note"
+    },
+    {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        },
+     {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile Images"
+        },
+  {
+      "type": "text",
+      "id": "origin_price1",
+      "label": "origin price 1"
+    },
+     {
+      "type": "text",
+      "id": "origin_price2",
+      "label": "origin price 2"
+    },
+     {
+      "type": "text",
+      "id": "origin_price3",
+      "label": "origin price 3"
+    },
+
+     {
+      "type": "text",
+      "id": "price1",
+      "label": "price 1"
+    },
+     {
+      "type": "text",
+      "id": "price2",
+      "label": "price 2"
+    },
+     {
+      "type": "text",
+      "id": "price3",
+      "label": "price 3"
+    },
+     {
+      "type": "text",
+      "id": "add_bt_txt",
+      "label": "Add Button Text"
+    },
+    {
+      "type": "text",
+      "id": "buy_txt",
+      "label": "Buy Button Text"
+    },
+    {
+      "type": "url",
+      "id": "buy_link_url",
+      "label": "Buy Button Link"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "rgba(0,0,0,0)"
+    },
+     {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_top.label",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_bottom.label",
+      "default": 48
+    }
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "Summer Module2"
+    }
+  ]
+}
+{% endschema %}

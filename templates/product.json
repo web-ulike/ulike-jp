@@ -1,249 +1,364 @@
 {
   "sections": {
-    "main": {
+    "main-product": {
       "type": "main-product",
       "blocks": {
-        "fdd7de7a-a951-4301-9d72-b4980f4bf66f": {
-          "type": "description",
-          "settings": {
-          }
-        },
-        "0eb4ca47-5da9-470d-b9e7-ed1093115d7e": {
-          "type": "liquid",
+        "vendor": {
+          "type": "text",
           "disabled": true,
           "settings": {
-            "liquid": "{% render \"couponcode\" %}"
+            "text": "{{ product.vendor }}",
+            "text_size": "text-base"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "title_size": "product-title-sm",
+            "title_size_mobile": "product-title-md",
+            "show_price": true,
+            "show_rating": true
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "text_size": "text-sm"
+          }
+        },
+        "countdown": {
+          "type": "countdown",
+          "settings": {
+            "heading": "Hurry up!",
+            "subheading": "Sale end in:",
+            "color_text": "#e11d48",
+            "color_background": "#fff1f2",
+            "gradient_background": ""
           }
         },
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
-            "hide_sold_out_variants": false,
-            "selector_mode": "block",
-            "color_mode": "color",
-            "size_chart_page": ""
+            "show_variant_labels": true,
+            "picker_type": "button",
+            "enable_color_swatches": false,
+            "color_swatch_type": "variant",
+            "size_chart": ""
           }
         },
-        "645a05e9-dde4-49fd-90f9-d81573625004": {
-          "type": "quantity_selector",
+        "inventory": {
+          "type": "inventory",
+          "disabled": true,
           "settings": {
+            "inventory_threshold": 15,
+            "show_inventory_transfer": true,
+            "color_scheme": "accent-1"
           }
         },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
-            "show_payment_button": true,
-            "atc_button_background": "#040000",
-            "atc_button_text_color": "#ffffff",
-            "buy_now_button_background": "#ffffff",
-            "buy_now_button_text_color": "#040000"
+            "show_quantity_selector": true,
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": false
           }
         },
-        "11544b84-22bc-4c8f-80bc-d9de9aaa6765": {
-          "type": "liquid",
+        "pickup_availability": {
+          "type": "pickup_availability",
+          "settings": {}
+        },
+        "share": {
+          "type": "share",
           "settings": {
-            "liquid": "{% render \"product-assure\" %}"
+            "share_label": "Share",
+            "show_help_desk": false,
+            "help_label": "Need help?",
+            "help_type": "drawer",
+            "help_page": ""
           }
         },
-        "eb71b626-30bc-45d3-b50d-7af0c200a5a2": {
-          "type": "button",
+        "complementary": {
+          "type": "complementary",
           "settings": {
-            "link": "",
-            "text": "",
-            "stretch": true,
-            "background": "rgba(0,0,0,0)",
-            "text_color": "rgba(0,0,0,0)"
+            "heading": "あなたも好きかも",
+            "product_limit": 4,
+            "show_vendor": false,
+            "show_price": true
           }
+        },
+        "sticky_buy_button": {
+          "type": "sticky_buy_button",
+          "settings": {}
         }
       },
       "block_order": [
-        "fdd7de7a-a951-4301-9d72-b4980f4bf66f",
-        "0eb4ca47-5da9-470d-b9e7-ed1093115d7e",
+        "vendor",
+        "title",
+        "description",
+        "countdown",
         "variant_picker",
-        "645a05e9-dde4-49fd-90f9-d81573625004",
+        "inventory",
         "buy_buttons",
-        "11544b84-22bc-4c8f-80bc-d9de9aaa6765",
-        "eb71b626-30bc-45d3-b50d-7af0c200a5a2"
+        "pickup_availability",
+        "share",
+        "complementary",
+        "sticky_buy_button"
       ],
       "settings": {
-        "show_vendor": false,
-        "show_sku": false,
-        "show_taxes_included": false,
-        "show_product_rating": false,
-        "show_sticky_add_to_cart": true,
-        "show_share_buttons": false,
-        "help_page": "",
+        "enable_sticky_info": true,
+        "media_size": 66,
+        "gallery_layout": "thumbnail",
+        "thumbnail_position": "beside",
+        "image_ratio": "adapt_first",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
         "enable_video_autoplay": true,
-        "enable_video_looping": false,
-        "enable_image_zoom": true,
-        "show_thumbnails_on_mobile": false,
-        "desktop_thumbnails_position": "bottom",
-        "transition_effect": "slide"
+        "enable_video_looping": true,
+        "mobile_layout": "full_width",
+        "image_ratio_mobile": "adapt_first",
+        "mobile_thumbnail": false,
+        "padding_top": 40,
+        "padding_bottom": 84,
+        "divider": false,
+        "full_width": true,
+        "rounded": false
       }
     },
-    "product-content": {
-      "type": "product-content",
+    "help-drawer": {
+      "type": "help-drawer",
       "blocks": {
-        "description": {
-          "type": "description",
+        "content-1": {
+          "type": "content",
           "settings": {
+            "icon": "rocket",
+            "heading": "Shipping Information",
+            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.<\/p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "color_text": "#b45309",
+            "color_background": "#fffbeb",
+            "gradient_background": "",
+            "color_highlight": "#ffddbf",
+            "gradient_highlight": ""
+          }
+        },
+        "content-2": {
+          "type": "content",
+          "settings": {
+            "icon": "headphone",
+            "heading": "Customer Support",
+            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.<\/p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "color_text": "#0369a1",
+            "color_background": "#f0f9ff",
+            "gradient_background": "",
+            "color_highlight": "#ffddbf",
+            "gradient_highlight": ""
+          }
+        },
+        "content-3": {
+          "type": "content",
+          "settings": {
+            "icon": "chat_bubble",
+            "heading": "FAQ’s",
+            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.<\/p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "color_text": "#be123c",
+            "color_background": "#fff1f2",
+            "gradient_background": "",
+            "color_highlight": "#ffddbf",
+            "gradient_highlight": ""
+          }
+        },
+        "content-4": {
+          "type": "content",
+          "settings": {
+            "icon": "phone",
+            "heading": "Contact Us",
+            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.<\/p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "color_text": "#4d7c0f",
+            "color_background": "#f7fee7",
+            "gradient_background": "",
+            "color_highlight": "#ffddbf",
+            "gradient_highlight": ""
           }
         }
       },
       "block_order": [
-        "description"
+        "content-1",
+        "content-2",
+        "content-3",
+        "content-4"
       ],
       "disabled": true,
       "settings": {
+        "heading": "Need help?",
+        "description": "<p>If you have any questions, you are always welcome to contact us. We'll get back to you as soon as possible, within 24 hours on weekdays.<\/p>"
       }
     },
-    "9f1361f7-d901-4315-abf5-c52d12d26478": {
-      "type": "timeline",
+    "multicolumn_yy4WMh": {
+      "type": "multicolumn",
       "blocks": {
-        "template--15055506047024__9f1361f7-d901-4315-abf5-c52d12d26478-1684305549ddaf5f3a-0": {
-          "type": "item",
+        "column_a6e36c": {
+          "type": "column",
           "settings": {
-            "image": "shopify:\/\/shop_images\/Mask_group_365f956e-8adf-42b9-bb29-72dd2921b655.jpg",
-            "label": "",
-            "title": "良いです",
-            "image_logo": "shopify:\/\/shop_images\/Group_4604.png",
-            "content": "<p>初めて脱毛器を使いましたが思いのほかコンパクトでした！<br\/>想像してたより痛みもなくシンプルで使いやすかったです。<br\/>ずっと脱毛したいと思っていましたが人前で肌を出すことに抵抗があったので自宅で出来るが嬉しい！<\/p>",
-            "button_text": "",
-            "button_link": ""
+            "show_border": false,
+            "text_alignment": "left",
+            "text_alignment_mobile": "left",
+            "image_ratio": "adapt",
+            "heading": "",
+            "heading_size": "text-lg-2xl",
+            "text": "",
+            "button_label": "",
+            "button_link": "",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
           }
         },
-        "template--15055506047024__9f1361f7-d901-4315-abf5-c52d12d26478-1684305549ddaf5f3a-1": {
-          "type": "item",
+        "column_8EiXLL": {
+          "type": "column",
           "settings": {
-            "image": "shopify:\/\/shop_images\/Mask_group-5_bcedf768-1673-4dd6-968e-33f28841c6b8.jpg",
-            "label": "",
-            "title": "購入決断して良かったです！",
-            "image_logo": "shopify:\/\/shop_images\/Group_4607.png",
-            "content": "<p>ずっと買うか悩んでいた脱毛器…<br\/>最近見ていたYouTubeで紹介されていて<br\/>気になり少し安い方を購入しました♪<br\/>北海道に住んでいるので商品到着1週間くらいを見ていましたが<br\/>その日の内（記載されていた時間内までに購入手続きを済ませる）に銀行振り込みを済ませると２日で届いたことに驚きました！<br\/>とても早い対応が嬉しかったです！<\/p>",
-            "button_text": "",
-            "button_link": ""
+            "show_border": false,
+            "text_alignment": "left",
+            "text_alignment_mobile": "left",
+            "image_ratio": "adapt",
+            "heading": "",
+            "heading_size": "text-lg-2xl",
+            "text": "",
+            "button_label": "",
+            "button_link": "",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
           }
         },
-        "template--15055506047024__9f1361f7-d901-4315-abf5-c52d12d26478-1684305549ddaf5f3a-2": {
-          "type": "item",
+        "column_hxpBHC": {
+          "type": "column",
           "settings": {
-            "image": "shopify:\/\/shop_images\/Mask_group-10_61963b35-68ad-407e-a7f8-229b02a7ffa5.jpg",
-            "label": "",
-            "title": "脱毛",
-            "image_logo": "shopify:\/\/shop_images\/Group_4610.png",
-            "content": "<p>コンセントの近くで使用をすると、体全体に脱毛器をあてられます。軽さは片手で使用しやすい感じです。使い始めて１ヶ月経ちましたが、何の不満もなく順調に脱毛効果が得られて来ました。継続しての使用をおすすめします！<\/p>",
-            "button_text": "",
-            "button_link": ""
-          }
-        },
-        "bd4e77d7-107c-4942-b13d-43d5ec9922c8": {
-          "type": "item",
-          "settings": {
-            "image": "shopify:\/\/shop_images\/Mask_group-19.jpg",
-            "label": "",
-            "title": "効きます！",
-            "image_logo": "shopify:\/\/shop_images\/Group_4613.png",
-            "content": "<p>Write 2週間もなく効果がでます。左は使用しない、右は使用した。<\/p>",
-            "button_text": "",
-            "button_link": ""
-          }
-        },
-        "bb60324f-b708-4a37-890b-274e7934bc66": {
-          "type": "item",
-          "settings": {
-            "image": "shopify:\/\/shop_images\/Mask_group-15.jpg",
-            "label": "",
-            "title": "痛みほぼなし！！！",
-            "image_logo": "shopify:\/\/shop_images\/Group_4616.png",
-            "content": "<p>サロンでの脱毛契約も終了し、もう少し気になる部分があったため再契約するか迷ってたタイミングでこちらに出会いました。結論から言うとサロンで再契約せずこちらを選んで正解でした！！家にいながらしっかり毛をやっつけてくれます笑私の場合週1回の使用で5回ほど使用しましたがだいぶ毛が薄くなり気にならなくなってきてます一番気になる痛みでしたがバチバチっと激しい光はありますが使用中は肌に当たる部分を同時に冷却しながらなので私は全く痛みを感じませんでした！デリケートゾーンは少しピリっとありますがMAXでその程度であれば全然我慢できるぐらいでした！箱なども可愛く本体も使いやすい大きさでしっかり威力もあり大満足です！<\/p>",
-            "button_text": "",
-            "button_link": ""
+            "show_border": false,
+            "text_alignment": "left",
+            "text_alignment_mobile": "left",
+            "image_ratio": "adapt",
+            "heading": "",
+            "heading_size": "text-lg-2xl",
+            "text": "",
+            "button_label": "",
+            "button_link": "",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
           }
         }
       },
       "block_order": [
-        "template--15055506047024__9f1361f7-d901-4315-abf5-c52d12d26478-1684305549ddaf5f3a-0",
-        "template--15055506047024__9f1361f7-d901-4315-abf5-c52d12d26478-1684305549ddaf5f3a-1",
-        "template--15055506047024__9f1361f7-d901-4315-abf5-c52d12d26478-1684305549ddaf5f3a-2",
-        "bd4e77d7-107c-4942-b13d-43d5ec9922c8",
-        "bb60324f-b708-4a37-890b-274e7934bc66"
+        "column_a6e36c",
+        "column_8EiXLL",
+        "column_hxpBHC"
       ],
-      "disabled": true,
       "settings": {
+        "columns": 3,
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "heading": "",
+        "heading_size": "title-sm",
+        "heading_alignment": "text-center md:items-center",
+        "heading_tag": "h2",
         "subheading": "",
-        "title": "利用者の声です",
-        "text_position": "middle",
-        "button_background": "#000000",
-        "button_text_color": "#ffffff",
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)",
-        "item_background": "rgba(0,0,0,0)",
-        "item_text_color": "rgba(0,0,0,0)"
+        "description": "",
+        "button_label": "",
+        "button_link": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "divider": false,
+        "full_width": false,
+        "rounded": false
       }
     },
-    "810a6de2-1241-4b23-8733-559e376a1c3b": {
-      "type": "text-with-icons",
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "disabled": true,
+      "settings": {
+        "product_limit": 3,
+        "columns": 3,
+        "carousel_on_desktop": false,
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "heading": "あなたも好きかも",
+        "heading_size": "title-sm",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "divider": false,
+        "full_width": false,
+        "rounded": true
+      }
+    },
+    "17098718307bcd2722": {
+      "type": "apps",
       "blocks": {
-        "template--15055506047024__810a6de2-1241-4b23-8733-559e376a1c3b-1684144706e6e079ae-3": {
-          "type": "item",
+        "ryviu_reviews_qa_ryviu_widget_yigzrd": {
+          "type": "shopify:\/\/apps\/ryviu-reviews-qa\/blocks\/ryviu-widget\/807ad6ed-1a6a-4559-abea-ed062858d9da",
           "settings": {
-            "icon": "picto-return-box",
-            "custom_icon_width": 50,
-            "title": "安心の90日返品・返金保証",
-            "content": ""
-          }
-        },
-        "template--15055506047024__810a6de2-1241-4b23-8733-559e376a1c3b-1684144706e6e079ae-2": {
-          "type": "item",
-          "settings": {
-            "icon": "picto-warranty",
-            "custom_icon_width": 50,
-            "title": "メーカー2年保証",
-            "content": ""
-          }
-        },
-        "template--15055506047024__810a6de2-1241-4b23-8733-559e376a1c3b-1684144706e6e079ae-1": {
-          "type": "item",
-          "settings": {
-            "icon": "picto-fast-delivery",
-            "custom_icon_width": 50,
-            "title": "送料無料",
-            "content": ""
-          }
-        },
-        "template--15055506047024__810a6de2-1241-4b23-8733-559e376a1c3b-1684144706e6e079ae-0": {
-          "type": "item",
-          "settings": {
-            "icon": "picto-email",
-            "custom_icon_width": 50,
-            "title": "お得な情報をお知らせする",
-            "content": ""
+            "r_wapper_class": "",
+            "r_max_width": 1440,
+            "r_padding_block": 0,
+            "hide_when_no_reviews": false,
+            "one_col_on_mobile": false,
+            "hide_title_image_form": false
           }
         }
       },
       "block_order": [
-        "template--15055506047024__810a6de2-1241-4b23-8733-559e376a1c3b-1684144706e6e079ae-3",
-        "template--15055506047024__810a6de2-1241-4b23-8733-559e376a1c3b-1684144706e6e079ae-2",
-        "template--15055506047024__810a6de2-1241-4b23-8733-559e376a1c3b-1684144706e6e079ae-1",
-        "template--15055506047024__810a6de2-1241-4b23-8733-559e376a1c3b-1684144706e6e079ae-0"
+        "ryviu_reviews_qa_ryviu_widget_yigzrd"
       ],
       "settings": {
-        "is_background_gradient": false,
-        "img_link": "",
-        "is_full_image": false,
-        "title": "",
-        "text_alignment": "left",
-        "sub_title": "",
-        "description": "",
-        "background": "#f9f9f9",
-        "text_color": "rgba(0,0,0,0)"
+        "enable_reviews_integration": true,
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 40,
+        "padding_bottom": 80,
+        "divider": false,
+        "full_width": false,
+        "rounded": false
       }
     }
   },
   "order": [
-    "main",
-    "product-content",
-    "9f1361f7-d901-4315-abf5-c52d12d26478",
-    "810a6de2-1241-4b23-8733-559e376a1c3b"
+    "main-product",
+    "help-drawer",
+    "multicolumn_yy4WMh",
+    "product-recommendations",
+    "17098718307bcd2722"
   ]
 }

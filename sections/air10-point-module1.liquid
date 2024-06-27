@@ -1,0 +1,286 @@
+<style>
+    #shopify-section-{{ section.id }} {
+    --text-color: {{  section.settings.text_color.red }}, {{  section.settings.text_color.green }}, {{  section.settings.text_color.blue }};
+    --section-background: {{ section.settings.background.red }}, {{ section.settings.background.green }}, {{ section.settings.background.blue }};
+    --color-border: 255, 255, 255;
+    /* background: rgb(var(--section-background, var(--background))); */
+  }
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px);
+  }
+  @media screen and (max-width: 768px){
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * 0.6);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.6);
+  }
+}
+.point_num-box{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.point_num-left{
+width: 43%;
+}
+.point_num-right{
+width: 49%;
+}
+.point_num-right .point_1{
+  color:  #E0004D;
+font-size: 20px;
+font-style: normal;
+font-weight: 500;
+line-height: 150%;
+letter-spacing: 0.2px;
+border-bottom: 1px solid #E0004D;
+margin-bottom: 17px;
+max-width: 374px;
+}
+
+.point_num-right .point_tle{
+  margin-top: 17px;
+  color: #000;
+  font-family: var(--font-hd-family);
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  letter-spacing: 1.5px;
+}
+.point_tle1 {
+  color: #000;
+font-size: 18px;
+font-style: normal;
+font-weight: 400;
+line-height: 180%;
+letter-spacing: 0.155px;
+margin-top: 60px;
+}
+.point_note{
+  color: rgba(0, 0, 0, 0.50);
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 150%;
+letter-spacing: 0.12px;
+margin-top: 74px;
+}
+
+.point_num-box1{
+  /* margin-top: 100px; */
+}
+.point_num-box1 .point_1{
+  color: #E0004D;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
+  letter-spacing: 0.2px;
+  border-bottom: 1px solid #E0004D;
+  max-width: 550px;
+}
+.point_num-box1 .point_num2-tle1{
+  color: #000;
+font-family: var(--font-hd-family);
+font-size: 30px;
+font-style: normal;
+font-weight: 400;
+line-height: 150%;
+letter-spacing: 1.5px;
+margin-top: 22px;
+}
+.point_num-box1 .point_num2-tle2{
+  color: #5F5F5F;
+font-size: 18px;
+font-style: normal;
+font-weight: 400;
+line-height: 180%;
+letter-spacing: 0.18px;
+margin-top: 50px;
+}
+.point_num-box1 .point_num2-ul{
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 50px;
+}
+  .point_tle1.point_tle1-1{
+        margin-top: 30px;
+  }
+  @media (max-width: 767px){
+  .point_num-box{
+    flex-direction: column-reverse;
+    padding-top: 20px;
+  }
+  .point_num-left{
+    width: 100%;
+    margin-top: 30px;
+  }
+  .point_num-left picture{
+    width: 80%;
+  }
+  .point_num-right{
+    width: 100%;
+  }
+  .point_num-right .point_1{
+    font-size: 10px;
+    width: 80%;
+  }
+  .point_num-right .point_tle{
+    font-size: 16px;
+    margin-top: 15px;
+    width: 80%;
+  }
+  .point_tle1{
+    margin-top: 40px;
+    font-size: 12px;
+    line-height: 150%;
+    width: 60%;
+    float: right;
+  }
+  .point_note{
+    margin-top: 40px;
+    margin-bottom: 30px;
+    font-size: 10px;
+    /* display: none; */
+  }
+}
+</style>
+   <section>
+    <div class="point_num-wrapper section-{{ section.id }}-padding">
+      <div class="custom_container">
+        <div class="point_num-box">
+          <div class="point_num-left to-top">
+            <picture>
+            {%- if section.settings.image_mobile -%}
+           <source
+              media="(max-width: 767px)"
+              srcset="{{ section.settings.image_mobile | image_url: width: '400x' }} 400w, {{ section.settings.image_mobile | image_url: width: '600x' }} 600w, {{ section.settings.image_mobile | image_url: width: '800x' }} 800w, {{ section.settings.image_mobile | image_url: width: '1000x' }} 1000w"
+              width="{{ section.settings.image_mobile.width }}"
+              height="{{ section.settings.image_mobile.height }}"
+            >
+            {%- endif -%}
+            {%- if section.settings.image -%}
+             {{- section.settings.image | image_url: width: section.settings.image.width | image_tag: loading: 'eager', sizes: '100vw', widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200', class: 'trade_banner__image' -}}
+            {%- endif -%}
+          </picture>
+          </div>
+          <div class="point_num-right">
+            {%- if section.settings.tle_1 != blank -%}
+            <div class="point_1 to-top">
+               {{ section.settings.tle_1 }}
+            </div>
+              {%- endif -%}
+            {%- if section.settings.tle_2 != blank -%}
+            <div class="point_tle to-top">
+              {{ section.settings.tle_2 }}
+            </div>
+            {%- endif -%}
+            {%- if section.settings.tle_3 != blank -%}
+            <div class="point_tle1 to-top">
+             {{ section.settings.tle_3 }}
+            </div>
+            {%- endif -%}
+             {%- if section.settings.tle_3_1 != blank -%}
+            <div class="point_tle1 point_tle1-1 to-top">
+             {{ section.settings.tle_3_1 }}
+            </div>
+            {%- endif -%}
+            <div style="clear:both;display: block;"></div>
+            {%- if section.settings.tle_4 != blank -%}
+            <div class="point_note to-top">
+              {{ section.settings.tle_4 }}
+            </div>
+            {%- endif -%}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+<script>
+</script>
+{% schema %}
+{
+  "name": "Air10 Point Module1",
+  "class": "shopify-section--air10-point-module1", 
+  "settings": [
+    
+    {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        },
+     {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile Images"
+        },
+     {
+      "type": "richtext",
+      "id": "tle_1",
+      "label": "Text 1"
+    },
+    {
+      "type": "richtext",
+      "id": "tle_2",
+      "label": "Text 2"
+    },
+     {
+      "type": "richtext",
+      "id": "tle_3",
+      "label": "Text 3"
+    },
+     {
+      "type": "richtext",
+      "id": "tle_3_1",
+      "label": "Text 3-1"
+    },
+    {
+      "type": "richtext",
+      "id": "tle_4",
+      "label": "Text 4"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_top.label",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_bottom.label",
+      "default": 48
+    }
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "Air10 Point Module1"
+    }
+  ]
+}
+{% endschema %}

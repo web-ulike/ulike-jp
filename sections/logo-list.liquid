@@ -1,245 +1,447 @@
-{%- if section.settings.background != settings.background and section.settings.background != 'rgba(0,0,0,0)' -%}
-  {%- assign blends_with_background = false -%}
-{%- else -%}
-  {%- assign blends_with_background = true -%}
-{%- endif -%}
-
 <style>
   #shopify-section-{{ section.id }} {
-    {%- if section.settings.background == 'rgba(0,0,0,0)' -%}
-      {%- assign section_background = settings.background -%}
-    {%- else -%}
-      {%- assign section_background = section.settings.background -%}
-    {%- endif -%}
-
-    {%- if section.settings.text_color == 'rgba(0,0,0,0)' -%}
-      {%- assign heading_color = settings.heading_color -%}
-      {%- assign text_color = settings.text_color -%}
-    {%- else -%}
-      {%- assign heading_color = section.settings.text_color -%}
-      {%- assign text_color = section.settings.text_color -%}
-    {%- endif -%}
-
-    {%- if section.settings.button_background == 'rgba(0,0,0,0)' -%}
-      {%- assign button_background = settings.primary_button_background -%}
-    {%- else -%}
-      {%- assign button_background = section.settings.button_background -%}
-    {%- endif -%}
-
-    {%- if section.settings.button_text_color == 'rgba(0,0,0,0)' -%}
-      {%- assign button_text_color = settings.primary_button_text_color -%}
-    {%- else -%}
-      {%- assign button_text_color = section.settings.button_text_color -%}
-    {%- endif -%}
-
-    --heading-color: {{ heading_color.red }}, {{ heading_color.green }}, {{ heading_color.blue }};
-    --text-color: {{ text_color.red }}, {{ text_color.green }}, {{ text_color.blue }};
-    --primary-button-background: {{ button_background.red }}, {{ button_background.green }}, {{ button_background.blue }};
-    --primary-button-text-color: {{ button_text_color.red }}, {{ button_text_color.green }}, {{ button_text_color.blue }};
-
-    --prev-next-button-background: {{ settings.background.red }}, {{ settings.background.green }}, {{ settings.background.blue }};
-    --prev-next-button-color: {{ settings.text_color.red }}, {{ settings.text_color.green }}, {{ settings.text_color.blue }};
-
-    --section-background: {{ section_background.red }}, {{ section_background.green }}, {{ section_background.blue }};
-    --section-logo-background: {{ section.settings.logo_background.red }} {{ section.settings.logo_background.green }} {{ section.settings.logo_background.blue }} / {{ section.settings.logo_background.alpha }};
-    --section-logo-count: {{ section.blocks.size | default: 6 }};
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    {%- render 'section-variables', section: section -%}
+    --section-grid-gap: {{ section.settings.grid_horizontal }}px;
+  }
+  .logo_list-tle{
+    color:#190A0A;
+font-family: var(--font-hd-family);
+font-size: 30px;
+font-style: normal;
+font-weight: 400;
+line-height: 150%; /* 45px */
+    text-align:center;
+    margin-bottom:40px;
+  }
+  @media (max-width: 767px){
+    .logo_list-tle{
+font-size: 18px;
+  }
   }
 </style>
 
-<section class="section {% unless blends_with_background or is_boxed %}section--flush{% endunless %}">
-  <div class="section__color-wrapper">
-    <div class="container {% unless blends_with_background %}vertical-breather{% endunless %}">
-      <header class="section__header text-container">
-        {%- if section.settings.subheading != blank -%}
-          <h2 class="heading heading--small">{{ section.settings.subheading | escape }}</h2>
+<div class="section section--padding{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded relative{% endif %}">
+  <div class="{% if section.settings.layout == 'default' %}page-width {% if section.settings.full_width %}page-width--full {% endif %}{% else %}{% unless section.settings.full_width %}page-width {% endunless %}{% endif %}relative">
+    {%- render 'section-heading', section: section -%}
+
+   {%- if section.settings.tle != blank -%}
+            <h3 class="logo_list-tle">
+             {{ section.settings.tle }}
+            </h3>
+    {%- endif -%}
+    {%- if section.blocks.size > 0 -%}
+      <div class="{{ section.settings.heading_alignment }} overflow-hidden">
+        {%- if section.settings.layout == 'marquee' -%}
+          <logo-list class="logo-list block" data-speed="{{ section.settings.speed }}" data-direction="{{ section.settings.direction }}">
         {%- endif -%}
-
-        {%- if section.settings.title != blank -%}
-          <h3 class="heading h2">{{ section.settings.title | escape }}</h3>
-        {%- endif -%}
-      </header>
-
-      {%- capture section_content -%}
-        <div class="logo-list__list">
-          {%- for block in section.blocks -%}
-            {%- capture logo_content -%}
-              {%- if block.settings.logo != blank -%}
-                {%- assign logo_max_size = block.settings.logo.width | divided_by: 2 | at_most: 200 -%}
-                {%- capture logo_widths -%}{{ logo_max_size }},{{ logo_max_size | times: 2 }}{%- endcapture -%}
-                {%- capture logo_sizes -%}{{ logo_max_size }}px{%- endcapture -%}
-                {%- capture logo_style -%}width: {{ logo_max_size }}px{%- endcapture -%}
-                {% comment %}  style: logo_style, sizes: logo_sizes {% endcomment %}
-                {{ block.settings.logo | image_url: width: block.settings.logo.width | image_tag: loading: 'lazy', widths: logo_widths, class: 'logo-list__image' }}
-              {%- else -%}
-                {{- 'image' | placeholder_svg_tag: 'logo-list__image logo-list__image--placeholder' -}}
-              {%- endif -%}
-            {%- endcapture -%}
-
-            {%- if block.settings.link -%}
-              <a href="{{ block.settings.link }}" {% if section.settings.reveal_on_scroll %}reveal{% endif %} class="logo-list__item" {{ block.shopify_attributes }}>
-                {{- logo_content -}}
+          <div class="logo-bar inline-flex flex-wrap items-center justify-center flex-nowrap">
+            {%- for block in section.blocks -%}
+              {%- liquid
+                assign image_height = block.settings.height
+                assign image_height_2x = block.settings.height | times: 2
+              -%}
+              <a class="logo__media media media--transparent relative flex-auto"{% if block.settings.link != blank %} href="{{ block.settings.link }}"{% else %} role="link" aria-disabled="true"{% endif %} style="--image-height: {{ image_height }}px;" {{ block.shopify_attributes }}>
+                {%- if block.settings.image != blank -%}
+                  <img
+                    srcset="{{ block.settings.image | image_url: height: image_height }} 1x, {{ block.settings.image | image_url: height: image_height_2x }} 2x"
+                    src="{{ block.settings.image | image_url: height: image_height }}"
+                    alt="{{ block.settings.image.alt | escape }}"
+                    loading="lazy"
+                    width="{{ image_height | times: block.settings.image.aspect_ratio }}"
+                    height="{{ image_height }}"
+                    is="lazy-image"
+                  />
+                {%- else -%}
+                  {{- 'logo' | placeholder_svg_tag: 'placeholder' -}}
+                {%- endif -%}
               </a>
-            {%- else -%}
-              <div class="logo-list__item" {% if section.settings.reveal_on_scroll %}reveal{% endif %} {{ block.shopify_attributes }}>
-                {{- logo_content -}}
-              </div>
-            {%- endif -%}
-          {%- else -%}
-            {%- for i in (1..6) -%}
-              <div class="logo-list__item" {% if section.settings.reveal_on_scroll %}reveal{% endif %}>
-                {{- 'image' | placeholder_svg_tag: 'logo-list__image logo-list__image--placeholder' -}}
-              </div>
             {%- endfor -%}
-          {%- endfor -%}
-        </div>
-      {%- endcapture -%}
-
-      {%- if section.settings.stack_logos -%}
-        <logo-list
-          {% if section.settings.reveal_on_scroll %}
-            reveal-on-scroll
-          {% endif %}
-          class="logo-list logo-list--grid"
-        >
-          {{- section_content -}}
-        </logo-list>
-      {%- else -%}
-        <div class="scroller">
-          <div class="scroller__inner">
-            <logo-list
-              {% if section.settings.reveal_on_scroll %}
-                reveal-on-scroll
-              {% endif %}
-              class="logo-list logo-list--carousel"
-            >
-              {%- if section.blocks.size > 6 -%}
-                <prev-next-buttons class="logo-list__prev-next hidden-pocket">
-                  <button class="logo-list__arrow prev-next-button prev-next-button--prev" disabled>
-                    <span class="visually-hidden">{{ 'general.accessibility.previous' | t }}</span>
-                    {%- include 'icon' with 'nav-arrow-left', block: true, direction_aware: true -%}
-                  </button>
-
-                  <button class="logo-list__arrow prev-next-button prev-next-button--next">
-                    <span class="visually-hidden">{{ 'general.accessibility.next' | t }}</span>
-                    {%- include 'icon' with 'nav-arrow-right', block: true, direction_aware: true -%}
-                  </button>
-                </prev-next-buttons>
-              {%- endif -%}
-
-              {{- section_content -}}
-            </logo-list>
           </div>
-        </div>
-      {%- endif -%}
-
-      {%- if section.settings.button_text != blank -%}
-        <div class="section__footer">
-          <a class="button button--primary" href="{{ section.settings.button_link }}">
-            {{- section.settings.button_text -}}
-          </a>
-        </div>
-      {%- endif -%}
-    </div>
+        {%- if section.settings.layout == 'marquee' -%}
+          </logo-list>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
   </div>
-</section>
+</div>
 
 {% schema %}
 {
-  "name": "Logo list",
-  "class": "shopify-section--logo-list",
+  "name": "t:sections.logo-list.name",
   "settings": [
+      {
+      "type": "text",
+      "id": "tle",
+      "label": "Title"
+    },
     {
-      "type": "checkbox",
-      "id": "reveal_on_scroll",
-      "label": "Reveal on scroll",
-      "info": "Show animation when section becomes visible.",
-      "default": true
+      "type": "select",
+      "id": "layout",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:sections.logo-list.settings.layout.options__1.label"
+        },
+        {
+          "value": "marquee",
+          "label": "t:sections.logo-list.settings.layout.options__2.label"
+        }
+      ],
+      "default": "default",
+      "label": "t:sections.logo-list.settings.layout.label"
+    },
+    {
+      "type": "range",
+      "id": "grid_horizontal",
+      "min": 50,
+      "max": 200,
+      "step": 5,
+      "default": 70,
+      "unit": "px",
+      "label": "t:sections.logo-list.settings.grid_horizontal.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.logo-list.settings.header.content",
+      "info": "t:sections.logo-list.settings.header.info"
+    },
+    {
+      "type": "select",
+      "id": "direction",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.logo-list.settings.direction.options__1.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.logo-list.settings.direction.options__2.label"
+        }
+      ],
+      "default": "left",
+      "label": "t:sections.logo-list.settings.direction.label"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 1,
+      "max": 30,
+      "step": 1,
+      "label": "t:sections.logo-list.settings.speed.label",
+      "unit": "x",
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "t:sections.global.settings.header__heading.content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:sections.global.settings.heading.label",
+      "default": "Logo list"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "title-sm",
+          "label": "t:sections.global.settings.heading_size.options__1.label"
+        },
+        {
+          "value": "title-md",
+          "label": "t:sections.global.settings.heading_size.options__2.label"
+        },
+        {
+          "value": "title-lg tracking-heading",
+          "label": "t:sections.global.settings.heading_size.options__3.label"
+        },
+        {
+          "value": "title-xl tracking-heading",
+          "label": "t:sections.global.settings.heading_size.options__4.label"
+        }
+      ],
+      "default": "title-md",
+      "label": "t:sections.global.settings.heading_size.label"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "t:sections.global.settings.heading_alignment.label",
+      "options": [
+        {
+          "value": "text-left md:items-end md:flex-row",
+          "label": "t:sections.global.settings.heading_alignment.options__1.label"
+        },
+        {
+          "value": "text-center md:items-center",
+          "label": "t:sections.global.settings.heading_alignment.options__2.label"
+        },
+        {
+          "value": "text-right md:items-end md:flex-row-reverse",
+          "label": "t:sections.global.settings.heading_alignment.options__3.label"
+        }
+      ],
+      "default": "text-center md:items-center"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "options": [
+        {
+          "value": "h1",
+          "label": "t:sections.global.settings.heading_tag.options__1.label"
+        },
+        {
+          "value": "h2",
+          "label": "t:sections.global.settings.heading_tag.options__2.label"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.global.settings.heading_tag.options__3.label"
+        },
+        {
+          "value": "h4",
+          "label": "t:sections.global.settings.heading_tag.options__4.label"
+        },
+        {
+          "value": "h5",
+          "label": "t:sections.global.settings.heading_tag.options__5.label"
+        },
+        {
+          "value": "h6",
+          "label": "t:sections.global.settings.heading_tag.options__6.label"
+        },
+        {
+          "value": "div",
+          "label": "t:sections.global.settings.heading_tag.options__7.label"
+        },
+        {
+          "value": "span",
+          "label": "t:sections.global.settings.heading_tag.options__8.label"
+        },
+        {
+          "value": "p",
+          "label": "t:sections.global.settings.heading_tag.options__9.label"
+        }
+      ],
+      "default": "h2",
+      "label": "t:sections.global.settings.heading_tag.label",
+      "info": "t:sections.global.settings.heading_tag.info"
     },
     {
       "type": "text",
       "id": "subheading",
-      "label": "Subheading"
+      "label": "t:sections.global.settings.subheading.label"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "t:sections.global.settings.description.label"
     },
     {
       "type": "text",
-      "id": "title",
-      "label": "Heading",
-      "default": "Brands"
-    },
-    {
-      "type": "text",
-      "id": "button_text",
-      "label": "Button text"
+      "id": "button_label",
+      "label": "t:sections.global.settings.button_label.label",
+      "info": "t:sections.global.settings.button_label.info"
     },
     {
       "type": "url",
       "id": "button_link",
-      "label": "Button link"
-    },
-    {
-      "type": "checkbox",
-      "id": "stack_logos",
-      "label": "Stack logos",
-      "default": true,
-      "info": "When stack, it is recommended to use a multiple of 6 logos."
+      "label": "t:sections.global.settings.button_link.label"
     },
     {
       "type": "header",
-      "content": "Colors"
+      "content": "t:sections.global.settings.header__highlight.content",
+      "info": "t:sections.global.settings.header__highlight.info"
+    },
+    {
+      "type": "select",
+      "id": "highlighted_text",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:sections.global.settings.highlighted_text.options__1.label"
+        },
+        {
+          "value": "text",
+          "label": "t:sections.global.settings.highlighted_text.options__2.label"
+        },
+        {
+          "value": "full_text",
+          "label": "t:sections.global.settings.highlighted_text.options__3.label"
+        },
+        {
+          "value": "half_text",
+          "label": "t:sections.global.settings.highlighted_text.options__4.label"
+        },
+        {
+          "value": "underline",
+          "label": "t:sections.global.settings.highlighted_text.options__5.label"
+        },
+        {
+          "value": "stencil",
+          "label": "t:sections.global.settings.highlighted_text.options__6.label"
+        },
+        {
+          "value": "scribble",
+          "label": "t:sections.global.settings.highlighted_text.options__7.label"
+        }
+      ],
+      "default": "none",
+      "label": "t:sections.global.settings.highlighted_text.label"
+    },
+    {
+      "type": "select",
+      "id": "highlighted_scribble",
+      "options": [
+        {
+          "value": "circle",
+          "label": "t:sections.global.settings.highlighted_scribble.options__1.label"
+        },
+        {
+          "value": "basic-underline",
+          "label": "t:sections.global.settings.highlighted_scribble.options__2.label"
+        },
+        {
+          "value": "sketch-underline",
+          "label": "t:sections.global.settings.highlighted_scribble.options__3.label"
+        },
+        {
+          "value": "squiggle-underline",
+          "label": "t:sections.global.settings.highlighted_scribble.options__4.label"
+        },
+        {
+          "value": "squiggle-underline-2",
+          "label": "t:sections.global.settings.highlighted_scribble.options__5.label"
+        }
+      ],
+      "default": "circle",
+      "label": "t:sections.global.settings.highlighted_scribble.label",
+      "info": "t:sections.global.settings.highlighted_scribble.info"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.global.settings.header__colors.content",
+      "info": "t:sections.global.settings.header__colors.info"
     },
     {
       "type": "color",
-      "id": "background",
-      "label": "Background",
-      "default": "rgba(0,0,0,0)"
+      "id": "color_text",
+      "label": "t:sections.global.settings.color_text.label"
     },
     {
       "type": "color",
-      "id": "text_color",
-      "label": "Text color",
-      "default": "rgba(0,0,0,0)"
+      "id": "color_background",
+      "label": "t:sections.global.settings.color_background.label"
+    },
+    {
+      "type": "color_background",
+      "id": "gradient_background",
+      "label": "t:sections.global.settings.gradient_background.label"
     },
     {
       "type": "color",
-      "id": "button_background",
-      "label": "Button background",
-      "default": "rgba(0,0,0,0)"
+      "id": "color_highlight",
+      "label": "t:sections.global.settings.color_highlight.label"
+    },
+    {
+      "type": "color_background",
+      "id": "gradient_highlight",
+      "label": "t:sections.global.settings.gradient_highlight.label"
     },
     {
       "type": "color",
-      "id": "button_text_color",
-      "label": "Button text",
-      "default": "rgba(0,0,0,0)"
+      "id": "color_button_text",
+      "label": "t:sections.global.settings.color_button_text.label"
     },
     {
       "type": "color",
-      "id": "logo_background",
-      "label": "Logo background",
-      "default": "rgba(0,0,0,0)"
+      "id": "color_button_background",
+      "label": "t:sections.global.settings.color_button_background.label"
+    },
+    {
+      "type": "color_background",
+      "id": "color_button_gradient",
+      "label": "t:sections.global.settings.color_button_gradient.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.global.settings.header__section.content"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_top.label",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_bottom.label",
+      "default": 72
+    },
+    {
+      "type": "checkbox",
+      "id": "divider",
+      "label": "t:sections.global.settings.divider.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "t:sections.global.settings.full_width.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "rounded",
+      "default": false,
+      "label": "t:sections.global.settings.rounded.label"
     }
   ],
   "blocks": [
     {
-      "name": "Logo",
       "type": "logo",
+      "name": "t:sections.logo-list.blocks.logo.name",
       "settings": [
         {
           "type": "image_picker",
-          "id": "logo",
-          "label": "Image",
-          "info": "450 x 150px .png recommended"
+          "id": "image",
+          "label": "t:sections.global.settings.image.label"
+        },
+        {
+          "type": "range",
+          "id": "height",
+          "min": 0,
+          "max": 200,
+          "step": 4,
+          "default": 80,
+          "unit": "px",
+          "label": "t:sections.logo-list.blocks.logo.settings.image_height.label"
         },
         {
           "type": "url",
           "id": "link",
-          "label": "Link"
+          "label": "t:sections.global.settings.link.label"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Logo list",
+      "name": "t:sections.logo-list.presets.name",
       "blocks": [
         {
           "type": "logo"
@@ -261,16 +463,9 @@
         }
       ]
     }
-  ]
+  ],
+  "disabled_on": {
+    "groups": ["footer", "header", "custom.overlay"]
+  }
 }
 {% endschema %}
-
-<style>
-  @media screen and (min-width: 1000px) {
-    .logo-list__list {
-      --logos-per-row: 3;
-      --logos-gap: 0px;
-      grid-template-columns: repeat(min(var(--logos-per-row), var(--section-logo-count)), minmax(140px, 400px));
-    }
-  }
-</style>

@@ -1,0 +1,577 @@
+<style>
+.preheat-specialist{
+  padding: 67px 0;
+}
+
+.preheat-specialist .preheat-specialist-title{
+  color: #272724;
+  font-size: 50px;
+  line-height: 1.2;
+  letter-spacing: -0.26px;
+}
+
+.preheat-specialist .preheat-specialist-cont{
+  position: relative;
+  margin-top: 95px;
+  display: flex;
+  align-items: center;
+  gap: 10.4%;
+}
+
+.preheat-specialist .preheat-specialist-arraw{
+  display: flex;
+  justify-content: flex-end;
+  gap: 22px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.preheat-specialist .preheat-specialist-arraw-item{
+  width: 40px;
+  cursor: pointer;
+}
+
+.preheat-specialist .preheat-specialist-arraw-item svg{
+  display: block;
+  opacity: .3;
+  transition: all .4s ease;
+}
+
+.preheat-specialist .preheat-specialist-arraw-item:hover svg{
+  opacity: 1;
+}
+
+.preheat-specialist .preheat-specialist-left{
+  width: 32.66%;
+  overflow: hidden;
+}
+
+.preheat-specialist .preheat-specialist-img{
+  display: flex;
+}
+
+.preheat-specialist .preheat-specialist-img-item{
+  width: 100%;
+  padding-top: 100%;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0 0 50% 50%;
+}
+
+.preheat-specialist .preheat-specialist-img-item img{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0 0 50% 50%;
+}
+
+.preheat-specialist .preheat-specialist-right{
+  flex: 1;
+}
+
+.preheat-specialist .preheat-specialist-sm-img{
+  display: flex;
+  gap: 20px;
+}
+
+.preheat-specialist .preheat-specialist-sm-item{
+  /* border: 1px solid rgba(63, 54, 54, .2); */
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  padding: 4px;
+  /* overflow: hidden; */
+  cursor: pointer;
+  position: relative;
+}
+
+.preheat-specialist .preheat-specialist-img-el{
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+  border-radius: 50%;
+  opacity: .6;
+}
+.preheat-specialist .preheat-specialist-sm-item.active .preheat-specialist-img-el{
+  opacity: 1;
+}
+.preheat-specialist .preheat-specialist-sm-item img{
+  width: 140%;
+  height: 140%;
+  border-radius: 50%;
+  max-width: none;
+  object-fit: cover;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+}
+
+.preheat-specialist .preheat-specialist-text{
+  position: relative;
+  margin-top: 40px;
+}
+
+.preheat-specialist .preheat-specialist-text-item{
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: all .4s ease;
+}
+
+.preheat-specialist .preheat-specialist-text-item.active{
+  position: relative;
+  pointer-events: all;
+  opacity: 1;
+  transform: translateX(0px);
+}
+
+.preheat-specialist .posi-item{
+  position: relative;
+  z-index: 1;
+}
+
+.preheat-specialist .preheat-specialist-p{
+  color: #000;
+  font-size: 30px;
+  line-height: 1.5;
+}
+
+.preheat-specialist .preheat-specialist-line{
+  height: 1px;
+  width: 35%;
+  background: rgba(63, 54, 54, .2);
+  margin: 30px 0;
+}
+
+.preheat-specialist .preheat-specialist-name{
+  color: #000;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.preheat-specialist .preheat-specialist-sub{
+    color: #000;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 150%;
+  margin-top: 10px;
+}
+
+.circle-box {
+	  width: 88px;
+	  height: 88px;
+	  position: absolute;
+    top: 0;
+    left: 0;
+	}
+	
+	.circle-item {
+	  width: 44px;
+	  height: 88px;
+	  position: absolute;
+	  top: 0;
+	  overflow: hidden;
+	}
+	
+	.circle-item-right {
+	  right: 0;
+	}
+	
+	.circle-item-left {
+	  left: 0;
+	}
+	
+	.circle-pro {
+	  width: 88px;
+	  height: 88px;
+	  border: 1px solid #E0004D;
+	  border-radius: 50%;
+	  position: absolute;
+	  top: 0;
+	  transform: rotate(45deg);
+	}
+	
+	.rightcircle {
+	  border-top: 1px solid rgba(63, 54, 54, .2);
+	  border-right: 1px solid rgba(63, 54, 54, .2);
+	  right: 0;
+	}
+
+  .active .rightcircle {
+	  animation: circleProgressLoad_right 2.8s linear forwards;
+  }
+	
+	.leftcircle {
+	  border-bottom: 1px solid rgba(63, 54, 54, .2);
+	  border-left: 1px solid rgba(63, 54, 54, .2);
+	  left: 0;
+	}
+
+  .active .leftcircle {
+    animation: circleProgressLoad_left 2.8s linear forwards;
+  }
+	
+	@keyframes circleProgressLoad_right {
+	  0% {
+	    transform: rotate(45deg);
+	  }
+	  50% {
+	    transform: rotate(225deg);
+	  }
+	  100% {
+	    transform: rotate(225deg);
+	  }
+	}
+	@keyframes circleProgressLoad_left {
+	  0% {
+	    transform: rotate(45deg);
+	  }
+	  50% {
+	    transform: rotate(45deg);
+	  }
+	  100% {
+	    transform: rotate(225deg);
+	  }
+	}
+
+  @media (max-width:1400px) {
+    .preheat-specialist .preheat-specialist-cont{
+      gap: 7%;
+    }
+  }
+
+  @media (max-width:991px) {
+    .preheat-specialist .preheat-specialist-title{
+      font-size: 24px;
+    }
+    .preheat-specialist .preheat-specialist-cont{
+      flex-direction: column;
+      gap: 38px;
+    }
+    .preheat-specialist .preheat-specialist-arraw{
+      display: none;
+    }
+    .preheat-specialist .preheat-specialist-left{
+      width: 100%;
+    }
+    .preheat-specialist .preheat-specialist-sm-img{
+      justify-content: center;
+    }
+    .preheat-specialist .preheat-specialist-sm-item{
+      width: 56px;
+      height: 56px;
+    }
+    .circle-box{
+      width: 55px;
+      height: 55px;
+    }
+    .circle-pro{
+      width: 56px;
+      height: 56px;
+    }
+    .circle-item{
+      width: 28px;
+      height: 56px;
+    }
+    .preheat-specialist .preheat-specialist-cont{
+      margin-top: 38px;
+    }
+    .preheat-specialist .preheat-specialist-text{
+      margin-top: 24px;
+    }
+    .preheat-specialist .preheat-specialist-p{
+      font-size: 20px;
+    }
+    .preheat-specialist .preheat-specialist-line{
+      width: 100%;
+      margin: 15px 0;
+    }
+    .preheat-specialist .preheat-specialist-name{
+       font-size: 16px;
+    }
+    .preheat-specialist .preheat-specialist-sub{
+              font-size: 14px;
+    }
+  }
+</style>
+<section class="section-box">
+  <div class="preheat-specialist to-top">
+    <div class="full_container">
+      <div class="preheat-specialist-title to-top">{{ section.settings.text }}</div>
+      <div class="preheat-specialist-cont">
+        <div class="preheat-specialist-left to-top">
+          <div class="preheat-specialist-img">
+            {%- for block in section.blocks -%}
+              <div class="preheat-specialist-img-item">
+                {%- if block.settings.image != blank -%}
+                  <img
+                    loading="lazy"
+                    class="img"
+                    width="{{ block.settings.image.width }}"
+                    height="{{ block.settings.image.height }}"
+                    {% render 'image-attributes', image: block.settings.image %}
+                    alt="{{ block.settings.image.alt | escape }}"
+                  >
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+        <div class="preheat-specialist-right">
+          <div class="preheat-specialist-sm-img to-top">
+            {%- for block in section.blocks -%}
+              <div class="preheat-specialist-sm-item" data-index="{{ forloop.index }}">
+                <div class="preheat-specialist-img-el">
+                  {%- if block.settings.image != blank -%}
+                    <img
+                      loading="lazy"
+                      class="img"
+                      width="{{ block.settings.image.width }}"
+                      height="{{ block.settings.image.height }}"
+                      {% render 'image-attributes', image: block.settings.image %}
+                      alt="{{ block.settings.image.alt | escape }}"
+                    >
+                  {%- endif -%}
+                </div>
+                <div class="circle-box">
+                  <div class="circle-item circle-item-right">
+                    <div class="circle-pro rightcircle"></div>
+                  </div>
+                  <div class="circle-item circle-item-left">
+                    <div class="circle-pro leftcircle"></div>
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+          <div class="preheat-specialist-text">
+            {%- for block in section.blocks -%}
+              <div class="preheat-specialist-text-item {% if forloop.index == 1 %}active{% endif %}">
+                <div class="preheat-specialist-p to-top">{{ block.settings.text }}</div>
+                <div class="preheat-specialist-line to-top"></div>
+                <div class="preheat-specialist-name to-top">{{ block.settings.text1 }}</div>
+                <div class="preheat-specialist-sub to-top">{{ block.settings.text2 }}</div>
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+        {%- if section.blocks.size > 0 -%}
+          <div class="preheat-specialist-arraw">
+            <div class="preheat-specialist-arraw-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="36" height="27" viewBox="0 0 36 27" fill="none">
+                <g clip-path="url(#clip0_860_8661)">
+                  <path d="M0 13.5094C0 13.7228 0.08078 13.9344 0.235317 14.0961L12.528 26.9983L13.8117 25.825L2.89756 14.3696H36C36 13.42 35.2133 12.6493 34.2439 12.6493H0.918438C0.586536 12.6493 0.263416 12.8127 0.105366 13.1C0.0333672 13.229 0 13.3701 0 13.5094Z" fill="#190A0A"/>
+                  <path d="M1.83648 10.4938C2.52312 11.1647 3.63473 11.1647 4.3196 10.4938L13.792 1.21625L12.5504 0L1.83824 10.4938H1.83648Z" fill="#190A0A"/>
+                </g>
+                <defs>
+                  <clipPath id="clip0_860_8661">
+                    <rect width="36" height="27" fill="white" transform="matrix(-1 0 0 1 36 0)"/>
+                  </clipPath>
+                </defs>
+              </svg>
+            </div>
+            <div class="preheat-specialist-arraw-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="36" height="27" viewBox="0 0 36 27" fill="none">
+                <g clip-path="url(#clip0_860_8658)">
+                  <path d="M36 13.5094C36 13.7228 35.9192 13.9344 35.7647 14.0961L23.472 26.9983L22.1883 25.825L33.1024 14.3696H0C0 13.42 0.786732 12.6493 1.7561 12.6493H35.0816C35.4135 12.6493 35.7366 12.8127 35.8946 13.1C35.9666 13.229 36 13.3701 36 13.5094Z" fill="#190A0A"/>
+                  <path d="M34.1635 10.4938C33.4769 11.1647 32.3653 11.1647 31.6804 10.4938L22.208 1.21625L23.4496 0L34.1618 10.4938H34.1635Z" fill="#190A0A"/>
+                </g>
+                <defs>
+                  <clipPath id="clip0_860_8658">
+                    <rect width="36" height="27" fill="white"/>
+                  </clipPath>
+                </defs>
+              </svg>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  function preheatSpecialistSwiper(name){
+    let $p = $(name)
+    let $list = $p.find('.preheat-specialist-img')
+    let $tList = $p.find('.preheat-specialist-text')
+    let length = $p.find('.preheat-specialist-img-item').length
+    let width = $p.find('.preheat-specialist-img-item')[0].offsetWidth
+    let index = 0
+    let timer = null
+    $p.find('.preheat-specialist-sm-item').eq(index).addClass('active')
+    skewTranslateX(0)
+    $p.find('.preheat-specialist-arraw-item').click(function(){
+      let tIndex = $(this).index()
+      if(tIndex){
+        index ++
+      }else{
+        index--
+      }
+      skewTranslateX()
+      clearInterval(timer)
+      timer = setInterval(function(){
+        index ++
+        skewTranslateX()
+      },3000)
+    })
+  
+    timer = setInterval(function(){
+      index ++
+      skewTranslateX()
+    },3000)
+  
+    function skewTranslateX(time = 0.4){
+      if(index == length) index = 0
+      if(index == -1) index = length - 1
+      $p.find('.preheat-specialist-sm-item').removeClass('active')
+      $p.find('.preheat-specialist-sm-item').eq(index).addClass('active')
+      $list.css({'transform': 'translateX(-'+ index*width +'px)','transition':' all '+ time +'s ease'})
+      
+      if(time){
+        $tList.find('.preheat-specialist-text-item.active').addClass('posi-item')
+        $tList.find('.preheat-specialist-text-item').removeClass('active')
+        setTimeout(function(){
+          $tList.find('.preheat-specialist-text-item.posi-item').removeClass('posi-item')
+          $tList.find('.preheat-specialist-text-item').eq(Math.abs(index)).addClass('active')
+        },450)
+      }
+    }
+  
+    $p.on('click','.preheat-specialist-sm-item',function(){
+      let newIndex = $(this).data('index')*1 + length
+      let isChange = newIndex ==index
+      index = $(this).data('index')*1 -1
+      if(!isChange) skewTranslateX()
+      clearInterval(timer)
+      timer = setInterval(function(){
+        index ++
+        skewTranslateX()
+      },3000)
+    })
+    
+    function addSwipeHandler(element, leftCallback, rightCallback) {
+      let startX = 0;
+      let startY = 0;
+      let isHorizontalScrolling = false;
+  
+      element.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        isHorizontalScrolling = false;
+      });
+  
+      element.addEventListener('touchmove', (e) => {
+        let endX = e.touches[0].clientX;
+        let endY = e.touches[0].clientY;
+  
+        let diffX = startX - endX;
+        let diffY = startY - endY;
+  
+        if (!isHorizontalScrolling) {
+          if (Math.abs(diffX) > 15 && Math.abs(diffX) > Math.abs(diffY)) {
+            isHorizontalScrolling = true;
+            e.preventDefault(); 
+          }
+        } else {
+          e.preventDefault(); 
+        }
+      }, { passive: false });
+  
+      element.addEventListener('touchend', (e) => {
+        if (isHorizontalScrolling) {
+          let endX = e.changedTouches[0].clientX;
+          let diffX = startX - endX;
+          clearInterval(timer)
+          timer = setInterval(function(){
+            index ++
+            skewTranslateX()
+          },3000)
+          if (diffX > 0) {
+            leftCallback(); 
+          } else {
+            rightCallback(); 
+          }
+          isHorizontalScrolling = false; 
+        }
+      });
+    }
+  
+  
+    let myElement = document.querySelector('.preheat-specialist .preheat-specialist-cont');
+  
+    function onSwipeLeft() {
+      index ++ 
+      skewTranslateX()
+    }
+  
+    function onSwipeRight() {
+      index --
+      skewTranslateX()
+    }
+  
+    if(window.innerWidth<991){
+      addSwipeHandler(myElement, onSwipeLeft, onSwipeRight);
+    }
+  }
+  
+  window.addEventListener('load',function(){
+    preheatSpecialistSwiper('.preheat-specialist')
+  })
+</script>
+{% schema %}
+{
+  "name": "preheat-specialist",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Title"
+    }
+  ],
+  "blocks": [
+    {
+        "type": "item",
+        "name": "item",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "text",
+            "label": "Text"
+          },
+          {
+            "type": "text",
+            "id": "text1",
+            "label": "Text"
+          },
+          {
+            "type": "text",
+            "id": "text2",
+            "label": "Text"
+          }
+        ]
+      }
+  ],
+  "presets": [
+    {
+      "name": "preheat-specialist",
+      "settings": {},
+      "blocks": [
+      ]
+    }
+  ]
+}
+{% endschema %}
