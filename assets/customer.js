@@ -6,7 +6,14 @@ const selectors = {
   cancelAddressButton: 'button[type="reset"]',
   deleteAddressButton: 'button[data-confirm-message]'
 };
-
+document.addEventListener('DOMContentLoaded', function() {
+  var buyButton = document.querySelector('.man-product-handle-button-buy');
+  console.log('执行')
+  buyButton.addEventListener('click', function() {
+    console.log('进来1')
+    addToCart(41335578853424);
+  });
+});
 const attributes = {
   expanded: 'aria-expanded',
   confirmMessage: 'data-confirm-message'
