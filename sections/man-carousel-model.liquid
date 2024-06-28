@@ -2,7 +2,7 @@
 <div class="swiper-banner swiper-container">
     <div class="swiper-wrapper">
         {% for block in section.blocks %}
-        <a class="swiper-slide slide1" href="#">
+        <div class="swiper-slide slide1" href="#">
             <div class="w1200">
                 {{- block.settings.image_main  | image_url: width:  block.settings.image_main.width | image_tag: loading: 'lazy', draggable: false -}}
                 <div class="ani pa sl-left" swiper-animate-effect="fadeInDown" swiper-animate-duration="0.5s">
@@ -19,7 +19,7 @@
                 </div>
 
             </div>
-        </a>
+        </div>
 
     {% endfor %}
 
