@@ -57,3 +57,28 @@
       </div>
     </div>
   </div>
+  
+{% schema %}
+{
+  "name": "man-banner-model",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Welcome"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "japan-page1",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
