@@ -1,93 +1,95 @@
+{%- liquid
+  assign man = section.blocks
+-%}
+
 <link
   id="SwiperMinCss"
   rel="stylesheet"
   href="https://cdn.shopify.com/s/files/1/0553/7392/2352/files/swiper.min.js?v=1719540307.css"
   media="print"
   onload="this.media='all'"
-/>
+>
 <link
   id="animateMinCss"
   rel="stylesheet"
   href="https://cdn.shopify.com/s/files/1/0553/7392/2352/files/animate.min.css?v=1719540286.css"
   media="print"
   onload="this.media='all'"
-/>
+>
 
 {{ 'man-app.css' | asset_url | stylesheet_tag }}
 <div class="man-header pc-show">
-    <div class="man-image">
-      <img src="https://cdn.shopify.com/s/files/1/0553/7392/2352/files/main.png?v=1719540264.png" alt="" />
+  <div class="man-image">
+    <img src="https://cdn.shopify.com/s/files/1/0553/7392/2352/files/main.png?v=1719540264.png" alt="">
+  </div>
+  <div class="man-text-container">
+    <div class="man-text-label">
+      <div class="text">{{ man.FirstSentence }}</div>
+      <div class="text">{{ man.SecondSentence }}!</div>
     </div>
-    <div class="man-text-container">
-      <div class="man-text-label">
-        <div class="text">
-          男の魅力丶 
-        </div>
-        <div class="text">
-          解放せよ! 
-        </div>
-      </div>
+  </div>
+  <div class="vertical-text">
+    <p>毎日のシェービングに</p>
+    <p>サヨナラ。</p>
+  </div>
+  <div class="man-main-product">
+    <div>
+      <img src="https://cdn.shopify.com/s/files/1/0553/7392/2352/files/product.png?v=1719540369.png" alt="">
     </div>
-    <div class="vertical-text">
-      <p>毎日のシェービングに</p>
-      <p>サヨナラ。</p>
+    <div>
+      <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/ulike_men.png?v=1719458361.png" alt="">
     </div>
-    <div class="man-main-product">
+    <div class="man-main-product-label">メンズ専用IPL脱毛器</div>
+  </div>
+</div>
+<div class="man-header m-show">
+  <div class="man-image">
+    <img src="https://cdn.shopify.com/s/files/1/0553/7392/2352/files/m-back1.png?v=1719540263.png" alt="">
+  </div>
+  <div class="man-text-container">
+    <div class="man-text-label">
+      <div class="text">男の魅力丶</div>
+      <div class="text">解放せよ!</div>
+    </div>
+  </div>
+  <div class="vertical-text">
+    <p>毎日のシェービングに</p>
+    <p>サヨナラ。</p>
+  </div>
+  <div class="man-main-product">
+    <div>
+      <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/product.png?v=1719458361" alt="">
+    </div>
+    <div>
       <div>
-        <img src="https://cdn.shopify.com/s/files/1/0553/7392/2352/files/product.png?v=1719540369.png" alt="" />
-        
-      </div>
-      <div>
-        <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/ulike_men.png?v=1719458361.png" alt="" />
+        <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/ulike_men.png?v=1719458361.png" alt="">
       </div>
       <div class="man-main-product-label">メンズ専用IPL脱毛器</div>
     </div>
   </div>
-  <div class="man-header m-show">
-    <div class="man-image">
-      <img src="https://cdn.shopify.com/s/files/1/0553/7392/2352/files/m-back1.png?v=1719540263.png" alt="" />
-    </div>
-    <div class="man-text-container">
-      <div class="man-text-label">
-        <div class="text">
-          男の魅力丶
-        </div>
-        <div class="text">
-          解放せよ!
-        </div>
-      </div>
-    </div>
-    <div class="vertical-text">
-      <p>毎日のシェービングに</p>
-      <p>サヨナラ。</p>
-    </div>
-    <div class="man-main-product">
-      <div>
-        <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/product.png?v=1719458361" alt="" />
-      </div>
-      <div>
-        <div>
-          <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/ulike_men.png?v=1719458361.png" alt="" />
-        </div>
-        <div class="man-main-product-label">メンズ専用IPL脱毛器</div>
-      </div>
-    </div>
-  </div>
-  
+</div>
+
 {% schema %}
 {
   "name": "man-banner-model",
-  "settings": [
+  "blocks": [
     {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "Welcome"
-    },
-    {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Image"
+      "type": "slide-item",
+      "name": "slide_item",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "FirstSentence",
+          "label": "First sentence",
+          "default": "男の魅力丶"
+        },
+        {
+          "type": "textarea",
+          "id": "SecondSentence",
+          "label": "Second sentence",
+          "default": "解放せよ!"
+        }
+      ]
     }
   ],
   "presets": [
