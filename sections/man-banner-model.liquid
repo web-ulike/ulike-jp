@@ -13,9 +13,7 @@
   onload="this.media='all'"
 >
   <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"  defer="defer"></script>
-  <script>
-    new WOW().init();
-  </script>
+
 {{ 'man-app.css' | asset_url | stylesheet_tag }}
 <div class="man-header pc-show">
   <div class="man-image">
@@ -119,3 +117,6 @@
   ]
 }
 {% endschema %}
+<script>
+  new WOW().init();
+</script>
