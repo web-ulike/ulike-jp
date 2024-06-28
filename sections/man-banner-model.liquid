@@ -26,8 +26,8 @@
       
   </div>
   <div class="vertical-text">
-    <p>毎日のシェービングに</p>
-    <p>サヨナラ。</p>
+    <div class="text">{{ section.settings.LeftDescription }}</div>
+    <div class="text">{{ section.settings.RightDescription }}</div>
   </div>
   <div class="man-main-product">
     <div>
@@ -50,8 +50,8 @@
     </div>
   </div>
   <div class="vertical-text">
-    <p>毎日のシェービングに</p>
-    <p>サヨナラ。</p>
+    {% comment %} <div class="text">{{ section.settings.LeftDescription }}</div>
+    <div class="text">{{ section.settings.RightDescription }}</div> {% endcomment %}
   </div>
   <div class="man-main-product">
     <div>
@@ -93,6 +93,18 @@
       "id": "MobileSecondSentence",
       "label": "Mobile Second sentence",
       "default": "解放せよ!"
+    },
+    {
+      "type": "text",
+      "id": "LeftDescription",
+      "label": "Left Description",
+      "default": "サヨナラ。"
+    }, 
+    {
+      "type": "text",
+      "id": "RightDescription",
+      "label": "Right Description",
+      "default": "毎日のシェービングに"
     }
   ],
 
