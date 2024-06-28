@@ -145,7 +145,7 @@ body{
   }
   .man-header .vertical-text{
     position: absolute;
-    right: 14vw;
+    right: 5vw;
     top: 89vw;
     writing-mode: tb-rl;
     color: #fff;
@@ -319,8 +319,11 @@ body{
     margin-top: -20vw;
   }
   .man-product-header .man-product-sub-label{
-    color: var(--WHITE, #FFF);
+    background-image: -webkit-linear-gradient(bottom, #c0e9ff, #fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     font-family: "Noto Sans JP";
+    padding-top:10vw;
     font-size: 8vw;
     font-style: normal;
     font-weight: 500;
