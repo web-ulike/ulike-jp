@@ -168,12 +168,13 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       var buyButton = document.querySelector('.man-product-handle-button-buy');
+      var productId = {{ section.settings.product_id }};
       console.log('DOMContentLoaded event fired');
       if (buyButton) {
         console.log('Button element found');
         buyButton.addEventListener('click', function() {
           console.log('Button clicked');
-          addToCart(41335578853424);
+          addToCart(productId);
         });
       } else {
         console.log('Button element not found');
@@ -225,6 +226,12 @@
         "id": "linkUrl",
         "label": "Link URL",
         "default": "/"
+      },
+      {
+        "type": "number",
+        "id": "product_id",
+        "label": "Product ID",
+        "default": 41335578853424
       }
   ],
 
