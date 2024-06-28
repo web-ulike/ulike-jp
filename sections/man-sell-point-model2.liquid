@@ -26,7 +26,7 @@
     </div>
     <div class="man-product-handle-group wow slideInUp" data-wow-delay=".2s">
       <div class="man-product-handle-button-buy">今すぐ注文</div>
-      <div class="man-product-handle-button-details">詳しく見る</div>
+      <div class="man-product-handle-button-details">  <a href="{{ section.settings.linkUrl }}" target="_blank">詳しく見る</a>   </div>
     </div>
   </div>
   <div class="man-product-container  m-show" >
@@ -203,7 +203,13 @@
       "id": "RightDescription",
       "label": "Right Description",
       "default": "毎日のシェービングに"
-    }
+    },
+    {
+        "type": "url",
+        "id": "linkUrl",
+        "label": "Link URL",
+        "default": "/"
+      }
   ],
 
   "presets": [
