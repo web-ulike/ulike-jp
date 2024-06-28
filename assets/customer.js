@@ -8,12 +8,18 @@ const selectors = {
 };
 document.addEventListener('DOMContentLoaded', function() {
   var buyButton = document.querySelector('.man-product-handle-button-buy');
-  console.log('执行')
-  buyButton.addEventListener('click', function() {
-    console.log('进来1')
-    addToCart(41335578853424);
-  });
+  console.log('DOMContentLoaded event fired');
+  if (buyButton) {
+    console.log('Button element found');
+    buyButton.addEventListener('click', function() {
+      console.log('Button clicked');
+      addToCart(41335578853424);
+    });
+  } else {
+    console.log('Button element not found');
+  }
 });
+
 const attributes = {
   expanded: 'aria-expanded',
   confirmMessage: 'data-confirm-message'
