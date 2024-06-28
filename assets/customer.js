@@ -108,7 +108,7 @@ class CustomerAddresses {
  * @param {扩展字段} properties 
  * @returns 
  */
-function addToCart(productId, button, properties，quantity =1) {
+function addToCart(productId, button, properties,quantity =1) {
   // 获取文本元素和加载动画元素
  var textElement ;
  var loaderElement;
