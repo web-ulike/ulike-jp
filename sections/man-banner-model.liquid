@@ -45,8 +45,8 @@
   </div>
   <div class="man-text-container">
     <div class="man-text-label">
-      <div class="text">男の魅力丶</div>
-      <div class="text">解放せよ!</div>
+      <div class="text">{{ section.settings.MobileFirstSentence }}</div>
+      <div class="text">{{ section.settings.MobileSecondSentence }}</div>
     </div>
   </div>
   <div class="vertical-text">
@@ -69,20 +69,35 @@
 {% schema %}
 {
   "name": "man-banner-model",
-  "blocks": [
+  "settings": [
     {
       "type": "text",
-      "name": "text_input",
+      "id": "FirstSentence",
+      "label": "First sentence",
+      "default": "男の魅力丶"
+    },
+    {
+      "type": "text",
+      "id": "SecondSentence",
+      "label": "Second sentence",
+      "default": "解放せよ!"
+    }
+  ],
+  "blocks": [
+
+    {
+      "type": "text",
+      "name": "Mobile-Label",
       "settings": [
         {
           "type": "text",
-          "id": "FirstSentence",
+          "id": "MobileFirstSentence",
           "label": "First sentence",
           "default": "男の魅力丶"
         },
         {
           "type": "text",
-          "id": "SecondSentence",
+          "id": "MobileSecondSentence",
           "label": "Second sentence",
           "default": "解放せよ!"
         }
