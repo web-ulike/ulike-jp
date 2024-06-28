@@ -124,7 +124,7 @@ function addToCart(productId, button, properties,quantity =1) {
      textElement.hidden = true;
      loaderElement.hidden = false;
   }
-
+  console.log('进来2')
   console.log(properties);
 
  fetch('/cart/add.js', {
