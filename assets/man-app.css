@@ -1732,6 +1732,13 @@ line-height: normal;
   .man-product-handle-group {
     /* top:100vw; */
   }
+  .marks{
+    top: 50%; /* 将图标垂直居中（如果需要垂直居中的话） */
+    transform: translateY(-50%); /* 向上偏移自身高度的一半，实现垂直居中 */
+    left: 50%; /* 将图标水平位置设为其父元素宽度的一半 */
+    transform: translateX(-50%); /* 向左偏移自身宽度的一半，实现水平居中 */
+    width:15vw;
+  }
   .swiper-banner{
     height: 120vw;
   }
