@@ -1634,7 +1634,11 @@ line-height: normal;
   position: relative;
 }
 .effect-label span::before{
-  content:'·'
+  content:'·'; 
+    position: absolute;
+    bottom: -2vw;
+    left: 0%;
+    transform: translate(36%, 0%);
 }
 .effect-container  .effect-copywriting .effect-label span{
   color: #FFF;
