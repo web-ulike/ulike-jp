@@ -754,16 +754,17 @@ body{
   transform: translate(-50%, 0%);
 }
 .t2 {
-  olor: var(--WHITE, #fff);
+  color:#fff;
   font-family: Noto Sans JP;
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  top: 22vw;
-  left: 39vw;
+  top: 17vw;
+  left: 0;
   position: relative;
-  width: 20vw;
+  /* width: 20vw; */
+  transform: translate(50%, 50%);
 }
 .t2:before {
   content: "";
