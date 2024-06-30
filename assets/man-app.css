@@ -31,14 +31,6 @@ body{
 .m-show{
   display:none !important;
 }
-@media (max-width: 1000px) { 
-  .pc-show{
-    display:none !important;
-  }
-  .m-show{
-    display:block !important;
-  }
-}
 .textALIGN {
   text-align: center;
 }
@@ -122,66 +114,6 @@ body{
   font-weight: 400;
   line-height: normal;
   color: #fff;
-}
-@media (max-width: 1000px) { 
-  .man-header{
-    overflow-x: hidden;
-  }
-
-  .man-header .man-text-container .man-text-label .text{
-    position: relative;
-    left: 6vw;
-    top: 3vw;
-    transform: skew(161deg, 356deg);
-    color: #fff;
-    font-weight: 700;
-    font-size: 19vw;
-  }
-  .man-header .man-text-container .man-text-label .text:nth-child(2){
-    position: relative;
-    left: 6vw;
-    top: -2vw;
-    transform: skew(161deg, 356deg);
-    color: #fff;
-    font-weight: bold;
-    font-size: 19vw;
-  }
-  .man-header .vertical-text{
-    position: absolute;
-    right: 5vw;
-    top: 89vw;
-    writing-mode: tb-rl;
-    color: #fff;
-  }
-  .man-header .vertical-text p{
-    font-size: 4vw;
-    line-height: 7vw;
-  }
-  .man-header .man-main-product {
-    position: absolute;
-    left: 12vw;
-    top: 115vw;
-    text-align: center;
-    display: flex;
-    align-items: self-end;
-  }
-  .man-main-product img {
-    width: 30vw;
-    height: 100%;
-    margin:0 auto;
-  }
-  .man-main-product .right{
-    margin-left:35px;
-  }
-  .man-main-product .man-main-product-label {
-    font-family: "Noto Sans JP";
-    font-size: 3.5vw;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    color: #fff;
-    margin-top:2vw;
-  }
 }
 /* model end */
 /* model2  start*/
@@ -315,126 +247,6 @@ body{
 .man-product-handle-group .man-product-handle-button-details:hover{
   background: #b9e7ff;
   border: 1px solid transparent;
-}
-@media (max-width: 1000px) { 
-  .man-product-header{
-    padding:20px;
-    margin-top: -20vw;
-  }
-  .man-product-header .man-product-sub-label{
-    color: var(--WHITE, #FFF);
-    font-family: "Noto Sans JP";
-    padding-top:10vw;
-    font-size: 8vw;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-  }
-  .man-product-header .man-product-label{
-    background-image: -webkit-linear-gradient(bottom, #c0e9ff, #fff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-family: "Noto Sans JP";
-    font-size: 12vw;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-  }
-  .man-product-header .man-product-describe{
-
-  }
-  .man-product-header .man-product-describe p {
-    color: var(--WHITE, #FFF);
-    font-size:5vw;
-    font-style: normal;
-    text-align:center;
-    font-weight: 400;
-    padding:5px 0 0 0;
-    line-height: normal;
-  }
-  .man-product-header .man-product-describe h2 {
-    color: var(--WHITE, #FFF);
-    
-    font-size:24vw;
-    text-align:center;
-    font-style: normal;
-    font-weight: 300;
-    line-height: normal;
-  }
-  .man-product-header .man-product-describe span {
-    color: var(--WHITE, #FFF);
-    
-    font-size: 15vw;
-    font-style: normal;
-    font-weight: 300;
-    line-height: normal;
-  }
- .man-product-data-amount {
-    color: var(--WHITE, #FFF);
-    font-family: "Shorai Sans StdN";
-    font-size:8vw;
-    font-style: normal;
-    font-weight: 400;
-    text-align:center;
-    line-height: normal;
-    padding-bottom:20px;
-    padding-top:2vw;
-    border-bottom:1px solid #fff;
-  }
-  .man-product-container{
-    padding-bottom: 0vw;
-  }
-  .man-product-data-amount s {
-    color: var(--WHITE, #FFF);
-    font-family: "Shorai Sans StdN";
-    font-size:4.8vw;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    text-decoration-line: strikethrough;
-  }
-  .man-product-handle-group{
-    position: absolute;
-    left: 5vw;
-    top: 105vw;
-    display: flex;
-    color: #000;
-    align-items: center;
-    width: 96%;
-    font-family: "Noto Sans JP";
-    font-size: 1.8vw;
-    font-style: normal;
-  }
-  .man-product-handle-group .man-product-handle-button-buy{
-    padding: 2vw 5vw;
-    border-radius: 6vw;
-    background: #b9e7ff;
-    text-align: center;
-    width:100%;
-    margin-right: 20px;
-    cursor: pointer;
-    font-size:5vw;
-    border: 1px solid transparent;
-  }
-  .man-product-handle-group .man-product-handle-button-details{
-    padding: 2vw 5vw;
-    width:100%;
-    border-radius: 6vw;
-    background: transparent;
-    text-align: center;
-    margin-right: 20px;
-    color:#fff;
-    cursor: pointer;
-    font-size:5vw;
-    border: 1px solid #fff;
-  }
-  .man-product-mainImg-m {
-    position: relative;
-    top: 15vw;
-  }
-  .man-product-mainImg-m img{ 
-    width:90vw;
-  }
 }
 /* model2  end */
 /* model3 start */
@@ -596,130 +408,6 @@ body{
   justify-content: center;
   height: 100%;
 }
-@media (max-width: 1000px) { 
-  .sell-point-tags .sell-point-tag .sell-point-tag-label {
-    color: #000;
-    
-    font-size: 9vw;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-  }
-  .sell-point-tags .sell-point-tag .sell-point-tag-label span {
-    color: #000;
-    
-    font-size: 6vw;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-  }
-  .sell-point-icon{
-    padding:0 10px !important;
-  }
-  .man-description {
-    font-size: 5vw;
-  }
-  .man-description .man-description-list {
-    margin-top: 10vw;
-  }
-  .sell-point-container {
-    position: relative;
-  background: #010102;
-  padding-bottom: 5vw;
-  background: url('https://cdn.shopify.com/s/files/1/0553/7392/2352/files/deng.png?v=1719737273') #000 no-repeat;
-    background-position-y: 0%;
-    background-size: auto;
-  background-position-y: 69vw;
-  background-size: 76vw;
-  }
-  .sell-point-container .sell-point-label{
-   text-align:left;
-   padding:0 20px;
-   font-size:8vw;
-  }
-  .sell-point-container .sell-point-label span{
-    display:block;
-    font-size:16vw;
-  }
-  .sell-point-container .sell-point-sub-describe span {
-    font-size: 10vw;
-  }
-  .sell-point-container .sell-point-sub-describe:before{
-    height: 50px;
-  }
-  .sell-point-container .sell-point-sub-describe:after{
-    height: 50px;
-  }
-  .sell-point-tags {
-    margin-top: 10vw;
-  }
-  .sell-point-container .sell-point-sub-describe{
-    color: #fff;
-    text-align: center;
-    position: relative;
-    font-size: 5vw;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    width: 48vw;
-    margin: 10px auto 0;
-  }
-  .sell-point-icon img{
-    width:8vw;
-  }
-  .sell-point-tags .sell-point-tag {
-    width: 35vw;
-    height: 35vw;
-  }
-  .sell-point-tags .sell-point-tag .sell-point-tag-sub-label {
-    color: #000;
-    font-family: "Noto Sans JP";
-    font-size: 4vw;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-  }
-  .man-description .man-description-list .man-description-item .man-description-item-ellipse {
-    position: absolute;
-    left: -5%;
-    top: 8%;
-    transform: translate(22%, 50%);
-  }
-  .man-description .man-description-list .man-description-item .man-description-item-ellipse img {
-    width:25vw;
-  }
-  .marks {
-  top: -37vw !important;
-    left: 24vw !important;
-  }
-  .t1 {
-    top: -10vw  !important;
-    left: -6vw  !important;
-    color: var(--WHITE, #fff);
-    text-align: center;
-    font-family: Noto Sans JP;
-    font-size: 4vw  !important;
-    font-style: normal;
-    font-weight: 400  !important;
-    width: 89vw  !important;
-    line-height: 8vw  !important;
-  }
-  .t2 {
-    width:50vw !important;
-    top: 32vw  !important;
-    left: 47vw  !important;
-  }
-  .t2:before{
-    left: -22vw  !important;
-    top: 3.7vw  !important;
-    width:70px !important;
-  }
-  .swiper-banner .swiper-pagination {
-    bottom:3vw !important;
-  }
-}
-
-
 
 /* model3 end */
 
@@ -857,67 +545,6 @@ body{
 
 .swiper-banner .swiper-nav li:nth-child(5) {
   border-right: none;
-}
-@media (max-width: 1000px) { 
-  .introduce-container {
-    padding-bottom: 110vw  !important;
-  }
-  .introduce-product img{
-    width:110vw !important;
-  }
-  .introduce-product {
-    position: absolute;
-    top: 46vw !important;
-    right: 0;
-    width: 110vw !important;
-  }
-  .introduce-right {
-    position: absolute;
-    right: 11vw  !important;
-    top: 50vw  !important;
-    transform: translate(0%, 50%);
-  }
-  .circular-container-back{
-    width: 15vw !important; 
-  }
-  .circular-container {
-    top: -6vw  !important;
-    left: 7vw  !important;
-  }
-  .circular-container2 {
-    top: 17vw  !important;
-    left: -7vw  !important;
-  }
-  .circular-container3 {
-    top: 34vw  !important;
-    left: 13vw  !important;
-  }
-  .introduce-text .introduce-text-index {
-    font-size: 3.2vw  !important;
-  }
-  .introduce-text .introduce-text-label {
-    font-size: 1.6vw !important;
-  }
-  .introduce-text .introduce-text-sub-label {
-    font-size: 1.9vw !important;
-  }
-  .introduce-right .introduce-right-center{
-    width: 42vw !important;
-  }
-  .introduce-container .introduce-left {
-    padding-left: 7vw !important;
-    padding-top: 11vw;
-    width:100% !important;
-  }
-  .introduce-container .introduce-left h3{
-    font-size: 7vw  !important;;
-  }
-  .introduce-container .introduce-left h2{
-    font-size: 14vw  !important;;
-  }
-  .introduce-container .introduce-left p{
-    font-size: 4vw  !important;;
-  }
 }
 /* model4 end */
 /* model5 container */
@@ -1122,79 +749,6 @@ body{
 .propaganda-footer p {
   margin: 0;
 }
-
-@media (max-width: 1000px) { 
-  .propaganda-label{
-    padding:0 20px;
-    font-size: 7vw !important;
-    text-align:left;
-  }
-  .propaganda-label span{
-    display:block;
-    font-size: 12vw !important;
-  }
-  .propaganda-main{
-    padding-top: 30px;
-  }
-  .propaganda-description{
-    font-size: 5vw !important;
-  }
-  .propaganda-main{
-    display:block;
-    text-align:center;
-  }
-  .propaganda-main img{
-  margin-right: 0px;
-  margin-bottom:20px;
-  margin:0 auto 10vw;
-  }
-  .propaganda-footer{
-    width:91%;
-    margin-top: 9vw;
-  }
-  .propaganda-footer .propaganda-innter img{
-    margin-right:2vw;
-  }
-  .exhibition-container .exhibition-container-description {
-    position: absolute;
-    top: 10vw !important;
-    left: 15vw !important;
-  }
-  .exhibition-container .exhibition-container-label span {
-    font-size: 10vw !important;
-  }
-  .exhibition-container .exhibition-container-sub-label{
-    font-size: 8vw !important;
-  }
-  .exhibition-container .exhibition-container-text b{
-    font-size: 7vw !important;
-  }
-  .exhibition-container-img img{
-    width: 100vw !important;
-  }
-  .exhibition-container-material {
-    top: 158vw !important;
-    left: 0vw !important;
-  }
-  .exhibition-container-img {
-    position: absolute;
-    right: 2vw !important;
-    top: 6vw !important;
-  }
-  .exhibition-container {
-        height: 190vw !important;
-  }
-  .nurse-container .nurse-left .nurse-list .nurse-item img{
-    width:20vw !important;
-  }
-  .service-container {
-    height: 66vw !important;
-  }
-  .achievement-container .achievement-main p{
-    padding: 0 20px;
-    font-size:2.5vw;
-  }
-}
 /* model6 end */
 
 /* model 7 start */
@@ -1351,38 +905,6 @@ body{
 .nurse-container .nurse-right img {
   width: 33vw;
 }
-@media (max-width: 1000px) { 
-  .nurse-container {
-    padding-bottom: 175vw !important;
-  }
-  .Introduction-doctor .Introduction-left .doctor-name {
-    width:30vw !important;
-  }
-  .nurse-container .nurse-left .nurse-sub-label {
-    font-size: 8vw !important;
-  }
-  .nurse-container .nurse-left .nurse-label{
-    font-size: 15.5vw !important;
-  }
-  .nurse-describe{
-    text-align:center;
-    color:#fff;
-    font-size:4vw;
-  }
-  .nurse-list{
-    margin-top:2vw;
-  }
-  .nurse-container .nurse-right img {
-    width:88vw;
-    object-fit:contain;
-  }
-  .nurse-container .nurse-right {
-    position: absolute;
-    top: 77vw !important;
-    left: 5vw !important;
-    right: 0 !important;
-  }
-}
 /* model 7 end */
 /* model 8 start  */
 .Introduction-doctor {
@@ -1448,39 +970,6 @@ line-height: normal;
   width: 18vw;
   margin: 0 auto;
 }
-@media (max-width: 1000px) { 
-  .Introduction-doctor {
-    display:block;
-  }
-  .Introduction-avator{
-    text-align: center;
-  }
-  .Introduction-avator img {
-    margin: 0 auto;
-    width: 47vw;
-    padding-top: 8vw;
-  }
-  .Introduction-right {
-    width:88vw;
-
-  }
-  .Introduction-doctor .Introduction-left .doctor-name{
-    font-size: 3.5vw;
-  }
-  .Introduction-doctor .Introduction-left .doctor-details {
-    font-size: 4vw;
-    padding-bottom:1vw;
-  }
-  .Introduction-right{
-    text-align: left;
-    margin: 0 auto;
-  }
-  .Introduction-right p {
-    font-size: 3vw;
-    line-height: 5.5vw;
-    margin-top: 2vw;
-  }
-}
 /* model 8 end  */
 /* model 9 start */
 .service-container{
@@ -1537,30 +1026,6 @@ font-size: 1.2vw;
 font-style: normal;
 font-weight: 400;
 line-height: normal;
-}
-@media (max-width: 1000px) { 
-  .service-container .service-list{
-    display:block;
-    transform: translate(0%, 10%);
-  }
-  .service-container .service-item-left img{
-    width: 20vw;
-    margin-right: 5vw;
-  }
-  .service-container .service-list .service-item {
-    width:95%;
-    margin:0 20px;
-  }
-  .service-container .service-list .service-item:last-child{
-    width:95%;
-    margin:20px 20px;
-  }
-  .service-container .service-list .service-item h2{
-    font-size: 2.6vw;
-  }
-  .service-container .service-list .service-item p{
-    font-size: 2.2vw;
-  }
 }
 /* model 9 end */
 /* model 10 start */
@@ -1654,50 +1119,6 @@ font-style: normal;
 font-weight: 500;
 line-height: normal;
 }
-@media (max-width: 1000px) { 
-  .effect-container .effect-header .effect-label{
-    padding: 50px;
-    width:100%;
-  }
-  .effect-container {
-    padding-bottom: 170vw;
-  }
-  .effect-container .effect-main{
-    top: 60vw;
-    left: 9vw;
-  }
-  .effect-label h2{
-    color:#fff;
-    font-size: 6vw;
-  }
-  .effect-label h3{
-    color:#fff;
-    font-size: 5vw;  
-    margin-bottom: 2vw;
-  }
-  .effect-container .effect-copywriting{
-    bottom: -103vw;
-  }
-  .effect-container .effect-copywriting .effect-sub-label {
-    font-size: 5vw;
-  }
-  .effect-container .effect-copywriting .effect-label {
-    font-size:7vw;
-  }
-  .effect-container .effect-copywriting .effect-label span {
-    font-size:5vw;
-  }
-  .link-img{
-    margin-top: 4vw;
-  }
-  .achievement-container .achievement-header img{
-    width: 65vw !important;
-    margin: 8vw auto 0 !important;
-  }
-  .achievement-container .achievement-main{
-    width: 100vw !important;
-  }
-}
 /* model 10 end */
 /* model 11 start */
 .achievement-container{
@@ -1741,7 +1162,279 @@ line-height: normal;
   text-align: left;
 }
 
+
+/* model 11 end */
+.swiper-pagination-bullet{
+  background:#000;
+  border:1px solid #fff;
+
+}
+.swiper-pagination-bullet-active{
+  background:#fff;
+  border-raduis:50%;
+  border:1px solid transparent;
+}
 @media (max-width: 1000px) { 
+  .pc-show{
+    display:none !important;
+  }
+  .m-show{
+    display:block !important;
+  }
+  .introduce-container {
+    padding-bottom: 110vw  !important;
+  }
+  .introduce-product img{
+    width:110vw !important;
+  }
+  .introduce-product {
+    position: absolute;
+    top: 46vw !important;
+    right: 0;
+    width: 110vw !important;
+  }
+  .introduce-right {
+    position: absolute;
+    right: 11vw  !important;
+    top: 50vw  !important;
+    transform: translate(0%, 50%);
+  }
+  .circular-container-back{
+    width: 15vw !important; 
+  }
+  .circular-container {
+    top: -6vw  !important;
+    left: 7vw  !important;
+  }
+  .circular-container2 {
+    top: 17vw  !important;
+    left: -7vw  !important;
+  }
+  .circular-container3 {
+    top: 34vw  !important;
+    left: 13vw  !important;
+  }
+  .introduce-text .introduce-text-index {
+    font-size: 3.2vw  !important;
+  }
+  .introduce-text .introduce-text-label {
+    font-size: 1.6vw !important;
+  }
+  .introduce-text .introduce-text-sub-label {
+    font-size: 1.9vw !important;
+  }
+  .introduce-right .introduce-right-center{
+    width: 42vw !important;
+  }
+  .introduce-container .introduce-left {
+    padding-left: 7vw !important;
+    padding-top: 11vw;
+    width:100% !important;
+  }
+  .introduce-container .introduce-left h3{
+    font-size: 7vw  !important;;
+  }
+  .introduce-container .introduce-left h2{
+    font-size: 14vw  !important;;
+  }
+  .introduce-container .introduce-left p{
+    font-size: 4vw  !important;;
+  }
+  .propaganda-label{
+    padding:0 20px;
+    font-size: 7vw !important;
+    text-align:left;
+  }
+  .propaganda-label span{
+    display:block;
+    font-size: 12vw !important;
+  }
+  .propaganda-main{
+    padding-top: 30px;
+  }
+  .propaganda-description{
+    font-size: 5vw !important;
+  }
+  .propaganda-main{
+    display:block;
+    text-align:center;
+  }
+  .propaganda-main img{
+  margin-right: 0px;
+  margin-bottom:20px;
+  margin:0 auto 10vw;
+  }
+  .propaganda-footer{
+    width:91%;
+    margin-top: 9vw;
+  }
+  .propaganda-footer .propaganda-innter img{
+    margin-right:2vw;
+  }
+  .exhibition-container .exhibition-container-description {
+    position: absolute;
+    top: 10vw !important;
+    left: 15vw !important;
+  }
+  .exhibition-container .exhibition-container-label span {
+    font-size: 10vw !important;
+  }
+  .exhibition-container .exhibition-container-sub-label{
+    font-size: 8vw !important;
+  }
+  .exhibition-container .exhibition-container-text b{
+    font-size: 7vw !important;
+  }
+  .exhibition-container-img img{
+    width: 100vw !important;
+  }
+  .exhibition-container-material {
+    top: 158vw !important;
+    left: 0vw !important;
+  }
+  .exhibition-container-img {
+    position: absolute;
+    right: 2vw !important;
+    top: 6vw !important;
+  }
+  .exhibition-container {
+        height: 190vw !important;
+  }
+  .nurse-container .nurse-left .nurse-list .nurse-item img{
+    width:20vw !important;
+  }
+  .service-container {
+    height: 66vw !important;
+  }
+  .achievement-container .achievement-main p{
+    padding: 0 20px;
+    font-size:2.5vw;
+  }
+  .nurse-container {
+    padding-bottom: 175vw !important;
+  }
+  .Introduction-doctor .Introduction-left .doctor-name {
+    width:30vw !important;
+  }
+  .nurse-container .nurse-left .nurse-sub-label {
+    font-size: 8vw !important;
+  }
+  .nurse-container .nurse-left .nurse-label{
+    font-size: 15.5vw !important;
+  }
+  .nurse-describe{
+    text-align:center;
+    color:#fff;
+    font-size:4vw;
+  }
+  .nurse-list{
+    margin-top:2vw;
+  }
+  .nurse-container .nurse-right img {
+    width:88vw;
+    object-fit:contain;
+  }
+  .nurse-container .nurse-right {
+    position: absolute;
+    top: 77vw !important;
+    left: 5vw !important;
+    right: 0 !important;
+  }
+  .Introduction-doctor {
+    display:block;
+  }
+  .Introduction-avator{
+    text-align: center;
+  }
+  .Introduction-avator img {
+    margin: 0 auto;
+    width: 47vw;
+    padding-top: 8vw;
+  }
+  .Introduction-right {
+    width:88vw;
+
+  }
+  .Introduction-doctor .Introduction-left .doctor-name{
+    font-size: 3.5vw;
+  }
+  .Introduction-doctor .Introduction-left .doctor-details {
+    font-size: 4vw;
+    padding-bottom:1vw;
+  }
+  .Introduction-right{
+    text-align: left;
+    margin: 0 auto;
+  }
+  .Introduction-right p {
+    font-size: 3vw;
+    line-height: 5.5vw;
+    margin-top: 2vw;
+  }
+  .service-container .service-list{
+    display:block;
+    transform: translate(0%, 10%);
+  }
+  .service-container .service-item-left img{
+    width: 20vw;
+    margin-right: 5vw;
+  }
+  .service-container .service-list .service-item {
+    width:95%;
+    margin:0 20px;
+  }
+  .service-container .service-list .service-item:last-child{
+    width:95%;
+    margin:20px 20px;
+  }
+  .service-container .service-list .service-item h2{
+    font-size: 2.6vw;
+  }
+  .service-container .service-list .service-item p{
+    font-size: 2.2vw;
+  }
+  .effect-container .effect-header .effect-label{
+    padding: 50px;
+    width:100%;
+  }
+  .effect-container {
+    padding-bottom: 170vw;
+  }
+  .effect-container .effect-main{
+    top: 60vw;
+    left: 9vw;
+  }
+  .effect-label h2{
+    color:#fff;
+    font-size: 6vw;
+  }
+  .effect-label h3{
+    color:#fff;
+    font-size: 5vw;  
+    margin-bottom: 2vw;
+  }
+  .effect-container .effect-copywriting{
+    bottom: -103vw;
+  }
+  .effect-container .effect-copywriting .effect-sub-label {
+    font-size: 5vw;
+  }
+  .effect-container .effect-copywriting .effect-label {
+    font-size:7vw;
+  }
+  .effect-container .effect-copywriting .effect-label span {
+    font-size:5vw;
+  }
+  .link-img{
+    margin-top: 4vw;
+  }
+  .achievement-container .achievement-header img{
+    width: 65vw !important;
+    margin: 8vw auto 0 !important;
+  }
+  .achievement-container .achievement-main{
+    width: 100vw !important;
+  }
   .achievement-container .achievement-header {
     margin:0 20px;
     display:block;
@@ -1770,18 +1463,584 @@ line-height: normal;
   }
 
 }
-/* model 11 end */
-.swiper-pagination-bullet{
-  background:#000;
-  border:1px solid #fff;
-
-}
-.swiper-pagination-bullet-active{
-  background:#fff;
-  border-raduis:50%;
-  border:1px solid transparent;
-}
 @media (max-width: 768px) { 
+  .introduce-container {
+    padding-bottom: 110vw  !important;
+  }
+  .introduce-product img{
+    width:110vw !important;
+  }
+  .introduce-product {
+    position: absolute;
+    top: 46vw !important;
+    right: 0;
+    width: 110vw !important;
+  }
+  .introduce-right {
+    position: absolute;
+    right: 11vw  !important;
+    top: 50vw  !important;
+    transform: translate(0%, 50%);
+  }
+  .circular-container-back{
+    width: 15vw !important; 
+  }
+  .circular-container {
+    top: -6vw  !important;
+    left: 7vw  !important;
+  }
+  .circular-container2 {
+    top: 17vw  !important;
+    left: -7vw  !important;
+  }
+  .circular-container3 {
+    top: 34vw  !important;
+    left: 13vw  !important;
+  }
+  .introduce-text .introduce-text-index {
+    font-size: 3.2vw  !important;
+  }
+  .introduce-text .introduce-text-label {
+    font-size: 1.6vw !important;
+  }
+  .introduce-text .introduce-text-sub-label {
+    font-size: 1.9vw !important;
+  }
+  .introduce-right .introduce-right-center{
+    width: 42vw !important;
+  }
+  .introduce-container .introduce-left {
+    padding-left: 7vw !important;
+    padding-top: 11vw;
+    width:100% !important;
+  }
+  .introduce-container .introduce-left h3{
+    font-size: 7vw  !important;;
+  }
+  .introduce-container .introduce-left h2{
+    font-size: 14vw  !important;;
+  }
+  .introduce-container .introduce-left p{
+    font-size: 4vw  !important;;
+  }
+  .propaganda-label{
+    padding:0 20px;
+    font-size: 7vw !important;
+    text-align:left;
+  }
+  .propaganda-label span{
+    display:block;
+    font-size: 12vw !important;
+  }
+  .propaganda-main{
+    padding-top: 30px;
+  }
+  .propaganda-description{
+    font-size: 5vw !important;
+  }
+  .propaganda-main{
+    display:block;
+    text-align:center;
+  }
+  .propaganda-main img{
+  margin-right: 0px;
+  margin-bottom:20px;
+  margin:0 auto 10vw;
+  }
+  .propaganda-footer{
+    width:91%;
+    margin-top: 9vw;
+  }
+  .propaganda-footer .propaganda-innter img{
+    margin-right:2vw;
+  }
+  .exhibition-container .exhibition-container-description {
+    position: absolute;
+    top: 10vw !important;
+    left: 15vw !important;
+  }
+  .exhibition-container .exhibition-container-label span {
+    font-size: 10vw !important;
+  }
+  .exhibition-container .exhibition-container-sub-label{
+    font-size: 8vw !important;
+  }
+  .exhibition-container .exhibition-container-text b{
+    font-size: 7vw !important;
+  }
+  .exhibition-container-img img{
+    width: 100vw !important;
+  }
+  .exhibition-container-material {
+    top: 158vw !important;
+    left: 0vw !important;
+  }
+  .exhibition-container-img {
+    position: absolute;
+    right: 2vw !important;
+    top: 6vw !important;
+  }
+  .exhibition-container {
+        height: 190vw !important;
+  }
+  .nurse-container .nurse-left .nurse-list .nurse-item img{
+    width:20vw !important;
+  }
+  .service-container {
+    height: 66vw !important;
+  }
+  .achievement-container .achievement-main p{
+    padding: 0 20px;
+    font-size:2.5vw;
+  }
+  .nurse-container {
+    padding-bottom: 175vw !important;
+  }
+  .Introduction-doctor .Introduction-left .doctor-name {
+    width:30vw !important;
+  }
+  .nurse-container .nurse-left .nurse-sub-label {
+    font-size: 8vw !important;
+  }
+  .nurse-container .nurse-left .nurse-label{
+    font-size: 15.5vw !important;
+  }
+  .nurse-describe{
+    text-align:center;
+    color:#fff;
+    font-size:4vw;
+  }
+  .nurse-list{
+    margin-top:2vw;
+  }
+  .nurse-container .nurse-right img {
+    width:88vw;
+    object-fit:contain;
+  }
+  .nurse-container .nurse-right {
+    position: absolute;
+    top: 77vw !important;
+    left: 5vw !important;
+    right: 0 !important;
+  }
+  .Introduction-doctor {
+    display:block;
+  }
+  .Introduction-avator{
+    text-align: center;
+  }
+  .Introduction-avator img {
+    margin: 0 auto;
+    width: 47vw;
+    padding-top: 8vw;
+  }
+  .Introduction-right {
+    width:88vw;
+
+  }
+  .Introduction-doctor .Introduction-left .doctor-name{
+    font-size: 3.5vw;
+  }
+  .Introduction-doctor .Introduction-left .doctor-details {
+    font-size: 4vw;
+    padding-bottom:1vw;
+  }
+  .Introduction-right{
+    text-align: left;
+    margin: 0 auto;
+  }
+  .Introduction-right p {
+    font-size: 3vw;
+    line-height: 5.5vw;
+    margin-top: 2vw;
+  }
+  .service-container .service-list{
+    display:block;
+    transform: translate(0%, 10%);
+  }
+  .service-container .service-item-left img{
+    width: 20vw;
+    margin-right: 5vw;
+  }
+  .service-container .service-list .service-item {
+    width:95%;
+    margin:0 20px;
+  }
+  .service-container .service-list .service-item:last-child{
+    width:95%;
+    margin:20px 20px;
+  }
+  .service-container .service-list .service-item h2{
+    font-size: 2.6vw;
+  }
+  .service-container .service-list .service-item p{
+    font-size: 2.2vw;
+  }
+  .effect-container .effect-header .effect-label{
+    padding: 50px;
+    width:100%;
+  }
+  .effect-container {
+    padding-bottom: 170vw;
+  }
+  .effect-container .effect-main{
+    top: 60vw;
+    left: 9vw;
+  }
+  .effect-label h2{
+    color:#fff;
+    font-size: 6vw;
+  }
+  .effect-label h3{
+    color:#fff;
+    font-size: 5vw;  
+    margin-bottom: 2vw;
+  }
+  .effect-container .effect-copywriting{
+    bottom: -103vw;
+  }
+  .effect-container .effect-copywriting .effect-sub-label {
+    font-size: 5vw;
+  }
+  .effect-container .effect-copywriting .effect-label {
+    font-size:7vw;
+  }
+  .effect-container .effect-copywriting .effect-label span {
+    font-size:5vw;
+  }
+  .link-img{
+    margin-top: 4vw;
+  }
+  .achievement-container .achievement-header img{
+    width: 65vw !important;
+    margin: 8vw auto 0 !important;
+  }
+  .achievement-container .achievement-main{
+    width: 100vw !important;
+  }
+  .achievement-container .achievement-header {
+    margin:0 20px;
+    display:block;
+    text-align:center;
+    text-align: -webkit-center;
+  }
+  .achievement-container .achievement-main h3{
+    text-align: left;
+    margin: 0 auto;
+    display: flex;
+    color:#C3AD7A;
+    align-items: center;
+    font-size: 4vw;
+    line-height:6vw;
+    padding: 10px 0;
+    justify-content: center;
+  }
+  .achievement-container .achievement-main p {
+    font-size: 3vw;
+    font-style: normal;
+    font-weight: 500;
+    text-align: left;
+    display:flex;
+    justify-content:center;
+    text-align:left;
+  }
+  .sell-point-tags .sell-point-tag .sell-point-tag-label {
+    color: #000;
+    
+    font-size: 9vw;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  .sell-point-tags .sell-point-tag .sell-point-tag-label span {
+    color: #000;
+    
+    font-size: 6vw;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  .sell-point-icon{
+    padding:0 10px !important;
+  }
+  .man-description {
+    font-size: 5vw;
+  }
+  .man-description .man-description-list {
+    margin-top: 10vw;
+  }
+  .sell-point-container {
+    position: relative;
+  background: #010102;
+  padding-bottom: 5vw;
+  background: url('https://cdn.shopify.com/s/files/1/0553/7392/2352/files/deng.png?v=1719737273') #000 no-repeat;
+    background-position-y: 0%;
+    background-size: auto;
+  background-position-y: 69vw;
+  background-size: 76vw;
+  }
+  .sell-point-container .sell-point-label{
+   text-align:left;
+   padding:0 20px;
+   font-size:8vw;
+  }
+  .sell-point-container .sell-point-label span{
+    display:block;
+    font-size:16vw;
+  }
+  .sell-point-container .sell-point-sub-describe span {
+    font-size: 10vw;
+  }
+  .sell-point-container .sell-point-sub-describe:before{
+    height: 50px;
+  }
+  .sell-point-container .sell-point-sub-describe:after{
+    height: 50px;
+  }
+  .sell-point-tags {
+    margin-top: 10vw;
+  }
+  .sell-point-container .sell-point-sub-describe{
+    color: #fff;
+    text-align: center;
+    position: relative;
+    font-size: 5vw;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    width: 48vw;
+    margin: 10px auto 0;
+  }
+  .sell-point-icon img{
+    width:8vw;
+  }
+  .sell-point-tags .sell-point-tag {
+    width: 35vw;
+    height: 35vw;
+  }
+  .sell-point-tags .sell-point-tag .sell-point-tag-sub-label {
+    color: #000;
+    font-family: "Noto Sans JP";
+    font-size: 4vw;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  .man-description .man-description-list .man-description-item .man-description-item-ellipse {
+    position: absolute;
+    left: -5%;
+    top: 8%;
+    transform: translate(22%, 50%);
+  }
+  .man-description .man-description-list .man-description-item .man-description-item-ellipse img {
+    width:25vw;
+  }
+  .marks {
+  top: -37vw !important;
+    left: 24vw !important;
+  }
+  .t1 {
+    top: -10vw  !important;
+    left: -6vw  !important;
+    color: var(--WHITE, #fff);
+    text-align: center;
+    font-family: Noto Sans JP;
+    font-size: 4vw  !important;
+    font-style: normal;
+    font-weight: 400  !important;
+    width: 89vw  !important;
+    line-height: 8vw  !important;
+  }
+  .t2 {
+    width:50vw !important;
+    top: 32vw  !important;
+    left: 47vw  !important;
+  }
+  .t2:before{
+    left: -22vw  !important;
+    top: 3.7vw  !important;
+    width:70px !important;
+  }
+  .swiper-banner .swiper-pagination {
+    bottom:3vw !important;
+  }
+  .man-product-header{
+    padding:20px;
+    margin-top: -20vw;
+  }
+  .man-product-header .man-product-sub-label{
+    color: var(--WHITE, #FFF);
+    font-family: "Noto Sans JP";
+    padding-top:10vw;
+    font-size: 8vw;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  .man-product-header .man-product-label{
+    background-image: -webkit-linear-gradient(bottom, #c0e9ff, #fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: "Noto Sans JP";
+    font-size: 12vw;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  .man-product-header .man-product-describe{
+
+  }
+  .man-product-header .man-product-describe p {
+    color: var(--WHITE, #FFF);
+    font-size:5vw;
+    font-style: normal;
+    text-align:center;
+    font-weight: 400;
+    padding:5px 0 0 0;
+    line-height: normal;
+  }
+  .man-product-header .man-product-describe h2 {
+    color: var(--WHITE, #FFF);
+    
+    font-size:24vw;
+    text-align:center;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+  }
+  .man-product-header .man-product-describe span {
+    color: var(--WHITE, #FFF);
+    
+    font-size: 15vw;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+  }
+ .man-product-data-amount {
+    color: var(--WHITE, #FFF);
+    font-family: "Shorai Sans StdN";
+    font-size:8vw;
+    font-style: normal;
+    font-weight: 400;
+    text-align:center;
+    line-height: normal;
+    padding-bottom:20px;
+    padding-top:2vw;
+    border-bottom:1px solid #fff;
+  }
+  .man-product-container{
+    padding-bottom: 0vw;
+  }
+  .man-product-data-amount s {
+    color: var(--WHITE, #FFF);
+    font-family: "Shorai Sans StdN";
+    font-size:4.8vw;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration-line: strikethrough;
+  }
+  .man-product-handle-group{
+    position: absolute;
+    left: 5vw;
+    top: 105vw;
+    display: flex;
+    color: #000;
+    align-items: center;
+    width: 96%;
+    font-family: "Noto Sans JP";
+    font-size: 1.8vw;
+    font-style: normal;
+  }
+  .man-product-handle-group .man-product-handle-button-buy{
+    padding: 2vw 5vw;
+    border-radius: 6vw;
+    background: #b9e7ff;
+    text-align: center;
+    width:100%;
+    margin-right: 20px;
+    cursor: pointer;
+    font-size:5vw;
+    border: 1px solid transparent;
+  }
+  .man-product-handle-group .man-product-handle-button-details{
+    padding: 2vw 5vw;
+    width:100%;
+    border-radius: 6vw;
+    background: transparent;
+    text-align: center;
+    margin-right: 20px;
+    color:#fff;
+    cursor: pointer;
+    font-size:5vw;
+    border: 1px solid #fff;
+  }
+  .man-product-mainImg-m {
+    position: relative;
+    top: 15vw;
+  }
+  .man-product-mainImg-m img{ 
+    width:90vw;
+  }
+  .man-header{
+    overflow-x: hidden;
+  }
+
+  .man-header .man-text-container .man-text-label .text{
+    position: relative;
+    left: 6vw;
+    top: 3vw;
+    transform: skew(161deg, 356deg);
+    color: #fff;
+    font-weight: 700;
+    font-size: 19vw;
+  }
+  .man-header .man-text-container .man-text-label .text:nth-child(2){
+    position: relative;
+    left: 6vw;
+    top: -2vw;
+    transform: skew(161deg, 356deg);
+    color: #fff;
+    font-weight: bold;
+    font-size: 19vw;
+  }
+  .man-header .vertical-text{
+    position: absolute;
+    right: 5vw;
+    top: 89vw;
+    writing-mode: tb-rl;
+    color: #fff;
+  }
+  .man-header .vertical-text p{
+    font-size: 4vw;
+    line-height: 7vw;
+  }
+  .man-header .man-main-product {
+    position: absolute;
+    left: 12vw;
+    top: 115vw;
+    text-align: center;
+    display: flex;
+    align-items: self-end;
+  }
+  .man-main-product img {
+    width: 30vw;
+    height: 100%;
+    margin:0 auto;
+  }
+  .man-main-product .right{
+    margin-left:35px;
+  }
+  .man-main-product .man-main-product-label {
+    font-family: "Noto Sans JP";
+    font-size: 3.5vw;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: #fff;
+    margin-top:2vw;
+  }
+  /*  */
   .nurse-container .nurse-left{
     position: absolute;
   top: 3vw;
