@@ -1678,7 +1678,7 @@ line-height: normal;
   }
  .man-product-data-amount {
     color: var(--WHITE, #FFF);
-    font-size:8vw;
+    font-size:7.5vw;
     font-style: normal;
     font-weight: 400;
     text-align:center;
@@ -1686,10 +1686,12 @@ line-height: normal;
     padding-bottom:20px;
     padding-top:2vw;
     border-bottom:1px solid #fff;
+    display: flex;
+    align-items: center;
   }
   
   .man-product-data-amount .before{
-    font-size: 1.5vw;
+    font-size: 4vw;
     margin-right: 1vw;
   }
   .man-product-data-amount .before b {
@@ -1699,6 +1701,14 @@ line-height: normal;
   .man-product-data-amount .before span{
     font-size: .9vw;
     text-decoration: line-through;
+  }
+  .man-product-data .after{
+    font-size: 2vw;
+  
+  }
+  .man-product-data .after span{
+    font-size: 5vw;
+  
   }
   .man-product-container{
     padding-bottom: 0vw;
