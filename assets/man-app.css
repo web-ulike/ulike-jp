@@ -1431,7 +1431,7 @@ line-height: normal;
   }
   .effect-header .effect-label span{
     position: relative;
-    font-size: 3.5vw;
+    font-size: 7.5vw;
     /* -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-image: -webkit-linear-gradient(bottom, #fff, #fff); */
@@ -1440,7 +1440,7 @@ line-height: normal;
   .effect-header .effect-label span::before{
     content:'·'; 
       position: absolute;
-      bottom: -2.5vw;
+      bottom: -4.5vw;
       left: 0%;
       transform: translate(36%, 0%);
   }
@@ -1450,6 +1450,9 @@ line-height: normal;
   .effect-container .effect-main{
     top: 48vw;
     left: 9vw;
+  }
+  .effect-container .effect-main img {
+    width: 82vw;
   }
   .effect-label h2{
     color:#fff;
