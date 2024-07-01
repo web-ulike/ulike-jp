@@ -210,11 +210,22 @@ body{
   padding-right: 5px;
 }
 .man-product-data .man-product-data-amount {
-  font-size: 2vw;
-  font-weight: 400;
+  display: flex;
 }
-.man-product-data .man-product-data-amount s {
+
+.man-product-data-amount .before{
   font-size: 1.5vw;
+}
+.man-product-data-amount .before span{
+  font-size: 1.2vw
+}
+.man-product-data .after{
+  font-size: 2vw;
+
+}
+.man-product-data .after span{
+  font-size: 1.5vw;
+
 }
 .man-product-handle-group {
   position: absolute;
@@ -1659,7 +1670,6 @@ line-height: normal;
   }
  .man-product-data-amount {
     color: var(--WHITE, #FFF);
-
     font-size:8vw;
     font-style: normal;
     font-weight: 400;
