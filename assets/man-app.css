@@ -1805,6 +1805,13 @@ line-height: normal;
    .effect-header .effect-label span{
     font-size: 7.5vw;
    }
+   .effect-header .effect-label span::before{
+    content:'·'; 
+      position: absolute;
+      bottom: -4.5vw;
+      left: 0%;
+      transform: translate(36%, 0%);
+  }
    .circular-footer{
     color: rgba(255, 255, 255, 0.50);
 
