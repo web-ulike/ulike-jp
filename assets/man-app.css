@@ -1114,6 +1114,8 @@ line-height: normal;
 .effect-label span{
   position: relative;
   font-size: 3vw;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   background-image: -webkit-linear-gradient(bottom, #fff, #fff);
 
 }
