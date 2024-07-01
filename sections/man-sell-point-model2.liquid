@@ -26,75 +26,7 @@
     </div>
   </div>
   <div class="man-product-handle-group wow slideInUp " data-wow-delay=".2s">
-    <div class="man-product-handle-button-buy" {{ block.shopify_attributes }}>
-      {%- liquid
-        assign gift_card_recipient_feature_active = false
-        if block.settings.show_gift_card_recipient and product.gift_card?
-          assign gift_card_recipient_feature_active = true
-        endif
-      -%}
-      {%- form 'product',
-        product,
-        id: product_form_id,
-        novalidate: 'novalidate',
-        data-type: 'add-to-cart-form',
-        data-hide-errors: gift_card_recipient_feature_active,
-        class: 'product-form grid gap-8',
-        is: 'product-form'
-      -%}
-        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" disabled>
-
-        {%- liquid
-          if gift_card_recipient_feature_active
-            render 'gift-card-recipient-form', product: product, form: form, section_id: section_id
-          endif
-
-          assign check_against_inventory = true
-          if product.selected_or_first_available_variant.inventory_management != 'shopify' or product.selected_or_first_available_variant.inventory_policy == 'continue'
-            assign check_against_inventory = false
-          endif
-          if product.selected_or_first_available_variant.quantity_rule.min > product.selected_or_first_available_variant.inventory_quantity and check_against_inventory
-            assign quantity_rule_soldout = true
-          endif
-        -%}
-
-        <div class="product-form__buttons grid gap-4">
-          <div
-            class="product-form__error-message alert alert--error text-sm font-medium leading-tight"
-            role="alert"
-            hidden
-          ></div>
-          <div class="flex gap-4">
-            <button
-              type="submit"
-              name="add"
-              form="{{ product_form_id }}"
-              class="product-form__submit button button--secondary button--fixed w-full mt-2"
-              is="hover-button"
-              {%- if product.selected_or_first_available_variant.available == false or quantity_rule_soldout %}
-                disabled
-              {% endif -%}
-              {%- if product.template_suffix == 'pre-order' %}
-                data-pre-order="true"
-              {% endif -%}
-            >
-              <span class="btn-fill" data-fill></span>
-              <span class="btn-text">
-                {%- liquid
-                  if product.selected_or_first_available_variant.available == false or quantity_rule_soldout
-                    echo 'products.product.sold_out' | t
-                  elsif product.template_suffix != 'pre-order'
-                    echo 'products.product.add_to_cart' | t
-                  else
-                    echo 'products.product.pre_order' | t
-                  endif
-                -%}
-              </span>
-            </button>
-          </div>
-        </div>
-      {%- endform -%}
-    </div>
+    <div class="man-product-handle-button-buy">今すぐ注文</div>
 
     <div class="man-product-handle-button-details">
       <a href="{{ section.settings.linkUrl }}" target="_blank">詳しく見る</a>
