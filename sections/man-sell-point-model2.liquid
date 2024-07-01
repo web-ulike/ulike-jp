@@ -1,188 +1,261 @@
-
 <div class="man-product-container wow  ">
-    <div class="man-product-mainImg pc-show ">
-      <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/product2.png?v=1719458366" alt="" class="wow slideInUp" data-wow-delay=".2s" />
-    </div>
-    <div class="man-product-tag wow slideInUp" data-wow-delay=".2s">
-      <div>
-        <div class="man-product-tag-describe">メンズシリーズの</div>
-        <div class="man-product-tag-label">最強</div>
-        <div class="man-product-tag-sub-label">ハイパワー</div>
-      </div>
-    </div>
-    <div class="man-product-info wow slideInUp" data-wow-delay=".2s">
-      <div class="man-product-label">Ulike Men IPL光美容器</div>
-      <div class="man-product-describe">
-        強力なパワー、ひんやり痛みレス*
-      </div>
-      <div class="man-product-data">
-        <p class="man-product-data-off">
-          <span>20</span>% <span>OFF</span>
-        </p>
-        <div class="man-product-data-amount">
-          <div class="before"> 71,800 <b>円税込</b> </div>
-          <div class="after"> 57,400 <b>円税込</b></div>
-        </div>
-      </div>
-    </div>
-    <div class="man-product-handle-group wow slideInUp " data-wow-delay=".2s">
-      <div class="man-product-handle-button-buy">今すぐ注文</div>
-      <div class="man-product-handle-button-details">  <a href="{{ section.settings.linkUrl }}" target="_blank">詳しく見る</a>   </div>
+  <div class="man-product-mainImg pc-show ">
+    <img
+      src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/product2.png?v=1719458366"
+      alt=""
+      class="wow slideInUp"
+      data-wow-delay=".2s"
+    >
+  </div>
+  <div class="man-product-tag wow slideInUp" data-wow-delay=".2s">
+    <div>
+      <div class="man-product-tag-describe">メンズシリーズの</div>
+      <div class="man-product-tag-label">最強</div>
+      <div class="man-product-tag-sub-label">ハイパワー</div>
     </div>
   </div>
-  <div class="man-product-container  m-show" >
-    <div class="man-product-header wow slideInUp" data-wow-delay=".2s" >
-      <div class="man-product-sub-label">
-        メンズシリーズの
-      </div>
-      <div class="man-product-label">
-        最強ハイパワー
-      </div>
-      <div class="man-product-describe">
-        <p>Ulike Men IPL光美容器</p>
-        <p>強力なパワー、ひんやり痛みレス*</p>
-        <h2>20<span>%</span> OFF</h2>
-      </div>
+  <div class="man-product-info wow slideInUp" data-wow-delay=".2s">
+    <div class="man-product-label">Ulike Men IPL光美容器</div>
+    <div class="man-product-describe">強力なパワー、ひんやり痛みレス*</div>
+    <div class="man-product-data">
+      <p class="man-product-data-off"><span>20</span>% <span>OFF</span></p>
       <div class="man-product-data-amount">
-        <s>71,800円税込</s> 57,400円税込
+        <div class="before">71,800 <b>円税込</b></div>
+        <div class="after">57,400 <b>円税込</b></div>
       </div>
-      {% comment %} <div class="man-product-handle-group">
+    </div>
+  </div>
+  <div class="man-product-handle-group wow slideInUp " data-wow-delay=".2s">
+    <div class="man-product-handle-button-buy" {{ block.shopify_attributes }}>
+      {%- liquid
+        assign gift_card_recipient_feature_active = false
+        if block.settings.show_gift_card_recipient and product.gift_card?
+          assign gift_card_recipient_feature_active = true
+        endif
+      -%}
+      {%- form 'product',
+        product,
+        id: product_form_id,
+        novalidate: 'novalidate',
+        data-type: 'add-to-cart-form',
+        data-hide-errors: gift_card_recipient_feature_active,
+        class: 'product-form grid gap-8',
+        is: 'product-form'
+      -%}
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" disabled>
+
+        {%- liquid
+          if gift_card_recipient_feature_active
+            render 'gift-card-recipient-form', product: product, form: form, section_id: section_id
+          endif
+
+          assign check_against_inventory = true
+          if product.selected_or_first_available_variant.inventory_management != 'shopify' or product.selected_or_first_available_variant.inventory_policy == 'continue'
+            assign check_against_inventory = false
+          endif
+          if product.selected_or_first_available_variant.quantity_rule.min > product.selected_or_first_available_variant.inventory_quantity and check_against_inventory
+            assign quantity_rule_soldout = true
+          endif
+        -%}
+
+        <div class="product-form__buttons grid gap-4">
+          <div
+            class="product-form__error-message alert alert--error text-sm font-medium leading-tight"
+            role="alert"
+            hidden
+          ></div>
+          <div class="flex gap-4">
+            <button
+              type="submit"
+              name="add"
+              form="{{ product_form_id }}"
+              class="product-form__submit button button--secondary button--fixed w-full mt-2"
+              is="hover-button"
+              {%- if product.selected_or_first_available_variant.available == false or quantity_rule_soldout %}
+                disabled
+              {% endif -%}
+              {%- if product.template_suffix == 'pre-order' %}
+                data-pre-order="true"
+              {% endif -%}
+            >
+              <span class="btn-fill" data-fill></span>
+              <span class="btn-text">
+                {%- liquid
+                  if product.selected_or_first_available_variant.available == false or quantity_rule_soldout
+                    echo 'products.product.sold_out' | t
+                  elsif product.template_suffix != 'pre-order'
+                    echo 'products.product.add_to_cart' | t
+                  else
+                    echo 'products.product.pre_order' | t
+                  endif
+                -%}
+              </span>
+            </button>
+          </div>
+        </div>
+      {%- endform -%}
+    </div>
+
+    <div class="man-product-handle-button-details">
+      <a href="{{ section.settings.linkUrl }}" target="_blank">詳しく見る</a>
+    </div>
+  </div>
+</div>
+<div class="man-product-container  m-show">
+  <div class="man-product-header wow slideInUp" data-wow-delay=".2s">
+    <div class="man-product-sub-label">メンズシリーズの</div>
+    <div class="man-product-label">最強ハイパワー</div>
+    <div class="man-product-describe">
+      <p>Ulike Men IPL光美容器</p>
+      <p>強力なパワー、ひんやり痛みレス*</p>
+      <h2>20<span>%</span> OFF</h2>
+    </div>
+    <div class="man-product-data-amount"><s>71,800円税込</s> 57,400円税込</div>
+    {% comment %}
+      <div class="man-product-handle-group">
         <div class="man-product-handle-button-buy">今すぐ注文</div>
         <div class="man-product-handle-button-details">  <a href="{{ section.settings.linkUrl }}" target="_blank">詳しく見る</a>   </div>
-      </div> {% endcomment %}
-      <div class="man-product-mainImg-m">
-        <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/product2.png?v=1719458366" alt="" />
+      </div>
+    {% endcomment %}
+    <div class="man-product-mainImg-m">
+      <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/product2.png?v=1719458366" alt="">
+    </div>
+  </div>
+</div>
+<div class="sell-point-container pc-show">
+  <div class="sell-point-float wow slideInUp" data-wow-delay=".5s">
+    <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/product3.png?v=1719458367" alt="">
+  </div>
+  <div class="sell-point-label"><span> 太く硬い毛</span> も速攻ケア!</div>
+  <div class="sell-point-sub-describe">
+    <p>たった<span>1週間</span>で</p>
+    <p>驚きの効果を実感！</p>
+  </div>
+  <div class="sell-point-tags  wow slideInUp" data-wow-delay=".5s">
+    <div class="sell-point-tag">
+      <div>
+        <div class="sell-point-tag-label">25J</div>
+        <div class="sell-point-tag-sub-label">ハイパワー</div>
+      </div>
+    </div>
+    <div class="sell-point-icon">
+      <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/close_371d509a-ec3f-4009-ba38-b960271599a9.png?v=1719567005">
+    </div>
+    <div class="sell-point-tag">
+      <div>
+        <div class="sell-point-tag-label">2倍<span>效果</span></div>
+        <div class="sell-point-tag-sub-label">革新的な</div>
+        <div class="sell-point-tag-sub-label">ダブルランプ</div>
       </div>
     </div>
   </div>
-  <div class="sell-point-container pc-show">
-    <div class="sell-point-float wow slideInUp" data-wow-delay=".5s" >
-      <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/product3.png?v=1719458367" alt="" />
-    </div>
-    <div class="sell-point-label"><span> 太く硬い毛</span> も速攻ケア!</div>
-    <div class="sell-point-sub-describe">
-      <p>たった<span>1週間</span>で</p>
-      <p>驚きの効果を実感！</p>
-    </div>
-    <div class="sell-point-tags  wow slideInUp" data-wow-delay=".5s">
-      <div class="sell-point-tag">
-        <div>
-          <div class="sell-point-tag-label">25J</div>
-          <div class="sell-point-tag-sub-label">ハイパワー</div>
+  <div class="man-description">
+    <p>男性の髭、脚、VIOなど、太く硬い毛に特化</p>
+    <p>ダブルランプで照射面積が広く、早く効果を実感できるから継続しやすい</p>
+    <div class="man-description-list wow slideInRight" data-wow-delay=".5s">
+      <div class="man-description-item">
+        <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/recommend1.png?v=1719458364" alt="">
+        <div class="man-description-item-ellipse">
+          <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/ellipse.png?v=1719458358" alt="">
+          <div class="ellipse-text">わき</div>
         </div>
       </div>
-      <div class="sell-point-icon"> <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/close_371d509a-ec3f-4009-ba38-b960271599a9.png?v=1719567005"> </div>
-      <div class="sell-point-tag">
-        <div>
-          <div class="sell-point-tag-label">2倍<span>效果</span></div>
-          <div class="sell-point-tag-sub-label">革新的な</div>
-          <div class="sell-point-tag-sub-label">ダブルランプ</div>
+      <div class="man-description-item">
+        <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/recommend2.png?v=1719458364" alt="">
+        <div class="man-description-item-ellipse">
+          <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/ellipse.png?v=1719458358" alt="">
+          <div class="ellipse-text">髭</div>
         </div>
       </div>
-    </div>
-    <div class="man-description">
-      <p>男性の髭、脚、VIOなど、太く硬い毛に特化</p>
-      <p>
-        ダブルランプで照射面積が広く、早く効果を実感できるから継続しやすい
-      </p>
-      <div class="man-description-list wow slideInRight" data-wow-delay=".5s">
-        <div class="man-description-item">
-          <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/recommend1.png?v=1719458364" alt="" />
-          <div class="man-description-item-ellipse">
-            <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/ellipse.png?v=1719458358" alt="" />
-            <div class="ellipse-text">わき</div>
-          </div>
-        </div>
-        <div class="man-description-item">
-          <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/recommend2.png?v=1719458364" alt="" />
-          <div class="man-description-item-ellipse">
-            <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/ellipse.png?v=1719458358" alt="" />
-            <div class="ellipse-text">髭</div>
-          </div>
-        </div>
-        <div class="man-description-item">
-          <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/recommend3.png?v=1719458364" alt="" />
-          <div class="man-description-item-ellipse">
-            <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/ellipse.png?v=1719458358" alt="" />
-            <div class="ellipse-text">VIO</div>
-          </div>
+      <div class="man-description-item">
+        <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/recommend3.png?v=1719458364" alt="">
+        <div class="man-description-item-ellipse">
+          <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/ellipse.png?v=1719458358" alt="">
+          <div class="ellipse-text">VIO</div>
         </div>
       </div>
     </div>
   </div>
-  <div class="sell-point-container m-show">
+</div>
+<div class="sell-point-container m-show">
+  <div class="sell-point-label wow slideInUp" data-wow-delay=".2s"><span> 太く硬い毛</span></div>
+  <div class="sell-point-label wow slideInUp" data-wow-delay=".2s">も速攻ケア!</div>
 
-    <div class="sell-point-label wow slideInUp" data-wow-delay=".2s"><span> 太く硬い毛</span> </div>
-    <div class="sell-point-label wow slideInUp" data-wow-delay=".2s">も速攻ケア!</div>
-
-    <div class="sell-point-sub-describe wow slideInUp" data-wow-delay=".2s">
-      <p>たった<span>1週間</span>で</p>
-      <p>驚きの効果を実感！</p>
-    </div>
-    <div class="sell-point-tags wow slideInUp" data-wow-delay=".2s">
-      <div class="sell-point-tag">
-        <div>
-          <div class="sell-point-tag-label">25J</div>
-          <div class="sell-point-tag-sub-label">ハイパワー</div>
-        </div>
-      </div>
-      <div class="sell-point-icon"> <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/close_371d509a-ec3f-4009-ba38-b960271599a9.png?v=1719567005"> </div>
-      <div class="sell-point-tag">
-        <div>
-          <div class="sell-point-tag-label">2倍<span>效果</span></div>
-          <div class="sell-point-tag-sub-label">革新的な</div>
-          <div class="sell-point-tag-sub-label">ダブルランプ</div>
-        </div>
+  <div class="sell-point-sub-describe wow slideInUp" data-wow-delay=".2s">
+    <p>たった<span>1週間</span>で</p>
+    <p>驚きの効果を実感！</p>
+  </div>
+  <div class="sell-point-tags wow slideInUp" data-wow-delay=".2s">
+    <div class="sell-point-tag">
+      <div>
+        <div class="sell-point-tag-label">25J</div>
+        <div class="sell-point-tag-sub-label">ハイパワー</div>
       </div>
     </div>
-    <div class="man-description wow slideInUp" data-wow-delay=".2s">
-      <p>男性の髭、脚、VIOなど、 <br> 太く硬い毛に特化</p>
-      <p>
-        ダブルランプで照射面積が広く、 <br> 早く効果を実感で <br> きるから継続しやすい
-      </p>
-      <div class="man-description-list">
-        <div class="man-description-item">
-          <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/m-product1.png?v=1719458363" alt="" />
-          <div class="man-description-item-ellipse">
-            <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/ellipse.png?v=1719458358" alt="" />
-            <div class="ellipse-text">わき</div>
-          </div>
+    <div class="sell-point-icon">
+      <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/close_371d509a-ec3f-4009-ba38-b960271599a9.png?v=1719567005">
+    </div>
+    <div class="sell-point-tag">
+      <div>
+        <div class="sell-point-tag-label">2倍<span>效果</span></div>
+        <div class="sell-point-tag-sub-label">革新的な</div>
+        <div class="sell-point-tag-sub-label">ダブルランプ</div>
+      </div>
+    </div>
+  </div>
+  <div class="man-description wow slideInUp" data-wow-delay=".2s">
+    <p>
+      男性の髭、脚、VIOなど、 <br>
+      太く硬い毛に特化
+    </p>
+    <p>
+      ダブルランプで照射面積が広く、 <br>
+      早く効果を実感で <br>
+      きるから継続しやすい
+    </p>
+    <div class="man-description-list">
+      <div class="man-description-item">
+        <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/m-product1.png?v=1719458363" alt="">
+        <div class="man-description-item-ellipse">
+          <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/ellipse.png?v=1719458358" alt="">
+          <div class="ellipse-text">わき</div>
         </div>
-        <div class="man-description-item">
-          <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/m-product2.png?v=1719458363" alt="" />
-          <div class="man-description-item-ellipse">
-            <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/ellipse.png?v=1719458358" alt="" />
-            <div class="ellipse-text">髭</div>
-          </div>
+      </div>
+      <div class="man-description-item">
+        <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/m-product2.png?v=1719458363" alt="">
+        <div class="man-description-item-ellipse">
+          <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/ellipse.png?v=1719458358" alt="">
+          <div class="ellipse-text">髭</div>
         </div>
-        <div class="man-description-item">
-          <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/m-product3.png?v=1719458363" alt="" />
-          <div class="man-description-item-ellipse">
-            <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/ellipse.png?v=1719458358" alt="" />
-            <div class="ellipse-text">VIO</div>
-          </div>
+      </div>
+      <div class="man-description-item">
+        <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/m-product3.png?v=1719458363" alt="">
+        <div class="man-description-item-ellipse">
+          <img src="https://cdn.shopify.com/s/files/1/0841/4596/3322/files/ellipse.png?v=1719458358" alt="">
+          <div class="ellipse-text">VIO</div>
         </div>
       </div>
     </div>
   </div>
-  <script src="{{ 'customer.js' | asset_url }}" defer="defer"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var buyButton = document.querySelector('.man-product-handle-button-buy');
-      var productId = {{ section.settings.product_id }};
-      console.log('DOMContentLoaded event fired');
-      if (buyButton) {
-        console.log('Button element found');
-        buyButton.addEventListener('click', function() {
-          console.log('Button clicked');
-          addToCart(productId);
-        });
-      } else {
-        console.log('Button element not found');
-      }
-    });
-    </script>
-  {% schema %}
+</div>
+<script src="{{ 'customer.js' | asset_url }}" defer="defer"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var buyButton = document.querySelector('.man-product-handle-button-buy');
+    var productId = {{ section.settings.product_id }};
+    console.log('DOMContentLoaded event fired');
+    if (buyButton) {
+      console.log('Button element found');
+      buyButton.addEventListener('click', function() {
+        console.log('Button clicked');
+        addToCart(productId);
+      });
+    } else {
+      console.log('Button element not found');
+    }
+  });
+</script>
+{% schema %}
 {
   "name": "man-sell-point-model2",
   "settings": [
@@ -215,7 +288,7 @@
       "id": "LeftDescription",
       "label": "Left Description",
       "default": "サヨナラ。"
-    }, 
+    },
     {
       "type": "text",
       "id": "RightDescription",
@@ -223,17 +296,17 @@
       "default": "毎日のシェービングに"
     },
     {
-        "type": "url",
-        "id": "linkUrl",
-        "label": "Link URL",
-        "default": "/"
-      },
-      {
-        "type": "number",
-        "id": "product_id",
-        "label": "Product ID",
-        "default": 41335578853424
-      }
+      "type": "url",
+      "id": "linkUrl",
+      "label": "Link URL",
+      "default": "/"
+    },
+    {
+      "type": "number",
+      "id": "product_id",
+      "label": "Product ID",
+      "default": 41335578853424
+    }
   ],
 
   "presets": [
