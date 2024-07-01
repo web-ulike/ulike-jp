@@ -1727,7 +1727,24 @@ line-height: normal;
   .man-header{
     overflow-x: hidden;
   }
-
+  .man-text-label span{
+    transform: skew(334deg,3deg);
+    display: inline-block;
+    position: relative;
+    top: 2vw;
+    left: -6vw;
+   }
+   .circular-footer{
+    color: rgba(255, 255, 255, 0.50);
+font-family: "Noto Sans JP";
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+position: absolute;
+left: -12vw;
+bottom: -20vw;
+  }
   .man-header .man-text-container .man-text-label .text{
     position: relative;
     left: 6vw;
