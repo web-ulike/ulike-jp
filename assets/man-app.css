@@ -1429,6 +1429,21 @@ line-height: normal;
     padding: 50px;
     width:100%;
   }
+  .effect-header .effect-label span{
+    position: relative;
+    font-size: 3.5vw;
+    /* -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-image: -webkit-linear-gradient(bottom, #fff, #fff); */
+  
+  }
+  .effect-header .effect-label span::before{
+    content:'·'; 
+      position: absolute;
+      bottom: -2.5vw;
+      left: 0%;
+      transform: translate(36%, 0%);
+  }
   .effect-container {
     padding-bottom: 170vw;
   }
