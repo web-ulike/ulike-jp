@@ -1364,6 +1364,7 @@ line-height: normal;
   }
   .nurse-container .nurse-left .nurse-label{
     font-size: 15.5vw !important;
+    line-height: 64px;
   }
   .nurse-describe{
     text-align:center !important;
@@ -1376,7 +1377,11 @@ line-height: normal;
   }
   .nurse-container .nurse-right img {
     width:88vw;
+    height: auto;
     object-fit:contain;
+  }
+  .Introduction-doctor .Introduction-left {
+    padding-left: 0;
   }
   .nurse-container .nurse-right {
     position: absolute;
