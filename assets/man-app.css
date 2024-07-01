@@ -993,15 +993,20 @@ line-height: normal;
 /* model 8 end  */
 /* model 9 start */
 .service-container{
-   padding-bottom: 13vw;
+height: 25vw;
+position: relative;
     background:#000;
+    top: 0;
+    left: 0;
 }
 .service-container .service-list{
   display:flex;
   align-items:center;
   justify-content:center;
-  /* padding-top: 1%; */
-  transform: translate(0%, 50%);
+  transform: translate(-50%, -50%);
+  position: absolute;
+  left: 50%;
+  top: 50%;
 }
 .service-container .service-list .service-item {
   display:flex;
