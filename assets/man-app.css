@@ -885,6 +885,11 @@ body{
   font-weight: 500;
   line-height: normal;
 }
+.nurse-container .nurse-left p {
+  color: #fff;
+  text-align: left;
+  margin: 1vw;
+}
 .nurse-container .nurse-right {
   position: absolute;
   top: 3vw;
@@ -978,7 +983,7 @@ line-height: normal;
 /* model 8 end  */
 /* model 9 start */
 .service-container{
-    height:40vw;
+   padding-bottom: 13vw;
     background:#000;
 }
 .service-container .service-list{
@@ -1107,12 +1112,12 @@ line-height: normal;
 }
 .effect-label span{
   position: relative;
-  font-size: 3.5vw;
+  font-size: 4vw;
 }
 .effect-label span::before{
   content:'·'; 
     position: absolute;
-    bottom: -2vw;
+    bottom: -3vw;
     left: 0%;
     transform: translate(36%, 0%);
 }
