@@ -253,8 +253,8 @@
 </div>
 <script src="{{ 'customer.js' | asset_url }}" defer="defer"></script>
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var buyButton = document.querySelector('.man-product-handle-button-buy');
+  {% comment %} document.addEventListener('DOMContentLoaded', function() {
+    {% comment %} var buyButton = document.querySelector('.man-product-handle-button-buy');
     var productId = {{ section.settings.product_id }};
     console.log('DOMContentLoaded event fired');
     if (buyButton) {
@@ -265,8 +265,8 @@
       });
     } else {
       console.log('Button element not found');
-    }
-  });
+    } {% endcomment %}
+  }); {% endcomment %}
 </script>
 {% schema %}
 {
