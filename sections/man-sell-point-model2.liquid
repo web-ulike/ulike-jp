@@ -87,15 +87,18 @@
             >
               <span class="btn-fill" data-fill></span>
               <span class="btn-text">
-                {%- liquid
-                  if product.selected_or_first_available_variant.available == false or quantity_rule_soldout
-                    echo 'products.product.sold_out' | t
-                  elsif product.template_suffix != 'pre-order'
-                    echo 'products.product.add_to_cart' | t
-                  else
-                    echo 'products.product.pre_order' | t
-                  endif
-                -%}
+                {% comment %}
+                  {%- liquid
+                    if product.selected_or_first_available_variant.available == false or quantity_rule_soldout
+                      echo 'products.product.sold_out' | t
+                    elsif product.template_suffix != 'pre-order'
+                      echo 'products.product.add_to_cart' | t
+                    else
+                      echo 'products.product.pre_order' | t
+                    endif
+                  -%}
+                {% endcomment %}
+                今すぐ注文
               </span>
             </button>
           </div>
