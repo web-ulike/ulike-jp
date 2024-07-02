@@ -76,7 +76,7 @@
               type="submit"
               name="add"
               form="{{ product_form_id }}"
-              class="product-form__submit button man-product-handle-button-buy button--fixed w-full mt-2"
+              class="product-form__submit man-product-handle-button-buy "
               is="hover-button"
               {%- if product.selected_or_first_available_variant.available == false or quantity_rule_soldout %}
                 disabled
