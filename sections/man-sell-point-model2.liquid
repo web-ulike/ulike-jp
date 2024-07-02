@@ -31,7 +31,7 @@
     </div>
   </div>
   <div class="man-product-handle-group wow slideInUp " data-wow-delay=".2s">
-    <div class="man-product-handle-button-buy">今すぐ注文</div>
+    {% comment %} <div class="man-product-handle-button-buy">今すぐ注文</div> {% endcomment %}
 
     <div class="product-form-wrapper product-form-wrapper-cus" {{ block.shopify_attributes }}>
       {%- liquid
@@ -76,7 +76,7 @@
               type="submit"
               name="add"
               form="{{ product_form_id }}"
-              class="product-form__submit button button--secondary button--fixed w-full mt-2"
+              class="product-form__submit button man-product-handle-button-buy button--fixed w-full mt-2"
               is="hover-button"
               {%- if product.selected_or_first_available_variant.available == false or quantity_rule_soldout %}
                 disabled
