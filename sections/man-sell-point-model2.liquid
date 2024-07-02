@@ -31,9 +31,9 @@
     </div>
   </div>
   <div class="man-product-handle-group wow slideInUp " data-wow-delay=".2s">
-    {% comment %} <div class="man-product-handle-button-buy">今すぐ注文</div> {% endcomment %}
+    <div class="man-product-handle-button-buy">今すぐ注文</div>
 
-    <div class="product-form-wrapper product-form-wrapper-cus" {{ block.shopify_attributes }}>
+    <div class="" {{ block.shopify_attributes }}>
       {%- liquid
         assign gift_card_recipient_feature_active = false
         if block.settings.show_gift_card_recipient and product.gift_card?
