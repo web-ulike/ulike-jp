@@ -18,9 +18,9 @@ ul {
   list-style: none;
 }
 
-div {
+/* div {
   display: block;
-}
+} */
 body{
   overflow-x:hidden;
   
@@ -1124,8 +1124,8 @@ position: relative;
   border:6px solid #232A32;
 }
 .service-container .service-item-left {
- margin-right:2vw;
- width:5vw;
+  margin-right:2vw;
+  width:5vw;
 }
 .service-container .service-item-right {
   width: 60%;
@@ -1433,7 +1433,8 @@ line-height: normal;
   }
   .exhibition-container {
     overflow: hidden;
-        height: 190vw !important;
+    min-height: 190vw!important;
+    background-size: inherit;
   }
   .nurse-container .nurse-left .nurse-list .nurse-item img{
     width:20vw !important;
@@ -1442,14 +1443,14 @@ line-height: normal;
     height: 110vw !important;
   }
   .nurse-container {
-    padding-bottom: 195vw !important;
+    padding-bottom: 190vw !important;
   }
   .nurse-container .nurse-left .nurse-sub-label {
     font-size: 31px !important;
     margin-top: 12vw;
   }
   .nurse-container .nurse-left .nurse-label{
-    font-size: 62px !important;
+    font-size: 58px !important;
     line-height: 1.2;
   }
   .nurse-describe{
@@ -1530,6 +1531,12 @@ line-height: normal;
     margin:0 20px;
     min-height: auto;
   }
+  .service-container .service-item-left {
+    margin-right: 20px;
+    width: 50px;
+  }
+
+
   .service-container .service-list .service-item h2{
     font-size: 16px;
   }
@@ -1613,25 +1620,29 @@ line-height: normal;
   }
   .sell-point-tags .sell-point-tag .sell-point-tag-label {
     color: #000;
-    
-    font-size: 44px;
-    font-style: normal;
+    font-size: 32px;
     font-weight: 400;
-    line-height: normal;
   }
   .sell-point-tags .sell-point-tag .sell-point-tag-label span {
     color: #000;
-    
-  font-size: 32px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
+    font-size: 28px;
+    font-weight: 400;
   }
+
+  .sell-point-tags .sell-point-tag:first-child .sell-point-tag-label {
+    font-size: 42px;
+  }
+  .sell-point-tags .sell-point-tag:first-child .sell-point-tag-sub-label {
+    font-size: 18px;
+  }
+
+
   .sell-point-icon{
     padding:0 10px !important;
   }
   .man-description {
     font-size: 18px;
+    padding-bottom: 40px;
   }
   .man-description .man-description-list {
     margin-top: 10vw;
@@ -1693,11 +1704,8 @@ line-height: normal;
   }
   .sell-point-tags .sell-point-tag .sell-point-tag-sub-label {
     color: #000;
-    
-    font-size: 17px;
-    font-style: normal;
+    font-size: 15px;
     font-weight: 400;
-    line-height: normal;
   }
   .man-description .man-description-list .man-description-item .man-description-item-ellipse {
     position: absolute;
@@ -1709,16 +1717,14 @@ line-height: normal;
     width:25vw;
   }
   .t1 {
-    /* top: 26vw !important;
-    left: 5vw !important; */
-    color: var(--WHITE, #fff);
+    color: #fff;
     text-align: center;
-    
-  font-size: 14px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 400 !important;
     width: 89vw !important;
     transform: inherit;
+    margin: 30px 0;
   }
   .t2 {
     /* width: 50vw !important;
@@ -1769,13 +1775,11 @@ line-height: normal;
     line-height: normal;
   }
   .man-product-header .man-product-describe h2 {
-    color: var(--WHITE, #FFF);
+    color: #FFF;
     font-family: var(--font-it-family);
-    font-size:92px;
-    text-align:center;
-    font-style: normal;
+    font-size: 80px;
+    text-align: center;
     font-weight: 300;
-    line-height: normal;
   }
   .man-product-header .man-product-describe span {
     color: var(--WHITE, #FFF);
@@ -1844,34 +1848,26 @@ line-height: normal;
   }
   .man-product-handle-group .add-to-cart-block {
     text-align: center;
-    width: 100%;
     position: relative;
-    margin-right: 20px;
+    width: 50%;
   }
   .man-product-handle-group .man-product-handle-button-buy{
-  
- 
     background: #b9e7ff;
     text-align: center;
     width:100%;
     margin-right: 0px;
     cursor: pointer;
-    font-size:19px;
-    border: 1px solid transparent;
+    font-size: 18px;
+    padding: 6px 20px;
   }
   .man-product-handle-group .man-product-handle-button-details{
-    
-    width:100%;
-  
-    background: transparent;
-    text-align: center;
-    margin-right: 20px;
+    width: 50%;
+    margin-right: 0px;
     color:#fff;
-    cursor: pointer;
-    font-size:19px;
+    font-size: 18px;
     border: 1px solid #fff;
     min-height: auto;
-        justify-content: center;
+    justify-content: center;
   }
   .man-product-mainImg-m {
     position: relative;
@@ -1927,15 +1923,13 @@ line-height: normal;
   }
    .circular-footer{
     color: rgba(255, 255, 255, 0.50);
-
-font-size: 8px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-position: absolute;
-left: 30px;
-bottom: 30px;
+    font-size: 8px;
+    font-weight: 400;
+    position: absolute;
+    left: -30px;
+    bottom: -60px;
   }
+
   .man-header .man-text-container .man-text-label .text{
     position: relative;
     left: 6vw;
@@ -1973,21 +1967,18 @@ bottom: 30px;
     align-items: self-end;
   }
   .man-main-product img {
-    width: 30vw;
-    height: 100%;
+    /* width: 30vw;
+    height: 100%; */
     margin:0 auto;
   }
   .man-main-product .right{
-    margin-left:35px;
+    margin-left: 20px;
   }
   .man-main-product .man-main-product-label {
-    
-    font-size: 16px;
-    font-style: normal;
+    font-size: 14px;
     font-weight: 400;
-    line-height: normal;
     color: #fff;
-    margin-top:2vw;
+    margin-top: 4px;
   }
   /*  */
   .nurse-container .nurse-left{
@@ -2003,25 +1994,24 @@ bottom: 30px;
     margin-right: 10px;
 }
   .man-product-handle-group {
-    /* top:100vw; */
+    left: 0px;
+    right: 0px;
+    padding: 0px 20px;
+    width: 100%;
+    top: 88vw;
+    gap: 20px;
   }
   .marks{
-    /* top: 6vw !important;
-    transform: unset;
-    left: 48% !important;
-    transform: translate(-50%);
-    width: 15vw; */
-
   }
   .swiper-banner{
-    height: 780px;
+    /* height: 780px; */
   }
   .w1200 img {
     width: 100%;
     height:100%;
 }
   .swiper-banner .swiper-slide{
-    height: 780px;
+    height: 390px;
   }
   .propaganda-main img {
     width: 76vw;

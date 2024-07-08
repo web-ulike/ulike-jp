@@ -12,7 +12,7 @@
   media="print"
   onload="this.media='all'"
 >
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"  defer="defer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js" defer="defer"></script>
 
 {{ 'man-app.css' | asset_url | stylesheet_tag }}
 <div class="man-header pc-show">
@@ -24,7 +24,6 @@
       <div class="text">{{ section.settings.FirstSentence }}</div>
       <div class="text">{{ section.settings.SecondSentence }}</div>
     </div>
-      
   </div>
   <div class="vertical-text">
     <p>{{ section.settings.LeftDescription }}</p>
@@ -32,35 +31,48 @@
   </div>
   <div class="man-main-product">
     <div>
-      <img src="https://cdn.shopify.com/s/files/1/0553/7392/2352/files/b61338b4249f4a54f7020b5c8186be1b.png?v=1720063800" alt="">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0553/7392/2352/files/b61338b4249f4a54f7020b5c8186be1b.png?v=1720063800"
+        alt=""
+      >
     </div>
     <div>
-      <img src="https://cdn.shopify.com/s/files/1/0553/7392/2352/files/ulike_men_4a0d96bd-c79d-4af7-9df7-61f4a9cde30b.png?v=1720063890" alt="" class="text-img">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0553/7392/2352/files/ulike_men_4a0d96bd-c79d-4af7-9df7-61f4a9cde30b.png?v=1720063890"
+        alt=""
+        class="text-img"
+      >
     </div>
     <div class="man-main-product-label">メンズ専用IPL脱毛器</div>
   </div>
-</div> 
+</div>
 <div class="man-header m-show">
   <div class="man-image">
     <img src="https://cdn.shopify.com/s/files/1/0553/7392/2352/files/pic-KV.png?v=1720074101" alt="">
   </div>
   <div class="man-text-container">
-    <div class="man-text-label"> 
+    <div class="man-text-label">
       <div class="text">{{ section.settings.MobileFirstSentence }}</div>
       <div class="text">{{ section.settings.MobileSecondSentence }}</div>
     </div>
   </div>
-  <div class="vertical-text">
-   <p>{{ section.settings.LeftDescription }}</p>
+  <div class="vertical-text pc-show">
+    <p>{{ section.settings.LeftDescription }}</p>
     <p class="text">{{ section.settings.RightDescription }}</p>
   </div>
   <div class="man-main-product">
     <div>
-      <img src="https://cdn.shopify.com/s/files/1/0553/7392/2352/files/b61338b4249f4a54f7020b5c8186be1b.png?v=1720063800" alt="">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0553/7392/2352/files/b61338b4249f4a54f7020b5c8186be1b.png?v=1720063800"
+        alt=""
+      >
     </div>
     <div class="right">
-      <div >
-        <img src="https://cdn.shopify.com/s/files/1/0553/7392/2352/files/ulike_men_4a0d96bd-c79d-4af7-9df7-61f4a9cde30b.png?v=1720063890" alt="">
+      <div>
+        <img
+          src="https://cdn.shopify.com/s/files/1/0553/7392/2352/files/ulike_men_4a0d96bd-c79d-4af7-9df7-61f4a9cde30b.png?v=1720063890"
+          alt=""
+        >
       </div>
       <div class="man-main-product-label">メンズ専用IPL脱毛器</div>
     </div>
@@ -100,7 +112,7 @@
       "id": "LeftDescription",
       "label": "Left Description",
       "default": "サヨナラ。"
-    }, 
+    },
     {
       "type": "text",
       "id": "RightDescription",
@@ -118,7 +130,7 @@
 }
 {% endschema %}
 <script>
-  window.addEventListener('load', function() {
+  window.addEventListener('load', function () {
     new WOW().init();
   });
 </script>
