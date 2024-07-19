@@ -4,8 +4,8 @@
 <section>
  {% for variant in product.variants %}
   <div id="{{ variant.id }}"> {{ variant.option1  }} - {{ variant.price | money }} - 
-     <img src="{{  featured_image.src | image_url }}"/ >
-   <img src="{{  featured_media.preview_image.src | image_url }}"/ >
+     <img src="{{ variant.featured_image.src | image_url }}"/ >
+   <img src="{{  variant.featured_media.preview_image.src | image_url }}"/ >
   </div>
 
 {% endfor %}
