@@ -11,6 +11,7 @@
 {% endfor %}
 </section>
 <script>
+  window.productVariants = {{ product.variants | json }};
 </script>
 {% schema %}
 {
