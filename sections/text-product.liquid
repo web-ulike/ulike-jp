@@ -3,7 +3,7 @@
 -%}
 <section>
  {% for variant in product.variants %}
-  {{ variant.id }} - {{ variant.price | money }}
+  {{ variant.option1  }} - {{ variant.price | money }}
 {% endfor %}
 </section>
 <script>
