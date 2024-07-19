@@ -4,7 +4,9 @@
 <section>
   {%- for option in product.options_with_values -%}
   <div>
-    {{option.selected_value}}
+    {%- for value in option.values -%}
+    <div>{{ value | escape }}</div>
+       {%- endfor -%}
   </div>
      {%- endfor -%}
 </section>
