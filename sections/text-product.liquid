@@ -3,7 +3,7 @@
 -%}
 <section>
  {% for variant in product.variants %}
-  {{ variant.option  }} - {{ variant.price | money }}
+  {{ variant.option1  }} - {{ variant.price | money }}
 {% endfor %}
 </section>
 <script>
@@ -11,7 +11,7 @@
 </script>
 {% schema %}
 {
-  "name": "man-sell-point-model2",
+  "name": "Test Product",
   "settings": [
     {
       "type": "product",
