@@ -5,8 +5,19 @@
   {%- for option in product.options_with_values -%}
   <div>
     {%- for value in option.values -%}
-    <div>{{ value | escape }}</div>
-       {%- endfor -%}
+
+      	<input
+										type="radio"
+										class="sr-only"
+										id="{ option.name | handle }}-{{ forloop.index0 }}"
+										name="{{ option.name }}"
+										value="{{ value | escape }}"
+										form="{{ product_form_id }}"
+										{% if option.selected_value == value %}checked{% endif %}
+										data-option-value="{{ value | escape }}"
+									/>
+      
+    {%- endfor -%}
   </div>
      {%- endfor -%}
 </section>
