@@ -9,7 +9,7 @@
   </div>
 {% endfor %}
   {% for option in product.options_with_values %}
-   <div> {{ option }}</div>
+   <div> {{ option | json }}</div>
 {% endfor %}
 </section>
 <script>
