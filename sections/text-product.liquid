@@ -9,6 +9,9 @@
   </div>
 
 {% endfor %}
+  {% for option in product.options %}
+  {{ option.name }}
+{% endfor %}
 </section>
 <script>
   window.productVariants = {{ product.variants | json }};
