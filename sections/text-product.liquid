@@ -1,5 +1,10 @@
+ {%- liquid
+  assign product = section.settings.product
+-%}
 <section>
-  
+  <div>
+    {{ product }}
+  </div>
 </section>
 {% schema %}
 {
