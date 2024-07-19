@@ -2,9 +2,11 @@
   assign product = section.settings.product
 -%}
 <section>
+  {%- for option in product.options_with_values -%}
   <div>
-    {{product.options_with_values}}
+    {{option}}
   </div>
+     {%- endfor -%}
 </section>
 {% schema %}
 {
