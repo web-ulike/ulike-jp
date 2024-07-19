@@ -15,6 +15,7 @@
 										form="{{ product_form_id }}"
 										{% if option.selected_value == value %}checked{% endif %}
 										data-option-value="{{ value | escape }}"
+          style="height:50px"
 									/>
       
     {%- endfor -%}
