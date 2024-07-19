@@ -2,15 +2,9 @@
   assign product = section.settings.product
 -%}
 <section>
-  {%- for option in product.options_with_values -%}
-  <div style="height:100px">
-    {%- for value in option.values -%}
-
-      <div>{{ value }}</div>
-      
-    {%- endfor -%}
-  </div>
-     {%- endfor -%}
+ {% for variant in product.variants %}
+  {{ variant.title }} - {{ variant.price | money }}
+{% endfor %}
 </section>
 <script>
    window.aa = "{{ section.settings.product }}"
