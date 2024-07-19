@@ -7,7 +7,6 @@
      <img src="{{ variant.featured_image.src | image_url }}" style="width: 50px" />
    <img src="{{  variant.featured_media.preview_image.src | image_url }}"  style="width: 50px" />
   </div>
-
 {% endfor %}
   {% for option in product.options %}
    <div> {{ option.name }}</div>
