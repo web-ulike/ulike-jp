@@ -1,0 +1,144 @@
+<style>
+        .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px);
+  }
+  @media screen and (max-width: 768px){
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * 0.6);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.6);
+  }
+}
+/* md9-box start*/
+.md9-box{
+  background: #000;
+}
+.md9-flex{
+  display: flex;
+  gap: 64px;
+}
+.md9-flex .md9-cnt{
+  color: #fff;
+  padding: 37px 30px;
+  display: flex;
+  gap: 37px;
+  flex: 1;
+  align-items: center;
+}
+.md9-flex .md9-left{
+  background: #232A32;
+}
+.md9-tt .md9_tt-tle1{
+font-size: 28px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+margin-bottom: 5px;
+}
+.md9-tt .md9_tt-tle2{
+font-size: 18px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}
+.md9-flex .md9-right{
+  border: 7px solid #232A32;
+}
+@media (max-width: 768px) {
+  .md9-flex{
+    flex-direction: column;
+    gap: 20px;
+  }
+  .md9-flex .md9-cnt{
+    padding: 20px 16px;
+    gap: 21px;
+  }
+  .md9-tt .md9_tt-tle1{
+    font-size: 16px;
+  }
+  .md9-tt .md9_tt-tle2{
+    font-size: 12px;
+  }
+  .md9-flex .md9-cnt img{
+    max-width: 55px;
+  }
+}
+/* md9-box end*/
+</style>
+ <section>
+    <div class="md9-box section-{{ section.id }}-padding">
+      <div class="women_container">
+        <div class="md9-flex">
+
+            {%- for block in section.blocks -%}
+          <div class="md9-left md9-cnt to-top" style="transition-delay: 0.{{ forloop.index }}s">
+             {%- if block.settings.image -%}
+            <img src="{{  block.settings.image | image_url }}" alt="">
+              {%- endif -%}
+            <div class="md9-tt">
+              <div class="md9_tt-tle1">{{ block.settings.text1 }}</div>
+              <div class="md9_tt-tle2">{{ block.settings.text2 }}</div>
+            </div>
+          </div>
+            {%- endfor -%}
+          
+        </div>
+      </div>
+    </div>
+  </section>
+{% schema %}
+{
+  "name": "Man Module9",
+  "class": "shopify-section--man-md9", 
+  "settings": [
+         {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 300,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 300,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 48
+    }
+  ],
+  "blocks": [
+        {
+      "type": "item",
+      "name": "item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+          {
+      "type": "text",
+      "id": "text1",
+      "label": "Text1"
+    },
+        {
+      "type": "richtext",
+      "id": "text2",
+      "label": "Text2"
+    }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Man Module9"
+    }
+  ]
+}
+{% endschema %}

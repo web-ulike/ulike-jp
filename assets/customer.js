@@ -7,7 +7,6 @@ const selectors = {
   deleteAddressButton: 'button[data-confirm-message]'
 };
 
-
 const attributes = {
   expanded: 'aria-expanded',
   confirmMessage: 'data-confirm-message'
@@ -109,7 +108,7 @@ class CustomerAddresses {
  * @param {扩展字段} properties 
  * @returns 
  */
-function addToCart(productId, button, properties,quantity =1) {
+function addToCart(productId, button, properties，quantity =1) {
   // 获取文本元素和加载动画元素
  var textElement ;
  var loaderElement;
@@ -125,6 +124,7 @@ function addToCart(productId, button, properties,quantity =1) {
      textElement.hidden = true;
      loaderElement.hidden = false;
   }
+
   console.log(properties);
 
  fetch('/cart/add.js', {

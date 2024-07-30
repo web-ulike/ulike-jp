@@ -1,44 +1,30 @@
-// 获取所有具有指定类名的元素
-// const animateElements = document.querySelectorAll('.to-left,.to-edge,.to-top,.slide-to-left,.to-opacity,.to-top1,.text-top,.text-top-btn,.slide-to-left-white');
-                        
-// 计算阈值
-const threshold = window.innerHeight + 100;
+// Define the class names to be animated
+const classNames = '.to-left,.to-edge,.to-top,.slide-to-left,.to-opacity,.to-top1,.text-top,.text-top-btn,.slide-to-left-white,.line-top';
 
-// 检查元素是否在视口内的函数
-function isElementInViewport(element,index) {
-  const bounding = element.getBoundingClientRect();
-  return (
-    // bounding.top >= 0 &&
-    // bounding.top <= threshold
-    bounding.bottom >= 0 &&
-    bounding.top <= threshold
-  );
-}
-
-// 监听滚动事件
-function handleScroll() {
-  const animateElements = document.querySelectorAll('.text_clip,.to-left,.to-edge,.to-top,.slide-to-left,.to-opacity,.to-top1,.text-top,.text-top-btn,.slide-to-left-white,.line-top');
-  animateElements.forEach((element,index) => {
-    if (!element.classList.contains('appear') && isElementInViewport(element,index)) {
-      element.classList.add('appear');
+// Function to handle intersection events
+function handleIntersect(entries, observer) {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('appear');
+      observer.unobserve(entry.target); // Stop observing the element once it has appeared
     }
   });
 }
 
-// 初始检查，如果元素初始位置已经在视口中，则立即触发动画
-window.initialCheck = function () {
-  const animateElements = document.querySelectorAll('.text_clip,.to-left,.to-edge,.to-top,.slide-to-left,.to-opacity,.to-top1,.text-top,.text-top-btn,.slide-to-left-white,.line-top');
-    animateElements.forEach((element,index) => {
-    if (isElementInViewport(element,index)) {
-      element.classList.add('appear');
-    }
-  });
-}
+// Create an IntersectionObserver instance
+const observer = new IntersectionObserver(handleIntersect, {
+  root: null, // Use the viewport as the container
+  rootMargin: '0px 0px 50px 0px', // Trigger 100px before the element enters the viewport
+  threshold: 0 // Trigger when any part of the element is visible
+});
 
-// 在页面加载时和滚动时都执行初始检查
-window.addEventListener('load', initialCheck);
-window.addEventListener('scroll', handleScroll);
+// Select all elements to be animated
+const animateElements = document.querySelectorAll(classNames);
 
+// Start observing each element
+animateElements.forEach(element => {
+  observer.observe(element);
+});
 
 function wrapWordsWithSpanAndAddClass(node) {
     if (node.nodeType === Node.TEXT_NODE) {
