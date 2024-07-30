@@ -597,7 +597,9 @@
                 </p>
               {%- endif -%}
             {%- when 'ulike_giveaway' -%}
-              <div class="ulike-giveaway"></div>
+              {%- if block.settings.button_label != blank -%}
+                <div class="ulike-giveaway">111</div>
+              {%- endif -%}
           {%- endcase -%}
         {%- endfor -%}
       </animate-element>
