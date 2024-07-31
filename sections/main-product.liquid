@@ -597,8 +597,22 @@
                 </p>
               {%- endif -%}
             {%- when 'ulike_giveaway' -%}
-              {%- if block.settings.button_label != blank -%}
-                <div class="ulike-giveaway">111</div>
+              1111
+              {%- if block.settings.giveaway_image != blank -%}
+                <div class="ulike-giveaway">
+                  <picture>
+                    {%- if section.settings.giveaway_image -%}
+                      {{-
+                        section.settings.giveaway_image
+                        | image_url: width: section.settings.giveaway_image.width
+                        | image_tag:
+                          loading: 'eager',
+                          sizes: '100vw',
+                          widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200'
+                      -}}
+                    {%- endif -%}
+                  </picture>
+                </div>
               {%- endif -%}
           {%- endcase -%}
         {%- endfor -%}
@@ -2037,7 +2051,7 @@
         {
           "type": "image_picker",
           "id": "giveaway_image",
-          "label": "t:sections.global.settings.giveaway_title.label"
+          "label": "赠品图片"
         }
       ]
     }
