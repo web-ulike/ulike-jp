@@ -387,7 +387,7 @@
                             {% assign totalGiftPrice = count | times: 40.0 %}
                             <p>
                               {{ item.free_text }}
-                              <span class="money" data-currency-gbp="{{ item.price_text }}{{ totalGiftPrice }}">
+                              <span class="money" data-currency-gbp="{{ totalGiftPrice }}">
                                 {{ totalGiftPrice | money }}
                               </span>
                             </p>
