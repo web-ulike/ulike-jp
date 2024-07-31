@@ -166,13 +166,13 @@
                   {%- for item in cart.items -%}
                     {% if section.settings.sku contains item.sku %}
                       {% assign count = count | plus: item.quantity %}
-                      {% assign sku_list = sku_list
-                        | append: item.sku
-                        | append: '_'
-                        | append: item.quantity
-                        | append: ','
-                      %}
                     {% endif %}
+                    {% assign sku_list = sku_list
+                      | append: item.sku
+                      | append: '_'
+                      | append: item.quantity
+                      | append: ','
+                    %}
                     {%- liquid
                       assign is_gift_wrap_item = false
 
