@@ -388,9 +388,6 @@
                             <p>
                               {{ item.free_text }}
                               <span class="money" data-currency-gbp="{{ item.price_text }}{{ totalGiftPrice }}">
-                                {{ item.price_text -}}
-                                {{ shop.currency.symbol }}--{{ shop.currency_format }}
-                                {{- totalGiftPrice -}}
                                 {{ totalGiftPrice | money }}
                               </span>
                             </p>
