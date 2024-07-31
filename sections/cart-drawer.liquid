@@ -932,3 +932,57 @@
   }
 }
 {% endschema %}
+<style>
+  #mini-cart .box-gift {
+    border-radius: 2px;
+    border: 1px solid #e8e8e8;
+    padding: 10px 10px 10px 0px;
+    margin: 20px 0px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -o-border-radius: 2px;
+  }
+  #mini-cart .box-gift .list {
+    display: grid;
+    grid-template-columns: 1fr 6fr 2fr;
+    padding: 0px 0px 0px;
+  }
+  #mini-cart .box-gift .list .p-image {
+    display: flex;
+    justify-content: center;
+  }
+  #mini-cart .box-gift .list .detail {
+    font-size: 12px;
+    color: #190a0a;
+  }
+  #mini-cart .box-gift .list .detail .name {
+    font-size: 12px;
+    color: #190a0a;
+    font-family: var(--heading-font-family);
+    font-weight: var(--heading-font-weight);
+    margin: 0px;
+  }
+  #mini-cart .box-gift .list .detail .desc {
+    color: #3f3636;
+  }
+  #mini-cart .box-gift .list .detail .desc .num {
+    border: 1px solid #3f3636;
+    padding: 2px 4px;
+    margin-left: 6px;
+    font-size: 12px;
+    border-radius: 4px;
+  }
+  #mini-cart .box-gift .list .price {
+    font-size: 12px;
+    color: #e0004d;
+    display: flex;
+    justify-content: end;
+    align-items: flex-end;
+  }
+  #mini-cart .box-gift .list .price span {
+    color: #3f3636;
+    margin-left: 6px;
+    text-decoration: line-through;
+  }
+</style>
