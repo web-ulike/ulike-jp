@@ -160,11 +160,18 @@
               -%}
 
               {% assign count = 0 %}
+              {% assign sku_list = '' %}
               <cart-items class="block grow">
                 <ul class="horizontal-products grid" role="list">
                   {%- for item in cart.items -%}
                     {% if section.settings.sku contains item.sku %}
                       {% assign count = count | plus: item.quantity %}
+                      {% assign sku_list = sku_list
+                        | append: item.sku
+                        | append: '_'
+                        | append: item.quantity
+                        | append: ','
+                      %}
                     {% endif %}
                     {%- liquid
                       assign is_gift_wrap_item = false
@@ -405,6 +412,7 @@
                   -%}
                 </ul>
               </cart-items>
+              {{ sku_list }}
 
               {%- render 'gift-wrapping',
                 section_id: section.id,
