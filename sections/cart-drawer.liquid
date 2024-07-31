@@ -374,23 +374,25 @@
                     {%- if block.type == 'cart-giveaway-item' and count > 0 -%}
                       {% comment %} 赠品需求 {% endcomment %}
                       <li class="horizontal-product flex items-center gap-4 md:gap-6 box-gift">
-                        <img src="https://cdn.shopify.com/s/files/1/0740/5882/6015/files/6.jpg?v=1711541942">
-                        <div class="detail">
-                          <p class="name font-medium">{{ item.title }}</p>
-                          <div class="desc">
-                            {{ item.info }}
-                            <span class="num">× {{ count }}</span>
+                        <div class="list">
+                          <img src="https://cdn.shopify.com/s/files/1/0740/5882/6015/files/6.jpg?v=1711541942">
+                          <div class="detail">
+                            <p class="name font-medium">{{ item.title }}</p>
+                            <div class="desc">
+                              {{ item.info }}
+                              <span class="num">× {{ count }}</span>
+                            </div>
                           </div>
-                        </div>
-                        <div class="price">
-                          {% assign totalGiftPrice = count | times: 40.0 %}
-                          <p>
-                            {{ item.free_text }}
-                            <span class="money" data-currency-gbp="{{ item.price_text }}{{ totalGiftPrice }}">
-                              {{ item.price_text -}}
-                              {{- totalGiftPrice -}}
-                            </span>
-                          </p>
+                          <div class="price">
+                            {% assign totalGiftPrice = count | times: 40.0 %}
+                            <p>
+                              {{ item.free_text }}
+                              <span class="money" data-currency-gbp="{{ item.price_text }}{{ totalGiftPrice }}">
+                                {{ item.price_text -}}
+                                {{- totalGiftPrice -}}
+                              </span>
+                            </p>
+                          </div>
                         </div>
                       </li>
                     {%- endif -%}
