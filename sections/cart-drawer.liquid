@@ -158,9 +158,13 @@
                   assign items_in_cart = cart.item_count | minus: gift_wraps_in_cart
                 endif
               -%}
+              {% assign count = 0 %}
               <cart-items class="block grow">
                 <ul class="horizontal-products grid" role="list">
                   {%- for item in cart.items -%}
+                    {% if section.settings.sku contains item.sku %}
+                      {% assign count = count | plus: item.quantity %}
+                    {% endif %}
                     {%- liquid
                       assign is_gift_wrap_item = false
 
