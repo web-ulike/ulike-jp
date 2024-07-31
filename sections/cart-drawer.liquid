@@ -387,6 +387,16 @@
                           <li class="horizontal-product flex items-center gap-4 md:gap-6 box-gift">
                             <div class="list">
                               <img src="https://cdn.shopify.com/s/files/1/0740/5882/6015/files/6.jpg?v=1711541942">
+                              <picture>
+                                {{-
+                                  item.image
+                                  | image_url: width: item.image.width
+                                  | image_tag:
+                                    loading: 'eager',
+                                    sizes: '100vw',
+                                    widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200'
+                                -}}
+                              </picture>
                               <div class="detail">
                                 <p class="name font-medium">{{ item.title }}</p>
                                 <div class="desc">
