@@ -1,10 +1,12 @@
 {%- if request.page_type != 'cart' and settings.cart_type == 'drawer' -%}
   <script src="{{ 'cart.js' | asset_url }}" defer></script>
-  {%- if linklists.gift-wrapping.links != blank and linklists.gift-wrapping.links.first.type == 'product_link' -%}
+  {%- if linklists['gift-wrapping'].links != blank and linklists['gift-wrapping'].links.first.type == 'product_link' -%}
     <script src="{{ 'gift-wrapping.js' | asset_url }}" defer="defer"></script>
   {%- endif -%}
 
-  <cart-drawer id="CartDrawer" class="cart-drawer drawer drawer--end z-30 fixed bottom-0 left-0 h-full w-full pointer-events-none"
+  <cart-drawer
+    id="CartDrawer"
+    class="cart-drawer drawer drawer--end z-30 fixed bottom-0 left-0 h-full w-full pointer-events-none"
     role="dialog"
     aria-modal="true"
     aria-label="{{ 'general.cart.title' | t | escape }}"
@@ -12,25 +14,58 @@
     shopify-design-mode
     hidden
   >
-    <overlay-element class="overlay fixed-modal invisible opacity-0 fixed bottom-0 left-0 w-full h-screen pointer-events-none" aria-controls="CartDrawer" aria-expanded="false"></overlay-element>
+    <overlay-element
+      class="overlay fixed-modal invisible opacity-0 fixed bottom-0 left-0 w-full h-screen pointer-events-none"
+      aria-controls="CartDrawer"
+      aria-expanded="false"
+    ></overlay-element>
     <div class="drawer__inner z-10 absolute top-0 flex flex-col w-full h-full overflow-hidden">
       <gesture-element class="drawer__header flex items-center justify-between opacity-0 invisible relative">
         <ul class="drawer__tabs flex gap-10" is="tab-list">
           <li>
-            <button class="drawer__tab relative" type="button" aria-controls="MiniCart-{{ section.id }}" aria-expanded="true">
-              <span class="drawer__title heading lg:text-3xl text-2xl font-bold leading-none tracking-tight">{{ 'general.cart.title' | t }}</span>
-              <cart-count class="count absolute font-medium text-xs lg:text-sm leading-none" aria-label="{{ 'general.cart.cart_count' | t: count: cart.item_count | escape }}"{% if cart == empty %} hidden{% endif %}>{{ cart.item_count }}</cart-count>
+            <button
+              class="drawer__tab relative"
+              type="button"
+              aria-controls="MiniCart-{{ section.id }}"
+              aria-expanded="true"
+            >
+              <span class="drawer__title heading lg:text-3xl text-2xl font-bold leading-none tracking-tight">
+                {{- 'general.cart.title' | t -}}
+              </span>
+              <cart-count
+                class="count absolute font-medium text-xs lg:text-sm leading-none"
+                aria-label="{{ 'general.cart.cart_count' | t: count: cart.item_count | escape }}"
+                {% if cart == empty %}
+                  hidden
+                {% endif %}
+              >
+                {{- cart.item_count -}}
+              </cart-count>
             </button>
           </li>
           {%- if section.settings.recent_products_enabled -%}
             <li>
-              <button class="drawer__tab" type="button" aria-controls="RecentlyViewed-{{ section.id }}" aria-expanded="false">
-                <span class="drawer__title heading lg:text-3xl text-2xl font-bold leading-none tracking-tight">{{ section.settings.recent_products_heading | escape }}</span>
+              <button
+                class="drawer__tab"
+                type="button"
+                aria-controls="RecentlyViewed-{{ section.id }}"
+                aria-expanded="false"
+              >
+                <span class="drawer__title heading lg:text-3xl text-2xl font-bold leading-none tracking-tight">
+                  {{- section.settings.recent_products_heading | escape -}}
+                </span>
               </button>
             </li>
           {%- endif -%}
         </ul>
-        <button class="button button--secondary button--close drawer__close hidden sm:flex items-center justify-center" type="button" is="hover-button" aria-controls="CartDrawer" aria-expanded="false" aria-label="{{ 'general.accessibility.close' | t | escape }}">
+        <button
+          class="button button--secondary button--close drawer__close hidden sm:flex items-center justify-center"
+          type="button"
+          is="hover-button"
+          aria-controls="CartDrawer"
+          aria-expanded="false"
+          aria-label="{{ 'general.accessibility.close' | t | escape }}"
+        >
           <span class="btn-fill" data-fill></span>
           <span class="btn-text">
             {%- render 'icon', icon: 'close', size: 'sm' -%}
@@ -45,7 +80,9 @@
             {%- if cart == empty -%}
               <div class="drawer__scrollable relative flex justify-center items-start grow shrink text-center">
                 <div class="drawer__empty grid gap-5 md:gap-8">
-                  <h2 class="drawer__empty-text font-bold leading-none tracking-tight">{{ 'cart.general.empty' | t }}</h2>
+                  <h2 class="drawer__empty-text font-bold leading-none tracking-tight">
+                    {{ 'cart.general.empty' | t }}
+                  </h2>
                   <div class="drawer__empty-message text-sm md:text-base leading-tight rte">
                     {{- section.settings.empty_cart_message -}}
                   </div>
@@ -66,7 +103,7 @@
                                 if item.metafields.theme.icon.value != blank
                                   echo item.metafields.theme.icon.value | image_url: width: item.metafields.theme.icon.value.width | image_tag: loading: 'lazy', widths: '80,96,160,192', is: 'lazy-image'
                                 endif
-    
+
                                 echo item.title
                               -%}
                             </span>
@@ -84,7 +121,7 @@
                 if section.settings.show_free_shipping_bar and section.settings.free_shipping_minimum_amount != blank
                   assign minimum_amounts = section.settings.free_shipping_minimum_amount | remove: ' ' | split: ','
                   assign show_free_shipping_bar = false
-        
+
                   if minimum_amounts.size > 1
                     for amount in minimum_amounts
                       assign amount_parts = amount | split: ':'
@@ -99,7 +136,7 @@
                     assign minimum_amount = minimum_amounts | last
                     assign show_free_shipping_bar = true
                   endif
-                  
+
                   if show_free_shipping_bar
                     render 'free-shipping-bar', minimum_amount: minimum_amount
                   endif
@@ -107,9 +144,9 @@
               -%}
 
               {%- liquid
-                if linklists.gift-wrapping.links != blank and linklists.gift-wrapping.links.first.type == 'product_link'
-                  assign gift_wrapping = linklists.gift-wrapping.links.first
-              
+                if linklists['gift-wrapping'].links != blank and linklists['gift-wrapping'].links.first.type == 'product_link'
+                  assign gift_wrapping = linklists['gift-wrapping'].links.first
+
                   assign gift_wrap_id = gift_wrapping.object.variants.first.id
                   assign gift_wraps_in_cart = 0
                   for item in cart.items
@@ -126,8 +163,8 @@
                   {%- for item in cart.items -%}
                     {%- liquid
                       assign is_gift_wrap_item = false
-  
-                      if gift_wrap_id != nil and item.id == gift_wrap_id
+
+                      if gift_wrap_id != null and item.id == gift_wrap_id
                         assign is_gift_wrap_item = true
                       endif
 
@@ -137,13 +174,13 @@
                     -%}
 
                     {%- capture cart_item -%}
-                      <li id="CartDrawer-Item-{{ item.index | plus: 1 }}" class="horizontal-product flex items-center gap-4 md:gap-6" data-variant-id="{{ item.variant_id }}" data-handle="{{ item.product.handle }}" data-quantity="{{ item.quantity }}" data-price="{{ item.original_price }}">
+                      <li id="CartDrawer-Item-{{ item.index | plus: 1 }}" class="luke horizontal-product flex items-center gap-4 md:gap-6" data-variant-id="{{ item.variant_id }}" data-handle="{{ item.product.handle }}" data-quantity="{{ item.quantity }}" data-price="{{ item.original_price }}">
                         {%- if item.image -%}
                           <a class="horizontal-product__media media media--square relative overflow-hidden flex-auto" href="{{ item.url }}" tabindex="-1">
                             {{- item.image | image_url: width: item.image.width | image_tag: loading: 'lazy', widths: '180,360,540', is: 'lazy-image' -}}
                           </a>
                         {%- endif -%}
-                        <div class="horizontal-product__details flex flex-col justify-start gap-1d5">
+                        <div class="11111 horizontal-product__details flex flex-col justify-start gap-1d5">
                           <div class="grid gap-1">
                             <div class="block leading-tight">
                               {%- if section.settings.show_vendor -%}
@@ -340,7 +377,7 @@
                 gift_wrapping: gift_wrapping,
                 gift_wrap_id: gift_wrap_id,
                 gift_wraps_in_cart: gift_wraps_in_cart,
-                items_in_cart: items_in_cart,
+                items_in_cart: items_in_cart
               -%}
 
               {%- if section.settings.cart_recommendations_enabled -%}
@@ -361,7 +398,7 @@
                   heading: section.settings.cart_recommendations_heading,
                   show_vendor: section.settings.show_cart_recommendations_vendor,
                   show_price: section.settings.show_cart_recommendations_price,
-                  recommendations_products: section.settings.cart_recommendations_products,
+                  recommendations_products: section.settings.cart_recommendations_products
                 -%}
               {%- endif -%}
             </div>
@@ -369,36 +406,78 @@
               {%- if section.settings.show_cart_note or section.settings.show_shipping_calculator -%}
                 <div class="drawer__footer-top flex">
                   {%- if section.settings.show_cart_note -%}
-                    <button type="button" class="flex gap-2d5 grow items-center justify-center" aria-controls="CartNote-{{ section.id }}" aria-expanded="false">
+                    <button
+                      type="button"
+                      class="flex gap-2d5 grow items-center justify-center"
+                      aria-controls="CartNote-{{ section.id }}"
+                      aria-expanded="false"
+                    >
                       {%- render 'icon', icon: 'note', size: 'lg', class: 'icon-light flex-auto' -%}
                       <span class="reversed-link text-sm leading-tight">{{ 'general.cart.note.title' | t }}</span>
                     </button>
                   {%- endif -%}
                   {%- if section.settings.show_shipping_calculator -%}
-                    <button type="button" class="flex gap-2d5 grow items-center justify-center" aria-controls="ShippingCalculator-{{ section.id }}" aria-expanded="false"> 
+                    <button
+                      type="button"
+                      class="flex gap-2d5 grow items-center justify-center"
+                      aria-controls="ShippingCalculator-{{ section.id }}"
+                      aria-expanded="false"
+                    >
                       {%- render 'icon', icon: 'package', size: 'lg', class: 'icon-light flex-auto' -%}
-                      <span class="reversed-link text-sm leading-tight">{{ 'general.cart.shipping_calculator.title' | t }}</span>
+                      <span class="reversed-link text-sm leading-tight">
+                        {{- 'general.cart.shipping_calculator.title' | t -}}
+                      </span>
                     </button>
                   {%- endif -%}
-  
+
                   {%- if section.settings.show_cart_note -%}
-                    <modal-element id="CartNote-{{ section.id }}" class="modal invisible absolute bottom-0 left-0 w-full h-full" role="dialog" hidden>
-                      <overlay-element class="fixed-modal opacity-0 z-1 absolute top-0 left-0 w-full h-full" aria-controls="CartNote-{{ section.id }}" aria-expanded="false"></overlay-element>
+                    <modal-element
+                      id="CartNote-{{ section.id }}"
+                      class="modal invisible absolute bottom-0 left-0 w-full h-full"
+                      role="dialog"
+                      hidden
+                    >
+                      <overlay-element
+                        class="fixed-modal opacity-0 z-1 absolute top-0 left-0 w-full h-full"
+                        aria-controls="CartNote-{{ section.id }}"
+                        aria-expanded="false"
+                      ></overlay-element>
                       <div class="modal__container flex flex-col z-3 absolute left-0 bottom-0 w-full">
                         <div class="modal__header flex items-center justify-between relative">
                           <span class="font-medium text-sm md:text-base">{{ 'general.cart.note.caption' | t }}</span>
-                          <button class="close flex items-center justify-center absolute top-0 right-0" type="button" is="magnet-button" aria-controls="CartNote-{{ section.id }}" aria-expanded="false" aria-label="{{ 'general.accessibility.close' | t | escape }}">
+                          <button
+                            class="close flex items-center justify-center absolute top-0 right-0"
+                            type="button"
+                            is="magnet-button"
+                            aria-controls="CartNote-{{ section.id }}"
+                            aria-expanded="false"
+                            aria-label="{{ 'general.accessibility.close' | t | escape }}"
+                          >
                             {%- render 'icon', icon: 'close' -%}
                           </button>
                         </div>
                         <div class="modal__content flex flex-col overflow-hidden">
                           <cart-note class="modal__scrollable grid gap-4">
                             <div class="field">
-                              <textarea name="note" class="textarea is-floating" rows="3" placeholder=" " id="CartNoteForm-{{ section.id }}">{{ cart.note }}</textarea>
-                              <label class="label is-floating" for="CartNoteForm-{{ section.id }}">{{ 'general.cart.note.title' | t }}</label>
+                              <textarea
+                                name="note"
+                                class="textarea is-floating"
+                                rows="3"
+                                placeholder=" "
+                                id="CartNoteForm-{{ section.id }}"
+                              >{{ cart.note }}</textarea>
+                              <label class="label is-floating" for="CartNoteForm-{{ section.id }}">
+                                {{- 'general.cart.note.title' | t -}}
+                              </label>
                             </div>
                             <div class="justify-self-start">
-                              <button class="button button--primary" type="button" is="hover-button" aria-controls="CartNote-{{ section.id }}" aria-expanded="false">
+                              <button
+                                class="button button--primary"
+                                type="button"
+                                is="hover-button"
+                                aria-controls="CartNote-{{ section.id }}"
+                                aria-expanded="false"
+                              >
                                 <span class="btn-fill" data-fill></span>
                                 <span class="btn-text">{{ 'general.cart.note.button' | t }}</span>
                               </button>
@@ -409,18 +488,50 @@
                     </modal-element>
                   {%- endif -%}
                   {%- if section.settings.show_shipping_calculator -%}
-                    <modal-element id="ShippingCalculator-{{ section.id }}" class="modal invisible absolute bottom-0 left-0 w-full h-full" role="dialog" hidden>
-                      <overlay-element class="fixed-modal opacity-0 z-1 absolute top-0 left-0 w-full h-full" aria-controls="ShippingCalculator-{{ section.id }}" aria-expanded="false"></overlay-element>
+                    <modal-element
+                      id="ShippingCalculator-{{ section.id }}"
+                      class="modal invisible absolute bottom-0 left-0 w-full h-full"
+                      role="dialog"
+                      hidden
+                    >
+                      <overlay-element
+                        class="fixed-modal opacity-0 z-1 absolute top-0 left-0 w-full h-full"
+                        aria-controls="ShippingCalculator-{{ section.id }}"
+                        aria-expanded="false"
+                      ></overlay-element>
                       <div class="modal__container flex flex-col z-3 absolute left-0 bottom-0 w-full">
                         <div class="modal__header flex items-center justify-between relative">
-                          <span class="font-medium text-sm md:text-base">{{ 'general.cart.shipping_calculator.caption' | t }}</span>
-                          <button class="close flex items-center justify-center absolute top-0 right-0" type="button" aria-controls="ShippingCalculator-{{ section.id }}" aria-expanded="false" is="magnet-button" aria-label="{{ 'general.accessibility.close' | t | escape }}">
+                          <span class="font-medium text-sm md:text-base">
+                            {{- 'general.cart.shipping_calculator.caption' | t -}}
+                          </span>
+                          <button
+                            class="close flex items-center justify-center absolute top-0 right-0"
+                            type="button"
+                            aria-controls="ShippingCalculator-{{ section.id }}"
+                            aria-expanded="false"
+                            is="magnet-button"
+                            aria-label="{{ 'general.accessibility.close' | t | escape }}"
+                          >
                             {%- render 'icon', icon: 'close' -%}
                           </button>
                         </div>
                         <div class="modal__content flex flex-col overflow-hidden">
-                          <form class="modal__scrollable grid gap-4" action="{{ routes.cart_url }}" method="POST" novalidate is="shipping-calculator">
-                            <country-province class="grid gap-4"{% if shop.customer_accounts_enabled and customer %} data-country="{{ customer.default_address.country }}"{% if customer.default_address.province != '' %} data-province="{{ customer.default_address.province }}"{% endif %}{% endif %}>
+                          <form
+                            class="modal__scrollable grid gap-4"
+                            action="{{ routes.cart_url }}"
+                            method="POST"
+                            novalidate
+                            is="shipping-calculator"
+                          >
+                            <country-province
+                              class="grid gap-4"
+                              {% if shop.customer_accounts_enabled and customer %}
+                                data-country="{{ customer.default_address.country }}"
+                                {%- if customer.default_address.province != '' %}
+                                  data-province="{{ customer.default_address.province }}"
+                                {%- endif -%}
+                              {% endif %}
+                            >
                               <div class="field">
                                 <select
                                   name="address[country]"
@@ -432,7 +543,9 @@
                                   {{- all_country_option_tags -}}
                                 </select>
                                 {%- render 'icon', icon: 'chevron-up', size: 'sm', class: 'absolute' -%}
-                                <label class="label is-floating" for="ShippingCalculatorCountry-{{ section.id }}">{{ 'customer.addresses.country' | t }}</label>
+                                <label class="label is-floating" for="ShippingCalculatorCountry-{{ section.id }}">
+                                  {{- 'customer.addresses.country' | t -}}
+                                </label>
                               </div>
                               <div class="field" hidden>
                                 <select
@@ -441,10 +554,11 @@
                                   autocomplete="address-level1"
                                   is="custom-select"
                                   id="ShippingCalculatorProvince-{{ section.id }}"
-                                >
-                                </select>
+                                ></select>
                                 {%- render 'icon', icon: 'chevron-up', size: 'sm', class: 'absolute' -%}
-                                <label class="label is-floating" for="ShippingCalculatorProvince-{{ section.id }}">{{ 'customer.addresses.province' | t }}</label>
+                                <label class="label is-floating" for="ShippingCalculatorProvince-{{ section.id }}">
+                                  {{- 'customer.addresses.province' | t -}}
+                                </label>
                               </div>
                             </country-province>
                             <div class="field">
@@ -456,9 +570,13 @@
                                 autocomplete="postal-code"
                                 placeholder=" "
                                 id="ShippingCalculatorZip-{{ section.id }}"
-                                {% if shop.customer_accounts_enabled and customer %}value="{{ customer.default_address.zip }}"{% endif %}
-                              />
-                              <label class="label is-floating" for="ShippingCalculatorZip-{{ section.id }}">{{ 'customer.addresses.zip' | t }}</label>
+                                {% if shop.customer_accounts_enabled and customer %}
+                                  value="{{ customer.default_address.zip }}"
+                                {% endif %}
+                              >
+                              <label class="label is-floating" for="ShippingCalculatorZip-{{ section.id }}">
+                                {{- 'customer.addresses.zip' | t -}}
+                              </label>
                             </div>
                             <div class="justify-self-start">
                               <button class="button button--primary" type="submit" is="hover-button">
@@ -477,11 +595,17 @@
               <div class="drawer__footer-bottom grid gap-6">
                 <div class="grid gap-4 sm:grid-6">
                   {%- if cart.cart_level_discount_applications.size > 0 -%}
-                    <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t | escape }}">
+                    <ul
+                      class="discounts list-unstyled"
+                      role="list"
+                      aria-label="{{ 'customer.order.discount' | t | escape }}"
+                    >
                       {%- for discount in cart.cart_level_discount_applications -%}
                         <li class="discounts__discount text-sm sm:text-base flex items-center justify-between gap-1d5">
                           {{- discount.title -}}
-                          <span class="badge badge--onsale flex items-center gap-1d5 font-medium leading-none rounded-full">-{{ discount.total_allocated_amount | money }}</span>
+                          <span class="badge badge--onsale flex items-center gap-1d5 font-medium leading-none rounded-full"
+                            >-{{ discount.total_allocated_amount | money -}}
+                          </span>
                         </li>
                       {%- endfor -%}
                     </ul>
@@ -502,15 +626,27 @@
                     </div>
                     <div class="totals grid place-self-end gap-1">
                       <span class="totals__subtotal text-sm sm:text-base">{{ 'cart.general.subtotal' | t }}</span>
-                      <div class="totals__subtotal-value text-lg-2xl font-bold leading-none tracking-tight">{{ cart.total_price | money_with_currency }}</div>
+                      <div class="totals__subtotal-value text-lg-2xl font-bold leading-none tracking-tight">
+                        {{ cart.total_price | money_with_currency }}
+                      </div>
                     </div>
                   </div>
                 </div>
-  
+
                 {%- if section.settings.show_checkout_button or section.settings.show_view_cart_button -%}
-                  <form action="{{ routes.cart_url }}" method="POST" novalidate class="drawer__footer-buttons grid grid-cols-12 gap-4">
+                  <form
+                    action="{{ routes.cart_url }}"
+                    method="POST"
+                    novalidate
+                    class="drawer__footer-buttons grid grid-cols-12 gap-4"
+                  >
                     {%- if section.settings.show_checkout_button -%}
-                      <button class="button button--primary icon-with-text{% if section.settings.show_view_cart_button %} col-span-6 md:col-span-7{% else %} col-span-full{% endif %}" type="submit" name="checkout" is="hover-button">
+                      <button
+                        class="button button--primary icon-with-text{% if section.settings.show_view_cart_button %} col-span-6 md:col-span-7{% else %} col-span-full{% endif %}"
+                        type="submit"
+                        name="checkout"
+                        is="hover-button"
+                      >
                         <span class="btn-fill" data-fill></span>
                         <span class="btn-text">
                           {%- liquid
@@ -520,9 +656,14 @@
                         </span>
                       </button>
                     {%- endif -%}
-                    
+
                     {%- if section.settings.show_view_cart_button -%}
-                      <a href="{{ routes.cart_url }}" class="button button--secondary{% if section.settings.show_checkout_button %} col-span-6 md:col-span-5{% else %} col-span-full{% endif %}" is="hover-link" data-no-instant>
+                      <a
+                        href="{{ routes.cart_url }}"
+                        class="button button--secondary{% if section.settings.show_checkout_button %} col-span-6 md:col-span-5{% else %} col-span-full{% endif %}"
+                        is="hover-link"
+                        data-no-instant
+                      >
                         <span class="btn-fill" data-fill></span>
                         <span class="btn-text">{{ 'general.cart.view_cart' | t }}</span>
                       </a>
@@ -535,9 +676,19 @@
         </details>
 
         {%- if section.settings.recent_products_enabled -%}
-          <details id="RecentlyViewed-{{ section.id }}" class="drawer__panel opacity-0 flex flex-col h-full overflow-hidden">
+          <details
+            id="RecentlyViewed-{{ section.id }}"
+            class="drawer__panel opacity-0 flex flex-col h-full overflow-hidden"
+          >
             <summary class="sr-only" tabindex="-1">{{ section.settings.recent_products_heading | escape }}</summary>
-            <recently-viewed class="cart__recent flex flex-col h-full" data-url="{{ routes.search_url }}?section_id={{ section.id }}&type=product&q=" data-limit="{{ section.settings.recent_products_limit }}"{% if request.page_type == 'product' %} data-product-id="{{ product.id }}"{% endif %}>
+            <recently-viewed
+              class="cart__recent flex flex-col h-full"
+              data-url="{{ routes.search_url }}?section_id={{ section.id }}&type=product&q="
+              data-limit="{{ section.settings.recent_products_limit }}"
+              {% if request.page_type == 'product' %}
+                data-product-id="{{ product.id }}"
+              {% endif %}
+            >
               {%- if request.page_type == 'search' and search.performed and search.results_count > 0 -%}
                 {%- liquid
                   assign parsed_terms = search.terms | split: ' OR '
