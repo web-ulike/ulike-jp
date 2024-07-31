@@ -7,7 +7,7 @@
 
 {{ 'cart.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'cart.js' | asset_url }}" defer></script>
-{%- if linklists.gift-wrapping.links != blank and linklists.gift-wrapping.links.first.type == 'product_link' -%}
+{%- if linklists['gift-wrapping'].links != blank and linklists['gift-wrapping'].links.first.type == 'product_link' -%}
   <script src="{{ 'gift-wrapping.js' | asset_url }}" defer="defer"></script>
 {%- endif -%}
 
@@ -15,10 +15,16 @@
   <div class="page-width{% if section.settings.full_width %} page-width--full{% endif %} relative">
     <div class="title-wrapper{% if section.settings.heading_size == 'title-xl' %} title-wrapper-lg{% endif %} leading-none grid gap-4 md:flex {{ section.settings.heading_alignment }} md:justify-between">
       <{{ section.settings.heading_tag }} class="heading font-bold {{ section.settings.heading_size }}">
-        <split-words class="split-words flex flex-wrap" data-animate="fade-up-large">{{ 'cart.general.title' | t }}</split-words>
+        <split-words class="split-words flex flex-wrap" data-animate="fade-up-large">
+          {{- 'cart.general.title' | t -}}
+        </split-words>
       </{{ section.settings.heading_tag }}>
       <p>
-        <a class="button button--secondary icon-with-text" href="{{ routes.all_products_collection_url }}" is="hover-link">
+        <a
+          class="button button--secondary icon-with-text"
+          href="{{ routes.all_products_collection_url }}"
+          is="hover-link"
+        >
           <span class="btn-fill" data-fill></span>
           <span class="btn-text">
             {%- liquid
@@ -37,17 +43,21 @@
           <p class="font-bold leading-none tracking-tight">{{ 'cart.general.empty' | t }}</p>
         </div>
       </div>
-      <a class="empty-state__link button button--primary button--fixed" href="{{ routes.all_products_collection_url }}" is="hover-link">
+      <a
+        class="empty-state__link button button--primary button--fixed"
+        href="{{ routes.all_products_collection_url }}"
+        is="hover-link"
+      >
         <span class="btn-fill" data-fill></span>
         <span class="btn-text">{{ 'cart.general.continue_shopping' | t }}</span>
       </a>
     </div>
-    
+
     {%- if cart.item_count > 0 -%}
       {%- liquid
-        if linklists.gift-wrapping.links != blank and linklists.gift-wrapping.links.first.type == 'product_link'
-          assign gift_wrapping = linklists.gift-wrapping.links.first
-      
+        if linklists['gift-wrapping'].links != blank and linklists['gift-wrapping'].links.first.type == 'product_link'
+          assign gift_wrapping = linklists['gift-wrapping'].links.first
+
           assign gift_wrap_id = gift_wrapping.object.variants.first.id
           assign gift_wraps_in_cart = 0
           for item in cart.items
@@ -64,7 +74,9 @@
           <form class="cart__form" action="{{ routes.cart_url }}" method="POST" id="cart">
             <cart-items class="cart__items block">
               <table class="no-headings w-full">
-                <caption class="sr-only">{{ 'cart.general.title' | t }}</caption>
+                <caption class="sr-only">
+                  {{ 'cart.general.title' | t }}
+                </caption>
                 <thead>
                   <tr>
                     <th colspan="1" scope="col">
@@ -83,7 +95,7 @@
                     {%- liquid
                       assign is_gift_wrap_item = false
 
-                      if gift_wrap_id != nil and item.id == gift_wrap_id
+                      if gift_wrap_id != null and item.id == gift_wrap_id
                         assign is_gift_wrap_item = true
                       endif
 
@@ -309,6 +321,8 @@
                 </tbody>
               </table>
             </cart-items>
+            3333334445555
+            <cart-items> 333 </cart-items>
           </form>
 
           {%- render 'gift-wrapping',
@@ -316,21 +330,43 @@
             gift_wrapping: gift_wrapping,
             gift_wrap_id: gift_wrap_id,
             gift_wraps_in_cart: gift_wraps_in_cart,
-            items_in_cart: items_in_cart,
+            items_in_cart: items_in_cart
           -%}
 
           {%- if section.settings.show_shipping_calculator -%}
             <div class="cart-details">
               <details class="details" is="accordion-details">
                 <summary class="details__summary flex items-center justify-between gap-2 cursor-pointer">
-                  <span class="text-sm md:text-2xl font-medium leading-none">{{ 'general.cart.shipping_calculator.caption' | t }}</span>
-                  <svg class="icon icon-chevron-down" viewBox="0 0 18 10" stroke="currentColor" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <span class="text-sm md:text-2xl font-medium leading-none">
+                    {{- 'general.cart.shipping_calculator.caption' | t -}}
+                  </span>
+                  <svg
+                    class="icon icon-chevron-down"
+                    viewBox="0 0 18 10"
+                    stroke="currentColor"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     <path stroke-linecap="round" stroke-linejoin="round" d="M1 1L9 9L17 1"></path>
                   </svg>
                 </summary>
-                <form class="details__content grid gap-4 md:gap-6" action="{{ routes.cart_url }}" method="POST" novalidate is="shipping-calculator">
+                <form
+                  class="details__content grid gap-4 md:gap-6"
+                  action="{{ routes.cart_url }}"
+                  method="POST"
+                  novalidate
+                  is="shipping-calculator"
+                >
                   <div class="grid xl:flex gap-4">
-                    <country-province class="grid xl:flex gap-4"{% if shop.customer_accounts_enabled and customer %} data-country="{{ customer.default_address.country }}"{% if customer.default_address.province != '' %} data-province="{{ customer.default_address.province }}"{% endif %}{% endif %}>
+                    <country-province
+                      class="grid xl:flex gap-4"
+                      {% if shop.customer_accounts_enabled and customer %}
+                        data-country="{{ customer.default_address.country }}"
+                        {%- if customer.default_address.province != '' %}
+                          data-province="{{ customer.default_address.province }}"
+                        {%- endif -%}
+                      {% endif %}
+                    >
                       <div class="field">
                         <select
                           name="address[country]"
@@ -342,7 +378,9 @@
                           {{- all_country_option_tags -}}
                         </select>
                         {%- render 'icon', icon: 'chevron-up', size: 'sm', class: 'absolute' -%}
-                        <label class="label is-floating" for="ShippingCalculatorCountry-{{ section.id }}">{{ 'customer.addresses.country' | t }}</label>
+                        <label class="label is-floating" for="ShippingCalculatorCountry-{{ section.id }}">
+                          {{- 'customer.addresses.country' | t -}}
+                        </label>
                       </div>
                       <div class="field" hidden>
                         <select
@@ -351,10 +389,11 @@
                           autocomplete="address-level1"
                           is="custom-select"
                           id="ShippingCalculatorProvince-{{ section.id }}"
-                        >
-                        </select>
+                        ></select>
                         {%- render 'icon', icon: 'chevron-up', size: 'sm', class: 'absolute' -%}
-                        <label class="label is-floating" for="ShippingCalculatorProvince-{{ section.id }}">{{ 'customer.addresses.province' | t }}</label>
+                        <label class="label is-floating" for="ShippingCalculatorProvince-{{ section.id }}">
+                          {{- 'customer.addresses.province' | t -}}
+                        </label>
                       </div>
                     </country-province>
                     <div class="field">
@@ -366,9 +405,13 @@
                         autocomplete="postal-code"
                         placeholder=" "
                         id="ShippingCalculatorZip-{{ section.id }}"
-                        {% if shop.customer_accounts_enabled and customer %}value="{{ customer.default_address.zip }}"{% endif %}
-                      />
-                      <label class="label is-floating" for="ShippingCalculatorZip-{{ section.id }}">{{ 'customer.addresses.zip' | t }}</label>
+                        {% if shop.customer_accounts_enabled and customer %}
+                          value="{{ customer.default_address.zip }}"
+                        {% endif %}
+                      >
+                      <label class="label is-floating" for="ShippingCalculatorZip-{{ section.id }}">
+                        {{- 'customer.addresses.zip' | t -}}
+                      </label>
                     </div>
                     <div class="justify-self-start">
                       <button class="button button--secondary button--fixed" type="submit" is="hover-button">
@@ -391,23 +434,33 @@
                 {%- case block.type -%}
                   {%- when '@app' -%}
                     {%- render block -%}
-                  
+
                   {%- when 'subtotal' -%}
                     <div class="grid gap-3" {{ block.shopify_attributes }}>
                       {%- if cart.cart_level_discount_applications.size > 0 -%}
-                        <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t | escape }}">
+                        <ul
+                          class="discounts list-unstyled"
+                          role="list"
+                          aria-label="{{ 'customer.order.discount' | t | escape }}"
+                        >
                           {%- for discount in cart.cart_level_discount_applications -%}
                             <li class="discounts__discount text-sm sm:text-base flex items-center justify-between gap-1d5">
                               {{- discount.title -}}
-                              <span class="badge badge--onsale flex items-center gap-1d5 font-medium leading-none rounded-full">-{{ discount.total_allocated_amount | money }}</span>
+                              <span class="badge badge--onsale flex items-center gap-1d5 font-medium leading-none rounded-full"
+                                >-{{ discount.total_allocated_amount | money -}}
+                              </span>
                             </li>
                           {%- endfor -%}
                         </ul>
                       {%- endif -%}
 
                       <div class="totals flex flex-wrap items-end justify-between gap-2">
-                        <h2 class="totals__subtotal font-medium text-base-xl md:text-2xl leading-none">{{ 'cart.general.subtotal' | t }}</h2>
-                        <p class="totals__subtotal-value font-bold text-2xl md:text-3xl leading-none">{{ cart.total_price | money_with_currency }}</p>
+                        <h2 class="totals__subtotal font-medium text-base-xl md:text-2xl leading-none">
+                          {{ 'cart.general.subtotal' | t }}
+                        </h2>
+                        <p class="totals__subtotal-value font-bold text-2xl md:text-3xl leading-none">
+                          {{ cart.total_price | money_with_currency }}
+                        </p>
                       </div>
 
                       <div class="tax-note text-opacity text-2sm rte">
@@ -437,7 +490,9 @@
                           form="cart"
                           placeholder=" "
                         >{{ cart.note }}</textarea>
-                        <label class="label is-floating" for="CartNotForm-{{ block.id }}">{{ 'cart.general.note' | t }}</label>
+                        <label class="label is-floating" for="CartNotForm-{{ block.id }}">
+                          {{- 'cart.general.note' | t -}}
+                        </label>
                       </div>
                     </cart-note>
 
@@ -449,7 +504,13 @@
                         </button>
                       </noscript>
 
-                      <button class="button button--primary icon-with-text w-full" type="submit" name="checkout" form="cart" is="hover-button">
+                      <button
+                        class="button button--primary icon-with-text w-full"
+                        type="submit"
+                        name="checkout"
+                        form="cart"
+                        is="hover-button"
+                      >
                         <span class="btn-fill" data-fill></span>
                         <span class="btn-text">
                           {%- liquid
@@ -458,7 +519,7 @@
                           -%}
                         </span>
                       </button>
-          
+
                       {% if additional_checkout_buttons %}
                         <div class="additional-checkout-buttons">{{ content_for_additional_checkout_buttons }}</div>
                       {% endif %}
@@ -469,7 +530,7 @@
                       if block.settings.minimum_amount != blank
                         assign minimum_amounts = block.settings.minimum_amount | remove: ' ' | split: ','
                         assign show_free_shipping_bar = false
-              
+
                         if minimum_amounts.size > 1
                           for amount in minimum_amounts
                             assign amount_parts = amount | split: ':'
@@ -484,7 +545,7 @@
                           assign minimum_amount = minimum_amounts | last
                           assign show_free_shipping_bar = true
                         endif
-                        
+
                         if show_free_shipping_bar
                           render 'free-shipping-bar', minimum_amount: minimum_amount
                         endif
@@ -502,18 +563,20 @@
                             name="attributes[{{ custom_name }}]"
                             form="cart"
                             value="{{ block.settings.unchecked_value | escape }}"
-                          />
+                          >
                           <input
                             type="checkbox"
                             id="CartFormInput-{{ section.id }}-{{ block.id }}"
                             name="attributes[{{ custom_name }}]"
                             form="cart"
                             value="{{ block.settings.checked_value | escape }}"
-                            {%- if block.settings.required %} required{% endif -%}
-                          />
+                            {%- if block.settings.required %}
+                              required
+                            {% endif -%}
+                          >
                           {{- block.settings.title | escape -}}
                         </label>
-                        
+
                       {%- elsif block.settings.type == 'radio' -%}
                         <div class="grid gap-4">
                           <p>{{ block.settings.title | escape }}</p>
@@ -523,16 +586,23 @@
                               {%- for option in options -%}
                                 {%- assign option2 = option | strip | escape -%}
                                 <li>
-                                  <label for="CartFormInput-{{ section.id }}-{{ block.id }}-{{ forloop.index0 }}" class="inline-flex items-center gap-3">
+                                  <label
+                                    for="CartFormInput-{{ section.id }}-{{ block.id }}-{{ forloop.index0 }}"
+                                    class="inline-flex items-center gap-3"
+                                  >
                                     <input
                                       type="radio"
                                       id="CartFormInput-{{ section.id }}-{{ block.id }}-{{ forloop.index0 }}"
                                       name="attributes[{{ custom_name }}]"
                                       form="cart"
                                       value="{{ option2 }}"
-                                      {%- if block.settings.required %} required{% endif -%}
-                                      {%- if option2 == custom_value %} checked{% endif -%}
-                                    />
+                                      {%- if block.settings.required %}
+                                        required
+                                      {% endif -%}
+                                      {%- if option2 == custom_value %}
+                                        checked
+                                      {% endif -%}
+                                    >
                                     {{- option2 -}}
                                   </label>
                                 </li>
@@ -552,10 +622,14 @@
                               form="cart"
                               value="{{ custom_value | escape }}"
                               placeholder="{{ block.settings.title | escape }}"
-                              {%- if block.settings.required %} required{% endif -%}
-                            />
-                            <label class="label is-floating" for="CartFormInput-{{ section.id }}-{{ block.id }}">{{ block.settings.title | escape }}</label>
-        
+                              {%- if block.settings.required %}
+                                required
+                              {% endif -%}
+                            >
+                            <label class="label is-floating" for="CartFormInput-{{ section.id }}-{{ block.id }}">
+                              {{- block.settings.title | escape -}}
+                            </label>
+
                           {%- when 'textarea' -%}
                             <textarea
                               class="textarea is-floating"
@@ -564,10 +638,14 @@
                               name="attributes[{{ custom_name }}]"
                               form="cart"
                               placeholder=" "
-                              {%- if block.settings.required %} required{% endif -%}
+                              {%- if block.settings.required %}
+                                required
+                              {% endif -%}
                             >{{ custom_value }}</textarea>
-                            <label class="label is-floating" for="CartFormInput-{{ section.id }}-{{ block.id }}">{{ block.settings.title | escape }}</label>
-        
+                            <label class="label is-floating" for="CartFormInput-{{ section.id }}-{{ block.id }}">
+                              {{- block.settings.title | escape -}}
+                            </label>
+
                           {%- when 'select' -%}
                             {%- assign options = block.settings.select_options | split: ',' -%}
                             {%- if options.size > 0 -%}
@@ -576,17 +654,33 @@
                                 id="CartFormInput-{{ section.id }}-{{ block.id }}"
                                 name="attributes[{{ custom_name }}]"
                                 form="cart"
-                                {%- if block.settings.required %} required{% else %} is="custom-select"{% endif -%}
+                                {%- if block.settings.required %}
+                                  required
+                                {% else %}
+                                  is="custom-select"
+                                {% endif -%}
                               >
                                 <option value="" disabled selected></option>
                                 {%- for option in options -%}
                                   {%- assign option2 = option | strip | escape -%}
-                                  <option value="{{ option2 }}"{% if option2 == custom_value %} selected{% endif %}>{{ option2 }}</option>
+                                  <option
+                                    value="{{ option2 }}"
+                                    {% if option2 == custom_value %}
+                                      selected
+                                    {% endif %}
+                                  >
+                                    {{ option2 }}
+                                  </option>
                                 {%- endfor -%}
                               </select>
                               {%- render 'icon', icon: 'chevron-up', size: 'sm', class: 'absolute' -%}
                             {%- endif -%}
-                            <label class="label{% if options.size > 0 %} is-floating{% endif %}" for="CartFormInput-{{ section.id }}-{{ block.id }}">{{ block.settings.title | escape }}</label>
+                            <label
+                              class="label{% if options.size > 0 %} is-floating{% endif %}"
+                              for="CartFormInput-{{ section.id }}-{{ block.id }}"
+                            >
+                              {{- block.settings.title | escape -}}
+                            </label>
                         {%- endcase -%}
                       {%- endif -%}
                     </div>
@@ -779,9 +873,7 @@
       "type": "subtotal",
       "name": "t:sections.main-cart.blocks.subtotal.name",
       "limit": 1,
-      "settings": [
-        
-      ]
+      "settings": []
     },
     {
       "type": "cart_note",
