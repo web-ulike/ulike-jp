@@ -159,14 +159,10 @@
                 endif
               -%}
 
-              {% assign count = 0 %}
               {% assign sku_list = '' %}
               <cart-items class="block grow">
                 <ul class="horizontal-products grid" role="list">
                   {%- for item in cart.items -%}
-                    {% if section.settings.sku contains item.sku %}
-                      {% assign count = count | plus: item.quantity %}
-                    {% endif %}
                     {% assign sku_list = sku_list
                       | append: item.sku
                       | append: '_'
@@ -385,7 +381,7 @@
                       {% for sku_item in sku_items %}
                         {% assign parts = sku_item | split: '_' %}
                         {% assign sku = parts[0] %}
-                        {% assign quantity = parts[1] %}
+                        {% assign count = parts[1] %}
                         {%- if sku == item.sku -%}
                           {% comment %} 赠品需求 {% endcomment %}
                           <li class="horizontal-product flex items-center gap-4 md:gap-6 box-gift">
