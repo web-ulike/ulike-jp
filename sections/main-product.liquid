@@ -598,19 +598,17 @@
               {%- endif -%}
             {%- when 'ulike_giveaway' -%}
               1111
-              {%- if block.settings.giveaway_image != blank -%}
+              {%- if block.settings.giveaway_image -%}
                 <div class="ulike-giveaway">
                   <picture>
-                    {%- if section.settings.giveaway_image -%}
-                      {{-
-                        section.settings.giveaway_image
-                        | image_url: width: section.settings.giveaway_image.width
-                        | image_tag:
-                          loading: 'eager',
-                          sizes: '100vw',
-                          widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200'
-                      -}}
-                    {%- endif -%}
+                    {{-
+                      block.settings.giveaway_image
+                      | image_url: width: section.settings.giveaway_image.width
+                      | image_tag:
+                        loading: 'eager',
+                        sizes: '100vw',
+                        widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200'
+                    -}}
                   </picture>
                 </div>
               {%- endif -%}
