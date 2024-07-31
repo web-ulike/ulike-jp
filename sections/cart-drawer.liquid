@@ -364,7 +364,8 @@
                       endunless
                     -%}
                   {%- endfor -%}
-                  {% for block in se_bks %}
+
+                  {% for block in section.blocks %}
                     {% assign item = block.settings %}
                     {%- if block.type == 'cart-giveaway-item' -%}
                       {% comment %} 赠品需求 {% endcomment %}
