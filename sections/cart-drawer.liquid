@@ -379,14 +379,6 @@
 
                   {% assign sku_items = sku_list | split: ',' %}
 
-                  {% for sku_item in sku_items %}
-                    {% assign parts = sku_item | split: '_' %}
-                    {% assign sku = parts[0] %}
-                    {% assign quantity = parts[1] %}
-                    SKU: {{ sku }}, Quantity: {{ quantity -}}
-                    <br>
-                  {% endfor %}
-
                   {% for block in section.blocks %}
                     {% assign item = block.settings %}
                     {%- if block.type == 'cart-giveaway-item' -%}
