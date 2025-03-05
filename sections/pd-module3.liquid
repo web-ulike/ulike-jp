@@ -1,0 +1,591 @@
+<style>
+   #shopify-section-{{ section.id }} {
+    --text-color: {{  section.settings.text_color }};
+    --section-background: {{ section.settings.background }};
+    background:var(--section-background);
+  }
+    .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px);
+  }
+  @media screen and (max-width: 768px){
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * 0.6);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.6);
+  }
+}
+/* pd_module3-box start*/
+.pd_module3-box .pd_cust-container{
+  overflow: visible;
+}
+.pd_module3-box{
+{% if section.settings.bg_image != blank %}
+      background: #80D9EF url({{ section.settings.bg_image | image_url }}) no-repeat center;
+      background-size: cover;
+  {% endif %}
+}
+.pd_md3-item{
+  border-radius: 10px;
+border: 3px solid #F4F431;
+background: rgba(255, 255, 255, 0.80);
+padding: 50px 90px 63px 139px;
+position: relative;
+margin-top: 86px;
+}
+.pd_md3-item .sale_logo{
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%,-40%);
+ 
+}
+.pd_md3-item .sale_logo img{
+  animation: rotate 1s infinite alternate ease-in-out;
+}
+.pd_md3-top{
+  display: flex;
+  gap: 70px;
+  align-items: center;
+}
+.pd_md3-left{
+  flex: 1;
+}
+.pd_md3-right .pd_md3-tle{
+  margin-bottom: 10px;
+}
+.pd_md3-subtle{
+  color: #DE004D;
+font-size: 24px;
+font-style: normal;
+font-weight: 500;
+line-height: 150%;
+margin-bottom: 20px;
+}
+.pd_md3-ul{
+  color: #000;
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: 150%;
+}
+.pd_md3-item .pd_module3-price{
+  justify-content: flex-start;
+  margin-top: 30px;
+  display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pd_md3-item .md3_price-left .md3_price-left-1{
+  color: #000;
+font-size: 18px;
+font-style: normal;
+font-weight: 400;
+line-height: 130%;
+  display: flex;
+align-items: center;
+gap: 5px;
+}
+.pd_md3-item .md3_price-left .md3_price-left-2{
+  color: #000;
+font-size: 26px;
+font-style: normal;
+font-weight: 400;
+line-height: 130%;
+letter-spacing: -1.04px;
+}
+.pd_md3-item .md3_price-right{
+  color:  #E0004D;
+font-size: 55.41px;
+font-style: normal;
+font-weight: 500;
+line-height: 130%;
+letter-spacing: -3.325px;
+}
+.md3_price-left-2 .sp1{
+  font-size: 26px;
+text-decoration: line-through;
+}
+.md3_price-left-2 .sp2{
+  font-size: 18px;
+
+letter-spacing: 1px;
+}
+.pd_md3-item .md3_price-right .sp1{
+font-size: 26.721px;
+letter-spacing: 1px;
+}
+.pd_md3-item .md3_price-right .sp2{
+font-size: 19.28px;
+letter-spacing: 1px;
+}
+.pd_md3-bt{
+      display: flex;
+    gap: 43px;
+   margin-top:40px;
+}
+  .pd_md3-bt .product-form-wrapper{
+    margin-top:0;
+    flex:1;
+  }
+   .pd_md3-bt .product-form__submit{
+    color: #FFF;
+    height: 56px;
+    border-radius: 35px;
+background: #00B4DE;
+    border-color:#00B4DE;
+     font-size: 25px;
+font-style: normal;
+font-weight: 400;
+line-height: 130%; /* 32.5px */
+     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  }
+   .pd_md3-bt .product-form__submit.button:after{
+    border-color:#00B4DE;
+    border-radius: 35px;
+  }
+   .pd_md3-bt .buy_btn{
+     flex:1;
+     border-radius: 35px;
+border: 1px solid #00B4DE;
+box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+     text-align: center;
+font-size: 25px;
+font-style: normal;
+font-weight: 400;
+line-height: 130%;
+         display: flex;
+    align-items: center;
+    justify-content: center;
+     color: #00B4DE;
+   }
+   .pd_md3-bt .buy_btn:hover{
+     background: #E0004D;
+        color: #FFF;
+   }
+  img.md3_svg {
+    position: absolute;
+}
+  img.md3_svg.md3_svg1 {
+    left: 0;
+    top: 0;
+    transform: translate(-124%, -30%);
+}
+    img.md3_svg.md3_svg2 {
+    left: 0;
+    bottom: 0;
+    transform: translate(-124%, 0%);
+}
+   img.md3_svg.md3_svg3 {
+   right: 0;
+    top: 0;
+    transform: translate(110%, 20%);
+}
+   img.md3_svg.md3_svg4 {
+     right: 0;
+    top: 0;
+    transform: translate(110%, 50%);
+}
+  .pd_md3-right {
+    flex-basis: 70%;
+}
+@keyframes rotate {
+      0% {
+        transform: rotate(0deg);
+      }
+     
+      50% {
+        transform: rotate(15deg);
+      }
+     
+      100% {
+        transform: rotate(0deg);
+      }
+    }
+@media (max-width: 765px) {
+  .pd_module3-box{
+      {% if section.settings.mobile_bg_image != blank %}
+      background: #80D9EF url({{ section.settings.mobile_bg_image | image_url }}) no-repeat center;
+  {% endif %}
+  }
+  .pd_md3-item{
+    margin-top: 50px;
+    padding: 35px 25px;
+  }
+  .pd_md3-item .sale_logo{
+    max-width: 164px;
+    transform: translate(-26%, -52%);
+  }
+  .pd_md3-top{
+    flex-direction: column;
+    gap: 30px
+  }
+  .pd_md3-left{
+    max-width: 70px;
+  }
+  .pd_md3-right .pd_md3-tle{
+    max-width: 267px;
+    margin: 0 auto 10px;
+  }
+  .pd_md3-subtle{
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .pd_md3-ul{
+    font-size: 13px;
+    text-align: center;
+  }
+  .pd_md3-item .md3_price-left .md3_price-left-1{
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .pd_md3-item .md3_price-left .md3_price-left-1 svg{
+    max-width: 35px;
+  }
+  .md3_price-left-2 .sp1{
+    font-size: 15px;
+  }
+  .md3_price-left-2 .sp2{
+    font-size: 11px;
+  }
+  .pd_md3-item .md3_price-right{
+    font-size: 33px;
+    line-height: 1;
+            letter-spacing: -1px;
+  }
+  .pd_md3-item .md3_price-right .sp1{
+    font-size: 16px;
+  }
+  .pd_md3-item .md3_price-right .sp2{
+    font-size: 11px;
+  }
+  .pd_md3-item .pd_module3-price{
+    justify-content: center;
+  }
+  .pd_md3-item .md3_price-left .md3_price-left-2{
+    line-height: 0.5;
+  }
+  .pd_md3-bt{
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 18px;
+  }
+  .pd_md3-bt .product-form__submit{
+        font-size: 15px;
+    height:35px
+  }
+  .pd_md3-bt .buy_btn{
+     font-size: 15px;
+     height:35px;
+    padding:7px;
+  }
+  .pd_md3-right {
+    flex-basis: 100%;
+}
+  img.md3_svg {
+    display:none;
+}
+}
+/* pd_module3-box end*/
+</style>
+ <section>
+    <div class="pd_module3-box section-{{ section.id }}-padding">
+    <div class="pd_cust-container">
+      <div class="pd_module3-wrapper">
+
+         {%- for block in section.blocks -%}
+          
+     {%- assign assign product_form_id = 'ProductForm-' | append: block.id -%}
+     {%- assign product = block.settings.product -%}
+        
+        <div class="pd_md3-item to-top">
+         {%- if block.settings.image_svg1 -%}
+       <img src="{{ block.settings.image_svg1 | image_url }}" alt="" class="md3_svg md3_svg1">
+       {%- endif -%}
+      {%- if block.settings.image_svg2 -%}
+       <img src="{{ block.settings.image_svg2 | image_url }}" alt="" class="md3_svg md3_svg2">
+         {%- endif -%}
+            {%- if block.settings.image_svg3 -%}
+       <img src="{{ block.settings.image_svg3 | image_url }}" alt="" class="md3_svg md3_svg3">
+       {%- endif -%}
+      {%- if block.settings.image_svg4 -%}
+       <img src="{{ block.settings.image_svg4 | image_url }}" alt="" class="md3_svg md3_svg4">
+         {%- endif -%}
+          
+          {%- if block.settings.product_code -%}
+          <div class="sale_logo">
+            <img src="{{  block.settings.product_code| image_url }}" alt="">
+          </div>
+          {%- endif -%}
+          <div class="pd_md3-top">
+            {%- if block.settings.product_image -%}
+            <div class="pd_md3-left">
+            <img src="{{  block.settings.product_image| image_url }}" alt="">
+            </div>
+            {%- endif -%}
+            <div class="pd_md3-right">
+             {%- if block.settings.image_tle -%}
+              <div class="pd_md3-tle">
+                <img src="{{  block.settings.image_tle| image_url }}" alt="">
+              </div>
+               {%- endif -%}
+              <div class="pd_md3-subtle">{{ block.settings.subtle }}</div>
+              <div class="pd_md3-ul">
+              {{ block.settings.text_li }}
+              </div>
+              <div class="pd_module3-price">
+                <div class="md3_price-left">
+                  <div class="md3_price-left-1">{{ block.settings.text_1 }}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="66" height="16" viewBox="0 0 66 16" fill="none">
+                    <path d="M65.2913 8.70711C65.6818 8.31658 65.6818 7.68342 65.2913 7.29289L58.9273 0.928932C58.5368 0.538408 57.9037 0.538408 57.5131 0.928932C57.1226 1.31946 57.1226 1.95262 57.5131 2.34315L63.17 8L57.5131 13.6569C57.1226 14.0474 57.1226 14.6805 57.5131 15.0711C57.9037 15.4616 58.5368 15.4616 58.9273 15.0711L65.2913 8.70711ZM0.696289 9L64.5842 9V7L0.696289 7L0.696289 9Z" fill="black"/>
+                  </svg>
+                  </div>
+                  <div class="md3_price-left-2"><span class="sp1">{{ block.settings.text_2 }}</span><span class="sp2">{{ block.settings.text_3 }}</span></div>
+                </div>
+                <div class="md3_price-right">{{ block.settings.text_4 }}<span class="sp1">{{ block.settings.text_5 }}</span><span class="sp2">{{ block.settings.text_6 }}</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="pd_md3-bt">
+
+        {%- if block.settings.add_bt_txt != blank -%}
+       <div class="product-form-wrapper product-form-wrapper-cus" {{ block.shopify_attributes }}>
+                    {%- liquid
+                      assign gift_card_recipient_feature_active = false
+                      if block.settings.show_gift_card_recipient and product.gift_card?
+                        assign gift_card_recipient_feature_active = true
+                      endif
+                    -%}
+                    {%- form 'product',
+                      product,
+                      id: product_form_id,
+                      novalidate: 'novalidate',
+                      data-type: 'add-to-cart-form',
+                      data-hide-errors: gift_card_recipient_feature_active,
+                      class: 'product-form grid gap-8',
+                      is: 'product-form'
+                    -%}
+                      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" disabled />
+                  
+                      {%- liquid
+                        if gift_card_recipient_feature_active
+                          render 'gift-card-recipient-form', product: product, form: form, section_id: section_id
+                        endif
+                  
+                        assign check_against_inventory = true
+                        if product.selected_or_first_available_variant.inventory_management != 'shopify' or  product.selected_or_first_available_variant.inventory_policy == 'continue'
+                          assign check_against_inventory = false
+                        endif
+                        if product.selected_or_first_available_variant.quantity_rule.min > product.selected_or_first_available_variant.inventory_quantity and check_against_inventory
+                          assign quantity_rule_soldout = true
+                        endif
+                      -%}
+                  
+                      <div class="product-form__buttons grid gap-4">
+                        <div class="product-form__error-message alert alert--error text-sm font-medium leading-tight" role="alert" hidden></div>
+                        <div class="flex gap-4">
+                          <button
+                            type="submit"
+                            name="add"
+                            form="{{ product_form_id }}"
+                            class="product-form__submit button button--secondary button--fixed w-full mt-2"
+                            is="hover-button"
+                            {%- if product.selected_or_first_available_variant.available == false or quantity_rule_soldout %} disabled{% endif -%}
+                            {%- if product.template_suffix == 'pre-order' %} data-pre-order="true"{% endif -%}
+                          >
+                            <span class="btn-fill" data-fill></span>
+                            <span class="btn-text">
+                              {%- liquid
+                                if product.selected_or_first_available_variant.available == false or quantity_rule_soldout
+                                  echo 'products.product.sold_out' | t
+                                elsif product.template_suffix != 'pre-order'
+                                  echo 'products.product.add_to_cart' | t
+                                else
+                                  echo 'products.product.pre_order' | t
+                                endif
+                              -%}
+                            </span>
+                          </button>
+                        </div>
+                  
+                      </div>
+                    {%- endform -%}
+                  </div>
+
+              {%- endif -%}
+             {%- if block.settings.buy_txt != blank -%}
+            <a href="{{ block.settings.buy_link_url }}" class="buy_btn">
+             {{ block.settings.buy_txt }}
+            </a>
+            {%- endif -%}
+
+            
+          </div>
+        </div>
+         {%- endfor -%}
+          
+      </div>
+    </div>
+  </div>
+  </section>
+{% schema %}
+{
+  "name": "Pd Module 3",
+  "class": "shopify-section--pd-md3", 
+  "settings": [
+      {
+          "type": "image_picker",
+          "id": "bg_image",
+          "label": "Background Image"
+        },
+     {
+          "type": "image_picker",
+          "id": "mobile_bg_image",
+          "label": "Mobile Background Image"
+        },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background"
+    },
+     {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 300,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 300,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+        "type": "item",
+        "name": "item",
+        "settings": [
+           {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    },
+            {
+          "type": "image_picker",
+          "id": "image_tle",
+          "label": "Image Title"
+        },
+    {
+          "type": "image_picker",
+          "id": "product_image",
+          "label": "Product Image"
+        },
+ {
+          "type": "image_picker",
+          "id": "product_code",
+          "label": "Product Code"
+        },
+             {
+      "type": "text",
+      "id": "subtle",
+      "label": "SubTitle"
+    },
+           {
+      "type": "richtext",
+      "id": "text_li",
+      "label": "Text Li"
+    },
+           {
+      "type": "text",
+      "id": "text_1",
+      "label": "Text 1"
+    },
+            {
+      "type": "text",
+      "id": "text_2",
+      "label": "Text 2"
+    },
+          
+            {
+      "type": "text",
+      "id": "text_3",
+      "label": "Text 3"
+    },
+             {
+      "type": "text",
+      "id": "text_4",
+      "label": "Text 4"
+    },
+            {
+      "type": "text",
+      "id": "text_5",
+      "label": "Text 5"
+    },
+          
+            {
+      "type": "text",
+      "id": "text_6",
+      "label": "Text 6"
+    },
+           {
+      "type": "text",
+      "id": "add_bt_txt",
+      "label": "Add Button Text"
+    },
+    {
+      "type": "text",
+      "id": "buy_txt",
+      "label": "Buy Button Text"
+    },
+            {
+      "type": "url",
+      "id": "buy_link_url",
+      "label": "Buy Button Link"
+    },
+           {
+          "type": "image_picker",
+          "id": "image_svg1",
+          "label": "Svg1"
+        },
+      {
+          "type": "image_picker",
+          "id": "image_svg2",
+          "label": "Svg2"
+        },
+           {
+          "type": "image_picker",
+          "id": "image_svg3",
+          "label": "Svg3"
+        },
+      {
+          "type": "image_picker",
+          "id": "image_svg4",
+          "label": "Svg4"
+        }
+        ]
+      }
+  ],
+  "presets": [
+    {
+      "name": "Pd Module 3"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,409 @@
+<style>
+#shopify-section-{{ section.id }} {
+    --text-color: {{  section.settings.text_color.red }}, {{  section.settings.text_color.green }}, {{  section.settings.text_color.blue }};
+    --section-background: {{  section.settings.background.red }}, {{  section.settings.background.green }}, {{  section.settings.background.blue }};
+}
+#count-bar-wraap {
+  background: rgb(var(--section-background));
+}
+.fixed {
+    position: fixed;
+    top: 84px; 
+    width: 100%;
+    z-index: 4;
+  }
+  .count-b-wrapper{
+    display: flex;
+    justify-content: center;
+    padding: 12px 0;
+    align-items: center;
+  }
+  .left_count_b{
+    display: flex;
+    align-items: center;
+    gap: 26px;
+  }
+  .left_count_b .count_b-txt{
+    color: #000;
+font-size: 28px;
+line-height: 130%;
+  }
+  .right_count_b{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .count_b-price{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .count_price-1{
+    color: #000;
+text-align: center;
+font-size: 28px;
+line-height: 125%;
+text-transform: capitalize;
+  }
+  .count_price-2{
+    color: #6A6A6A;
+text-align: center;
+font-size: 28px;
+line-height: 125%;
+text-transform: capitalize;
+text-decoration: line-through;
+  }
+  .countdown_button-b{
+    display: inline-flex;
+padding: 10px 30px;
+justify-content: center;
+align-items: center;
+gap: 10px;
+color: #FFF;
+text-align: center;
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: 150%; 
+text-transform: uppercase;
+border-radius: 52px;
+background: #000;
+position: relative;
+transition: all .5s;
+z-index: 2;
+overflow: hidden;
+border: 1px solid #000;
+  }
+  .countdown_button-b:after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    position: absolute;
+    left: -100%;
+    transition: all .5s;
+    z-index: -1;
+    top: 0;
+    border-radius: 52px;
+    border: 1px solid #fff;
+}
+.countdown_button-b:hover{
+  color: #040000;
+}
+.countdown_button-b:hover:after {
+    transition: all .5s;
+    transform: translate(100%);
+}
+
+.countdown-bar_wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.countdown_b-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.countdown_b-sym {
+    color: #000;
+    font-size: 28px;
+    font-style: normal;
+    line-height: normal;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+}
+.countdown_b-num {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    background: #3F3636;
+    color: #FFF;
+    font-size: 21px;
+    width: 36px;
+    height: 36px;
+  font-family: var(--font-it-family);
+}
+.countdown_b-txt {
+    display: flex;
+    color: #000;
+    font-size: 28px;
+    font-style: normal;
+    line-height: 130%;
+    text-transform: uppercase;
+}
+.countdown-bar_b{
+  position: sticky !important;
+    top: 0;
+    width: 100%;
+    z-index: 9 !important;
+    background: rgb(var(--section-background));
+}
+@media screen and (max-width: 992px){
+
+}
+@media screen and (max-width: 768px){
+.fixed {
+    position: fixed;
+    top: auto; 
+    bottom: 60px;
+  }
+  .count-b-wrapper {
+    flex-wrap: wrap;
+    justify-content: center;
+    /* gap: 14px; */
+    padding: 10px 0;
+}
+.left_count_b .count_b-txt {
+font-size: 14px;
+}
+.countdown_b-num {
+    font-size: 12px;
+    width: 20px;
+    height: 20px;
+}
+.countdown_b-txt {
+    font-size: 14px;
+}
+.countdown_b-sym {
+    font-size: 14px;
+}
+.left_count_b {
+    gap: 10px;
+}
+.countdown-bar_wrapper {
+    gap: 3px;
+}
+.countdown_b-item {
+    gap: 3px;
+}
+.right_count_b {
+  justify-content: space-between;
+  width: 100%;
+}
+.count_price-1 {
+    font-size: 21px;
+}
+.count_price-2 {
+    font-size: 21px;
+}
+.countdown_button-b{
+  padding: 6px 20px;
+  gap: 7px;
+  border-radius: 39px;
+  font-size: 12px;
+}
+}
+</style>
+
+<section class="countdown_new_box to-top" id="count-bar-wraap">
+  <div class="page-width">
+    <div class="count-b-wrapper">
+      <div class="left_count_b to-top" style="transition-delay: 0.1s">
+        {%- if section.settings.title != blank -%}
+        <div class="count_b-txt">
+          {{ section.settings.title }}
+        </div>
+        {%- endif -%}
+        <div id="countdown-bar" class="countdown-bar_wrapper">
+          <div class="countdown_b-item">
+            <div class="countdown_b-num countdown-days"></div>
+            <div class="countdown_b-txt">日</div>
+          </div>
+          <div class="countdown_b-sym">:</div>
+          <div class="countdown_b-item">
+            <div class="countdown_b-num countdown-hours"></div>
+            <div class="countdown_b-txt">時</div>
+          </div>
+          <div class="countdown_b-sym">:</div>
+          <div class="countdown_b-item">
+            <div class="countdown_b-num countdown-minutes">37</div>
+            <div class="countdown_b-txt">分</div>
+          </div>
+
+          <div class="countdown_b-sym">:</div>
+          <div class="countdown_b-item">
+            <div class="countdown_b-num countdown-seconds">37</div>
+            <div class="countdown_b-txt">秒</div>
+          </div>
+        </div>
+      </div>
+      <div class="right_count_b to-top" style="transition-delay: 0.1s">
+        <div class="count_b-price">
+          {%- if section.settings.price_1 != blank -%}
+          <span class="count_price-1">{{ section.settings.price_1 }}</span>
+          {%- endif -%}
+          {%- if section.settings.price_2 != blank -%}
+          <span class="count_price-2">{{ section.settings.price_2 }}</span>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.buy_now_txt != blank -%}
+          <a href="{{ section.settings.buy_now_url }}" class="countdown_button-b">{{ section.settings.buy_now_txt }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  function Countdownbar(selector, endDate) {
+    let countdownElement = document.querySelector(selector);
+    let daysElement = countdownElement.querySelector('.countdown-days');
+    let hoursElement = countdownElement.querySelector('.countdown-hours');
+    let minutesElement = countdownElement.querySelector('.countdown-minutes');
+    let secondsElement = countdownElement.querySelector('.countdown-seconds');
+  
+    // 获取当前时间和结束时间
+    let serverTimestamp = {{ 'now' | date: '%s' }};
+    let currentServerTime = new Date(serverTimestamp * 1000); // 将秒转换为毫秒
+    let currentTime = currentServerTime.getTime();
+    
+    let distance = endDate - currentTime <=0 ? 0: endDate - currentTime;
+
+    function updateCountdownbar() {
+      // 计算天、时、分、秒
+      let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  
+      // 更新倒计时显示
+      daysElement.textContent = days < 10 ? '0' + days : days;
+      hoursElement.textContent = hours < 10 ? '0' + hours : hours;
+      minutesElement.textContent = minutes < 10 ? '0' + minutes
+       : minutes;
+      secondsElement.textContent = seconds < 10 ? '0' + seconds : seconds;
+  
+      // 减去一秒，更新距离
+      distance -= 1000;
+  
+      // 当倒计时结束时，清除计时器
+      if (distance < 0) {
+        clearInterval(countdownInterval);
+        // 可以在倒计时结束后执行相应的操作
+      }
+    }
+  
+    // 每秒更新一次倒计时
+    let countdownInterval = setInterval(updateCountdownbar, 1000);
+  
+    // 页面加载时初始化倒计时
+    updateCountdownbar();
+  }
+ // let ediftendDate = ('{{section.settings.end_date }}');
+  // 使用示例
+ // let endDate = new Date(`${ediftendDate}`).getTime(); // 设置结束时间
+  //let countdown = new Countdownbar('#countdown-bar', endDate); // 初始化倒计时插件
+
+
+  countdownlist()
+  function countdownlist(){
+   var getEndTime = sessionStorage.getItem('uk_air_endtime{{ section.id }}')
+
+  // 获取当前时间
+    let serverTimestamp = {{ 'now' | date: '%s' }};
+    let currentServerTime = new Date(serverTimestamp * 1000); // 将秒转换为毫秒
+    let currentTime = currentServerTime.getTime();
+    let ediftendDate = ('{{section.settings.end_date }}');
+    if(ediftendDate =="" || ediftendDate==null){
+      if(getEndTime){
+       let currday = getEndTime - currentTime 
+       if(currday <= 0){
+         let new_currenttime= currentTime + 48 * 60 * 60 *  1000 
+         sessionStorage.setItem('uk_air_endtime{{ section.id }}',new_currenttime);
+  
+        let hos= new Countdownbar('#countdown-bar', new_currenttime);
+       }else{
+  
+          let hos= new Countdownbar('#countdown-bar', getEndTime);
+       }
+     }else{
+        // //系统当前时间戳
+       let new_currenttime= currentTime + 48 * 60 * 60 *  1000 
+       sessionStorage.setItem('uk_air_endtime{{ section.id }}',new_currenttime)
+       let hos= new Countdownbar('#countdown-bar', new_currenttime);
+     }
+    }else{
+     let endDate = new Date(`${ediftendDate}`).getTime(); // 设置结束时间
+     let countdown = new Countdownbar('#countdown-bar', endDate); // 初始化倒计时插件
+    }
+   
+ }
+
+  document.querySelector('.countdown_button-b').addEventListener('click', function(e){
+    e.preventDefault(); // 阻止默认跳转行为
+      const targetId = this.getAttribute('href'); // 获取目标模块的 ID
+      const targetSection = document.querySelector(targetId); // 获取目标模块
+      targetSection.scrollIntoView({ behavior: 'smooth' }); // 平滑滚动到目标模块
+  })
+
+});
+
+
+</script>
+{% schema %}
+{
+  "name": "Countdown Sticky Nav",
+  "class": "countdown-bar_b",
+  "blocks": [
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "title"
+    },
+    {
+      "type": "text",
+      "id": "end_date",
+      "label": "End Date",
+      "info": "Please configure according to the format of 2020-10-03T00:00:00"
+    },
+
+    {
+      "type": "text",
+      "id": "price_1",
+      "label": "Price 1"
+    },
+    {
+      "type": "text",
+      "id": "price_2",
+      "label": "Price 2"
+    },
+
+
+{
+      "type": "text",
+      "id": "buy_now_txt",
+      "label": "Buy Now Txt"
+    },
+    {
+      "type": "url",
+      "id": "buy_now_url",
+      "label": "Buy Now Link URL"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "info": "Used while slideshow image is loading",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Countdown Sticky Nav"
+    }
+  ]
+}
+{% endschema %}

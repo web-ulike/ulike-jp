@@ -1,0 +1,337 @@
+<style>
+.preheat-modes{
+  padding: 70px 0;
+  overflow: hidden;
+}
+
+.preheat-modes .preheat-modes-top{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #3F3636;
+}
+
+.preheat-modes .preheat-modes-title{
+ color: #190A0A;
+font-family: var(--font-hd-family);
+font-size: 30px;
+font-style: normal;
+font-weight: 400;
+line-height: 150%;
+}
+
+.preheat-modes .preheat-modes-sub{
+ color: rgba(0, 0, 0, 0.50);
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 150%;
+}
+
+.preheat-modes .preheat-modes-arraw{
+  display: flex;
+  justify-content: flex-end;
+  gap: 22px;
+  margin-top: 12px;
+}
+
+.preheat-modes .preheat-modes-arraw-item{
+  width: 40px;
+  cursor: pointer;
+}
+
+.preheat-modes .preheat-modes-arraw-item svg{
+  display: block;
+  opacity: 1;
+  transition: all .4s ease;
+}
+
+.preheat-modes .preheat-modes-arraw-item:hover svg{
+  opacity: .3;
+}
+
+.preheat-modes .preheat-modes-list{
+  display: flex;
+  gap: 20px;
+  margin-top: 78px;
+  cursor: grabbing;
+}
+
+.preheat-modes .preheat-modes-item{
+  flex-shrink: 0;
+  width: 41%;
+  padding-top: 20px;
+  border-top: 1px solid #3F3636;
+  user-select: none;
+}
+
+.preheat-modes .img{
+  display: block;
+  width: 100%;
+  pointer-events: none;
+}
+
+.preheat-modes .preheat-modes-item-title{
+  color: #272724;
+  font-size: 24px;
+  line-height: 1.44;
+  margin-top: 34px;
+}
+
+.preheat-modes .preheat-modes-item-text{
+  color:#3F3636;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-top: 23px;
+  max-width: 590px;
+}
+  .full_container{
+    --container-gutter: 40px;
+    width: 100%;
+    max-width: calc(100% - var(--container-gutter));
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--container-gutter);
+    padding-right: var(--container-gutter);
+    --container-outer-margin: 0px;
+  }
+
+@media (max-width:1537px) {
+  .preheat-modes .preheat-modes-item{
+    width:25%;
+  }
+  .preheat-modes .preheat-modes-list{
+    margin-top:40px;
+  }
+}
+
+@media (max-width:991px) {
+  .preheat-modes{
+    padding: 20px 0;
+  }
+  .preheat-modes .preheat-modes-top{
+    display: block;
+  }
+  .preheat-modes .preheat-modes-title{
+    font-size: 16px;
+  }
+  .preheat-modes .preheat-modes-sub{
+    font-size: 12px;
+    margin-top: 10px;
+  }
+  .preheat-modes .preheat-modes-arraw{
+    display: none;
+  }
+  .preheat-modes .preheat-modes-list{
+    margin-top: 40px;
+    gap: 10px;
+  }
+  .preheat-modes .preheat-modes-item{
+    min-width: 300px;
+  }
+  .preheat-modes .preheat-modes-item-title{
+    font-size: 14px;
+    margin-top: 20px;
+  }
+  .preheat-modes .preheat-modes-item-text{
+    font-size: 12px;
+    margin-top: 10px;
+    color: rgba(63, 54, 54, .5);
+  }
+    .full_container{
+    --container-gutter: 20px;
+  }
+}
+</style>
+
+<section class="section-box">
+  <div class="preheat-modes">
+    <div class="full_container">
+      <div class="preheat-modes-top">
+        <div class="preheat-modes-title line-top">{{ section.settings.text }}</div>
+        <div class="preheat-modes-sub line-top">{{ section.settings.text1 }}</div>
+      </div>
+      {%- if section.blocks.size > 0 -%}
+        <div class="preheat-modes-arraw to-top">
+          <div class="preheat-modes-arraw-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="27" viewBox="0 0 36 27" fill="none">
+              <g clip-path="url(#clip0_860_8661)">
+                <path d="M0 13.5094C0 13.7228 0.08078 13.9344 0.235317 14.0961L12.528 26.9983L13.8117 25.825L2.89756 14.3696H36C36 13.42 35.2133 12.6493 34.2439 12.6493H0.918438C0.586536 12.6493 0.263416 12.8127 0.105366 13.1C0.0333672 13.229 0 13.3701 0 13.5094Z" fill="#190A0A"/>
+                <path d="M1.83648 10.4938C2.52312 11.1647 3.63473 11.1647 4.3196 10.4938L13.792 1.21625L12.5504 0L1.83824 10.4938H1.83648Z" fill="#190A0A"/>
+              </g>
+              <defs>
+                <clipPath id="clip0_860_8661">
+                  <rect width="36" height="27" fill="white" transform="matrix(-1 0 0 1 36 0)"/>
+                </clipPath>
+              </defs>
+            </svg>
+          </div>
+          <div class="preheat-modes-arraw-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="27" viewBox="0 0 36 27" fill="none">
+              <g clip-path="url(#clip0_860_8658)">
+                <path d="M36 13.5094C36 13.7228 35.9192 13.9344 35.7647 14.0961L23.472 26.9983L22.1883 25.825L33.1024 14.3696H0C0 13.42 0.786732 12.6493 1.7561 12.6493H35.0816C35.4135 12.6493 35.7366 12.8127 35.8946 13.1C35.9666 13.229 36 13.3701 36 13.5094Z" fill="#190A0A"/>
+                <path d="M34.1635 10.4938C33.4769 11.1647 32.3653 11.1647 31.6804 10.4938L22.208 1.21625L23.4496 0L34.1618 10.4938H34.1635Z" fill="#190A0A"/>
+              </g>
+              <defs>
+                <clipPath id="clip0_860_8658">
+                  <rect width="36" height="27" fill="white"/>
+                </clipPath>
+              </defs>
+            </svg>
+          </div>
+        </div>
+      {%- endif -%}             
+                  
+      <div class="preheat-modes-list">
+        {%- for block in section.blocks -%}
+          <div class="preheat-modes-item to-top" style="transition-delay: 0.{{ forloop.index }}s">
+            <div class="preheat-modes-img">
+              {%- if block.settings.image != blank -%}
+                <img
+                  loading="lazy"
+                  class="img"
+                  width="{{ block.settings.image.width }}"
+                  height="{{ block.settings.image.height }}"
+                  {% render 'image-attributes', image: block.settings.image %}
+                  alt="{{ block.settings.image.alt | escape }}"
+                >
+              {%- endif -%}
+            </div>
+            <div class="preheat-modes-item-title line-top">{{ block.settings.text }}</div>
+            <div class="preheat-modes-item-text line-top">{{ block.settings.text1 }}</div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  window.addEventListener('load', function() {
+    function preheatModesSwiper(){
+      let time = +new Date()
+      let $p = $('.preheat-modes')
+      let $list = $p.find('.preheat-modes-list')
+      let $arrowItem = $p.find('.preheat-modes-arraw-item')
+      const content = document.querySelector('.preheat-modes .preheat-modes-list');
+      let length = $list.find('.preheat-modes-item').length
+      let width = $list.find('.preheat-modes-item')[0].offsetWidth
+      let index = 0
+      let pWidth = $p[0].offsetWidth
+      let marginW = window.innerWidth > 991 ? 20:10
+      let lWidth = length * (width + marginW) + $list[0].offsetLeft
+      let translateX = 0
+
+      function changeTransform(num){
+        translateX += (width + marginW) * num
+        if(translateX > lWidth - pWidth) {
+          translateX = lWidth - pWidth
+        }
+        if(translateX<0) translateX = 0
+        $list.css({
+          transform: 'translateX(-' + translateX + 'px)',
+          transition: 'all 1s cubic-bezier(0.645, 0.045, 0.355, 1) 0s'
+        })
+      }
+
+      $arrowItem.click(function(){
+        let sindex = $(this).index()
+        if(+new Date() - time<1000) return
+        time = +new Date()
+        changeTransform(sindex?1:-1)
+      })
+
+      detectSwipe(content, () => {
+        changeTransform(1)
+      }, () => {
+        changeTransform(-1)
+      });
+    }
+
+    function detectSwipe(element, onSwipeLeft, onSwipeRight) {
+      let startX = 0;
+
+      const getEventX = (event) => {
+        return event.touches ? event.touches[0].clientX : event.clientX;
+      };
+
+      const handleTouchStart = (e) => {
+        startX = getEventX(e);
+      };
+
+      const handleTouchMove = (e) => {
+        const deltaX = getEventX(e) - startX;
+        if (Math.abs(deltaX) > 10 && e.cancelable) {
+          e.preventDefault();
+        }
+      };
+
+      const handleTouchEnd = (e) => {
+        const deltaX = getEventX(e.changedTouches ? e.changedTouches[0] : e) - startX;
+        if (deltaX > 10) {
+          onSwipeRight();
+        } else if (deltaX < -10) {
+          onSwipeLeft();
+        }
+      };
+
+      element.addEventListener('touchstart', handleTouchStart);
+      element.addEventListener('touchmove', handleTouchMove);
+      element.addEventListener('touchend', handleTouchEnd);
+
+      // Add mouse event listeners for PC compatibility
+      element.addEventListener('mousedown', handleTouchStart);
+      element.addEventListener('mousemove', handleTouchMove);
+      element.addEventListener('mouseup', handleTouchEnd);
+    }
+
+    preheatModesSwiper()
+  })
+</script>
+{% schema %}
+{
+  "name": "preheat-modes",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "text1",
+      "label": "Text"
+    }
+  ],
+  "blocks": [
+    {
+        "type": "item",
+        "name": "item",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "text",
+            "label": "Text"
+          },
+          {
+            "type": "text",
+            "id": "text1",
+            "label": "Text"
+          }
+        ]
+      }
+  ],
+  "presets": [
+    {
+      "name": "preheat-modes",
+      "settings": {},
+      "blocks": [
+      ]
+    }
+  ]
+}
+{% endschema %}

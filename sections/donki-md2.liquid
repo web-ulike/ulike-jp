@@ -1,0 +1,365 @@
+<style>
+/* md6__inner start*/
+     #shopify-section-{{ section.id }} {
+    --text-color: {{  section.settings.text_color }};
+    --section-background: {{ section.settings.background }};
+    /* background:var(--section-background); */
+    background:  {% if section.settings.bg_image != blank %}url('{{ section.settings.bg_image | image_url  }}') {% endif %} var(--section-background); no-repeat 100% 100%;
+    background-size: cover;
+  }
+/* donki-md2__wrapper start*/
+.donki-md2__box{
+  padding: 40px 20px;
+  background: #25282D;
+}
+.donki-md2__box .donki-md2__tle{
+  color: #FFF;
+  text-align: center;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-bottom: 82px;
+}
+.donki-md2__box .donki-md2__tle strong{
+  color:  #E0004D;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.donki-md2-ico-text{
+  position: relative;
+}
+.donki-md2-ico-text .md2-txt-bt{
+  border: 3px solid  #E0004D;
+background: rgba(255, 255, 255, 0.95);
+color:  #E0004D;
+text-align: center;
+font-size: 17px;
+font-style: normal;
+font-weight: 400;
+line-height: 23px;
+padding: 14px 10px 14px 23px;
+
+}
+.donki-md2-ico-text img{
+  position: absolute;
+  max-width: 136px;
+  left: 0%;
+  top: 50%;
+  transform: translate(-65%,-50%);
+}
+.donki-md2-ico-text-box{
+  padding-left: 55px;
+  margin-bottom: 80px;
+}
+
+.md2_bt-box{
+position: relative;
+text-align: center;
+margin-bottom: 30px;
+}
+.bt-box_cnt{
+  width: 100%;
+  background: #E0004D;
+  color: #FBFAF4;
+  text-align: center;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding: 10px;
+  margin-bottom:15px;
+  /* clip-path: polygon(0 0, 100% 0, 94% 50%, 100% 100%, 0 100%, 6% 50%); */
+
+}
+.md2_bt-box .md2_bt-bd{
+  border: 3px solid  #E0004D;
+background: rgba(255, 255, 255, 0.95);
+padding: 34px 20px;
+}
+.md2_bt-bd .md2_bt-bd1{
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: flex-end;
+}
+.md2_bt-bd .md2_bt-bd1 .md2_bd1-price1{
+  color: #000;
+font-size: 14px;
+font-style: normal;
+font-weight: 300;
+line-height: normal;
+}
+.md2_bt-bd .md2_bt-bd1 .md2_bd1-price2{
+  color: #000;
+font-size: 19px;
+font-style: normal;
+font-weight: 300;
+line-height: normal;
+  position:relative;
+}
+.md2_bt-bd .md2_bt-bd1 .md2_bd1-price2::before {
+    content: '';
+    position: absolute;
+    width: 80%;
+    height: 1px;
+    background: #E0004D;
+    transform: rotate(-6deg);
+    left: 0;
+    top: 50%;
+}
+  .md2_bt-bd .md2_bt-bd2 .md2_bd2-price::before {
+    content: '';
+    position: absolute;
+    width: 78%;
+    height: 11px;
+    background: #E0004D;
+    left: 0;
+    bottom: 2px;
+    mix-blend-mode: multiply;
+}
+.md2_bt-bd .md2_bt-bd1 .md2_bd1-price2 strong{
+  color: #000;
+font-size: 9px;
+font-style: normal;
+font-weight: 300;
+line-height: normal;
+}
+
+  .md2_bt-bd .md2_bt-bd2 .md2_bd2-price {
+    color: #190A0A;
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    position: relative;
+    line-height:1;
+    margin-top: 15px;
+  }
+.md2_bt-bd .md2_bt-bd2 .md2_bd2-price strong{
+  color:  #190A0A;
+font-size: 22px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}
+.donki-md2__box .md2-note {
+  color: #FFF;
+font-size: 10px;
+font-style: normal;
+font-weight: 300;
+line-height: normal;
+}
+.donki-md2__box .md2-logo {
+  text-align: center;
+}
+.donki-md2__box .md2-logo .md2-logo-img1{
+  width: 178px;
+  margin: 50px auto 25px;
+}
+.donki-md2__box .md2-logo .md2-logo-img2{
+  width: 100%;
+}
+.donki-md2__box .md2_befo-tle {
+  color: #FFF;
+font-size: 21px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+text-align: center;
+margin-top: 34px;
+margin-bottom: 20px;
+}
+.donki-md2__box .md2_befo-img{
+  margin-bottom: 15px;
+}
+.donki-md2__box .md2_befo-img img{
+  width: 100%;
+}
+.md2_bt-box .te_txt {
+  position: absolute;
+    top: -20%;
+    left: -5%;
+    font-size: 21px;
+    color: #FBFAF4;
+    line-height: 1;
+}
+  .md2_bt-box .svg_txt{
+        position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    transform: translate(-50%, -50%) rotate(-20deg);
+  }
+  .md2_bt-bd2__note{
+    color: #000;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    text-align: left;
+}
+/* donki-md2__wrapper end*/
+</style>
+  <section>
+     <div class="donki-md2__wrapper">
+      <div class="donki-md2__box">
+        <div class="donki-md2__tle to-top">{{ section.settings.tle }}</div>
+        <!-- <div class="donki-md2-ico-text-box">
+          <div class="donki-md2-ico-text to-top">
+             {%- if section.settings.brand_image -%}
+            <img src="{{ section.settings.brand_image | image_url }}" alt="" width="{{ section.settings.brand_image.width }}" height="{{ section.settings.brand_image.height }}">
+              {%- endif -%}
+            <div class="md2-txt-bt">{{ section.settings.text1 }}</div>
+          </div>
+        </div> -->
+        <div class="md2_bt-box  to-top">
+        <div class="te_txt">
+           <svg xmlns="http://www.w3.org/2000/svg" width="79" height="77" viewBox="0 0 79 77" fill="none">
+            <path d="M27.7162 1.65818C28.294 0.55829 29.6825 0.177916 30.7402 0.829793L39.8653 6.45391C40.4941 6.84148 41.2781 6.87818 41.9404 6.55106L51.551 1.80404C52.6649 1.25383 54.0118 1.76226 54.4843 2.91132L58.5609 12.8249C58.8418 13.5081 59.4545 13.9986 60.1826 14.1232L70.7479 15.9318C71.9725 16.1414 72.7634 17.3444 72.4702 18.5518L69.9412 28.9682C69.7669 29.686 69.9743 30.4429 70.49 30.9717L77.9746 38.645C78.8421 39.5344 78.7747 40.9725 77.8279 41.777L69.6593 48.7175C69.0964 49.1958 68.8192 49.9301 68.9256 50.661L70.4705 61.2682C70.6495 62.4976 69.7498 63.6215 68.5109 63.7158L57.8228 64.5294C57.0863 64.5854 56.4305 65.0165 56.0869 65.6705L51.102 75.1599C50.5242 76.2597 49.1357 76.6401 48.078 75.9882L38.953 70.3641C38.3242 69.9766 37.5402 69.9399 36.8779 70.267L27.2673 75.014C26.1534 75.5642 24.8064 75.0558 24.3339 73.9067L20.2574 63.9931C19.9764 63.31 19.3637 62.8194 18.6357 62.6948L8.07031 60.8863C6.84571 60.6766 6.05487 59.4736 6.34801 58.2663L8.87706 47.8499C9.05134 47.1321 8.84397 46.3751 8.32821 45.8463L0.843695 38.173C-0.0238139 37.2836 0.0435111 35.8455 0.990318 35.041L9.15897 28.1005C9.72189 27.6222 9.99906 26.888 9.89261 26.157L8.34776 15.5499C8.1687 14.3204 9.06848 13.1965 10.3073 13.1022L20.9954 12.2887C21.7319 12.2326 22.3878 11.8015 22.7313 11.1476L27.7162 1.65818Z" fill="#E0004D"/>
+          </svg>
+          <div class="svg_txt scale_img">
+            <p>特別</p>
+            <p>価格</p>
+          </div>
+        </div>
+          <div class="md2_bt-bd">
+             <div class="bt-box_cnt">{{ section.settings.text2 }}</div>
+            <div class="md2_bt-bd1">
+              <div class="md2_bd1-price1">{{ section.settings.price_label }}</div>
+              <div class="md2_bd1-price2">{{ section.settings.price }}</div>
+            </div>
+            <div class="md2_bt-bd2">
+              <div class="md2_bd2-price">{{ section.settings.origin_price }}</div>
+            </div>
+             {%- if section.settings.note_cust != blank -%}
+            <div class="md2_bt-bd2__note">{{ section.settings.note_cust }}</div>
+            {%- endif -%}
+          </div>
+        </div>
+        <div class="md2-note to-top">
+          {{ section.settings.note1 }}
+        </div>
+        <div class="md2-logo">
+           {%- if section.settings.logo_image1 -%}
+              <div class="scale_img">
+          <img src="{{ section.settings.logo_image1 | image_url }}" alt="" class="md2-logo-img1" width="{{ section.settings.logo_image1.width }}" height="{{ section.settings.logo_image1.height }}">
+              </div>
+               {%- endif -%}
+           {%- if section.settings.image1 -%}
+             <div class="to-right-bg" style="margin: 0 -20px;">
+          <img src="{{ section.settings.image1 | image_url }}" alt="" class="md2-logo-img2" width="{{ section.settings.image1.width }}" height="{{ section.settings.image1.height }}">
+             </div>
+              {%- endif -%}
+        </div>
+        <div class="md2_befo-tle to-top">{{ section.settings.tle1 }}</div>
+         {%- if section.settings.image2 -%}
+        <div class="md2_befo-img to-right-bg">
+           <img src="{{ section.settings.image2 | image_url }}" alt="" class="md2-logo-img1" width="{{ section.settings.image2.width }}" height="{{ section.settings.image2.height }}">
+        </div>
+        {%- endif -%}
+        <div class="md2-note">
+         {{ section.settings.note2 }}
+        </div>
+      </div>
+    </div>
+  </section>
+{% schema %}
+{
+  "name": "Donki Md2",
+  "class": "shopify-section--donki-md2", 
+  "settings": [
+     {
+      "type": "richtext",
+      "id": "tle",
+      "label": "Title"
+    },
+        {
+          "type": "image_picker",
+          "id": "brand_image",
+          "label": "Brand Images"
+        },
+      {
+          "type": "image_picker",
+          "id": "logo_image",
+            "label": "Logo Images"
+        },
+      {
+      "type": "richtext",
+      "id": "text1",
+      "label": "Text1"
+    },
+      {
+      "type": "richtext",
+      "id": "text2",
+      "label": "Text2"
+    },
+     {
+      "type": "text",
+      "id": "price_label",
+      "label": "Price Label"
+    },
+    {
+      "type": "richtext",
+      "id": "price",
+      "label": "Price"
+    },
+    {
+      "type": "richtext",
+      "id": "origin_price",
+      "label": "Origin Price"
+    },
+    {
+      "type": "richtext",
+      "id": "note_cust",
+      "label": "Note"
+    },
+     {
+      "type": "richtext",
+      "id": "note1",
+      "label": "Note1"
+    },
+
+     {
+          "type": "image_picker",
+          "id": "logo_image1",
+          "label": "Logo Image1"
+        },
+     {
+          "type": "image_picker",
+          "id": "image1",
+          "label": "Image1"
+        },
+ {
+      "type": "richtext",
+      "id": "tle1",
+      "label": "Title1"
+    },
+      {
+          "type": "image_picker",
+          "id": "image2",
+          "label": "Image2"
+        },
+     {
+      "type": "richtext",
+      "id": "note2",
+      "label": "Note2"
+    },
+      {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#F9F8F6"
+    }
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "Donki Md2"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,270 @@
+<style>
+      #shopify-section-{{ section.id }} {
+      --text-color: {{  section.settings.text_color.red }}, {{  section.settings.text_color.green }}, {{  section.settings.text_color.blue }};
+      --section-background: {{ section.settings.background.red }}, {{ section.settings.background.green }}, {{ section.settings.background.blue }};
+      --color-border: 255, 255, 255;
+      /* background: rgb(var(--section-background, var(--background))); */
+    }
+    /* kv_layer start*/
+  .kv_box{
+    position: relative;
+  }
+  .kv_layer{
+    display: flex;
+      align-items: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+  }
+  .kv_container{
+    display: flex;
+      justify-content: flex-end;
+  }
+  .kv-cnt{
+  max-width: 500px;
+  text-align: center;
+  }
+  .kv-cnt img{
+    max-width: 272px;
+    margin: 0 auto;
+  }
+  .kv-cnt h2{
+    color: #000;
+  text-align: center;
+  font-size: 45px;
+  font-style: normal;
+  font-weight: 500;
+  margin-top: 15px;
+  font-family: var(--font-hd-family);
+  line-height: 1.2;
+  }
+  .kv_btn{
+    display: block;
+    border: 1px solid #426FB2;
+  background: #282A2F;
+  color: #FFF;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  padding: 10px 20px;
+  margin-top: 21px;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  }
+  .kv_btn:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 0;
+      height: 100%;
+      z-index: -1;
+      background-color: #426FB2;
+      transition: .3s ease;
+  }
+  /* .kv_btn:hover{
+    color: #000;
+  }
+  .kv_btn:hover:after {
+      left: 0;
+      width: 100%;
+  } */
+  .module1_container{
+    --container-max-width: 1250px;
+    --container-gutter: 40px;
+    width: 100%;
+      max-width: var(--container-max-width);
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: var(--container-gutter);
+      padding-right: var(--container-gutter);
+  }
+    .father_tip{
+    background: #E0004D;
+    color: #FFF;
+  text-align: center;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding: 16px 20px;
+  }
+  .father_tip strong{
+    color: #FFF;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+     font-family: var(--font-it-family);
+  }
+  @media (max-width: 767px) {
+    .kv-cnt img {
+      max-width: 174px;
+  }
+  .kv-cnt{
+    padding-bottom: 30px;
+  }
+  .kv-cnt h2 {
+    font-size: 25px;
+    margin-top: 7px;
+  }
+  .kv_layer{
+    align-items: flex-end;
+  }
+  .kv_container{
+    justify-content: center;
+  }
+  .kv_btn{
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  .father-module-container{
+    padding: 0 20px;
+  }
+  .module1_container{
+    --container-gutter: 20px;
+  }
+      .father_tip{
+      font-size: 15px;
+    }
+    .father_tip strong {
+      font-size: 25px;
+  }
+  }
+  /* kv_layer end*/
+</style>
+
+<section>
+  <div class="kv_box">
+    <div class="picture_box">
+      <picture>
+        {%- if section.settings.image_mobile -%}
+          <source
+            media="(max-width: 767px)"
+            srcset="{{ section.settings.image_mobile | image_url: width: '400x' }} 400w, {{ section.settings.image_mobile | image_url: width: '600x' }} 600w, {{ section.settings.image_mobile | image_url: width: '800x' }} 800w, {{ section.settings.image_mobile | image_url: width: '1000x' }} 1000w"
+            width="{{ section.settings.image_mobile.width }}"
+            height="{{ section.settings.image_mobile.height }}"
+          >
+        {%- endif -%}
+        {%- if section.settings.image -%}
+          {{-
+            section.settings.image
+            | image_url: width: section.settings.image.width
+            | image_tag:
+              loading: 'eager',
+              sizes: '100vw',
+              widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200',
+              class: 'trade_banner__image'
+          -}}
+        {%- endif -%}
+      </picture>
+    </div>
+    <div class="kv_layer">
+      <div class="kv_container module1_container">
+        <div class="kv-cnt">
+          {%- if section.settings.logo_image -%}
+            <img
+              src="{{ section.settings.logo_image | image_url }}"
+              alt=""
+              class="to-top"
+              style="transition-delay: 0.1s;"
+            >
+          {%- endif -%}
+          {%- if section.settings.title != blank -%}
+            <h2 class="to-top" style="transition-delay: 0.2s;">{{ section.settings.title }}</h2>
+          {%- endif -%}
+          {%- if section.settings.button_txt != blank -%}
+            <!--
+              <a href="{{ section.settings.link_url }}" class="kv_btn to-top" style="transition-delay: 0.3s;">
+                {{ section.settings.button_txt | escape }}
+              </a>
+            -->
+            <div class="kv_btn to-top" style="transition-delay: 0.3s;">
+              {{ section.settings.button_txt | escape }}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="father_tip to-top" style="transition-delay: 0.4s;">
+    {{ section.settings.ft_tp }}
+  </div>
+</section>
+<script></script>
+{% schema %}
+{
+  "name": "Father Banner",
+  "class": "shopify-section--father-banner",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Subheading"
+    },
+    {
+      "type": "richtext",
+      "id": "des",
+      "label": "Descripte"
+    },
+     {
+          "type": "image_picker",
+          "id": "logo_image",
+          "label": "Logo Images"
+        },
+     {
+      "type": "text",
+      "id": "button_txt",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Button Link"
+    },
+    {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        },
+     {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile Images"
+        },
+    {
+      "type": "richtext",
+      "id": "ft_tp",
+      "label": "Banner tip"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "rgba(0,0,0,0)"
+    }
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "Father Banner"
+    }
+  ]
+}
+{% endschema %}

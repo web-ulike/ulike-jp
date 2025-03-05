@@ -1,0 +1,225 @@
+<style>
+  
+/* md6__inner start*/
+     #shopify-section-{{ section.id }} {
+    --text-color: {{  section.settings.text_color }};
+    --section-background: {{ section.settings.background }};
+    /* background:var(--section-background); */
+    background:  {% if section.settings.bg_image != blank %}url('{{ section.settings.bg_image | image_url  }}') {% endif %} var(--section-background); no-repeat 100% 100%;
+    background-size: cover;
+  }
+  .shopify-section-group-header-group.topbar-section,.shopify-section-group-header-group.header-section,.footer-group{
+    display: none;
+  }
+  .main-content{
+    background-color: #fff;
+  }
+  .page-container{
+    overflow: hidden;
+    position: relative;
+  }
+    .section__inner{
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+  @media only screen and (min-width: 768px) {
+    body {
+          position: relative;
+      }
+      body:before {
+          content: "";
+          background: url({{section.settings.full_bg_image | image_url}}) no-repeat center center;
+          background-size: cover;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+  animation: ripple 4s cubic-bezier(0.2, 0, 0, 1);
+          background-color: #25282D !important;
+      }
+      .page-container{
+        width: 100%;
+        max-width: 390px;
+        margin: 0 auto;
+        overflow: hidden;
+  }
+  }
+  @keyframes ripple {
+  0% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+/* donki-md1__wrapper start */
+.donki-md1__box{
+  position: relative;
+}
+.donki-md1__box .donki_md1-bg{
+  width: 100%;
+  object-fit: cover;
+  position: relative;
+
+}
+.donki-md1__box  .donki_md1-cnt{
+position: absolute;
+width: 100%;
+height: 100%;
+display: flex;
+z-index: 1;
+top: 0;
+left: 0;
+padding: 7.6923076923076925vw;
+}
+.donki-md1__box  .donki_md1-cnt .donki_md1-cnt-box{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.donki-md1__box .donki_md1-cnt .donki_md1-cnt-box .donki_md1-cnt-top{
+  display: flex;
+  flex-direction: column;
+  gap: 7.6923076923076925vw;
+}
+.donki-md1__box .donki_md1-cnt .donki_md1-cnt-box .donki_md1-cnt-top img.md1_top-img{
+  width: 38.71794871794872vw;
+}
+.donki-md1__box .donki_md1-cnt .donki_md1-cnt-box .donki_md1-cnt-bottom{
+  align-self: baseline;
+}
+.donki-md1__box .donki_md1-cnt .donki_md1-cnt-box .donki_md1-cnt-bottom img{
+  margin-right: 2.307692307692308vw;
+  width: auto;
+}
+.donki-md1__box .donki_md1-cnt .donki_md1-cnt-box .donki_md1-cnt-bottom img:last-child{
+  margin-right: 0;
+}
+.donki-md1__box .donki_md1-cnt .donki_md1-cnt-box .donki_md1-top-txt{
+  writing-mode: vertical-rl;
+    color: #000;
+    font-size: 8.461538461538462vw;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1;
+    align-self: flex-end;
+    display: flex;
+    flex-direction: column;
+    gap: 3.076923076923077vw;
+    align-items: flex-start
+}
+.donki-md1__box .donki_md1-cnt .donki_md1-cnt-box .donki_md1-top-txt p{
+  background: #FFF;
+  padding: 2.564102564102564vw;
+}
+.donki_md1-cnt-bottom{
+    display: flex;
+}
+@media only screen and (min-width: 390px) {
+  .donki-md1__box .donki_md1-cnt{
+    padding: 20px;
+  }
+  .donki-md1__box .donki_md1-cnt .donki_md1-cnt-box .donki_md1-cnt-top{
+    gap: 20px;
+  }
+  .donki-md1__box .donki_md1-cnt .donki_md1-cnt-box .donki_md1-cnt-top img.md1_top-img {
+    width: 135px;
+}
+.donki-md1__box .donki_md1-cnt .donki_md1-cnt-box .donki_md1-top-txt{
+  font-size: 33px;
+  gap: 12px;
+}
+.donki-md1__box .donki_md1-cnt .donki_md1-cnt-box .donki_md1-top-txt p{
+  padding: 9px;
+}
+.donki-md1__box .donki_md1-cnt .donki_md1-cnt-box .donki_md1-cnt-bottom img{
+  margin-right: 9px;
+  width: auto;
+}
+}
+/* donki-md1__wrapper end */
+</style>
+  <section>
+     <div class="donki-md1__wrapper">
+      <div class="donki-md1__box">
+          {%- if section.settings.bg_image -%}
+        <img src="{{ section.settings.bg_image | image_url }}" alt="" class="donki_md1-bg scale_img" width="{{ section.settings.bg_image.width }}" height="{{ section.settings.bg_image.height }}">
+             {%- endif -%}
+        <div class="donki_md1-cnt">
+          <div class="donki_md1-cnt-box">
+            <div class="donki_md1-cnt-top">
+               {%- if section.settings.logo_image -%}
+              <img src="{{ section.settings.logo_image | image_url }}" alt="" width="{{ section.settings.logo_image.width }}" height="{{ section.settings.logo_image.height }}" class="md1_top-img to-top">
+                 {%- endif -%}
+              <div class="donki_md1-top-txt to-top">
+               {{ section.settings.tle }}
+              </div>
+            </div>
+            <div class="donki_md1-cnt-bottom to-top">
+                {%- if section.settings.number_image -%}
+               <img src="{{ section.settings.number_image | image_url }}" alt="" class="donki_md1-bg" width="{{ section.settings.number_image.width }}" height="{{ section.settings.number_image.height }}">
+                    {%- endif -%}
+              {%- if section.settings.num_image -%}
+               <img src="{{ section.settings.num_image | image_url }}" alt="" class="donki_md1-bg" width="{{ section.settings.num_image.width }}" height="{{ section.settings.num_image.height }}">
+                  {%- endif -%}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% schema %}
+{
+  "name": "Donki Md1",
+  "class": "shopify-section--donki-md1", 
+  "settings": [
+      {
+          "type": "image_picker",
+          "id": "full_bg_image",
+          "label": "Des Background Images"
+        },
+        {
+          "type": "image_picker",
+          "id": "bg_image",
+          "label": "Background Images"
+        },
+      {
+          "type": "image_picker",
+          "id": "logo_image",
+            "label": "Logo Images"
+        },
+      {
+      "type": "richtext",
+      "id": "tle",
+      "label": "Title"
+    },
+     {
+          "type": "image_picker",
+          "id": "number_image",
+          "label": "Number Images"
+        },
+      {
+          "type": "image_picker",
+          "id": "num_image",
+          "label": "Num Images"
+        },
+
+      {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#F9F8F6"
+    }
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "Donki Md1"
+    }
+  ]
+}
+{% endschema %}

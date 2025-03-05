@@ -1,0 +1,505 @@
+  <link type="text/css" href="{{ 'swiper-bundle.min.css' | asset_url }}" rel="stylesheet">
+<style>
+/* md3-inner start*/
+  .md3-tle-img {
+    margin-bottom: 10px;
+}
+.md3-inner{
+  padding: 0 20px 18vw;
+   background: #F8F6F2;
+}
+.md3-top{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 55vw;
+  align-items: center;
+}
+.md3-check{
+  display: flex;
+}
+.md3-check svg{
+  display: block;
+  cursor: pointer;
+  margin: 10px;
+}
+.md3-tle{
+  color: #3F3636;
+font-size: 4.3vw;
+font-style: normal;
+font-weight: 400;
+line-height: 100%;
+text-align: left;
+}
+.md3-tle-img img{
+  width: 33vw;
+}
+.md3-bt{
+  display: flex;
+  /* gap: 4.8vw; */
+
+}
+.md3_img{
+  width: 50.13333333333333vw;
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+.md3_img img{
+  width: 100%;
+}
+.md3-item{
+  border-radius: 8vw;
+background: #F1EBE1;
+padding: 33.6vw 5.6vw 5.6vw 5.6vw;
+position: relative;
+width: 75%;
+flex-shrink: 0;
+}
+.price{
+  color: #DE004D;
+font-size: 8.799999999999999vw;
+font-style: normal;
+font-weight: 500;
+margin-top: 4vw;
+  font-family: var(--font-it-family);
+}
+.price strong{
+      font-family: var(--font-body-family);
+  font-size: 3.4666666666666663vw;
+font-style: normal;
+font-weight: 500;
+}
+.md3-subtle img{
+  width: 16.266666666666666vw;
+}
+.origin-price{
+    font-family: var(--font-it-family);
+  color: #000;
+font-size: 3.7vw;
+font-style: normal;
+font-weight: 400;
+line-height: 1.5;
+text-decoration: line-through;
+}
+  .origin-price.no_line{
+    text-decoration: none;
+  }
+.origin-price strong{
+        font-family: var(--font-body-family);
+  font-size: 3.2vw;
+font-style: normal;
+font-weight: 400;
+}
+.md3_fx {
+    display: flex;
+    justify-content: space-between;
+}
+.md3-rt{
+  color: #FFF;
+font-size: 3.36vw;
+font-style: normal;
+font-weight: 500;
+line-height: 130%;
+letter-spacing: -0.473px;
+}
+.md3-rt strong{
+  font-family: var(--font-it-family);
+  font-size: 5.866666666666666vw;
+font-style: normal;
+font-weight: 500;
+line-height: 100%;
+}
+.md3-rt{
+  background: #E0004D;
+  border-radius: 50%;
+  width: 15.2vw;
+  height: 15.2vw;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.md3_rt-box{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.add_btn-icon{
+  position: absolute;
+  bottom: -5%;
+  cursor: pointer;
+}
+.add_btn-icon svg{
+  width: 8vw;
+  color:#000;
+}
+  .add_btn-icon:hover svg{
+    color: #E0004D;
+  }
+.check_svg.swiper-button-disabled{
+  opacity: 0.3;
+}
+.check_svg{
+  color:#190A0A;
+}
+.add_icon-visbile{
+  position: absolute;
+    top: 0;
+    left: 0;
+    width: 8vw;
+    height: 8vw;
+    overflow: hidden;
+    opacity: 0;
+}
+ .add_icon-visbile .product-form-wrapper {
+    margin-block-start:0;
+}
+  .add_icon-visbile .product-form__submit{
+    min-height: 8vw;
+    height: 8vw;
+    padding: 0;
+    min-width: 8vw;
+    width: 8vw;
+  }
+  .md3-picture{
+  position: absolute;
+  width: 100%;
+  inset: 0;
+}
+.md3-picture img{
+  width: 100%;
+  inset: 0;
+  object-fit: cover;
+  position: absolute;
+  transform: translateY(-12%);
+  height: 114%;
+}
+@media only screen and (min-width: 768px) {
+  .md3-subtle img{
+  width: 81px;
+}
+  .md3-inner {
+    padding: 0 20px 100px;
+}
+.md3-top {
+    margin-bottom: 275px;
+}
+.md3-tle {
+    font-size: 20px;
+}
+.md3-item {
+    border-radius: 40px;
+    padding: 168px 28px 28px 28px;
+}
+.md3_img{
+  width: 251px;
+}
+.md3-tle {
+    font-size: 20px;
+}
+.md3-tle-img img {
+    width: 166px;
+}
+.price{
+    font-size: 45px;
+    margin-top: 20px;
+}
+.price strong {
+    font-size: 18px;
+}
+.origin-price{
+    font-size: 18px;
+}
+.origin-price strong {
+    font-size: 16px;
+}
+.md3-rt{
+    width: 76px;
+    height: 76px;
+    font-size: 17px;
+}
+.md3-rt strong {
+    font-size: 29px;
+}
+.add_btn-icon svg{
+  width: 40px;
+}
+  .add_icon-visbile{
+  position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    opacity: 0;
+}
+  .add_icon-visbile .product-form__submit{
+    min-height: 40px;
+    height: 40px;
+    padding: 0;
+    min-width: 40px;
+    width: 40px;
+  }
+}
+/* md3-inner end*/
+</style>
+  <section>
+    <div class="md3-inner">
+      {%- if section.settings.bg_image -%}
+      <div class="md3-picture to-opacity">
+        <img src="{{ section.settings.bg_image | image_url }}" alt="">
+      </div>
+      {%- endif -%}
+      <div class="md3-top to-top">
+        <div class="md3-tle js-observer"><p>{{ section.settings.tle }}</p></div>
+        <div class="md3-check">
+          <div class="check_svg check_left" id="check-left{{ section.id | replace: "template--", "" }}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="14" viewBox="0 0 18 14" fill="none">
+            <g clip-path="url(#clip0_5204_273)">
+              <path d="M0 6.75478C0 6.86144 0.04039 6.96724 0.117659 7.04809L6.264 13.4992L6.90585 12.9126L1.44878 7.18485H18C18 6.71005 17.6066 6.32471 17.122 6.32471H0.459219C0.293268 6.32471 0.131708 6.40642 0.0526829 6.55007C0.0166836 6.61458 0 6.68511 0 6.75478Z" fill="currentColor"/>
+              <path d="M0.918729 5.24689C1.26205 5.58235 1.81785 5.58235 2.16029 5.24689L6.89648 0.608124L6.2757 0L0.919607 5.24689H0.918729Z" fill="currentColor"/>
+            </g>
+            <defs>
+              <clipPath id="clip0_5204_273">
+                <rect width="18" height="13.5" fill="white" transform="matrix(-1 0 0 1 18 0)"/>
+              </clipPath>
+            </defs>
+          </svg>
+          </div>
+          <div class="check_svg check_right" id="check-right{{ section.id | replace: "template--", "" }}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="14" viewBox="0 0 18 14" fill="none">
+            <g clip-path="url(#clip0_5204_276)">
+              <path d="M18 6.75478C18 6.86144 17.9596 6.96724 17.8823 7.04809L11.736 13.4992L11.0941 12.9126L16.5512 7.18485H0C0 6.71005 0.393366 6.32471 0.878049 6.32471H17.5408C17.7067 6.32471 17.8683 6.40642 17.9473 6.55007C17.9833 6.61458 18 6.68511 18 6.75478Z" fill="currentColor"/>
+              <path d="M17.0813 5.24689C16.738 5.58235 16.1821 5.58235 15.8397 5.24689L11.1035 0.608124L11.7243 0L17.0804 5.24689H17.0813Z" fill="currentColor"/>
+            </g>
+            <defs>
+              <clipPath id="clip0_5204_276">
+                <rect width="18" height="13.5" fill="white"/>
+              </clipPath>
+            </defs>
+          </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="swiper-container main-swiper to-top" style="transition-delay: 105ms;"  id="main-swiper{{ section.id | replace: "template--", "" }}">
+        <div class="md3-bt swiper-wrapper">
+           {%- for block in section.blocks -%}
+          <div class="md3-item swiper-slide" {{ block.shopify_attributes }}>
+            <div class="md3_img">
+               {%- if block.settings.product_image -%}
+            <img src="{{ block.settings.product_image| image_url }}" alt="">
+               {%- endif -%}
+            </div>
+            <div class="md3_fx">
+              <div class="md3-lt">
+                <div class="md3-tle-img">
+                  {%- if block.settings.image1 -%}
+                    <img src="{{ block.settings.image1 | image_url }}" alt="">
+                     {%- endif -%}
+                </div>
+                <div class="md3-subtle">
+                 {%- if block.settings.image2 -%}
+                  <img src="{{ block.settings.image2 | image_url }}" alt="">
+                   {%- endif -%}
+                </div>
+                <div class="price">{{ block.settings.price_tle1 }}</div>
+                <div class="origin-price">{{ block.settings.price_tle2 }}</div>
+                 {%- if block.settings.price_tle33 != blank -%}
+                 <div class="origin-price no_line">{{ block.settings.price_tle33 }}</div>
+                {%- endif -%}
+              </div>
+              <div class="md3_rt-box">
+                <div class="md3-rt">
+                {{ block.settings.code_tle }}
+                </div>
+                <div class="add_btn-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
+                    <path d="M0 6.12245C0 2.74111 2.74111 0 6.12245 0H23.8776C27.2589 0 30 2.74111 30 6.12245V11.6327C30 21.7767 21.7767 30 11.6327 30H6.12245C2.74111 30 0 27.2589 0 23.8776V6.12245Z" fill="currentColor"/>
+                    <path d="M13.0142 21.27C13.6778 21.27 14.2159 21.8081 14.2159 22.4719C14.2159 23.1359 13.6778 23.6734 13.0142 23.6734C12.3504 23.6734 11.8124 23.1359 11.8124 22.4719C11.8124 21.8081 12.3504 21.27 13.0142 21.27ZM18.405 21.27C19.0686 21.27 19.6066 21.8081 19.6066 22.4719C19.6066 23.1359 19.0686 23.6734 18.405 23.6734C17.741 23.6734 17.2032 23.1359 17.2032 22.4719C17.2032 21.8081 17.741 21.27 18.405 21.27ZM19.9023 16.3653C21.7712 16.2857 23.2621 14.746 23.2621 12.8574C23.2621 10.9688 21.7712 9.42907 19.9023 9.34939V9.34557H8.58346L8.00832 7.68934C7.88055 6.8103 7.08606 6.12256 6.19786 6.12256H4.3949C3.99671 6.12256 3.67383 6.44529 3.67383 6.84355C3.67383 7.24189 3.99671 7.56462 4.3949 7.56462H6.1979C6.37041 7.56462 6.55665 7.72612 6.58102 7.89711C6.58139 7.89958 6.582 7.90202 6.58215 7.90442L9.38318 18.7421C9.51103 19.6207 10.3057 20.3085 11.194 20.3085H20.6635C21.0618 20.3085 21.3846 19.9857 21.3846 19.5875C21.3846 19.1895 21.0618 18.8665 20.6635 18.8665H11.194C11.0213 18.8665 10.8347 18.7049 10.8106 18.534C10.8101 18.5315 10.8097 18.5294 10.8094 18.527L10.2863 16.3693H19.9023V16.3653ZM8.94036 10.8174H19.9023V10.825C20.9576 10.9033 21.7902 11.782 21.7902 12.8574C21.7902 13.9327 20.9576 14.8115 19.9023 14.8897V14.8973H9.92926L8.94036 10.8174Z" fill="white"/>
+                  </svg>
+
+
+
+            <div class="add_icon-visbile" >
+
+                      
+     {%- assign assign product_form_id = 'ProductForm-' | append: block.id -%}
+     {%- assign product = block.settings.product -%}
+                        {%- if block.settings.product -%}
+       <div class="product-form-wrapper product-form-wrapper-cus" {{ block.shopify_attributes }}>
+                    {%- liquid
+                      assign gift_card_recipient_feature_active = false
+                      if block.settings.show_gift_card_recipient and product.gift_card?
+                        assign gift_card_recipient_feature_active = true
+                      endif
+                    -%}
+                    {%- form 'product',
+                      product,
+                      id: product_form_id,
+                      novalidate: 'novalidate',
+                      data-type: 'add-to-cart-form',
+                      data-hide-errors: gift_card_recipient_feature_active,
+                      class: 'product-form grid gap-8',
+                      is: 'product-form'
+                    -%}
+                      <input type="hidden" name="id" value="{% if block.settings.custom_product_id != blank %}{{  block.settings.custom_product_id }}{% else %}{{ product.selected_or_first_available_variant.id }}{% endif %}" disabled />
+                  
+                      {%- liquid
+                        if gift_card_recipient_feature_active
+                          render 'gift-card-recipient-form', product: product, form: form, section_id: section_id
+                        endif
+                  
+                        assign check_against_inventory = true
+                        if product.selected_or_first_available_variant.inventory_management != 'shopify' or  product.selected_or_first_available_variant.inventory_policy == 'continue'
+                          assign check_against_inventory = false
+                        endif
+                        if product.selected_or_first_available_variant.quantity_rule.min > product.selected_or_first_available_variant.inventory_quantity and check_against_inventory
+                          assign quantity_rule_soldout = true
+                        endif
+                      -%}
+                  
+                      <div class="product-form__buttons grid gap-4">
+                        <div class="product-form__error-message alert alert--error text-sm font-medium leading-tight" role="alert" hidden></div>
+                        <div class="flex gap-4">
+                          <button
+                            type="submit"
+                            name="add"
+                            form="{{ product_form_id }}"
+                            class="product-form__submit button button--secondary button--fixed w-full mt-2"
+                            is="hover-button"
+                            {%- if product.selected_or_first_available_variant.available == false or quantity_rule_soldout %} disabled{% endif -%}
+                            {%- if product.template_suffix == 'pre-order' %} data-pre-order="true"{% endif -%}
+                          >
+                            <span class="btn-fill" data-fill></span>
+                            <span class="btn-text">
+                              {%- liquid
+                                if product.selected_or_first_available_variant.available == false or quantity_rule_soldout
+                                  echo 'products.product.sold_out' | t
+                                elsif product.template_suffix != 'pre-order'
+                                  echo 'products.product.add_to_cart_custom' | t
+                                else
+                                  echo 'products.product.pre_order' | t
+                                endif
+                              -%}
+                            </span>
+                          </button>
+                        </div>
+                  
+                      </div>
+                    {%- endform -%}
+                  </div>
+
+              {%- endif -%}
+           
+              </div>
+
+
+
+
+
+             
+                </div>
+              </div>
+            </div>
+          </div>
+          {%- endfor -%}
+                      
+        </div>
+      </div>
+
+    </div>
+  </section>
+<script src="{{ 'swiper-bundle.min.aio.min.js' | asset_url }}"></script>
+<script>
+
+
+   const mainSwiper{{ section.id | replace: "template--", "" }} = new Swiper('#main-swiper{{ section.id | replace: "template--", "" }}', {
+ slidesPerView: 1.4,
+      spaceBetween: 12,
+      loop: false,
+      navigation: {
+            nextEl: '#check-right{{ section.id | replace: "template--", "" }}',
+            prevEl: '#check-left{{ section.id | replace: "template--", "" }}',
+        }
+  });
+</script>
+{% schema %}
+{
+  "name": "Brand Md3",
+  "class": "shopify-section--brand-md3", 
+  "settings": [
+    {
+          "type": "image_picker",
+          "id": "bg_image",
+          "label": "Background Images"
+        },
+     {
+      "type": "text",
+      "id": "tle",
+      "label": "Title"
+    }
+  ],
+  "blocks": [
+            {
+      "type": "item",
+      "name": "item",
+      "settings": [
+          {
+      "type": "text",
+      "id": "custom_product_id",
+      "label": "Custom product id"
+    },
+          {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    },
+        {
+          "type": "image_picker",
+          "id": "product_image",
+          "label": "Product Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image1",
+          "label": "Image1"
+        },
+        {
+          "type": "image_picker",
+          "id": "image2",
+          "label": "Image2"
+        },
+        {
+      "type": "richtext",
+      "id": "price_tle1",
+      "label": "Price 1"
+    },
+        {
+      "type": "richtext",
+      "id": "price_tle2",
+      "label": "Price 2"
+    },
+         {
+      "type": "richtext",
+      "id": "price_tle33",
+      "label": "Price 33"
+    },
+        {
+      "type": "richtext",
+      "id": "code_tle",
+      "label": "Code Text"
+    }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Md3"
+    }
+  ]
+}
+{% endschema %}

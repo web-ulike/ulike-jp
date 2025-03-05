@@ -1,0 +1,35 @@
+<style>
+/* md3_bg-wrapper start */
+.md3_bg-wrapper img{
+  width: 100%;
+  object-fit: cover;
+}
+/* md3_bg-wrapper end */
+</style>
+  <section>
+      <div class="md3_bg-wrapper to-right-bg">
+      {%- if section.settings.image -%}
+            <img src="{{ section.settings.image | image_url }}" alt="" width="{{ section.settings.image.width }}" height="{{ section.settings.image.height }}">
+        {%- endif -%}
+    </div>
+  </section>
+{% schema %}
+{
+  "name": "Donki Md3",
+  "class": "shopify-section--donki-md3", 
+  "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        }
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "Donki Md3"
+    }
+  ]
+}
+{% endschema %}

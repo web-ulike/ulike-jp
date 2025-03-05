@@ -1,0 +1,252 @@
+<style>
+/* md6__inner start*/
+     #shopify-section-{{ section.id }} {
+    --text-color: {{  section.settings.text_color }};
+    --section-background: {{ section.settings.background }};
+    /* background:var(--section-background); */
+    background:  {% if section.settings.bg_image != blank %}url('{{ section.settings.bg_image | image_url  }}') {% endif %} var(--section-background); no-repeat 100% 100%;
+    background-size: cover;
+  }
+/* md5-wrapper start */
+.md5-wrapper .md5__box{
+  position: relative;
+}
+  .md5-wrapper .md5__box .md5_bg-img{
+  width: 100%;
+  object-fit: cover;
+}
+.md5-wrapper .md5__box .md5_cnt{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  padding: 30px 20px;
+  background-color: #25282D;
+}
+  .md5-wrapper .md5__box .md5_cnt::before {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    inset: 0;
+    opacity: 0.5;
+}
+.md5-wrapper .md5__box .md5_cnt .md5_point-tle{
+  color: #E0004D;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 250;
+    line-height: 22.519px;
+    position: relative;
+}
+.md5-wrapper .md5__box .md5_cnt .md5_point-tle::before {
+    content: '';
+    position: absolute;
+    left: -81%;
+    width: 80%;
+    background: #E0004D;
+    height: 1px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.md5-wrapper .md5__box .md5_cnt .md5-step__tle{
+  color: #FFF;
+    font-size: 21px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 14px;
+}
+.md5-wrapper .md5__box .md5_cnt .md5-step__p{
+  margin-top: 16px;
+    color: #FFF;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.md5-wrapper .md5__box .md5_cnt .md5-step__img{
+margin-top: 24%;
+}
+.md5-wrapper .md5__box .md5_cnt .md5-step__img img{
+  width: 100%;
+  object-fit: cover;
+}
+.md5-wrapper .md5__box-bt{
+  padding: 20px 20px 50px 20px;
+  background: #25282D;
+}
+.md5__box-bt .md5-bt-img{
+  width: 100%;
+}
+.md5-wrapper .md5__box-bt .md5__box-bt-p{
+  color: #FFF;
+font-size: 9px;
+font-style: normal;
+font-weight: 300;
+line-height: normal;
+margin-top: 22px;
+}
+.md5-wrapper .md5__box-bt .md5__box-bt-tle{
+  color: #FFF;
+font-size: 21px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+margin-top: 72px;
+}
+.md5-wrapper .md5-step__img img{
+  width: 100%;
+}
+
+.md5-wrapper .md5__box .md5_cnt .md5__tle{
+  color: #FFF;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 52px;
+}
+  .md5-wrapper .md5__box.active .md5_bg-img{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+    .md5-wrapper .md5__box.active .md5_cnt{
+       background-color: transparent;
+}
+/* md5-wrapper end*/
+</style>
+  <section>
+
+  <div class="md5-wrapper">
+      <div class="md5_container">
+        
+         {%- for block in section.blocks -%}
+        <div class="md5__item">
+        <div class="md5__box{% if block.settings.bg_image %} active{% endif %}">
+            {%- if block.settings.bg_image -%}
+        <img src="{{ block.settings.bg_image | image_url }}" alt="" width="{{ block.settings.bg_image.width }}" height="{{ block.settings.bg_image.height }}" class="md5_bg-img scale_img">
+          {%- endif -%}
+          <div class="md5_cnt">
+            {%- if block.settings.main_tle != blank -%}
+            <div class="md5__tle js-observer">{{ block.settings.main_tle }}</div>
+             {%- endif -%}
+            {%- if block.settings.point_text != blank -%}
+            <div class="md5_point-tle to-top">{{ block.settings.point_text }}</div>
+             {%- endif -%}
+             {%- if block.settings.tle != blank -%}
+            <div class="md5-step__tle js-observer">{{ block.settings.tle }}</div>
+             {%- endif -%}
+             {%- if block.settings.subtle != blank -%}
+            <div class="md5-step__p js-observer">{{ block.settings.subtle }}</div>
+             {%- endif -%}
+          </div>
+        </div>
+           {%- if block.settings.image -%}
+      <div class="md5-step__img to-right-bg">
+             <img src="{{ block.settings.image | image_url }}" alt="" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}">
+          </div>
+             {%- endif -%}
+        <div class="md5__box-bt">
+            {%- if block.settings.image1 -%}
+               <div class="to-right-bg">
+         <img src="{{ block.settings.image1 | image_url }}" alt="" width="{{ block.settings.image1.width }}" height="{{ block.settings.image1.height }}">
+              </div>
+            {%- endif -%}
+           {%- if block.settings.note != blank -%}
+          <div class="md5__box-bt-p to-top">{{ block.settings.note }}</div>
+           {%- endif -%}
+          {%- if block.settings.note != blank -%}
+          <div class="md5__box-bt-tle js-observer">{{ block.settings.end_tle }}</div>
+            {%- endif -%}
+        </div>
+
+         </div>
+         {%- endfor -%}
+      </div>
+    </div>
+
+    
+  </section>
+{% schema %}
+{
+  "name": "Donki Md4",
+  "class": "shopify-section--donki-md4", 
+  "settings": [
+     {
+      "type": "richtext",
+      "id": "tle",
+      "label": "Title"
+    },
+      {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#F9F8F6"
+    }
+  ],
+  "blocks": [
+            {
+      "type": "item",
+      "name": "item",
+      "settings": [
+          {
+      "type": "richtext",
+      "id": "main_tle",
+      "label": "Main Title"
+    },
+        {
+          "type": "image_picker",
+          "id": "bg_image",
+          "label": "Background Image"
+        },
+          {
+      "type": "text",
+      "id": "point_text",
+      "label": "Point text"
+    },
+        
+           {
+      "type": "richtext",
+      "id": "tle",
+      "label": "Title"
+    },
+        {
+      "type": "richtext",
+      "id": "subtle",
+      "label": "subTitle"
+    },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+         {
+          "type": "image_picker",
+          "id": "image1",
+          "label": "Image1"
+        },
+           {
+      "type": "text",
+      "id": "note",
+      "label": "Note"
+    },
+          {
+      "type": "text",
+      "id": "end_tle",
+      "label": "Title end"
+    }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Donki Md4"
+    }
+  ]
+}
+{% endschema %}

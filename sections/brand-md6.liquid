@@ -1,0 +1,47 @@
+<style>
+   #shopify-section-{{ section.id }} {
+    --section-background: {{ section.settings.background }};
+    background:var(--section-background);
+  }
+</style>
+  <section>
+    <div class="md5__inner">
+      
+      <div class="md5-bt">
+        <div class="md5_bt-tle to-top">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="87" viewBox="0 0 15 87" fill="none">
+            <path d="M1.5 1C1.5 0.723858 1.27614 0.5 1 0.5C0.723858 0.5 0.5 0.723858 0.5 1H1.5ZM1 85H0.5V86.5463L1.40534 85.2927L1 85ZM0.5 1V85H1.5V1H0.5ZM1.40534 85.2927L14.4053 67.2927L13.5947 66.7073L0.59466 84.7073L1.40534 85.2927Z" fill="#3F3636"/>
+          </svg>
+           {%- if section.settings.image -%}
+         <img src="{{ section.settings.image | image_url }}" alt="">
+        {%- endif -%}
+        </div>
+      </div>
+     
+    </div>
+  </section>
+{% schema %}
+{
+  "name": "Brand Md6",
+  "class": "shopify-section--brand-md6", 
+  "settings": [
+    {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        },
+     {
+      "type": "color",
+      "id": "background",
+      "label": "Background"
+    }
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "Brand Md6"
+    }
+  ]
+}
+{% endschema %}
