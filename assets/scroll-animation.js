@@ -1,6 +1,8 @@
 // Define the class names to be animated
-const classNames = '.to-left,.to-edge,.to-top,.slide-to-left,.to-opacity,.to-top1,.text-top,.text-top-btn,.slide-to-left-white,.line-top';
+const classNames = '.to-left,.to-edge,.to-top,.slide-to-left,.to-opacity,.to-top1,.text-top,.text-top-btn,.slide-to-left-white,.line-top,.js-observer,.scale_img,.to-right-bg,.to-left-text,.to-right-text,.atm_leaf,.atm_path,.atm_path1';
 
+const originalTextElements = document.querySelectorAll('.js-observer');
+originalTextElements.forEach(element => splitTextIntoSpans(element));
 // Function to handle intersection events
 function handleIntersect(entries, observer) {
   entries.forEach(entry => {
@@ -15,7 +17,7 @@ function handleIntersect(entries, observer) {
 const observer = new IntersectionObserver(handleIntersect, {
   root: null, // Use the viewport as the container
   rootMargin: '0px 0px 50px 0px', // Trigger 100px before the element enters the viewport
-  threshold: 0 // Trigger when any part of the element is visible
+  threshold: 0.1 // Trigger when any part of the element is visible
 });
 
 // Select all elements to be animated
@@ -26,6 +28,30 @@ animateElements.forEach(element => {
   observer.observe(element);
 });
 
+function splitTextIntoSpans(element) {
+  const paragraphs = element.getElementsByTagName('p');
+  let newContent = '';
+
+  Array.from(paragraphs).forEach((paragraph, pIndex) => {
+      const text = paragraph.innerText;
+      const chars = Array.from(text);
+
+      chars.forEach((char, index) => {
+          const delay = (pIndex * chars.length + (index + 1)) * 0.04;
+          if (char === ' ') {
+              newContent += `<span>&nbsp;</span>`;
+          } else {
+              newContent += `<span style="transition-delay: ${delay}s">${char}</span>`;
+          }
+      });
+
+      if (pIndex < paragraphs.length - 1) {
+          newContent += '<br>';
+      }
+  });
+
+  element.innerHTML = newContent;
+}
 function wrapWordsWithSpanAndAddClass(node) {
     if (node.nodeType === Node.TEXT_NODE) {
         const textContent = node.textContent;

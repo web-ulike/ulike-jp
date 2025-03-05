@@ -1,0 +1,237 @@
+<style>
+.nav_fix-ps{
+  position: fixed;
+  width: 100%;
+  inset: 0;
+  z-index:0 !important;
+}
+.nav_fix-left {
+        position: absolute;
+       inset: 0;
+        height: 100%;
+        width: calc(50% - 250px);
+    }
+.nav_fix-ps .nav_fix-tle{
+        font-family: var(--font-it-family);
+  color: #754735;
+font-size: 40px;
+font-style: normal;
+font-weight: 400;
+line-height: 130%;
+text-transform: uppercase;
+margin-bottom: 7px;
+}
+.nav_fix-ps .nav_fix-txt1{
+  color: #754735;
+font-size: 40px;
+font-style: normal;
+font-weight: 400;
+line-height: 130%;
+padding-bottom: 60px;
+border-bottom: 1px solid #915B46;
+margin-bottom: 31px;
+}
+.nav_fix-ps .nav_fix-txt2{
+  color: #915B46;
+font-size: 21px;
+font-style: normal;
+font-weight: 400;
+line-height: 130%;
+margin-bottom: 13px;
+}
+.nav_fix-ps .nav_fix-txt3{
+    color: #915B46;
+font-size: 19px;
+font-style: normal;
+font-weight: 400;
+line-height: 150%;
+padding-bottom: 37px;
+border-bottom: 1px solid #915B46;
+margin-bottom: 37px;
+}
+.nav_fix-ps .nav_fix-txt4{
+  color: #915B46;
+font-size: 15px;
+font-style: normal;
+font-weight: 400;
+line-height: 150%;
+}
+.nav_fix-bix{
+  display: grid;
+  place-content: center;
+  height: 100%;
+  padding: 50px 20px;
+}
+.nav_fix-ps .nav_fix-txt2 strong{
+      font-family: var(--font-it-family);
+  font-style: normal;
+font-weight: 400;
+}
+  .nav_fix-ps .nav_fix-txt3 strong{
+       font-family: var(--font-it-family);
+  font-style: normal;
+font-weight: 400;
+  }
+  .nav_fix-right{
+  position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: calc(50% - 250px);
+}
+.nav_fix-bix-rt{
+    display: grid;
+   align-items: flex-end;
+   justify-content: center;
+    height: 100%;
+    padding: 100px 20px;
+}
+.snsNavigation__title{
+   font-family: var(--font-it-family);
+  color:  #3F3636;
+text-align: center;
+font-size: 18px;
+font-style: normal;
+font-weight: 400;
+line-height: 130%;
+letter-spacing: 0.9px;
+text-transform: uppercase;
+margin-bottom: 20px;
+}
+.snsNavigation-box{
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+.snsNavigation-box a{
+display: flex;
+}
+.snsNavigation-box a:hover{
+  opacity: 0.6;
+}
+@media only screen and (max-width: 1300px) {
+  .nav_fix-ps .nav_fix-tle{
+    font-size: 28px;
+  }
+  .nav_fix-ps .nav_fix-txt1{
+    font-size: 15px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+  .nav_fix-ps .nav_fix-txt2{
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  .nav_fix-ps .nav_fix-txt3{
+    font-size: 14px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+  .nav_fix-ps .nav_fix-txt4{
+    font-size: 12px;
+  }
+}
+@media only screen and (max-width: 992px) {
+.nav_fix-ps{
+  display: none;
+}
+}
+</style>
+<section class="nav_fix-ps">
+    <div class="nav_fix-box">
+     <div class="nav_fix-left">
+      <div class="nav_fix-bix to-top">
+        <div class="nav_fix-tle js-observer">
+        {{ section.settings.tle }}
+        </div>
+        <div class="nav_fix-txt1 js-observer">{{ section.settings.txt1 }}</div>
+        <div class="nav_fix-txt2 js-observer">{{  section.settings.txt2 }}</div>
+        <div class="nav_fix-txt3 js-observer">
+        {{ section.settings.txt3 }}
+        </div>
+        <div class="nav_fix-txt4 js-observer">
+         {{ section.settings.txt4 }}
+        </div>
+      </div>
+     </div>
+
+      
+     <div class="nav_fix-right to-top">
+      <div class="nav_fix-bix-rt">
+        <div class="sns-bix">
+          <div class="snsNavigation__title js-observer"><p>{{ section.settings.sns_txt }}</p></div>
+          <div class="snsNavigation-box">
+            {%- for block in section.blocks -%}
+              <a href="{{ block.settings.link_url }}" target="_blank">
+               {%- if block.settings.image -%}
+                <img src="{{  block.settings.image | image_url }}" alt="">
+              {%- endif -%}
+              </a>
+          {%- endfor -%}
+         </div>
+        </div>
+      </div>
+     </div>
+    </div>
+  </section>
+{% schema %}
+{
+  "name": "Brand Nav",
+  "class": "nav_fix-ps", 
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "tle",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "txt1",
+      "label": "Text1"
+    },
+     {
+      "type": "richtext",
+      "id": "txt2",
+      "label": "Text2"
+    },
+     {
+      "type": "richtext",
+      "id": "txt3",
+      "label": "Text3"
+    },
+    {
+      "type": "richtext",
+      "id": "txt4",
+      "label": "Text4"
+    },
+    {
+      "type": "text",
+      "id": "sns_txt",
+      "label": "Sns Text"
+    }
+  ],
+  "blocks": [
+            {
+      "type": "item",
+      "name": "item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+           {
+      "type": "url",
+      "id": "link_url",
+      "label": "Button Link"
+    }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Nav"
+    }
+  ]
+}
+{% endschema %}

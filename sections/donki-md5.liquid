@@ -1,0 +1,257 @@
+<style>
+/* md6__inner start*/
+     #shopify-section-{{ section.id }} {
+    --text-color: {{  section.settings.text_color }};
+    --section-background: {{ section.settings.background }};
+    /* background:var(--section-background); */
+    background:  {% if section.settings.bg_image != blank %}url('{{ section.settings.bg_image | image_url  }}') {% endif %} var(--section-background); no-repeat 100% 100%;
+    background-size: cover;
+  }
+/* md6-wrapper start */
+.md6-wrapper{
+  padding: 50px 20px;
+  background: #25282D;
+}
+.md6-wrapper .md6__tle{
+  color: #FFF;
+font-size: 13px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+margin-bottom: 50px;
+}
+.md6-wrapper .md6_cnt-box{
+  background: rgba(255, 255, 255, 0.95);
+  padding: 40px 20px;
+}
+.md6-wrapper .md6_cnt-box .md6_cnt-tle{
+  color: #1C1D21;
+text-align: center;
+font-size: 21px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}
+.md6-wrapper .md6_cnt-box .md6_cnt-p{
+  color: #000;
+text-align: center;
+font-size: 13px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+margin-top: 20px;
+}
+.md6-wrapper .md6_cnt-box .md6_cnt-img{
+margin-top: 60px;
+}
+.md6-wrapper .md6_cnt-box .md6_cnt-img img{
+  width: 100%;
+}
+.md6-wrapper .md6_cnt-box .md6_cnt-note{
+  color: #4D4D4D;
+font-size: 10px;
+font-style: normal;
+font-weight: 300;
+line-height: normal;
+margin-top: 30px;
+}
+.md6-wrapper .md6_bt-tle{
+  color: #FFF;
+font-size: 17px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+margin-top: 60px;
+}
+.md6-wrapper .md6_bt-img {
+     margin: 20px -20px 0;
+  
+}
+.md6-wrapper .md6_bt-img img{
+width: 100%;
+}
+.md6-wrapper .md6_bt-box1{
+  margin-top: 15px;
+}
+.md6-wrapper .md6_bt-box1 {
+  color: #fff;
+  display: flex;
+  align-items: flex-end;
+  gap: 17px;
+}
+.md6-wrapper .md6_bt-box1 .md6_bt-lt{
+padding-bottom: 40px;
+}
+.md6-wrapper .md6_bt-tle1{
+  color: #FFF;
+font-size: 21px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+  margin-top: 50px;
+}
+.md6-wrapper .md6_bt-box1 .md6_bt-lt .md6_bt-p1{
+  color: #FFF;
+
+font-size: 13px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+margin-top: 15px;
+}
+.md6-wrapper .md6_bt-box1 .md6_bt-rt{
+  background: #E0004D;
+  padding: 16px;
+  border-radius: 50%;
+  color: #FFF;
+font-size: 18px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+width: 100px;
+height: 100px;
+flex-shrink: 0;
+text-align: center;
+display: flex;
+align-items: center;
+}
+.md6-wrapper .md6_bt-imgb img{
+  width: 100%;
+}
+.md6-wrapper .md6-bt__note{
+  color: #FFF;
+font-size: 9px;
+font-style: normal;
+font-weight: 300;
+line-height: normal;
+padding-top: 44px;
+}
+/* md6-wrapper end*/
+</style>
+  <section>
+    <div class="md6-wrapper">
+      <div class="md6_container">
+        <div class="md6__box">
+          <div class="md6__tle to-top">{{ section.settings.tle }}</div>
+          <div class="md6_cnt-box">
+            <div class="md6_cnt-tle to-top">{{ section.settings.block1_tle }}</div>
+            <div class="md6_cnt-p to-top">{{ section.settings.block1_txt }}</div>
+             {%- if section.settings.block1_image -%}
+            <div class="md6_cnt-img scale_img">
+             <img src="{{ section.settings.block1_image | image_url }}" alt="" width="{{ section.settings.block1_image.width }}" height="{{ section.settings.block1_image.height }}">
+            </div>
+            {%- endif -%}
+            <div class="md6_cnt-note to-top">{{ section.settings.block1_note }}</div>
+          </div>
+          <div class="md6_bt-tle to-top">{{ section.settings.block2_tle }}</div>
+          {%- if section.settings.block2_image -%}
+          <div class="md6_bt-img  scale_img">
+            <img src="{{ section.settings.block2_image | image_url }}" alt="" width="{{ section.settings.block2_image.width }}" height="{{ section.settings.block2_image.height }}">
+          </div>
+             {%- endif -%}
+           <div class="md6_bt-tle1">{{ section.settings.block3_tle }}</div>
+        <div class="md6_bt-box1 to-top">
+          <div class="md6_bt-lt">
+           
+            <div class="md6_bt-p1">{{ section.settings.block3_txt }}</div>
+          </div>
+          <div class="md6_bt-rt">
+           {{ section.settings.block3_round_text }}
+          </div>
+        </div>
+          {%- if section.settings.block3_image -%}
+        <div class="md6_bt-imgb  scale_img">
+            <img src="{{ section.settings.block3_image | image_url }}" alt="" width="{{ section.settings.block3_image.width }}" height="{{ section.settings.block3_image.height }}">
+        </div>
+             {%- endif -%}
+        <div class="md6-bt__note to-top">
+          {{ section.settings.block3_note }}
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% schema %}
+{
+  "name": "Donki Md5",
+  "class": "shopify-section--donki-md5", 
+  "settings": [
+     {
+      "type": "richtext",
+      "id": "tle",
+      "label": "Title"
+    },
+     {
+      "type": "richtext",
+      "id": "block1_tle",
+      "label": "Block1 Title"
+    },
+     {
+      "type": "richtext",
+      "id": "block1_txt",
+      "label": "Block1 Text"
+    },
+        {
+          "type": "image_picker",
+          "id": "block1_image",
+          "label": "Block1 Images"
+        },
+     {
+      "type": "richtext",
+      "id": "block1_note",
+      "label": "Block1 Note"
+    },
+
+ {
+      "type": "richtext",
+      "id": "block2_tle",
+      "label": "Block2 Title"
+    },
+ {
+          "type": "image_picker",
+          "id": "block2_image",
+          "label": "Block2 Images"
+        },
+
+ {
+      "type": "richtext",
+      "id": "block3_tle",
+      "label": "Block3 Title"
+    },
+     {
+      "type": "richtext",
+      "id": "block3_txt",
+      "label": "Block3 Text"
+    },
+     {
+      "type": "richtext",
+      "id": "block3_round_text",
+      "label": "Block3 Round ext"
+    },
+     {
+          "type": "image_picker",
+          "id": "block3_image",
+          "label": "Block3 Images"
+        },
+      {
+      "type": "richtext",
+      "id": "block3_note",
+      "label": "Block3 Note"
+    },
+    
+      {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#F9F8F6"
+    }
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "Donki Md5"
+    }
+  ]
+}
+{% endschema %}

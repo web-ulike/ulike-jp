@@ -1,0 +1,83 @@
+<style>
+/* md6__inner start*/
+     #shopify-section-{{ section.id }} {
+    --text-color: {{  section.settings.text_color }};
+    --section-background: {{ section.settings.background }};
+    /* background:var(--section-background); */
+    background:  {% if section.settings.bg_image != blank %}url('{{ section.settings.bg_image | image_url  }}') {% endif %} var(--section-background); no-repeat 100% 100%;
+    background-size: cover;
+  }
+/* md7-wrapper start*/
+.md7-wrapper .md7__container{
+  padding: 65px 20px;
+  background: #2B2C30;
+  text-align: center;
+}
+.md7-wrapper .md7__container .md7__tle{
+  color: #FFF;
+font-size: 21px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+text-align: left;
+}
+  .md7-wrapper .md7__container .md7__tle.tle_cnt{
+    text-align: center;
+  }
+.md7-wrapper .md7__container .md7__img-box{
+  margin-top: 38px;
+}
+.md7-wrapper .md7__container .md7__img-box img{
+  width: 100%;
+}
+/* md7-wrapper end */
+</style>
+  <section>
+  <div class="md7-wrapper">
+      <div class="md7__container">
+        <div class="md7__tle js-observer {% if section.settings.ic_cnt %}tle_cnt{% endif %}">{{ section.settings.tle }}</div>
+          {%- if section.settings.image -%}
+            <div class="md7__img-box  scale_img">
+             <img src="{{ section.settings.image | image_url }}" alt="" width="{{ section.settings.image.width }}" height="{{ section.settings.image.height }}">
+            </div>
+            {%- endif -%}
+      </div>
+    </div>
+  </section>
+{% schema %}
+{
+  "name": "Donki Md6",
+  "class": "shopify-section--donki-md6", 
+  "settings": [
+     {
+      "type": "richtext",
+      "id": "tle",
+      "label": "Title"
+    },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        },
+      {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#F9F8F6"
+    },
+     {
+      "type": "checkbox",
+      "id": "ic_cnt",
+      "label": "center",
+       "default":false
+    }
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "Donki Md6"
+    }
+  ]
+}
+{% endschema %}

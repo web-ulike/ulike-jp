@@ -13270,6 +13270,144 @@ a.btn-animate.btn-animate__sweep-left.wh_bt:after{
   transform: translateY(0);
   opacity: 1;
 }
+
+.js-observer.appear span {
+    -webkit-clip-path: inset(0 0 0 0);
+    clip-path: inset(0 0 0 0);
+    transform: translateY(0);
+}
+.js-observer span {
+    display: inline-block;
+    -webkit-clip-path: inset(100% 0 0 0);
+    clip-path: inset(100% 0 0 0);
+    transform: translateY(20px);
+    transition: transform 1s cubic-bezier(.25,1,.5,1), -webkit-clip-path 1s cubic-bezier(.25,1,.5,1);
+    transition: clip-path 1s cubic-bezier(.25,1,.5,1), transform 1s cubic-bezier(.25,1,.5,1);
+    transition: clip-path 1s cubic-bezier(.25,1,.5,1), transform 1s cubic-bezier(.25,1,.5,1), -webkit-clip-path 1s cubic-bezier(.25,1,.5,1);
+}
+.vertical-line span{
+    opacity: 0;
+    transform: translateY(20px);
+    transition: transform 1s cubic-bezier(.25,1,.5,1);
+}
+.vertical-line.appear span{
+     opacity: 1;
+    transform: translateY(0);
+}
+.scale_img{
+      transition: all 0.6s cubic-bezier(0.18, 0.8, 0.4, 1.75), opacity 0.6s ease;
+    transform: scale(0.8);
+    opacity: 0;
+    overflow: hidden;
+}
+.scale_img.appear{
+  transform: scale(1);
+    opacity: 1;
+}
+@keyframes display_effect1 {
+0% {
+    width: 0%;
+    left: 0;
+    right: auto;
+}
+
+50% {
+    width: 100%;
+    left: 0;
+    right: auto;
+}
+51% {
+    width: 100%;
+    left: auto;
+    right: 0;
+}
+100% {
+    width: 0%;
+    left: auto;
+    right: 0;
+}
+}
+
+.to-right-bg.appear img {
+    transition-property: opacity;
+    transition-duration: .8s;
+    transition-delay: .9s;
+    opacity: 1;
+}
+
+.to-right-bg img {
+    opacity: 0;
+    position: relative;
+    z-index: 1;
+}
+.to-right-bg{
+  position: relative;
+}
+.to-right-bg::after{
+  position: absolute;
+    display: block;
+    content: "";
+    width: 0%;
+    height: calc(100% - 1px);
+    background-color:#D94513;
+    top: 0;
+    left: 0;
+}
+.to-right-bg.appear::after{
+    animation-name: display_effect1;
+    animation-delay: .5s;
+    animation-duration: .8s;
+    animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+.to-right-text{
+    transform: translateX(-100%);
+  transition: transform 1.5s cubic-bezier(.25,1,.5,1);
+}
+.to-right-text.appear{
+    transform: translateX(0);
+}
+.to-left-text{
+    transform: translateX(100%);
+  transition: transform 1.5s cubic-bezier(.25,1,.5,1);
+}
+.to-left-text.appear{
+    transform: translateX(0);
+}
+.atm_leaf img{
+   transform: translate(100px,-100px) rotate(90deg);
+  transition: transform 2s cubic-bezier(.25,1,.5,1);
+}
+.atm_leaf.appear img{
+   transform: translate(0px,0) rotate(0deg);
+}
+
+.atm_path {
+      stroke-dasharray: 800;
+      /* 设置虚线的长度 */
+      stroke-dashoffset: 800;
+      /* 设置偏移量，隐藏路径 */
+  }
+
+.atm_path.appear{
+    animation: draw 4s ease forwards;
+}
+.atm_path1 {
+      stroke-dasharray: 1200;
+      /* 设置虚线的长度 */
+      stroke-dashoffset: 1200;
+      /* 设置偏移量，隐藏路径 */
+  }
+
+.atm_path1.appear{
+    animation: draw 4s ease forwards;
+}
+    @keyframes draw {
+      to {
+        stroke-dashoffset: 0;
+        /* 从完全隐藏到完全显示 */
+      }
+    }
+
 /* 滚动的动画样式 end*/
 
 

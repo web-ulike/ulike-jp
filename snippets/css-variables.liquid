@@ -206,11 +206,13 @@
 
     /*! Other */
     --icon-weight: {{ settings.icon_weight }}px;
+    --vertical-breather: 30px;
   }
 
   @media screen and (min-width: 1024px) {
     :root {
       --page-padding: var(--sp-9);
+       --vertical-breather: 30px;
     }
   }
 
@@ -218,12 +220,14 @@
     :root {
       --gap-padding: var(--sp-12);
       --page-padding: var(--sp-12);
+       --vertical-breather: 48px;
     }
   }
 
   @media screen and (min-width: 1536px) {
     :root {
       --page-padding: max(var(--sp-12), 50vw - var(--scrollbar-width, 0px)/2 - var(--page-width)/2);
+       --vertical-breather: 48px;
     }
   }
 {%- endstyle -%}

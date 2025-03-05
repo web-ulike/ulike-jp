@@ -1,0 +1,145 @@
+<style>
+.shopify-section-group-header-group.topbar-section,.shopify-section-group-header-group.header-section,.footer-group{
+  display: none;
+}
+.main-content{
+  background-color: #fff;
+}
+.page-container{
+  overflow: hidden;
+  position: relative;
+}
+  .section__inner{
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+@media only screen and (min-width: 768px) {
+  body {
+        position: relative;
+    }
+    body:before {
+        content: "";
+        background: url({{section.settings.bg_image | image_url}}) no-repeat center center;
+        background-size: cover;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .page-container{
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+      overflow: hidden;
+}
+}
+/* module1 start*/
+.section-inner{
+  position: relative;
+}
+.kv_cnt{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+  z-index: 1;
+}
+.kv_cnt .title_kv{
+  font-family: var(--font-it-family);
+  color: #FFF;
+    text-align: center;
+    font-size: 8.5vw;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    padding-top: 10vw;
+    /* width: 72vw; */
+    margin: 0 auto 2vw;
+    padding: 10vw 20px 0;
+}
+.kv_cnt .txt_kv{
+  color: #FFF;
+text-align: center;
+font-size: 4.2vw;
+font-style: normal;
+font-weight: 400;
+line-height: 100%;
+padding: 0 20px;
+}
+@media only screen and (min-width: 768px) {
+  .kv_cnt .title_kv{
+    width: 100%;
+    font-size: 42px;
+    padding-top: 50px;
+    /* width: 359px; */
+    margin: 0 auto 10px;
+  }
+  .kv_cnt .txt_kv{
+font-size: 18px;
+}
+}
+/* module1 end*/
+</style>
+ <section>
+    <div class="section-inner">
+      <div class="kv_cnt">
+        <h2 class="title_kv to-top">{{ section.settings.tle }}</h2>
+        <div class="txt_kv to-top" style="transition-delay: 0.3s;">{{ section.settings.txt }}</div>
+      </div>
+      <div class="kv_bg to-opacity">
+        {%- if section.settings.image -%}
+         <img src="{{ section.settings.image | image_url }}" alt="">
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+{% schema %}
+{
+  "name": "Brand Md1",
+  "class": "shopify-section--brand-md1", 
+  "settings": [
+      {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        },
+    {
+          "type": "image_picker",
+          "id": "bg_image",
+          "label": "Background Images"
+        },
+    {
+      "type": "richtext",
+      "id": "tle",
+      "label": "Title"
+    },
+     {
+      "type": "text",
+      "id": "txt",
+      "label": "Text"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "rgba(0,0,0,0)"
+    }
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "Brand Md1"
+    }
+  ]
+}
+{% endschema %}

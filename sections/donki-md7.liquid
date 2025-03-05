@@ -1,0 +1,161 @@
+<style>
+/* md6__inner start*/
+     #shopify-section-{{ section.id }} {
+    --text-color: {{  section.settings.text_color }};
+    --section-background: {{ section.settings.background }};
+    /* background:var(--section-background); */
+    background:  {% if section.settings.bg_image != blank %}url('{{ section.settings.bg_image | image_url  }}') {% endif %} var(--section-background); no-repeat 100% 100%;
+    background-size: cover;
+  }
+/* md8-wrapper start */
+.md8__container{
+  padding: 50px 20px;
+  background: #25282D;
+}
+.md8__box{
+  border: 3px solid  #E0004D;
+background: rgba(255, 255, 255, 0.95);
+position: relative;
+padding: 55px 25px 20px;
+}
+.md8__box .md8_float-tle{
+  position: absolute;
+    width: 100%;
+    background: #E0004D;
+    color: #FBFAF4;
+    text-align: center;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding: 10px 20px;
+    clip-path: polygon(0 0, 100% 0, 94% 50%, 100% 100%, 0 100%, 6% 50%);
+    top: -6.5%;
+    width: 85%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.md8__box .md8-cnt__tle{
+  color: #000;
+text-align: center;
+font-size: 15px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}
+  .md8__box .md8-cnt__tle p strong{
+        position: relative;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+    .md8__box .md8-cnt__tle p strong::before{
+      font-weight: 400;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 6px;
+    background: #E0004D;
+    left: 0;
+    bottom: 2px;
+    mix-blend-mode: multiply;
+  }
+.md8__box .md8-cnt__box{
+  display: flex;
+  margin-top: 20px;
+  align-items: end;
+  gap: 30px;
+  justify-content: center;
+}
+.md8__box .md8-cnt__box .md8-left-img{
+  flex: 1;
+  max-width: 80px;
+}
+.md8__box .md8-cnt__box .md8-right__box{
+  border: 2px solid  #E0004D;
+background: rgba(255, 255, 255, 0.95);
+position: relative;
+padding: 10px 5px 5px;
+text-align: center;
+color: #E0004D;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 16px;
+}
+.md8__box .md8-cnt__box .md8-right__box img{
+  position: absolute;
+  max-width: 90px;
+  top: -120%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.md8__box .md8-bt__note{
+  color: #000;
+font-size: 10px;
+font-style: normal;
+font-weight: 300;
+line-height: normal;
+margin-top: 15px;
+}
+/* md8-wrapper end */
+</style>
+  <section>
+   <div class="md8-wrapper">
+      <div class="md8__container">
+        <div class="md8__box">
+          <div class="md8_float-tle to-top">{{ section.settings.tle }}</div>
+          <div class="md8-cnt__tle to-top">
+           {{ section.settings.txt }}
+          </div>
+
+             {%- if section.settings.image -%}
+            <div class="md8-cnt__box  scale_img">
+             <img src="{{ section.settings.image | image_url }}" alt="" width="{{ section.settings.image.width }}" height="{{ section.settings.image.height }}">
+            </div>
+            {%- endif -%}
+            <!-- <div class="md8-right__box">
+              <img src="./images/donki/xiaoren.png" alt="" class="md8-right-bt__img">
+              <div class="md8-right__bt">全国のドン・キホーテでお取扱い開始！</div>
+            </div> -->
+          <!-- <div class="md8-bt__note">※一部お取り扱いのない店舗もございます。</div> -->
+        </div>
+      </div>
+    </div>
+  </section>
+{% schema %}
+{
+  "name": "Donki Md7",
+  "class": "shopify-section--donki-md7", 
+  "settings": [
+     {
+      "type": "richtext",
+      "id": "tle",
+      "label": "Title"
+    },
+       {
+      "type": "richtext",
+      "id": "txt",
+      "label": "Text"
+    },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        },
+      {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#F9F8F6"
+    }
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "Donki Md7"
+    }
+  ]
+}
+{% endschema %}

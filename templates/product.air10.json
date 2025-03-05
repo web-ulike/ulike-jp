@@ -5,7 +5,6 @@
       "blocks": {
         "vendor": {
           "type": "text",
-          "disabled": true,
           "settings": {
             "text": "{{ product.vendor }}",
             "text_size": "text-base"
@@ -24,6 +23,13 @@
           "type": "description",
           "settings": {
             "text_size": "text-sm"
+          }
+        },
+        "ulike_giveaway_LiGj9z": {
+          "type": "ulike_giveaway",
+          "disabled": true,
+          "settings": {
+            "giveaway_image": "shopify:\/\/shop_images\/giveaway.png"
           }
         },
         "variant_picker": {
@@ -142,6 +148,7 @@
         "vendor",
         "title",
         "description",
+        "ulike_giveaway_LiGj9z",
         "variant_picker",
         "liquid_eMynGN",
         "buy_buttons",
@@ -157,8 +164,8 @@
         "sticky_buy_button"
       ],
       "settings": {
-        "code_num": "20,000円OFF",
-        "code": "SummerAir10",
+        "code_num": "15%OFF",
+        "code": "PN15",
         "enable_sticky_info": true,
         "media_size": 66,
         "gallery_layout": "thumbnail",
@@ -260,7 +267,6 @@
         "image_MbDBC7": {
           "type": "image",
           "settings": {
-            "image": "shopify:\/\/shop_images\/5_bcb450ef-fffa-4b98-bc4d-1bb976c83ca7.png",
             "image_mobile": "shopify:\/\/shop_images\/MB_a976a8ae-6ddc-420e-8a03-32f8cd6d7baf.jpg",
             "heading": "",
             "heading_size": "title-lg tracking-heading",
@@ -296,80 +302,6 @@
         "rounded": false,
         "enable_parallax": false,
         "parallax_direction": "vertical"
-      }
-    },
-    "logo_list_JUfrFC": {
-      "type": "logo-list",
-      "blocks": {
-        "logo_mX8UiE": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify:\/\/shop_images\/f1fd8d3b6f1513884b0b2e8b8dad8777_f1f34843-0f31-4f29-ae4b-6f02e29c5363.svg",
-            "height": 100,
-            "link": ""
-          }
-        },
-        "logo_PTwGY6": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify:\/\/shop_images\/90.svg",
-            "height": 100,
-            "link": ""
-          }
-        },
-        "logo_egHBaz": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify:\/\/shop_images\/2.svg",
-            "height": 100,
-            "link": ""
-          }
-        },
-        "logo_NkteD7": {
-          "type": "logo",
-          "settings": {
-            "image": "shopify:\/\/shop_images\/fa7979aef9aa1211f0f8c1c9e65a3160.svg",
-            "height": 100,
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "logo_mX8UiE",
-        "logo_PTwGY6",
-        "logo_egHBaz",
-        "logo_NkteD7"
-      ],
-      "disabled": true,
-      "settings": {
-        "tle": "",
-        "layout": "marquee",
-        "grid_horizontal": 125,
-        "direction": "left",
-        "speed": 5,
-        "heading": "",
-        "heading_size": "title-sm",
-        "heading_alignment": "text-center md:items-center",
-        "heading_tag": "h2",
-        "subheading": "",
-        "description": "",
-        "button_label": "",
-        "button_link": "",
-        "highlighted_text": "none",
-        "highlighted_scribble": "circle",
-        "color_text": "",
-        "color_background": "",
-        "gradient_background": "",
-        "color_highlight": "",
-        "gradient_highlight": "",
-        "color_button_text": "",
-        "color_button_background": "",
-        "color_button_gradient": "",
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "divider": false,
-        "full_width": false,
-        "rounded": false
       }
     },
     "rich_text_ME6Dqq": {
@@ -666,7 +598,6 @@
     "main-product",
     "help-drawer",
     "ulike_slideshow_xffenV",
-    "logo_list_JUfrFC",
     "rich_text_ME6Dqq",
     "multicolumn_bXT9x4",
     "pagefly_section_4Bcet7",

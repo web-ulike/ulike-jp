@@ -13,7 +13,8 @@
         "title": {
           "type": "title",
           "settings": {
-            "title_size": "product-title-md",
+            "title_size": "product-title-sm",
+            "title_size_mobile": "product-title-md",
             "show_price": true,
             "show_rating": true
           }
@@ -30,6 +31,7 @@
             "show_variant_labels": true,
             "picker_type": "button",
             "enable_color_swatches": true,
+            "color_swatch_type": "color",
             "size_chart": ""
           }
         },
@@ -70,15 +72,19 @@
         "share"
       ],
       "settings": {
+        "code_num": "",
+        "code": "",
         "enable_sticky_info": true,
         "media_size": 60,
         "gallery_layout": "thumbnail",
         "thumbnail_position": "beside",
+        "image_ratio": "adapt_first",
         "image_zoom": "lightbox",
         "hide_variants": false,
         "enable_video_autoplay": true,
         "enable_video_looping": true,
         "mobile_layout": "full_width",
+        "image_ratio_mobile": "adapt_first",
         "mobile_thumbnail": false,
         "padding_top": 24,
         "padding_bottom": 84,

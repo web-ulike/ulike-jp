@@ -1,0 +1,62 @@
+<style>
+    a.prmd5_return-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:  #FFF;
+    font-size: 3vw;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 180%;
+    letter-spacing: 0.5px;
+   background: linear-gradient(90deg, #F6ACCE 0%, #00A79D 128.64%);
+    padding: 3.46vw;
+    gap: 2.13vw;
+}
+@media only screen and (min-width: 768px) {
+    a.prmd5_return-btn {
+    font-size: 14px;
+    padding: 15px;
+    gap: 10px;
+}
+}
+
+  
+/* prmmd5__inner end*/
+</style>
+  <section>
+     {%- if section.settings.btn_text != blank -%}
+      <div class="">
+        <a href="{{ section.settings.btn_link }}" class="prmd5_return-btn">{{ section.settings.btn_text  }}
+         <svg xmlns="http://www.w3.org/2000/svg" width="8" height="13" viewBox="0 0 8 13" fill="none">
+          <path d="M1 1.10059L7 6.50059L1 11.9006" stroke="white" stroke-width="1.2" stroke-linecap="square"/>
+          </svg>
+        </a>
+      </div>
+    {%- endif -%}
+  </section>
+{% schema %}
+{
+  "name": "Prm Home",
+  "class": "shopify-section--prm-home", 
+  "settings": [
+      {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Button Text"
+    },
+      {
+      "type": "url",
+      "id": "btn_link",
+      "label": "Button Link"
+    },
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "Prm Home"
+    }
+  ]
+}
+{% endschema %}

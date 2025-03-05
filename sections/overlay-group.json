@@ -4,9 +4,39 @@
   "sections": {
     "cart-drawer": {
       "type": "cart-drawer",
+      "blocks": {
+        "cart_giveaway_item_hUByET": {
+          "type": "cart-giveaway-item",
+          "disabled": true,
+          "settings": {
+            "image": "shopify:\/\/shop_images\/efaefeaaac5fca1ea92fa6407ca6ff2c.png",
+            "title": "プレゼント",
+            "info": "電動マッサージブラシ",
+            "free_text": "無料",
+            "price_text": "1080000",
+            "sku": "11U20D4J04-UI20WG,YL-11A3N30J0,YL-AIR3-W-11U0610J02, 11U20D3J04"
+          }
+        },
+        "cart_giveaway_item_gRL9Fj": {
+          "type": "cart-giveaway-item",
+          "disabled": true,
+          "settings": {
+            "image": "shopify:\/\/shop_images\/U.png",
+            "title": "プレゼント",
+            "info": "U字型マッサージ枕",
+            "free_text": "無料",
+            "price_text": "1160000",
+            "sku": "11M20B1J01UIM20BK,YL-UI04MK"
+          }
+        }
+      },
+      "block_order": [
+        "cart_giveaway_item_hUByET",
+        "cart_giveaway_item_gRL9Fj"
+      ],
       "settings": {
         "show_vendor": false,
-        "show_cart_note": true,
+        "show_cart_note": false,
         "show_shipping_calculator": false,
         "show_view_cart_button": true,
         "show_checkout_button": true,
