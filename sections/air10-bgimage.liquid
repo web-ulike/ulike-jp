@@ -52,6 +52,18 @@ right: 0;
 top: 50%;
 transform: translateY(-50%);
 }
+  .full_banner-cnt .full_banner-note{
+        position: absolute;
+    bottom: 0px;
+    right: 0;
+    max-width: 500px;
+    word-wrap: break-word;
+     color: #3f3636;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+  }
 @media (max-width: 767px){
   .full_banner-cnt .full_banner-cnt1{
     font-size: 17px;
@@ -63,6 +75,9 @@ transform: translateY(-50%);
     font-size: 19px;
     top: 115%;
     left: 20px;
+  }
+    .full_banner-cnt .full_banner-note{
+    font-size: 12px;
   }
 }
 </style>
@@ -90,6 +105,12 @@ transform: translateY(-50%);
         {%- if section.settings.tle_2 != blank -%}
           <div class="full_banner-cnt2">
            {{ section.settings.tle_2 }}
+          </div>
+        {%- endif -%}
+
+         {%- if section.settings.note != blank -%}
+          <div class="full_banner-note">
+           {{ section.settings.note }}
           </div>
         {%- endif -%}
       </div>
@@ -122,6 +143,11 @@ transform: translateY(-50%);
       "type": "richtext",
       "id": "tle_2",
       "label": "Text 2"
+    },
+       {
+      "type": "richtext",
+      "id": "note",
+      "label": "Note"
     },
     {
       "type": "color",

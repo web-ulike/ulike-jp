@@ -7,8 +7,10 @@ originalTextElements.forEach(element => splitTextIntoSpans(element));
 function handleIntersect(entries, observer) {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      entry.target.classList.add('appear');
-      observer.unobserve(entry.target); // Stop observing the element once it has appeared
+       requestAnimationFrame(() => {
+          entry.target.classList.add('appear');
+          observer.unobserve(entry.target); // 触发后取消观察
+        });
     }
   });
 }

@@ -40,6 +40,8 @@
 
   :root {
     /*! General */
+    --container-max-width: 1600px;
+     --container-gutter: 20px;
     --color-base-text: {{ settings.color_text.rgb }};
     --color-base-highlight: {{ settings.color_highlight.rgb }};
     --color-base-background: {{ settings.color_background.rgb }};
@@ -143,6 +145,7 @@
     --font-hd-family: "Noto Serif JP", sans-serif; 
     --font-ro-family: "Roboto", sans-serif;
      --font-it-family: "Inter", sans-serif;
+     --font-sans-family: "Saans", sans-serif;
     --font-heading-style: {{ header_font.style }};
     --font-heading-weight: {{ header_font.weight }};
     --font-heading-line-height: {{ settings.type_header_line_height }};
@@ -230,6 +233,22 @@
        --vertical-breather: 48px;
     }
   }
+
+  @media screen and (min-width: 741px) {
+    :root {
+        --container-gutter: 40px;
+    }
+}
+
+  @font-face {
+  font-family: 'Saans';
+  src:  url('{{ "Saans-Regular.woff2" | asset_url }}') format('woff2'),
+    url('{{ "Saans-Regular.woff" | asset_url }}' format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  /* 优化字体加载策略 */
+}
 {%- endstyle -%}
 {% comment %}
 {%- unless settings.type_body_font.system? -%}

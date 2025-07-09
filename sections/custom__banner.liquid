@@ -28,6 +28,9 @@
        --mobile-tle-size: calc({{ section.settings.mobile_tle_size}}px);
       --txt-left: calc({{ section.settings.sub_tle_left}}px);
       --mobile-txt-left: calc({{ section.settings.mobile_sub_tle_left}}px);
+      
+      --content-bottom: calc({{ section.settings.content_bottom}}px);
+      --mobile-content-bottom: calc({{ section.settings.mobile_content_bottom}}px);
   }
 .content-box {
   z-index: 1;
@@ -45,6 +48,9 @@
 .w100{
   width:100%;
 }
+ .custom_banner .slideshow__text-wrapper{
+   margin-bottom:var(--content-bottom);
+ }
 @media screen and (max-width: 740px) {
   .mobile-content-box--left {
     margin-inline-end: 0;
@@ -60,6 +66,9 @@
 .mobile-content-box--text-right {
   text-align: end;
 }
+   .custom_banner .slideshow__text-wrapper{
+   margin-bottom:var(--mobile-content-bottom);
+ }
 }
 
 @media screen and (min-width: 741px) {
@@ -177,7 +186,7 @@
   font-weight: 400;
   line-height: 130%;
   margin-top: 30px;
-  margin-left: var(--txt-left);
+  /* margin-left: var(--txt-left); */
   }
    .kv_txt1{
   margin-top: 15px;
@@ -204,6 +213,9 @@
       display: flex;
       gap: 10px;
       align-items: center;
+  }
+  .top_bix .logo_image_tag{
+    width: revert-layer;
   }
   @media (max-width: 768px) {
      .kv_content {
@@ -241,12 +253,14 @@
     width: 100%;
     top: 43px;
   }
-
+.top_bix .logo_image_tag {
+    margin: 0 auto;
+}
   }
   /* kv css end*/
 </style>
 <section>
-  <a href="{{ section.settings.link_url }}" class="kv_box custom_banner">
+    {%- capture slide_content -%}
     <picture class="w_full to-left" style="transition-delay: 0.3s;">
       {%- if section.settings.image_mobile -%}
         <source
@@ -275,13 +289,21 @@
         {%- capture section_content -%}
         <div class="top_txt">
           <div class="top_bix">
+            <!-- {%- if section.settings.logo_image_tag -%}
+                <img src="{{ section.settings.logo_image_tag | image_url }}" alt="{{ section.settings.logo_image_tag.alt }}"  width="{{  section.settings.logo_image_tag.width  | divided_by: 2  }}" height="{{  section.settings.logo_image_tag.height  | divided_by: 2  }}">
+            {%- endif -%} -->
+
             {%- if section.settings.logo_image_tag -%}
-              {{-
-                section.settings.logo_image_tag
-                | image_url: width: section.settings.logo_image_tag.width
-                | image_tag: loading: 'eager', sizes: '100vw', widths: '100,200,300,400', class: 'summer_kv_logo'
-              -}}
-            {%- endif -%}
+             <picture class="to-top" style="transition-delay: 0.1s;">
+                         {%- if section.settings.mobile_logo_image_tag -%}
+                            <source media="(max-width: 767px)" srcset="{{ section.settings.mobile_logo_image_tag | image_url }}" width="{{  section.settings.mobile_logo_image_tag.width  | divided_by: 2  }}" height="{{  section.settings.mobile_logo_image_tag.height  | divided_by: 2  }}">
+                                 {%- endif -%}
+                             {%- if section.settings.logo_image_tag -%}
+                            <img src="{{ section.settings.logo_image_tag | image_url }}" alt="{{ section.settings.logo_image_tag.alt }}" width="{{  section.settings.logo_image_tag.width  | divided_by: 2  }}" height="{{  section.settings.logo_image_tag.height  | divided_by: 2  }}" class="logo_image_tag">
+                            {%- endif -%}
+                       </picture>
+              {%- endif -%}
+            
             {%- if section.settings.tle != blank -%}
               <h1 class="to-top" style="transition-delay: 0.1s;">{{ section.settings.tle }}</h1>
             {%- endif -%}
@@ -381,7 +403,20 @@
           {%- endif -%}
         </div>
     </div>
-  </a>
+   {%- endcapture -%}
+
+
+ {%- if section.settings.link_url != blank and  section.settings.button_txt == blank -%}
+            <a href="{{ section.settings.link_url }}" class="kv_box custom_banner">
+              {{- slide_content -}}
+            </a>
+          {%- else -%}
+            <div class="kv_box custom_banner">
+              {{- slide_content -}}
+            </div>
+          {%- endif -%}
+
+  
 </section>
 <script></script>
 {% schema %}
@@ -395,6 +430,16 @@
       "label": "t:sections.global.settings.full_width.label",
       "default": true
     },
+    {
+          "type": "image_picker",
+          "id": "logo_image_tag",
+          "label": "logo image tag"
+        },
+     {
+          "type": "image_picker",
+          "id": "mobile_logo_image_tag",
+          "label": "Mobile logo image tag"
+        },
       {
           "type": "image_picker",
           "id": "image",
@@ -455,6 +500,33 @@
       "label": "Mobile Sub Title Left",
       "default": 0
     },
+
+
+
+   {
+      "type": "range",
+      "id": "content_bottom",
+      "min": 0,
+      "max": 500,
+      "step": 5,
+      "unit": "px",
+      "label": "Content Bottom",
+      "default": 0
+    },
+    
+   {
+      "type": "range",
+      "id": "mobile_content_bottom",
+      "min": 0,
+      "max": 500,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile Content Bottom",
+      "default": 0
+    },
+
+    
+    
      {
       "type": "richtext",
       "id": "sub_tle1",

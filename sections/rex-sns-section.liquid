@@ -1,0 +1,159 @@
+<style>
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px);
+  }
+  @media screen and (max-width: 768px){
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.mobile_padding_top }}px);
+    padding-bottom: calc({{ section.settings.mobile_padding_bottom }}px);
+  }
+}
+/* sns板块 */
+    .sns-container{
+       max-width: 1480px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 40px;
+    }
+    .sns-section h3{
+      color: #B89E70;
+      text-align: center;
+      font-size: 45px;
+      font-weight: 400;
+      line-height: 1
+    }
+    .sns-section .sns_box{
+      display: flex;
+      justify-content: center;
+      gap: 80px;
+      margin-top: 104px;
+    }
+    @media (min-width: 1024px) and (max-width: 1450px) {
+     .sns-section h3 {
+          font-size: 36px;
+          margin-bottom: 72px;
+      }
+       .sns-section .sns_box {
+      gap: 64px;
+      margin-top: 82px;
+    }
+  }
+    @media screen and (max-width: 767px) {
+     .sns-section h3 {
+          font-size: 20px;
+          margin-bottom: 52px;
+      }
+       .sns-section .sns_box {
+      gap: 50px;
+      margin-top: 52px;
+    }
+    }
+</style>
+<section>
+ <!-- sns板块 -->
+     <div class="sns-section section-{{ section.id }}-padding">
+      <div class="sns-container"> 
+        <h3 class="to-top">{{ section.settings.tle }}</h3>
+        <div class="sns_box to-top">
+          {%- for block in section.blocks -%}
+           <a href="{{ block.settings.button_link }}">
+             <img src="{{ block.settings.image | image_url }}" alt="">
+          </a>
+           {%- endfor -%}
+          
+        </div>
+      </div>
+     </div>
+</section>
+{% schema %}
+{
+  "name": "rex-video-section",
+  "class": "rex-video-section", 
+  "settings": [
+     {
+      "type": "text",
+      "id": "tle",
+      "label": "Title"
+    },
+     {
+      "type": "richtext",
+      "id": "note",
+      "label": "Note"
+    },
+     {
+      "type": "richtext",
+      "id": "txt",
+      "label": "Text"
+    },
+     {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Button Text"
+    },
+         {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 300,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 300,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 48
+    },
+     {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Top",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile Padding Bottom",
+      "default": 10
+    }
+  ],
+  "blocks": [
+        {
+      "type": "item",
+      "name": "item",
+      "settings": [
+         {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+              {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button link"
+      }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "rex-sns-section"
+    }
+  ]
+}
+{% endschema %}

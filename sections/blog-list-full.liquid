@@ -1,0 +1,583 @@
+
+<style>
+  .media-{{ section.id }}-padding {
+      padding-top: calc({{ section.settings.padding_top }}px);
+      padding-bottom: calc({{ section.settings.padding_bottom }}px);
+    }
+    #shopify-section-{{ section.id }} {
+      {%- if section.settings.background == 'rgba(0,0,0,0)' -%}
+        {%- assign section_background = settings.background -%}
+      {%- else -%}
+        {%- assign section_background = section.settings.background -%}
+      {%- endif -%}
+
+      {%- if section.settings.text_color == 'rgba(0,0,0,0)' -%}
+        {%- assign text_color = settings.text_color -%}
+      {%- else -%}
+        {%- assign text_color = section.settings.text_color -%}
+      {%- endif -%}
+      --text-color: {{ text_color.red }}, {{ text_color.green }}, {{ text_color.blue }};
+      --section-background: {{ section_background.red }}, {{ section_background.green }}, {{ section_background.blue }};
+    }
+    .latest-blog-wrapper {
+      background: rgb(var(--background));
+      background: rgb(var(--section-background, var(--background)));
+  }
+  .blog_list_full{
+    overflow: hidden;
+  }
+  .latest-blog-bg {
+      background: #fff;
+  }
+    .latest-blog-content {
+      padding: 20px;
+      text-align: left;
+      background-color: #fff;
+  }
+    .latest-blog-inner {
+      position: relative;
+    }
+    .blog_check_custom {
+        cursor: pointer;
+    }
+
+    .tns-outer {
+      margin: 0 70px;
+    }
+    .media__logo-check{
+      cursor: pointer;
+    }
+    .tns-nav {
+    display:none;
+    text-align: center;
+    margin: 10px 0;
+    position: absolute;
+    bottom: -50px;
+    left: 0;
+    right: 0;
+  }
+  .tns-nav > [aria-controls] {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    margin: 0 5px;
+    border-radius: 50%;
+    background: #D2D1D1;
+    border: 0;
+  }
+  .tns-nav > .tns-nav-active {
+    background: #696969;
+  }
+  .latest-blog-item__image{
+    height: 220px;
+  }
+  .time-box{
+    font-size:12px;
+        font-weight: 700;
+        padding-bottom:5px;
+  }
+  .time-box::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 2px;
+      background: #f4f4f4ff;
+      margin-top: 5px;
+  }
+  h3.latest-blog-item__title.heading {
+      font-size: 18px;
+      line-height: 1.1;
+      margin: 10px 0;
+  }
+  .latest-blog__image-container{
+    display:block;
+    overflow: hidden;
+  }
+  .latest-blog__image-container img{
+  transition: all 0.3s;
+      object-fit: cover;
+  }
+  .latest-blog__image-container:hover img{
+     transform: scale(1.2);
+  }
+  .latest-blog-title{
+  text-align: center;
+      margin-bottom: 40px;
+  }
+    .latest-blog-item__excerpt {
+      overflow: hidden;
+      -webkit-line-clamp: 4;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+  }
+    h3.latest-blog-item__title.heading a {
+      overflow: hidden;
+      -webkit-line-clamp: 2;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+  }
+  .blog_list_full .tns-outer {
+    margin: 0 0 0 40px;
+}
+.blog_list_full .latest-blog-item__image{
+    height: auto;
+  }
+  .blog_list_full h3.latest-blog-item__title.heading{
+    font-size: 24px;
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+  .blog_list_full .latest-blog-item__excerpt{
+    line-height: 1.3;
+    font-size: 16px;
+    color: #4D4D4D;
+    margin-bottom: 14px;
+  }
+  .blog_button_txt{
+    font-size: 14px;
+    text-decoration: underline;
+  }
+  .blog_list_full .latest-blog-content{
+    /* max-width: 455px; */
+    width: 100%;
+    padding: 0;
+  }
+  .blog_list_full .latest-blog-bg{
+    margin-bottom: 25px;
+  }
+  .blog_list_full .latest-blog-carousel{
+	 display: flex;
+ }
+ .blog_list_full .latest-blog-item{
+	 flex-shrink: 0;
+	 width: 32.2%;
+     margin-right:30px;
+ }
+
+.blog_list_full .btns-row{
+   position: absolute;
+   width: calc(100% + 40px);
+   left: -20px;
+   top: 30%;
+   z-index: 3;
+   display: flex;
+   justify-content: space-between;
+}
+.blog_list_full .btns-row .btn-box{
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background: rgba(0, 0, 0, .2);
+	position: relative;
+	cursor: pointer;
+	transition: all .4s ease; 
+}
+.blog_list_full .btns-row .btn-box:hover{
+	background: #000;
+}
+.blog_list_full .btns-row .btn-box::before{
+	position: absolute;
+	content: '';
+	display: block;
+	width: 10px;
+	height: 10px;
+	border-top: 2px solid #fff;
+	border-left: 2px solid #fff;
+	top: 50%;
+	left: 50%;
+	margin-left: 3px;
+	transform: translate(-50%,-50%) rotate(-45deg);
+}
+.blog_list_full .btns-row .btn-box:last-child{
+	transform: scale(-1,-1);
+}
+  @media screen and (max-width: 768px){
+    .media-{{ section.id }}-padding {
+      padding-top: calc({{ section.settings.padding_top }}px * 0.6);
+      padding-bottom:70px;
+    }
+    .tns-outer{
+      margin: 0;
+    }
+    .tns-nav {
+      display: block;
+  }
+  .blog_check_box {
+      display: none;
+  }
+  h3.latest-blog-item__title.heading{
+  display: -webkit-box;  /* 必须配合'-webkit-box'使用 */
+    -webkit-box-orient: vertical;  /* 控制文本的垂直显示 */
+    -webkit-line-clamp: 2;  /* 限制行数 */
+    overflow: hidden;  /* 隐藏多余的文本 */
+  }
+    .blog_list_full h3.latest-blog-item__title.heading{
+      font-size:22px;
+    }
+  .latest-blog-title {
+    margin-bottom: 20px;
+  }
+  .blog_list_full .tns-outer {
+    margin: 0 0 0 20px;
+}
+  .blog_list_full .latest-blog-item{
+    width:45%;
+  }
+    .blog_list_full .latest-blog-item__excerpt{
+      font-size:14px;
+    }
+    .blog_button_txt{
+      font-size:12px;
+    }
+  }
+  .blog_list_full .latest-blog-title{
+    font-size:48px;
+  }
+   @media screen and (max-width: 640px){
+     .blog_list_full .latest-blog-item{
+        width:92.4%;
+        margin-right:17px;
+      }
+     .blog_list_full .btns-row{
+         width: calc(100% + 30px);
+         left: -15px;
+      }
+     .btns-row .btn-box{
+		width: 30px;
+		height: 30px;
+	}
+      .blog_list_full .latest-blog-title{
+    font-size:28px;
+         margin-bottom: 20px;
+  }
+   }
+</style>
+<section class="blog_list_full">
+  <div class="latest-blog-wrapper media-{{ section.id }}-padding">
+    <div class="{% if section.settings.background_type == 'boxed' %} container{% endif %}">
+      {%- if section.settings.title != blank -%}
+        <h2 class="heading h3 latest-blog-title">{{ section.settings.title | escape }}</h2>
+      {%- endif -%}
+      <div class="latest-blog-inner">
+        <div class="latest-blog-carousel" id="latest-blog-carousels-1">
+          {%- for block in section.blocks -%}
+            <a href="{{ block.settings.link_url }}" class="latest-blog-item">
+              <div class="latest-blog-bg">
+                {%- if block.settings.image != blank -%}
+                  {%- if block.settings.link_url != blank -%}
+                    <div href="{{ block.settings.link_url }}" class="latest-blog__image-container">
+                      {{-
+                        block.settings.image
+                        | image_url: width: block.settings.image.width
+                        | image_tag:
+                          sizes: '100vw',
+                          sizes: '600,700,800,1000,1200,1400,1600',
+                          class: 'latest-blog-item__image'
+                      -}}
+                    </div>
+                  {%- endif -%}
+                {%- endif -%}
+              </div>
+              <div class="latest-blog-content">
+                {%- if block.settings.datetime != blank -%}
+                <div class="time-box">{{ block.settings.datetime | escape }}</div>
+                {%- endif -%}
+                <h3 class="latest-blog-item__title heading ">
+                   {{ block.settings.title  }}
+                </h3>
+                {%- if block.settings.content != blank -%}
+                  <div class="latest-blog-item__excerpt text--small">
+                    {{- block.settings.content | strip_html | truncate: 150 -}}
+                  </div>
+                {%- endif -%}
+                {%- if block.settings.button_txt != blank -%}
+                <div class="blog_button_txt button--underline">{{- block.settings.button_txt -}}</div>
+                {%- endif -%}
+              </div>
+            </a>
+          {%- endfor -%}
+        </div>
+        <div class="btns-row">
+            <div class="btn-box"></div>
+            <div class="btn-box"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  window.addEventListener('load', function() {
+    function blogMediaRealSlider(name) {
+    	let $p = $(name)
+    	let $list = $p.find('.latest-blog-carousel')
+    	let length = $list.find('.latest-blog-item').length
+    	let index = -length //[0,-length-2]
+    	let isLeftBtn = 1 //0左 1右
+    	let timer = null
+    	let timers = null
+    	let dateTb = 0
+    	let dateTs = 0
+    	if (length < 2) return
+    
+    	$list.html(
+    		$list.html() +
+    		$list.html() +
+    		$list.html())
+    	skewTransform(true)
+    	// changeDot()
+    	$p.find('.btn-box').click(function() {
+    		let sIndex = $(this).index()
+    		if (+new Date() - dateTb < 600) return
+    		dateTb = +new Date()
+    		isLeftBtn = sIndex
+    		index += sIndex ? -1 : 1
+    		clearInterval(timer)
+    		changeLeft()
+    		timer = setInterval(() => {
+    			isLeftBtn = 1
+    			index--
+    			changeLeft()
+    		}, 5000);
+    	})
+    
+    	function skewTransform(auto, tIndex = index, skew = 0) {
+    		let width = $list.find('.latest-blog-item').eq(Math.abs(tIndex) - 1).width()
+            let mr = window.innerWidth <= 991?17:30
+    		let translateX = (width + mr*1) * tIndex
+    		if (auto) {
+    			translateX += skew
+    			$list.css({
+    				'transform': 'translateX(' + translateX + 'px)',
+    				'transition': ' all 0s ease'
+    			})
+    		} else {
+    			$list.css({
+    				'transform': 'translateX(' + translateX + 'px)',
+    				'transition': ' all .6s ease'
+    			})
+    		}
+    	}
+    
+    	function changeLeft(skew) {
+    		if (isLeftBtn && index == (-length - length)) {
+    			skewTransform(true, -length+1, skew)
+    			index = -length
+    		}
+    
+    		if (!isLeftBtn && index == 0) {
+    			skewTransform(true, -length - 1, skew)
+    			index = -length
+    		}
+    		setTimeout(() => {
+    			skewTransform()
+    		}, 10);
+    		// changeDot()
+    	}
+    
+    	// function changeDot() {
+    	// 	$p.find('.media-real-dot-item').removeClass('active')
+    	// 	setTimeout(() => {
+    	// 		$p.find('.media-real-dot-item').each(function() {
+    	// 			let sIndex = $(this).index()
+    	// 			if (sIndex == (Math.abs(index) - 2)) {
+    	// 				$(this).addClass('active')
+    	// 			}
+    	// 		})
+    	// 		if (index == -1) {
+    	// 			$p.find('.media-real-dot-item').eq(length - 1).addClass('active')
+    	// 		}
+    	// 	}, 20);
+    	// }
+    
+    	function getTranslateX($element) {
+    		var matrix = $element.css('transform').replace(/[^0-9\-.,]/g, '').split(',');
+    		var translateX = parseFloat(matrix[12] || matrix[4]);
+    		return translateX;
+    	}
+    
+    	function initMobileCarousel() {
+    		let startX = 0;
+    		let listTar = 0
+    		let startY = 0;
+    		let isScrolling = false;
+    
+    		$list.on('touchstart', function(e) {
+    			var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+    			startX = touch.clientX;
+    			startY = touch.clientY;
+    			isScrolling = false;
+    			listTar = getTranslateX($list)
+    			clearInterval(timer)
+    
+    		});
+    
+    		$list.on('touchmove', function(e) {
+    			var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+    			var diffX = touch.clientX - startX;
+    			var diffY = touch.clientY - startY;
+    			var translateX = listTar + diffX;
+    			if (!isScrolling) {
+    				if (Math.abs(diffX) > Math.abs(diffY)) {
+    					isScrolling = true;
+    				}
+    			}
+    
+    			if (isScrolling && e.cancelable) {
+    				e.preventDefault();
+    				$list.css({
+    					'transform': 'translateX(' + translateX + 'px)',
+    					'transition': 'all 0s ease'
+    				});
+    			}
+    		});
+    
+    		$list.on('touchend', function(e) {
+    			if (isScrolling) {
+    				var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+    				var diffX = touch.clientX - startX;
+    				if (Math.abs(diffX) > window.innerWidth * 0.05) {
+    					if (diffX > 0) {
+    						index = index + 1;
+    						isLeftBtn = 0
+    					} else {
+    						index = index - 1;
+    						isLeftBtn = 1
+    					}
+    				}
+    				changeLeft(diffX)
+    				timer = setInterval(() => {
+    					isLeftBtn = 1
+    					index--
+    					changeLeft()
+    				}, 5000);
+    			}
+    			isScrolling = false;
+    		});
+    	}
+    	initMobileCarousel()
+    
+    	timer = setInterval(() => {
+    		isLeftBtn = 1
+    		index--
+    		changeLeft()
+    	}, 5000);
+    
+    	$list.hover(function() {
+    		clearInterval(timer)
+    	}, function() {
+    		timer = setInterval(() => {
+    			isLeftBtn = 1
+    			index--
+    			changeLeft()
+    		}, 5000);
+    	})
+    }
+    blogMediaRealSlider('.blog_list_full')
+  })
+</script>
+{% schema %}
+{
+  "name": "Blog List Full",
+  "blocks": [
+    {
+      "name": "Column",
+      "type": "item",
+       "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link"
+        },
+         {
+          "type": "text",
+          "id": "datetime",
+          "label": "datetime"
+        },
+         {
+          "type": "text",
+          "id": "title",
+          "label": "blogTitlt"
+        },
+         {
+          "type": "text",
+          "id": "content",
+          "label": "content"
+        },
+         {
+          "type": "text",
+          "id": "button_txt",
+          "label": "Button Txt",
+          "default": "Learn More"
+        }
+       ]
+     }
+    ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "background_type",
+      "label": "Background mode",
+      "options": [
+        {
+          "value": "full_width",
+          "label": "Full width"
+        },
+        {
+          "value": "boxed",
+          "label": "Boxed"
+        }
+      ],
+      "default": "boxed"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Latest Stories"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
+    }
+  ],
+   "presets": [
+    {
+      "name": "Blog List Full",
+      "blocks": [{
+        "type": "item"
+        },{
+        "type": "item"
+        }
+      ]
+    }]
+}
+{% endschema %}

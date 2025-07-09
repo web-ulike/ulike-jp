@@ -1,0 +1,667 @@
+<style>
+     #shopify-section-{{ section.id }} {
+      --section-background: {{ section.settings.background }};
+       background: var(--section-background);
+   }
+.media-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px);
+  }
+@media screen and (max-width: 768px){
+  .media-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.mobile_padding_top }}px);
+    padding-bottom: calc({{ section.settings.mobile_padding_bottom }}px);
+  }
+}
+
+/* 产品升级对比模块 */
+  .td_svg{
+        display: flex;
+    justify-content: center;
+  }
+.comparison-container {
+  padding: 0;
+}
+.comparison-container .comparison-cont {
+  /* padding: 140px 240px;
+border-radius: 16px;
+background: #F8F8F8; */
+}
+.comparison-container .comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  border-spacing: 0;
+  box-shadow: none;
+    border-radius: 0;
+}
+.comparison-cont tbody tr{
+  border-top: 1px solid  #B2B2B2;
+  border-bottom: 1px solid  #B2B2B2;
+}
+.comparison-cont tbody td{
+  padding: 30px 0;
+      text-align: center;
+}
+.comparison-cont tbody td:not(:first-child){
+  text-align: center;
+}
+.comparison-cont thead th{
+  padding-bottom: 34px;
+  padding-top:20px;
+      background-color: transparent;
+}
+.comparison-cont thead th:first-child{
+  text-align: left;
+}
+.comparison-cont .product-area-tag{
+  display: inline-block;
+  position: relative;
+  color: #FFF;
+font-size: 16px;
+font-weight: 500;
+line-height: 1.2;
+background: linear-gradient(93deg, #E0004D 0%, #FF3B7E 46.15%, #E0004D 100%);
+padding: 6px 10px;
+margin-bottom: 8px;
+overflow: hidden;
+}
+.comparison-cont .product-area-tag::before {
+    position: absolute;
+    content: '';
+    display: block;
+    width: 200%;
+    height: 200%;
+    z-index: 2;
+    background: linear-gradient(-45deg, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 60%);
+    animation: scanning 3s linear infinite;
+}
+@keyframes  scanning {
+0% {
+    transform: translate(-100%, -100%);
+}
+100% {
+    transform: translate(100%, 100%);
+}
+}
+.comparison-cont .comm-tle{
+color: #000;
+font-size: 28px;
+font-weight: 400;
+margin-bottom: 7px;
+      text-align: center;
+  margin-top:16px;
+}
+.comparison-cont .comm-tle strong{
+    font-family: var(--heading-font-family);
+color:  #E0004D;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}
+.comparison-cont thead th img {
+   display: block;
+   max-width: 110px;
+   margin: 0 auto;
+  
+}
+.comparison-cont .comm-txt{
+  color: #000;
+font-size: 22px;
+font-weight: 400;
+  line-height: normal;
+      text-align: center;
+}
+.comparison-cont .td_txt{
+  color: #000;
+font-size: 22px;
+font-weight: 500;
+line-height: normal;
+}
+  .comparison-cont .td_txt p{
+    margin:0;
+  }
+  .comparison-cont .td_txt strong{
+       font-family: var(--heading-font-family);
+  color: #E0004D;
+font-size: 16px;
+font-weight: 700;
+line-height: normal;
+  font-style: normal;
+  }
+.comparison-cont .td-red_txt{
+   font-family: var(--heading-font-family);
+  color: #E0004D;
+font-size: 16px;
+font-weight: 700;
+line-height: normal;
+}
+.comparison-cont .comm-nt{
+  color:  #8B8B8B;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 1.5;
+}
+  .product_name-tag{
+       font-family: var(--heading-font-family);
+    display: inline-flex;
+padding: 4px 16px;
+justify-content: center;
+align-items: center;
+gap: 10px;
+    border-radius: 100px;
+background: #E0004D;
+    color: #FFF;
+text-align: center;
+font-size: 14px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+margin-top:20px;
+  }
+  .comparison-cont h3{
+    font-family: var(--heading-font-family);
+    color:#190A0A;
+font-size: 40px;
+font-style: normal;
+font-weight: 500;
+line-height: 120%; 
+    margin-bottom:90px;
+      text-align: center;
+  }
+  .comparison-table thead{
+    position: sticky;
+  top: calc(var(--enable-sticky-header) * var(--header-height, 0px)  + var(--announcement-bar-height, 0px) * var(--enable-sticky-announcement-bar, 0));
+    background: transparent;
+    width: 100%;
+    
+}
+  
+  .comparison_note{
+    color:  #3F3636;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 1.5; 
+    margin-top:63px;
+  }
+  .comparison-table tr th:nth-child(2),.comparison-table tr td:nth-child(2){
+  background: #fff;
+}
+@media (min-width: 1024px) and (max-width: 1450px) {
+  .comparison-container .comparison-cont {
+    /* padding: 112px 192px;
+    border-radius: 13px; */
+}
+}
+
+@media screen and (max-width: 1023px){
+  .comparison-container .comparison-cont {
+    /* padding: 64px 20px;
+    border-radius: 0px; */
+}
+
+}
+@media screen and (max-width: 650px){
+.comparison-cont .product-area-tag {
+    font-size: 10px;
+    padding: 2px;
+    margin-bottom: 3px;
+}
+.comparison-cont .comm-tle{
+  font-size: 16px;
+}
+.comparison-cont thead th img {
+    max-width: 50px;
+}
+.comparison-cont thead th {
+    padding-bottom: 18px;
+  padding-top:10px;
+  padding-left: 0;
+        padding-right: 0;
+}
+.comparison-cont .comm-txt {
+    font-size: 14px;
+}
+.comparison-cont .td_txt {
+    font-size: 12px;
+}
+.comparison-cont .td-red_txt {
+    font-size: 12px;
+}
+    .comparison-cont .td_txt strong{
+font-size: 12px;
+  }
+.comparison-cont .comm-nt {
+font-size: 12px;
+}
+.comparison-cont tbody td:not(:first-child) {
+    padding: 16px 15px;
+}
+    .product_name-tag{
+padding: 2px 6px;
+gap: 8px;
+    border-radius: 93px;
+font-size: 10px;
+margin-top:8px;
+  }
+    .comparison-cont h3{
+font-size: 24px;
+    margin-bottom:30px;
+  }
+    .comparison_note{
+    font-size: 9px;
+    margin-top:30px;
+  }
+}
+</style>
+   <section class="media-{{ section.id }}-padding">
+    <!-- 产品升级对比 -->
+      <div class="comparison-container to-top">
+        <div class="jp-container">
+          <div class="comparison-cont">
+             {% if section.settings.tle != blank %}
+            <h3>{{ section.settings.tle }}</h3>
+             {% endif %}
+            <table class="comparison-table">
+             
+              <thead>
+                 {%- for block in section.blocks -%}
+                {%- case  block.type -%}
+                {%- when 'head' -%}
+                <tr>
+                  <th>
+                      {% if block.settings.tag_text != blank %}
+                    <div class="product-area-tag">{{ block.settings.tag_text }}</div>
+                     {% endif %}
+                    <div class="comm-txt">{{ block.settings.tle }}</div>
+                  </th>
+                  <th>
+                     <img src="{{ block.settings.product_image | image_url }}" alt="">
+                     {% if block.settings.product_text != blank %}
+                    <div class="comm-tle">{{ block.settings.product_text }}</div>
+                      {% endif %}
+                   {% if block.settings.product_name_tag != blank %}
+                    <div class="product_name-tag">{{ block.settings.product_name_tag }}</div>
+                      {% endif %}
+                   
+                  </th>
+                  <th>
+                       <img src="{{ block.settings.product_image1 | image_url }}" alt="">
+                     {% if block.settings.product_text1 != blank %}
+                    <div class="comm-tle">{{ block.settings.product_text1 }}</div>
+                      {% endif %}
+                   {% if block.settings.product_name_tag1 != blank %}
+                    <div class="product_name-tag">{{ block.settings.product_name_tag1 }}</div>
+                      {% endif %}
+                 
+                  </th>
+                  <th>
+                     <img src="{{ block.settings.product_image2 | image_url }}" alt="">
+                    {% if block.settings.product_text2 != blank %}
+                    <div class="comm-tle">{{ block.settings.product_text2 }}</div>
+                      {% endif %}
+                   {% if block.settings.product_name_tag2 != blank %}
+                    <div class="product_name-tag">{{ block.settings.product_name_tag2 }}</div>
+                      {% endif %}
+                   
+                  </th>
+                   <!-- <th>
+                      <img src="{{ block.settings.product_image3 | image_url }}" alt="">
+                     {% if block.settings.product_text3 != blank %}
+                    <div class="comm-tle">{{ block.settings.product_text3 }}</div>
+                       {% endif %}
+                   {% if block.settings.product_name_tag3 != blank %}
+                    <div class="product_name-tag">{{ block.settings.product_name_tag3 }}</div>
+                      {% endif %}
+                  </th> -->
+                  
+                </tr>
+                {%- endcase -%}
+               {%- endfor -%}
+              </thead>
+             
+              <tbody>
+                 {%- for block in section.blocks -%}
+                {%- case block.type -%}
+                {%- when 'item' -%}
+                
+                <tr>
+                  <td>
+                     {% if block.settings.tle != blank %}
+                    <div class="comm-txt">{{ block.settings.tle }}</div>
+                   {% endif %}
+                   {% if block.settings.des != blank %}
+                    <div class="comm-nt">{{ block.settings.des }}</div>
+                     {% endif %}
+                  </td>
+                  <td>
+                   {% if block.settings.txt != blank %}
+                    <div class="td_txt">{{ block.settings.txt }}</div>
+                     {% endif %}
+                    {% if block.settings.txt == blank %}
+                    <div class="td_svg">
+                      {% if block.settings.is_support %}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+  <circle cx="13" cy="13" r="12" stroke="black" stroke-width="2"/>
+</svg>
+                      {% else %}
+                       <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+  <circle cx="13" cy="13" r="12" stroke="black" stroke-width="2"/>
+</svg>
+                      {% endif %}
+                    </div>
+                    {% endif %}
+                  </td>
+                  <td>
+                   
+                   {% if block.settings.txt1 != blank %}
+                    <div class="td_txt">{{ block.settings.txt1 }}</div>
+                     {% endif %}
+                    {% if block.settings.txt1 == blank %}
+                    <div class="td_svg">
+                      {% if block.settings.is_support1 %}
+                      <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+  <circle cx="13" cy="13" r="12" stroke="black" stroke-width="2"/>
+</svg>
+                      {% else %}
+                       <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+  <circle cx="13" cy="13" r="12" stroke="black" stroke-width="2"/>
+</svg>
+                      {% endif %}
+                    </div>
+                    {% endif %}
+                  </td>
+
+
+
+                  <td>
+                   
+                   {% if block.settings.txt2 != blank %}
+                    <div class="td_txt">{{ block.settings.txt2 }}</div>
+                     {% endif %}
+                    {% if block.settings.txt2 == blank %}
+                    <div class="td_svg">
+                      {% if block.settings.is_support2 %}
+                     <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+  <circle cx="13" cy="13" r="12" stroke="black" stroke-width="2"/>
+</svg>
+                      {% else %}
+                      <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+  <circle cx="13" cy="13" r="12" stroke="black" stroke-width="2"/>
+</svg>
+                      {% endif %}
+                    </div>
+                    {% endif %}
+                  </td>
+                          
+                  <!-- <td>
+                   
+                   {% if block.settings.txt3 != blank %}
+                    <div class="td_txt">{{ block.settings.txt3 }}</div>
+                     {% endif %}
+                    {% if block.settings.txt3 == blank %}
+                    <div class="td_svg">
+                      {% if block.settings.is_support3 %}
+                      <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="9.96846" cy="10.2839" r="9.96846" fill="#E0004D"/>
+                        <path d="M4 10.5035L7.81247 14.3135L15.8773 6.25391" stroke="white" stroke-width="1.5"/>
+                      </svg>
+                      {% else %}
+                       <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="9.96846" cy="10.2839" r="9.96846" fill="#8B8B8B"/>
+                        <path d="M14.7969 15.2746L4.9887 5.4668" stroke="white" stroke-width="1.5"/>
+                        <path d="M4.98438 15.2746L14.7926 5.4668" stroke="white" stroke-width="1.5"/>
+                      </svg>
+                      {% endif %}
+                    </div>
+                    {% endif %}
+                  </td> -->
+
+                </tr>
+                   {%- endcase -%}
+               {%- endfor -%}
+
+
+              </tbody>
+
+            </table>
+           {% if section.settings.comparison_note != blank %}
+            <div class="comparison_note">{{ section.settings.comparison_note }}</div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+  </section>
+{% schema %}
+{
+  "name": "Upgrade Comparison new",
+  "class": "upgrade-comparison-new",
+  "blocks": [
+     {
+        "type": "head",
+        "name": "head",
+        "settings": [
+           {
+          "type": "text",
+          "id": "tag_text",
+          "label": "Tag Text"
+        },
+
+           {
+          "type": "richtext",
+          "id": "tle",
+          "label": "Title"
+        },
+          
+           {
+          "type": "richtext",
+          "id": "product_text",
+          "label": "Product Name"
+        },
+          {
+          "type": "image_picker",
+          "id": "product_image",
+          "label": "Product Images"
+        },
+            {
+          "type": "richtext",
+          "id": "product_text1",
+          "label": "Product Name1"
+        },
+           {
+          "type": "image_picker",
+          "id": "product_image1",
+          "label": "Product Images1"
+        },
+
+
+           {
+          "type": "richtext",
+          "id": "product_text2",
+          "label": "Product Name2"
+        },
+           {
+          "type": "image_picker",
+          "id": "product_image2",
+          "label": "Product Images2"
+        },
+           {
+          "type": "richtext",
+          "id": "product_text3",
+          "label": "Product Name3"
+        },
+           {
+          "type": "image_picker",
+          "id": "product_image3",
+          "label": "Product Images3"
+        },
+          {
+          "type": "text",
+          "id": "product_name_tag",
+          "label": "Tag Product Name"
+        },
+          {
+          "type": "text",
+          "id": "product_name_tag1",
+          "label": "Tag Product Name1"
+        },
+          {
+          "type": "text",
+          "id": "product_name_tag2",
+          "label": "Tag Product Name2"
+        },
+          {
+          "type": "text",
+          "id": "product_name_tag3",
+          "label": "Tag Product Name3"
+        },
+          
+        ]
+      },
+     {
+        "type": "item",
+        "name": "item",
+        "settings": [
+           {
+          "type": "text",
+          "id": "tle",
+          "label": "Title"
+        },
+           {
+          "type": "text",
+          "id": "des",
+          "label": "Descripte"
+        },
+           {
+          "type": "image_picker",
+          "id": "tag_image",
+          "label": "Tag Images"
+        },
+          
+           {
+          "type": "richtext",
+          "id": "txt",
+          "label": "Text"
+        },
+
+          {
+          "type": "image_picker",
+          "id": "tag_image1",
+          "label": "Tag Images1"
+        },
+          
+           {
+          "type": "richtext",
+          "id": "txt1",
+          "label": "Text1"
+        },
+          {
+          "type": "richtext",
+          "id": "txt2",
+          "label": "Text2"
+        },
+          {
+          "type": "richtext",
+          "id": "txt3",
+          "label": "Text3"
+        },
+              {
+      "type": "checkbox",
+      "id": "is_support",
+      "label": "Whether to support",
+      "default": true
+    },
+             {
+      "type": "checkbox",
+      "id": "is_support1",
+      "label": "Whether to support1",
+      "default": true
+    },
+           {
+      "type": "checkbox",
+      "id": "is_support2",
+      "label": "Whether to support2",
+      "default": true
+    },
+          {
+      "type": "checkbox",
+      "id": "is_support3",
+      "label": "Whether to support3",
+      "default": true
+    }
+        ]
+      }
+  ],
+  "settings": [
+         {
+          "type": "text",
+          "id": "tle",
+          "label": "Title"
+        },
+     {
+          "type": "text",
+          "id": "comparison_note",
+          "label": "Note"
+        },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color_background",
+      "id": "background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+     {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 300,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 300,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 0
+    },
+     {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Top",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Bottom",
+      "default": 10
+    }
+  ],
+  "presets": [
+    {
+      "name": "Upgrade Comparison new"
+    }
+  ]
+}
+{% endschema %}

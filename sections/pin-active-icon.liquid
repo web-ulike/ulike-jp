@@ -1,0 +1,46 @@
+<style>
+.pin-active-icon{
+    position: fixed;
+    bottom: 8rem;
+    right: 2rem;
+    display: inline-block;
+    cursor: pointer;
+    z-index: 1000;
+    transition: opacity 0.3s ease;
+}
+  
+@media only screen and (max-width: 992px) {
+}
+</style>
+<section class="pin-active-icon-inner">
+    {%- if section.settings.logo_image -%}
+        <a href="{{ section.settings.link_url }}">
+            <img src="{{  section.settings.logo_image | image_url }}" alt="{{ section.settings.logo_image.alt }}">
+        </a>
+      {%- endif -%}
+  </section>
+{% schema %}
+{
+  "name": "Pin Active Icon",
+  "class": "pin-active-icon", 
+  "settings": [
+     {
+          "type": "image_picker",
+          "id": "logo_image",
+          "label": "Logo Image"
+        },
+     {
+      "type": "url",
+      "id": "link_url",
+      "label": "Button Link"
+    }
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "Pin Active Icon"
+    }
+  ]
+}
+{% endschema %}

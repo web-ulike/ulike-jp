@@ -1,0 +1,228 @@
+<style>
+
+#shopify-section-{{ section.id }} {
+    --text-color: {{  section.settings.text_color.red }}, {{  section.settings.text_color.green }}, {{  section.settings.text_color.blue }};
+    --section-background: {{ section.settings.background.red }}, {{ section.settings.background.green }}, {{ section.settings.background.blue }};
+    --color-border: 255, 255, 255;
+    /* background: rgb(var(--section-background, var(--background)));  */
+  }
+     .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px);
+  }
+  @media screen and (max-width: 768px){
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.mobile_padding_top }}px);
+    padding-bottom: calc({{ section.settings.mobile_padding_bottom }}px );
+  }
+}
+.no-pain-inner{
+  position: relative;
+}
+.no-pain-img,.no-pain-img img{
+  display: block;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  min-height: 1072px;
+}
+.nopain__content-wrapper{
+  position: relative;
+  z-index: 1;
+  max-width: 597px;
+  padding: 36px 0;
+}
+.nopain__content-wrapper h3{
+  color: #3F3636;
+font-size: 36px;
+font-style: normal;
+font-weight: 500;
+line-height: 130%;
+margin-bottom: 34px;
+}
+.nopain__content-wrapper .nopain-txt{
+  color:  #3F3636;
+font-size: 18px;
+font-style: normal;
+font-weight: 400;
+line-height: 150%; 
+margin-bottom: 30px;
+}
+.nopain__content-wrapper .nopain-note{
+  color: #756B6E;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 150%;
+margin-top: 50px;
+}
+.no-pain-inner .nopain__content-ps{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: flex-end;
+}
+@media (max-width: 768px){
+  .nopain__content-wrapper h3{
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+  .nopain__content-wrapper .nopain-txt{
+    font-size: 11px;
+    max-width: 180px;
+  }
+  .nopain__content-wrapper .nopain-note{
+    font-size: 7px;
+  }
+  .no-pain-inner .nopain__content-ps{
+    align-items: flex-start;
+    max-width: 300px;
+  }
+  .nopain__content-wrapper img{
+    max-width: 105px;
+  }
+  .no-pain-img, .no-pain-img img {
+    min-height: auto;
+}
+}
+</style>
+ <section class="section-{{ section.id }}-padding">
+<div class="no-pain to-top">
+            <div class="no-pain-inner">
+              <picture class="no-pain-img">
+               {%- if section.settings.image_mobile -%}
+                <source media="(max-width: 767px)" srcset="{{ section.settings.image_mobile | image_url }}">
+                     {%- endif -%}
+                 {%- if section.settings.image -%}
+                <img src="{{ section.settings.image | image_url }}" alt="{{ section.settings.image.alt }}">
+                {%- endif -%}
+              </picture>
+             <div class="nopain__content-ps">
+              <div class="jp-container">
+                <div class="nopain__content-wrapper">
+                  <h3>{{ section.settings.tle }}</h3>
+                  <div class="nopain-txt">
+                 {{ section.settings.des }}
+                  </div>
+                 <picture class="">
+                     {%- if section.settings.mobile_image_small -%}
+                      <source media="(max-width: 767px)" srcset="{{ section.settings.mobile_image_small | image_url }}">
+                           {%- endif -%}
+                       {%- if section.settings.image_small -%}
+                      <img src="{{ section.settings.image_small | image_url }}" alt="{{ section.settings.image_small.alt }}">
+                      {%- endif -%}
+                    </picture>
+                  <div class="nopain-note">{{ section.settings.note }}</div>
+                </div>
+               </div>
+             </div>
+            </div>
+          </div> 
+  </section>
+<script>
+</script>
+{% schema %}
+{
+  "name": "no pain",
+  "class": "shopify-section--np-pain", 
+  "settings": [
+     {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        },
+     {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile Images"
+        },
+           {
+      "type": "text",
+      "id": "tle",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "des",
+      "label": "Descripte"
+    },
+     {
+          "type": "image_picker",
+          "id": "image_small",
+          "label": "Small Images"
+        },
+     {
+          "type": "image_picker",
+          "id": "mobile_image_small",
+          "label": "Mobile Small Images"
+        },
+         {
+      "type": "richtext",
+      "id": "note",
+      "label": "Note"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "rgba(0,0,0,0)"
+    },
+     {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_top.label",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_bottom.label",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Top",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Bottom",
+      "default": 10
+    }
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "no pain"
+    }
+  ]
+}
+{% endschema %}

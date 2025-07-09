@@ -1,0 +1,196 @@
+<style>
+
+#shopify-section-{{ section.id }} {
+    --text-color: {{  section.settings.text_color.red }}, {{  section.settings.text_color.green }}, {{  section.settings.text_color.blue }};
+    --section-background: {{ section.settings.background.red }}, {{ section.settings.background.green }}, {{ section.settings.background.blue }};
+    --color-border: 255, 255, 255;
+    /* background: rgb(var(--section-background, var(--background)));  */
+  }
+     .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px);
+  }
+  @media screen and (max-width: 768px){
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.mobile_padding_top }}px);
+    padding-bottom: calc({{ section.settings.mobile_padding_bottom }}px );
+  }
+}
+.shr-mode{
+}
+.shr-mode-inner{
+  display: flex;
+}
+.shrmode_content-wrapper{
+  width: 54%;
+  background: #F9F9F9;
+  display: flex;
+  align-items: center;
+  padding: 20px 75px;
+}
+.shrmode_img-wrapper{
+  flex: 1;
+}
+.shrmode_content-wrapper .shrmode-tle{
+  color: #000;
+font-size: 40px;
+font-style: normal;
+font-weight: 500;
+line-height: 130%; 
+margin-bottom: 24px;
+}
+.shrmode_content-wrapper .shrmode-txt{
+  color:  #3F3636;
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: 150%;
+margin-bottom: 24px;
+}
+.shrmode_content-wrapper .shrmode-note{
+  color: #919191;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 150%;
+}
+@media (max-width: 992px){
+  .shr-mode-inner {
+    flex-direction: column;
+}
+.shrmode_content-wrapper{
+  width: 100%;
+  padding: 42px 20px;
+}
+.shrmode_content-wrapper .shrmode-tle{
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+.shrmode_content-wrapper .shrmode-txt{
+  font-size: 12px;
+    margin-bottom: 16px;
+}
+.shrmode_content-wrapper .shrmode-note {
+font-size: 8px;
+}
+}
+</style>
+ <section class="section-{{ section.id }}-padding">
+ <div class="shr-mode to-top">
+              <div class="jp-container">
+                <div class="shr-mode-inner">
+                  <div class="shrmode_content-wrapper">
+                    <div class="shrmode_content-inner">
+                      <div class="shrmode-tle">{{ section.settings.tle }}</div>
+                      <div class="shrmode-txt">{{ section.settings.des }}</div>
+                      <div class="shrmode-note">{{ section.settings.note }}</div>
+                    </div>
+                  </div>
+                  <div class="shrmode_img-wrapper">
+                    <picture>
+                        {%- if section.settings.image_mobile -%}
+                  <source media="(max-width: 767px)" srcset="{{ section.settings.image_mobile | image_url }}">
+                  {%- endif -%}
+                   {%- if section.settings.image -%}
+                  <img src="{{ section.settings.image | image_url }}" alt="{{ section.settings.image.alt }}">
+                  {%- endif -%}
+                    </picture>
+                  </div>
+                </div>
+              </div>
+            </div>
+  </section>
+<script>
+</script>
+{% schema %}
+{
+  "name": "shr mode",
+  "class": "shopify-section--shr-mode", 
+  "settings": [
+     {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        },
+     {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile Images"
+        },
+           {
+      "type": "text",
+      "id": "tle",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "des",
+      "label": "Descripte"
+    },
+         {
+      "type": "richtext",
+      "id": "note",
+      "label": "Note"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "rgba(0,0,0,0)"
+    },
+     {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_top.label",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_bottom.label",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Top",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Bottom",
+      "default": 10
+    }
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "shr mode"
+    }
+  ]
+}
+{% endschema %}

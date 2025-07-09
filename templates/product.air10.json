@@ -5,6 +5,7 @@
       "blocks": {
         "vendor": {
           "type": "text",
+          "disabled": true,
           "settings": {
             "text": "{{ product.vendor }}",
             "text_size": "text-base"
@@ -60,6 +61,16 @@
         "collapsible_tab_Yh33GT": {
           "type": "collapsible_tab",
           "settings": {
+            "icon": "check_mark",
+            "heading": "プライバシーポリシーに同意してお支払いへ進む",
+            "content": "<p>ご購入ボタンをクリックいただくと、当社のプライバシーポリシーに同意されたものとみなされます。詳細は<a href=\"https:\/\/jp.ulike.com\/policies\/privacy-policy\" target=\"_blank\" title=\"https:\/\/jp.ulike.com\/policies\/privacy-policy\">こちら<\/a>をご確認ください。<\/p>",
+            "page": "",
+            "liquid": ""
+          }
+        },
+        "collapsible_tab_6KDej7": {
+          "type": "collapsible_tab",
+          "settings": {
             "icon": "truck",
             "heading": "全国送料無料：通常1-3日以内の配達。",
             "content": "<p>発送後のお届け先の変更、配送方法の変更はできません。<\/p>",
@@ -91,7 +102,7 @@
         "custom_text_aaiQQL": {
           "type": "custom_text",
           "settings": {
-            "text": "*1. 当社の家庭用光美容器内で。SHRモードによる出力。*2. トリートメントスケジュールに従って週3回使用した場合。効果には個人差及び部位差があります。*3. 痛みの感じ方には個人差があります。*4. 照射モードのひとつ。一回照射で、4回連続フラッシュするというIPL蓄熱式照射技術を指す。*5. 国際認証機関CVCにより、SHRモードで1秒に4回フラッシュする際の平均間隔を0.25sとした結果。*6. 一部使用できない箇所があります。取扱説明書をご確認ください。",
+            "text": "*1. トリートメントスケジュールに従って週3回使用した場合。効果には個人差及び部位差があります。*2. 痛みの感じ方には個人差があります。*3. 照射モードのひとつ。一回照射で、4回連続フラッシュするというIPL蓄熱式照射技術を指す。*4. 国際認証機関CVCにより、SHRモードで1秒に4回フラッシュする際の平均間隔を0.25sとした結果。*5. 一部使用できない箇所があります。取扱説明書をご確認ください。",
             "text_size": "text-3xs"
           }
         },
@@ -120,8 +131,29 @@
         },
         "ulike_giveaway_AQLP7E": {
           "type": "ulike_giveaway",
+          "disabled": true,
           "settings": {
-            "giveaway_image": "shopify:\/\/shop_images\/2_ccd949e1-53eb-400b-b5ab-84198f7ad09e_1.png"
+            "giveaway_image": "shopify:\/\/shop_images\/2_ccd949e1-53eb-400b-b5ab-84198f7ad09e_1.png",
+            "m_giveaway_image": "shopify:\/\/shop_images\/20250306-140034.jpg"
+          }
+        },
+        "payment_method_RGCKEy": {
+          "type": "payment_method",
+          "settings": {
+            "amex": true,
+            "diners": true,
+            "discover": true,
+            "family-mart": true,
+            "jcb": true,
+            "lawson": true,
+            "maestro": true,
+            "ministop": true,
+            "payeasy": true,
+            "paypal": true,
+            "visa": true,
+            "visa-electron": true,
+            "netbanking": true,
+            "mastercard": true
           }
         },
         "share": {
@@ -159,6 +191,7 @@
         "liquid_eMynGN",
         "buy_buttons",
         "collapsible_tab_Yh33GT",
+        "collapsible_tab_6KDej7",
         "collapsible_tab_i9YDmT",
         "collapsible_tab_GMeNDy",
         "custom_text_aaiQQL",
@@ -166,6 +199,7 @@
         "inventory",
         "pickup_availability",
         "ulike_giveaway_AQLP7E",
+        "payment_method_RGCKEy",
         "share",
         "complementary",
         "sticky_buy_button"

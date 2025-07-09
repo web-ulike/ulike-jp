@@ -1,0 +1,321 @@
+<style>
+.experts-new {
+  position: relative;
+  padding: 50px 0 40px 0;
+  background: #f6f6f6;
+  overflow: hidden;
+}
+.experts-new .experts-new-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 50px;
+}
+  
+.experts-new .experts-new-h3 {
+  color: #190a0a;
+  font-size: 50px;
+  line-height: 1.14;
+  font-family: var(--heading-font-family);
+  letter-spacing: -0.64px;
+  margin-bottom: 50px;
+  font-weight: normal;
+}
+
+.experts-new .experts-new-arraw {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.experts-new .experts-new-arraw-item {
+  width: 40px;
+  cursor: pointer;
+  outline: 0;
+}
+
+.experts-new .swiper-button-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.experts-new .experts-new-arraw-item svg {
+  display: block;
+  width: 100%;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.experts-new .experts-new-arraw-item:hover svg {
+  background: #fff;
+}
+
+.experts-new .experts-new-list {
+  display: flex;
+}
+
+.experts-new .experts-new-item {
+  width: calc(50% - 10px);
+  flex-shrink: 0;
+  background: #fff;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  height: auto;
+}
+
+.experts-new .experts-new-img {
+  width: 38.37%;
+}
+
+.experts-new .experts-new-img .img {
+  width: 100%;
+}
+
+.experts-new .experts-new-text {
+  flex: 1;
+  padding: 0 20px;
+}
+
+.experts-new .experts-new-text-top {
+  max-width: 290px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eeeded;
+}
+
+.experts-new .experts-new-msg {
+  color: #e0004d;
+  font-size: 16px;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.experts-new .experts-new-h4 {
+  color: #190a0a;
+  font-size: 24px;
+  line-height: 1.2;
+  font-family: var(--heading-font-family);
+}
+
+.experts-new .experts-new-p {
+  color: #756b6e;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-top: 30px;
+}
+
+.experts-new .experts-new-dot {
+  display: none;
+}
+
+@media (max-width: 1300px) {
+  .experts-new .experts-new-item {
+    padding: 20px;
+    min-width: 590px;
+  }
+  .experts-new .experts-new-text {
+    padding: 0;
+  }
+  .experts-new .experts-new-msg {
+    font-size: 14px;
+  }
+  .experts-new .experts-new-h4 {
+    font-size: 20px;
+  }
+  .experts-new .experts-new-text-top {
+    padding-bottom: 10px;
+  }
+  .experts-new .experts-new-p {
+    font-size: 14px;
+    margin-top: 15px;
+  }
+}
+
+@media (max-width: 991px) {
+  .experts-new {
+    padding: 50px 0 40px 0;
+  }
+  .experts-new .experts-new-h3 {
+    font-size: 28px;
+    line-height: 1.25;
+    margin-bottom: 30px;
+  }
+  .experts-new .experts-new-arraw {
+    display:none;
+  }
+}
+
+@media (max-width: 700px) {
+  .experts-new .experts-new-item {
+    min-width: auto;
+    flex-direction: column;
+    width: 320px;
+  }
+  .experts-new .experts-new-img {
+    width: 100%;
+  }
+  .experts-new .experts-new-msg {
+    font-size: 16px;
+  }
+  .experts-new .experts-new-h4 {
+    font-size: 24px;
+  }
+  .experts-new .experts-new-text-top {
+    padding-bottom: 16px;
+  }
+  .experts-new .experts-new-p {
+    font-size: 16px;
+    margin-top: 20px;
+  }
+  .experts-new .experts-new-dot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    /* gap: 10px; */
+  }
+  .experts-new .swiper-pagination-bullet {
+    background: #cdc6c7;
+    opacity: 1;
+  }
+  .experts-new .swiper-pagination-bullet-active {
+    background: #190a0a;
+  }
+  .experts-new .experts-new-list {
+    flex-direction: column;
+}
+}
+</style>
+<section class="section-box">
+   <div class="experts-new">
+    <div class="container">
+      <div class="experts-new-top">
+        {%- if section.settings.title != blank -%}
+          <h3 class="experts-new-h3">{{ section.settings.title }}</h3>
+        {%- endif -%}
+        {%- if section.blocks.size > 2 -%}
+          <div class="experts-new-arraw">
+            <div class="experts-new-arraw-item experts-new-arraw-left">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="41" viewBox="0 0 40 41" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M23.6003 33.9318L24.1054 34.4369L25.1155 33.4267L24.6104 32.9217L19.9992 28.3104L15.6526 23.9638C15.0947 23.406 14.1902 23.406 13.6323 23.9638L18.9891 29.3206L23.6003 33.9318ZM11.1003 20.4217C10.8213 20.7006 10.8213 21.1529 11.1003 21.4318C11.1942 21.5257 11.3078 21.588 11.4278 21.6187L11.4278 21.641L11.6038 21.641L11.6069 21.641L12.1421 21.641L19.4639 21.641L26.7857 21.641L28.5715 21.641C29.3605 21.641 30.0001 21.0014 30.0001 20.2125L26.7857 20.2125L13.3298 20.2125L24.6104 8.93182L25.1155 8.42674L24.1054 7.41659L23.6003 7.92166L11.1003 20.4217Z"
+                  fill="#190A0A" />
+                <circle cx="20" cy="20.8655" r="19.2857" stroke="#190A0A" stroke-width="1.42857" />
+              </svg>
+            </div>
+            <div class="experts-new-arraw-item experts-new-arraw-right">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="41" viewBox="0 0 40 41" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M16.3997 7.79914L15.8946 7.29407L14.8845 8.30422L15.3896 8.8093L20.0008 13.4205L24.3474 17.7671C24.9053 18.325 25.8098 18.325 26.3677 17.7671L21.011 12.4104L16.3997 7.79914ZM28.8997 21.3093C29.1787 21.0303 29.1787 20.5781 28.8997 20.2991C28.8058 20.2052 28.6922 20.1429 28.5722 20.1122V20.0899H28.3962H28.3931H27.8579H20.5361H13.2143H11.4285C10.6395 20.0899 9.99995 20.7295 9.99995 21.5185H13.2143H26.6702L15.3896 32.7991L14.8845 33.3042L15.8946 34.3144L16.3997 33.8093L28.8997 21.3093Z"
+                  fill="#190A0A" />
+                <circle cx="20" cy="20.8655" r="19.2857" stroke="#190A0A" stroke-width="1.42857" />
+              </svg>
+            </div>
+          </div>
+        {%- endif -%}  
+      </div>
+      <div class="experts-new-swiper">
+        <div class="experts-new-list swiper-wrapper">
+          {%- for block in section.blocks -%}
+            <div class="experts-new-item swiper-slide">
+              {%- if block.settings.image != blank -%}
+                <div class="experts-new-img">
+                  <img
+                    loading="lazy"
+                    class="img"
+                    width=""
+                    height=""
+                    {% render 'image-attributes', image: block.settings.image %}
+                    alt="{{ block.settings.image.alt | escape }}"
+                  >
+                </div>
+              {%- endif -%}
+              <div class="experts-new-text">
+                <div class="experts-new-text-top">
+                  <div class="experts-new-msg">{{ block.settings.text }}</div>
+                  <div class="experts-new-h4">{{ block.settings.text1 }}</div>
+                </div>
+                <div class="experts-new-p">
+                  {{ block.settings.text2 }}
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+    <div class="experts-new-dot"></div>
+  </div>
+</section>
+<script>
+  // window.addEventListener('load', function () {
+    let swiper{{ section.id | replace: "template--", "" | replace: "__", ""  }} = new Swiper(".experts-new-swiper", {
+      slidesPerView: "auto",
+      spaceBetween: 16,
+      pagination: {
+        el: ".experts-new-dot",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".experts-new-arraw-right",
+        prevEl: ".experts-new-arraw-left",
+      },
+      breakpoints: {
+        700: {
+          spaceBetween: 20
+        },
+      }
+    });
+  // });
+</script>
+{% schema %}
+{
+  "name": "experts-new",
+  "blocks": [
+    {
+      "name": "item",
+      "type": "item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "text",
+          "id": "text1",
+          "label": "Text"
+        },
+        {
+          "type": "textarea",
+          "id": "text2",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    }
+  ],
+  "presets": [
+    {
+      "name": "blog-author",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}
