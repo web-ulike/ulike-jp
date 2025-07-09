@@ -382,6 +382,17 @@
         document.querySelector('#u-user-popup').classList.add('hide-plug-diy');
       }
     });
+
+    /**
+    * GTM 增加GA事件
+    * @param {*} category 
+    * @param {*} operating 
+    * @param {*} label 
+    */
+    function commonGtmEvent(category, operating, label) {
+      dataLayer.push({ event: 'common', category, operating, label });
+    }
+
   </script>
   <style>
     .hide-plug-diy {
