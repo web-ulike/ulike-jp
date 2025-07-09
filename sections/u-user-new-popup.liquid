@@ -137,57 +137,6 @@
       });
   
       let errorTimeout; // 存储定时器
-      $(document).on('click', '.send-code-btn', function () {
-        let $this = $(this); // 缓存按钮对象
-        let timeLeft = 60; // 倒计时时间
-        let countdown; // 定时器变量
-        let emailError = '';
-        commonGtmEvent('vip_get code_all', 'click', '');
-        const isPolicyChecked = $('#policy-checkbox').is(':checked');
-        clearTimeout(errorTimeout);
-        if (!isPolicyChecked) {
-          // 请勾选同意服务条款
-          thatLogin.find('.login-msg-error').text('Bitte stimmen Sie unseren Datenschutzbestimmungen zu');
-          errorTimeout = setTimeout(function () {
-            thatLogin.find('.login-msg-error').text('');
-          }, 3000);
-         return;
-        }
-        if (validateEmailField()) {
-          $this.prop('disabled', true); // 禁用按钮
-          $this.text(`${timeLeft}s`);
-          // 倒计时逻辑
-          countdown = setInterval(() => {
-            if (timeLeft > 0) {
-              timeLeft--;
-              $this.text(`${timeLeft}s`);
-            } else {
-              clearInterval(countdown); // 清除定时器
-              $this.text('Get verification code'); // 恢复按钮文字
-              $this.prop('disabled', false); // 启用按钮
-            }
-          }, 1000);
-       
-          let userEmail= $('.j_popup_email').val().trim();
-          let codeForm = {
-            "since":"USER_LOGIN_WITH_EMAIL",
-            userEmail
-          }
-          sendUlikeApi('/user/sendCode', codeForm).then(function (res) {
-            if (res.code == 0){
-              commonGtmEvent('vip_get code', 'click', '');
-              thatLogin.find('.login-msg-error').html($(".notification_{{ se_id }}").html());
-              errorTimeout = setTimeout(function () {
-                thatLogin.find('.login-msg-error').html('');
-              }, 10000);
-            } else {
-              thatLogin.find('.login-msg-error').text(errorMessages.system_err);
-            }
-            commonGtmEvent('vip_发送验证码_接口返回', JSON.stringify(res), '');
-          });
-        }
-      });
-  
   
       let stepBtn = 1;
   
