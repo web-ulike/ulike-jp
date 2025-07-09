@@ -180,3 +180,60 @@ function addToCart(productId, button, properties，quantity =1) {
      console.error('Error adding product to cart:', error);
    });
 }
+
+function sendUlikeApi(url, data) {
+  // api.myulike.test  测试环境 手动打开一下
+  // api.ulike.com  正式环境
+  // 'https://api.myulike.com';  老接口
+  data.siteCode = 'US'; // Ensure the site code is set to 'UK' 
+  var _url = 'https://api.ulike.com' + url;
+  data.language = window.Shopify.locale;
+
+  data.requestId = generateGUID();
+  // Set up the AJAX settings
+  var settings = {
+    url: _url,
+    method: 'POST', // POST is used as the request method
+    headers: {
+      'Content-Type': 'application/json', // Request payload is in JSON format
+    },
+    data: JSON.stringify(data), // Convert data object to JSON string
+    xhrFields: {
+      withCredentials: true, // Allow cookies and credentials to be sent
+    },
+  };
+
+  // Return a new Promise
+  return new Promise((resolve, reject) => {
+    $.ajax(settings)
+      .done(function (response) {
+        resolve(response); // Resolve the promise with the response
+      })
+      .fail(function (error) {
+        console.error('Error during API call:', error); // Log the error
+        reject(error); // Reject the promise with the error
+      });
+  });
+}
+
+function generateGUID() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return (
+    s4() +
+    s4() +
+    '-' +
+    s4() +
+    '-' +
+    s4() +
+    '-' +
+    s4() +
+    '-' +
+    s4() +
+    s4() +
+    s4()
+  );
+}
