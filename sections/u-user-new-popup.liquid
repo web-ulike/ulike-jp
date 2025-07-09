@@ -201,11 +201,11 @@
                     // 检查响应消息是否存在于 messages 对象中
                     if(messages[res.message]) {
                     // 更新订阅成功消息元素的文本内容为对应的提示信息
-                    $('.box-subscribe-section .box-msg .success').text(messages[res.message]);
+                   thatLogin.find('.login-msg-error').text(messages[res.message]);
                     }
                     $('.box-subscribe-section .box-msg').fadeIn().delay(6000).fadeOut();
                 } else {
-                    $('.box-subscribe-section .box-msg .success').text('{{ 'general.page.system_err' | t }}');
+                   thatLogin.find('.login-msg-error').text('xxx');
                     $('.box-subscribe-section .box-msg').fadeIn().delay(6000).fadeOut();
                 }
               that.prop("disabled", false).attr("aria-busy", false);
