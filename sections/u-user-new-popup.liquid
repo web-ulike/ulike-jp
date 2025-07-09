@@ -220,33 +220,10 @@
         if (stepBtn === 1 && isEmailValid){
           commonGtmEvent('vip_subscribe', 'click', '');
           // 显示code code框
-          $('#login-form .form-group').hide();
-          $('#u-user-popup .policy-agreement').hide();
-          $('#u-user-popup .social-login').hide();
-          $('#login-form .verification-group').show();
-          $('#u-user-popup .send-code-btn').click();
-          stepBtn = 2;
           $(this).text('Vorteile erhalten');
-        } else if(stepBtn === 2) {
-          const isCodeValid = validateCodeField();
-          if (isEmailValid && isCodeValid) {
-            sendUlikeApi('/user/login', data).then(function (res) {
-              if (res.code === 0) {
-                commonGtmEvent('vip_register', 'click', '');
-                {% comment %}  {% endcomment %}
-                thatLogin.find('.login-msg-error').html('<p class="notification-text">Du bist aktuell Ulike-Mitglied. geht es zum Personal Center, um Deine Vorteile zu überprüfen.</p>');
-                setTimeout(function () {
-                  window.location.href = res.data.loginUrl;
-                }, 3000);
-              } else if (res.code === 99998){
-                thatLogin.find('.login-msg-error').text('Der eingegebene Code ist ungültig!');
-              } else {
-                thatLogin.find('.login-msg-error').text(errorMessages.system_err);
-              }
-            });
-          }
+          console.log('stepBtn', stepBtn);
         }
-  
+
   
       });
   
