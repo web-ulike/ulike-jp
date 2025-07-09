@@ -186,6 +186,8 @@ function sendUlikeApi(url, data) {
   // api.ulike.com  正式环境
   // 'https://api.myulike.com';  老接口
   data.siteCode = 'JP'; // Ensure the site code is set to 'UK' 
+  data.merchantCode = "ULIKE"; // Ensure the merchant code is set to 'ULIKE'
+  
   var _url = 'https://api.ulike.com' + url;
   data.language = window.Shopify.locale;
 
