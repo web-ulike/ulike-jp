@@ -392,6 +392,17 @@
     function commonGtmEvent(category, operating, label) {
       dataLayer.push({ event: 'common', category, operating, label });
     }
+    /**
+        * 验证邮箱格式是否正确
+        * @param {string} email - 待验证的邮箱地址
+        * @returns {boolean} - 返回true表示邮箱格式正确，返回false表示邮箱格式错误
+        */
+    function validateEmail(email) {
+        // 邮箱正则表达式
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        // 使用正则表达式测试邮箱格式是否正确
+        return emailRegex.test(email);
+    }
 
   </script>
   <style>
