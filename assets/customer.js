@@ -185,7 +185,7 @@ function sendUlikeApi(url, data) {
   // api.myulike.test  测试环境 手动打开一下
   // api.ulike.com  正式环境
   // 'https://api.myulike.com';  老接口
-  data.siteCode = 'US'; // Ensure the site code is set to 'UK' 
+  data.siteCode = 'JP'; // Ensure the site code is set to 'UK' 
   var _url = 'https://api.ulike.com' + url;
   data.language = window.Shopify.locale;
 
