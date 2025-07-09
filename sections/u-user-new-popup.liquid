@@ -171,35 +171,35 @@
           // 显示code code框
           $(this).text('Vorteile erhalten');
           console.log('stepBtn', stepBtn);
-                  sendUlikeApi('/user/userSubscribe', data).then(function (res) {
-          if(res.code == 0){
-            //  清空文本框信息
-            $('.box-subscribe-section .j_input_email').val('');
-            $('.box-subscribe-section .phone-input').val(''); 
-            // 显示成功信息;
-            $('.box-subscribe-section .box-msg .success').text("You've successfully subscribed.")
-            $('.box-subscribe-section .box-msg').fadeIn().delay(6000).fadeOut();
-          
-          } else if(res.code == 99998){
-            // 定义一个常量对象，用于存储订阅成功的消息
-            const messages = {
-              'user_subscribe_email_repeat': 'This email is already subscribed. Please use a different email.',
-              'user_subscribe_phone_repeat': 'This phone number is already subscribed. Please use a different phone number.'
-            };
-            // 检查响应消息是否存在于 messages 对象中
-            if(messages[res.message]) {
-              // 更新订阅成功消息元素的文本内容为对应的提示信息
-              $('.box-subscribe-section .box-msg .success').text(messages[res.message]);
+          sendUlikeApi('/user/userSubscribe', data).then(function (res) {
+            if(res.code == 0){
+                //  清空文本框信息
+                $('.box-subscribe-section .j_input_email').val('');
+                $('.box-subscribe-section .phone-input').val(''); 
+                // 显示成功信息;
+                $('.box-subscribe-section .box-msg .success').text("You've successfully subscribed.")
+                $('.box-subscribe-section .box-msg').fadeIn().delay(6000).fadeOut();
+            
+            } else if(res.code == 99998){
+                // 定义一个常量对象，用于存储订阅成功的消息
+                const messages = {
+                'user_subscribe_email_repeat': 'This email is already subscribed. Please use a different email.',
+                'user_subscribe_phone_repeat': 'This phone number is already subscribed. Please use a different phone number.'
+                };
+                // 检查响应消息是否存在于 messages 对象中
+                if(messages[res.message]) {
+                // 更新订阅成功消息元素的文本内容为对应的提示信息
+                $('.box-subscribe-section .box-msg .success').text(messages[res.message]);
+                }
+                $('.box-subscribe-section .box-msg').fadeIn().delay(6000).fadeOut();
+            } else {
+                $('.box-subscribe-section .box-msg .success').text('{{ 'general.page.system_err' | t }}');
+                $('.box-subscribe-section .box-msg').fadeIn().delay(6000).fadeOut();
             }
-            $('.box-subscribe-section .box-msg').fadeIn().delay(6000).fadeOut();
-          } else {
-            $('.box-subscribe-section .box-msg .success').text('{{ 'general.page.system_err' | t }}');
-            $('.box-subscribe-section .box-msg').fadeIn().delay(6000).fadeOut();
-          }
           that.prop("disabled", false).attr("aria-busy", false);
         });
 
-        
+
         }
 
   
