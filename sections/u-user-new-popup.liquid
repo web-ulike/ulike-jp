@@ -205,8 +205,8 @@
                     }
                     thatLogin.find('.login-msg-error').fadeIn().delay(6000).fadeOut();
                 } else {
-                   thatLogin.find('.login-msg-error').text('xxx');
-                    $('.box-subscribe-section .box-msg').fadeIn().delay(6000).fadeOut();
+                   thatLogin.find('.login-msg-error').text(res.message);
+                   thatLogin.find('.login-msg-error').fadeIn().delay(6000).fadeOut();
                 }
               that.prop("disabled", false).attr("aria-busy", false);
             });
