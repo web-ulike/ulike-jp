@@ -203,7 +203,7 @@
                     // 更新订阅成功消息元素的文本内容为对应的提示信息
                    thatLogin.find('.login-msg-error').text(messages[res.message]);
                     }
-                    $('.box-subscribe-section .box-msg').fadeIn().delay(6000).fadeOut();
+                    thatLogin.find('.login-msg-error').fadeIn().delay(6000).fadeOut();
                 } else {
                    thatLogin.find('.login-msg-error').text('xxx');
                     $('.box-subscribe-section .box-msg').fadeIn().delay(6000).fadeOut();
