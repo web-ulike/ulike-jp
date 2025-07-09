@@ -599,14 +599,16 @@
               {%- if block.settings.giveaway_image -%}
                 <div class="ulike-giveaway">
                   <picture>
-                    {{-
-                      block.settings.giveaway_image
-                      | image_url: width: block.settings.giveaway_image.width
-                      | image_tag:
-                        loading: 'eager',
-                        sizes: '100vw',
-                        widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200'
-                    -}}
+                    {%- if block.settings.m_giveaway_image -%}
+                      <source 
+                        media="(max-width: 768px)" 
+                        srcset="{{ block.settings.m_giveaway_image | image_url: width: 400 }}">
+                    {%- endif -%}
+                    <img 
+                      loading="lazy" 
+                      class="image 11" 
+                      alt="{{ block.settings.giveaway_image.alt | escape }}" 
+                      src="{{ block.settings.giveaway_image | image_url: width: 800 }}">
                   </picture>
                 </div>
               {%- endif -%}
@@ -2048,6 +2050,11 @@
           "type": "image_picker",
           "id": "giveaway_image",
           "label": "赠品图片"
+        },
+        {
+          "type": "image_picker",
+          "id": "m_giveaway_image",
+          "label": "移动端-图片"
         }
       ]
     }
