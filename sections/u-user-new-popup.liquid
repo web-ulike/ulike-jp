@@ -307,24 +307,6 @@
         }
       });
   
-      // 监听社交登录中的图片点击事件
-      $(thatLogin).on("click", ".social-login img", function () {
-        // 获取社交平台类型
-        let type = $(this).data('name');
-        if (type == 'google'){
-          commonGtmEvent('vip_google', type, '');
-        } else {
-          commonGtmEvent('vip_amaz', type, '');
-        }
-        // 设置站点代码
-        let site = 'DE';
-        // 构造OAuth2授权URL
-        const iframeUrl = `https://api.ulike.com/user/oauth2/authorization/${type}?siteCode=${site}&returnUrl=${returnUrl}`;
-        // 重定向到授权页面
-        location.href = iframeUrl;
-      });
-  
-  
       $(document).on("click", "#floating-box", function () {
         commonGtmEvent('vip_Teaser', 'click', '');
         $('#u-user-popup').show();
