@@ -188,11 +188,8 @@
               console.log('stepBtn', stepBtn);
               sendUlikeApi('/user/userSubscribe', data).then(function (res) {
                 if(res.code == 0){
-                    //  清空文本框信息
-                    $('.box-subscribe-section .j_input_email').val('');
-                    $('.box-subscribe-section .phone-input').val('');
                     // 显示成功信息;
-                    $('.box-subscribe-section .box-msg .success').text("You've successfully subscribed.")
+                    thatLogin.find('.login-msg-error').text('Bitte stimmen Sie unseren Datenschutzbestimmungen zu');.text("You've successfully subscribed.")
                     $('.box-subscribe-section .box-msg').fadeIn().delay(6000).fadeOut();
 
                 } else if(res.code == 99998){
