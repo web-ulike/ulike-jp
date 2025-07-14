@@ -167,7 +167,7 @@
 
             data.userEmail = thatLogin.find('.j_popup_email').val().replace(/\s+/g, '').trim();
             thatLogin.find('.j_popup_email').val(data.userEmail);
-            data.verifyCode = thatLogin.find('.verification-code').val().trim();
+            {% comment %} data.verifyCode = thatLogin.find('.verification-code').val().trim(); {% endcomment %}
 
             const isEmailValid = validateEmailField();
 
