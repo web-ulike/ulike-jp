@@ -188,7 +188,10 @@
                     // 显示成功信息;
                     thatLogin.find('.login-msg-error').html(`登録が完了しました！<br/>【限定クーポン】: xxxxx <br/>
                       ※こちらのクーポンコードは登録完了メールでもご確認いただけます。`)
-                    thatLogin.find('.login-msg-error').fadeIn().delay(10000).fadeOut();
+                    thatLogin.find('.login-msg-error').fadeIn();
+                    setTimeout(function () {
+                      thatLogin.fadeOut();
+                    }, 10000);
                 } else if(res.code == 99998){
                     // 定义一个常量对象，用于存储订阅成功的消息
                     const messages = {
