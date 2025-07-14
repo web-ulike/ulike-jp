@@ -195,8 +195,7 @@
                 } else if(res.code == 99998){
                     // 定义一个常量对象，用于存储订阅成功的消息
                     const messages = {
-                    'user_subscribe_email_repeat': 'This email is already subscribed. Please use a different email.',
-                    'user_subscribe_phone_repeat': 'This phone number is already subscribed. Please use a different phone number.'
+                    'user_subscribe_email_repeat': 'このメールアドレスは既に登録されています。別のメールアドレスをご利用ください。'
                     };
                     // 检查响应消息是否存在于 messages 对象中
                     if(messages[res.message]) {
