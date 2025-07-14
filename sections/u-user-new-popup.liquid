@@ -183,8 +183,6 @@
             if (stepBtn === 1 && isEmailValid){
               commonGtmEvent('vip_subscribe', 'click', '');
               // 显示code code框
-              $(this).text('Vorteile erhalten');
-              console.log('stepBtn', stepBtn);
               sendUlikeApi('/user/userSubscribe', data).then(function (res) {
                 if(res.code == 0){
                     // 显示成功信息;
