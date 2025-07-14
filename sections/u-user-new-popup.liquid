@@ -1,6 +1,5 @@
 {%- liquid
   assign se_id = section.id
-  assign se_bks = section.blocks
   assign se_stts = section.settings
 -%}
 
@@ -186,7 +185,7 @@
               sendUlikeApi('/user/userSubscribe', data).then(function (res) {
                 if(res.code == 0){
                     // 显示成功信息;
-                    thatLogin.find('.login-msg-error').html(`登録が完了しました！<br/>【限定クーポン】: xxxxx <br/>
+                    thatLogin.find('.login-msg-error').html(`登録が完了しました！<br/>【限定クーポン】: hello1000 <br/>
                       ※こちらのクーポンコードは登録完了メールでもご確認いただけます。`)
                     thatLogin.find('.login-msg-error').fadeIn();
                     setTimeout(function () {
@@ -379,7 +378,10 @@
         * @param {*} label
         */
         function commonGtmEvent(category, operating, label) {
-          dataLayer.push({ event: 'common', category, operating, label });
+          gtag('event', category, {
+            operating: operating,
+            label: label
+          });
         }
         /**
             * 验证邮箱格式是否正确
@@ -917,6 +919,7 @@
     }
   </style>
 {% endif %}
+
 {% schema %}
 {
   "name": "u-user-popup",
