@@ -207,7 +207,7 @@
                    thatLogin.find('.login-msg-error').text(res.message);
                    thatLogin.find('.login-msg-error').fadeIn().delay(6000).fadeOut();
                 }
-              that.prop("disabled", false).attr("aria-busy", false);
+              {% comment %} that.prop("disabled", false).attr("aria-busy", false); {% endcomment %}
             });
 
 
