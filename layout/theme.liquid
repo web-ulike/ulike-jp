@@ -121,7 +121,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <li id="a11y-refresh-page-message">{{ 'general.accessibility.refresh_page' | t }}</li>
     <li id="a11y-new-window-message">{{ 'general.accessibility.link_messages.new_window' | t }}</li>
   </ul>
-   {% render 'pin-to-top' %}
+   {% comment %} {% render 'pin-to-top' %} {% endcomment %}
    {% comment %} {% section 'pin-active-icon' %} {% endcomment %}
     {% section 'u-user-new-popup' %}
 </body>
