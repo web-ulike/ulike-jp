@@ -85,6 +85,9 @@ line-height: 150%;
   margin-top: 23px;
   max-width: 590px;
 }
+  .preheat-modes .preheat-modes-item-text p{
+    margin:0;
+  }
   .full_container{
     --container-gutter: 40px;
     width: 100%;
@@ -198,7 +201,7 @@ line-height: 150%;
               {%- endif -%}
             </div>
             <div class="preheat-modes-item-title line-top">{{ block.settings.text }}</div>
-            <div class="preheat-modes-item-text line-top">{{ block.settings.text1 }}</div>
+            <div class="preheat-modes-item-text to-top">{{ block.settings.text1 }}</div>
           </div>
         {%- endfor -%}
       </div>
@@ -318,7 +321,7 @@ line-height: 150%;
             "label": "Text"
           },
           {
-            "type": "text",
+            "type": "richtext",
             "id": "text1",
             "label": "Text"
           }

@@ -14,34 +14,36 @@
         "rounded": false
       }
     },
-    "image-with-text-overlay": {
-      "type": "image-with-text-overlay",
+    "custom_banner_QhreX3": {
+      "type": "custom__banner",
+      "name": "Custom Banner",
       "settings": {
-        "transparent_header": false,
-        "image": "shopify:\/\/shop_images\/22_0c424731-8ab9-41cb-8cb5-dc42b9cd26d7.jpg",
-        "image_height": "adapt",
-        "content_width": "large",
-        "content_position": "md:items-end md:justify-start",
-        "text_alignment": "left",
-        "image_mobile": "shopify:\/\/shop_images\/00.jpg",
-        "image_height_mobile": "adapt",
-        "content_position_mobile": "items-end justify-start",
-        "text_alignment_mobile": "left",
-        "color_text": "#ffffff",
-        "color_highlight": "#e0a580",
-        "gradient_highlight": "",
-        "color_button_text": "#171717",
-        "color_button_background": "#ffffff",
-        "color_button_gradient": "",
-        "color_overlay": "#000000",
-        "overlay_opacity": 50,
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "divider": false,
         "full_width": true,
-        "rounded": false,
-        "enable_parallax": false,
-        "parallax_direction": "vertical"
+        "logo_image_tag": "shopify:\/\/shop_images\/KV_txt.png",
+        "mobile_logo_image_tag": "shopify:\/\/shop_images\/KV_txt_M.svg",
+        "image": "shopify:\/\/shop_images\/about_banner.jpg",
+        "image_mobile": "shopify:\/\/shop_images\/mobile_about_banner.jpg",
+        "tle": "",
+        "tle_size": 55,
+        "mobile_tle_size": 30,
+        "sub_tle": "<p>心地よく、美しく。光美容器のエキスパート。<\/p>",
+        "sub_tle_left": 0,
+        "mobile_sub_tle_left": 0,
+        "content_bottom": 0,
+        "mobile_content_bottom": 0,
+        "sub_tle1": "",
+        "logo_image1": "shopify:\/\/shop_images\/No.1_01ea8449-6a6b-43e6-bfc3-01854860fc7a.png",
+        "mobile_logo_image1": "shopify:\/\/shop_images\/mbNo.1.png",
+        "logo_image2": "shopify:\/\/shop_images\/700.png",
+        "mobile_logo_image2": "shopify:\/\/shop_images\/mb700.png",
+        "note_full_width": false,
+        "note": "<p>*世界No.1光美容器ブランド(2023年) フロスト＆サリバン調べ；2023年世界の光美容器の小売販売台数から算出。2024年10月に実施された調査に基づく。光美容器とは、レーザーやIPLといった技術を利用して無駄毛を処理する美容機器を指す。<\/p>",
+        "button_txt": "",
+        "link_url": "",
+        "text_position": "middle_left",
+        "mobile_text_position": "top_center",
+        "text_color": "#000000",
+        "background": "rgba(0,0,0,0)"
       }
     },
     "rich_text_HRUzKU": {
@@ -526,11 +528,18 @@
         "narrow": false,
         "rounded": false
       }
+    },
+    "css_module_B7Gcy6": {
+      "type": "css-module",
+      "name": "css-module",
+      "settings": {
+        "html_cont": "<style>\n.kv_box .w_full img {\n    min-height: 703px;\n}\n.kv_txt{\nfont-size: 23px;\n}\n@media screen and (max-width: 740px) {\n.kv_box .w_full img {\n    min-height: auto;;\n}\n.kv_txt{\nfont-size: 14px;\n}\n}\n@media screen and (min-width: 1000px) {\n    .content-box--medium {\n        width: 550px;\n    }\n}\n<\/style>"
+      }
     }
   },
   "order": [
     "main",
-    "image-with-text-overlay",
+    "custom_banner_QhreX3",
     "rich_text_HRUzKU",
     "multicolumn_M8bPgR",
     "video_NUwKkL",
@@ -541,6 +550,7 @@
     "image_with_text_overlay_EYLa6A",
     "rich_text_jhYEAJ",
     "image_with_text_overlay_qUx4Kg",
-    "rich_text_UA68nL"
+    "rich_text_UA68nL",
+    "css_module_B7Gcy6"
   ]
 }

@@ -51,6 +51,21 @@
  .custom_banner .slideshow__text-wrapper{
    margin-bottom:var(--content-bottom);
  }
+  .kv_note-inner {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    color: #646464;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    width: 100%;
+    padding-bottom:45px;
+}
+  .kv_note-txt{
+    max-width:574px;
+  }
 @media screen and (max-width: 740px) {
   .mobile-content-box--left {
     margin-inline-end: 0;
@@ -69,6 +84,9 @@
    .custom_banner .slideshow__text-wrapper{
    margin-bottom:var(--mobile-content-bottom);
  }
+    .kv_note-inner {
+    padding-bottom:25px;
+}
 }
 
 @media screen and (min-width: 741px) {
@@ -217,6 +235,15 @@
   .top_bix .logo_image_tag{
     width: revert-layer;
   }
+  .logo__images-inner{
+        display: flex;
+    align-items: center;
+    gap: 53px;
+    margin-top:34px;
+  }
+  .logo__images-inner img{
+    width:revert-layer;
+  }
   @media (max-width: 768px) {
      .kv_content {
       align-items: var(--mobile-section-blocks-alignment);
@@ -256,6 +283,10 @@
 .top_bix .logo_image_tag {
     margin: 0 auto;
 }
+      .logo__images-inner{
+    gap: 25px;
+    margin-top:16px;
+  }
   }
   /* kv css end*/
 </style>
@@ -313,6 +344,30 @@
              {%- if section.settings.sub_tle1 != blank -%}
               <div class="kv_txt kv_txt1 to-top" style="transition-delay: 0.3s;">{{ section.settings.sub_tle1 }}</div>
             {%- endif -%}
+
+            {%- if section.settings.logo_image1 -%}
+            <div class="logo__images-inner to-top" style="transition-delay: 0.4s;">
+             <picture class="logo__images-pic">
+                 {%- if section.settings.mobile_logo_image1 -%}
+                  <source media="(max-width: 767px)" srcset="{{ section.settings.mobile_logo_image1 | image_url }}" width="{{  section.settings.mobile_logo_image1.width  | divided_by: 2  }}" height="{{  section.settings.mobile_logo_image1.height  | divided_by: 2  }}">
+                       {%- endif -%}
+                   {%- if section.settings.logo_image1 -%}
+                  <img src="{{ section.settings.logo_image1 | image_url }}" alt="{{ section.settings.logo_image1.alt }}" width="{{  section.settings.logo_image1.width  | divided_by: 2  }}" height="{{  section.settings.logo_image1.height  | divided_by: 2  }}">
+                  {%- endif -%}
+                </picture>
+              {%- if section.settings.logo_image2 -%}
+                <picture class="logo__images-pic">
+                 {%- if section.settings.mobile_logo_image2 -%}
+                  <source media="(max-width: 767px)" srcset="{{ section.settings.mobile_logo_image2 | image_url }}" width="{{  section.settings.mobile_logo_image2.width  | divided_by: 2  }}" height="{{  section.settings.mobile_logo_image2.height  | divided_by: 2  }}">
+                       {%- endif -%}
+                   {%- if section.settings.logo_image2 -%}
+                  <img src="{{ section.settings.logo_image2 | image_url }}" alt="{{ section.settings.logo_image2.alt }}" width="{{  section.settings.logo_image2.width  | divided_by: 2  }}" height="{{  section.settings.logo_image2.height  | divided_by: 2  }}">
+                  {%- endif -%}
+                </picture>
+               {%- endif -%}
+            </div>
+             {%- endif -%}
+          
           </div>
           <picture>
             {%- if section.settings.logo_image -%}
@@ -397,9 +452,24 @@
             </picture>
           </div>
           {%- if section.settings.note != blank -%}
+            
+            {%- if section.settings.note_full_width -%}
             <div class="kv_note to-top" style="transition-delay: 0.4s;">
               {{ section.settings.note }}
             </div>
+              {%- else -%}
+
+              <div class="kv_note-inner to-top" style="transition-delay: 0.4s;">
+                <div class="kv_container">
+                  <div class="kv_note-txt">{{ section.settings.note }}</div>
+                </div>
+              
+              </div>
+                
+              {%- endif -%}
+
+
+                
           {%- endif -%}
         </div>
     </div>
@@ -531,6 +601,38 @@
       "type": "richtext",
       "id": "sub_tle1",
       "label": "Sub Title1"
+    },
+
+
+ {
+          "type": "image_picker",
+          "id": "logo_image1",
+          "label": "logo image1"
+        },
+     {
+          "type": "image_picker",
+          "id": "mobile_logo_image1",
+          "label": "Mobile logo image1"
+        },
+
+     {
+          "type": "image_picker",
+          "id": "logo_image2",
+          "label": "logo image2"
+        },
+     {
+          "type": "image_picker",
+          "id": "mobile_logo_image2",
+          "label": "Mobile logo image2"
+        },
+    
+
+
+      {
+      "type": "checkbox",
+      "id": "note_full_width",
+      "label": "Note Full Width",
+      "default": true
     },
      {
       "type": "richtext",
