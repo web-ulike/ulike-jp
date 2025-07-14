@@ -160,10 +160,9 @@
             let $this = $(this); // 缓存按钮对象
             commonGtmEvent('vip_subscribe_all', 'click', '');
             let data = {
-              "since": "USER_SUBSCRIBE",
               "userEmail": '',
-              "verifyCode": "",
-              "returnUrl": returnUrl
+              since: "USER_SUBSCRIBE",
+              tags: ['pop_up_subscribe']
             };
 
             data.userEmail = thatLogin.find('.j_popup_email').val().replace(/\s+/g, '').trim();
