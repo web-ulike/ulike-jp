@@ -1,0 +1,359 @@
+<style>
+
+#shopify-section-{{ section.id }} {
+    --text-color: {{  section.settings.text_color.red }}, {{  section.settings.text_color.green }}, {{  section.settings.text_color.blue }};
+    --section-background: {{ section.settings.background.red }}, {{ section.settings.background.green }}, {{ section.settings.background.blue }};
+    --color-border: 255, 255, 255;
+    /* background: rgb(var(--section-background, var(--background)));  */
+  }
+     .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px);
+  }
+  @media screen and (max-width: 768px){
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.mobile_padding_top }}px);
+    padding-bottom: calc({{ section.settings.mobile_padding_bottom }}px );
+  }
+}
+.three-tech-inner{
+  position: relative;
+}
+.threetech__line-wrapper{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.threetech_line-cnt{
+  position: absolute;
+  width: 20%;
+  top: 50%;
+  left: 50%;
+}
+
+.ripple-wrapper {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    top: var(--ripple-top);
+    right: var(--ripple-right);
+}
+.dot {
+      display: block !important;
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+}
+.ripple {
+      display: block !important;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: white;
+    opacity: 0.6;
+    animation: rippleEffect 2s linear infinite;
+}
+.ripple.delay {
+    animation-delay: 1s;
+}
+@keyframes rippleEffect {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+}
+100% {
+    transform: scale(5);
+    opacity: 0;
+}
+}
+.threetech-tle-txt .threetech-line-tle{
+  color:  #3F3636;
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: 150%; /* 24px */
+margin-bottom: 20px;
+}
+.threetech-tle-txt .threetech-line-txt{
+color:  #3F3636;
+font-size: 14px;
+font-style: normal;
+font-weight: 300;
+line-height: 150%;
+padding-bottom: 15px;
+max-width: 325px;
+}
+.threetech_line-cnt.threetech_line-cnt1{
+    left: 22%;
+    width: 24%;
+    top: 29%;
+}
+.threetech-line-box svg{
+  width: 100%;
+}
+.threetech_line-cnt.threetech_line-cnt2{
+left: 4%;
+    width: 30%;
+    top: 49%;
+}
+.threetech_line-cnt.threetech_line-cnt3{
+left: 61%;
+    width: 29%;
+    top: 56%;
+      display: flex;
+    flex-direction: column-reverse;
+}
+.threetech_line-cnt.threetech_line-cnt3 .threetech-tle-txt{
+  margin-left: auto;
+  max-width: 260px;
+  padding-top: 15px;
+}
+
+
+
+.threetech_line-cnt.threetech_line-cnt1 .ripple-wrapper{
+          --ripple-top: 95%;
+    --ripple-right: -2%;
+}
+
+.threetech_line-cnt.threetech_line-cnt2 .ripple-wrapper{
+          --ripple-top: 97%;
+    --ripple-right: -2%;
+}
+.threetech_line-cnt.threetech_line-cnt3 .ripple-wrapper{
+      --ripple-top: -2%;
+    --ripple-right: 99%;
+}
+
+
+  
+@media (max-width: 992px){
+.threetech-tle-txt .threetech-line-tle{
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+.threetech-tle-txt .threetech-line-txt{
+  font-size: 12px;
+}
+.threetech_line-cnt.threetech_line-cnt1{
+    left: 49%;
+    width: 22%;
+    top: -5%;
+    --ripple-top: -12%;
+    --ripple-right: 137%;
+}
+.threetech_line-cnt.threetech_line-cnt1{
+        left: 50%;
+        width: 43%;
+        top: -47vw;
+}
+.threetech_line-cnt.threetech_line-cnt1 .ripple-wrapper{
+        --ripple-top: 98%;
+        --ripple-right: 96%;
+}
+.threetech_line-cnt.threetech_line-cnt2{
+        left: 5%;
+        width: 42%;
+        top: -36%;
+}
+.three-tech{
+  padding: 58% 0 17%;
+}
+.threetech_line-cnt.threetech_line-cnt2 .ripple-wrapper{
+        --ripple-top: 98%;
+        --ripple-right: 96%;
+}
+.threetech_line-cnt.threetech_line-cnt3{
+left: 27%;
+        width: 65%;
+        top: 63%;
+}
+.threetech_line-cnt.threetech_line-cnt3 .ripple-wrapper{
+        --ripple-top: -1%;
+        --ripple-right: 98%;
+}
+}
+</style>
+ <section class="section-{{ section.id }}-padding">
+<div class="three-tech to-top">
+            <div class="jp-container">
+              <div class="three-tech-inner">
+                <picture>
+                  {%- if section.settings.image_mobile -%}
+                  <source media="(max-width: 767px)" srcset="{{ section.settings.image_mobile | image_url }}">
+                  {%- endif -%}
+                   {%- if section.settings.image -%}
+                  <img src="{{ section.settings.image | image_url }}" alt="{{ section.settings.image.alt }}">
+                  {%- endif -%}
+                </picture>
+                <div class="threetech__line-wrapper">
+                  
+                  {%- for block in section.blocks -%}
+                  <div class="threetech_line-cnt threetech_line-cnt{{ forloop.index }}">
+                    <div class="threetech-tle-txt">
+                      <div class="threetech-line-tle">{{ block.settings.tle }}</div>
+                      <div class="threetech-line-txt">{{ block.settings.des }}</div>
+                    </div>
+                    <div class="threetech-line-box">
+                       <picture>
+                         {%- if block.settings.image_mobile -%}
+                            <source media="(max-width: 767px)" srcset="{{ block.settings.image_mobile | image_url }}">
+                                 {%- endif -%}
+                             {%- if block.settings.image -%}
+                            <img src="{{ block.settings.image | image_url }}" alt="{{ block.settings.image.alt }}">
+                            {%- endif -%}
+                       </picture>
+                      <div class="ripple-wrapper" style="">
+                      <div class="dot"></div>
+                      <div class="ripple"></div>
+                      <div class="ripple delay"></div>
+                    </div>
+                    </div>
+                  </div>
+                 {%- endfor -%}
+
+                </div>
+              </div>
+            </div>
+            </div>
+  </section>
+<script>
+</script>
+{% schema %}
+{
+  "name": "three tech",
+  "class": "shopify-section--three-tech", 
+  "settings": [
+     {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        },
+     {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile Images"
+        },
+           {
+      "type": "text",
+      "id": "tle",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "des",
+      "label": "Descripte"
+    },
+     {
+          "type": "image_picker",
+          "id": "image_small",
+          "label": "Small Images"
+        },
+     {
+          "type": "image_picker",
+          "id": "mobile_image_small",
+          "label": "Mobile Small Images"
+        },
+         {
+      "type": "richtext",
+      "id": "note",
+      "label": "Note"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "rgba(0,0,0,0)"
+    },
+     {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_top.label",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_bottom.label",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Top",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Bottom",
+      "default": 10
+    }
+  ],
+  "blocks": [
+     {
+        "type": "item",
+        "name": "item",
+        "settings": [
+           {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        },
+     {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile Images"
+        },
+               {
+      "type": "text",
+      "id": "tle",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "des",
+      "label": "Descripte"
+    }
+        ]
+      }
+  ],
+  "presets": [
+    {
+      "name": "three tech"
+    }
+  ]
+}
+{% endschema %}

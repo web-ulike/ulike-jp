@@ -10,6 +10,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+          margin-bottom: 13%;
+          margin-left: 50px;
+          pointer-events: none
     }
 
     .slide-diy .slide-diy-title {
@@ -328,6 +331,7 @@
         flex-direction: column;
         justify-content: flex-end;
         align-items: flex-start;
+            margin-left: 0;
       }
       .slide-diy .slide-diy-title {
         font-size: 16px;
@@ -406,10 +410,10 @@
 <section class="section-box next-box">
   <div class="slide-diy next-box-cont">
     <div class="full_container">
-      <div class="slide-diy-top">
+      {% comment %} <div class="slide-diy-top">
         <div class="slide-diy-title line-top">{{ section.settings.text }}</div>
         <div class="slide-diy-sub line-top" style="transition-delay: 0.1s">{{ section.settings.text1 }}</div>
-      </div>
+      </div> {% endcomment %}
       <div class="slide-diy-cont">
         {%- if section.blocks.size > 0 -%}
           <div class="slide-diy-arraw">
@@ -493,6 +497,10 @@
           </div>
         </div>
         <div class="slide-diy-right to-top">
+          <div class="slide-diy-top">
+        <div class="slide-diy-title line-top">{{ section.settings.text }}</div>
+        <div class="slide-diy-sub line-top" style="transition-delay: 0.1s">{{ section.settings.text1 }}</div>
+      </div>
           <div class="slide-diy-img-list to-top" style="transition-delay: 0.3s">
             <div class="slide-diy-list">
               {%- for block in section.blocks -%}

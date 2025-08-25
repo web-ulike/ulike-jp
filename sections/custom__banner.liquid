@@ -28,6 +28,9 @@
        --mobile-tle-size: calc({{ section.settings.mobile_tle_size}}px);
       --txt-left: calc({{ section.settings.sub_tle_left}}px);
       --mobile-txt-left: calc({{ section.settings.mobile_sub_tle_left}}px);
+      
+      --content-bottom: calc({{ section.settings.content_bottom}}px);
+      --mobile-content-bottom: calc({{ section.settings.mobile_content_bottom}}px);
   }
 .content-box {
   z-index: 1;
@@ -45,6 +48,24 @@
 .w100{
   width:100%;
 }
+ .custom_banner .slideshow__text-wrapper{
+   margin-bottom:var(--content-bottom);
+ }
+  .kv_note-inner {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    color: #646464;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    width: 100%;
+    padding-bottom:45px;
+}
+  .kv_note-txt{
+    max-width:574px;
+  }
 @media screen and (max-width: 740px) {
   .mobile-content-box--left {
     margin-inline-end: 0;
@@ -59,6 +80,12 @@
 
 .mobile-content-box--text-right {
   text-align: end;
+}
+   .custom_banner .slideshow__text-wrapper{
+   margin-bottom:var(--mobile-content-bottom);
+ }
+    .kv_note-inner {
+    padding-bottom:25px;
 }
 }
 
@@ -177,7 +204,7 @@
   font-weight: 400;
   line-height: 130%;
   margin-top: 30px;
-  margin-left: var(--txt-left);
+  /* margin-left: var(--txt-left); */
   }
    .kv_txt1{
   margin-top: 15px;
@@ -204,6 +231,18 @@
       display: flex;
       gap: 10px;
       align-items: center;
+  }
+  .top_bix .logo_image_tag{
+    width: revert-layer;
+  }
+  .logo__images-inner{
+        display: flex;
+    align-items: center;
+    gap: 53px;
+    margin-top:34px;
+  }
+  .logo__images-inner img{
+    width:revert-layer;
   }
   @media (max-width: 768px) {
      .kv_content {
@@ -241,31 +280,29 @@
     width: 100%;
     top: 43px;
   }
-
+.top_bix .logo_image_tag {
+    margin: 0 auto;
+}
+      .logo__images-inner{
+    gap: 25px;
+    margin-top:16px;
+  }
   }
   /* kv css end*/
 </style>
 <section>
-  <a href="{{ section.settings.link_url }}" class="kv_box custom_banner">
+    {%- capture slide_content -%}
     <picture class="w_full to-left" style="transition-delay: 0.3s;">
       {%- if section.settings.image_mobile -%}
         <source
           media="(max-width: 767px)"
-          srcset="{{ section.settings.image_mobile | image_url: width: '400x' }} 400w, {{ section.settings.image_mobile | image_url: width: '600x' }} 600w, {{ section.settings.image_mobile | image_url: width: '800x' }} 800w, {{ section.settings.image_mobile | image_url: width: '1000x' }} 1000w"
+          srcset="{{ section.settings.image_mobile | image_url }}"
           width="{{ section.settings.image_mobile.width }}"
           height="{{ section.settings.image_mobile.height }}"
         >
       {%- endif -%}
       {%- if section.settings.image -%}
-        {{-
-          section.settings.image
-          | image_url: width: section.settings.image.width
-          | image_tag:
-            loading: 'eager',
-            sizes: '100vw',
-            widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200',
-            class: ''
-        -}}
+         <img src="{{ section.settings.image | image_url }}" alt="{{ section.settings.image.alt }}"  width="{{  section.settings.image.width  }}" height="{{  section.settings.image.height }}">
       {%- endif -%}
     </picture>
     <div class="kv_content">
@@ -275,13 +312,21 @@
         {%- capture section_content -%}
         <div class="top_txt">
           <div class="top_bix">
+            <!-- {%- if section.settings.logo_image_tag -%}
+                <img src="{{ section.settings.logo_image_tag | image_url }}" alt="{{ section.settings.logo_image_tag.alt }}"  width="{{  section.settings.logo_image_tag.width  | divided_by: 2  }}" height="{{  section.settings.logo_image_tag.height  | divided_by: 2  }}">
+            {%- endif -%} -->
+
             {%- if section.settings.logo_image_tag -%}
-              {{-
-                section.settings.logo_image_tag
-                | image_url: width: section.settings.logo_image_tag.width
-                | image_tag: loading: 'eager', sizes: '100vw', widths: '100,200,300,400', class: 'summer_kv_logo'
-              -}}
-            {%- endif -%}
+             <picture class="to-top" style="transition-delay: 0.1s;">
+                         {%- if section.settings.mobile_logo_image_tag -%}
+                            <source media="(max-width: 767px)" srcset="{{ section.settings.mobile_logo_image_tag | image_url }}" width="{{  section.settings.mobile_logo_image_tag.width  | divided_by: 2  }}" height="{{  section.settings.mobile_logo_image_tag.height  | divided_by: 2  }}">
+                                 {%- endif -%}
+                             {%- if section.settings.logo_image_tag -%}
+                            <img src="{{ section.settings.logo_image_tag | image_url }}" alt="{{ section.settings.logo_image_tag.alt }}" width="{{  section.settings.logo_image_tag.width  | divided_by: 2  }}" height="{{  section.settings.logo_image_tag.height  | divided_by: 2  }}" class="logo_image_tag">
+                            {%- endif -%}
+                       </picture>
+              {%- endif -%}
+            
             {%- if section.settings.tle != blank -%}
               <h1 class="to-top" style="transition-delay: 0.1s;">{{ section.settings.tle }}</h1>
             {%- endif -%}
@@ -291,26 +336,42 @@
              {%- if section.settings.sub_tle1 != blank -%}
               <div class="kv_txt kv_txt1 to-top" style="transition-delay: 0.3s;">{{ section.settings.sub_tle1 }}</div>
             {%- endif -%}
+
+            {%- if section.settings.logo_image1 -%}
+            <div class="logo__images-inner to-top" style="transition-delay: 0.4s;">
+             <picture class="logo__images-pic">
+                 {%- if section.settings.mobile_logo_image1 -%}
+                  <source media="(max-width: 767px)" srcset="{{ section.settings.mobile_logo_image1 | image_url }}" width="{{  section.settings.mobile_logo_image1.width  | divided_by: 2  }}" height="{{  section.settings.mobile_logo_image1.height  | divided_by: 2  }}">
+                       {%- endif -%}
+                   {%- if section.settings.logo_image1 -%}
+                  <img src="{{ section.settings.logo_image1 | image_url }}" alt="{{ section.settings.logo_image1.alt }}" width="{{  section.settings.logo_image1.width  | divided_by: 2  }}" height="{{  section.settings.logo_image1.height  | divided_by: 2  }}">
+                  {%- endif -%}
+                </picture>
+              {%- if section.settings.logo_image2 -%}
+                <picture class="logo__images-pic">
+                 {%- if section.settings.mobile_logo_image2 -%}
+                  <source media="(max-width: 767px)" srcset="{{ section.settings.mobile_logo_image2 | image_url }}" width="{{  section.settings.mobile_logo_image2.width  | divided_by: 2  }}" height="{{  section.settings.mobile_logo_image2.height  | divided_by: 2  }}">
+                       {%- endif -%}
+                   {%- if section.settings.logo_image2 -%}
+                  <img src="{{ section.settings.logo_image2 | image_url }}" alt="{{ section.settings.logo_image2.alt }}" width="{{  section.settings.logo_image2.width  | divided_by: 2  }}" height="{{  section.settings.logo_image2.height  | divided_by: 2  }}">
+                  {%- endif -%}
+                </picture>
+               {%- endif -%}
+            </div>
+             {%- endif -%}
+          
           </div>
           <picture>
             {%- if section.settings.logo_image -%}
               <source
                 media="(max-width: 767px)"
-                srcset="{{ section.settings.logo_image | image_url: width: '400x' }} 400w, {{ section.settings.logo_image | image_url: width: '600x' }} 600w, {{ section.settings.logo_image | image_url: width: '800x' }} 800w, {{ section.settings.logo_image | image_url: width: '1000x' }} 1000w"
+                srcset="{{ section.settings.logo_image | image_url }}"
                 width="{{ section.settings.logo_image.width }}"
                 height="{{ section.settings.logo_image.height }}"
               >
             {%- endif -%}
             {%- if section.settings.logo_image -%}
-              {{-
-                section.settings.logo_image
-                | image_url: width: section.settings.logo_image.width
-                | image_tag:
-                  loading: 'eager',
-                  sizes: '100vw',
-                  widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200',
-                  class: ''
-              -}}
+              <img src="{{ section.settings.logo_image | image_url }}" alt="{{ section.settings.logo_image.alt }}"  width="{{  section.settings.logo_image.width  }}" height="{{  section.settings.logo_image.height }}">
             {%- endif -%}
           </picture>
         </div>
@@ -375,13 +436,41 @@
             </picture>
           </div>
           {%- if section.settings.note != blank -%}
+            
+            {%- if section.settings.note_full_width -%}
             <div class="kv_note to-top" style="transition-delay: 0.4s;">
               {{ section.settings.note }}
             </div>
+              {%- else -%}
+
+              <div class="kv_note-inner to-top" style="transition-delay: 0.4s;">
+                <div class="kv_container">
+                  <div class="kv_note-txt">{{ section.settings.note }}</div>
+                </div>
+              
+              </div>
+                
+              {%- endif -%}
+
+
+                
           {%- endif -%}
         </div>
     </div>
-  </a>
+   {%- endcapture -%}
+
+
+ {%- if section.settings.link_url != blank and  section.settings.button_txt == blank -%}
+            <a href="{{ section.settings.link_url }}" class="kv_box custom_banner">
+              {{- slide_content -}}
+            </a>
+          {%- else -%}
+            <div class="kv_box custom_banner">
+              {{- slide_content -}}
+            </div>
+          {%- endif -%}
+
+  
 </section>
 <script></script>
 {% schema %}
@@ -395,6 +484,16 @@
       "label": "t:sections.global.settings.full_width.label",
       "default": true
     },
+    {
+          "type": "image_picker",
+          "id": "logo_image_tag",
+          "label": "logo image tag"
+        },
+     {
+          "type": "image_picker",
+          "id": "mobile_logo_image_tag",
+          "label": "Mobile logo image tag"
+        },
       {
           "type": "image_picker",
           "id": "image",
@@ -455,10 +554,69 @@
       "label": "Mobile Sub Title Left",
       "default": 0
     },
+
+
+
+   {
+      "type": "range",
+      "id": "content_bottom",
+      "min": 0,
+      "max": 500,
+      "step": 5,
+      "unit": "px",
+      "label": "Content Bottom",
+      "default": 0
+    },
+    
+   {
+      "type": "range",
+      "id": "mobile_content_bottom",
+      "min": 0,
+      "max": 500,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile Content Bottom",
+      "default": 0
+    },
+
+    
+    
      {
       "type": "richtext",
       "id": "sub_tle1",
       "label": "Sub Title1"
+    },
+
+
+ {
+          "type": "image_picker",
+          "id": "logo_image1",
+          "label": "logo image1"
+        },
+     {
+          "type": "image_picker",
+          "id": "mobile_logo_image1",
+          "label": "Mobile logo image1"
+        },
+
+     {
+          "type": "image_picker",
+          "id": "logo_image2",
+          "label": "logo image2"
+        },
+     {
+          "type": "image_picker",
+          "id": "mobile_logo_image2",
+          "label": "Mobile logo image2"
+        },
+    
+
+
+      {
+      "type": "checkbox",
+      "id": "note_full_width",
+      "label": "Note Full Width",
+      "default": true
     },
      {
       "type": "richtext",

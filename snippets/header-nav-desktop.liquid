@@ -14,16 +14,22 @@
     {%- liquid
       assign enable_mega_menu = false
       assign link_title_handle = link.title | handle
-
+      assign menu_tag_block = ''
       for block in section.blocks
         assign menu_title_handle = block.settings.menu_title | handle
+        assign menu_tag_downcase = block.settings.menu_tle | handle
         if menu_title_handle == link_title_handle
           assign enable_mega_menu = true
           assign mega_menu_block = block
           break
         endif
+
+        if menu_tag_downcase == link_title_handle
+        assign menu_tag_block =  block.settings.code_txt | escape
+        endif
       endfor
     -%}
+  
     {%- if enable_mega_menu -%}
       <li>
         <details is="details-mega" trigger="{% if section.settings.hover_menu %}hover{% else %}click{% endif %}" level="top" {{ mega_menu_block.shopify_attributes }}>
@@ -125,6 +131,14 @@
           {%- if menu_active == 'block' -%}
             <span class="btn-text btn-duplicate">{{ link.title }}</span>
           {%- endif -%}
+
+
+           {%- if menu_tag_block != '' -%}
+             <div class="product-tag__box">
+               {{ menu_tag_block  }}
+             </div>
+          {%- endif -%}
+      
         </a>
       </li>
     {%- endif -%}

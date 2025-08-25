@@ -52,6 +52,18 @@ right: 0;
 top: 50%;
 transform: translateY(-50%);
 }
+  .full_banner-cnt .full_banner-note{
+        position: absolute;
+    bottom: 0px;
+    right: 0;
+    max-width: 500px;
+    word-wrap: break-word;
+     color: #3f3636;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+  }
 @media (max-width: 767px){
   .full_banner-cnt .full_banner-cnt1{
     font-size: 17px;
@@ -64,6 +76,9 @@ transform: translateY(-50%);
     top: 115%;
     left: 20px;
   }
+    .full_banner-cnt .full_banner-note{
+    font-size: 12px;
+  }
 }
 </style>
  <section>
@@ -72,13 +87,14 @@ transform: translateY(-50%);
             {%- if section.settings.image_mobile -%}
            <source
               media="(max-width: 767px)"
-              srcset="{{ section.settings.image_mobile | image_url: width: '400x' }} 400w, {{ section.settings.image_mobile | image_url: width: '600x' }} 600w, {{ section.settings.image_mobile | image_url: width: '800x' }} 800w, {{ section.settings.image_mobile | image_url: width: '1000x' }} 1000w"
+              srcset="{{ section.settings.image_mobile | image_url}}"
               width="{{ section.settings.image_mobile.width }}"
               height="{{ section.settings.image_mobile.height }}"
             >
             {%- endif -%}
             {%- if section.settings.image -%}
-             {{- section.settings.image | image_url: width: section.settings.image.width | image_tag: loading: 'eager', sizes: '100vw', widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200', class: 'trade_banner__image' -}}
+           <img src="{{ section.settings.image | image_url }}" alt="{{ section.settings.image.alt }}"   width="{{ section.settings.image.width }}"
+              height="{{ section.settings.image.height }}">
             {%- endif -%}
           </picture>
       <div class="full_banner-cnt">
@@ -90,6 +106,12 @@ transform: translateY(-50%);
         {%- if section.settings.tle_2 != blank -%}
           <div class="full_banner-cnt2">
            {{ section.settings.tle_2 }}
+          </div>
+        {%- endif -%}
+
+         {%- if section.settings.note != blank -%}
+          <div class="full_banner-note">
+           {{ section.settings.note }}
           </div>
         {%- endif -%}
       </div>
@@ -122,6 +144,11 @@ transform: translateY(-50%);
       "type": "richtext",
       "id": "tle_2",
       "label": "Text 2"
+    },
+       {
+      "type": "richtext",
+      "id": "note",
+      "label": "Note"
     },
     {
       "type": "color",

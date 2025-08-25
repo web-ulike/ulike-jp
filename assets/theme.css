@@ -7471,6 +7471,10 @@ details.active .drawer__promotions .mega-menu__item,
 .footer__newsletter {
   grid-column: span 3/span 3
 }
+.footer__newsletter .private-text{
+  font-size: 12px;
+  max-width: 400px;
+}
 
 @media screen and (min-width: 768px) {
   .footer__newsletter .h3 {
@@ -13414,3 +13418,16 @@ a.btn-animate.btn-animate__sweep-left.wh_bt:after{
 
 
 /*yujie 2024/4/20 add end*/
+
+
+
+
+.jp-container{
+    width: 100%;
+    max-width: var(--container-max-width);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--container-gutter);
+    padding-right: var(--container-gutter);
+    --container-outer-margin: 0px;
+}

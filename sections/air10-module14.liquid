@@ -81,7 +81,7 @@
       /* padding: 30px 0; */
     }
     .module14_box{
-      flex-direction: column;
+      flex-direction: column-reverse;
       gap: 20px;
     }
     .module14_left picture{
@@ -129,29 +129,7 @@
   <div class="module14_wrapper section-{{ section.id }}-padding">
     <div class="custom_container">
       <div class="module14_box">
-        <div class="module14_left to-top">
-          <picture>
-            {%- if section.settings.image_mobile -%}
-              <source
-                media="(max-width: 767px)"
-                srcset="{{ section.settings.image_mobile | image_url: width: '400x' }} 400w, {{ section.settings.image_mobile | image_url: width: '600x' }} 600w, {{ section.settings.image_mobile | image_url: width: '800x' }} 800w, {{ section.settings.image_mobile | image_url: width: '1000x' }} 1000w"
-                width="{{ section.settings.image_mobile.width }}"
-                height="{{ section.settings.image_mobile.height }}"
-              >
-            {%- endif -%}
-            {%- if section.settings.image -%}
-              {{-
-                section.settings.image
-                | image_url: width: section.settings.image.width
-                | image_tag:
-                  loading: 'eager',
-                  sizes: '100vw',
-                  widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200',
-                  class: 'trade_banner__image'
-              -}}
-            {%- endif -%}
-          </picture>
-        </div>
+
         <div class="module14_right to-top" style="transition-delay: 0.2s;">
           <div class="module14_right-cnt">
             {%- if section.settings.tle_1 != blank -%}
@@ -203,6 +181,29 @@
               {{ section.settings.note }}
             </div>
           {%- endif -%}
+        </div>
+                <div class="module14_left to-top">
+          <picture>
+            {%- if section.settings.image_mobile -%}
+              <source
+                media="(max-width: 767px)"
+                srcset="{{ section.settings.image_mobile | image_url: width: '400x' }} 400w, {{ section.settings.image_mobile | image_url: width: '600x' }} 600w, {{ section.settings.image_mobile | image_url: width: '800x' }} 800w, {{ section.settings.image_mobile | image_url: width: '1000x' }} 1000w"
+                width="{{ section.settings.image_mobile.width }}"
+                height="{{ section.settings.image_mobile.height }}"
+              >
+            {%- endif -%}
+            {%- if section.settings.image -%}
+              {{-
+                section.settings.image
+                | image_url: width: section.settings.image.width
+                | image_tag:
+                  loading: 'eager',
+                  sizes: '100vw',
+                  widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200',
+                  class: 'trade_banner__image'
+              -}}
+            {%- endif -%}
+          </picture>
         </div>
       </div>
     </div>

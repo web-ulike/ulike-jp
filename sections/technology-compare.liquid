@@ -1,0 +1,430 @@
+<style>
+.technology-compare {
+  padding: 50px 0;
+}
+
+.technology-compare .technology-compare-h3 {
+  color: #190a0a;
+  text-align: center;
+  font-size: 32px;
+  line-height: 1.25;
+  font-weight: normal;
+  font-family: var(--font-heading-family);
+  margin: 0;
+}
+
+.technology-compare .technology-compare-h4 {
+  color: #190a0a;
+  text-align: center;
+  font-size: 24px;
+  line-height: 1.5;
+  font-weight: normal;
+  font-family: var(--font-heading-family);
+  margin: 0;
+  margin-top: 24px;
+}
+
+.technology-compare .technology-compare-p {
+  color: #190a0a;
+  text-align: center;
+  font-size: 20px;
+  line-height: 1.5;
+  margin: 0;
+  margin-top: 16px;
+}
+
+.technology-compare .technology-compare-cont {
+  background: #fbfbfb;
+  padding: 16px;
+  margin-top: 40px;
+}
+
+.technology-compare .technology-compare-flex {
+  max-width: 1018px;
+  margin: 0 auto;
+  display: flex;
+  gap: 7.86%;
+}
+
+.technology-compare .technology-compare-flex > .technology-compare-column {
+  width: 180px;
+  color: #000;
+  font-size: 16px;
+  line-height: 1.9;
+  font-family: var(--font-heading-family);
+}
+
+.technology-compare
+  .technology-compare-flex
+  > .technology-compare-column
+  .technology-compare-item:first-child {
+  font-size: 24px;
+}
+
+.technology-compare .technology-compare-item {
+  padding: 15px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.technology-compare .technology-compare-item p {
+  margin: 0;
+}
+
+.technology-compare .technology-compare-right {
+  flex: 1;
+  display: flex;
+  gap: 20px;
+}
+
+.technology-compare .technology-compare-right > .technology-compare-column {
+  flex: 1;
+  text-align: center;
+}
+
+.technology-compare .img {
+  height: 100px;
+  width: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.technology-compare .technology-compare-name {
+  color: #545454;
+  font-size: 20px;
+  line-height: 2.7;
+  margin-top: 8px;
+}
+
+.technology-compare
+  .technology-compare-right
+  .technology-compare-column:first-child
+  .technology-compare-name {
+  color: #e0004d;
+}
+
+.technology-compare .technology-compare-right .technology-compare-item {
+  color: #545454;
+  font-size: 16px;
+  line-height: 1.75;
+  background: #f6f6f6;
+}
+
+.technology-compare
+  .technology-compare-right
+  .technology-compare-item:first-child {
+  background: none !important;
+}
+
+.technology-compare
+  .technology-compare-right
+  .technology-compare-item:nth-child(2) {
+  border-radius: 4px 4px 0 0;
+}
+
+.technology-compare
+  .technology-compare-right
+  .technology-compare-item:last-child {
+  border-radius: 0 0 4px 4px;
+}
+
+.technology-compare
+  .technology-compare-right
+  .technology-compare-column:first-child
+  .technology-compare-item {
+  color: #000;
+  font-family: var(--font-heading-family);
+  background: #fff3f7;
+}
+
+.technology-compare .technology-compare-right .technology-compare-item strong {
+  font-weight: normal;
+  color: #e0004d;
+}
+
+@media (max-width: 991px) {
+  .technology-compare {
+    overflow: hidden;
+  }
+  .technology-compare .technology-compare-h3 {
+    font-size: 20px;
+  }
+
+  .technology-compare .technology-compare-h4 {
+    font-size: 16px;
+    margin-top: 32px;
+  }
+
+  .technology-compare .technology-compare-p {
+    font-size: 14px;
+    text-align: left;
+  }
+
+  .technology-compare .technology-compare-cont {
+    margin: 0 -24px;
+    margin-top: 24px;
+    padding-left: 0;
+  }
+
+  .technology-compare .technology-compare-flex {
+    gap: 8px;
+  }
+
+  .technology-compare .technology-compare-flex > .technology-compare-column {
+    width: 126px;
+    font-size: 14px;
+  }
+
+  .technology-compare
+    .technology-compare-flex
+    > .technology-compare-column
+    .technology-compare-item:first-child {
+    font-size: 16px;
+  }
+
+  .technology-compare .technology-compare-item {
+    padding: 16px;
+  }
+
+  .technology-compare .technology-compare-right {
+    gap: 13px;
+    overflow-x: auto;
+  }
+  .technology-compare .technology-compare-right > .technology-compare-column {
+    min-width: 238px;
+    flex-shrink: 0;
+  }
+  .technology-compare .img {
+    height: 71px;
+  }
+  .technology-compare .technology-compare-name {
+    font-size: 13px;
+  }
+  .technology-compare .technology-compare-right .technology-compare-item {
+    font-size: 12px;
+  }
+}
+</style>
+<section class="section-box">
+  <div class="technology-compare mini-cont">
+    <div class="jp-container">
+      {%- if section.settings.text != blank -%}
+        <h3 class="technology-compare-h3">{{ section.settings.text }}</h3>
+      {%- endif -%}
+      {%- if section.settings.text1 != blank -%}
+        <h4 class="technology-compare-h4">{{ section.settings.text1 }}</h4>
+      {%- endif -%}
+      {%- if section.settings.text2 != blank -%}
+        <p class="technology-compare-p">
+          {{ section.settings.text2 }}
+        </p>
+      {%- endif -%}
+      <div class="technology-compare-cont">
+        <div class="technology-compare-flex">
+          <div class="technology-compare-column">
+            {%- if section.settings.text3 != blank -%}
+              <div class="technology-compare-item">
+                {{ section.settings.text3 }}
+              </div>
+            {%- endif -%}
+            {%- if section.settings.text4 != blank -%}
+              <div class="technology-compare-item">
+               {{ section.settings.text4 }}
+              </div>
+            {%- endif -%}
+            {%- if section.settings.text5 != blank -%}
+              <div class="technology-compare-item">
+                {{ section.settings.text5 }}
+              </div>
+            {%- endif -%}
+            {%- if section.settings.text6 != blank -%}
+              <div class="technology-compare-item">
+                {{ section.settings.text6 }}
+              </div>
+            {%- endif -%}
+            {%- if section.settings.text7 != blank -%}
+              <div class="technology-compare-item">
+                {{ section.settings.text7 }}
+              </div>
+            {%- endif -%}
+          </div>
+          <div class="technology-compare-right">
+            {%- for block in section.blocks -%}
+              <div class="technology-compare-column">
+                <div class="technology-compare-item">
+                  {%- if block.settings.image != blank -%}
+                    <img
+                        loading="lazy"
+                        width="{{ block.settings.image.width }}"
+                        height="{{ block.settings.image.height }}"
+                        class="img"
+                        {% render 'image-attributes', image: block.settings.image %}
+                        alt="{{ block.settings.image.alt | escape }}"
+                      >
+                  {%- endif -%}
+                  {%- if block.settings.text != blank -%}
+                    <div class="technology-compare-name">{{ block.settings.text }}</div>
+                  {%- endif -%}
+                </div>
+                <div class="technology-compare-item">
+                  {%- if block.settings.text1 != blank -%}
+                    {{ block.settings.text1 }}
+                  {%- endif -%}
+                </div>
+                <div class="technology-compare-item">
+                  {%- if block.settings.text2 != blank -%}
+                    {{ block.settings.text2 }}
+                  {%- endif -%}
+                </div>
+                <div class="technology-compare-item">
+                  {%- if block.settings.text3 != blank -%}
+                    {{ block.settings.text3 }}
+                  {%- endif -%}
+                </div>
+                <div class="technology-compare-item">
+                  {%- if block.settings.text4 != blank -%}
+                    {{ block.settings.text4 }}
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+  <script>
+    function setRowEqualHeight() {
+      const columns = document.querySelectorAll(".technology-compare .technology-compare-column");
+      if (columns.length === 0) return;
+      // 获取最大行数
+      const maxRows = Math.max(...Array.from(columns).map(col => col.children.length));
+      // 清除旧高度
+      columns.forEach(col => {
+        Array.from(col.children).forEach(child => {
+          child.style.height = "auto";
+        });
+      });
+
+      // 遍历每一行
+      for (let rowIndex = 0; rowIndex < maxRows; rowIndex++) {
+        const rowItems = [];
+
+        columns.forEach(column => {
+          const item = column.children[rowIndex];
+          if (item) rowItems.push(item);
+        });
+
+        const maxHeight = Math.max(...rowItems.map(item => item.offsetHeight));
+
+        rowItems.forEach(item => {
+          item.style.height = maxHeight + "px";
+        });
+      }
+    }
+    // 防抖 resize 处理函数
+    function debounce(fn, delay = 100) {
+      let timer = null;
+      return function () {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn(), delay);
+      };
+    }
+    // 初始运行
+    setRowEqualHeight();
+    // 添加防抖后的 resize 监听器
+    window.addEventListener("resize", debounce(setRowEqualHeight));
+  </script>
+{% schema %}
+{
+  "name": "technology-compare",
+  "blocks": [
+    {
+      "name": "item",
+      "type": "item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "richtext",
+          "id": "text1",
+          "label": "Text"
+        },
+        {
+          "type": "richtext",
+          "id": "text2",
+          "label": "Text"
+        },
+        {
+          "type": "richtext",
+          "id": "text3",
+          "label": "Text"
+        },
+        {
+          "type": "richtext",
+          "id": "text4",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "text1",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "text2",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "text3",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "text4",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "text5",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "text6",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "text7",
+      "label": "Text"
+    }
+  ],
+  "presets": [
+    {
+      "name": "technology-compare",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

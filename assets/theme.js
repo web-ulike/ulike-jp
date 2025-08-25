@@ -799,13 +799,16 @@ class StickyHeader extends CustomHeader {
     if (scrollTop > (this.headerBounds.bottom + this.firstScrollTop + 100)) {
       if (scrollTop > this.currentScrollTop) {
         this.headerSection.classList.add('header-hidden');
+          document.documentElement.style.setProperty('--sticky-header-vis', 0);
       }
       else {
         this.headerSection.classList.remove('header-hidden');
+          document.documentElement.style.setProperty('--sticky-header-vis', 1);
       }
     }
     else {
       this.headerSection.classList.remove('header-hidden');
+        document.documentElement.style.setProperty('--sticky-header-vis', 1);
     }
 
     this.currentScrollTop = scrollTop;
@@ -5591,3 +5594,230 @@ class StickyVariantTitle extends HTMLElement {
   }
 }
 customElements.define('sticky-variant-title', StickyVariantTitle);
+
+class VideoCard extends HTMLElement {
+  connectedCallback() {
+    const button = this.querySelector('.brand-link');
+    const video = this.querySelector('.deferred-poster');
+    if (button) {
+     
+      button.addEventListener('click', (event) => {
+      event.preventDefault(); // 阻止跳转
+        // 先暂停页面中所有其他 video（可选）
+        // document.querySelectorAll('video').forEach(v => {
+        //   if (v !== video) v.pause();
+        // });
+
+        // 播放当前组件内的视频
+        video.click();
+      });
+    }
+  }
+}
+
+window.customElements.define('video-card', VideoCard);
+
+
+  class TextCollapse extends HTMLElement {
+    constructor() {
+      super();
+      this.isExpanded = false;
+      this.maxLength = parseInt(this.getAttribute('max-length')) || 50;
+    }
+
+    connectedCallback() {
+      const textEl = this.querySelector('.doctor-des');
+      const svgEl = this.querySelector('.doctor-svg');
+
+      if (!textEl || !svgEl) return;
+
+      this.fullText = textEl.textContent.trim();
+      this.textEl = textEl;
+      this.svgEl = svgEl;
+
+      this.svgEl.style.cursor = 'pointer';
+      this.svgEl.addEventListener('click', () => this.toggleText());
+
+      this.render();
+    }
+
+    render() {
+      if (this.isExpanded || this.fullText.length <= this.maxLength) {
+        this.textEl.textContent = this.fullText;
+      } else {
+        this.textEl.textContent = this.fullText.slice(0, this.maxLength) + '...';
+      }
+    }
+
+    toggleText() {
+      this.isExpanded = !this.isExpanded;
+      this.render();
+    }
+  }
+
+  window.customElements.define('text-collapse', TextCollapse);
+
+
+
+class TextCollapseNew extends HTMLElement {
+  constructor() {
+    super();
+    this.isExpanded = false;
+  }
+
+  connectedCallback() {
+    this.desEl = this.querySelector('.doctor-des');
+    this.des1El = this.querySelector('.doctor-des1');
+    this.svgEl = this.querySelector('.doctor-svg');
+
+    if (!this.desEl || !this.des1El || !this.svgEl) return;
+
+    this.svgEl.style.cursor = 'pointer';
+    this.svgEl.addEventListener('click', () => this.toggle());
+
+    this.render();
+  }
+
+  render() {
+    if (this.isExpanded) {
+      this.desEl.style.display = 'none';
+      this.des1El.style.display = '';
+    } else {
+      this.desEl.style.display = '';
+      this.des1El.style.display = 'none';
+    }
+  }
+
+  toggle() {
+    this.isExpanded = !this.isExpanded;
+    this.render();
+  }
+}
+
+window.customElements.define('text-collapse-new', TextCollapseNew);
+
+
+
+  class CustomSwiperNew extends HTMLElement {
+  constructor() {
+    super();
+  }
+
+  connectedCallback() {
+    this.initSwiper();
+  }
+
+  initSwiper() {
+    const swiperContainer = this.querySelector('.swiper-container');
+    if (!swiperContainer) {
+      console.error('Swiper container not found');
+      return;
+    }
+
+    // **设备判断：是否禁用 Swiper**
+    const disableOn = this.getAttribute('disable-on'); // 'mobile' 或 'desktop'
+    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+    if ((disableOn === 'mobile' && isMobile) || (disableOn === 'desktop' && !isMobile)) {
+      console.log(`Swiper disabled on ${disableOn}`);
+      return;
+    }
+
+    // **Swiper 组件参数**
+    const slidesPerView = parseFloat(this.getAttribute('slides-per-view')) || 1.3;
+    const spaceBetween = parseFloat(this.getAttribute('space-between')) || 10;
+    const loop = this.getAttribute('loop') !== 'false'; // 默认为 true
+    const centeredSlides = this.getAttribute('centered-slides') !== 'false'; // 默认为 true
+    const paginationEnabled = this.getAttribute('pagination') === 'true'; // 是否启用分页
+    const navigationEnabled = this.getAttribute('navigation') === 'true'; // 是否启用导航按钮
+    let breakpoints = {};
+    try {
+      breakpoints = JSON.parse(this.getAttribute('breakpoints') || '{}');
+    } catch (error) {
+      console.error('Invalid breakpoints format. Expected JSON.');
+    }
+
+    // **动态控制 navigation 和 pagination**
+    const prevButton = navigationEnabled ? this.querySelector('.swiper-prev') : null;
+    const nextButton = navigationEnabled ? this.querySelector('.swiper-next') : null;
+    const paginationEl = paginationEnabled ? { el: this.querySelector('.swiper-pagination'), clickable: true } : false;
+
+    this.swiper = new Swiper(swiperContainer, {
+      slidesPerView,
+      spaceBetween,
+      loop,
+      centeredSlides,
+      navigation: navigationEnabled ? { prevEl: prevButton, nextEl: nextButton } : false,
+      pagination: paginationEl,
+      breakpoints
+    });
+  }
+}
+
+window.customElements.define('custom-swiper', CustomSwiperNew);
+
+
+
+
+ class ScrollToTopButton extends HTMLElement {
+    constructor() {
+      super();
+      this.attachShadow({ mode: 'open' });
+
+      this.shadowRoot.innerHTML = `
+        <style>
+          :host {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: inline-block;
+            cursor: pointer;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+          }
+
+          :host(.visible) {
+            opacity: 1;
+            pointer-events: auto;
+          }
+
+          ::slotted(svg) {
+            width: 60px;
+            height: 60px;
+            transition: transform 0.3s ease;
+          }
+
+          :host(:hover) ::slotted(svg) {
+            transform: scale(1.1);
+          }
+        </style>
+        <slot></slot>
+      `;
+    }
+
+    connectedCallback() {
+      this.threshold = parseInt(this.getAttribute('threshold')) || 300;
+
+      this.onScroll = () => {
+        if (window.scrollY > this.threshold) {
+          this.classList.add('visible');
+        } else {
+          this.classList.remove('visible');
+        }
+      };
+
+      this.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      window.addEventListener('scroll', this.onScroll);
+      this.onScroll(); // 初始化判断
+    }
+
+    disconnectedCallback() {
+      window.removeEventListener('scroll', this.onScroll);
+    }
+  }
+
+  customElements.define('scroll-to-top-button', ScrollToTopButton);

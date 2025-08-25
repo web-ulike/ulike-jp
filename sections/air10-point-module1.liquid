@@ -156,13 +156,14 @@ margin-top: 50px;
             {%- if section.settings.image_mobile -%}
            <source
               media="(max-width: 767px)"
-              srcset="{{ section.settings.image_mobile | image_url: width: '400x' }} 400w, {{ section.settings.image_mobile | image_url: width: '600x' }} 600w, {{ section.settings.image_mobile | image_url: width: '800x' }} 800w, {{ section.settings.image_mobile | image_url: width: '1000x' }} 1000w"
+              srcset="{{ section.settings.image_mobile | image_url }}"
               width="{{ section.settings.image_mobile.width }}"
               height="{{ section.settings.image_mobile.height }}"
             >
             {%- endif -%}
             {%- if section.settings.image -%}
-             {{- section.settings.image | image_url: width: section.settings.image.width | image_tag: loading: 'eager', sizes: '100vw', widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200', class: 'trade_banner__image' -}}
+             <img src="{{ section.settings.image | image_url }}" alt="{{ section.settings.image.alt }}"   width="{{ section.settings.image.width }}"
+              height="{{ section.settings.image.height }}">
             {%- endif -%}
           </picture>
           </div>

@@ -44,7 +44,7 @@
             {%- render 'newsletter-form', section_id: section.id, context: 'footer' -%}
 
             {%- if section.settings.newsletter_text != blank -%}
-              <div class="rte text-sm">{{ section.settings.newsletter_text }}</div>
+              <div class="rte private-text">{{ section.settings.newsletter_text }}</div>
             {%- endif -%}
           </div>
         {%- endif -%}

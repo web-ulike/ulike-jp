@@ -95,6 +95,22 @@ padding: 18px 74px;
    .product_banner-box .btn-animate{
     margin:  0 auto;
   }
+   .product_banner-box .btn-animate{
+         color: #000;
+    border: 1px solid #000;
+      background: transparent;
+   }
+   .product_banner-box .btn-animate:hover{
+           color: #fff;
+   }
+   .product_banner-box .btn-animate__sweep-left:after {
+    background-color: #000;
+}
+  .product_banner-box .tle__img{
+        text-align: center;
+    display: flex;
+    justify-content: center;
+  }
 @media (max-width: 767px){
   .product_banner-wrapper{
     align-items: flex-start;
@@ -120,6 +136,9 @@ padding: 18px 74px;
   .banner_link{
     padding: 8px 43px;
   }
+  .tle__img{
+    padding: 0 50px;
+  }
 } 
 
 </style>
@@ -130,18 +149,26 @@ padding: 18px 74px;
             {%- if section.settings.image_mobile -%}
            <source
               media="(max-width: 767px)"
-              srcset="{{ section.settings.image_mobile | image_url: width: '400x' }} 400w, {{ section.settings.image_mobile | image_url: width: '600x' }} 600w, {{ section.settings.image_mobile | image_url: width: '800x' }} 800w, {{ section.settings.image_mobile | image_url: width: '1000x' }} 1000w"
+              srcset="{{ section.settings.image_mobile | image_url}}"
               width="{{ section.settings.image_mobile.width }}"
               height="{{ section.settings.image_mobile.height }}"
             >
             {%- endif -%}
             {%- if section.settings.image -%}
-             {{- section.settings.image | image_url: width: section.settings.image.width | image_tag: loading: 'eager', sizes: '100vw', widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200', class: 'trade_banner__image' -}}
+          <img src="{{ section.settings.image | image_url }}" alt="{{ section.settings.image.alt }}"   width="{{ section.settings.image.width }}"
+              height="{{ section.settings.image.height }}">
             {%- endif -%}
           </picture>
       </div>
       <div class="product_banner-cnt">
         <div class="product_banner-box to-top">
+
+          {%- if section.settings.tle_image != blank -%}
+            <div class="tle__img">
+               <img class="" src="{{ section.settings.tle_image | image_url }}" width="{{ section.settings.tle_image.width }}" height="{{ section.settings.tle_image.height }}" alt="{{ section.settings.tle_image.alt | escape }}" >
+            </div>
+          {%- endif -%}
+          
           {%- if section.settings.title != blank -%}
             <h1 class="to-top" style="transition-delay: 0.1s;">{{ section.settings.title | escape }}</h1>
           {%- endif -%}
@@ -167,6 +194,11 @@ padding: 18px 74px;
   "name": "Air10 Banner",
   "class": "shopify-section--air10-banner", 
   "settings": [
+        {
+          "type": "image_picker",
+          "id": "tle_image",
+          "label": "Title Images"
+        },
     {
       "type": "text",
       "id": "title",

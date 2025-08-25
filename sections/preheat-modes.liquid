@@ -30,9 +30,9 @@ line-height: 150%;
 
 .preheat-modes .preheat-modes-arraw{
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 22px;
-  margin-top: 12px;
+  margin-top: 70px;
 }
 
 .preheat-modes .preheat-modes-arraw-item{
@@ -53,7 +53,7 @@ line-height: 150%;
 .preheat-modes .preheat-modes-list{
   display: flex;
   gap: 20px;
-  margin-top: 78px;
+  margin-top: 20px;
   cursor: grabbing;
 }
 
@@ -85,6 +85,9 @@ line-height: 150%;
   margin-top: 23px;
   max-width: 590px;
 }
+  .preheat-modes .preheat-modes-item-text p{
+    margin:0;
+  }
   .full_container{
     --container-gutter: 40px;
     width: 100%;
@@ -120,7 +123,9 @@ line-height: 150%;
     margin-top: 10px;
   }
   .preheat-modes .preheat-modes-arraw{
-    display: none;
+    {% comment %} display: none; {% endcomment %}
+     margin-top: 10px;
+     gap: 0px;
   }
   .preheat-modes .preheat-modes-list{
     margin-top: 40px;
@@ -141,16 +146,22 @@ line-height: 150%;
     .full_container{
     --container-gutter: 20px;
   }
+  .preheat-modes .preheat-modes-arraw-item svg {
+    width: 20px;
+}
 }
 </style>
 
 <section class="section-box">
   <div class="preheat-modes">
-    <div class="full_container">
-      <div class="preheat-modes-top">
+    <div class="custom_container">
+        <div class="preheat-modes-top">
         <div class="preheat-modes-title line-top">{{ section.settings.text }}</div>
         <div class="preheat-modes-sub line-top">{{ section.settings.text1 }}</div>
       </div>
+    </div>
+    <div class="full_container">
+
       {%- if section.blocks.size > 0 -%}
         <div class="preheat-modes-arraw to-top">
           <div class="preheat-modes-arraw-item">
@@ -198,7 +209,7 @@ line-height: 150%;
               {%- endif -%}
             </div>
             <div class="preheat-modes-item-title line-top">{{ block.settings.text }}</div>
-            <div class="preheat-modes-item-text line-top">{{ block.settings.text1 }}</div>
+            <div class="preheat-modes-item-text to-top">{{ block.settings.text1 }}</div>
           </div>
         {%- endfor -%}
       </div>
@@ -318,7 +329,7 @@ line-height: 150%;
             "label": "Text"
           },
           {
-            "type": "text",
+            "type": "richtext",
             "id": "text1",
             "label": "Text"
           }

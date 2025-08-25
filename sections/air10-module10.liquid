@@ -92,6 +92,11 @@ margin-top: 150px;
   .destok_hidden{
   display:none;
 }
+.module10_md3{
+display: flex;
+    column-gap: 45px;
+    margin-top: 50px;
+}
 @media (max-width: 767px){
   .destok_hidden{
   display:block;
@@ -140,6 +145,10 @@ margin-top: 150px;
   .module10_md1 picture img{
     width: 80%;
   }
+  .module10_md3 {
+    flex-direction: column;
+    margin: 0 -20px;
+}
 }
 </style>
    <section>
@@ -194,15 +203,47 @@ margin-top: 150px;
             {%- if section.settings.product_image -%}
            <source
               media="(max-width: 767px)"
-              srcset="{{ section.settings.product_image | image_url: width: '400x' }} 400w, {{ section.settings.product_image | image_url: width: '600x' }} 600w, {{ section.settings.product_image | image_url: width: '800x' }} 800w, {{ section.settings.product_image | image_url: width: '1000x' }} 1000w"
+              srcset="{{ section.settings.product_image | image_url }}"
               width="{{ section.settings.product_image.width }}"
               height="{{ section.settings.product_image.height }}"
             >
             {%- endif -%}
             {%- if section.settings.product_image -%}
-             {{- section.settings.product_image | image_url: width: section.settings.product_image.width | image_tag: loading: 'eager', sizes: '100vw', widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200', class: '' -}}
+            <img src="{{ section.settings.product_image | image_url }}" alt="{{ section.settings.product_image.alt }}"   width="{{ section.settings.product_image.width }}"
+              height="{{ section.settings.product_image.height }}">
             {%- endif -%}
           </picture>
+        </div>
+        <div class="module10_md3 to-top">
+          <picture>
+            {%- if section.settings.image_mobile1 -%}
+           <source
+              media="(max-width: 767px)"
+              srcset="{{ section.settings.image_mobile1 | image_url }} "
+              width="{{ section.settings.image_mobile1.width }}"
+              height="{{ section.settings.image_mobile1.height }}"
+            >
+            {%- endif -%}
+            {%- if section.settings.image1 -%}
+               <img src="{{ section.settings.image1 | image_url }}" alt="{{ section.settings.image1.alt }}"   width="{{ section.settings.image1.width }}"
+              height="{{ section.settings.image1.height }}">
+            {%- endif -%}
+          </picture>
+                    <picture>
+          {%- if section.settings.image_mobile2 -%}
+           <source
+              media="(max-width: 767px)"
+              srcset="{{ section.settings.image_mobile2 | image_url }} "
+              width="{{ section.settings.image_mobile2.width }}"
+              height="{{ section.settings.image_mobile2.height }}"
+            >
+            {%- endif -%}
+            {%- if section.settings.image2 -%}
+               <img src="{{ section.settings.image2 | image_url }}" alt="{{ section.settings.image2.alt }}"   width="{{ section.settings.image2.width }}"
+              height="{{ section.settings.image2.height }}">
+            {%- endif -%}
+          </picture>
+
         </div>
       </div>
     </div>
@@ -255,6 +296,29 @@ margin-top: 150px;
           "id": "product_image",
           "label": "Product Images"
         },
+
+
+       {
+          "type": "image_picker",
+          "id": "image1",
+          "label": "Images1"
+        },
+     {
+          "type": "image_picker",
+          "id": "image_mobile1",
+          "label": "Mobile Images1"
+        },
+               {
+          "type": "image_picker",
+          "id": "image2",
+          "label": "Images2"
+        },
+     {
+          "type": "image_picker",
+          "id": "image_mobile2",
+          "label": "Mobile Images2"
+        },
+
     {
       "type": "color",
       "id": "text_color",

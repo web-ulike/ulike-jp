@@ -7,6 +7,43 @@
     --color-transparent: {{ section.settings.transparent_color_text.rgb }};
     --color-hover: {{ section.settings.color_hover.rgb }};
   }
+   .product-tag__box {
+    position: relative;
+    background: #e7004c;
+    font-size: 12px;
+    color: #fff;
+    line-height: 1;
+    padding: 5px 10px;
+    overflow: hidden;
+    margin-left: 5px;
+    zoom: .9;
+    border-radius: 20px;
+    display: inline-flex;
+    min-width: 70px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+   .product-tag__box::before {
+    position: absolute;
+    content: "";
+    display: block;
+    width: 200%;
+    height: 200%;
+    z-index: 2;
+    background: linear-gradient(-45deg, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 60%);
+    animation: scanning 3s linear infinite;
+}
+   @keyframes scanning {
+      0% {
+          transform: translate(-100%, -100%);
+      }
+
+      100% {
+          transform: translate(100%, 100%);
+      }
+  }
+
 {%- endstyle -%}
 
 {%- liquid
@@ -765,6 +802,27 @@
           "unit": "%",
           "label": "t:sections.global.settings.overlay_opacity.label",
           "default": 40
+        }
+      ]
+    },
+    {
+      "type": "menu_code",
+      "name": "Menu Code",
+      "settings": [
+         {
+          "type": "text",
+          "id": "menu_tle",
+          "label": "menu Title"
+        },
+         {
+          "type": "text",
+          "id": "code_txt",
+          "label": "Code"
+        },
+         {
+          "type": "image_picker",
+          "id": "code_image",
+            "label": "Code Images"
         }
       ]
     }
