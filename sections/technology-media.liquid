@@ -1,0 +1,179 @@
+<style>
+.technology-media {
+  padding: 50px 0 80px 0;
+  background: #f6f6f6;
+}
+
+.technology-media .technology-media-h3 {
+  color: #190a0a;
+  text-align: center;
+  font-size: 32px;
+  line-height: 1.25;
+  font-weight: normal;
+  font-family: var(--font-heading-family);
+  margin: 0;
+}
+
+.technology-media .technology-media-slide {
+  margin-top: 40px;
+}
+
+.technology-media .technology-media-list {
+  display: flex;
+  gap: 20px;
+}
+
+.technology-media .technology-media-item {
+  padding: 24px;
+  padding-bottom: 16px;
+  width: calc(33.333% - 13px);
+  border: 1px solid #190a0a;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.technology-media .technology-media-p {
+  color: #000;
+  text-align: center;
+  font-size: 24px;
+  line-height: 1.8;
+}
+
+.technology-media .icon-img {
+  display: block;
+  margin: 0 auto;
+  margin-top: 16px;
+}
+
+.technology-media .technology-media-dots {
+  display: none;
+}
+
+@media (max-width: 991px) {
+  .technology-media {
+    padding: 24px 0;
+    overflow: hidden;
+  }
+  .technology-media .technology-media-h3 {
+    font-size: 20px;
+  }
+
+  .technology-media .technology-media-slide {
+    margin-top: 16px;
+  }
+
+  .technology-media .technology-media-list {
+    gap: 0;
+  }
+
+  .technology-media .technology-media-item {
+    min-width: 212px;
+    flex-shrink: 0;
+    padding: 12px 8px;
+  }
+
+  .technology-media .technology-media-p {
+    font-size: 12px;
+  }
+
+  .technology-media .icon-img {
+    max-width: 180px;
+    margin-top: 8px;
+  }
+
+  .technology-media .technology-media-dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+  }
+
+  .technology-media .swiper-pagination-bullet {
+    background: #cdc6c7;
+  }
+
+  .technology-media .swiper-pagination-bullet-active {
+    background: #190a0a;
+  }
+}
+</style>
+<section class="section-box">
+  <div class="technology-media mini-cont">
+    <div class="jp-container">
+      {%- if section.settings.text != blank -%}
+        <h3 class="technology-media-h3">{{ section.settings.text }}</h3>
+      {%- endif -%}
+      <div class="technology-media-slide">
+        <div class="technology-media-list swiper-wrapper">
+          {%- for block in section.blocks -%}
+            <div class="technology-media-item swiper-slide">
+              {%- if block.settings.text != blank -%}
+                <p class="technology-media-p">{{ block.settings.text }}</p>
+              {%- endif -%}
+              {%- if block.settings.image != blank -%}
+                <img
+                    loading="lazy"
+                    width=""
+                    height=""
+                    class="icon-img"
+                    {% render 'image-attributes', image: block.settings.image %}
+                    alt="{{ block.settings.image.alt | escape }}"
+                  >
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+      <div class="technology-media-dots"></div>
+    </div>
+  </div>
+</section>
+<script>
+  if (window.innerWidth < 991) {
+    new Swiper(".technology-media-slide", {
+      slidesPerView: "auto",
+      spaceBetween: 16,
+      pagination: {
+        el: ".technology-media-dots",
+        clickable: true,
+      },
+    })
+  }
+</script>
+{% schema %}
+{
+  "name": "technology-media",
+  "blocks": [
+    {
+      "name": "item",
+      "type": "item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Title"
+    }
+  ],
+  "presets": [
+    {
+      "name": "technology-media",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

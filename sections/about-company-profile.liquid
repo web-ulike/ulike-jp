@@ -1,0 +1,204 @@
+<style>
+
+#shopify-section-{{ section.id }} {
+    --text-color: {{  section.settings.text_color.red }}, {{  section.settings.text_color.green }}, {{  section.settings.text_color.blue }};
+    --color-border: 255, 255, 255;
+    --section-background: {{ section.settings.background }};
+   background: var(--section-background); 
+  }
+     .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px);
+  }
+  @media screen and (max-width: 768px){
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.mobile_padding_top }}px);
+    padding-bottom: calc({{ section.settings.mobile_padding_bottom }}px );
+  }
+}
+ .company-profile{
+          }
+          .company-profile-wrapper{
+            max-width: 906px;
+            margin: 0 auto;
+          }
+          .company-profile h3{
+            color: #000;
+            text-align: center;
+            font-size: 36px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 155%;
+            letter-spacing: 0.36px;
+            margin-bottom: 32px;
+          }
+          .company-profile-inner .company-profile-list{
+            display: flex;
+            align-items: center;
+            padding: 25px 0;
+            border-bottom: 1px dashed #B5B5B5;
+            gap: 215px;
+          }
+          .company-profile-list .company-profile-lt{
+            color: #000;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 155%;
+            letter-spacing: 0.2px;
+                min-width: 81px;
+          }
+           .company-profile-list .company-profile-rt{
+            color: #000;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 155%;
+            letter-spacing: 0.2px;
+           }
+             @media screen and (max-width: 750px) {
+              .company-profile h3{
+                font-size: 24px;
+                margin-bottom: 23px;
+              }
+              .company-profile-inner .company-profile-list{
+                padding: 15px 0;
+                gap: 43px;
+              }
+              .company-profile-list .company-profile-lt{
+                font-size: 14px;
+              }
+              .company-profile-list .company-profile-rt{
+                font-size: 14px;
+                flex: 1;
+              }
+             }
+</style>
+ <section class="section-{{ section.id }}-padding">
+ <div class="company-profile">
+          <div class="jp-container">
+            <div class="company-profile-wrapper">
+              <h3 class="to-top">{{ section.settings.tle }}</h3>
+              <div class="company-profile-inner to-top">
+                {%- for block in section.blocks -%}
+                <div class="company-profile-list">
+                  <div class="company-profile-lt">{{ block.settings.tle }}</div>
+                  <div class="company-profile-rt">{{ block.settings.txt }}</div>
+                </div>
+                 {%- endfor -%}
+
+              </div>
+            </div>
+          </div>
+        </div>
+  </section>
+<script>
+</script>
+{% schema %}
+{
+  "name": "about-company-profile",
+  "class": "about-company-profile", 
+  "settings": [
+           {
+      "type": "text",
+      "id": "tle",
+      "label": "Title"
+    },
+          {
+      "type": "richtext",
+      "id": "shop_note",
+      "label": "Note"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    },
+         {
+      "type": "text",
+      "id": "button_txt",
+      "label": "Button Text"
+    },
+               {
+      "type": "text",
+      "id": "button_tle",
+      "label": "Button Title"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Button Link"
+    },
+    {
+      "type": "color_background",
+      "id": "background",
+      "label": "Background",
+      "default": "#fff"
+    },
+     {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_top.label",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_bottom.label",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Top",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Bottom",
+      "default": 10
+    }
+  ],
+  "blocks": [
+         {
+        "type": "item",
+        "name": "item",
+        "settings": [
+           {
+          "type": "text",
+          "id": "tle",
+          "label": "Title"
+        },
+   {
+          "type": "richtext",
+          "id": "txt",
+          "label": "Text"
+        },
+        ]
+      }
+  ],
+  "presets": [
+    {
+      "name": "about-company-profile"
+    }
+  ]
+}
+{% endschema %}

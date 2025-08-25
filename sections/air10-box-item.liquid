@@ -15,34 +15,13 @@
     padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.6);
   }
 }
-.air_cnt1{
-  color: #000;
-text-align: center;
-font-size: 18px;
-font-style: normal;
-font-weight: 400;
-line-height: 150%;
-letter-spacing: 0.18px;
-max-width: 570px;
-margin: 0 auto 100px;
-width: 100%;
-}
-.air_cnt_txt1{
-  margin-bottom: 40px;
-}
+
+
 .air_cnt_img-box{
 
 }
 .air_cnt_img1{
  
-}
-.air_cnt-img-p{
-  color: rgba(0, 0, 0, 0.50);
-font-size: 12px;
-font-style: normal;
-font-weight: 400;
-line-height: 150%;
-margin-top: 25px;
 }
 .air_cnt-img-wrapper{
   display: flex;
@@ -88,18 +67,17 @@ margin-top: 5px;
 }
 .qir_video-item{
   display: flex;
-  justify-content: flex-end;
   margin-top: 75px;
 }
 .air_video-ul{
   display: flex;
   flex-wrap: wrap;
-  width: 50%;
-  gap: 4%;
-  row-gap: 50px;
+  width: 100%;
+  gap: 30px;
+  row-gap: 15px;
 }
 .air_video-li{
-  flex-basis: 48%;
+  flex-basis: calc(25% - 25px);
   
 }
 .air_video-li .air_video-txt{
@@ -118,21 +96,6 @@ margin-top: 5px;
     background: linear-gradient(180deg, #FFF 0.04%, #F4EFDB 99.96%);
     padding: 0 20px 30px;
   }
-  .air_cnt1{
-    font-size: 12px;
-    text-align: left;
-    margin-bottom: 0px;
-    max-width: 100%;
-    order: 1;
-    margin-top: 40px;
-  }
-  .air_cnt_txt1{
-    margin-bottom: 20px;
-  }
-  .air_cnt-img-p{
-    order: 2;
-    margin-top: 0px;
-  }
   .cnt_nb-box .air_crt{
     display: flex;
     justify-content: flex-end;
@@ -142,7 +105,7 @@ margin-top: 5px;
     margin-right: -20px;
   }
   .air_video-li .air_video-txt{
-    font-size: 13px;
+    font-size: 9px;
     line-height: 150%;
   }
 }
@@ -155,11 +118,15 @@ margin-top: 5px;
     width: 100%;
     margin-top: 70px;
   }
+  .air_cnt-img-wrapper .air_cnt-img-left picture{
+      transform: translateX(-20px);
+    display: block;
+  }
   .air_cnt-img-right{
     width: 100%;
   }
   .air_cnt-img-right .air_cnt-right-txt1, .air_cnt-img-right .air_cnt-right-txt2{
-    font-size: 18px;
+    font-size: 20px;
   }
   .air_cnt-img-right .air_cnt-right-txt2{
     margin-bottom: 30px;
@@ -169,7 +136,7 @@ margin-top: 5px;
     display: none;
   }
     .air_cnt-img-left-tle1{
-      font-size:14px
+      font-size:9px
     }
 }
 
@@ -180,7 +147,12 @@ margin-top: 5px;
   .air_video-ul{
     width: 86%;
     row-gap: 30px;
+    margin-left: auto;
+    column-gap: 15px;
   }
+  .air_video-li {
+    flex-basis: calc(50% - 10px);
+}
 }
 </style>
 <section class="air_10-te-wrapper section-{{ section.id }}-padding">
@@ -192,13 +164,14 @@ margin-top: 5px;
             {%- if section.settings.image_mobile -%}
            <source
               media="(max-width: 767px)"
-              srcset="{{ section.settings.image_mobile | image_url: width: '400x' }} 400w, {{ section.settings.image_mobile | image_url: width: '600x' }} 600w, {{ section.settings.image_mobile | image_url: width: '800x' }} 800w, {{ section.settings.image_mobile | image_url: width: '1000x' }} 1000w"
+              srcset="{{ section.settings.image_mobile | image_url }}"
               width="{{ section.settings.image_mobile.width }}"
               height="{{ section.settings.image_mobile.height }}"
             >
             {%- endif -%}
             {%- if section.settings.image -%}
-             {{- section.settings.image | image_url: width: section.settings.image.width | image_tag: loading: 'eager', sizes: '100vw', widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200', class: 'trade_banner__image' -}}
+               <img src="{{ section.settings.image | image_url }}" alt="{{ section.settings.image.alt }}"   width="{{ section.settings.image.width }}"
+              height="{{ section.settings.image.height }}">
             {%- endif -%}
           </picture>
           {%- if section.settings.image_txt != blank -%}
@@ -232,30 +205,59 @@ margin-top: 5px;
           <div class="air_video-ul">
             {%- for block in section.blocks -%}
             <div class="air_video-li to-top" style="transition-delay: 0.2s;">
+               {%- if block.settings.image -%}
                <picture>
             {%- if block.settings.image_mobile -%}
            <source
               media="(max-width: 767px)"
-              srcset="{{ block.settings.image_mobile | image_url: width: '400x' }} 400w, {{ block.settings.image_mobile | image_url: width: '600x' }} 600w, {{ block.settings.image_mobile | image_url: width: '800x' }} 800w, {{ block.settings.image_mobile | image_url: width: '1000x' }} 1000w"
+              srcset="{{ block.settings.image_mobile | image_url }}"
               width="{{ block.settings.image_mobile.width }}"
               height="{{ block.settings.image_mobile.height }}"
             >
             {%- endif -%}
             {%- if block.settings.image -%}
-             {{- block.settings.image | image_url: width: block.settings.image.width | image_tag: loading: 'eager', sizes: '100vw', widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200', class: 'trade_banner__image' -}}
+             <img src="{{ block.settings.image | image_url }}" alt="{{ block.settings.image.alt }}"   width="{{ block.settings.image.width }}"
+              height="{{ block.settings.image.height }}">
             {%- endif -%}
           </picture>
-               {%- if block.settings.tle != blank -%}
-              <div class="air_video-txt">
-                {{ block.settings.tle }}
-              </div>
-              {%- endif -%}
+            {%- endif -%}
+
+
+
+
+
+            
             </div>
            {%- endfor -%}
            
             
           </div>
         </div>
+      </div>
+    </div>
+    <div class="full_container">
+       <div class="air_video-ul">
+        {%- for block in section.blocks -%}
+            <div class="air_video-li to-top" style="transition-delay: 0.2s;">
+            {%- if block.settings.video -%}
+        {%- render 'video',
+          sizes: '100%',
+          video: block.settings.video,
+          muted: true,
+          autoplay: true,
+          loop: true,
+          cover_image: block.settings.video_cover_image,
+          show_play_button: false,
+          class: ''
+        -%}
+      {%- endif -%}
+         {%- if block.settings.tle != blank -%}
+              <div class="air_video-txt">
+                {{ block.settings.tle }}
+              </div>
+              {%- endif -%}
+              </div>
+      {%- endfor -%}
       </div>
     </div>
   </section>
@@ -359,6 +361,16 @@ margin-top: 5px;
           "type": "image_picker",
           "id": "image_mobile",
           "label": "Mobile Images"
+        },
+                    {
+      "type": "video",
+      "id": "video",
+      "label": "video"
+    },
+     {
+          "type": "image_picker",
+          "id": "video_cover_image",
+          "label": "video cover image"
         },
            {
       "type": "richtext",

@@ -54,9 +54,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     endif
   -%}
 
-  <link rel="stylesheet" href="{{ 'apps.css' | asset_url }}" media="print" fetchpriority="low" onload="this.media='all'">
+  {% comment %} <link rel="stylesheet" href="{{ 'apps.css' | asset_url }}" media="print" fetchpriority="low" onload="this.media='all'">
+    {% endcomment %}
+  {% comment %} {{ 'apps.css' | asset_url }} {% endcomment %}
+  <link rel="stylesheet" href="{{ 'apps.css' | asset_url }}" rel="stylesheet" >
   <link type="text/css" href="{{ 'custom-root.css' | asset_url }}" rel="stylesheet">
   <link type="text/css" href="{{ 'custom.css' | asset_url }}" rel="stylesheet">
+  
   {{ content_for_header }}
 
     <script type="text/javascript">
@@ -122,7 +126,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <li id="a11y-new-window-message">{{ 'general.accessibility.link_messages.new_window' | t }}</li>
   </ul>
    {% render 'pin-to-top' %}
-  {% section 'pin-active-icon' %}
+   {% section 'pin-active-icon' %}
+
+   {% section 'u-user-new-popup' %}
 </body>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap" rel="stylesheet">

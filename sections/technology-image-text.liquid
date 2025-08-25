@@ -1,0 +1,221 @@
+<style>
+.technology-image-text {
+  padding-top: 50px;
+}
+
+.technology-image-text .technology-image-text-h3 {
+  color: #190a0a;
+  text-align: center;
+  font-size: 32px;
+  line-height: 1.25;
+  font-weight: normal;
+  font-family: var(--font-heading-family);
+  margin: 0;
+  margin-bottom:40px;
+}
+
+.technology-image-text .technology-image-text-list {
+  /* margin-top: 40px; */
+}
+
+.technology-image-text .technology-image-text-item {
+  display: flex;
+  align-items: center;
+}
+
+.technology-image-text .technology-reverse {
+  flex-direction: row-reverse;
+}
+
+.technology-image-text .technology-image-text-item:not(:last-child) {
+  margin-bottom: 24px;
+}
+
+.technology-image-text .technology-image-text-txt,
+.technology-image-text .technology-image-text-img {
+  width: 50%;
+}
+
+.technology-image-text .img {
+  display: block;
+  width: 100%;
+}
+
+.technology-image-text .technology-image-text-txt {
+  padding-right: 11%;
+}
+
+.technology-image-text .technology-reverse .technology-image-text-txt {
+  padding-right: 0;
+  padding-left: 11%;
+}
+
+.technology-image-text .technology-image-text-h4 {
+  color: #190a0a;
+  font-size: 24px;
+  line-height: 1.5;
+  font-weight: normal;
+  font-family: var(--font-heading-family);
+  margin: 0;
+  margin-bottom: 48px;
+}
+
+.technology-image-text .technology-image-text-p {
+  color: #190a0a;
+  font-size: 20px;
+  line-height: 1.6;
+}
+
+.technology-image-text .technology-image-text-p ul {
+  padding-left: 20px;
+}
+
+.technology-image-text .technology-image-text-p ol {
+  list-style:none;
+} 
+
+.technology-image-text .technology-image-text-p strong{
+  font-weight: normal;
+  font-family: var(--font-heading-family);
+}
+
+.technology-image-text .technology-image-text-p p {
+  margin: 0;
+}
+
+.technology-image-text .technology-image-text-p p:not(:first-child) {
+  margin-top: 20px;
+}
+
+@media (max-width: 991px) {
+  .technology-image-text {
+    padding-top: 40px;
+  }
+  .technology-image-text .technology-image-text-h3 {
+    font-size: 20px;
+  }
+
+  .technology-image-text .technology-image-text-item {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .technology-image-text .technology-image-text-txt,
+  .technology-image-text .technology-image-text-img {
+    width: 100%;
+  }
+
+  .technology-image-text .technology-image-text-txt {
+    padding: 0;
+  }
+
+  .technology-image-text .technology-image-text-h4 {
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 24px;
+    display:none;
+  }
+
+  .technology-image-text .technology-image-text-p {
+    font-size: 14px;
+  }
+
+  .technology-image-text .technology-image-text-p p:not(:first-child) {
+    margin-top: 10px;
+  }
+
+  .technology-image-text .technology-reverse .technology-image-text-txt {
+    padding: 0;
+  }
+
+  .technology-image-text .technology-image-text-p ul {
+    padding-left: 15px;
+  }
+}
+</style>
+<section class="section-box">
+  <div class="technology-image-text mini-cont">
+    <div class="jp-container">
+      <div class="technology-image-text-cont">
+        {%- if section.settings.text != blank -%}
+          <h3 class="technology-image-text-h3">{{ section.settings.text }}</h3>
+        {%- endif -%}
+        <div class="technology-image-text-list">
+        {%- for block in section.blocks -%}
+          <div class="technology-image-text-item {% if block.settings.check_box %}technology-reverse{% endif %}">
+            <div class="technology-image-text-txt">
+              {%- if block.settings.text != blank -%}
+                <h4 class="technology-image-text-h4">{{ block.settings.text }}</h4>
+              {%- endif -%}
+              {%- if block.settings.text1 != blank -%}
+                <div class="technology-image-text-p">
+                  {{ block.settings.text1 }}
+                </div>
+              {%- endif -%}
+            </div>
+            {%- if block.settings.image != blank -%}
+              <div class="technology-image-text-img">
+                <img
+                    loading="lazy"
+                    width="{{ block.settings.image.width }}"
+                    height="{{ block.settings.image.height }}"
+                    class="img"
+                    {% render 'image-attributes', image: block.settings.image %}
+                    alt="{{ block.settings.image.alt | escape }}"
+                  >
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "technology-image-text",
+  "blocks": [
+    {
+      "name": "item",
+      "type": "item",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "check_box",
+          "label": "图文位置对换",
+          "default": false
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "richtext",
+          "id": "text1",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Title"
+    },
+  ],
+  "presets": [
+    {
+      "name": "technology-image-text",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

@@ -799,13 +799,16 @@ class StickyHeader extends CustomHeader {
     if (scrollTop > (this.headerBounds.bottom + this.firstScrollTop + 100)) {
       if (scrollTop > this.currentScrollTop) {
         this.headerSection.classList.add('header-hidden');
+          document.documentElement.style.setProperty('--sticky-header-vis', 0);
       }
       else {
         this.headerSection.classList.remove('header-hidden');
+          document.documentElement.style.setProperty('--sticky-header-vis', 1);
       }
     }
     else {
       this.headerSection.classList.remove('header-hidden');
+        document.documentElement.style.setProperty('--sticky-header-vis', 1);
     }
 
     this.currentScrollTop = scrollTop;

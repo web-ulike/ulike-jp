@@ -30,9 +30,11 @@
   line-height: 125%;
   letter-spacing: 1.5px;
   margin-bottom: 30px;
+  transform: translateX(-10vw);
   }
   .module13_top svg{
     margin-left: 50px;
+    transform: translateX(-10vw);
   }
   .module13_bottom{
     display: flex;
@@ -75,6 +77,7 @@
     .module13_top .module13_top-tle{
       font-size: 18px;
       margin-bottom: 16px;
+      transform: translateX(0);
     }
     .module13_cnt{
       flex-direction: column;
@@ -104,6 +107,7 @@
     }
     .module13_top svg{
       margin-bottom: 16px;
+       transform: translateX(0);
     }
     .module13_bottom-item{
       width: 100%;
@@ -127,21 +131,14 @@
         {%- if section.settings.image_mobile -%}
           <source
             media="(max-width: 767px)"
-            srcset="{{ section.settings.image_mobile | image_url: width: '400x' }} 400w, {{ section.settings.image_mobile | image_url: width: '600x' }} 600w, {{ section.settings.image_mobile | image_url: width: '800x' }} 800w, {{ section.settings.image_mobile | image_url: width: '1000x' }} 1000w"
+            srcset="{{ section.settings.image_mobile | image_url }}"
             width="{{ section.settings.image_mobile.width }}"
             height="{{ section.settings.image_mobile.height }}"
           >
         {%- endif -%}
         {%- if section.settings.image -%}
-          {{-
-            section.settings.image
-            | image_url: width: section.settings.image.width
-            | image_tag:
-              loading: 'eager',
-              sizes: '100vw',
-              widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200',
-              class: 'trade_banner__image'
-          -}}
+             <img src="{{ section.settings.image | image_url }}" alt="{{ section.settings.image.alt }}"   width="{{ section.settings.image.width }}"
+              height="{{ section.settings.image.height }}">
         {%- endif -%}
       </picture>
 
@@ -183,21 +180,14 @@
                       {%- if block.settings.image_mobile -%}
                         <source
                           media="(max-width: 767px)"
-                          srcset="{{ block.settings.image_mobile | image_url: width: '400x' }} 400w, {{ block.settings.image_mobile | image_url: width: '600x' }} 600w, {{ block.settings.image_mobile | image_url: width: '800x' }} 800w, {{ block.settings.image_mobile | image_url: width: '1000x' }} 1000w"
+                          srcset="{{ block.settings.image_mobile | image_url }}"
                           width="{{ block.settings.image_mobile.width }}"
                           height="{{ block.settings.image_mobile.height }}"
                         >
                       {%- endif -%}
                       {%- if block.settings.image -%}
-                        {{-
-                          block.settings.image
-                          | image_url: width: block.settings.image.width
-                          | image_tag:
-                            loading: 'eager',
-                            sizes: '100vw',
-                            widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200',
-                            class: 'trade_banner__image'
-                        -}}
+                           <img src="{{ block.settings.image | image_url }}" alt="{{ block.settings.image.alt }}"   width="{{ block.settings.image.width }}"
+              height="{{ block.settings.image.height }}">
                       {%- endif -%}
                     </picture>
                     <div class="module13_bottom-tle1">{{ block.settings.tle1 }}</div>

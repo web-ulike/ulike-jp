@@ -1,0 +1,111 @@
+<style>
+.technology-pain {
+  padding-top: 75px;
+}
+
+.technology-pain .technology-pain-h3 {
+  color: #190a0a;
+  text-align: center;
+  font-size: 32px;
+  line-height: 1.25;
+  font-weight: normal;
+  font-family: var(--font-heading-family);
+  margin: 0;
+}
+
+.technology-pain .technology-pain-cont {
+  margin-top: 40px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #86868b;
+}
+
+.technology-pain .technology-pain-text {
+  padding: 24px 16px;
+  border-radius: 4px;
+  background: #f9f9f9;
+  color: #190a0a;
+  font-size: 20px;
+  line-height: 1.6;
+}
+
+.technology-pain .technology-pain-text ul {
+  padding-left: 20px;
+  list-style: disc;
+}
+
+.technology-pain .technology-pain-text li:not(:last-child) {
+  margin-bottom: 25px;
+}
+
+.technology-pain .technology-pain-text strong {
+  font-weight: normal;
+  font-family: var(--font-heading-family);
+}
+
+.technology-pain .technology-pain-text p {
+  margin:0;
+}
+
+@media (max-width: 991px) {
+  .technology-pain {
+    padding-top: 45px;
+  }
+
+  .technology-pain .technology-pain-h3 {
+    font-size: 20px;
+  }
+
+  .technology-pain .technology-pain-cont {
+    margin-top: 16px;
+  }
+
+  .technology-pain .technology-pain-text {
+    padding: 24px 8px;
+    border-radius: 0;
+    font-size: 14px;
+  }
+
+  .technology-pain .technology-pain-text ul {
+    padding-left: 15px;
+  }
+}
+</style>
+<section class="section-box">
+  <div class="technology-pain mini-cont">
+    <div class="jp-container">
+      {%- if section.settings.title != blank -%}
+        <h3 class="technology-pain-h3">{{ section.settings.title }}</h3>
+      {%- endif -%}
+      <div class="technology-pain-cont">
+        <div class="technology-pain-text">
+          {{ section.settings.text }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "technology-pain",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default":"The Problem: Traditional IPL Causes Skin Overheating & Irritation"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default":"<p>text</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "technology-pain",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

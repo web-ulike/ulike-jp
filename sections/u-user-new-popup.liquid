@@ -1,6 +1,5 @@
 {%- liquid
   assign se_id = section.id
-  assign se_bks = section.blocks
   assign se_stts = section.settings
 -%}
 
@@ -113,8 +112,6 @@
             system_err: "システム異常です。しばらくしてからもう一度お試しください。",
           };
           const thatLogin = $('#u-user-popup');
-          let returnUrl = 'https://account.ulike.com/account/rewards?site=de';
-
 
           $(document).on('click', '#u-user-popup .close-btn', function (e) {
             // 去掉错误提示
@@ -186,12 +183,13 @@
               sendUlikeApi('/user/userSubscribe', data).then(function (res) {
                 if(res.code == 0){
                     // 显示成功信息;
-                    thatLogin.find('.login-msg-error').html(`登録が完了しました！<br/>【限定クーポン】: xxxxx <br/>
+                    thatLogin.find('.login-msg-error').html(`登録が完了しました！<br/>【限定クーポン】: hello1000 <br/>
                       ※こちらのクーポンコードは登録完了メールでもご確認いただけます。`)
                     thatLogin.find('.login-msg-error').fadeIn();
                     setTimeout(function () {
                       thatLogin.fadeOut();
-                    }, 10000);
+                    }, 6000);
+                    localStorage.setItem('ulike-subscribed', 'true');
                 } else if(res.code == 99998){
                     // 定义一个常量对象，用于存储订阅成功的消息
                     const messages = {
@@ -207,12 +205,8 @@
                    thatLogin.find('.login-msg-error').text(res.message);
                    thatLogin.find('.login-msg-error').fadeIn().delay(6000).fadeOut();
                 }
-              {% comment %} that.prop("disabled", false).attr("aria-busy", false); {% endcomment %}
             });
-
-
             }
-
 
           });
 
@@ -304,7 +298,7 @@
 
           let popupDelay = 1000 * 4;  // 倒计时（10秒），可动态设置
           let timerEnded = false;  // 倒计时是否结束
-          let hasScrolled = true; // 用户是否滚动过页面
+          let hasScrolled = false; // 用户是否滚动过页面
           let popupShown = false;  // 防止重复触发弹窗
           let popupCookieName = 'ulike_popup_login';
 
@@ -314,8 +308,6 @@
             popupShown = true;
             commonGtmEvent('vip_impressions', 'show', '');
             $('#u-user-popup').show();
-            {% comment %} setCookie(popupCookieName, userCount, 1); {% endcomment %}
-            {% comment %} userCount++; {% endcomment %}
             window.removeEventListener('scroll', onUserScroll);
           }
 
@@ -348,14 +340,20 @@
             checkAndShowPopup();
           }
 
-          // 监听滚动
-          window.addEventListener('scroll', onUserScroll);
-
-          // 倒计时结束
-          setTimeout(() => {
-            timerEnded = true;
-            checkAndShowPopup();  // 提取调用
-          }, popupDelay);
+          let isSubscribed = localStorage.getItem('ulike-subscribed') === 'true'; // 判断是否已订阅
+          // 监听滚动   如果用户已经订阅，直接不弹窗
+          console.log('isSubscribed', isSubscribed); 
+          if(isSubscribed){
+            thatLogin.hide();
+            $('#floating-box').hide();
+          } else {
+            // 倒计时结束
+            setTimeout(() => {
+              timerEnded = true;
+              checkAndShowPopup();  // 提取调用
+            }, popupDelay);
+            window.addEventListener('scroll', onUserScroll);
+          }
 
           $(document).one('focus', '#login-form .j_popup_email', function () {
             commonGtmEvent('vip_enter email', 'focus', '');
@@ -379,7 +377,10 @@
         * @param {*} label
         */
         function commonGtmEvent(category, operating, label) {
-          dataLayer.push({ event: 'common', category, operating, label });
+          gtag('event', category, {
+            operating: operating,
+            label: label
+          });
         }
         /**
             * 验证邮箱格式是否正确
@@ -394,61 +395,61 @@
         }
 
 
-    function sendUlikeApi(url, data) {
-      data.siteCode = 'JP'; // Ensure the site code is set to 'UK'
-      data.merchantCode = "ULIKE"; // Ensure the merchant code is set to 'ULIKE'
+        function sendUlikeApi(url, data) {
+          data.siteCode = 'JP'; // Ensure the site code is set to 'UK'
+          data.merchantCode = "ULIKE"; // Ensure the merchant code is set to 'ULIKE'
 
-      var _url = 'https://api.ulike.com' + url;
-      data.language = window.Shopify.locale;
+          var _url = 'https://api.ulike.com' + url;
+          data.language = window.Shopify.locale;
 
-      data.requestId = generateGUID();
-      // Set up the AJAX settings
-      var settings = {
-        url: _url,
-        method: 'POST', // POST is used as the request method
-        headers: {
-          'Content-Type': 'application/json', // Request payload is in JSON format
-        },
-        data: JSON.stringify(data), // Convert data object to JSON string
-        xhrFields: {
-          withCredentials: true, // Allow cookies and credentials to be sent
-        },
-      };
+          data.requestId = generateGUID();
+          // Set up the AJAX settings
+          var settings = {
+            url: _url,
+            method: 'POST', // POST is used as the request method
+            headers: {
+              'Content-Type': 'application/json', // Request payload is in JSON format
+            },
+            data: JSON.stringify(data), // Convert data object to JSON string
+            xhrFields: {
+              withCredentials: true, // Allow cookies and credentials to be sent
+            },
+          };
 
-      // Return a new Promise
-      return new Promise((resolve, reject) => {
-        $.ajax(settings)
-          .done(function (response) {
-            resolve(response); // Resolve the promise with the response
-          })
-          .fail(function (error) {
-            console.error('Error during API call:', error); // Log the error
-            reject(error); // Reject the promise with the error
+          // Return a new Promise
+          return new Promise((resolve, reject) => {
+            $.ajax(settings)
+              .done(function (response) {
+                resolve(response); // Resolve the promise with the response
+              })
+              .fail(function (error) {
+                console.error('Error during API call:', error); // Log the error
+                reject(error); // Reject the promise with the error
+              });
           });
-      });
-    }
+        }
 
-    function generateGUID() {
-      function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000)
-          .toString(16)
-          .substring(1);
-      }
-      return (
-        s4() +
-        s4() +
-        '-' +
-        s4() +
-        '-' +
-        s4() +
-        '-' +
-        s4() +
-        '-' +
-        s4() +
-        s4() +
-        s4()
-      );
-    }
+        function generateGUID() {
+          function s4() {
+            return Math.floor((1 + Math.random()) * 0x10000)
+              .toString(16)
+              .substring(1);
+          }
+          return (
+            s4() +
+            s4() +
+            '-' +
+            s4() +
+            '-' +
+            s4() +
+            '-' +
+            s4() +
+            '-' +
+            s4() +
+            s4() +
+            s4()
+          );
+        }
   </script>
   <style>
     .hide-plug-diy {
@@ -758,8 +759,8 @@
     #floating-box {
       position: fixed;
       height: 46px;
-      bottom: 140px;
-      right: 24px;
+      bottom: 97px;
+      right: 50px;
       width: 46px;
       display: flex;
       align-items: center;
@@ -891,7 +892,8 @@
         height: 40px;
       }
       #floating-box {
-        bottom: 150px;
+       bottom: 110px;
+       right: 42px;
       }
       .or-divider {
         margin: 4px 0;
@@ -917,6 +919,7 @@
     }
   </style>
 {% endif %}
+
 {% schema %}
 {
   "name": "u-user-popup",

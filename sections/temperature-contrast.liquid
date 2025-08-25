@@ -1,0 +1,496 @@
+<style>
+  .temperature-contrast {
+    padding: 80px 0;
+    background: var(--bg-img);
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #fff;
+  }
+
+  .temperature-contrast .container {
+    max-width: 1400px;
+  }
+
+  .temperature-contrast .title-diy {
+    color: #fff;
+  }
+
+  .temperature-contrast .temperature-contrast-sub1 {
+    font-size: 16px;
+    line-height: 1.2;
+    margin-top: 24px;
+    text-align: center;
+  }
+
+  .temperature-contrast .temperature-contrast-cont {
+    display: flex;
+    align-items: center;
+    margin-top: 60px;
+  }
+
+  .temperature-contrast .temperature-contrast-txt,
+  .temperature-contrast .temperature-contrast-chart {
+    width: 50%;
+  }
+
+  .temperature-contrast .temperature-contrast-txt {
+    /* padding-left: 110px; */
+    padding-right: 30px;
+  }
+
+  .temperature-contrast .temperature-contrast-txt-cont {
+    max-width: 460px;
+  }
+
+  .temperature-contrast .temperature-contrast-h3 {
+    font-size: 30px;
+    line-height: 1;
+    font-family: var(--font-heading-family);
+  }
+
+  .temperature-contrast .temperature-contrast-txt-p {
+    font-size: 16px;
+
+    margin-top: 35px;
+    line-height: 1.5;
+  }
+
+  .temperature-contrast .temperature-contrast-chart {
+    border-radius: 10px;
+    background: rgba(55, 55, 55, 0.2);
+    backdrop-filter: blur(10px);
+    position: relative;
+    background: rgba(31, 31, 31, 0.8);
+  }
+  .temperature-contrast .temperature-contrast-chart .chart-box {
+    padding-top: 60%;
+    position: relative;
+  }
+  .temperature-contrast .ulike-chart {
+    position: absolute;
+    width: calc(100% - 40px);
+    height: calc(100% - 40px);
+    overflow: hidden;
+    top: 10px;
+    left: 20px;
+  }
+  .temperature-contrast .temperature-contrast-chart::before {
+    position: absolute;
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background: url(https://cdn.shopify.com/s/files/1/0656/9079/6273/files/e2_6cafad50-ca24-47b5-855d-e0f5a57fb9c6.png)
+      no-repeat;
+    background-size: 100% 100%;
+  }
+
+  @media (max-width: 1400px) {
+    .temperature-contrast .temperature-contrast-txt {
+      padding-right: 30px;
+    }
+  }
+
+  @media (max-width: 991px) {
+    .temperature-contrast {
+      padding: 50px 0;
+      background: var(--bg-img-m);
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    .temperature-contrast .temperature-contrast-sub1 {
+      margin-top: 15px;
+    }
+
+    .temperature-contrast .temperature-contrast-cont {
+      margin-top: 30px;
+      flex-direction: column;
+      gap: 30px;
+      align-items: normal;
+    }
+
+    .temperature-contrast .temperature-contrast-txt,
+    .temperature-contrast .temperature-contrast-chart {
+      width: 100%;
+    }
+
+    .temperature-contrast .temperature-contrast-txt-cont {
+      max-width: none;
+    }
+
+    .temperature-contrast .temperature-contrast-txt {
+      padding: 0;
+    }
+
+    .temperature-contrast .temperature-contrast-h3 {
+      font-size: 18px;
+    }
+
+    .temperature-contrast .temperature-contrast-txt-p {
+      font-size: 14px;
+      margin-top: 20px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .temperature-contrast .ulike-chart {
+      width: calc(100% - 30px);
+      height: calc(100% - 20px);
+      left: 15px;
+    }
+
+    .temperature-contrast .temperature-contrast-chart .chart-box {
+      padding-top: 90%;
+    }
+    .temperature-contrast .temperature-contrast-chart::before {
+      display: none;
+    }
+  }
+</style>
+<section class="section-box">
+  <div
+    class="temperature-contrast to-top"
+    style="--bg-img: url({{ section.settings.image | img_url: 'original' }});--bg-img-m: url({{ section.settings.image1 | img_url: 'original' }})"
+  >
+    <div class="jp-container">
+      <div class="title-diy to-top">{{ section.settings.title }}</div>
+      <div class="temperature-contrast-sub1 to-top" style="transition-delay: 0.1s">
+        {{ section.settings.text }}
+      </div>
+      <div class="temperature-contrast-cont">
+        <div class="temperature-contrast-txt">
+          <div class="temperature-contrast-txt-cont to-top" style="transition-delay: 0.2s">
+            <div class="temperature-contrast-h3">
+              {{ section.settings.text1 }}
+            </div>
+            <div class="temperature-contrast-txt-p">
+              {{ section.settings.text2 }}
+            </div>
+          </div>
+        </div>
+        <div class="temperature-contrast-chart to-top" style="transition-delay: 0.3s">
+          <div class="chart-box">
+            <div id="ulike-chart" class="ulike-chart"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/echarts.min.js" async></script>
+  <script>
+    function createUlikeChart() {
+      let dom = document.getElementById('ulike-chart')
+      let myChart = echarts.init(dom, null, {
+        renderer: 'canvas',
+        useDirtyRect: false,
+      })
+
+      let option = {
+        animationDuration: 1500,
+        legend: {
+          data: [
+            {
+              name:`ne1`,
+              itemStyle: {
+                color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                  {
+                    offset: 1,
+                    color: '#ff7d09',
+                  }, // 渐变起始色
+                  {
+                    offset: 0,
+                    color: '#ffd40c',
+                  },
+                ]),
+              },
+            },
+            {
+              name: 'ne2',
+              itemStyle: {
+                color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                  {
+                    offset: 1,
+                    color: '#48c6ef',
+                  }, // 渐变起始色
+                  {
+                    offset: 0,
+                    color: '#6f86d6',
+                  },
+                ]),
+              },
+            },
+            {
+              name: 'ne3',
+              itemStyle: {
+                color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                  {
+                    offset: 1,
+                    color: '#97253b',
+                  }, // 渐变起始色
+                  {
+                    offset: 0,
+                    color: '#ff0000',
+                  },
+                ]),
+              },
+            },
+          ],
+          x: 'center',
+          y: 'bottom',
+          icon: 'rect',
+          itemWidth: 12,
+          itemHeight: 3,
+          itemGap:40,
+          textStyle: {
+            fontSize: 12,
+            color: '#fff',
+          },
+          selectedMode: false,
+        },
+        grid: {
+          top: '30px',
+          left: '3%',
+          right: '4%',
+          bottom: '35px',
+          containLabel: true,
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: ['min', '5', '10', '15', '20', '25'],
+          axisTick: {
+            show: false, //不显示刻度
+          },
+          axisLabel: {
+            margin: 20, // 调整 X 轴文字距离轴线的距离
+            color: '#fff',
+            fontWeight: 600,
+          },
+          axisLine: {
+            lineStyle: {
+              color: '#535353', // 设置 X 轴线条颜色
+            },
+          },
+        },
+        yAxis: {
+          type: 'value',
+          min: 0, // 动态设置 Y 轴的最小值
+          max: 150,
+          axisLabel: {
+            margin: 20, // 调整 X 轴文字距离轴线的距离
+            color: '#fff',
+            fontWeight: 600,
+            formatter: function (value) {
+              // 使用 formatter 自定义 Y 轴标签的显示格式
+              if (value === 0) {
+                return '℉'
+              } else {
+                return value
+              }
+            },
+          },
+          splitLine: {
+            show: true,
+            lineStyle: {
+              color: '#535353', // 设置分隔线颜色
+            },
+          },
+        },
+        series: [
+          {
+            name: 'ne1',
+            type: 'line',
+            smooth: true,
+            showSymbol: false,
+            data: [96, 96, 96, 96, 96, 96],
+            lineStyle: {
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                {
+                  offset: 1,
+                  color: '#ff7d09',
+                }, // 渐变起始色
+                {
+                  offset: 0,
+                  color: '#ffd40c',
+                },
+              ]),
+            }
+          },
+          {
+            name: 'ne2',
+            type: 'line',
+            smooth: true,
+            showSymbol: false,
+            data: [96, 47, 65, 63, 65, 63],
+            lineStyle: {
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                {
+                  offset: 1,
+                  color: '#48c6ef',
+                }, // 渐变起始色
+                {
+                  offset: 0,
+                  color: '#6f86d6',
+                },
+              ]),
+            }
+          },
+          {
+            name: 'ne3',
+            type: 'line',
+            smooth: true,
+            showSymbol: false,
+            data: [96, 100, 115, 113, 117, 125],
+            lineStyle: {
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                {
+                  offset: 1,
+                  color: '#97253b',
+                }, // 渐变起始色
+                {
+                  offset: 0,
+                  color: '#ff0000',
+                },
+              ]),
+            }
+          },
+          // 闪烁点的重点是以下配置
+          {
+            // 设置涟漪特效动画
+            type: 'effectScatter',
+            // 有三种: cartesian2d(二维的直角坐标系) polar(极坐标系) geo(地理坐标系) ,此需求使用cartesian2d
+            coordinateSystem: 'cartesian2d',
+            data: [
+              ['5', 47],
+              ['10', 65],
+            ], //2d坐标系--[x轴, y轴, 标记大小]
+            symbolSize: 15,
+
+            // 何时显示特效:'render'-绘制完成后显示特效 'emphasis'-高亮（hover）的时候显示特效
+            showEffectOn: 'render',
+            // 涟漪特效配置
+            rippleEffect: {
+              // 波纹的绘制方式,可选'stroke'和'fill'
+              brushType: 'fill',
+            },
+            hoverAnimation: true,
+            itemStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(0, 0, 1, 1, [
+                  {
+                    offset: 1,
+                    color: '#209cff',
+                  }, // 渐变起始色
+                  {
+                    offset: 0,
+                    color: '#68e0cf',
+                  },
+                ]),
+                shadowBlur: 30,
+                shadowColor: '#fff',
+              },
+            },
+            zlevel: 1
+          },
+        ],
+        tooltip: {
+          trigger: 'item',
+          backgroundColor: 'rgba(255,255,255,1)',
+          borderColor: 'rgba(0,72,176,0)',
+          position:'top',
+          formatter: function (params) {
+            // 自定义tooltip内容
+            let html = ''
+            if(params.name == 5){
+              html=`<div style="font-size: 14px;color: #000;text-align: center;line-height: 1.2;">Temperature <br/> stabilization begins</div>`
+            }else{
+              html=`<div style="font-size: 14px;color: #000;text-align: center;line-height: 1.2;"><div style="font-family: var(--font-heading-family);">65°F</div>Stabilizing temperature</div>`
+            }
+            return html
+          },
+        },
+      }
+      if (option && typeof option === 'object') {
+        if(window.innerWidth<1300) option.legend.itemGap = 10
+        if(window.innerWidth<1100) option.legend.textStyle.fontSize = 10
+        if(window.innerWidth<640) option.grid.bottom = '50px'
+        if(window.innerWidth<640) option.grid.top = '10px'
+        if(window.innerWidth<640) option.grid.left = '0'
+        if(window.innerWidth<640) option.grid.right = '2%'
+        myChart.setOption(option)
+      }
+
+      window.addEventListener('resize', function(){
+        myChart.resize()
+      })
+    }
+
+    function initChart(){
+      let $p = $('.temperature-contrast .chart-box')
+      let react = $p[0].getBoundingClientRect()
+      let windowHeight = window.innerHeight
+      if($p.hasClass('isInit')) return
+      if((windowHeight > react.top) && (windowHeight - react.top < react.height +50 || react.top > 80) ){
+        $p.addClass('isInit')
+        setTimeout(() => {
+          createUlikeChart()
+        }, 600);
+      }
+    }
+
+    window.addEventListener('load',function(){
+      // 调用函数创建图表
+      initChart()
+      window.addEventListener('scroll',function(){
+        initChart()
+      })
+    })
+  </script>
+</section>
+
+{% schema %}
+{
+  "name": "temperature-contrast",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background"
+    },
+    {
+      "type": "image_picker",
+      "id": "image1",
+      "label": "Mobile Background"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "text1",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "text2",
+      "label": "Text"
+    }
+  ],
+  "presets": [
+    {
+      "name": "temperature-contrast",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}
