@@ -31,7 +31,7 @@
 
     {%- if show_account and shop.customer_accounts_enabled -%}
            {% if customer %}
-              <a href="{%- if customer -%}{{ routes.account_url }}
+              {% comment %} <a href="{%- if customer -%}{{ routes.account_url }}
                 {%- else -%}
                 {{ routes.account_login_url }}{%- endif -%}" class="hidden lg:flex items-center justify-center" is="magnet-link">
                 <span class="sr-only">
@@ -44,8 +44,21 @@
                   -%}
                 </span>
                 {%- render 'icon', icon: 'account', size: 'lg' -%} 
-              </a>
-             
+              </a> {% endcomment %}
+              <div
+                class="header__icon-wrapper tap-area hidden-phone"
+                aria-label="{{ 'header.general.account' | t | escape }}"
+              >
+                {%- render 'icon', icon: 'account', size: 'lg' -%} 
+                <div class="account-list">
+                  <a href="https://account.ulike.com/account?site=us" alt="Account Center" class="item">
+                    {{ 'customer.general.account_center' | t }}
+                  </a>
+                  <a href="https://www.ulike.com/account/logout" class="item header-logout"  alt="Log Out" class="item">
+                    {{ 'customer.general.log_out' | t }}
+                  </a>
+                </div>
+              </div>
          {% else %}
            <a href=" https://account.ulike.com/login?site=jp" class="hidden lg:flex items-center justify-center" is="magnet-link">
                 <span class="sr-only">
