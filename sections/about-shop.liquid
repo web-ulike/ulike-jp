@@ -1,0 +1,342 @@
+<style>
+
+#shopify-section-{{ section.id }} {
+    --text-color: {{  section.settings.text_color.red }}, {{  section.settings.text_color.green }}, {{  section.settings.text_color.blue }};
+    --color-border: 255, 255, 255;
+    --section-background: {{ section.settings.background }};
+    background: var(--section-background); 
+  }
+     .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px);
+  }
+  @media screen and (max-width: 768px){
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.mobile_padding_top }}px);
+    padding-bottom: calc({{ section.settings.mobile_padding_bottom }}px );
+  }
+}
+ .shop-box{
+          }
+          .shop-wrapper{
+            text-align: center;
+            max-width: 900px;
+            margin:  0 auto;
+          }
+          .shop-box h3{
+            color: #000;
+            font-size: 36px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 155%;
+            letter-spacing: 0.36px;
+            margin-bottom: 39px;
+
+          }
+          .shop-item h5{
+            position: relative;
+            color: #000;
+            font-size: 28px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+            letter-spacing: 7px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            max-width: 1000px;
+            margin: 0 auto 60px;
+          }
+          .shop-item h5::before,
+          .shop-item h5::after {
+            content: "";
+            flex: 1;
+            border-top: 1px dashed #000;
+            margin: 0 8px;
+          }
+          .shop-list{
+            display: flex;
+            gap: 100px;
+            justify-content: center;
+            margin-bottom: 63px;
+          }
+          .shop-wrapper .shop-item:not(:last-child){
+            margin-bottom: 70px;
+          }
+        .shop__note{
+          color: rgba(0, 0, 0, 0.50);
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      letter-spacing: 1.199px;
+          margin-top:80px;
+          text-align: left;
+  }
+           .shop-wrapper .brand__value-link{
+          border-radius: 100px;
+          border: 1px solid #000;
+          background: #FFF;
+          display: inline-flex;
+          gap: 20px;
+          align-items: center;
+          padding: 9px 23px;
+          font-size: 14px;
+          margin-bottom:46px;
+         }
+         .shop-wrapper .brand__value-link:hover{
+          background: #000;
+          color: #fff;
+         }
+  .shop-item h5.btn_cs-tle{
+    margin-bottom:20px;
+  }
+          @media screen and (max-width: 750px) {
+            .shop-box h3{
+              font-size: 24px;
+              margin-bottom: 18px;
+            }
+            .shop-wrapper .shop-item:not(:last-child) {
+                margin-bottom: 20px;
+            }
+            .shop-item h5{
+              font-size: 14px;
+              margin-bottom: 22px;
+            }
+            .shop-list {
+                margin-bottom: 27px;
+                justify-content: space-around;
+        gap: 40px;
+            }
+              .shop__note{
+font-size: 8px;
+    margin-top:36px;
+  }
+                      .shop-wrapper .brand__value-link{
+            margin-top: 18px;
+          }
+                       .shop-wrapper .brand__value-link{
+          margin-bottom:11px;
+         }
+              .shop-item h5.btn_cs-tle{
+    margin-bottom:10px;
+  }
+          }
+</style>
+ <section class="section-{{ section.id }}-padding">
+ <div class="shop-box">
+          <div class="jp-container">
+            <div class="shop-wrapper">
+              <h3 class="to-top">{{section.settings.tle}}</h3>
+              <div class="shop-item">
+                <h5 class="to-top">{{section.settings.tle2}}</h5>
+                 <div class="shop-list to-top">
+
+                    {%- for block in section.blocks -%}
+                   {%- case block.type -%}
+                    {%- when 'shoptop' -%}
+                  <div class="shop-list-img">
+                     {%- if block.settings.image -%}
+                   <img src="{{ block.settings.image | image_url }}" alt="" class="donki_md1-bg scale_img" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}">
+                      {%- endif -%}
+                  </div>
+                   {%- endcase -%}
+                {%- endfor -%}
+                 
+                 </div>
+              </div>
+              <div class="shop-item">
+                <h5 class="to-top btn_cs-tle">{{ section.settings.tle3 }}</h5>
+                <a class="brand__value-link" href="{{ section.settings.link_url }}">{{ section.settings.button_txt }} 
+                <svg width="5" height="10" viewBox="0 0 5 10" fill="none">
+                  <path d="M4.72733 4.09721C5.09114 4.46425 5.09084 5.05599 4.72674 5.42274L0.804725 9.37313C0.621352 9.55739 0.323572 9.55827 0.139317 9.37549C-0.0453804 9.19123 -0.0453804 8.89345 0.136523 8.71008L3.73017 5.09069C3.91222 4.90732 3.91237 4.61145 3.73047 4.42793L0.136523 0.801931C-0.0464098 0.617234 -0.0455274 0.319455 0.139317 0.136523C0.324161 -0.0464097 0.621793 -0.0455274 0.804725 0.139317L4.72733 4.09721Z" fill="currentColor"/>
+                </svg>
+              </a>
+                <div class="shop-list-wrapper to-top">
+                  <div class="shop-list">
+                     {%- for block in section.blocks -%}
+                   {%- case block.type -%}
+                    {%- when 'shopbottom' -%}
+                  <div class="shop-list-img">
+                     {%- if block.settings.image -%}
+                   <img src="{{ block.settings.image | image_url }}" alt="" class="donki_md1-bg scale_img" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}">
+                      {%- endif -%}
+                  </div>
+                   {%- endcase -%}
+                {%- endfor -%}
+                 </div>
+                 <div class="shop-list">
+               {%- for block in section.blocks -%}
+                   {%- case block.type -%}
+                    {%- when 'shopbottom2' -%}
+                  <div class="shop-list-img">
+                     {%- if block.settings.image -%}
+                   <img src="{{ block.settings.image | image_url }}" alt="" class="donki_md1-bg scale_img" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}">
+                      {%- endif -%}
+                  </div>
+                   {%- endcase -%}
+                {%- endfor -%}
+                   
+                 </div>
+                </div>
+              </div>
+               {%- if section.settings.shop_note != blank -%}
+            <div class="shop__note">{{ section.settings.shop_note }}</div>
+               {%- endif -%}
+            </div>
+
+          </div>
+        </div>
+  </section>
+<script>
+</script>
+{% schema %}
+{
+  "name": "about-shop",
+  "class": "about-shop", 
+  "settings": [
+           {
+      "type": "text",
+      "id": "tle",
+      "label": "Title"
+    },
+           {
+      "type": "text",
+      "id": "tle2",
+      "label": "Title2"
+    },
+               {
+      "type": "text",
+      "id": "tle3",
+      "label": "Title3"
+    },
+          {
+      "type": "richtext",
+      "id": "shop_note",
+      "label": "Note"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    },
+         {
+      "type": "text",
+      "id": "button_txt",
+      "label": "Button Text"
+    },
+               {
+      "type": "text",
+      "id": "button_tle",
+      "label": "Button Title"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Button Link"
+    },
+    {
+      "type": "color_background",
+      "id": "background",
+      "label": "Background",
+      "default": "#fff"
+    },
+     {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_top.label",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_bottom.label",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Top",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Bottom",
+      "default": 10
+    }
+  ],
+  "blocks": [
+         {
+        "type": "shoptop",
+        "name": "shoptop",
+        "settings": [
+           {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        },
+     {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile Images"
+        }
+        ]
+      },
+             {
+        "type": "shopbottom",
+        "name": "shopbottom",
+        "settings": [
+           {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        },
+     {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile Images"
+        }
+        ]
+      },
+                 {
+        "type": "shopbottom2",
+        "name": "shopbottom2",
+        "settings": [
+           {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        },
+     {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile Images"
+        }
+        ]
+      }
+  ],
+  "presets": [
+    {
+      "name": "about-shop"
+    }
+  ]
+}
+{% endschema %}

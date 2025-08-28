@@ -1,0 +1,234 @@
+<style>
+
+#shopify-section-{{ section.id }} {
+    --text-color: {{  section.settings.text_color.red }}, {{  section.settings.text_color.green }}, {{  section.settings.text_color.blue }};
+    --section-background: {{ section.settings.background.red }}, {{ section.settings.background.green }}, {{ section.settings.background.blue }};
+    --color-border: 255, 255, 255;
+    /* background: rgb(var(--section-background, var(--background)));  */
+  }
+     .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px);
+  }
+  @media screen and (max-width: 768px){
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.mobile_padding_top }}px);
+    padding-bottom: calc({{ section.settings.mobile_padding_bottom }}px );
+  }
+}
+.assure-inner{
+  display: flex;
+  justify-content: space-between;
+}
+.assure-item{
+  display: flex;
+  gap: 53px;
+  width: 50%;
+  align-items: center;
+}
+.assure-item img{
+align-self: center;
+}
+.assure-cnt-box{
+  flex: 1;
+}
+.assure-item .assure-cnt-tle{
+  color: #000;
+font-size: 44px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+margin-bottom: 10px;
+}
+.assure-item  .assure-cnt-p{
+  color: #313131;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 130%; 
+}
+.assure-inner .assure-item:nth-child(1){
+  padding-right: 103px;
+  border-right: 1px solid rgba(146, 146, 146, 0.50);
+}
+.assure-inner .assure-item:nth-child(2){
+ padding-left: 103px;
+}
+
+@media (max-width: 1028px){
+.assure-inner .assure-item:nth-child(1){
+  padding-right: 22px;
+}
+.assure-inner .assure-item:nth-child(2) {
+    padding-left: 22px;
+}
+.assure-item{
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+.assure-item .assure-cnt-tle{
+  font-size: 13px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+.assure-item .assure-cnt-p{
+  font-size: 8.293px;
+}
+.assure-item img {
+   max-width: 38px;
+}
+}
+
+
+.comparison-table tr th:nth-child(2){
+  background: #fff;
+}
+.comparison-table tr td:nth-child(2){
+  background: #fff;
+}
+</style>
+ <section class="section-{{ section.id }}-padding">
+ <div class="assure-md to-top">
+                <div class="jp-container">
+                  <div class="assure-inner">
+
+                     {%- for block in section.blocks -%}
+                    <div class="assure-item">
+                     <picture>
+                         {%- if block.settings.image_mobile -%}
+                            <source media="(max-width: 767px)" srcset="{{ block.settings.image_mobile | image_url }}">
+                                 {%- endif -%}
+                             {%- if block.settings.image -%}
+                            <img src="{{ block.settings.image | image_url }}" alt="{{ block.settings.image.alt }}">
+                            {%- endif -%}
+                       </picture>
+                      <div class="assure-cnt-box">
+                        <div class="assure-cnt-tle">{{ block.settings.tle }}</div>
+                        <div class="assure-cnt-p">{{ block.settings.des }}</div>
+                      </div>
+                    </div>
+                    {%- endfor -%}
+                    
+
+                  </div>
+                </div>
+              </div>
+  </section>
+<script>
+</script>
+{% schema %}
+{
+  "name": "assure md",
+  "class": "shopify-section--assure-md", 
+  "settings": [
+    
+           {
+      "type": "text",
+      "id": "tle",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "des",
+      "label": "Descripte"
+    },
+         {
+      "type": "richtext",
+      "id": "note",
+      "label": "Note"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "rgba(0,0,0,0)"
+    },
+     {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_top.label",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_bottom.label",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Top",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Bottom",
+      "default": 10
+    }
+  ],
+  "blocks": [
+     {
+        "type": "item",
+        "name": "item",
+        "settings": [
+           {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        },
+     {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile Images"
+        },
+               {
+      "type": "richtext",
+      "id": "tle",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "des",
+      "label": "Descripte"
+    },
+          {
+      "type": "richtext",
+      "id": "txt",
+      "label": "Text"
+    }
+        ]
+      }
+  ],
+  "presets": [
+    {
+      "name": "assure md"
+    }
+  ]
+}
+{% endschema %}

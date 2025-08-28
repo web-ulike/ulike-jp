@@ -1,0 +1,224 @@
+<style>
+.technology-remark {
+  padding-top: 50px;
+  background: #f6f6f6;
+}
+
+.technology-remark .technology-remark-h3 {
+  color: #190a0a;
+  font-size: 32px;
+  line-height: 1.25;
+  text-align: center;
+  font-weight: normal;
+  font-family: var(--font-heading-family);
+  margin: 0;
+}
+
+.technology-remark .technology-remark-arraws {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 40px;
+  gap: 60px;
+}
+
+.technology-remark .technology-remark-arraw {
+  width: 40px;
+  cursor: pointer;
+}
+
+.technology-remark .technology-remark-arraw svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.technology-remark .swiper-button-disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.technology-remark .technology-remark-slide {
+  overflow: hidden;
+  margin-top: 40px;
+}
+
+.technology-remark .technology-remark-list {
+  display: flex;
+}
+
+.technology-remark .technology-remark-item {
+  width: 100%;
+  flex-shrink: 0;
+  padding: 30px 48px;
+  background: #fff;
+  height:auto;
+}
+
+.technology-remark .img-star {
+  max-width: 228px;
+  display: block;
+}
+
+.technology-remark .technology-remark-p {
+  color: #000;
+  font-size: 36px;
+  line-height: 1.5;
+  font-family: var(--font-heading-family);
+  text-align: center;
+  margin: 0;
+  margin-top: 16px;
+}
+
+.technology-remark .technology-remark-flex {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 25px;
+}
+
+.technology-remark .technology-remark-name {
+  color: #000;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.technology-remark .img-logo {
+  max-width: 115px;
+  display: block;
+}
+
+@media (max-width: 991px) {
+  .technology-remark {
+    padding-top: 46px;
+    position: relative;
+    padding-bottom: 56px;
+  }
+
+  .technology-remark .technology-remark-h3 {
+    font-size: 20px;
+  }
+
+  .technology-remark .technology-remark-arraws {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    justify-content: center;
+    gap: 40px;
+  }
+
+  .technology-remark .technology-remark-slide {
+    margin-top: 16px;
+  }
+
+  .technology-remark .technology-remark-item {
+    padding: 24px 16px;
+  }
+
+  .technology-remark .technology-remark-p {
+    font-size: 24px;
+    text-align: left;
+  }
+
+  .technology-remark .technology-remark-flex {
+    justify-content: flex-start;
+    font-size: 16px;
+    margin-top: 22px;
+  }
+}
+</style>
+<section class="section-box">
+  <div class="technology-remark mini-cont">
+    <div class="jp-container">
+      {%- if section.settings.text != blank -%}
+        <h3 class="technology-remark-h3">{{ section.settings.text }}</h3>
+      {%- endif -%}
+      {%- if section.blocks.size > 1 -%}
+        <div class="technology-remark-arraws">
+          <div class="technology-remark-arraw technology-remark-arraw-prev">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M23.6003 33.0662L24.1054 33.5713L25.1155 32.5611L24.6104 32.0561L19.9992 27.4448L15.6526 23.0982C15.0947 22.5404 14.1902 22.5404 13.6323 23.0982L18.9891 28.455L23.6003 33.0662ZM11.1003 19.5561C10.8213 19.835 10.8213 20.2873 11.1003 20.5662C11.1942 20.6601 11.3078 20.7224 11.4278 20.7531L11.4278 20.7754L11.6038 20.7754L11.6069 20.7754L12.1421 20.7754L19.4639 20.7754L26.7857 20.7754L28.5715 20.7754C29.3605 20.7754 30.0001 20.1358 30.0001 19.3469L26.7857 19.3469L13.3298 19.3469L24.6104 8.06622L25.1155 7.56114L24.1054 6.55098L23.6003 7.05606L11.1003 19.5561Z"
+                fill="#190A0A" />
+              <circle cx="20" cy="20" r="19.2857" transform="rotate(-180 20 20)" stroke="#190A0A"
+                stroke-width="1.42857" />
+            </svg>
+          </div>
+          <div class="technology-remark-arraw technology-remark-arraw-next">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M16.3997 6.93379L15.8946 6.42871L14.8845 7.43886L15.3896 7.94394L20.0008 12.5552L24.3474 16.9018C24.9053 17.4596 25.8098 17.4596 26.3677 16.9018L21.011 11.545L16.3997 6.93379ZM28.8997 20.4439C29.1787 20.165 29.1787 19.7127 28.8997 19.4338C28.8058 19.3399 28.6922 19.2776 28.5722 19.2469V19.2246H28.3962H28.3931H27.8579H20.5361H13.2143H11.4285C10.6395 19.2246 9.99995 19.8642 9.99995 20.6531H13.2143H26.6702L15.3896 31.9338L14.8845 32.4389L15.8946 33.449L16.3997 32.9439L28.8997 20.4439Z"
+                fill="#190A0A" />
+              <circle cx="20" cy="20" r="19.2857" stroke="#190A0A" stroke-width="1.42857" />
+            </svg>
+          </div>
+        </div>
+      {%- endif -%}        
+      <div class="technology-remark-slide">
+        <div class="technology-remark-list swiper-wrapper">
+          {%- for block in section.blocks -%}
+            <div class="technology-remark-item swiper-slide">
+              {%- if block.settings.text != blank -%}
+                <p class="technology-remark-p">
+                  {{ block.settings.text }}
+                </p>
+              {%- endif -%}
+              {%- if block.settings.text1 != blank -%}
+                <div class="technology-remark-flex">
+                  <p class="technology-remark-name">{{ block.settings.text1 }}</p>
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  new Swiper(".technology-remark-slide", {
+    slidesPerView: "auto",
+    spaceBetween: 20,
+    navigation: {
+      nextEl: ".technology-remark-arraw-next",
+      prevEl: ".technology-remark-arraw-prev",
+    },
+  })
+</script>
+{% schema %}
+{
+  "name": "technology-remark",
+  "blocks": [
+    {
+      "name": "item",
+      "type": "item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "text",
+          "id": "text1",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Title"
+    }
+  ],
+  "presets": [
+    {
+      "name": "technology-remark",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

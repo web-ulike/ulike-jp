@@ -1,0 +1,604 @@
+{
+  "sections": {
+    "main-product": {
+      "type": "main-product",
+      "blocks": {
+        "vendor": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "{{ product.vendor }}",
+            "text_size": "text-base"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "title_size": "product-title-sm",
+            "title_size_mobile": "product-title-md",
+            "show_price": true,
+            "show_rating": false
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "text_size": "text-sm"
+          }
+        },
+        "ulike_giveaway_LiGj9z": {
+          "type": "ulike_giveaway",
+          "disabled": true,
+          "settings": {
+            "giveaway_image": "shopify:\/\/shop_images\/giveaway.png"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "show_variant_labels": true,
+            "picker_type": "button",
+            "enable_color_swatches": true,
+            "color_swatch_type": "variant",
+            "size_chart": ""
+          }
+        },
+        "liquid_eMynGN": {
+          "type": "liquid",
+          "disabled": true,
+          "settings": {
+            "liquid": "{%  render 'couponcode' %}"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_quantity_selector": true,
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": false
+          }
+        },
+        "collapsible_tab_Yh33GT": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "truck",
+            "heading": "全国送料無料：通常1-3日以内の配達。",
+            "content": "<p>発送後のお届け先の変更、配送方法の変更はできません。<\/p>",
+            "page": "",
+            "liquid": ""
+          }
+        },
+        "collapsible_tab_i9YDmT": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "return",
+            "heading": "90日返金・返品保証",
+            "content": "<p>返品・交換をご希望の場合は、jpsupport@ulikeglobal.comまでお客様のお名前、注文番号、返品商品の写真をご連絡ください。<\/p>",
+            "page": "",
+            "liquid": ""
+          }
+        },
+        "collapsible_tab_GMeNDy": {
+          "type": "collapsible_tab",
+          "disabled": true,
+          "settings": {
+            "icon": "shield",
+            "heading": "2年メーカー保証",
+            "content": "",
+            "page": "",
+            "liquid": ""
+          }
+        },
+        "custom_text_aaiQQL": {
+          "type": "custom_text",
+          "settings": {
+            "text": "*1. 国際認証機関CVCによる試験結果。No. WTS2024-1748。*2. 国際認証機関SGSによる報告：GZCPCH24001216-01S1_CN。トリートメントスケジュールに従って週3回使用した場合。効果には個人差及び部位差があります。*3. 痛みの感じ方には個人差と部位差があります。",
+            "text_size": "text-3xs"
+          }
+        },
+        "countdown": {
+          "type": "countdown",
+          "settings": {
+            "heading": "Hurry up!",
+            "subheading": "Sale end in:",
+            "color_text": "#e11d48",
+            "color_background": "#fff1f2",
+            "gradient_background": ""
+          }
+        },
+        "inventory": {
+          "type": "inventory",
+          "disabled": true,
+          "settings": {
+            "inventory_threshold": 15,
+            "show_inventory_transfer": true,
+            "color_scheme": "accent-1"
+          }
+        },
+        "pickup_availability": {
+          "type": "pickup_availability",
+          "settings": {}
+        },
+        "ulike_giveaway_AQLP7E": {
+          "type": "ulike_giveaway",
+          "settings": {
+            "giveaway_image": "shopify:\/\/shop_images\/2_ccd949e1-53eb-400b-b5ab-84198f7ad09e_1.png",
+            "m_giveaway_image": "shopify:\/\/shop_images\/20250306-140034.jpg"
+          }
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share",
+            "show_help_desk": false,
+            "help_label": "Need help?",
+            "help_type": "drawer",
+            "help_page": ""
+          }
+        },
+        "complementary": {
+          "type": "complementary",
+          "disabled": true,
+          "settings": {
+            "heading": "あなたも好きかも",
+            "product_limit": 4,
+            "show_vendor": false,
+            "show_price": true
+          }
+        },
+        "sticky_buy_button": {
+          "type": "sticky_buy_button",
+          "disabled": true,
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "vendor",
+        "title",
+        "description",
+        "ulike_giveaway_LiGj9z",
+        "variant_picker",
+        "liquid_eMynGN",
+        "buy_buttons",
+        "collapsible_tab_Yh33GT",
+        "collapsible_tab_i9YDmT",
+        "collapsible_tab_GMeNDy",
+        "custom_text_aaiQQL",
+        "countdown",
+        "inventory",
+        "pickup_availability",
+        "ulike_giveaway_AQLP7E",
+        "share",
+        "complementary",
+        "sticky_buy_button"
+      ],
+      "settings": {
+        "code_num": "20%OFF",
+        "code": "",
+        "enable_sticky_info": true,
+        "media_size": 66,
+        "gallery_layout": "thumbnail",
+        "thumbnail_position": "below",
+        "image_ratio": "adapt_first",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_autoplay": true,
+        "enable_video_looping": true,
+        "mobile_layout": "full_width",
+        "image_ratio_mobile": "adapt_first",
+        "mobile_thumbnail": false,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "divider": false,
+        "full_width": true,
+        "rounded": false
+      }
+    },
+    "help-drawer": {
+      "type": "help-drawer",
+      "blocks": {
+        "content-1": {
+          "type": "content",
+          "settings": {
+            "icon": "rocket",
+            "heading": "Shipping Information",
+            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.<\/p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "color_text": "#b45309",
+            "color_background": "#fffbeb",
+            "gradient_background": "",
+            "color_highlight": "#ffddbf",
+            "gradient_highlight": ""
+          }
+        },
+        "content-2": {
+          "type": "content",
+          "settings": {
+            "icon": "headphone",
+            "heading": "Customer Support",
+            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.<\/p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "color_text": "#0369a1",
+            "color_background": "#f0f9ff",
+            "gradient_background": "",
+            "color_highlight": "#ffddbf",
+            "gradient_highlight": ""
+          }
+        },
+        "content-3": {
+          "type": "content",
+          "settings": {
+            "icon": "chat_bubble",
+            "heading": "FAQ’s",
+            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.<\/p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "color_text": "#be123c",
+            "color_background": "#fff1f2",
+            "gradient_background": "",
+            "color_highlight": "#ffddbf",
+            "gradient_highlight": ""
+          }
+        },
+        "content-4": {
+          "type": "content",
+          "settings": {
+            "icon": "phone",
+            "heading": "Contact Us",
+            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.<\/p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "color_text": "#4d7c0f",
+            "color_background": "#f7fee7",
+            "gradient_background": "",
+            "color_highlight": "#ffddbf",
+            "gradient_highlight": ""
+          }
+        }
+      },
+      "block_order": [
+        "content-1",
+        "content-2",
+        "content-3",
+        "content-4"
+      ],
+      "disabled": true,
+      "settings": {
+        "heading": "Need help?",
+        "description": "<p>If you have any questions, you are always welcome to contact us. We'll get back to you as soon as possible, within 24 hours on weekdays.<\/p>"
+      }
+    },
+    "ulike_slideshow_xffenV": {
+      "type": "ulike__slideshow",
+      "blocks": {
+        "image_MbDBC7": {
+          "type": "image",
+          "settings": {
+            "image_mobile": "shopify:\/\/shop_images\/MB_a976a8ae-6ddc-420e-8a03-32f8cd6d7baf.jpg",
+            "heading": "",
+            "heading_size": "title-lg tracking-heading",
+            "heading_tag": "h2",
+            "button_label": "",
+            "button_link": "",
+            "button_secondary_style": false
+          }
+        }
+      },
+      "block_order": [
+        "image_MbDBC7"
+      ],
+      "disabled": true,
+      "settings": {
+        "autoplay": false,
+        "autoplay_speed": 5,
+        "show_navigation": true,
+        "image_height": "400px",
+        "content_width": "small",
+        "image_height_mobile": "adapt",
+        "color_text": "#ffffff",
+        "color_background": "#ffffff",
+        "gradient_background": "",
+        "color_button_text": "#171717",
+        "color_button_background": "#ffffff",
+        "color_button_gradient": "",
+        "color_overlay": "rgba(0,0,0,0)",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "divider": false,
+        "full_width": true,
+        "rounded": false,
+        "enable_parallax": false,
+        "parallax_direction": "vertical"
+      }
+    },
+    "rich_text_ME6Dqq": {
+      "type": "rich-text",
+      "blocks": {
+        "text_m4KxmR": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>目に見える劇的な効果<\/h2>",
+            "text_size": "subtext-xl",
+            "text_max_size": 32,
+            "text_font": "heading",
+            "secondary_color": false,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        }
+      },
+      "block_order": [
+        "text_m4KxmR"
+      ],
+      "settings": {
+        "text_alignment": "center",
+        "text_alignment_mobile": "center",
+        "heading": "",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "button_label": "",
+        "button_link": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "#999999",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "divider": false,
+        "narrow": false,
+        "rounded": false
+      }
+    },
+    "multicolumn_bXT9x4": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_XTxkYP": {
+          "type": "column",
+          "settings": {
+            "show_border": false,
+            "text_alignment": "left",
+            "text_alignment_mobile": "left",
+            "image": "shopify:\/\/shop_images\/AB03_7ac9915d-acc9-4dbd-9f65-d52c5b72f2d1.webp",
+            "image_ratio": "adapt",
+            "heading": "",
+            "heading_size": "text-lg-2xl",
+            "text": "",
+            "button_label": "",
+            "button_link": "",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "column_dVYKFh": {
+          "type": "column",
+          "settings": {
+            "show_border": false,
+            "text_alignment": "left",
+            "text_alignment_mobile": "left",
+            "image": "shopify:\/\/shop_images\/AB02_719acded-1f79-4549-b0e7-d2fc00d47d46.webp",
+            "image_ratio": "adapt",
+            "heading": "",
+            "heading_size": "text-lg-2xl",
+            "text": "",
+            "button_label": "",
+            "button_link": "",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "column_BLUKzj": {
+          "type": "column",
+          "settings": {
+            "show_border": false,
+            "text_alignment": "left",
+            "text_alignment_mobile": "left",
+            "image": "shopify:\/\/shop_images\/AB01_0b860e2d-c12a-4ff2-b379-bc4c4500ed45.webp",
+            "image_ratio": "adapt",
+            "heading": "",
+            "heading_size": "text-lg-2xl",
+            "text": "",
+            "button_label": "",
+            "button_link": "",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "column_39jfA8": {
+          "type": "column",
+          "disabled": true,
+          "settings": {
+            "show_border": false,
+            "text_alignment": "left",
+            "text_alignment_mobile": "left",
+            "image": "shopify:\/\/shop_images\/c19302a47b9d7901de51cbb8204f55f7.jpg",
+            "image_ratio": "adapt",
+            "heading": "",
+            "heading_size": "text-lg-2xl",
+            "text": "",
+            "button_label": "",
+            "button_link": "",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        }
+      },
+      "block_order": [
+        "column_XTxkYP",
+        "column_dVYKFh",
+        "column_BLUKzj",
+        "column_39jfA8"
+      ],
+      "settings": {
+        "columns": 3,
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "heading": "",
+        "heading_size": "title-sm",
+        "heading_alignment": "text-center md:items-center",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "button_label": "",
+        "button_link": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 0,
+        "padding_bottom": 40,
+        "divider": false,
+        "full_width": false,
+        "rounded": false
+      }
+    },
+    "pagefly_section_4Bcet7": {
+      "type": "pagefly-section",
+      "settings": {
+        "section_id": "pf-a1bfaaa2"
+      }
+    },
+    "rich_text_xgrkrP": {
+      "type": "rich-text",
+      "blocks": {
+        "text_E4kRGi": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>キャッシュバック抽選注意事項と規約<\/strong><\/p><p>※ご応募の前に下記、注意事項の確認および本規約への同意をお願い致します。<\/p><ul><li>ご応募いただいた方の中から厳正なる抽選のうえ、当選者を決定いたします。<\/li><li>ご当選された方には、Ulike公式サイトオフィシャルメールで（<a href=\"mailto:marketing.jp@ulikeglobal.com\" target=\"_blank\">marketing.jp@ulikeglobal.com<\/a>）、ご連絡いたします。なお、抽選およ<strong>び<\/strong>当選結果に関するお問い合わせにはお答えいたしか<strong>ね<\/strong>ます。ご了承ください。<\/li><li><strong>1回のご購入につき1回抽選にご応募いただけます。<\/strong>お一人様何度でも<strong>ご応募<\/strong>いただけますが、当選はお一人様1回限りです。また、<strong>ご当選の連絡後<\/strong>24時間以内にご返信が無かった場合、不正とみられる行為が発覚した場合は、当選を無効とさせていただきます。<\/li><li>当キャンペーンの参加によるいかなるトラプル・損害(直接、間接を問わず)が発生した場合も当社は一切の責任を負いません。<\/li><li>当キャンペーンについてのツイートを含む、投票者のSNS上での発言内容やそれに関するトラプルに関して、当社は责任を負いません。<\/li><li>当キャンペーンは予告なく変更、または終了することがあります。变更後の内容は直ちに適用されます。<\/li><li>本キャンペーンの抽選規約、上記事項およ<strong>び<\/strong>注意事項に従うものとし、その運営方法について一切異議を申し立てないものとします。<\/li><li>注意: 全額返金の対象は [Ulike Air10光美容器」本体のみです。同時に購入した製品には適用されません。ご了承ください。<\/li><\/ul>",
+            "text_size": "subtext-custom",
+            "text_max_size": 12,
+            "text_font": "body",
+            "secondary_color": true,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        }
+      },
+      "block_order": [
+        "text_E4kRGi"
+      ],
+      "disabled": true,
+      "settings": {
+        "text_alignment": "left",
+        "text_alignment_mobile": "left",
+        "heading": "",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "button_label": "",
+        "button_link": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 0,
+        "padding_bottom": 20,
+        "divider": false,
+        "narrow": true,
+        "rounded": false
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "disabled": true,
+      "settings": {
+        "product_limit": 4,
+        "columns": 4,
+        "carousel_on_desktop": true,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "heading": "他の光美容器を探す",
+        "heading_size": "title-sm",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "divider": false,
+        "full_width": false,
+        "rounded": true
+      }
+    },
+    "17098718307bcd2722": {
+      "type": "apps",
+      "blocks": {
+        "ryviu_reviews_qa_ryviu_widget_yigzrd": {
+          "type": "shopify:\/\/apps\/ryviu-reviews-qa\/blocks\/ryviu-widget\/807ad6ed-1a6a-4559-abea-ed062858d9da",
+          "settings": {
+            "r_wapper_class": "",
+            "r_max_width": 1440,
+            "r_padding_block": 0,
+            "hide_when_no_reviews": false,
+            "one_col_on_mobile": false,
+            "hide_title_image_form": false
+          }
+        }
+      },
+      "block_order": [
+        "ryviu_reviews_qa_ryviu_widget_yigzrd"
+      ],
+      "settings": {
+        "enable_reviews_integration": true,
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 40,
+        "padding_bottom": 80,
+        "divider": false,
+        "full_width": false,
+        "rounded": false
+      }
+    }
+  },
+  "order": [
+    "main-product",
+    "help-drawer",
+    "ulike_slideshow_xffenV",
+    "rich_text_ME6Dqq",
+    "multicolumn_bXT9x4",
+    "pagefly_section_4Bcet7",
+    "rich_text_xgrkrP",
+    "product-recommendations",
+    "17098718307bcd2722"
+  ]
+}

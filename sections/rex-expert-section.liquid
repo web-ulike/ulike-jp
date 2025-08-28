@@ -1,0 +1,221 @@
+<style>
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px);
+  }
+  @media screen and (max-width: 768px){
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.mobile_padding_top }}px);
+    padding-bottom: calc({{ section.settings.mobile_padding_bottom }}px);
+  }
+}
+  /* 专家板块 */
+    .expert-section {
+      background: #F8F5F1;
+      position: relative;
+    }
+
+    .expert-container {
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 var(--container-gutter);
+      text-align: center;
+    }
+
+    .expert-container h3 {
+      color: #B89E70;
+      font-size: 45px;
+      line-height: 1;
+    }
+
+    .expert-container .expert-text {
+      color: #000;
+      font-size: 25px;
+      line-height: 1.8;
+      margin-top: 39px;
+    }
+
+    .expert-container .expert-logo-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 76px;
+    }
+
+    .expert-container .expert-logo-box img {
+      display: block;
+      width: 100%;
+    }
+
+    .expert-container .expert-img {
+      margin-top: 106px;
+    }
+
+    .expert-container .expert-img,
+    .expert-container .expert-img img {
+      display: block;
+      position: relative;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .expert-section .wxpert-note {
+      position: absolute;
+      width: 100%;
+      left: 0;
+      bottom: 40px;
+      text-align: center;
+      color: #5E5E5E;
+      font-size: 10px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+  video-media[playing] .deferred-poster .play-button {
+    display: none;
+}
+      @media (min-width: 1024px) and (max-width: 1450px) {
+      .expert-container h3 {
+          font-size: 36px;
+      }
+      .expert-container .expert-logo-box {
+          gap: 61px;
+      }
+      .expert-section .wxpert-note {
+        padding: 0 20px;
+      }
+    }
+    @media screen and (max-width: 767px) {
+     .expert-container h3{
+      font-size: 20px;
+     }
+     .expert-container .expert-logo-box{
+      gap: 12px;
+     }
+     .expert-section .wxpert-note{
+      padding: 0px;
+      position: static;
+      font-size: 8px;
+     }
+    }
+</style>
+<section>
+  <!-- 专家板块 -->
+    <div class="expert-section section-{{ section.id }}-padding">
+      <div class="expert-container">
+        <h3 class="to-top">{{ section.settings.tle }}</h3>
+        <div class="expert-logo-box">
+          {%- for block in section.blocks -%}
+          <div class="expert-logo to-top">
+             <img src="{{ block.settings.image | image_url }}" alt="">
+          </div>
+           {%- endfor -%}
+        </div>
+        <div class="wxpert-note to-top">
+         {{ section.settings.note }}
+        </div>
+      </div>
+    </div>
+</section>
+{% schema %}
+{
+  "name": "rex-expert-section",
+  "class": "rex-expert-section", 
+  "settings": [
+     {
+      "type": "text",
+      "id": "tle",
+      "label": "Title"
+    },
+     {
+      "type": "richtext",
+      "id": "note",
+      "label": "Note"
+    },
+     {
+      "type": "richtext",
+      "id": "txt",
+      "label": "Text"
+    },
+     {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Button Text"
+    },
+         {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 300,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 300,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 48
+    },
+     {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Top",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile Padding Bottom",
+      "default": 10
+    }
+  ],
+  "blocks": [
+        {
+      "type": "item",
+      "name": "item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+          {
+      "type": "text",
+      "id": "text1",
+      "label": "Text1"
+    },
+        {
+      "type": "richtext",
+      "id": "text2",
+      "label": "Text2"
+    },
+        {
+      "type": "text",
+      "id": "text3",
+      "label": "Text3"
+    }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "rex-expert-section"
+    }
+  ]
+}
+{% endschema %}

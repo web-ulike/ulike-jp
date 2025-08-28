@@ -23,10 +23,29 @@
               {%- if childlink.links != blank -%}
                 <ul>
                   {%- for grandchildlink in childlink.links -%}
+
+                   {%- assign link_title_downcase = grandchildlink.title | strip | downcase -%}
+                    {%- assign menu_tag_block = '' -%}
+
+                        {%- for block in section.blocks -%}
+      
+                        {%- assign menu_tag_downcase = block.settings.menu_tle | strip | downcase -%}
+                
+                        {%- if menu_tag_downcase == link_title_downcase -%}
+                          {%- assign menu_tag_block =  block.settings.code_txt | escape -%}
+                          {%- break -%}
+                        {%- endif -%}
+                      {%- endfor -%}
+                  
                     <li>
                       <a href="{{ grandchildlink.url }}" class="reversed-link text-base xl:text-lg{% if grandchildlink.current %} is-active{% endif %}"{% if grandchildlink.current %} aria-current="page"{% endif %}>
                         {{- grandchildlink.title | escape -}}
                       </a>
+                      {%- if menu_tag_block != '' -%}
+                         <div class="product-tag__box">
+                           {{ menu_tag_block  }}
+                         </div>
+                      {%- endif -%}
                     </li>
                   {%- endfor -%}
                 </ul>

@@ -1,0 +1,174 @@
+<style>
+#shopify-section-{{ section.id }} {
+    --text-color: {{  section.settings.text_color.red }}, {{  section.settings.text_color.green }}, {{  section.settings.text_color.blue }};
+    --color-border: 255, 255, 255;
+    --section-background: {{ section.settings.background }};
+    background: var(--section-background); 
+  }
+ .endof-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .endof-overlay-content {
+            background: #fff;
+            padding: 50px;
+            border-radius: 8px;
+            text-align: center;
+            width: 100%;
+    max-width: 600px;
+        }
+        .endof-overlay-content h2 {
+            margin: 0 0 15px;
+            font-size: 36px;
+        }
+        .endof-overlay-content a {
+    display: inline-flex;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #000;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 30px;
+    border: 1px solid #000;
+        }
+        .endof-overlay-content a:hover {
+            background-color: #fff;
+              color: #000;
+        }
+     @media screen and (max-width: 750px) {
+    .endof-overlay-content h2 {
+            margin: 0 0 10px;
+            font-size: 26px;
+        }
+                .endof-overlay-content a {
+    padding: 7px 15px;
+    font-size: 14px;
+    margin-top: 20px;
+        }
+    .endof-overlay-content {
+       padding: 30px 20px;
+        max-width: 85%;
+    }
+    }
+</style>
+ <section>
+    <activity-end-overlay>
+        <div class="endof-overlay" id="activityOverlay">
+        <div class="endof-overlay-content">
+            <h2>{{ section.settings.tle }}</h2>
+            <div class="endof-overlay-des">{{ section.settings.des }}</div>
+            <a href="{{ section.settings.link_url }}">{{ section.settings.button_txt }}</a>
+        </div>
+    </div>
+    </activity-end-overlay>
+  </section>
+    <script>
+    class ActivityEndOverlay extends HTMLElement {
+        constructor() {
+            super();
+            this.shopifyEventEndTime = "{{ section.settings.event_end_date }}";
+            this.checkActivityStatus();
+            this.intervalId = setInterval(() => this.checkActivityStatus(), 60000);
+        }
+        endActivity() {
+
+            this.querySelector('#activityOverlay').style.display = 'flex';
+        }
+
+        checkActivityStatus() {
+            // 验证日期是否有效
+            if (!this.shopifyEventEndTime || this.shopifyEventEndTime === "") {
+                console.warn("活动结束日期未设置，请在主题设置中配置（格式：YYYY-MM-DD）");
+                return;
+            }
+
+            // 验证日期格式
+            const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+            if (!dateRegex.test(this.shopifyEventEndTime)) {
+                console.warn("活动结束日期格式错误，请使用 YYYY-MM-DD 格式");
+                return;
+            }
+            const endTime = new Date(this.shopifyEventEndTime + "T23:59:59");
+            const now = new Date();
+            if (isNaN(endTime.getTime())) {
+                console.warn("活动结束日期无效，请检查输入");
+                return;
+            }
+
+            if (now >= endTime) {
+                this.endActivity();
+            }
+        }
+
+        disconnectedCallback() {
+            // 清理定时器
+            clearInterval(this.intervalId);
+        }
+    }
+
+    // 定义自定义元素
+    customElements.define('activity-end-overlay', ActivityEndOverlay);
+    </script>
+{% schema %}
+{
+  "name": "endof-event-mask",
+  "class": "endof-event-mask", 
+  "settings": [
+     {
+        "type": "text",
+        "id": "event_end_date",
+        "label": "Event end date",
+        "default": "2025-08-31",
+        "info": "请输入日期，格式为 YYYY-MM-DD（例如 2025-08-31）"
+      },
+           {
+      "type": "text",
+      "id": "tle",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "des",
+      "label": "Descripte"
+    },
+         {
+      "type": "text",
+      "id": "button_txt",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Button Link"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color_background",
+      "id": "background",
+      "label": "Background",
+      "default": "#fff"
+    }
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "endof-event-mask"
+    }
+  ]
+}
+{% endschema %}
