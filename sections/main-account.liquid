@@ -1,3 +1,10 @@
+<script>
+  if (location.search != '') {
+    location.href = 'https://account.ulike.com/account/profile?site=jp&' + location.search.substr(1);
+  } else {
+    location.href = 'https://account.ulike.com/account/profile?site=jp';
+  }
+</script>
 <style>
   #shopify-section-{{ section.id }} {
     --section-padding-top: {{ section.settings.padding_top }}px;
