@@ -30,18 +30,36 @@
     {%- endif -%}
 
     {%- if show_account and shop.customer_accounts_enabled -%}
-      <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="hidden lg:flex items-center justify-center" is="magnet-link">
-        <span class="sr-only">
-          {%- liquid
-            if customer
-              echo 'customer.account.title' | t
-            else
-              echo 'customer.login.title' | t
-            endif
-          -%}
-        </span>
-        {%- render 'icon', icon: 'account', size: 'lg' -%}
-      </a>
+           {% if customer %}
+              <a href="{%- if customer -%}{{ routes.account_url }}
+                {%- else -%}
+                {{ routes.account_login_url }}{%- endif -%}" class="hidden lg:flex items-center justify-center" is="magnet-link">
+                <span class="sr-only">
+                  {%- liquid
+                    if customer
+                      echo 'customer.account.title' | t
+                    else
+                      echo 'customer.login.title' | t
+                    endif
+                  -%}
+                </span>
+                {%- render 'icon', icon: 'account', size: 'lg' -%} 
+              </a>
+             
+         {% else %}
+           <a href=" https://account.ulike.com/login?site=jp" class="hidden lg:flex items-center justify-center" is="magnet-link">
+                <span class="sr-only">
+                  {%- liquid
+                    if customer
+                      echo 'customer.account.title' | t
+                    else
+                      echo 'customer.login.title' | t
+                    endif
+                  -%}
+                </span>
+                {%- render 'icon', icon: 'account', size: 'lg' -%} 
+           </a>
+           {%- endif -%}
     {%- endif -%}
 
     {%- if show_cart -%}
