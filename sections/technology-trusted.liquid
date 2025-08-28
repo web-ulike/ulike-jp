@@ -1,0 +1,230 @@
+<style>
+.technology-trusted {
+  padding-top: 50px;
+  background: #f6f6f6;
+}
+
+.technology-trusted .technology-trusted-h3 {
+  color: #190a0a;
+  font-size: 32px;
+  line-height: 1.25;
+  text-align: center;
+  font-weight: normal;
+  font-family: var(--font-heading-family);
+  margin: 0;
+}
+
+.technology-trusted .technology-trusted-slide {
+  padding: 24px 0;
+  margin-top: 40px;
+}
+
+.technology-trusted .technology-trusted-list {
+  display: flex;
+}
+
+.technology-trusted .technology-trusted-item {
+  flex: 1;
+  padding: 0 20px;
+  height: auto;
+}
+
+.technology-trusted .technology-trusted-item:not(:last-child) {
+  border-right: 1px solid rgba(68, 68, 68, 0.2);
+}
+
+.technology-trusted .img-num {
+  display: block;
+  margin: 0 auto;
+  width: 240px;
+}
+
+.technology-trusted .technology-trusted-txt-h3 {
+  color: #190a0a;
+  text-align: center;
+  font-size: 24px;
+  line-height: 1.25;
+  font-weight: normal;
+  font-family: var(--font-heading-family);
+  margin: 0;
+  margin-top: 10px;
+}
+
+.technology-trusted .technology-trusted-p {
+  color: #190a0a;
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
+  margin-top: 12px;
+}
+
+.technology-trusted .technology-trusted-arraws {
+  display: none;
+}
+
+@media (max-width: 991px) {
+  .technology-trusted {
+    padding: 40px 0 16px 0;
+    overflow: hidden;
+  }
+
+  .technology-trusted .technology-trusted-h3 {
+    font-size: 20px;
+  }
+
+  .technology-trusted .technology-trusted-slide {
+    margin-top: 34px;
+    padding: 0;
+  }
+
+  .technology-trusted .technology-trusted-item {
+    padding: 0 15px;
+    min-width: 326px;
+  }
+
+  .technology-trusted .img-num {
+    max-width: 180px;
+  }
+
+  .technology-trusted .technology-trusted-txt-h3 {
+    font-size: 18px;
+  }
+
+  .technology-trusted .technology-trusted-p {
+    font-size: 12px;
+    margin-top: 8px;
+  }
+
+  .technology-trusted .technology-trusted-arraws {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 34px;
+    gap: 40px;
+  }
+
+  .technology-trusted .technology-trusted-arraw {
+    width: 40px;
+    cursor: pointer;
+  }
+
+  .technology-trusted .technology-trusted-arraw svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .technology-trusted .swiper-button-disabled {
+    opacity: 0.25;
+    cursor: default;
+  }
+}
+</style>
+<section class="section-box">
+  <div class="technology-trusted mini-cont">
+    <div class="jp-container">
+      {%- if section.settings.text != blank -%}
+        <h3 class="technology-trusted-h3">{{ section.settings.text }}</h3>
+      {%- endif -%}
+      <div class="technology-trusted-slide">
+        <div class="technology-trusted-list swiper-wrapper">
+          {%- for block in section.blocks -%}
+            <div class="technology-trusted-item swiper-slide">
+              {%- if block.settings.image != blank -%}
+                <img
+                    loading="lazy"
+                    width="{{ block.settings.image.width }}"
+                    height="{{ block.settings.image.height }}"
+                    class="img-num"
+                    {% render 'image-attributes', image: block.settings.image %}
+                    alt="{{ block.settings.image.alt | escape }}"
+                  >
+              {%- endif -%}
+              {%- if block.settings.text != blank -%}
+                <h3 class="technology-trusted-txt-h3">{{ block.settings.text }}</h3>
+              {%- endif -%}
+              {%- if block.settings.text1 != blank -%}
+                <p class="technology-trusted-p">{{ block.settings.text1 }}</p>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+      {%- if section.blocks.size > 1 -%}
+        <div class="technology-trusted-arraws">
+          <div class="technology-trusted-arraw technology-trusted-arraw-prev">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M23.6003 33.0662L24.1054 33.5713L25.1155 32.5611L24.6104 32.0561L19.9992 27.4448L15.6526 23.0982C15.0947 22.5404 14.1902 22.5404 13.6323 23.0982L18.9891 28.455L23.6003 33.0662ZM11.1003 19.5561C10.8213 19.835 10.8213 20.2873 11.1003 20.5662C11.1942 20.6601 11.3078 20.7224 11.4278 20.7531L11.4278 20.7754L11.6038 20.7754L11.6069 20.7754L12.1421 20.7754L19.4639 20.7754L26.7857 20.7754L28.5715 20.7754C29.3605 20.7754 30.0001 20.1358 30.0001 19.3469L26.7857 19.3469L13.3298 19.3469L24.6104 8.06622L25.1155 7.56114L24.1054 6.55098L23.6003 7.05606L11.1003 19.5561Z"
+                fill="#190A0A" />
+              <circle cx="20" cy="20" r="19.2857" transform="rotate(-180 20 20)" stroke="#190A0A"
+                stroke-width="1.42857" />
+            </svg>
+          </div>
+          <div class="technology-trusted-arraw technology-trusted-arraw-next">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M16.3997 6.93379L15.8946 6.42871L14.8845 7.43886L15.3896 7.94394L20.0008 12.5552L24.3474 16.9018C24.9053 17.4596 25.8098 17.4596 26.3677 16.9018L21.011 11.545L16.3997 6.93379ZM28.8997 20.4439C29.1787 20.165 29.1787 19.7127 28.8997 19.4338C28.8058 19.3399 28.6922 19.2776 28.5722 19.2469V19.2246H28.3962H28.3931H27.8579H20.5361H13.2143H11.4285C10.6395 19.2246 9.99995 19.8642 9.99995 20.6531H13.2143H26.6702L15.3896 31.9338L14.8845 32.4389L15.8946 33.449L16.3997 32.9439L28.8997 20.4439Z"
+                fill="#190A0A" />
+              <circle cx="20" cy="20" r="19.2857" stroke="#190A0A" stroke-width="1.42857" />
+            </svg>
+          </div>
+        </div>
+      {%- endif -%}  
+    </div>
+  </div>
+</section>
+<script>
+  if (window.innerWidth < 991) {
+    new Swiper(".technology-trusted-slide", {
+      slidesPerView: "auto",
+      spaceBetween: 0,
+      navigation: {
+        nextEl: ".technology-trusted-arraw-next",
+        prevEl: ".technology-trusted-arraw-prev",
+      },
+    })
+  }
+</script>
+{% schema %}
+{
+  "name": "technology-trusted",
+  "blocks": [
+    {
+      "name": "item",
+      "type": "item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "text",
+          "id": "text1",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Title"
+    }
+  ],
+  "presets": [
+    {
+      "name": "technology-trusted",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

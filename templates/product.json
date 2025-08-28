@@ -89,6 +89,36 @@
         "sticky_buy_button": {
           "type": "sticky_buy_button",
           "settings": {}
+        },
+        "collapsible_tab_nCj4wL": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "alert",
+            "heading": "店頭購入限定｜配送不可",
+            "content": "<p>本ページはPOP UPイベント限定の店頭購入専用ページです。<strong>配送には対応しておりませんので、ご了承ください。<\/strong><br\/><br\/>配送をご希望の場合は、該当商品の通常販売ページからご購入ください。<br\/><br\/><\/p>",
+            "page": "",
+            "liquid": ""
+          }
+        },
+        "collapsible_tab_CAVa6J": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "wallet",
+            "heading": "お支払方法について",
+            "content": "<p><strong>【ご利用可能】オンライン決済のみ<\/strong><br\/>【ご利用不可】現金払い・コンビニ支払い・後払い（全ての形態）<\/p><p>≫ 詳細お支払い方法は<a href=\"https:\/\/jp.ulike.com\/pages\/payment-method\" target=\"_blank\" title=\"お支払い方法\">こちら<\/a>からご確認ください。<\/p>",
+            "page": "",
+            "liquid": ""
+          }
+        },
+        "collapsible_tab_PRKjbf": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "check_mark",
+            "heading": "プライバシーポリシーに同意してお支払いへ進む",
+            "content": "<p>ご購入ボタンをクリックいただくと、当社のプライバシーポリシーに同意されたものとみなされます。詳細は<a href=\"https:\/\/jp.ulike.com\/policies\/privacy-policy\" target=\"_blank\" title=\"https:\/\/jp.ulike.com\/policies\/privacy-policy\">こちら<\/a>をご確認ください。<\/p>",
+            "page": "",
+            "liquid": ""
+          }
         }
       },
       "block_order": [
@@ -102,9 +132,14 @@
         "pickup_availability",
         "share",
         "complementary",
-        "sticky_buy_button"
+        "sticky_buy_button",
+        "collapsible_tab_nCj4wL",
+        "collapsible_tab_CAVa6J",
+        "collapsible_tab_PRKjbf"
       ],
       "settings": {
+        "code_num": "",
+        "code": "",
         "enable_sticky_info": true,
         "media_size": 66,
         "gallery_layout": "thumbnail",
@@ -336,6 +371,7 @@
       "block_order": [
         "ryviu_reviews_qa_ryviu_widget_yigzrd"
       ],
+      "disabled": true,
       "settings": {
         "enable_reviews_integration": true,
         "color_text": "",

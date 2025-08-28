@@ -1,0 +1,821 @@
+<style>
+  .professional-quality {
+    padding: 110px 0 90px 0;
+  }
+
+  .professional-quality .professional-quality-title {
+      font-family: var(--heading-font-family);
+    color: #000;
+    text-align: center;
+    font-size: 48px;
+    line-height: 1.25;
+  }
+
+  .professional-quality .professional-quality-sub {
+    color: #3f3636;
+    text-align: center;
+    font-size: 18px;
+    line-height: 1.58;
+    margin-top: 15px;
+  }
+
+  .professional-quality .professional-quality-flex {
+    display: flex;
+    margin-top: 60px;
+    gap: 20px;
+  }
+
+  .professional-quality .professional-quality-left {
+    width: 39%;
+    display: flex;
+    position: relative;
+  }
+
+  .professional-quality .professional-quality-column {
+    flex: 1;
+    padding: 30px 0 0;
+    position: relative;
+    z-index: 1;
+  }
+  .professional-quality .professional-quality-icon {
+    width: 100%;
+    position: relative;
+  }
+
+  .professional-quality .professional-quality-tag {
+    width: 36%;
+    max-width: 80px;
+    position: absolute;
+    top: 50%;
+    transform: translate(calc(50% + 22px), -50%);
+    right: 0;
+  
+  }
+
+  .professional-quality .professional-quality-tag img {
+    display: block;
+    width: 100%;
+  }
+
+  .professional-quality .icon {
+    display: block;
+    width: 43.5%;
+    max-width: 115px;
+    margin: 0 auto;
+  }
+
+  .professional-quality .professional-quality-item svg {
+    display: block;
+  }
+
+  .professional-quality .professional-quality-item {
+    padding: 24px 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    position: relative;
+    font-family: var(--heading-font-family);
+  }
+
+  .professional-quality .professional-quality-head {
+    color: #190a0a;
+    font-size: 18px;
+    line-height: 1.1;
+    font-family: var(--heading-font-family);
+  }
+
+  .professional-quality .professional-quality-head .professional-quality-item {
+    position: relative;
+        padding: 27px 50px;
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .professional-quality .professional-quality-head .professional-quality-item::before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: calc(100vw);
+    border-bottom: 1px solid #d9d9d9;
+    max-width:1520px;
+  }
+
+  .professional-quality .professional-quality-fixed {
+    color: #e0004d;
+    font-size: 22px;
+    line-height: 1.25;
+    border-radius: 10px;
+    background: linear-gradient(180deg, #FDF4FF 0%, #FEFAFF 100%);
+    position: relative;
+    z-index: 1;
+  }
+
+  .professional-quality .professional-quality-fixed .professional-quality-item:last-child {
+    font-size: 32px;
+    font-family: var(--heading-font-family);
+  }
+
+  .professional-quality .professional-quality-text {
+    margin-top: 19px;
+    font-size: 28px;
+    font-family: var(--text-font-family);
+  }
+
+  .professional-quality .professional-quality-right {
+    overflow: hidden;
+    border-radius: 20px;
+    flex: 1;
+  }
+
+  .professional-quality .professional-quality-cont {
+    display: flex;
+    height: 100%;
+  }
+
+  .professional-quality .professional-quality-other {
+    color: #190a0a;
+    font-size: 22px;
+    line-height: 1.25;
+    /* max-width: 20%; */
+  }
+
+  .professional-quality .professional-quality-other .professional-quality-item:last-child {
+    font-size: 32px;
+  }
+
+  .professional-quality .professional-quality-sm {
+    font-size: 14px;
+    line-height: 1.2;
+  }
+
+  .professional-quality .professional-quality-bottom {
+    margin-top: 25px;
+    color: rgba(63, 54, 54, 0.6);
+    font-size: 12px;
+    line-height: 1.5;
+    padding-left: calc(28.7% + 28px);
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .professional-quality .professional-quality-arraw {
+    display: none;
+    gap: 20px;
+  }
+
+  @media (max-width: 1600px) {
+    .professional-quality .professional-quality-head .professional-quality-item::before {
+      width: calc(100vw - 97px);
+    }
+  }
+
+  @media (max-width: 1300px) {
+    .professional-quality .professional-quality-head {
+      font-size: 16px;
+    }
+    .professional-quality .professional-quality-fixed {
+      font-size: 22px;
+    }
+    .professional-quality .professional-quality-other {
+      font-size: 22px;
+    }
+    .professional-quality .professional-quality-fixed .professional-quality-item:last-child,
+    .professional-quality .professional-quality-other .professional-quality-item:last-child {
+      font-size: 26px;
+    }
+    .professional-quality .professional-quality-sm {
+      font-size: 12px;
+    }
+  }
+
+  @media (max-width: 991px) {
+      .professional-quality {
+    padding: 47px 0 47px 0;
+  }
+    .professional-quality .professional-quality-left {
+      width: auto;
+    }
+    .professional-quality .professional-quality-head .professional-quality-item::before {
+      width: calc(100vw - 65px);
+    }
+    .professional-quality .professional-quality-head {
+      font-size: 14px;
+      width: 97px;
+      flex: none;
+    }
+    .professional-quality .icon {
+      width: 69px;
+    }
+    .professional-quality .professional-quality-fixed {
+      width: 120px;
+      font-size: 18px;
+      flex: none;
+      border-radius: 10px;
+    }
+
+    .professional-quality .professional-quality-other {
+      font-size: 18px;
+    }
+    .professional-quality .professional-quality-fixed .professional-quality-item:last-child,
+    .professional-quality .professional-quality-other .professional-quality-item:last-child {
+      font-size: 18px;
+    }
+
+    .professional-quality .professional-quality-item {
+      padding: 20px 5px;
+    }
+
+    .professional-quality .professional-quality-title {
+      font-size: 24px;
+        text-align: left;
+      margin-bottom:50px;
+    }
+    .professional-quality .professional-quality-sub {
+      font-size: 14px;
+    }
+    .professional-quality .professional-quality-flex {
+      margin-top: 20px;
+      gap: 10px;
+    }
+    .professional-quality .professional-quality-tag {
+      width: 40px;
+      transform: translate(calc(50% + 8px), -50%);
+    }
+    .professional-quality .professional-quality-item svg {
+      width: 25px;
+    }
+    .professional-quality .professional-quality-other {
+      max-width: 100%;
+      width: 120px;
+      flex-shrink: 0;
+      flex: none;
+    }
+    .professional-quality .professional-quality-right {
+      overflow-x: auto;
+      border-radius: 10px;
+    }
+    .professional-quality .professional-quality-right::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    .professional-quality .professional-quality-right::-webkit-scrollbar-track {
+      background: transparent;
+      border-radius: 6px;
+    }
+
+    .professional-quality .professional-quality-right::-webkit-scrollbar-thumb {
+      background-color: #aaa;
+      border-radius: 6px;
+    }
+
+    .professional-quality .professional-quality-right::-webkit-scrollbar-thumb:hover {
+      background-color: #555;
+    }
+    .professional-quality .professional-quality-column {
+      padding: 0;
+      padding-bottom: 0px;
+    }
+    .professional-quality .professional-quality-bottom {
+      padding-left: 0;
+      margin-top: 20px;
+    }
+    .professional-quality .professional-quality-head .professional-quality-item {
+    padding:20px 5px;
+}
+    .professional-quality .professional-quality-text {
+    margin-top: 7px;
+    font-size: 20px;
+}
+  }
+
+  @media (max-width: 460px) {
+    .professional-quality .professional-quality-right {
+      overflow-x: hidden;
+    }
+    .professional-quality .professional-quality-other {
+      width: 100%;
+    }
+    .professional-quality .professional-quality-head .professional-quality-item::before {
+      width: calc(100vw - 48px);
+    }
+    .professional-quality .professional-quality-arraw {
+      display: flex;
+    }
+    .professional-quality .professional-quality-arraw-item {
+      cursor: pointer;
+      opacity: 0.3;
+      transition: opacity 0.3s ease;
+    }
+    .professional-quality .professional-quality-arraw-item:hover {
+      opacity: 1;
+    }
+    .professional-quality .professional-quality-arraw svg {
+      display: block;
+    }
+  }
+</style>
+
+<section>
+  <div class="professional-quality to-top">
+    <div class="container">
+      <div class="professional-quality-title">{{ section.settings.text }}</div>
+      <div class="professional-quality-sub">{{ section.settings.text1 }}</div>
+      <div class="professional-quality-flex">
+        <div class="professional-quality-left">
+          <div class="professional-quality-column professional-quality-head">
+            <div class="professional-quality-item"></div>
+            {%- if section.settings.text2 != blank -%}
+              <div class="professional-quality-item">{{ section.settings.text2 }}</div>
+            {%- endif -%}
+            {%- if section.settings.text3 != blank -%}
+              <div class="professional-quality-item">{{ section.settings.text3 }}</div>
+            {%- endif -%}
+            {%- if section.settings.text4 != blank -%}
+              <div class="professional-quality-item">{{ section.settings.text4 }}</div>
+            {%- endif -%}
+            {%- if section.settings.text5 != blank -%}
+              <div class="professional-quality-item">{{ section.settings.text5 }}</div>
+            {%- endif -%}
+            {%- if section.settings.text6 != blank -%}
+              <div class="professional-quality-item">{{ section.settings.text6 }}</div>
+            {%- endif -%}
+          </div>
+          {%- for block in section.blocks -%}
+            {%- if forloop.index == 1 -%}
+              <div class="professional-quality-column professional-quality-fixed">
+                <div class="professional-quality-item">
+                  <div class="professional-quality-icon">
+                    {%- if block.settings.image != blank -%}
+                      <img
+                        loading="lazy"
+                        class="icon"
+                        width=""
+                        height=""
+                        {% render 'image-attributes', image: block.settings.image %}
+                      >
+                    {%- endif -%}
+                    {%- if section.settings.image != blank -%}
+                      <div class="professional-quality-tag">
+                        <img
+                          loading="lazy"
+                          width=""
+                          height=""
+                          {% render 'image-attributes', image: section.settings.image %}
+                        >
+                      </div>
+                    {%- endif -%}
+                  </div>
+                  {%- if block.settings.text != blank -%}
+                    <div class="professional-quality-text">{{ block.settings.text }}</div>
+                  {%- endif -%}
+                </div>
+                  {%- if section.settings.text6 != blank -%}
+                  <div class="professional-quality-item">
+                    {%- if block.settings.text1 != blank -%}
+                      {{ block.settings.text1 }}
+                      {%- if block.settings.text2 != blank -%}
+                        <div class="professional-quality-sm">{{ block.settings.text2 }}</div>
+                      {%- endif -%}
+                    {%- else -%}
+                      <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 31 31" fill="none">
+                        <path d="M3 18.8571L9.66667 26L28.3333 6" stroke="#E0004D" stroke-width="2" />
+                      </svg>
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+                {%- if section.settings.text2 != blank -%}
+                  <div class="professional-quality-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 31 31" fill="none">
+                      <path d="M3 18.8571L9.66667 26L28.3333 6" stroke="#E0004D" stroke-width="2" />
+                    </svg>
+                  </div>
+                {%- endif -%}
+                {%- if section.settings.text3 != blank -%}
+                  <div class="professional-quality-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 31 31" fill="none">
+                      <path d="M3 18.8571L9.66667 26L28.3333 6" stroke="#E0004D" stroke-width="2" />
+                    </svg>
+                  </div>
+                {%- endif -%}
+                {%- if section.settings.text4 != blank -%}
+                  <div class="professional-quality-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 31 31" fill="none">
+                      <path d="M3 18.8571L9.66667 26L28.3333 6" stroke="#E0004D" stroke-width="2" />
+                    </svg>
+                  </div>
+                {%- endif -%}
+                {%- if section.settings.text5 != blank -%}
+                  <div class="professional-quality-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 31 31" fill="none">
+                      <path d="M3 18.8571L9.66667 26L28.3333 6" stroke="#E0004D" stroke-width="2" />
+                    </svg>
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        <div class="professional-quality-right">
+          <div class="professional-quality-cont">
+            {%- for block in section.blocks -%}
+              {%- if forloop.index != 1 -%}
+                <div class="professional-quality-column professional-quality-other">
+                  <div class="professional-quality-item">
+                    <div class="professional-quality-icon">
+                      {%- if block.settings.image != blank -%}
+                        <img
+                          loading="lazy"
+                          class="icon"
+                          width=""
+                          height=""
+                          {% render 'image-attributes', image: block.settings.image %}
+                        >
+                      {%- endif -%}
+                    </div>
+                    {%- if block.settings.text != blank -%}
+                      <div class="professional-quality-text">{{ block.settings.text }}</div>
+                    {%- endif -%}
+                  </div>
+                  {%- if section.settings.text6 != blank -%}
+                    <div class="professional-quality-item">
+                      {%- if block.settings.text1 != blank -%}
+                        {{ block.settings.text1 }}
+                        {%- if block.settings.text2 != blank -%}
+                          <div class="professional-quality-sm">{{ block.settings.text2 }}</div>
+                        {%- endif -%}
+                      {%- else -%}
+                        {%- if block.settings.isC4 -%}
+                          <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 31 31" fill="none">
+                            <path d="M3 17.8571L9.66667 25L28.3333 5" stroke="#3F3636" stroke-width="2" stroke-linecap="round" />
+                          </svg>
+                        {%- else -%}
+                          <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 31 31" fill="none">
+                            <g clip-path="url(#clip0_2_6869)">
+                              <path
+                                d="M22.2251 8.41227L15.7043 14.9331L9.18617 8.41494C8.85867 8.08743 8.32348 8.0901 7.99864 8.41494C7.67113 8.74244 7.6738 9.27763 7.99864 9.60247L14.5168 16.1206L7.99864 22.6387C7.67113 22.9662 7.6738 23.5014 7.99864 23.8263C8.32614 24.1538 8.86133 24.1511 9.18617 23.8263L15.7043 17.3081L22.2251 23.8289C22.5526 24.1564 23.0878 24.1538 23.4126 23.8289C23.7401 23.5014 23.7375 22.9662 23.4126 22.6414L16.8918 16.1206L23.41 9.60247C23.7375 9.27497 23.7348 8.73978 23.4126 8.41227C23.0851 8.08477 22.5499 8.08743 22.2251 8.41227Z"
+                                fill="#3F3636" />
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_2_6869">
+                                <rect width="31" height="31" fill="white" />
+                              </clipPath>
+                            </defs>
+                          </svg>
+                        {%- endif -%}
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+                  {%- if section.settings.text2 != blank -%}
+                    <div class="professional-quality-item">
+                      {%- if block.settings.isC -%}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 31 31" fill="none">
+                          <path d="M3 17.8571L9.66667 25L28.3333 5" stroke="#3F3636" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                      {%- else -%}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 31 31" fill="none">
+                          <g clip-path="url(#clip0_2_6869)">
+                            <path
+                              d="M22.2251 8.41227L15.7043 14.9331L9.18617 8.41494C8.85867 8.08743 8.32348 8.0901 7.99864 8.41494C7.67113 8.74244 7.6738 9.27763 7.99864 9.60247L14.5168 16.1206L7.99864 22.6387C7.67113 22.9662 7.6738 23.5014 7.99864 23.8263C8.32614 24.1538 8.86133 24.1511 9.18617 23.8263L15.7043 17.3081L22.2251 23.8289C22.5526 24.1564 23.0878 24.1538 23.4126 23.8289C23.7401 23.5014 23.7375 22.9662 23.4126 22.6414L16.8918 16.1206L23.41 9.60247C23.7375 9.27497 23.7348 8.73978 23.4126 8.41227C23.0851 8.08477 22.5499 8.08743 22.2251 8.41227Z"
+                              fill="#3F3636" />
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_2_6869">
+                              <rect width="31" height="31" fill="white" />
+                            </clipPath>
+                          </defs>
+                        </svg>
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+                  {%- if section.settings.text3 != blank -%}
+                    <div class="professional-quality-item">
+                      {%- if block.settings.isC1 -%}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 31 31" fill="none">
+                          <path d="M3 17.8571L9.66667 25L28.3333 5" stroke="#3F3636" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                      {%- else -%}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 31 31" fill="none">
+                          <g clip-path="url(#clip0_2_6869)">
+                            <path
+                              d="M22.2251 8.41227L15.7043 14.9331L9.18617 8.41494C8.85867 8.08743 8.32348 8.0901 7.99864 8.41494C7.67113 8.74244 7.6738 9.27763 7.99864 9.60247L14.5168 16.1206L7.99864 22.6387C7.67113 22.9662 7.6738 23.5014 7.99864 23.8263C8.32614 24.1538 8.86133 24.1511 9.18617 23.8263L15.7043 17.3081L22.2251 23.8289C22.5526 24.1564 23.0878 24.1538 23.4126 23.8289C23.7401 23.5014 23.7375 22.9662 23.4126 22.6414L16.8918 16.1206L23.41 9.60247C23.7375 9.27497 23.7348 8.73978 23.4126 8.41227C23.0851 8.08477 22.5499 8.08743 22.2251 8.41227Z"
+                              fill="#3F3636" />
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_2_6869">
+                              <rect width="31" height="31" fill="white" />
+                            </clipPath>
+                          </defs>
+                        </svg>
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+                  {%- if section.settings.text4 != blank -%}
+                    <div class="professional-quality-item">
+                      {%- if block.settings.isC2 -%}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 31 31" fill="none">
+                          <path d="M3 17.8571L9.66667 25L28.3333 5" stroke="#3F3636" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                      {%- else -%}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 31 31" fill="none">
+                          <g clip-path="url(#clip0_2_6869)">
+                            <path
+                              d="M22.2251 8.41227L15.7043 14.9331L9.18617 8.41494C8.85867 8.08743 8.32348 8.0901 7.99864 8.41494C7.67113 8.74244 7.6738 9.27763 7.99864 9.60247L14.5168 16.1206L7.99864 22.6387C7.67113 22.9662 7.6738 23.5014 7.99864 23.8263C8.32614 24.1538 8.86133 24.1511 9.18617 23.8263L15.7043 17.3081L22.2251 23.8289C22.5526 24.1564 23.0878 24.1538 23.4126 23.8289C23.7401 23.5014 23.7375 22.9662 23.4126 22.6414L16.8918 16.1206L23.41 9.60247C23.7375 9.27497 23.7348 8.73978 23.4126 8.41227C23.0851 8.08477 22.5499 8.08743 22.2251 8.41227Z"
+                              fill="#3F3636" />
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_2_6869">
+                              <rect width="31" height="31" fill="white" />
+                            </clipPath>
+                          </defs>
+                        </svg>
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+                  {%- if section.settings.text5 != blank -%}
+                    <div class="professional-quality-item">
+                      {%- if block.settings.isC3 -%}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 31 31" fill="none">
+                          <path d="M3 17.8571L9.66667 25L28.3333 5" stroke="#3F3636" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                      {%- else -%}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 31 31" fill="none">
+                          <g clip-path="url(#clip0_2_6869)">
+                            <path
+                              d="M22.2251 8.41227L15.7043 14.9331L9.18617 8.41494C8.85867 8.08743 8.32348 8.0901 7.99864 8.41494C7.67113 8.74244 7.6738 9.27763 7.99864 9.60247L14.5168 16.1206L7.99864 22.6387C7.67113 22.9662 7.6738 23.5014 7.99864 23.8263C8.32614 24.1538 8.86133 24.1511 9.18617 23.8263L15.7043 17.3081L22.2251 23.8289C22.5526 24.1564 23.0878 24.1538 23.4126 23.8289C23.7401 23.5014 23.7375 22.9662 23.4126 22.6414L16.8918 16.1206L23.41 9.60247C23.7375 9.27497 23.7348 8.73978 23.4126 8.41227C23.0851 8.08477 22.5499 8.08743 22.2251 8.41227Z"
+                              fill="#3F3636" />
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_2_6869">
+                              <rect width="31" height="31" fill="white" />
+                            </clipPath>
+                          </defs>
+                        </svg>
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+                  
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+      <div class="professional-quality-bottom">
+        <div class="professional-quality-msg">{{ section.settings.text7 }}</div>
+        <div class="professional-quality-arraw">
+          <div class="professional-quality-arraw-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="37" height="37" viewBox="0 0 37 37" fill="none">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M17.1715 6.8273L17.6312 6.36755L18.5507 7.28704L18.0909 7.74678L13.8936 11.9441L9.93715 15.9006C9.42933 16.4084 8.606 16.4084 8.09818 15.9006L12.9741 11.0246L17.1715 6.8273ZM5.79342 19.1248C5.53951 18.8709 5.53951 18.4592 5.79342 18.2053C5.87891 18.1198 5.9823 18.0631 6.09152 18.0352V18.0149H6.25174H6.25459H6.7417L25.5967 18.0149H30.1479C30.8661 18.0149 31.4482 18.5971 31.4482 19.3152H25.5967L7.82282 19.3152L18.0909 29.5834L18.5507 30.0431L17.6312 30.9626L17.1715 30.5029L5.79342 19.1248Z"
+                fill="#190A0A" />
+            </svg>
+          </div>
+          <div class="professional-quality-arraw-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="37" height="37" viewBox="0 0 37 37" fill="none">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M20.2862 6.8273L19.8264 6.36755L18.907 7.28704L19.3667 7.74678L23.564 11.9441L27.5205 15.9006C28.0283 16.4084 28.8516 16.4084 29.3595 15.9006L24.4835 11.0246L20.2862 6.8273ZM31.6642 19.1248C31.9181 18.8709 31.9181 18.4592 31.6642 18.2053C31.5787 18.1198 31.4753 18.0631 31.3661 18.0352V18.0149H31.2059H31.2031H30.7159L11.8609 18.0149H7.30975C6.59158 18.0149 6.0094 18.5971 6.0094 19.3152H11.8609L29.6348 19.3152L19.3667 29.5834L18.907 30.0431L19.8264 30.9626L20.2862 30.5029L31.6642 19.1248Z"
+                fill="#190A0A" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  (function () {
+    // 函数来设置行高
+    function setRowHeights() {
+      // 获取所有列
+      const columns = document.querySelectorAll('.professional-quality-column');
+
+      // 如果没有列则不执行
+      if (columns.length === 0) return;
+
+      // 初始化一个数组来存储每一行的最大高度
+      const maxHeights = [];
+      // 首先遍历所有列，计算每一行的最大高度
+      columns.forEach((column) => {
+        const rows = column.querySelectorAll('.professional-quality-item');
+        Array.from(rows).forEach((row, index) => {
+          const rowHeight = row.offsetHeight;
+
+          if (!maxHeights[index] || rowHeight > maxHeights[index]) {
+            maxHeights[index] = rowHeight;
+          }
+        });
+      });
+
+      // 再次遍历列，将每一列的行高度设置为该行的最大高度
+      columns.forEach((column) => {
+        const rows = column.querySelectorAll('.professional-quality-item');
+        Array.from(rows).forEach((row, index) => {
+          row.style.height = `${maxHeights[index]}px`;
+        });
+      });
+    }
+
+    // 函数来处理窗口大小变化
+    function onResize() {
+      // 清除之前的行高设置
+      const columns = document.querySelectorAll('.professional-quality-column');
+      columns.forEach((column) => {
+        const rows = column.children;
+        Array.from(rows).forEach((row) => {
+          row.style.height = ''; // 重置高度
+        });
+      });
+
+      // 重新设置行高
+      setRowHeights();
+    }
+
+    // 初始化
+    window.addEventListener('load', setRowHeights);
+    window.addEventListener('resize', onResize);
+    function onImagesLoaded(imageElements, callback) {
+      const promises = Array.from(imageElements).map((img) => {
+        return new Promise((resolve, reject) => {
+          if (img.complete) {
+            // 如果图片已经加载完成
+            resolve();
+          } else {
+            // 如果图片尚未加载，监听加载事件
+            img.onload = resolve;
+            img.onerror = reject;
+          }
+        });
+      });
+
+      // 当所有图片都加载完毕时，执行回调
+      Promise.all(promises)
+        .then(callback)
+        .catch((error) => {
+          console.error('Some images failed to load', error);
+        });
+    }
+    onImagesLoaded(document.querySelectorAll('.professional-quality-column img'), () => {
+      onResize();
+      // 在此处执行你的事件或操作
+    });
+  })();
+
+  window.addEventListener('load', function () {
+    function professionalQualitySwiper() {
+      let $p = $('.professional-quality');
+      let $right = $p.find('.professional-quality-right');
+      let $list = $p.find('.professional-quality-cont');
+      let $item = $p.find('.professional-quality-other');
+      let $arraw = $p.find('.professional-quality-arraw-item');
+      let length = $item.length;
+      let width = $item.width();
+      let index = 0;
+      $arraw.eq(1).css('opacity', '1');
+      function changeSwiper() {
+        $list.css({
+          transform: `translateX(-${index * width}px)`,
+          transition: 'all .5s cubic-bezier(0.645, 0.045, 0.355, 1)',
+        });
+      }
+      $arraw.click(function () {
+        let sindex = $(this).index();
+        if (sindex && index < length - 1) index++;
+        if (!sindex && index > 0) index--;
+        if (index != length - 1) {
+          $arraw.eq(1).css('opacity', '1');
+        } else {
+          $arraw.eq(1).css('opacity', '.3');
+        }
+        if (index != 0) {
+          $arraw.eq(0).css('opacity', '1');
+        } else {
+          $arraw.eq(0).css('opacity', '.3');
+        }
+        changeSwiper();
+      });
+    }
+    if (window.innerWidth < 461) professionalQualitySwiper();
+  });
+</script>
+{% schema %}
+{
+  "name": "professional-quality",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "VS Icon"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "text1",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "text2",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "text3",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "text4",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "text5",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "text6",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "text7",
+      "label": "Text"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "item",
+      "type": "item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Logo"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "checkbox",
+          "id": "isC",
+          "label": "1",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "isC1",
+          "label": "2",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "isC2",
+          "label": "3",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "isC3",
+          "label": "4",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "isC4",
+          "label": "5",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "text1",
+          "label": "Text"
+        },
+        {
+          "type": "text",
+          "id": "text2",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "professional-quality"
+    }
+  ]
+}
+{% endschema %}

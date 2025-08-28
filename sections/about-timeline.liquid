@@ -1,0 +1,345 @@
+<style>
+
+#shopify-section-{{ section.id }} {
+    --text-color: {{  section.settings.text_color.red }}, {{  section.settings.text_color.green }}, {{  section.settings.text_color.blue }};
+    --color-border: 255, 255, 255;
+    --section-background: {{ section.settings.background }};
+   background: var(--section-background); 
+  }
+     .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px);
+  }
+  @media screen and (max-width: 768px){
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.mobile_padding_top }}px);
+    padding-bottom: calc({{ section.settings.mobile_padding_bottom }}px );
+  }
+}
+  .timeline {
+        }
+        .timeliness__wrapper .timeliness__item-inner{
+          display: flex;
+        }
+        .timeliness__item-inner.timeliness__item-wrapper-top{
+          border-bottom: 0.5px solid #000;
+              align-items: end;
+        }
+        
+         .timeliness__item-inner.timeliness__item-wrapper-bottom{
+          margin-left: 102px;
+          align-items: start;
+        }
+        .timeliness__item{
+          padding: 20px 50px 20px 12px;
+          border-left: 0.5px solid #000;
+          position: relative;
+        }
+        .timeliness__item .timeliness__item-wrapper{
+          max-width: 250px;
+        }
+        .timeliness__item-inner .timeliness__item:before{
+        content: '';
+        width: 6px;
+        height: 6px;
+        position: absolute;
+        bottom: -3px;
+        left: -3px;
+        background-color: #000;
+        border-radius: 50%;
+        }
+         .timeliness__item-inner.timeliness__item-wrapper-bottom .timeliness__item:before{
+          top: -3px;
+         }
+        .timeliness__item h3{
+          color: #E0004D;
+         font-family: var(--font-sans-family);
+          font-size: 21.902px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 150%;
+        }
+         .timeliness__item-inner.timeliness__item-wrapper-top h3{
+          margin-top: 40px;
+         }
+        .timeliness__item-inner.timeliness__item-wrapper-bottom h3{
+          margin-bottom: 40px;
+         }
+         .timeliness__item h4{
+          color: #000;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 150%;
+          margin-bottom: 5px;
+         }
+          .timeliness__item .timeliness__item-p{
+            color: rgba(0, 0, 0, 0.70);
+            font-size: 13px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 130%;
+          }
+  .timeliness__item .timeliness__item-wrapper .donki_md1-bg{
+    margin-top: 13px;
+  }
+   .timeliness__item-inner.timeliness__item-wrapper-bottom .donki_md1-bg{
+    margin-top: 0px;
+      margin-bottom: 13px;
+  }
+           @media screen and (max-width: 750px) {
+            .timeliness__wrapper{
+              display: flex;
+              justify-content: center;
+            }
+            .timeliness__wrapper .timeliness__item-inner{
+              flex-direction: column;
+              margin-left: 0;
+              align-items: baseline;
+              border-width: 0;
+            }
+            .timeliness__item-inner .timeliness__item{
+              border-width: 0;
+              width: 100%;
+              padding: 0 20px 50px 20px;
+            } 
+            .timeliness__item-inner.timeliness__item-wrapper-top{
+                border-right: 0.5px solid #000;
+            }
+            .timeliness__item-inner.timeliness__item-wrapper-bottom {
+              margin-top: 40px;
+            
+              }
+              .timeliness__item-inner.timeliness__item-wrapper-top .timeliness__item:before {
+                left: auto;
+                right: -3px;
+                bottom: auto;
+                top: 0;
+              }
+              .timeliness__item-inner.timeliness__item-wrapper-top .timeliness__item{
+                display: flex;
+                flex-direction: column-reverse;
+                padding-top: 0;
+                padding-right: 20px;
+                text-align: right;
+              }
+               .timeliness__item-inner.timeliness__item-wrapper-top h3{
+                margin-top: 0;
+               }
+               .timeliness__item-inner.timeliness__item-wrapper-bottom h3 {
+                    margin-bottom: 0px;
+                }
+                .timeliness__item h4{
+                  font-size: 12px;
+                }
+                .timeliness__item .timeliness__item-p{
+                  font-size: 10px;
+                }
+           }
+</style>
+ <section class="section-{{ section.id }}-padding">
+ <div class="timeliness to-top">
+           <div class="jp-container">
+            <div class="timeliness__wrapper">
+
+              
+              <div class="timeliness__item-inner timeliness__item-wrapper-top">
+                    {%- for block in section.blocks -%}
+                   {%- case block.type -%}
+                    {%- when 'itemtop' -%}
+                  <div class="timeliness__item">
+                  <div class="timeliness__item-wrapper">
+                    <h4>{{ block.settings.tle }}</h4>
+                    <div class="timeliness__item-p">{{ block.settings.des }}</div>
+                      {%- if block.settings.image -%}
+                   <img src="{{ block.settings.image | image_url }}" alt="" class="donki_md1-bg scale_img" width="{{ block.settings.image.width | divided_by: 2  }}" height="{{ block.settings.image.height | divided_by: 2  }}">
+             {%- endif -%}
+                  </div>
+                    <h3>{{ block.settings.timeline_time }}</h3>
+                  </div>
+                  {%- endcase -%}
+                {%- endfor -%}
+              </div>
+               <div class="timeliness__item-inner timeliness__item-wrapper-bottom">
+                    {%- for block in section.blocks -%}
+                   {%- case block.type -%}
+                    {%- when 'itembottom' -%}
+                  <div class="timeliness__item">
+                     <h3>{{ block.settings.timeline_time }}</h3>
+                                          {%- if block.settings.image -%}
+                   <img src="{{ block.settings.image | image_url }}" alt="" class="donki_md1-bg scale_img" width="{{ block.settings.image.width | divided_by: 2  }}" height="{{ block.settings.image.height | divided_by: 2  }}">
+             {%- endif -%}
+                  <div class="timeliness__item-wrapper">
+                    <h4>{{ block.settings.tle }}</h4>
+                    <div class="timeliness__item-p">{{ block.settings.des }}</div>
+                  </div>
+                   
+                  </div>
+                  {%- endcase -%}
+                {%- endfor -%}
+              </div>
+
+
+
+
+              
+            </div>
+        </div>
+    </div>
+  </section>
+<script>
+</script>
+{% schema %}
+{
+  "name": "about-timeline",
+  "class": "about-timeline", 
+  "settings": [
+           {
+      "type": "text",
+      "id": "tle",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "des",
+      "label": "Descripte"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    },
+         {
+      "type": "text",
+      "id": "button_txt",
+      "label": "Button Text"
+    },
+               {
+      "type": "text",
+      "id": "button_tle",
+      "label": "Button Title"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Button Link"
+    },
+    {
+      "type": "color_background",
+      "id": "background",
+      "label": "Background",
+      "default": "#fff"
+    },
+     {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_top.label",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_bottom.label",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Top",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Bottom",
+      "default": 10
+    }
+  ],
+  "blocks": [
+         {
+        "type": "itemtop",
+        "name": "itemtop",
+        "settings": [
+           {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        },
+     {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile Images"
+        },
+               {
+      "type": "richtext",
+      "id": "tle",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "des",
+      "label": "Descripte"
+    },
+           {
+      "type": "text",
+      "id": "timeline_time",
+      "label": "Timeline Time"
+    }
+        ]
+      },
+             {
+        "type": "itembottom",
+        "name": "itembottom",
+        "settings": [
+           {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        },
+     {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile Images"
+        },
+               {
+      "type": "richtext",
+      "id": "tle",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "des",
+      "label": "Descripte"
+    },
+           {
+      "type": "text",
+      "id": "timeline_time",
+      "label": "Timeline Time"
+    }
+        ]
+      }
+  ],
+  "presets": [
+    {
+      "name": "about-timeline"
+    }
+  ]
+}
+{% endschema %}

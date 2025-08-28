@@ -1,0 +1,340 @@
+<style>
+
+#shopify-section-{{ section.id }} {
+    --text-color: {{  section.settings.text_color.red }}, {{  section.settings.text_color.green }}, {{  section.settings.text_color.blue }};
+    --section-background: {{ section.settings.background.red }}, {{ section.settings.background.green }}, {{ section.settings.background.blue }};
+    --color-border: 255, 255, 255;
+    /* background: rgb(var(--section-background, var(--background)));  */
+  }
+     .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px);
+  }
+  @media screen and (max-width: 768px){
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.mobile_padding_top }}px);
+    padding-bottom: calc({{ section.settings.mobile_padding_bottom }}px );
+  }
+}
+.doctor-recommend{
+  overflow: hidden;
+}
+.doctor-recommend h3{
+  color: #000;
+font-size: 32px;
+font-style: normal;
+font-weight: 500;
+line-height: 150%;
+letter-spacing: 0.64px;
+}
+.doctor-inner{
+  display: flex;
+  gap: 91px;
+}
+.doctor-tb{
+  margin-bottom: 60px;
+}
+
+.doctor-list .doctor-top{
+text-align: center;
+ padding: 40px 20px 32px;
+  background: linear-gradient(180deg, rgba(235, 246, 255, 0.70) 0%, #FFF 100%);
+}
+.doctor-list .doctor-top img{
+max-width: 244px;
+margin: 0 auto;
+}
+.doctor-top .doctor-name{
+color: #000;
+text-align: center;
+font-size: 32px;
+font-style: normal;
+font-weight: 500;
+line-height: 150%;
+letter-spacing: 0.64px;
+margin-top: 19px;
+margin-bottom: 9px;
+}
+.doctor-top .doctor-name strong{
+  font-size: 24px;
+  font-style: normal;
+font-weight: 500;
+line-height: 150%;
+letter-spacing: 0.48px;
+}
+.doctor-top .doctor-txt{
+  color: #000;
+text-align: center;
+font-size: 18px;
+font-style: normal;
+font-weight: 400;
+line-height: 130%; 
+letter-spacing: 0.36px;
+}
+.doctor-bt{
+  display: flex;
+  gap: 20px;
+  padding: 47px 20px;
+}
+.doctor-tb-rt{
+  display: none;
+  gap: 20px;
+}
+.doctor-tb-rt svg{
+  cursor: pointer;
+}
+.doctor-tb{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.doctor-svg{
+  cursor: pointer;
+}
+.doctor-list {
+    flex: 1;
+}
+  .doctor-bt .doctor-des,.doctor-bt .doctor-des1{
+  color: #000;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 130%;
+letter-spacing: 0.32px;
+}
+@media (max-width: 768px){
+  .doctor-tb-rt{
+  display: flex;
+}
+  .doctor-inner {
+    gap: 0px;
+}
+.doctor-list .doctor-top img {
+    max-width: 131px;
+}
+.doctor-recommend h3{
+  font-size: 24px;
+}
+.doctor-tb{
+  margin-bottom: 35px;
+}
+.doctor-top .doctor-name {
+font-size: 20px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+.doctor-top .doctor-name strong{
+  font-size: 14px;
+}
+.doctor-top .doctor-txt{
+  font-size: 12px;
+}
+.doctor-list .doctor-top{
+  padding: 20px;
+}
+.doctor-bt {
+    gap: 12px;
+    padding: 30px 20px;
+}
+.doctor-svg svg{
+  transform: scale(0.5);
+}
+.doctor-bt .doctor-des,.doctor-bt .doctor-des1{
+  font-size: 14px;
+}
+.doctor-list {
+    flex: none;
+}
+}
+</style>
+ <section class="section-{{ section.id }}-padding">
+ <div class="doctor-recommend to-top">
+                <div class="jp-container">
+                   <custom-swiper
+              slides-per-view="1.2" 
+              space-between="20" 
+              loop="false" 
+              centered-slides="false"
+              pagination="false"
+              navigation="true"
+              disable-on="desktop"
+              breakpoints='{"768":{"slidesPerView": 1,"spaceBetween": 20}}'
+            >
+                  <div class="doctor-tb">
+                     <h3>{{ section.settings.tle }}</h3>
+                     <div class="doctor-tb-rt">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="19" viewBox="0 0 25 19" fill="none" class="swiper-prev">
+                        <g clip-path="url(#clip0_11941_6750)">
+                          <path d="M-5.72205e-05 9.09359C-5.72205e-05 9.23717 0.0543137 9.37959 0.158329 9.48843L8.43225 18.1726L9.29628 17.3829L1.95022 9.67254H24.2307C24.2307 9.03338 23.7012 8.51465 23.0487 8.51465H0.618122C0.394726 8.51465 0.177242 8.62465 0.0708618 8.81802C0.0224018 8.90486 -5.72205e-05 8.9998 -5.72205e-05 9.09359Z" fill="#190A0A"/>
+                          <path d="M1.23671 7.06313C1.69887 7.5147 2.44707 7.5147 2.90805 7.06313L9.28369 0.818628L8.44803 0L1.2379 7.06313H1.23671Z" fill="#190A0A"/>
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_11941_6750">
+                            <rect width="24.2308" height="18.1731" fill="white" transform="matrix(-1 0 0 1 24.2307 0)"/>
+                          </clipPath>
+                        </defs>
+                      </svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="19" viewBox="0 0 25 19" fill="none" class="swiper-next">
+                        <g clip-path="url(#clip0_11941_6753)">
+                          <path d="M25.0001 9.09359C25.0001 9.23717 24.9457 9.37959 24.8417 9.48843L16.5677 18.1726L15.7037 17.3829L23.0498 9.67254H0.769287C0.769287 9.03338 1.29882 8.51465 1.95128 8.51465H24.3819C24.6053 8.51465 24.8228 8.62465 24.9291 8.81802C24.9776 8.90486 25.0001 8.9998 25.0001 9.09359Z" fill="#190A0A"/>
+                          <path d="M23.7633 7.06313C23.3011 7.5147 22.5529 7.5147 22.092 7.06313L15.7163 0.818628L16.552 0L23.7621 7.06313H23.7633Z" fill="#190A0A"/>
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_11941_6753">
+                            <rect width="24.2308" height="18.1731" fill="white" transform="translate(0.769287)"/>
+                          </clipPath>
+                        </defs>
+                      </svg>
+                     </div>
+                  </div>
+                  <div class="swiper-container">
+                    <div class="doctor-inner swiper-wrapper">
+                     
+
+                       {%- for block in section.blocks -%}
+                      <div class="doctor-list swiper-slide">
+                        <div class="doctor-top">
+                         <picture>
+                         {%- if block.settings.image_mobile -%}
+                            <source media="(max-width: 767px)" srcset="{{ block.settings.image_mobile | image_url }}">
+                                 {%- endif -%}
+                             {%- if block.settings.image -%}
+                            <img src="{{ block.settings.image | image_url }}" alt="{{ block.settings.image.alt }}">
+                            {%- endif -%}
+                       </picture>
+                          <div class="doctor-name">{{ block.settings.tle }}</div>
+                          <div class="doctor-txt">{{ block.settings.des }}</div>
+                        </div>
+                        <text-collapse-new max-length="50">
+                        <div class="doctor-bt">
+                          <div class="doctor-des">{{ block.settings.txt }}</div>
+                          <div class="doctor-des1" style="display: none;">{{ block.settings.txt1 }}</div>
+                          <div class="doctor-svg">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
+                              <circle cx="25" cy="25" r="24.1071" stroke="#E0004D" stroke-width="1.78571"/>
+                              <path d="M12.5 23.5303H37.5V26.0303H12.5V23.5303Z" fill="#E0004D"/>
+                              <path d="M23.5303 12.5H26.0303V37.5H23.5303V12.5Z" fill="#E0004D"/>
+                            </svg>
+                          </div>
+                        </div>
+                      </text-collapse-new>
+                      </div>
+                       {%- endfor -%}
+                      
+                                
+                    </div>
+                  </div>
+                  </custom-swiper>
+                </div>
+              </div>
+  </section>
+<script>
+</script>
+{% schema %}
+{
+  "name": "doctor recommend",
+  "class": "shopify-section--doctor-recommend", 
+  "settings": [
+           {
+      "type": "text",
+      "id": "tle",
+      "label": "Title"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "rgba(0,0,0,0)"
+    },
+     {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_top.label",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_bottom.label",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Top",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Bottom",
+      "default": 10
+    }
+  ],
+  "blocks": [
+         {
+        "type": "item",
+        "name": "item",
+        "settings": [
+           {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        },
+     {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile Images"
+        },
+               {
+      "type": "richtext",
+      "id": "tle",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "des",
+      "label": "Descripte"
+    },
+          {
+      "type": "richtext",
+      "id": "txt",
+      "label": "Text"
+    },
+           {
+      "type": "richtext",
+      "id": "txt1",
+      "label": "Text1"
+    }
+        ]
+      }
+  ],
+  "presets": [
+    {
+      "name": "doctor recommend"
+    }
+  ]
+}
+{% endschema %}

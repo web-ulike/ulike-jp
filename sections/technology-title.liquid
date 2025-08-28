@@ -1,0 +1,56 @@
+<style>
+.technology-title {
+  padding-top: 50px;
+}
+
+.technology-title .technology-h3 {
+  color: #190a0a;
+  text-align: center;
+  font-size: 50px;
+  line-height: 1.15;
+  letter-spacing: -0.64px;
+  font-weight: normal;
+  font-family: var(--font-heading-family);
+  margin: 0;
+}
+
+@media (max-width: 991px) {
+  .technology-title .technology-h3 {
+    font-size: 28px;
+  }
+}
+</style>
+<section class="section-box">
+  {%- if section.settings.title != blank -%}
+    <div class="technology-title mini-cont" style="background:{{ section.settings.bg_color }};">
+      <div class="jp-container">
+        <h3 class="technology-h3">{{ section.settings.title }}</h3>
+      </div>
+    </div>
+  {%- endif -%}
+</section>
+{% schema %}
+{
+  "name": "technology-title",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default":"Why Traditional IPL Causes Discomfort & How Ulike Solves It"
+    },
+    {
+      "type": "color_background",
+      "id": "bg_color",
+      "label": "背景",
+      "default":"#fff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "technology-title",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

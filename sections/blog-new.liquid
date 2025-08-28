@@ -1,0 +1,464 @@
+<style>
+.blog-new {
+  padding: 80px 0 60px 0;
+  overflow: hidden;
+}
+
+.blog-new .blog-new-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+.blog-new .blog-new-h3 {
+  color: #190a0a;
+  font-size: 50px;
+  line-height: 1.2;
+  font-family: var(--heading-font-family);
+  letter-spacing: -0.64px;
+  margin: 0;
+  font-weight: normal;
+}
+
+.blog-new .blog-new-top-btn {
+  width: 200px;
+  height: 64px;
+  border-radius: 2px;
+  border: 1px solid #190a0a;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s ease;
+}
+  
+@media (min-width: 991px) {
+  .blog-new .blog-new-top-btn:hover {
+    background: #190a0a;
+    color: #fff;
+  }
+}
+
+.blog-new .blog-new-cont {
+  display: flex;
+  gap: 20px;
+}
+
+.blog-new .blog-new-left,
+.blog-new .blog-new-right {
+  flex: 1;
+}
+
+.blog-new .blog-new-left {
+  position: relative;
+}
+
+.blog-new .img {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.blog-new .blog-new-left-text {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: 20px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) -113.4%,
+    #fdf3eb 100%
+  );
+}
+
+.blog-new .blog-new-time {
+  color: #756b6e;
+  font-size: 14px;
+  line-height: 1.78;
+}
+
+.blog-new .blog-new-left-flex {
+  display: flex;
+  align-items: flex-end;
+  gap: 30px;
+}
+
+.blog-new .blog-new-h4 {
+  color: #190a0a;
+  font-size: 20px;
+  line-height: 1.5;
+  font-weight: normal;
+  margin: 0;
+}
+
+.blog-new .blog-new-left-flex .blog-new-h4 {
+  flex: 1;
+  font-size: 24px;
+}
+
+.blog-new .blog-new-link {
+  color: #e0004d;
+  font-size: 16px;
+  line-height: 1.56;
+  /* text-decoration: underline; */
+  transition: all 0.3s ease;
+  background: linear-gradient(0deg, #e0004d, #e0004d) no-repeat;
+  background-size: 100% 1.5px;
+  background-position: left bottom;
+}
+  
+@media (min-width: 991px) {
+  .blog-new .blog-new-link:hover {
+    color: #bc0047;
+    background: linear-gradient(0deg, #bc0047, #bc0047) no-repeat;
+    background-size: 100% 1.5px;
+    background-position: left bottom;
+  }
+}
+.blog-new .blog-new-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.blog-new .blog-new-item {
+  display: flex;
+  gap: 20px;
+  border: 1px solid #ebebeb;
+  height: auto;
+}
+
+.blog-new .blog-new-img {
+  width: 48.66%;
+}
+
+.blog-new .blog-new-img .img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.blog-new .blog-new-text {
+  flex: 1;
+  padding: 16px 16px 16px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.blog-new .blog-new-text .blog-new-link {
+  margin-top: 10px;
+}
+  
+.seo-diy.blog-new{
+  background: #F9F9F9;
+}
+  
+.seo-diy .blog-new-top{
+  justify-content: center;
+}
+  
+.seo-diy .blog-new-cont{
+  flex-direction: row-reverse;
+  gap:7.5%;
+}
+
+.seo-diy .blog-new-item{
+  border:0;
+}
+
+.seo-diy .blog-new-text>div{
+  display: flex;
+  flex-direction: column;
+}
+  
+.seo-diy .blog-new-h4{
+  order:-1;
+  margin-top:0;
+  font-family: var(--heading-font-family);
+  line-height: 1.2;
+}
+  
+.seo-diy .blog-new-img{
+  width:27.45%
+}
+.seo-diy .blog-new-text{
+  justify-content: center;
+}
+  .seo-diy .blog-new-time{
+    margin-top:10px;
+    line-height: 1.2;
+  }
+  .seo-diy .blog-new-h3{
+    max-width: 750px;
+    text-align: center;
+  }
+@media (max-width: 1400px) {
+  .blog-new .blog-new-left-text {
+    padding: 15px;
+  }
+
+  .blog-new .blog-new-left-flex .blog-new-h4 {
+    font-size: 20px;
+  }
+
+  .blog-new .blog-new-text {
+    padding: 10px 10px 10px 0;
+  }
+
+  .blog-new .blog-new-h4 {
+    font-size: 16px;
+  }
+
+  .blog-new .blog-new-link {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 991px) {
+  .blog-new {
+    padding: 50px 0 100px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .seo-diy.blog-new{
+    padding-bottom:50px;
+  }
+  .blog-new .blog-new-top {
+    margin-bottom: 30px;
+  }
+
+  .blog-new .blog-new-h3 {
+    font-size: 28px;
+    line-height: 1.25;
+  }
+
+  .blog-new .blog-new-top-btn {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 40px;
+    width: 120px;
+    height: 42px;
+    font-size: 15px;
+  }
+  .blog-new .blog-new-cont {
+    flex-direction: column;
+    gap:20px;
+  }
+  .blog-new .blog-new-left-text {
+    padding: 20px 10px;
+  }
+  .blog-new .blog-new-time {
+    font-size: 12px;
+    line-height: 1;
+  }
+  .blog-new .blog-new-left-flex {
+    gap: 10px;
+  }
+  .blog-new .blog-new-left-flex .blog-new-h4 {
+    font-size: 16px;
+    margin-top: 16px;
+  }
+  .blog-new .blog-new-link {
+    font-size: 15px;
+  }
+  .blog-new .blog-new-h4 {
+    margin-top: 14px;
+    line-height: 1.35;
+  }
+  .blog-new .blog-new-list {
+    flex-direction: row;
+    gap: 0;
+  }
+  .blog-new .blog-new-item {
+    width: 320px;
+    flex-shrink: 0;
+    flex-direction: column;
+    gap: 0;
+  }
+  .blog-new .blog-new-img {
+    width: 100%;
+  }
+  .blog-new .blog-new-text {
+    padding: 14px 10px 20px 10px;
+  }
+  .seo-diy .blog-new-h4{
+    margin-top:0;
+  }
+  .seo-diy .blog-new-time{
+    margin-top:10px;
+  }
+  .seo-diy .blog-new-time {
+    line-height: 1.2;
+  }
+}
+</style>
+<section class="section-box">
+  <div class="blog-new {{ section.settings.class_diy }}">
+    <div class="container">
+      {%- if section.settings.title != blank or section.settings.text != blank -%}
+        <div class="blog-new-top">
+          {%- if section.settings.title != blank -%}
+            <h3 class="blog-new-h3">{{ section.settings.title }}</h3>
+          {%- endif -%}
+          {%- if section.settings.text != blank -%}
+            <a href="{{ section.settings.link }}" class="blog-new-top-btn">
+              {{ section.settings.text }}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+      <div class="blog-new-cont">
+        {%- for block in section.blocks -%}
+          {%- if forloop.index == 1 -%}
+            <a href="{{ block.settings.link }}" class="blog-new-left">
+              {%- if block.settings.image != blank -%}
+                  <img
+                    loading="lazy"
+                    class="img"
+                    width=""
+                    height=""
+                    {% render 'image-attributes', image: block.settings.image %}
+                    alt="{{ block.settings.image.alt | escape }}"
+                  >
+                {%- endif -%}
+              {%- if block.settings.text != blank or block.settings.text1 != blank or block.settings.text2 != blank -%}
+                <div class="blog-new-left-text">
+                  {%- if block.settings.text != blank -%}
+                    <div class="blog-new-time">{{ block.settings.text }}</div>
+                  {%- endif -%}
+                  {%- if block.settings.text1 != blank or block.settings.text2 != blank -%}
+                    <div class="blog-new-left-flex">
+                      {%- if block.settings.text1 != blank -%}
+                        <h3 class="blog-new-h4">{{ block.settings.text1 }}</h3>
+                      {%- endif -%}
+                      {%- if block.settings.text2 != blank -%}
+                        <div  class="blog-new-link">{{ block.settings.text2 }}</div>
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+        <div class="blog-new-right">
+          <div class="blog-new-list swiper-wrapper">
+            {%- for block in section.blocks -%}
+              {%- if forloop.index != 1 -%}
+                <a href="{{ block.settings.link }}" class="blog-new-item swiper-slide">
+                  {%- if block.settings.image != blank -%}
+                    <div class="blog-new-img">
+                      <img
+                        loading="lazy"
+                        class="img"
+                        width=""
+                        height=""
+                        {% render 'image-attributes', image: block.settings.image %}
+                        alt="{{ block.settings.image.alt | escape }}"
+                      >
+                    </div>
+                  {%- endif -%}
+                  <div class="blog-new-text">
+                    <div>
+                      <div class="blog-new-time">{{ block.settings.text }}</div>
+                      <h3 class="blog-new-h4">{{ block.settings.text1 }}</h3>
+                    </div>
+                    {%- if block.settings.text2 != blank -%}
+                      <div class="blog-new-link">{{ block.settings.text2 }}</div>
+                    {%- endif -%}
+                  </div>
+                </a>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  window.addEventListener('DOMContentLoaded', function () {
+    if (window.innerWidth < 991) {
+      let swiper{{ section.id | replace: "template--", "" | replace: "__", ""  }} = new Swiper(".blog-new-right", {
+        slidesPerView: "auto",
+        spaceBetween: 16,
+      });
+    }
+  });
+</script>
+{% schema %}
+{
+  "name": "blog-new",
+  "blocks": [
+    {
+      "name": "item",
+      "type": "item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "text",
+          "id": "text1",
+          "label": "Text"
+        },
+        {
+          "type": "text",
+          "id": "text2",
+          "label": "Link Text"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Link Text"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+    },
+    {
+      "type": "text",
+      "id": "class_diy",
+      "label": "自定义class"
+    }
+  ],
+  "presets": [
+    {
+      "name": "blog-new",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

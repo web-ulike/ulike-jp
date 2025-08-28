@@ -24,13 +24,24 @@
   {%- if section.settings.gallery_layout == 'thumbnail' and section.settings.image_ratio == 'adapt_first' -%}
     @media screen and (min-width: 768px) {
       #SliderGallery-{{ section.id }} .media--adapt_first>:is(img, svg, video-media) {
-        aspect-ratio: {{ first_media.aspect_ratio }};
+        aspect-ratio: {{ first_media.aspect_ratio }};                                                                                                                                                   
       }
     }
   {%- endif -%}
   .custom_text.text-3xs{
     color:rgba(0, 0, 0, 0.50);
   }
+  .pay-me__box{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    max-width: 450px;
+  }
+  .pay-me__box img.pay-me__svg{
+    display: block;
+    width: 11.8%;
+}
 </style>
 
 {%- liquid
@@ -599,17 +610,71 @@
               {%- if block.settings.giveaway_image -%}
                 <div class="ulike-giveaway">
                   <picture>
-                    {{-
-                      block.settings.giveaway_image
-                      | image_url: width: block.settings.giveaway_image.width
-                      | image_tag:
-                        loading: 'eager',
-                        sizes: '100vw',
-                        widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200'
-                    -}}
+                    {%- if block.settings.m_giveaway_image -%}
+                      <source 
+                        media="(max-width: 768px)" 
+                        srcset="{{ block.settings.m_giveaway_image | image_url: width: 400 }}">
+                    {%- endif -%}
+                    <img 
+                      loading="lazy" 
+                      class="image 11" 
+                      alt="{{ block.settings.giveaway_image.alt | escape }}" 
+                      src="{{ block.settings.giveaway_image | image_url: width: 800 }}">
                   </picture>
                 </div>
               {%- endif -%}
+
+            {%- when 'payment_method' -%}
+            <div class="pay-me__box" {{ block.shopify_attributes }}>
+              {%- if block.settings.visa -%}
+                <img src="{{ 'VISA.svg' | file_url }}" class="pay-me__svg" alt="VISA" />
+              {%- endif -%}
+               {%- if block.settings.visa-electron -%}
+                <img src="{{ 'VisaElectron.svg' | file_url }}" class="pay-me__svg" alt="VisaElectron" />
+              {%- endif -%}
+                {%- if block.settings.mastercard -%}
+                <img src="{{ 'mastercard.svg' | file_url }}" class="pay-me__svg" alt="mastercard" />
+              {%- endif -%}
+                {%- if block.settings.maestro -%}
+                <img src="{{ 'maestro.svg' | file_url }}" class="pay-me__svg" alt="maestro" />
+              {%- endif -%}
+               {%- if block.settings.jcb -%}
+                <img src="{{ 'JCB.svg' | file_url }}" class="pay-me__svg" alt="JCB" />
+              {%- endif -%}
+               {%- if block.settings.amex -%}
+               <img src="{{ 'AMEX.svg' | file_url  }}" class="pay-me__svg" alt="AMEX" />
+              {%- endif -%}
+              {%- if block.settings.diners -%}
+                 <img src="{{ 'Diners.svg' | file_url }}" class="pay-me__svg" alt="Diners" />
+              {%- endif -%}
+              {%- if block.settings.discover -%}
+                 <img src="{{ 'Discover.svg' | file_url }}" class="pay-me__svg" alt="Discover" />
+              {%- endif -%}
+                {%- if block.settings.family-mart -%}
+                 <img src="{{ 'familyMart.svg' | file_url }}" class="pay-me__svg" alt="familyMart" />
+              {%- endif -%}
+             
+                {%- if block.settings.lawson -%}
+               <img src="{{ 'lawson.svg' | file_url }}" class="pay-me__svg" alt="lawson" />
+              {%- endif -%}
+
+              {%- if block.settings.payeasy -%}
+               <img src="{{ 'payeasy.svg' | file_url }}" class="pay-me__svg" alt="payeasy" />
+              {%- endif -%}
+              
+              {%- if block.settings.ministop -%}
+                 <img src="{{ 'ministop.svg' | file_url }}" class="pay-me__svg" alt="ministop" />
+              {%- endif -%}
+              
+              {%- if block.settings.netbanking -%}
+                <img src="{{ 'Netbanking.svg' | file_url }}" class="pay-me__svg" alt="Netbanking" />
+              {%- endif -%}
+
+               {%- if block.settings.paypal -%}
+                 <img src="{{ 'paypal.svg' | file_url }}" class="pay-me__svg" alt="paypal" />
+              {%- endif -%}
+              
+            </div>
           {%- endcase -%}
         {%- endfor -%}
       </animate-element>
@@ -2048,7 +2113,103 @@
           "type": "image_picker",
           "id": "giveaway_image",
           "label": "赠品图片"
+        },
+        {
+          "type": "image_picker",
+          "id": "m_giveaway_image",
+          "label": "移动端-图片"
         }
+      ]
+    },
+    {
+      "type": "payment_method",
+      "name": "Payment method",
+      "settings": [
+        {
+             "type": "checkbox",
+              "id": "amex",
+              "default": false,
+              "label": "AMEX",
+            },
+            {
+               "type": "checkbox",
+              "id": "diners",
+              "default": false,
+              "label": "Diners"
+            },
+            {
+             "type": "checkbox",
+              "id": "discover",
+              "default": false,
+              "label": "Discover"
+            },
+            {
+             "type": "checkbox",
+              "id": "family-mart",
+              "default": false,
+              "label": "FamilyMart"
+            },
+            
+             {
+             "type": "checkbox",
+              "id": "jcb",
+              "default": false,
+              "label": "JCB"
+            },
+            {
+             "type": "checkbox",
+              "id": "lawson",
+              "default": false,
+              "label": "Lawson"
+            },
+            {
+              "type": "checkbox",
+              "id": "maestro",
+              "default": false,
+              "label": "Maestro"
+            },
+            {
+               "type": "checkbox",
+              "id": "ministop",
+              "default": false,
+              "label": "Ministop"
+            },
+            {
+               "type": "checkbox",
+              "id": "payeasy",
+              "default": false,
+              "label": "Payeasy"
+            },
+            {
+              "type": "checkbox",
+              "id": "paypal",
+              "default": false,
+              "label": "Paypal"
+            },
+            {
+              "type": "checkbox",
+              "id": "visa",
+              "default": false,
+              "label": "VISA"
+            },
+            {
+              "type": "checkbox",
+              "id": "visa-electron",
+              "default": false,
+              "label": "VisaElectron"
+            },
+         {
+              "type": "checkbox",
+              "id": "netbanking",
+              "default": false,
+              "label": "Netbanking"
+            },
+            {
+              "type": "checkbox",
+              "id": "mastercard",
+              "default": false,
+              "label": "Mastercard"
+            }
       ]
     }
   ]

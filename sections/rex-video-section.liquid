@@ -1,0 +1,467 @@
+<style>
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px);
+  }
+  @media screen and (max-width: 768px){
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.mobile_padding_top }}px);
+    padding-bottom: calc({{ section.settings.mobile_padding_bottom }}px);
+  }
+}
+    /* 视频集合板块 */
+    .video-container{
+    max-width: 1480px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 var(--container-gutter);
+    }
+    .video-box{
+      text-align: center;
+    }
+    .video-box h3{
+      color: #B89E70;
+      font-size: 45px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1;
+      margin-bottom: 89px;
+    }
+    .video-box .video_box {
+      display: flex;
+      gap: 36px;
+    }
+  .video-box .video_box .video-psv {
+    flex:1;
+}
+   .video-box .video_box .video-psv .play-button{
+    inset-block-start: 45%;
+    inset-inline-end: 45%;
+  }
+  .video-box .video-psv video-media {
+    --aspect-ratio: 9 / 16;
+}
+    @media (min-width: 1024px) and (max-width: 1450px) {
+      .video-box h3 {
+          font-size: 36px;
+          margin-bottom: 72px;
+      }
+      .video-box .video_box {
+          gap: 29px;
+      }
+    }
+    @media screen and (max-width: 767px) {
+      .video-box h3 {
+          font-size: 20px;
+          margin-bottom: 40px;
+      }
+       .video-box .video_box {
+         flex-direction: column;
+         gap: 20px;
+      }
+    }
+</style>
+<section>
+  <!-- 视频集合板块 -->
+    <div class="video-section section-{{ section.id }}-padding">
+      <div class="video-container">
+        <div class="video-box">
+          <h3 class="to-top">{{ section.settings.tle }}</h3>
+          <div class="video_box">
+              {%- for block in section.blocks -%}
+              <div class="video-psv to-top">
+              {%- assign sizes = '(max-width: 767px) 100vw, 50vw' -%}
+              {%- if block.settings.video_mobile or block.settings.video_url_mobile -%}
+                {%- render 'video',
+                  sizes: sizes,
+                  video: block.settings.video_mobile,
+                  video_url: block.settings.video_url_mobile,
+                  muted: block.settings.enable_video_autoplay,
+                  autoplay: block.settings.enable_video_autoplay,
+                  loop: block.settings.enable_video_looping,
+                  description: block.settings.description,
+                  cover_image: block.settings.cover_image_mobile,
+                  show_play_button: true,
+                  is_mobile: true,
+                  class: ''
+                -%}
+              {%- endif -%}
+              {%- render 'video',
+                sizes: sizes,
+                video: block.settings.video,
+                video_url: block.settings.video_url,
+                muted: block.settings.enable_video_autoplay,
+                autoplay: block.settings.enable_video_autoplay,
+                loop: block.settings.enable_video_looping,
+                description: block.settings.description,
+                cover_image: block.settings.cover_image,
+                show_play_button: true,
+                class: ''
+              -%}
+            </div>
+
+            <div href={{ block.settings.video.sources[0].url }}></div>
+
+            
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+<script>
+  function popu(ele, type) {
+  for (var i = 0; i < ele.length; i++) {
+    ele[i].addEventListener("click", function (e) {
+      var screenWidth =
+        window.innerWidth ||
+        document.documentElement.clientWidth ||
+        document.body.clientWidth;
+      e.preventDefault();
+      var body = document.getElementsByTagName("body")[0];
+      var w = document.createElement("aside");
+      // 创建视频元素
+      var videoPlayer = document.createElement("video");
+      videoPlayer.setAttribute("id", "videoPlayer");
+      videoPlayer.setAttribute("controls", "true");
+      videoPlayer.setAttribute("playsinline", "true");
+      videoPlayer.setAttribute("muted", "muted");
+      videoPlayer.setAttribute("preload", "metadata");
+      videoPlayer.setAttribute("autoplay", "true");
+      // 创建视频源元素
+      var videoSource = document.createElement("source");
+      document.body.style.overflow = "hidden";
+      document.body.style.height = "100vh";
+      w.setAttribute("id", "popu-cont");
+      w.setAttribute("class", "popu-cont-cutom");
+      if (type === "video") {
+        w.innerHTML =
+          '<div class="popu-mask" style="position: fixed;width: 100%;height: 100%;left: 0;right: 0;z-index: 1;"></div><div class="popu-wrap text-center video-wrapper--native "><svg width="32" height="32" viewBox="0 0 24 24" class="transition-linear close-btn"> <use xlink:href="#close-path"><path d="M11 11V6a1 1 0 0 1 2 0v5h5a1 1 0 0 1 0 2h-5v5a1 1 0 0 1-2 0v-5H6a1 1 0 0 1 0-2h5z"></path></use> </svg></div>';
+        // var href = this.getAttribute("href");
+        var href = this.getAttribute("data-mobile-href")
+          ? screenWidth < 768
+            ? this.getAttribute("data-mobile-href")
+            : this.getAttribute("href")
+          : this.getAttribute("href");
+        videoSource.src = href;
+        // 将视频源元素添加到视频元素中
+        videoPlayer.appendChild(videoSource);
+        w.querySelector(".popu-wrap").appendChild(videoPlayer);
+      }
+      w.querySelector(".popu-wrap").classList.add(type);
+      body.appendChild(w);
+      clickCloseAll(".close-btn");
+      clickCloseAll(".popu-mask");
+      function clickCloseAll(className) {
+        document
+          .querySelector(className)
+          .addEventListener("click", function (e) {
+            document.body.style = "";
+            if (isIE()) {
+              document.getElementById("popu-cont").removeNode(!0);
+            } else {
+              document.getElementById("popu-cont").remove();
+            }
+          });
+      }
+      function isIE() {
+        if (!!window.ActiveXobject || "ActiveXObject" in window) {
+          return !0;
+        } else {
+          return !1;
+        }
+      }
+    });
+  }
+}
+</script>
+{% schema %}
+{
+  "name": "rex-video-section",
+  "class": "rex-video-section", 
+  "settings": [
+     {
+      "type": "text",
+      "id": "tle",
+      "label": "Title"
+    },
+     {
+      "type": "richtext",
+      "id": "note",
+      "label": "Note"
+    },
+     {
+      "type": "richtext",
+      "id": "txt",
+      "label": "Text"
+    },
+     {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Button Text"
+    },
+         {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 300,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 300,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 48
+    },
+     {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Top",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile Padding Bottom",
+      "default": 10
+    }
+  ],
+  "blocks": [
+        {
+      "type": "item",
+      "name": "item",
+      "settings": [
+          {
+      "type": "header",
+      "content": "t:sections.video.settings.header__video.content"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "t:sections.video.settings.video.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.video.settings.header__video_url.content",
+      "info": "t:sections.video.settings.header__video_url.info"
+    },
+    {
+      "type": "video_url",
+      "id": "video_url",
+      "accept": ["youtube", "vimeo"],
+      "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+      "label": "t:sections.video.settings.video_url.label",
+      "info": "t:sections.video.settings.video_url.info"
+    },
+    {
+      "type": "image_picker",
+      "id": "cover_image",
+      "label": "t:sections.video.settings.cover_image.label"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "t:sections.video.settings.description.label",
+      "info": "t:sections.video.settings.description.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_video_autoplay",
+      "label": "t:sections.video.settings.enable_video_autoplay.label",
+      "info": "t:sections.video.settings.enable_video_autoplay.info",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_video_looping",
+      "label": "t:sections.video.settings.enable_video_looping.label",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "image_height",
+      "options": [
+        {
+          "label": "t:sections.global.settings.image_height.options__1.label",
+          "value": "adapt"
+        },
+        {
+          "label": "t:sections.global.settings.image_height.options__2.label",
+          "value": "400px"
+        },
+        {
+          "label": "t:sections.global.settings.image_height.options__3.label",
+          "value": "450px"
+        },
+        {
+          "label": "t:sections.global.settings.image_height.options__4.label",
+          "value": "500px"
+        },
+        {
+          "label": "t:sections.global.settings.image_height.options__5.label",
+          "value": "550px"
+        },
+        {
+          "label": "t:sections.global.settings.image_height.options__6.label",
+          "value": "600px"
+        },
+        {
+          "label": "t:sections.global.settings.image_height.options__7.label",
+          "value": "650px"
+        },
+        {
+          "label": "t:sections.global.settings.image_height.options__8.label",
+          "value": "700px"
+        },
+        {
+          "label": "t:sections.global.settings.image_height.options__9.label",
+          "value": "750px"
+        },
+        {
+          "label": "t:sections.global.settings.image_height.options__10.label",
+          "value": "100vh"
+        }
+      ],
+      "default": "adapt",
+      "label": "t:sections.global.settings.image_height.label"
+    },
+    {
+      "type": "select",
+      "id": "video_width",
+      "options": [
+        {
+          "value": "small",
+          "label": "t:sections.video-with-text.settings.video_width.options__1.label"
+        },
+        {
+          "value": "medium",
+          "label": "t:sections.video-with-text.settings.video_width.options__2.label"
+        },
+        {
+          "value": "large",
+          "label": "t:sections.video-with-text.settings.video_width.options__3.label"
+        }
+      ],
+      "default": "medium",
+      "label": "t:sections.video-with-text.settings.video_width.label",
+      "info": "t:sections.video-with-text.settings.video_width.info"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "options": [
+        {
+          "value": "video_first",
+          "label": "t:sections.video-with-text.settings.layout.options__1.label"
+        },
+        {
+          "value": "text_first",
+          "label": "t:sections.video-with-text.settings.layout.options__2.label"
+        }
+      ],
+      "default": "video_first",
+      "label": "t:sections.video-with-text.settings.layout.label",
+      "info": "t:sections.video-with-text.settings.layout.info"
+    },
+    {
+      "type": "text_alignment",
+      "id": "text_alignment",
+      "default": "left",
+      "label": "t:sections.global.settings.text_alignment.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.global.settings.header__mobile.content"
+    },
+    {
+      "type": "video",
+      "id": "video_mobile",
+      "label": "t:sections.video.settings.video_mobile.label"
+    },
+    {
+      "type": "video_url",
+      "id": "video_url_mobile",
+      "accept": ["youtube", "vimeo"],
+      "label": "t:sections.video.settings.video_url_mobile.label",
+      "info": "t:sections.video.settings.video_url.info"
+    },
+    {
+      "type": "image_picker",
+      "id": "cover_image_mobile",
+      "label": "t:sections.video.settings.cover_image_mobile.label"
+    },
+    {
+      "type": "select",
+      "id": "image_height_mobile",
+      "options": [
+        {
+          "label": "t:sections.global.settings.image_height_mobile.options__1.label",
+          "value": "auto"
+        },
+        {
+          "label": "t:sections.global.settings.image_height_mobile.options__2.label",
+          "value": "200px"
+        },
+        {
+          "label": "t:sections.global.settings.image_height_mobile.options__3.label",
+          "value": "250px"
+        },
+        {
+          "label": "t:sections.global.settings.image_height_mobile.options__4.label",
+          "value": "300px"
+        },
+        {
+          "label": "t:sections.global.settings.image_height_mobile.options__5.label",
+          "value": "400px"
+        },
+        {
+          "label": "t:sections.global.settings.image_height_mobile.options__6.label",
+          "value": "500px"
+        },
+        {
+          "label": "t:sections.global.settings.image_height_mobile.options__7.label",
+          "value": "600px"
+        },
+        {
+          "label": "t:sections.global.settings.image_height_mobile.options__8.label",
+          "value": "100vh"
+        },
+        {
+          "label": "t:sections.global.settings.image_height_mobile.options__9.label",
+          "value": "adapt"
+        }
+      ],
+      "default": "auto",
+      "label": "t:sections.global.settings.image_height_mobile.label"
+    },
+    {
+      "type": "text_alignment",
+      "id": "text_alignment_mobile",
+      "default": "left",
+      "label": "t:sections.global.settings.text_alignment_mobile.label"
+    }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "rex-video-section"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,194 @@
+<style>
+.technology-validated {
+  padding: 70px 0 24px 0;
+  background: #f6f6f6;
+}
+
+.technology-validated .technology-validated-h3 {
+  color: #190a0a;
+  font-size: 32px;
+  line-height: 1.25;
+  text-align: center;
+  font-weight: normal;
+  font-family: var(--font-heading-family);
+  margin: 0;
+}
+
+.technology-validated .technology-validated-flex {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  padding: 40px 45px;
+  background: #fff;
+  margin-top: 40px;
+}
+
+.technology-validated .technology-validated-img {
+  width: 50%;
+  flex-shrink: 0;
+}
+
+.technology-validated .img-validated {
+  width: 100%;
+  display: block;
+}
+
+.technology-validated .technology-validated-text {
+  flex: 1;
+}
+
+.technology-validated .technology-validated-p {
+  color: #000;
+  font-size: 30px;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.technology-validated .technology-validated-num {
+  color: #190a0a;
+  font-size: 130px;
+  line-height: 1.05;
+  font-family: var(--font-heading-family);
+  margin: 0;
+}
+
+.technology-validated .technology-validated-h4 {
+  display: inline-block;
+  color: #190a0a;
+  font-size: 24px;
+  line-height: 1.25;
+  font-weight: normal;
+  font-family: var(--font-heading-family);
+  margin: 0;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #190a0a;
+}
+
+.technology-validated .technology-validated-msg {
+  color: #625959;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
+  margin-top: 16px;
+}
+
+@media (max-width: 991px) {
+  .technology-validated {
+    padding: 46px 0 0 0;
+  }
+
+  .technology-validated .technology-validated-h3 {
+    font-size: 20px;
+  }
+
+  .technology-validated .technology-validated-flex {
+    flex-direction: column-reverse;
+    padding: 24px 16px;
+    margin: 0 -24px;
+    margin-top: 16px;
+    gap: 20px;
+  }
+
+  .technology-validated .technology-validated-img {
+    width: 100%;
+  }
+
+  .technology-validated .technology-validated-p {
+    font-size: 20px;
+  }
+
+  .technology-validated .technology-validated-num {
+    font-size: 85px;
+  }
+
+  .technology-validated .technology-validated-h4 {
+    font-size: 16px;
+    padding-bottom: 8px;
+  }
+  .technology-validated .technology-validated-msg {
+    font-size: 12px;
+  }
+}
+</style>
+<section class="section-box">
+  <div class="technology-validated mini-cont">
+    <div class="jp-container">
+      {%- if section.settings.text != blank -%}
+        <h3 class="technology-validated-h3">{{ section.settings.text }}</h3>
+      {%- endif -%}
+      <div class="technology-validated-flex">
+        <div class="technology-validated-text">
+          {%- if section.settings.text1 != blank -%}
+            <p class="technology-validated-p">{{ section.settings.text1 }}</p>
+          {%- endif -%}
+          {%- if section.settings.text2 != blank -%}
+            <div class="technology-validated-num">{{ section.settings.text2 }}</div>
+          {%- endif -%}
+          {%- if section.settings.text3 != blank -%}
+            <h4 class="technology-validated-h4">{{ section.settings.text3 }}</h4>
+          {%- endif -%}
+          {%- if section.settings.text4 != blank -%}
+            <p class="technology-validated-msg">
+              {{ section.settings.text4 }}
+            </p>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.image != blank -%}
+          <div class="technology-validated-img">
+            <img
+                loading="lazy"
+                width="{{ section.settings.image.width }}"
+                height="{{ section.settings.image.height }}"
+                class="img-validated"
+                {% render 'image-attributes', image: section.settings.image %}
+                alt="{{ section.settings.image.alt | escape }}"
+              >
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "technology-validated",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "text1",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "text2",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "text3",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "text4",
+      "label": "Text"
+    }
+  ],
+  "presets": [
+    {
+      "name": "technology-validated",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

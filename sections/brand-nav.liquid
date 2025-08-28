@@ -3,7 +3,7 @@
   position: fixed;
   width: 100%;
   inset: 0;
-  z-index:0 !important;
+  z-index:-1 !important;
 }
 .nav_fix-left {
         position: absolute;
@@ -109,6 +109,11 @@ display: flex;
 .snsNavigation-box a:hover{
   opacity: 0.6;
 }
+  .nav-fix__logo {
+    position: absolute;
+    top: 80px;
+    right: 50px;
+}
 @media only screen and (max-width: 1300px) {
   .nav_fix-ps .nav_fix-tle{
     font-size: 28px;
@@ -131,6 +136,7 @@ display: flex;
     font-size: 12px;
   }
 }
+  
 @media only screen and (max-width: 992px) {
 .nav_fix-ps{
   display: none;
@@ -158,13 +164,18 @@ display: flex;
       
      <div class="nav_fix-right to-top">
       <div class="nav_fix-bix-rt">
+         {%- if section.settings.logo_image -%}
+        <div class="nav-fix__logo">
+               <img src="{{  section.settings.logo_image | image_url }}" alt="{{ section.settings.logo_image.alt }}" width="{{  section.settings.logo_image.width  | divided_by: 2  }}" height="{{  section.settings.logo_image.height  | divided_by: 2  }}">
+        </div>
+         {%- endif -%}
         <div class="sns-bix">
           <div class="snsNavigation__title js-observer"><p>{{ section.settings.sns_txt }}</p></div>
           <div class="snsNavigation-box">
             {%- for block in section.blocks -%}
               <a href="{{ block.settings.link_url }}" target="_blank">
                {%- if block.settings.image -%}
-                <img src="{{  block.settings.image | image_url }}" alt="">
+                <img src="{{  block.settings.image | image_url }}" alt="{{ section.settings.image.alt }}" width="{{  section.settings.image.width }}" height="{{  section.settings.image.height }}">
               {%- endif -%}
               </a>
           {%- endfor -%}
@@ -208,7 +219,12 @@ display: flex;
       "type": "text",
       "id": "sns_txt",
       "label": "Sns Text"
-    }
+    },
+     {
+          "type": "image_picker",
+          "id": "logo_image",
+          "label": "Logo Image"
+        },
   ],
   "blocks": [
             {

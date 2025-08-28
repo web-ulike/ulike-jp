@@ -1,0 +1,280 @@
+<style>
+
+#shopify-section-{{ section.id }} {
+    --text-color: {{  section.settings.text_color.red }}, {{  section.settings.text_color.green }}, {{  section.settings.text_color.blue }};
+    --color-border: 255, 255, 255;
+    --section-background: {{ section.settings.background }};
+    background: var(--section-background); 
+  }
+     .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px);
+  }
+  @media screen and (max-width: 768px){
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.mobile_padding_top }}px);
+    padding-bottom: calc({{ section.settings.mobile_padding_bottom }}px );
+  }
+}
+ .brand__value-item{
+     }
+     .brand__value-item .brand__value-tle{
+      color: #000;
+      text-align: center;
+      font-size: 36px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+     }
+      .brand__value-item .brand__value-inner{
+        display: flex;
+        gap: 40px;
+      }
+       .brand__value-item .brand__value-list{
+        flex: 1;
+        background: #F9F9F9;
+        text-align: center;
+        padding: 57px 28px 40px;
+       }
+       .brand__value-list img{
+        max-width: 128px;
+        margin: 0 auto;
+       }
+       .brand__value-list h4{
+        color: #000;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        margin-top: 30px;
+       }
+        .brand__value-list h4 strong{
+          font-family: var(--font-sans-family);
+            font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+          padding-right:10px;
+        }
+         .brand__value-list .brand__value-txt{
+          color: rgba(0, 0, 0, 0.70);
+          font-size: 13px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+          margin-top: 6px;
+         }
+         .brand__value-item .brand__value-tle.brand__value-tle0{
+          margin-bottom: 43px;
+         }
+         .brand__value-bottom{
+          margin-top: 66px;
+          text-align: center;
+         }
+         .brand__value-bottom .brand__value-link{
+          border-radius: 100px;
+          border: 1px solid #000;
+          background: #FFF;
+          display: inline-flex;
+          gap: 20px;
+          align-items: center;
+          padding: 9px 23px;
+          margin-top: 28px;
+          font-size: 14px;
+         }
+         .brand__value-bottom .brand__value-link:hover{
+          background: #000;
+          color: #fff;
+         }
+        @media screen and (max-width: 750px) {
+          .brand__value-item .brand__value-tle{
+            font-size: 24px;
+          }
+          .brand__value-item .brand__value-tle.brand__value-tle0 {
+              margin-bottom: 14px;
+          }
+          .brand__value-item .brand__value-inner {
+            flex-direction: column;
+              gap: 10px;
+          }
+          .brand__value-item .brand__value-list{
+            padding: 20px 23px;
+          }
+          .brand__value-list img{
+            max-width: 80px;
+          }
+          .brand__value-list h4{
+            font-size: 18px;
+            margin-top: 22px;
+          }
+          .brand__value-list .brand__value-txt{
+            font-size: 12px;
+            margin-top: 6px;
+          }
+          .brand__value-bottom{
+            margin-top: 40px;
+          }
+          .brand__value-bottom .brand__value-link{
+            margin-top: 18px;
+          }
+        }
+</style>
+ <section class="section-{{ section.id }}-padding">
+<div class="brand__value-item">
+          <div class="jp-container">
+            <h3 class="brand__value-tle brand__value-tle0 to-top">{{ section.settings.tle }}</h3>
+            <div class="brand__value-inner">
+              
+               {%- for block in section.blocks -%}
+              <div class="brand__value-list to-top">
+                <picture>
+                         {%- if block.settings.image_mobile -%}
+                            <source media="(max-width: 767px)" srcset="{{ block.settings.image_mobile | image_url }}">
+                                 {%- endif -%}
+                             {%- if block.settings.image -%}
+                            <img src="{{ block.settings.image | image_url }}" alt="{{ block.settings.image.alt }}">
+                            {%- endif -%}
+                       </picture>
+                <div class="brand__value-list-inner">
+                  <h4>{{ block.settings.tle }}</h4>
+                  <div class="brand__value-txt">{{ block.settings.des }}</div>
+                </div>
+              </div>
+              {%- endfor -%}
+
+            </div>
+            <div class="brand__value-bottom">
+              <h3 class="brand__value-tle brand__value-tle1">{{ section.settings.button_tle }}</h3>
+              <a class="brand__value-link" href="{{ section.settings.link_url }}">{{ section.settings.button_txt }} 
+                <svg width="5" height="10" viewBox="0 0 5 10" fill="none">
+                  <path d="M4.72733 4.09721C5.09114 4.46425 5.09084 5.05599 4.72674 5.42274L0.804725 9.37313C0.621352 9.55739 0.323572 9.55827 0.139317 9.37549C-0.0453804 9.19123 -0.0453804 8.89345 0.136523 8.71008L3.73017 5.09069C3.91222 4.90732 3.91237 4.61145 3.73047 4.42793L0.136523 0.801931C-0.0464098 0.617234 -0.0455274 0.319455 0.139317 0.136523C0.324161 -0.0464097 0.621793 -0.0455274 0.804725 0.139317L4.72733 4.09721Z" fill="currentColor"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+  </section>
+<script>
+</script>
+{% schema %}
+{
+  "name": "about-brand-value",
+  "class": "about-brand-value", 
+  "settings": [
+           {
+      "type": "text",
+      "id": "tle",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "des",
+      "label": "Descripte"
+    },
+         {
+      "type": "richtext",
+      "id": "note",
+      "label": "Note"
+    },
+       {
+      "type": "text",
+      "id": "button_tle",
+      "label": "Button Title"
+    },
+         {
+      "type": "text",
+      "id": "button_txt",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Button Link"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color_background",
+      "id": "background",
+      "label": "Background",
+      "default": "#fff"
+    },
+     {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_top.label",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_bottom.label",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Top",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Bottom",
+      "default": 10
+    }
+  ],
+  "blocks": [
+         {
+        "type": "item",
+        "name": "item",
+        "settings": [
+           {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        },
+     {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile Images"
+        },
+               {
+      "type": "richtext",
+      "id": "tle",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "des",
+      "label": "Descripte"
+    }
+        ]
+      }
+  ],
+  "presets": [
+    {
+      "name": "about-brand-value"
+    }
+  ]
+}
+{% endschema %}
