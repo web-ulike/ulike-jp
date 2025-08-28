@@ -13419,9 +13419,6 @@ a.btn-animate.btn-animate__sweep-left.wh_bt:after{
 
 /*yujie 2024/4/20 add end*/
 
-
-
-
 .jp-container{
     width: 100%;
     max-width: var(--container-max-width);
@@ -13430,4 +13427,22 @@ a.btn-animate.btn-animate__sweep-left.wh_bt:after{
     padding-left: var(--container-gutter);
     padding-right: var(--container-gutter);
     --container-outer-margin: 0px;
+}
+
+/* 用户 2025/08/28 add start*/
+.account-list{
+  opacity: 0;
+  position: absolute;
+  top: 25px;
+  right: 0px;
+  width: 140px;
+  text-align: left;
+  display: block;
+  padding: 4px;
+  list-style-type: none;
+  background-color: #ffffff;
+  background-clip: padding-box;
+  border-radius: 8px;
+  outline: none;
+  box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
 }
