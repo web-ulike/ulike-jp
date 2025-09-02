@@ -13419,9 +13419,6 @@ a.btn-animate.btn-animate__sweep-left.wh_bt:after{
 
 /*yujie 2024/4/20 add end*/
 
-
-
-
 .jp-container{
     width: 100%;
     max-width: var(--container-max-width);
@@ -13430,4 +13427,49 @@ a.btn-animate.btn-animate__sweep-left.wh_bt:after{
     padding-left: var(--container-gutter);
     padding-right: var(--container-gutter);
     --container-outer-margin: 0px;
+}
+
+/* 用户 2025/08/28 add start*/
+.header .header__icon-wrapper{ 
+  position: relative;
+  display: block;
+  padding: 4px;
+}
+.header .account-list{
+  opacity: 0;
+  position: absolute;
+  top: 25px;
+  right: 0px;
+  width: 180px;
+  text-align: left;
+  display: block;
+  padding: 4px;
+  list-style-type: none;
+  background-color: #ffffff;
+  background-clip: padding-box;
+  border-radius: 8px;
+  outline: none;
+  box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+}
+
+.header .account-list .item{
+  display: block;
+  clear: both;
+  margin: 0;
+  padding: 5px 12px;
+  color: rgba(0, 0, 0, 0.88);
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 1.5714285714285714;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.header__icon-wrapper .account-list .item:hover{
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.header__icon-wrapper:hover .account-list{
+  display: block;
+  opacity: 1;
 }

@@ -30,18 +30,50 @@
     {%- endif -%}
 
     {%- if show_account and shop.customer_accounts_enabled -%}
-      <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="hidden lg:flex items-center justify-center" is="magnet-link">
-        <span class="sr-only">
-          {%- liquid
-            if customer
-              echo 'customer.account.title' | t
-            else
-              echo 'customer.login.title' | t
-            endif
-          -%}
-        </span>
-        {%- render 'icon', icon: 'account', size: 'lg' -%}
-      </a>
+           {% if customer %}
+              {% comment %} <a href="{%- if customer -%}{{ routes.account_url }}
+                {%- else -%}
+                {{ routes.account_login_url }}{%- endif -%}" class="hidden lg:flex items-center justify-center" is="magnet-link">
+                <span class="sr-only">
+                  {%- liquid
+                    if customer
+                      echo 'customer.account.title' | t
+                    else
+                      echo 'customer.login.title' | t
+                    endif
+                  -%}
+                </span>
+                {%- render 'icon', icon: 'account', size: 'lg' -%} 
+              </a> {% endcomment %}
+              <div
+                class="header__icon-wrapper tap-area hidden-phone"
+                aria-label="{{ 'header.general.account' | t | escape }}"
+              >
+                {%- render 'icon', icon: 'account', size: 'lg' -%} 
+                <div class="account-list">
+                  <a href="https://account.ulike.com/account?site=jp"  data-no-instant alt="Account Center" class="item">
+                    {% comment %} {{ 'customer.general.account_center' | t }} {% endcomment %}アカウントセンター
+                  </a>
+                  <a href="https://jp.ulike.com/account/logout"  data-no-instant class="item header-logout"  alt="Log Out" class="item">
+                    {% comment %} {{ 'customer.general.log_out' | t }} {% endcomment %}ログアウト
+                  </a>
+                </div>
+              </div>
+         {% else %}
+           <a href=" https://account.ulike.com/login?site=jp"  data-no-instant
+               class="hidden lg:flex items-center justify-center" is="magnet-link">
+                <span class="sr-only">
+                  {%- liquid
+                    if customer
+                      echo 'customer.account.title' | t
+                    else
+                      echo 'customer.login.title' | t
+                    endif
+                  -%}
+                </span>
+                {%- render 'icon', icon: 'account', size: 'lg' -%} 
+           </a>
+           {%- endif -%}
     {%- endif -%}
 
     {%- if show_cart -%}
