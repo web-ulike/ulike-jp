@@ -78,6 +78,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
   <!-- <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script> -->
   <script src="{{ 'scroll-animation.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'ulike-common.js' | asset_url }}" defer="defer"></script>
 
   {% comment %} ulike custom content {% endcomment %}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/gsap.min.js" defer="defer"></script>
@@ -90,12 +91,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   {%- render 'js-variables' -%}
 
-{% include 'pagefly-app-header' %}
+
 
   {% comment %} 联盟代码 {% endcomment %}
   {% include 'alliance_script' %}
 
-</head>
+{% include 'pagefly-app-header' %}</head>
 
 <body class="template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}{% if request.path == '/challenge' %} template-challange{% endif %}{% if request.design_mode %} shopify-design-mode{% endif %}" data-rounded-button="{{ settings.rounded_button }}" data-rounded-input="{{ settings.rounded_input }}" data-rounded-block="{{ settings.rounded_block }}" data-button_hover="{{ settings.buttons_hover }}"{% if settings.enable_lazy_image %} data-lazy-image{% endif %} data-page-rendering>
   <a class="sr-only skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>

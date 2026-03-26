@@ -1,4 +1,5 @@
 <style>
+   
   #shopify-section-{{ section.id }} {
     --section-padding-top: {{ section.settings.padding_top }}px;
     --section-padding-bottom: {{ section.settings.padding_bottom }}px;
@@ -22,7 +23,20 @@
      #shopify-section-{{ section.id }} .multicolumn-card.with-background .tail:after {
        background-color: {{section.settings.color_background_2}}
      }
-    {%- endif -%}    
+    {%- endif -%}  
+    .product_price-inner{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:3px;
+    }  
+     .product_price-inner .price{
+    font-family: var(--font-heading-family);
+    font-weight:500;
+    }
+    .product_price-inner .price_label{
+        font-size: 12px;
+    }
 </style>
 
 <div class="section section--padding{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded relative{% endif %}">
@@ -38,6 +52,7 @@
           endif
         -%}
         {%- for block in section.blocks -%}
+          {% assign product = block.settings.product %}
           <div class="multicolumn-card{% if section.settings.color_background_2 != blank %} with-background{% endif %}{% if block.settings.show_border %} with-border{% endif %} card flex gap-5 w-full flex-col items-start xl:flex-row md:text-{{ block.settings.text_alignment }} text-{{ block.settings.text_alignment_mobile }}" {{ block.shopify_attributes }}>
             <div class="grid gap-1">    
               {%- if block.settings.video != blank -%}
@@ -83,12 +98,26 @@
                       {{- block.settings.text -}}
                     </div>
                   {%- endif -%}
+                  {%- if product.price != blank -%}
+                  <div class="product_price-inner">
+                    <div class="price">{{ product.price | money }}</div>
+                    <div class="price_label">税込</div>
+                  </div>
+                   {%- endif -%}
     
                   {%- if block.settings.button_label != blank -%}
+
+                
+                  {% if product.compare_at_price > product.price %}
+                    {% assign discount_amount = product.compare_at_price | minus: product.price %}
+                    {% assign discount_percentage = discount_amount | times: 100 | divided_by: product.compare_at_price %}
+                  {% endif %}
+
                     <p>
                       <a class="button button--secondary button--fixed icon-with-text"{% if block.settings.button_link != blank %} href="{{ block.settings.button_link }}"{% else %} role="link" aria-disabled="true"{% endif %} is="hover-link">
                         <span class="btn-fill" data-fill></span>
                         <span class="btn-text">
+                          {{ discount_percentage | round }}%
                           {%- liquid
                             echo block.settings.button_label | escape
                             render 'icon', icon: 'arrow-right', size: 'sm', class: 'transform'
@@ -489,6 +518,11 @@
       "type": "column",
       "name": "t:sections.multicolumn.blocks.column.name",
       "settings": [
+         {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
         {
           "type": "checkbox",
           "id": "show_border",

@@ -1,0 +1,340 @@
+<style>
+     #shopify-section-{{ section.id }} {
+      --section-background: {{ section.settings.background }};
+       background: var(--section-background);
+   }
+.media-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px);
+  }
+@media screen and (max-width: 768px){
+  .media-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.mobile_padding_top }}px);
+    padding-bottom: calc({{ section.settings.mobile_padding_bottom }}px);
+  }
+}
+ /* multi-colum-new start */
+ .multi-colum-new{
+  overflow: hidden;
+ }
+ .multi-colum-new-wrapper{
+  display: flex;
+ }
+ .multi-colum-new-wrapper h3{
+  color:  #190A0A;
+font-size: 30px;
+font-style: normal;
+font-weight: 500;
+line-height: 1.8;
+ }
+  .multi-colum-new-wrapper .multi-new-subtle{
+    color: #190A0A;
+font-size: 24px;
+font-style: normal;
+font-weight: 400;
+line-height: 1.5;
+  }
+  .multi-colum-new-wrapper  .multi-new-cnt{
+    display: flex;
+    margin-top: 10px;
+    gap: 26px;
+  }
+  .multi-colum-new-wrapper .multi-new-txt{
+    color:  #190A0A;
+font-size: 14px;
+font-style: normal;
+font-weight: 350;
+line-height: 150%; 
+opacity: 0.7;
+flex: 1;
+  }
+.multi-colum-new-wrapper  .multi-colum-new-bt{
+margin-top: 28px;
+  }
+  .multi-colum-new-wrapper  .multi-colum-new-bt img{
+width:100%;
+}
+  .multi-colum-new-wrapper .multi-new-cnt svg{
+    display: block;
+    cursor: pointer;
+  }
+  .mobile__check__bix{
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 40px;
+    color: #190A0A;
+  }
+    .mobile__check__bix svg.swiper-button-disabled{
+    color: #B3ADAD;
+  }
+  @media screen and (max-width: 768px) {
+    .multi-colum-new-wrapper h3{
+      font-size: 20px;
+    }
+    .multi-colum-new-wrapper .multi-new-subtle{
+      font-size: 16px;
+    }
+    .multi-colum-new-wrapper .multi-new-txt{
+      font-size: 14px;
+    }
+  }
+ /* multi-colum-new end */
+
+ /* 弹窗视频样式 start*/
+    video-modal,text-modal {
+      display: inline-block;
+      text-align: center;
+    }
+    .cusmodal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+    .cusmodal.cusshow {
+      opacity: 1;
+    }
+    .cusmodal.cushidden {
+      display: none;
+    }
+    .cusmodal-content {
+      background-color: #fff;
+      padding: 36px;
+      max-width: 1350px;
+      width: 90%;
+      position: relative;
+      transform: translateY(-100%);
+      transition: transform 0.3s ease-in-out;
+      max-height: 80%;
+    }
+    .cusmodal.cusshow .cusmodal-content {
+      transform: translateY(0);
+    }
+    .cusmodal .cusclose-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #666;
+    }
+    .cusmodal .cusclose-btn:hover {
+      color: #333;
+    }
+    .cusmodal .cusclose-btn svg {
+      width: 24px;
+      height: 24px;
+    }
+    .cusmodal video {
+      width: 100%;
+    }
+    .cusmodal-txt{
+      height: 100%;
+    }
+@media (max-width: 991px) {
+      .cusmodal-content {
+       padding: 20px;
+    }
+    .cusmodal .cusclose-btn svg {
+    width: 18px;
+    height: 18px;
+}
+.cusmodal .cusclose-btn {
+    top: 3px;
+    right: 3px;
+}
+    .cusmodal-txt{
+     font-size: 14px;
+    }
+}
+
+/* 弹窗视频样式 end*/
+ }
+</style>
+   <section>
+    <div class="multi-colum-new media-{{ section.id }}-padding">
+      <div class="jp-container">
+
+          <custom-swiper-new 
+            slides-per-view="1.2" 
+            space-between="16" 
+            loop="false" 
+            centered-slides="false"
+            pagination="false"
+            navigation="true"
+            disable-on=""
+            breakpoints='{"768":{"slidesPerView": 3,"spaceBetween": 16}}'
+          >
+        <div class="multi-colum-new-inner swiper-container"> 
+          <div class="multi-colum-new-wrapper swiper-wrapper">
+
+             {%- for block in section.blocks -%}
+            <div class="multi-colum-new-item swiper-slide">
+              <div class="multi-colum-new-top">
+                  {% if block.settings.tle !=blank %} 
+                <h3>{{ block.settings.tle }}</h3>
+                 {% endif %}
+                 {% if block.settings.subtle !=blank %} 
+                <div class="multi-new-subtle">{{ block.settings.subtle }}</div>
+                 {% endif %}
+                <div class="multi-new-cnt">
+                  <div class="multi-new-txt">{{ block.settings.txt }}</div>
+                  {% if block.settings.full_txt !=blank %} 
+                  <text-modal text-content="{{ block.settings.full_txt }}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+                  <circle cx="15" cy="15" r="14.4464" stroke="#E0004D" stroke-width="1.10714"/>
+                  <path d="M7.5 14.1182H22.5V15.6182H7.5V14.1182Z" fill="#E0004D"/>
+                  <path d="M14.1172 7.5H15.6172V22.5H14.1172V7.5Z" fill="#E0004D"/>
+                  </svg>
+                  </text-modal>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="multi-colum-new-bt">
+                {%- if block.settings.image -%}
+                <img src="{{ block.settings.image | image_url }}" alt="{{ block.settings.image.alt }}"  width="{{  block.settings.image.width  | divided_by: 2  }}" height="{{  block.settings.image.height  | divided_by: 2  }}">
+                {%- endif -%}
+              </div>
+            </div>
+             {%- endfor -%}
+
+          </div>
+        </div>
+        <div class="mobile__check__bix">
+          <svg xmlns="http://www.w3.org/2000/svg" width="37" height="37" viewBox="0 0 37 37" fill="none" class="swiper-prev">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M21.7402 30.3975L22.1948 30.8521L23.104 29.9429L22.6494 29.4883L18.4993 25.3382L14.5873 21.4263C14.0852 20.9242 13.2712 20.9242 12.7691 21.4263L17.5901 26.2474L21.7402 30.3975ZM10.4903 18.2383C10.2392 18.4894 10.2392 18.8964 10.4903 19.1475C10.5748 19.232 10.677 19.2881 10.785 19.3157L10.785 19.3358L10.9434 19.3358L10.9462 19.3358L11.4279 19.3358L18.0175 19.3358L24.6071 19.3358L26.2143 19.3358C26.9244 19.3358 27.5 18.7601 27.5 18.0501L24.6071 18.0501L12.4968 18.0501L22.6494 7.89748L23.104 7.44291L22.1948 6.53378L21.7402 6.98835L10.4903 18.2383Z" fill="currentColor"/>
+            <circle cx="18.5" cy="18.6387" r="17.3571" transform="rotate(-180 18.5 18.6387)" stroke="currentColor" stroke-width="1.28571"/>
+          </svg>
+
+          <svg xmlns="http://www.w3.org/2000/svg" width="37" height="37" viewBox="0 0 37 37" fill="none" class="swiper-next">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M15.2598 6.8784L14.8052 6.42383L13.896 7.33297L14.3506 7.78753L18.5007 11.9376L22.4127 15.8496C22.9148 16.3517 23.7288 16.3517 24.2309 15.8496L19.4099 11.0285L15.2598 6.8784ZM26.5097 19.0375C26.7608 18.7865 26.7608 18.3794 26.5097 18.1284C26.4252 18.0439 26.323 17.9878 26.215 17.9602V17.9401H26.0566H26.0538H25.5721H18.9825H12.3929H10.7857C10.0756 17.9401 9.49995 18.5157 9.49995 19.2258H12.3929H24.5032L14.3506 29.3784L13.896 29.833L14.8052 30.7421L15.2598 30.2875L26.5097 19.0375Z" fill="currentColor"/>
+            <circle cx="18.5" cy="18.6387" r="17.3571" stroke="currentColor" stroke-width="1.28571"/>
+          </svg>
+        </div>
+</custom-swiper-new>
+      </div>
+    </div>
+  </section>
+{% schema %}
+{
+  "name": "multi-colum-new",
+  "blocks": [
+        {
+    "name": "item",
+    "type": "item",
+    "settings": [
+       
+      {
+        "type": "text",
+        "id": "tle",
+        "label": "title"
+      },
+       {
+        "type": "text",
+        "id": "subtle",
+        "label": "subTitle"
+      },
+            {
+        "type": "richtext",
+        "id": "txt",
+        "label": "Text"
+      },
+      {
+        "type": "richtext",
+        "id": "full_txt",
+        "label": "Full Text"
+      },
+         {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Images"
+      },
+            {
+      "type": "url",
+      "id": "link_url",
+      "label": "Button Link"
+    },
+     {
+      "type": "text",
+      "id": "link_text",
+      "label": "Button Link Text"
+    },
+    ]
+    }
+  ],
+  "settings": [
+     {
+        "type": "text",
+        "id": "tle",
+        "label": "Title"
+      },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color_background",
+      "id": "background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Mobile Padding Top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Mobile Padding Bottom",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "multi-colum-new"
+    }
+  ]
+}
+{% endschema %}

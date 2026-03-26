@@ -56,6 +56,7 @@
 
   {%- if on_sale -%}
     <span class="sr-only">{{ 'products.general.regular_price' | t }}</span>
+    <span class="sr-price-custom">定価</span>
     <span class="price__sale inline-flex items-center h-full relative">
       {%- liquid
         if settings.currency_code_enabled

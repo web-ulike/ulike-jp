@@ -1,0 +1,155 @@
+<style>
+  .breadcrumbs-box {
+    display: none;
+  }
+  .compare-banner {
+    position: relative;
+  }
+  .compare-banner img {
+    width: 100%;
+    display: block;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .compare-banner .mb-box {
+    display: none;
+  }
+  .compare-banner .compare-banner-text {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    color: #000;
+    z-index: 2;
+  }
+  .compare-banner .compare-banner-title {
+    font-size: 50px;
+    font-family: var(--font-heading-family);
+    line-height: 1.2;
+    font-weight: normal;
+    margin: 0;
+    color: #fff;
+  }
+  .compare-banner .compare-banner-p {
+    font-size: 20px;
+    line-height: 1.2;
+    margin-top: 15px;
+     color: #fff;
+  }
+
+  .white-text .compare-banner-text {
+    color: #fff;
+  }
+
+  .labs-banner .compare-banner-p {
+    max-width: 500px;
+  }
+
+  @media (max-width: 1400px) {
+    .compare-banner .compare-banner-title {
+      font-size: 40px;
+    }
+  }
+
+  @media (max-width: 991px) {
+    .compare-banner .mb-box {
+      display: block;
+    }
+    .compare-banner .pc-box {
+      display: none;
+    }
+    .compare-banner .compare-banner-text {
+      top: auto;
+      bottom: 60px;
+      transform: translateY(0);
+      color: #fff;
+    }
+    .compare-banner .compare-banner-title {
+      font-size: 28px;
+    }
+    .compare-banner .compare-banner-p {
+      font-size: 16px;
+    }
+  }
+</style>
+<section class="section-box">
+  <div class="compare-banner  slide-to-left-white {{ section.settings.custom_class }}">
+    {% comment %}
+      {%- if section.settings.image != blank -%}
+         <img loading="lazy" class="pc-box" width="{{ section.settings.image.width }}" height="{{ section.settings.image.height }}" {% render 'image-attributes', image: section.settings.image %} alt="{{ section.settings.image.alt | escape }}" >
+      {%- endif -%}
+      {%- if section.settings.image1 != blank -%}
+         <img loading="lazy" class="mb-box" width="{{ section.settings.image1.width }}" height="{{ section.settings.image1.height }}" {% render 'image-attributes', image: section.settings.image1 %} alt="{{ section.settings.image1.alt | escape }}" >
+      {%- endif -%}
+    {% endcomment %}
+    <picture class="img">
+      {%- if section.settings.image1 != blank -%}
+        <source
+          media="(max-width: 767px)"
+          srcset="{{ section.settings.image1 | image_url: width: '400x' }} 400w, {{ section.settings.image1 | image_url: width: '600x' }} 600w, {{ section.settings.image1 | image_url: width: '800x' }} 800w"
+          width="{{ section.settings.image1.width }}"
+          class="img"
+          height="{{ section.settings.image1.height }}"
+        >
+      {%- endif -%}
+      {{-
+        section.settings.image
+        | image_url: width: section.settings.image.width
+        | image_tag: loading: 'ease', widths: '1920,3200', class: 'img'
+      -}}
+    </picture>
+
+    <div class="compare-banner-text">
+      <div class="jp-container">
+        {%- if section.settings.title != blank -%}
+          <h1 class="compare-banner-title">{{ section.settings.title }}</h1>
+        {%- endif -%}
+        {%- if section.settings.content != blank -%}
+          <div class="compare-banner-p" style="transition-delay: 0.1s">{{ section.settings.content }}</div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "compare-banner",
+  "class": "compare-banner-box",
+  "blocks": [],
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image1",
+      "label": "Mobile Image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "content",
+      "label": "Content"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom Class"
+    }
+  ],
+  "presets": [
+    {
+      "name": "compare-banner",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,98 @@
+<style>
+  /* 隐藏 section 本身的占位，避免影响页面布局 */
+  #shopify-section-{{ section.id }} {
+    {% comment %} pointer-events: none; {% endcomment %}
+  }
+
+  .leaf {
+    display: block !important;
+    position: fixed;
+    pointer-events: none;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    will-change: transform, opacity;
+    z-index: 99999; /* 稍微调高，防止被导航栏遮挡 */
+    top:0;
+    left:0;
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const leafImages = [
+    "https://cdn.shopify.com/s/files/1/0553/7392/2352/files/yezi.png?v=1773888282"
+  ];
+
+  const leaves = [];
+  const maxLeaves = 80; // 稍微调低上限，提升移动端和低端机性能
+
+  document.addEventListener("mousemove", (e) => {
+    createLeaf(e.clientX, e.clientY);
+  });
+
+  function createLeaf(x, y) {
+    if (leaves.length > maxLeaves) return;
+
+    const leaf = document.createElement("div");
+    leaf.className = "leaf";
+    leaf.style.backgroundImage = `url(${leafImages[Math.floor(Math.random()*leafImages.length)]})`;
+
+    const leafObj = {
+      el: leaf,
+      x: x,
+      y: y,
+      size: Math.random() * 15 + 15,
+      speedY: Math.random() * 1.5 + 1, // 增加一点下落速度
+      speedX: (Math.random() - 0.5) * 2,
+      rotation: Math.random() * 360,
+      rotateSpeed: (Math.random() - 0.5) * 4,
+      life: 100
+    };
+
+    leaf.style.width = leafObj.size + "px";
+    leaf.style.height = leafObj.size + "px";
+
+    document.body.appendChild(leaf);
+    leaves.push(leafObj);
+  }
+
+  function animate() {
+    for (let i = leaves.length - 1; i >= 0; i--) {
+      const leaf = leaves[i];
+
+      leaf.x += leaf.speedX;
+      leaf.y += leaf.speedY;
+      leaf.rotation += leaf.rotateSpeed;
+      leaf.life -= 1.5; // 稍微加快消失速度，避免拖尾太长
+
+      leaf.el.style.transform = `
+        translate(${leaf.x}px, ${leaf.y}px)
+        rotate(${leaf.rotation}deg)
+      `;
+      leaf.el.style.opacity = leaf.life / 100;
+
+      if (leaf.life <= 0) {
+        leaf.el.remove();
+        leaves.splice(i, 1);
+      }
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+});
+</script>
+
+{% schema %}
+{
+  "name": "spring Mouse",
+  "settings": [],
+  "presets": [
+    {
+      "name": "spring Mouse"
+    }
+  ]
+}
+{% endschema %}

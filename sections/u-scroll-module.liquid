@@ -1,0 +1,285 @@
+{%- liquid
+  assign se_stts = section.settings
+  assign se_bks = section.blocks
+-%}
+
+<style>
+  .u-scroll-module {
+    position: relative;
+    background: linear-gradient(178deg, #EAF2FC -45.28%, rgba(247, 249, 255, 0.60) 97.64%);
+    min-height: 120vh;
+    overflow: clip;
+  }
+
+  .u-scroll-module .card-container {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    padding: 15vh 0 0;
+  }
+
+  .u-scroll-module .card { position: relative; height: 140%; }
+
+  .u-scroll-module .card-text {
+    position: absolute;
+    top: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(1139px, 86vw);
+    text-align: center;
+    font-size: clamp(16px, 3.2vw, 32px);
+    line-height: 1.5;
+    height: 20vh;
+    z-index: 1; /* 低于图片 */
+    pointer-events: none;
+  }
+
+  .u-scroll-module .card-text .sentence {
+    display: inline;
+    color: rgba(0, 0, 0, 0.20);
+    background-clip: text;
+    -webkit-background-clip: text;
+    background-size: var(--num-backgroundSize, 0%) 100%;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(90deg, #E0004D, #E0004D);
+  }
+
+  .u-scroll-module .image-wrapper {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding-top: 10vh;
+  }
+
+  .u-scroll-module .card-image {
+    width: 17%;
+    max-width: 420px;
+    padding: 10px;
+    background: #AFCEE3;
+    color: #190A0A;
+    will-change: transform;
+    transform: translate3d(0, 18vh, 0) rotate(0deg) scale(1);
+    box-shadow: -9.949px 9.044px 8.23px 0 rgba(29, 29, 29, 0.10);
+  }
+
+  .u-scroll-module .card-image:nth-child(even) {
+    background-color: #66899F;
+    color: #fff;
+  }
+
+  .u-scroll-module .card-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .u-scroll-module .card-image .name {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 150%;
+    margin-top: 10px;
+  }
+
+  .u-scroll-module .card-image__inner {
+    width: 100%;
+    height: 100%;
+    will-change: transform;
+  }
+  .share__box{
+      position: absolute;
+      top: calc(5vh + 150px);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 50px;
+  }
+
+  @media (max-width: 768px) {
+    .u-scroll-module {
+      min-height: 100vh;
+      overflow: clip;
+    }
+
+    .u-scroll-module .card-container {
+      padding-top: 0vh;
+      height: 100%;
+    }
+
+    .u-scroll-module .card {
+      position: relative;
+      height: 100vh;
+    }
+
+    .u-scroll-module .card-text {
+      top: 8vh;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .u-scroll-module .image-wrapper {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      pointer-events: none;
+      display: block;
+      padding-top: 0;
+    }
+
+    .u-scroll-module .card-image {
+      position: absolute;
+      width: 180px;
+      max-width: none;
+      transform: none;
+      transform-origin: 50% 50%;
+      will-change: transform;
+      backface-visibility: hidden;
+    }
+
+    .u-scroll-module .card-image__inner {
+      width: 100%;
+      height: 100%;
+      will-change: transform;
+    }
+
+    /* 仅支持最多 5 张（schema 里也限制了 max_blocks=5） */
+  .u-scroll-module .card-image:nth-child(1) { left: 0vw;  top: 40vh; z-index: 2; }
+  .u-scroll-module .card-image:nth-child(2) { left: 28vw; top: 32vh; z-index: 3; }
+  .u-scroll-module .card-image:nth-child(3) { left: 65vw; top: 40vh; z-index: 3; }
+  .u-scroll-module .card-image:nth-child(4) { left: 10vw; top: 58vh; z-index: 4; }
+  .u-scroll-module .card-image:nth-child(5) { left: 46vw; top: 70vh; z-index: 4; }
+
+    .u-scroll-module .card-image .name {
+      font-size: 10px;
+      line-height: 1.2;
+    }
+.share__box {
+    position: absolute;
+    top: calc(8vh + 120px);
+    gap: 20px;
+}
+      .share__box svg{
+        width: 30px;
+height: 30px;
+    gap: 20px;
+  }
+  }
+</style>
+
+<div class="u-scroll-module" data-scroll-module>
+  <div class="card-container">
+    <div class="card">
+      <div class="card-text" style="--num-backgroundSize: 0%;">
+        <span class="sentence">
+          {{ se_stts.title }}
+          <br />
+          {{ se_stts.desc }}
+        </span>
+      </div>
+
+      <div class="share__box">
+        <a href="{{ se_stts.instagram_link }}" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" width="73" height="73" viewBox="0 0 73 73" fill="none">
+  <path d="M36.1616 8.98124C45.0211 8.98124 46.0457 9.01137 49.5412 9.16204C51.6506 9.16204 53.7299 9.58392 55.6886 10.3071C57.1351 10.8496 58.4309 11.6933 59.5157 12.7782C60.6307 13.8329 61.4744 15.1588 61.9867 16.6052C62.7099 18.5639 63.1017 20.6432 63.1318 22.7526C63.2825 26.2482 63.3126 27.3029 63.3126 36.1624C63.3126 45.0218 63.2825 46.0464 63.1318 49.542C63.1318 51.6514 62.7099 53.7306 61.9867 55.6894C61.4443 57.1057 60.6005 58.4316 59.5157 59.5164C58.4309 60.6013 57.1351 61.445 55.6886 61.9874C53.7299 62.7107 51.6506 63.1024 49.5412 63.1325C46.0457 63.2832 44.991 63.3133 36.1616 63.3133C27.3323 63.3133 26.2776 63.2832 22.7519 63.1325C20.6425 63.1325 18.5632 62.7107 16.6045 61.9874C15.158 61.445 13.8623 60.6013 12.7774 59.5164C11.6625 58.4617 10.8187 57.1358 10.3064 55.6894C9.58319 53.7306 9.19144 51.6514 9.16131 49.542C9.01064 46.0464 8.9805 44.9917 8.9805 36.1624C8.9805 27.333 9.01064 26.2783 9.16131 22.7526C9.16131 20.6432 9.58319 18.5639 10.3064 16.6052C10.8488 15.1588 11.6926 13.863 12.7774 12.7782C13.8321 11.6632 15.158 10.8194 16.6045 10.3071C18.5632 9.58392 20.6425 9.19218 22.7519 9.16204C26.2474 9.01137 27.3021 8.98124 36.1616 8.98124ZM36.1616 3.01465C27.1515 3.01465 26.0365 3.04478 22.5108 3.22559C19.7686 3.28586 17.0264 3.79814 14.4649 4.76244C12.2651 5.6062 10.2461 6.9321 8.58876 8.58949C6.93137 10.277 5.60546 12.2659 4.7617 14.4657C3.79741 17.0271 3.28512 19.7693 3.22486 22.5115C3.07418 26.0372 3.01392 27.1522 3.01392 36.1624C3.01392 45.1725 3.04405 46.2875 3.22486 49.8132C3.28512 52.5554 3.79741 55.2976 4.7617 57.859C5.60546 60.0588 6.93137 62.0778 8.58876 63.7352C10.2763 65.3926 12.2651 66.7185 14.4649 67.5623C17.0264 68.5266 19.7686 69.0388 22.5108 69.0991C26.0365 69.2498 27.1515 69.3101 36.1616 69.3101C45.1718 69.3101 46.2867 69.2799 49.8125 69.0991C52.5547 69.0388 55.2969 68.5266 57.8583 67.5623C60.0581 66.7185 62.0771 65.3926 63.7345 63.7352C65.3919 62.0477 66.7178 60.0588 67.5615 57.859C68.5258 55.2976 69.0381 52.5554 69.0984 49.8132C69.2491 46.2875 69.3093 45.1725 69.3093 36.1624C69.3093 27.1522 69.2792 26.0372 69.0984 22.5115C69.0381 19.7693 68.5258 17.0271 67.5615 14.4657C66.7178 12.2659 65.3919 10.2469 63.7345 8.58949C62.047 6.9321 60.0581 5.6062 57.8583 4.76244C55.2969 3.79814 52.5547 3.28586 49.8125 3.22559C46.2867 3.07492 45.1718 3.01465 36.1616 3.01465ZM36.1616 19.1365C32.7866 19.1365 29.5019 20.1309 26.6995 21.9992C23.897 23.8676 21.7273 26.5194 20.4315 29.6534C19.1358 32.7572 18.8043 36.1925 19.4672 39.4771C20.1302 42.7919 21.7574 45.8053 24.138 48.1859C26.5187 50.5665 29.5622 52.1938 32.8468 52.8567C36.1616 53.5197 39.5668 53.1882 42.6706 51.8924C45.7745 50.5967 48.4263 48.427 50.3247 45.6245C52.1931 42.822 53.1875 39.5374 53.1875 36.1624C53.1875 31.6422 51.3794 27.3029 48.2153 24.1388C45.0211 20.9445 40.6818 19.1666 36.1918 19.1666L36.1616 19.1365ZM36.1616 47.2216C33.9618 47.2216 31.8524 46.5587 30.0142 45.3533C28.2062 44.1479 26.7899 42.4001 25.9461 40.3811C25.1023 38.3622 24.8914 36.1322 25.3133 33.9927C25.7352 31.8532 26.7899 29.8944 28.3267 28.3274C29.8636 26.7605 31.8524 25.7359 33.992 25.314C36.1315 24.8921 38.3614 25.1031 40.3804 25.9468C42.3994 26.7906 44.1171 28.2069 45.3526 30.015C46.5579 31.823 47.2209 33.9626 47.2209 36.1624C47.2209 39.0854 46.0457 41.918 43.9965 43.9671C41.9173 46.0464 39.1148 47.1915 36.1918 47.1915L36.1616 47.2216ZM53.8504 22.4513C56.0502 22.4513 57.8282 20.6733 57.8282 18.4735C57.8282 16.2737 56.0502 14.4958 53.8504 14.4958C51.6506 14.4958 49.8727 16.2737 49.8727 18.4735C49.8727 20.6733 51.6506 22.4513 53.8504 22.4513Z" fill="black"/>
+</svg>
+        </a>
+        <a href="{{ se_stts.x_link }}" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" width="73" height="73" viewBox="0 0 73 73" fill="none">
+            <path d="M41.8818 31.5448L64.2882 6.02734H58.9689L39.4982 28.1827L23.9669 6.02734H6.02686L29.5371 39.5237L6.02686 66.2959H11.3462L31.8956 42.8861L48.3052 66.2959H66.2451M13.2531 9.94155H21.4076L58.9689 62.5574H50.8142" fill="black"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="image-wrapper">
+        {%- for block in se_bks -%}
+          {%- if block.type == 'item' -%}
+            {%- assign img = block.settings.image -%}
+            <div class="card-image" {{ block.shopify_attributes }}>
+              <div class="card-image__inner">
+                {%- if img != blank -%}
+                  <picture>
+                    <source
+                      media="(max-width: 768px)"
+                      srcset="{{ img | image_url: width: 400 }}"
+                    >
+                    <img
+                      class="image"
+                      loading="lazy"
+                      decoding="async"
+                      alt="{{ img.alt | escape }}"
+                      src="{{ img | image_url: width: 800 }}"
+                    >
+                  </picture>
+                {%- endif -%}
+
+                {%- if block.settings.title != blank -%}
+                  <div class="name">{{ block.settings.title }}</div>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="{{ 'u-scroll-module.all.js' | asset_url }}" async></script>
+
+{% schema %}
+{
+  "name": "u-scroll-module",
+  "max_blocks": 5,
+  "settings": [
+    {
+      "type": "html",
+      "id": "title",
+      "label": "标题"
+    },
+    {
+      "type": "html",
+      "id": "desc",
+      "label": "标题2"
+    },
+    {
+      "type": "url",
+      "id": "instagram_link",
+      "label": "Instagram Link"
+    },
+     {
+      "type": "url",
+      "id": "x_link",
+      "label": "X Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "图片"
+        },
+        {
+          "type": "textarea",
+          "id": "title",
+          "label": "标题",
+          "default": "1st Prize"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "u-scroll-module",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

@@ -69,7 +69,15 @@
   padding-bottom: 24px;
   border-bottom: 1px solid #190a0a;
 }
-
+.technology-skin-text-noten{
+color:  #190A0A;
+font-size: 10px;
+font-style: normal;
+font-weight: 400;
+line-height: 1.5;
+margin-top:20px;
+text-align:left;
+}
 @media (max-width: 991px) {
   .technology-skin {
     overflow: hidden;
@@ -163,6 +171,14 @@
                       >
                   </div>
                 {%- endif -%}
+
+               {%- if block.settings.video != blank -%}
+                  <div class="technology-skin-video">
+                     {%- assign video_url = block.settings.video -%}
+                     {{- video_url | video_tag: image_size: 'master', controls: false, autoplay: true, playsinline: true, muted: true, loop: true -}}
+                  </div>
+                {%- endif -%}
+
                 <div class="technology-skin-txt">
                   {%- if block.settings.text != blank -%}
                     <h4 class="technology-skin-h4">{{ block.settings.text }}</h4>
@@ -171,6 +187,11 @@
                     <p class="technology-skin-text-p">
                       {{ block.settings.text1 }}
                     </p>
+                  {%- endif -%}
+                  {%- if block.settings.note != blank -%}
+                    <div class="technology-skin-text-noten">
+                      {{ block.settings.note }}
+                    </div>
                   {%- endif -%}
                 </div>
               </div>
@@ -227,6 +248,11 @@
           "id": "image",
           "label": "Image"
         },
+          {
+      "type": "video",
+      "id": "video",
+      "label": "Video"
+    },
         {
           "type": "text",
           "id": "text",
@@ -236,6 +262,11 @@
           "type": "text",
           "id": "text1",
           "label": "Text"
+        },
+        {
+          "type": "richtext",
+          "id": "note",
+          "label": "Note"
         }
       ]
     }

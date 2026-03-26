@@ -477,7 +477,8 @@
                 <!-- <div class="orice-price-bt"><span class="orice-price-num">{{ block.settings.ori_price }}</span><span
                     class="price__unit">{{ block.settings.price_unit }}</span><span class="price__label">{{ block.settings.price_tax }}</span></div> -->
               </div>
-              <div class="price"><span class="price__num">{{ block.settings.price }}</span><span class="price__unit">{{ block.settings.price_unit }}</span><span class="price__label">{{ block.settings.price_tax }}</span></div>
+               {%- assign product = block.settings.product -%}
+              <div class="price"><span class="price__num">{{ product.price | money }}</span><span class="price__unit">{{ block.settings.price_unit }}</span><span class="price__label">{{ block.settings.price_tax }}</span></div>
             </div>
             <div class="product-btn-box">
               <!-- <a href="" class="product-link product-buy-now">{{ block.settings.add_button_text }}</a> -->

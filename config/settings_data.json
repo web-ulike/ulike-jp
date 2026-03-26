@@ -131,23 +131,42 @@
       },
       "pin-active-icon": {
         "type": "pin-active-icon",
+        "custom_css": [
+          ".pin-active-icon {bottom: 50%;}",
+          "@media only screen and (max-width: 992px) {.pin-active-icon {bottom: 60%; right: 0; }}"
+        ],
         "settings": {
-          "link_url": ""
+          "link_url": "https:\/\/jp.ulike.com\/pages\/new-life-campaign",
+          "container_width": 120,
+          "mobile_container_width": 80
         }
       },
       "u-user-new-popup": {
         "type": "u-user-new-popup",
+        "custom_css": [
+          ".countdown-inner {background: #fff;}"
+        ],
         "settings": {
-          "image": "shopify:\/\/shop_images\/20250714-103548.png",
-          "m_image": "shopify:\/\/shop_images\/20250714-103548.png",
+          "rt_float_image": "shopify:\/\/shop_images\/2500.png",
+          "image": "shopify:\/\/shop_images\/b2e36e23be9907e55c376203dd2c801c.jpg",
+          "m_image": "shopify:\/\/shop_images\/2500_1.jpg",
           "title": "お得な特典をゲット！",
-          "email_label": "メールアドレス*",
-          "code_label": "認証コード*",
+          "title1": "<p>新規登録で、すぐに使える<\/p><p><strong>2,500円OFF<\/strong>クーポンをゲット! <\/p>\n<p style=\"\n  font-size: 16px;\n\">クーポン適用後は、<strong>全販売チャネルで最安<\/strong>です！<\/p>",
+          "email_label": "メールアドレスを入力*",
+          "code_label": "認証コードを入力*",
           "send_code_btn": "認証コードを入手",
           "btn_text": "ログイン \/ 新規登録",
           "already_have_password_text": "すでにパスワードをお持ちですか？",
           "login_link": "https:\/\/account.ulike.com\/login",
-          "login_with_password": "パスワードでサインイン"
+          "login_with_password": "パスワードでサインイン",
+          "end_time": "2026-03-13 24:00:00",
+          "end_label": "終了まであと:",
+          "code_tle": "数量限定クーポン",
+          "code_txt1": "クーポンコード",
+          "code_txt2": "hello2500",
+          "code": "hello2500",
+          "copy_txt": "コードをコピー",
+          "code_note": "※クーポンコードは、登録完了メールでもご確認いただけます。"
         }
       }
     },
@@ -209,6 +228,21 @@
       },
       "1990815452989453926": {
         "type": "shopify:\/\/apps\/ryviu-reviews-qa\/blocks\/ryviu-js\/807ad6ed-1a6a-4559-abea-ed062858d9da",
+        "disabled": false,
+        "settings": {}
+      },
+      "1513253815146976218": {
+        "type": "shopify:\/\/apps\/omnisend-email-marketing-sms\/blocks\/app-embed\/44704aa2-794f-4c5d-8c8e-039c841158e9",
+        "disabled": false,
+        "settings": {}
+      },
+      "8713138290206253500": {
+        "type": "shopify:\/\/apps\/sharely-social-icons\/blocks\/app-embed-block\/99b5f0c9-c62e-4f61-8489-59098ba481f3",
+        "disabled": false,
+        "settings": {}
+      },
+      "11560147490181472608": {
+        "type": "shopify:\/\/apps\/rivo-loyalty-rewards-referrals\/blocks\/app-embed\/580e9665-b2cd-4dbc-b6ba-6445ac9e6871",
         "disabled": false,
         "settings": {}
       }
