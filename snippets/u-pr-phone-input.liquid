@@ -1,0 +1,612 @@
+{%- liquid
+  assign sid = section_id | default: section.id
+  assign input_name = input_name | default: 'phone'
+  assign label_text = label_text | default: 'Phone Number'
+  assign placeholder_text = placeholder_text | default: 'Enter Your Phone Number (Optional)'
+  assign error_text = error_text | default: 'Please enter a valid phone number.'
+  assign default_country = default_country | default: 'us'
+  assign default_dial = default_dial | default: '+1'
+
+  assign phone_css = 'phoneNumber.css' | asset_url
+  assign phone_js = 'phoneNumber.js' | asset_url
+-%}
+
+<style>
+  .pr-form__group[data-upr-phone-wrap]{
+    margin: 0;
+  }
+
+  .pr-form__group[data-upr-phone-wrap] .pr-form__label{
+    display:flex;
+    align-items:center;
+    gap:4px;
+    margin:0 0 10px;
+    font-size:14px;
+    line-height:1.4;
+    font-weight:500;
+    letter-spacing:.02em;
+    color:#7A7A7A;
+  }
+
+  .pr-form__group[data-upr-phone-wrap] .pr-form__field{
+    position:relative;
+  }
+
+  .upr-phone{
+    width:100%;
+  }
+
+  .upr-phone .flag-icon{
+    display:inline-block;
+    width:20px;
+    height:15px;
+    background-repeat:no-repeat;
+    background-position:center;
+    background-size:cover;
+    flex:0 0 auto;
+    border-radius:2px;
+  }
+
+  .upr-phone__selected .flag-icon{
+    margin-right:2px;
+  }
+
+  .upr-phone__row{
+    display:flex;
+    align-items:stretch;
+    width:100%;
+  }
+
+  .upr-phone__dropdown{
+    position:relative;
+    flex:0 0 auto;
+  }
+
+  .upr-phone__selected{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    height: 52px;
+    min-width:122px;
+    padding:0 14px;
+    border:none;
+    border-bottom:1px solid #D8D8D8;
+    border-radius:0;
+    background:#fff;
+    color:#190A0A;
+    cursor:pointer;
+    white-space:nowrap;
+    transition:border-color .2s ease, box-shadow .2s ease, background .2s ease;
+  }
+
+  .upr-phone__selected:hover{
+    border-bottom-color:#BDBDBD;
+  }
+
+  .upr-phone__selected:focus-visible{
+    outline:none;
+    border-bottom-color:#E0004D;
+    box-shadow:0 0 0 3px rgba(224,0,77,.12);
+    position:relative;
+    z-index:2;
+  }
+
+  .upr-phone__selected .name,
+  .upr-phone__selected .country-code{
+    font-size:14px;
+    line-height:1;
+  }
+
+  .upr-phone__selected .country-code{
+    color:#666;
+  }
+
+  .upr-phone__selected .caret{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-left:auto;
+  }
+
+  .upr-phone__menu{
+    display:none;
+    position:absolute;
+    left:0;
+    top:calc(100% + 8px);
+    z-index:30;
+    width:290px;
+    background:#fff;
+    border:1px solid #E5E5E5;
+    border-radius:12px;
+    box-shadow:0 12px 30px rgba(0,0,0,.12);
+    overflow:hidden;
+  }
+
+  .upr-phone__search{
+    width:100%;
+    height:42px;
+    border-radius:8px;
+    border:1px solid #D8D8D8;
+    padding:0 12px;
+    font-size:14px;
+    color:#190A0A;
+    background:#fff;
+  }
+
+  .upr-phone__search:focus{
+    outline:none;
+    border-color:#E0004D;
+    box-shadow:0 0 0 3px rgba(224,0,77,.08);
+  }
+
+  .upr-phone__list{
+    list-style:none;
+    margin:10px 0 0;
+    padding:0;
+    max-height:240px;
+    overflow:auto;
+  }
+
+  .upr-phone__item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding:12px 10px;
+    cursor:pointer;
+    border-bottom:1px solid rgba(0,0,0,.06);
+    font-size:14px;
+    line-height:1.4;
+    transition:background .2s ease;
+  }
+
+  .upr-phone__item:hover{
+    background:#FAF7F8;
+  }
+
+  .upr-phone__item:last-child{
+    border-bottom:0;
+  }
+
+  .upr-phone__item-text{
+    flex:1;
+    min-width:0;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    color:#190A0A;
+  }
+
+  .upr-phone .pr-form__input,
+  .upr-phone__input{
+    flex:1 1 auto;
+    min-width:0;
+    height:52px;
+    padding:0 16px;
+    border:none;
+    border-bottom:1px solid #D8D8D8;
+    border-radius:0;
+    background:#fff;
+    color:#190A0A;
+    font-size:14px;
+    line-height:1.4;
+    box-shadow:none;
+    transition:border-color .2s ease, box-shadow .2s ease;
+  }
+
+  .upr-phone .pr-form__input::placeholder,
+  .upr-phone__input::placeholder{
+    color:#A0A0A0;
+  }
+
+  .upr-phone .pr-form__input:focus,
+  .upr-phone__input:focus{
+    outline:none;
+    border-bottom-color:#E0004D;
+    box-shadow:0 0 0 3px rgba(224,0,77,.08);
+    position:relative;
+    z-index:1;
+  }
+
+  .pr-form__group[data-upr-phone-wrap] .pr-form__field.has-error .upr-phone__selected,
+  .pr-form__group[data-upr-phone-wrap] .pr-form__field.has-error .upr-phone__input{
+    border-bottom-color:var(--ewr-error, #D72C0D);
+  }
+
+  .pr-form__group[data-upr-phone-wrap] .pr-form__error{
+    display:none;
+    margin:8px 0 0;
+    font-size:12px;
+    line-height:1.5;
+    color:var(--ewr-error, #D72C0D);
+  }
+
+  .pr-form__group[data-upr-phone-wrap] .pr-form__field.has-error .pr-form__error{
+    display:block;
+  }
+
+  @media (max-width: 767px){
+    .pr-form__group[data-upr-phone-wrap] .pr-form__label{
+      margin-bottom:8px;
+      font-size:11px;
+      gap:3px;
+    }
+
+    .upr-phone__selected{
+      min-width:102px;
+      height:44px;
+      padding:0 10px;
+      gap:4px;
+      border-radius:0;
+    }
+
+    .upr-phone__selected .name,
+    .upr-phone__selected .country-code,
+    .upr-phone__search,
+    .upr-phone__item,
+    .upr-phone__input{
+      font-size:12px;
+    }
+
+    .upr-phone__menu{
+      width:250px;
+      border-radius:10px;
+    }
+
+    .upr-phone .pr-form__input,
+    .upr-phone__input{
+      height:44px;
+      padding:0 12px;
+      border-radius:0;
+    }
+  }
+</style>
+
+<div class="pr-form__group" data-upr-phone-wrap data-upr-phone-sid="{{ sid }}">
+  <label class="pr-form__label">
+    {{ label_text }}
+    <span class="u-ewr__required">*</span>
+  </label>
+
+  <div class="pr-form__field">
+    <div class="upr-phone" data-upr-phone>
+      <input type="hidden" name="{{ input_name }}_country" value="{{ default_country }}">
+      <input type="hidden" name="{{ input_name }}_dial_code" value="{{ default_dial }}">
+      <input type="hidden" name="{{ input_name }}_e164" value="">
+
+      <div class="upr-phone__row">
+        <div class="upr-phone__dropdown">
+          <button
+            type="button"
+            class="upr-phone__selected"
+            data-upr-phone-toggle
+          >
+            <span class="flag-icon" data-upr-phone-flag data-chosen="{{ default_country }}"></span>
+            <span class="name" data-upr-phone-name style="text-transform:uppercase;">{{ default_country }}</span>
+            <span class="caret" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6" fill="none">
+                <path d="M0.373047 0.485596L4.80039 4.91294L9.22773 0.485596" stroke="#190A0A" stroke-width="0.737891" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="country-code" data-upr-phone-code>{{ default_dial }}</span>
+          </button>
+
+          <div class="upr-phone__menu" data-upr-phone-menu>
+            <div style="padding:10px;">
+              <input
+                type="text"
+                class="upr-phone__search"
+                data-upr-phone-search
+                placeholder="Enter Keyword"
+              >
+              <ul class="upr-phone__list" data-upr-phone-list></ul>
+            </div>
+          </div>
+        </div>
+
+        <input
+          type="tel"
+          name="{{ input_name }}"
+          class="pr-form__input upr-phone__input"
+          data-upr-phone-input
+          placeholder="{{ placeholder_text }}"
+        >
+      </div>
+    </div>
+
+    <p class="pr-form__error">{{ error_text }}</p>
+  </div>
+</div>
+
+<script>
+  (function () {
+    window.UprPhone = window.UprPhone || {};
+
+    window.UprPhone.validate = function (el) {
+      var wrap = el;
+
+      if (typeof el === 'string') wrap = document.querySelector(el);
+      if (!wrap) return true;
+
+      if (!wrap.matches('[data-upr-phone]')) {
+        wrap = wrap.querySelector('[data-upr-phone]');
+      }
+      if (!wrap) return true;
+
+      return validatePhone(wrap);
+    };
+
+    window.UprPhone.getValue = function (el) {
+      var wrap = el;
+
+      if (typeof el === 'string') wrap = document.querySelector(el);
+      if (!wrap) return '';
+
+      if (!wrap.matches('[data-upr-phone]')) {
+        wrap = wrap.querySelector('[data-upr-phone]');
+      }
+      if (!wrap) return '';
+
+      var e164El = wrap.querySelector('[name$="_e164"]');
+      var input = wrap.querySelector('[data-upr-phone-input]');
+      return (e164El && e164El.value) || (input && input.value) || '';
+    };
+
+    var CSS_HREF = {{ phone_css | json }};
+    var PHONE_JS = {{ phone_js | json }};
+    var LIB_URL  = "https://cdnjs.cloudflare.com/ajax/libs/google-libphonenumber/3.2.20/libphonenumber.min.js";
+
+    function loadCSSOnce(href) {
+      if (!href) return;
+      if (document.querySelector('link[data-upr-phone-css="1"][href="' + href + '"]')) return;
+      if (window.loadCSS) {
+        window.loadCSS(href);
+        return;
+      }
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = href;
+      link.setAttribute('data-upr-phone-css', '1');
+      document.head.appendChild(link);
+    }
+
+    function loadScriptOnce(src, key) {
+      window.__uPrPhoneScripts = window.__uPrPhoneScripts || {};
+      if (window.__uPrPhoneScripts[key]) return window.__uPrPhoneScripts[key];
+
+      window.__uPrPhoneScripts[key] = new Promise(function (resolve, reject) {
+        var existing = document.querySelector('script[src="' + src + '"]');
+        if (existing && existing.dataset.loaded === '1') return resolve(true);
+
+        var s = existing || document.createElement('script');
+        s.src = src;
+        s.defer = true;
+        s.onload = function () {
+          s.dataset.loaded = '1';
+          resolve(true);
+        };
+        s.onerror = reject;
+        if (!existing) document.head.appendChild(s);
+      });
+
+      return window.__uPrPhoneScripts[key];
+    }
+
+    function $(root, sel) {
+      return root ? root.querySelector(sel) : null;
+    }
+
+    function renderList($list, query) {
+      if (!$list) return;
+
+      var list = window.phoneList || [];
+      var q = (query || '').toLowerCase().trim();
+
+      if (!list.length) {
+        $list.innerHTML = '<li style="padding:10px; font-size:14px; color:#666;">Loading...</li>';
+        return;
+      }
+
+      var filtered = q
+        ? list.filter(function (x) {
+            return String(x.key || '').toLowerCase().indexOf(q) >= 0;
+          })
+        : list;
+
+      if (!filtered.length) {
+        $list.innerHTML = '<li style="padding:10px; font-size:14px; color:#666;">Sorry, no results found.</li>';
+        return;
+      }
+
+      $list.innerHTML = filtered.map(function (x) {
+        var key = String(x.key || '');
+        var code = String(x.mcode || '');
+        var chosen = String(x.code || '').toLowerCase();
+
+        return (
+          '<li class="upr-phone__item" data-upr-phone-item data-code="' + code + '" data-chosen="' + chosen + '">' +
+            '<span class="upr-phone__item-text">' + key + '</span>' +
+            '<span class="flag-icon" data-chosen="' + chosen + '"></span>' +
+          '</li>'
+        );
+      }).join('');
+    }
+
+    function setError($wrap, msg) {
+      var field = $wrap.closest('.pr-form__field');
+      if (!field) return;
+      field.classList.add('has-error');
+      var err = field.querySelector('.pr-form__error');
+      if (err && msg) err.textContent = msg;
+    }
+
+    function clearError($wrap) {
+      var field = $wrap.closest('.pr-form__field');
+      if (!field) return;
+      field.classList.remove('has-error');
+    }
+
+    function validatePhone($wrap) {
+      var input = $($wrap, '[data-upr-phone-input]');
+      var countryEl = $($wrap, '[name$="_country"]');
+      var dialEl = $($wrap, '[name$="_dial_code"]');
+      var e164El = $($wrap, '[name$="_e164"]');
+
+      if (!input || !countryEl || !dialEl || !e164El) return true;
+
+      var raw = (input.value || '').trim();
+      if (!raw) {
+        e164El.value = '';
+        clearError($wrap);
+        return true;
+      }
+
+      if (!window.libphonenumber || !window.libphonenumber.PhoneNumberUtil) {
+        e164El.value = '';
+        return true;
+      }
+
+      try {
+        var region = String(countryEl.value || 'us').toUpperCase();
+        var dial = String(dialEl.value || '').trim();
+        var phoneStr = dial ? (dial + ' ' + raw) : raw;
+
+        var phoneUtil = window.libphonenumber.PhoneNumberUtil.getInstance();
+        var number = phoneUtil.parse(phoneStr, region);
+
+        if (!phoneUtil.isValidNumber(number)) {
+          e164El.value = '';
+          setError($wrap, {{ error_text | json }});
+          return false;
+        }
+
+        e164El.value = phoneUtil.format(number, window.libphonenumber.PhoneNumberFormat.E164);
+        clearError($wrap);
+        return true;
+      } catch (e) {
+        e164El.value = '';
+        setError($wrap, {{ error_text | json }});
+        return false;
+      }
+    }
+
+    function initOne(container) {
+      if (!container || container.dataset.uprInited === '1') return;
+      container.dataset.uprInited = '1';
+
+      var toggle = $(container, '[data-upr-phone-toggle]');
+      var menu = $(container, '[data-upr-phone-menu]');
+      var list = $(container, '[data-upr-phone-list]');
+      var search = $(container, '[data-upr-phone-search]');
+      var input = $(container, '[data-upr-phone-input]');
+
+      var hiddenCountry = $(container, '[name$="_country"]');
+      var hiddenDial = $(container, '[name$="_dial_code"]');
+      var labelName = $(container, '[data-upr-phone-name]');
+      var labelCode = $(container, '[data-upr-phone-code]');
+      var flag = $(container, '[data-upr-phone-flag]');
+
+      function openMenu() {
+        if (!menu) return;
+        menu.style.display = 'block';
+        renderList(list, search ? search.value : '');
+        if (search) search.focus();
+      }
+
+      function closeMenu() {
+        if (!menu) return;
+        menu.style.display = 'none';
+      }
+
+      if (toggle) {
+        toggle.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+
+          if (!menu) return;
+
+          if (menu.style.display === 'none' || !menu.style.display) {
+            openMenu();
+          } else {
+            closeMenu();
+          }
+        });
+      }
+
+      if (search) {
+        search.addEventListener('input', function () {
+          renderList(list, search.value);
+        });
+
+        search.addEventListener('click', function (e) {
+          e.stopPropagation();
+        });
+      }
+
+      if (menu) {
+        menu.addEventListener('click', function (e) {
+          e.stopPropagation();
+        });
+      }
+
+      if (list) {
+        list.addEventListener('click', function (e) {
+          var li = e.target.closest('[data-upr-phone-item]');
+          if (!li) return;
+
+          var code = li.getAttribute('data-code') || '';
+          var chosen = (li.getAttribute('data-chosen') || 'us').toLowerCase();
+
+          if (hiddenDial) hiddenDial.value = code;
+          if (hiddenCountry) hiddenCountry.value = chosen;
+
+          if (labelCode) labelCode.textContent = code;
+          if (labelName) labelName.textContent = chosen;
+          if (flag) flag.setAttribute('data-chosen', chosen);
+
+          closeMenu();
+
+          if (input) input.focus();
+
+          validatePhone(container);
+        });
+      }
+
+      document.addEventListener('click', function () {
+        closeMenu();
+      });
+
+      if (input) {
+        input.addEventListener('blur', function () {
+          validatePhone(container);
+        });
+
+        input.addEventListener('input', function () {
+          clearError(container);
+          var e164El = $(container, '[name$="_e164"]');
+          if (e164El) e164El.value = '';
+        });
+
+        input.addEventListener('change', function () {
+          validatePhone(container);
+        });
+      }
+
+      renderList(list, '');
+    }
+
+    function initAll() {
+      var wraps = document.querySelectorAll('[data-upr-phone-wrap] [data-upr-phone]');
+      Array.prototype.forEach.call(wraps, initOne);
+    }
+
+    loadCSSOnce(CSS_HREF);
+
+    Promise.all([
+      loadScriptOnce(LIB_URL, 'libphonenumber'),
+      loadScriptOnce(PHONE_JS, 'phoneNumber')
+    ]).finally(function () {
+      initAll();
+    });
+  })();
+</script>
