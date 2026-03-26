@@ -115,6 +115,9 @@
   .content-box--right {
     margin-inline-end: 0;
   }
+  .kv_box .w_full img{
+      min-height: 800px;
+  }
 }
 
 @media screen and (min-width: 1000px) {
@@ -146,10 +149,12 @@
       max-width: 1500px;
       margin: 0 auto;
       padding: 0 40px;
+      overflow: hidden;
   }
   .kv_box{
     position: relative;
     display:block;
+    overflow: hidden;
   }
   .kv_box .w_full{
   display: block;
@@ -244,6 +249,45 @@
   .logo__images-inner img{
     width:revert-layer;
   }
+  .kv_subheader {
+    color: #000;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5;
+        margin-bottom: 14px;
+}
+a.kv_button-box {
+      display: inline-flex;
+    background: #000;
+    color: #FFF;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 10px 30px;
+    margin-top:45px;
+        border: 1px solid #000;
+        transition: opacity 1s cubic-bezier(.25,1,.5,1), transform 1s cubic-bezier(.25,1,.5,1);
+}
+
+a.kv_button-box:hover {
+   background: #fff;
+    color: #000;
+}
+.kv_cs-box {
+      display: inline-flex;
+    background: #000;
+    color: #FFF;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 10px 30px;
+    margin-top:45px;
+        border: 1px solid #000;
+        transition: opacity 1s cubic-bezier(.25,1,.5,1), transform 1s cubic-bezier(.25,1,.5,1);
+}
   @media (max-width: 768px) {
      .kv_content {
       align-items: var(--mobile-section-blocks-alignment);
@@ -287,6 +331,20 @@
     gap: 25px;
     margin-top:16px;
   }
+  .kv_subheader {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+a.kv_button-box{
+margin-top:16px;
+font-size: 10px;
+padding:8px 20px;
+}
+.kv_cs-box{
+margin-top:16px;
+font-size: 10px;
+padding:8px 20px;
+}
   }
   /* kv css end*/
 </style>
@@ -310,14 +368,14 @@
 
 
         {%- capture section_content -%}
-        <div class="top_txt">
+        <div class="top_txt to-top">
           <div class="top_bix">
             <!-- {%- if section.settings.logo_image_tag -%}
                 <img src="{{ section.settings.logo_image_tag | image_url }}" alt="{{ section.settings.logo_image_tag.alt }}"  width="{{  section.settings.logo_image_tag.width  | divided_by: 2  }}" height="{{  section.settings.logo_image_tag.height  | divided_by: 2  }}">
             {%- endif -%} -->
 
             {%- if section.settings.logo_image_tag -%}
-             <picture class="to-top" style="transition-delay: 0.1s;">
+             <picture class="" style="transition-delay: 0.1s;">
                          {%- if section.settings.mobile_logo_image_tag -%}
                             <source media="(max-width: 767px)" srcset="{{ section.settings.mobile_logo_image_tag | image_url }}" width="{{  section.settings.mobile_logo_image_tag.width  | divided_by: 2  }}" height="{{  section.settings.mobile_logo_image_tag.height  | divided_by: 2  }}">
                                  {%- endif -%}
@@ -326,19 +384,33 @@
                             {%- endif -%}
                        </picture>
               {%- endif -%}
+
+               {%- if section.settings.subHeader != blank -%}
+              <p class="kv_subheader " style="transition-delay: 0.1s;">{{ section.settings.subHeader }}</p>
+               {%- endif -%}
             
             {%- if section.settings.tle != blank -%}
-              <h1 class="to-top" style="transition-delay: 0.1s;">{{ section.settings.tle }}</h1>
+              <h1 class="" style="transition-delay: 0.1s;">{{ section.settings.tle }}</h1>
             {%- endif -%}
             {%- if section.settings.sub_tle != blank -%}
-              <div class="kv_txt to-top" style="transition-delay: 0.2s;">{{ section.settings.sub_tle }}</div>
+              <div class="kv_txt " style="transition-delay: 0.2s;">{{ section.settings.sub_tle }}</div>
             {%- endif -%}
              {%- if section.settings.sub_tle1 != blank -%}
-              <div class="kv_txt kv_txt1 to-top" style="transition-delay: 0.3s;">{{ section.settings.sub_tle1 }}</div>
+              <div class="kv_txt kv_txt1 " style="transition-delay: 0.3s;">{{ section.settings.sub_tle1 }}</div>
             {%- endif -%}
 
+
+             {%- if section.settings.button_txt != blank  and  section.settings.link_url != blank -%}
+              <a  href="{{ section.settings.link_url }}" class="kv_button-box" style="transition-delay: 0.3s;">{{ section.settings.button_txt }}</a>
+            {%- endif -%}
+
+             {%- if section.settings.button_txt != blank  and  section.settings.link_url == blank  -%}
+              <div  class="kv_cs-box" style="transition-delay: 0.3s;">{{ section.settings.button_txt }}</div>
+            {%- endif -%}
+
+
             {%- if section.settings.logo_image1 -%}
-            <div class="logo__images-inner to-top" style="transition-delay: 0.4s;">
+            <div class="logo__images-inner " style="transition-delay: 0.4s;">
              <picture class="logo__images-pic">
                  {%- if section.settings.mobile_logo_image1 -%}
                   <source media="(max-width: 767px)" srcset="{{ section.settings.mobile_logo_image1 | image_url }}" width="{{  section.settings.mobile_logo_image1.width  | divided_by: 2  }}" height="{{  section.settings.mobile_logo_image1.height  | divided_by: 2  }}">
@@ -438,12 +510,12 @@
           {%- if section.settings.note != blank -%}
             
             {%- if section.settings.note_full_width -%}
-            <div class="kv_note to-top" style="transition-delay: 0.4s;">
+            <div class="kv_note" style="transition-delay: 0.4s;">
               {{ section.settings.note }}
             </div>
               {%- else -%}
 
-              <div class="kv_note-inner to-top" style="transition-delay: 0.4s;">
+              <div class="kv_note-inner" style="transition-delay: 0.4s;">
                 <div class="kv_container">
                   <div class="kv_note-txt">{{ section.settings.note }}</div>
                 </div>
@@ -504,6 +576,11 @@
           "id": "image_mobile",
           "label": "Mobile Images"
         },
+          {
+      "type": "text",
+      "id": "subHeader",
+      "label": "SubHeader"
+    },
     {
       "type": "richtext",
       "id": "tle",

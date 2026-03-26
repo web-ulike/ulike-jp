@@ -1,0 +1,108 @@
+<style>
+#shopify-section-{{ section.id }} {
+pointer-events: none;
+    overflow: hidden;
+}
+
+        .heart-trail {
+            position: fixed;
+            pointer-events: none; 
+            z-index: 9999; 
+            animation: floatFade 1s linear forwards; 
+            user-select: none;
+        }
+
+        /* 动画：爱心一边飘一边消失 */
+        @keyframes floatFade {
+            0% {
+                transform: translate(-50%, -50%) scale(1) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+
+                transform: translate(calc(-50% + var(--dir-x)), calc(-50% + var(--dir-y))) scale(0.5) rotate(var(--rot));
+                opacity: 0;
+            }
+        }
+</style>
+
+
+<script>
+    (function() {
+        // 配置项
+        const CONFIG = {
+            colors: ['#E0004D', '#F92870', '#FF5F96', '#FF99BC', '#FFE3EC'], 
+            interval: 20, 
+            symbol: '❤'
+        };
+
+        let lastTime = 0;
+
+        document.addEventListener('mousemove', function(e) {
+            const now = Date.now();
+            if (now - lastTime < CONFIG.interval) return;
+            lastTime = now;
+
+            createHeart(e.clientX, e.clientY);
+        });
+
+        function createHeart(x, y) {
+            const heart = document.createElement('span');
+            heart.className = 'heart-trail';
+            heart.innerHTML = CONFIG.symbol;
+
+            // 1. 随机颜色
+            const color = CONFIG.colors[Math.floor(Math.random() * CONFIG.colors.length)];
+            heart.style.color = color;
+
+            // 2. 随机大小 (10px 到 25px 之间)
+            const size = Math.floor(Math.random() * 15 + 20); 
+            heart.style.fontSize = size + 'px';
+
+            // 3. 设置初始位置
+            heart.style.left = x + 'px';
+            heart.style.top = y + 'px';
+
+            // 4. 计算随机飘动方向 (CSS 变量)
+            // X轴：左右随机偏移 -50px 到 50px
+            const dirX = (Math.random() - 0.5) * 100 + 'px'; 
+            // Y轴：主要向上飘 (负数)，-50px 到 -100px
+            const dirY = (Math.random() * -50 - 50) + 'px'; 
+            // 随机旋转角度
+            const rotate = (Math.random() - 0.5) * 60 + 'deg';
+
+            heart.style.setProperty('--dir-x', dirX);
+            heart.style.setProperty('--dir-y', dirY);
+            heart.style.setProperty('--rot', rotate);
+
+            // 5. 插入页面
+            document.body.appendChild(heart);
+
+            // 6. 动画结束后清理 DOM (1秒后)
+            setTimeout(() => {
+                heart.remove();
+            }, 1000);
+        }
+    })();
+</script>
+
+
+
+{% schema %}
+{
+  "name": "Valentine Mouse",
+  "settings": [
+   
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "Valentine Mouse",
+      "settings": {},
+      "blocks": [
+      ]
+    }
+  ]
+}
+{% endschema %}

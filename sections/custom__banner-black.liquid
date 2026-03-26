@@ -1,0 +1,1039 @@
+<style>
+   {%- assign text_position = section.settings.text_position | split: '_' | first -%}
+   {%- case text_position -%}
+      {%- when 'top' -%}
+        {%- assign section_items_alignment = 'flex-start' -%}
+      {%- when 'middle' -%}
+        {%- assign section_items_alignment = 'center' -%}
+      {%- when 'bottom' -%}
+        {%- assign section_items_alignment = 'flex-end' -%}
+    {%- endcase -%}
+
+  {%- assign mobile_text_position = section.settings.mobile_text_position | split: '_' | first -%}
+   {%- case mobile_text_position -%}
+      {%- when 'top' -%}
+        {%- assign mobile_section_items_alignment = 'flex-start' -%}
+      {%- when 'middle' -%}
+        {%- assign mobile_section_items_alignment = 'center' -%}
+      {%- when 'bottom' -%}
+        {%- assign mobile_section_items_alignment = 'flex-end' -%}
+    {%- endcase -%}
+
+    #shopify-section-{{ section.id }} {
+    --heading-color: {{ section.settings.text_color.red }}, {{ section.settings.text_color.green }}, {{ section.settings.text_color.blue }};
+    --text-color: {{ section.settings.text_color.red }}, {{ section.settings.text_color.green }}, {{ section.settings.text_color.blue }};
+      --section-blocks-alignment: {{ section_items_alignment }};
+       --mobile-section-blocks-alignment: {{ mobile_section_items_alignment }};
+      --tle-size: calc({{ section.settings.tle_size}}px);
+       --mobile-tle-size: calc({{ section.settings.mobile_tle_size}}px);
+      --txt-left: calc({{ section.settings.sub_tle_left}}px);
+      --mobile-txt-left: calc({{ section.settings.mobile_sub_tle_left}}px);
+      
+      --content-bottom: calc({{ section.settings.content_bottom}}px);
+      --mobile-content-bottom: calc({{ section.settings.mobile_content_bottom}}px);
+  }
+.content-box {
+  z-index: 1;
+  position: relative;
+}
+
+.content-box--text-center {
+  text-align: center;
+}
+
+.content-box--text-right {
+  text-align: end;
+}
+
+.w100{
+  width:100%;
+}
+ .custom_banner .slideshow__text-wrapper{
+   margin-bottom:var(--content-bottom);
+ }
+  .kv_note-inner {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    color: #646464;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    width: 100%;
+    padding-bottom:45px;
+}
+  .kv_note-txt{
+    max-width:574px;
+  }
+@media screen and (max-width: 740px) {
+  .mobile-content-box--left {
+    margin-inline-end: 0;
+  }
+
+  .mobile-content-box--right {
+    margin-inline-start: 0;
+  }
+  .mobile-content-box--text-center {
+  text-align: center;
+}
+
+.mobile-content-box--text-right {
+  text-align: end;
+}
+   .custom_banner .slideshow__text-wrapper{
+   margin-bottom:var(--mobile-content-bottom);
+ }
+    .kv_note-inner {
+    padding-bottom:25px;
+}
+}
+
+@media screen and (min-width: 741px) {
+  .content-box {
+    width: 520px;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+  }
+
+  .content-box--medium {
+    width: 520px;
+  }
+
+  .content-box--small {
+    width: 520px;
+  }
+
+  .content-box--fill {
+    width: 100% !important;
+  }
+
+  .content-box--left {
+    margin-inline-start: 0;
+  }
+
+  .content-box--right {
+    margin-inline-end: 0;
+  }
+  .kv_box .w_full img{
+      min-height: 800px;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .content-box {
+    width: 520px;
+  }
+
+  .content-box--medium {
+    width: 520px;
+  }
+
+  .content-box--small {
+    width: 520px;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .content-box--small {
+    width: 520px;
+  }
+}
+  
+   
+  .vertical-breather {
+    padding-block: var(--vertical-breather);
+}
+  .kv_container{
+    width: 100%;
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 0 40px;
+  }
+  .kv_box{
+    position: relative;
+    display:block;
+    overflow: hidden;
+  }
+  .kv_box .w_full{
+  display: block;
+  width: 100%;
+  }
+  .kv_box .w_full img{
+  width: 100%;
+  object-fit: cover;
+  }
+  .kv_content {
+    position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: var(--section-blocks-alignment);
+  }
+  .top_txt{
+    position: relative;
+  }
+  .top_txt .top_bix{
+  }
+  .top_txt img{
+    width: 60em;
+  }
+  .top_txt img.summer_kv_logo{
+     width: 37.2em;
+ }
+  .bottom_img-box .img1{
+  width: 37.7em;
+  }
+  .bottom_img-box .img2{
+    width: 2.9em;
+  }
+  .top_bix h1{
+   font-family: var(--font-heading-family);
+    color: rgb(var(--heading-color));
+  font-size: var(--tle-size);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%;
+  }
+  .top_bix h1 p{
+    margin: 0;
+  }
+  .kv_txt{
+    color: rgb(var(--text-color));
+  font-family: var(--font-heading-family);
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%;
+  margin-top: 30px;
+  /* margin-left: var(--txt-left); */
+  }
+   .kv_txt1{
+  margin-top: 15px;
+  }
+  .bottom_img{
+    margin-top: 60px;
+  }
+  .kv_note{
+    color: rgba(var(--text-color),0.50);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-top: 50px;
+  max-width: 500px;
+    position: absolute;
+    bottom: 60px;
+    left: 60px;
+  }
+  .kv_note p{
+    margin:0;
+  }
+    .bottom_img-box {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+  }
+  .top_bix .logo_image_tag{
+    width: revert-layer;
+  }
+  .logo__images-inner{
+        display: flex;
+    align-items: center;
+    gap: 53px;
+    margin-top:34px;
+  }
+  .logo__images-inner img{
+    width:revert-layer;
+  }
+  @media (max-width: 768px) {
+     .kv_content {
+      align-items: var(--mobile-section-blocks-alignment);
+  }
+    .top_bix h1{
+      font-size: var(--mobile-tle-size);;
+    }
+    .kv_txt{
+      font-size: 12px;
+          margin-top: 20px;
+    margin-left: var(--mobile-txt-left);
+    }
+    .top_txt img{
+      width: 100%;
+    }
+    .bottom_img-box .img1{
+      width: 91px;
+    }
+    .bottom_img-box .img2 {
+      width: 14px;
+  }
+  .kv_container{
+    padding: 0 20px;
+  }
+  .kv_note{
+    font-size: 8px;
+    position: absolute;
+    bottom: 0px;
+    margin: 0;
+    left: 0px;
+    padding: 20px;
+  }
+  .top_txt .top_bix{
+    width: 100%;
+    top: 43px;
+  }
+.top_bix .logo_image_tag {
+    margin: 0 auto;
+}
+      .logo__images-inner{
+    gap: 25px;
+    margin-top:16px;
+  }
+  }
+
+
+    /* 🌌 星星容器整体旋转 */
+    .star-wrap {
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      {% comment %} height: 200%; {% endcomment %}
+      transform-style: preserve-3d;
+      animation: rotate 250s linear infinite;
+      backface-visibility: hidden;
+      aspect-ratio:1;
+    }
+
+    /* 🌟 单颗星星闪烁 */
+    .star {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #b6cbd4;
+      backface-visibility: hidden;
+      transform: rotate(0deg) scale(0.08);
+      animation: blink 15s ease infinite alternate both;
+      z-index: 0;
+    }
+
+    /* 星星内部光晕层 */
+    .star div {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      backface-visibility: hidden;
+      box-shadow:
+        0 0 2px 8px rgba(0, 0, 0, 0.4),
+        0 0 2px 9px rgba(255, 255, 255, 0.07),
+        0 0 2px 15px rgba(0, 0, 0, 0.4),
+        0 0 2px 16px rgba(255, 255, 255, 0.1);
+      transform: rotate(45deg) scale(0.75);
+    }
+
+    /* ✴️ 四个十字光线（伪元素） */
+    .star::before,
+    .star::after,
+    .star div::before,
+    .star div::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: linear-gradient(to bottom,
+          rgba(255, 255, 255, 0.1) 0%,
+          rgba(255, 255, 255, 0.7) 50%,
+          rgba(255, 255, 255, 0.1) 100%);
+      box-shadow: 0 0 25px white;
+      width: 10%;
+      height: 800%;
+      top: calc(50% - 400%);
+      left: 45%;
+      z-index: 1;
+    }
+
+    .star::before,
+    .star div::before {
+      transform: rotate(90deg);
+    }
+
+    /* 🔵 蓝色星星光晕 */
+    .star.star--blue::before,
+    .star.star--blue::after,
+    .star.star--blue div::before,
+    .star.star--blue div::after {
+      box-shadow: 0 0 25px #0000ff;
+    }
+
+    /* 🔴 红色星星光晕 */
+    .star.star--red::before,
+    .star.star--red::after,
+    .star.star--red div::before,
+    .star.star--red div::after {
+      box-shadow: 0 0 25px #ff0000;
+    }
+
+    /* ✨ 闪烁动画 */
+    @keyframes blink {
+      0% {
+        transform: rotate(0deg) scale(0.1);
+      }
+
+      4% {
+        transform: rotate(-20deg) scale(0.9);
+      }
+
+      8% {
+        transform: rotate(-40deg) scale(0.1);
+      }
+
+      50% {
+        transform: rotate(-40deg) scale(0.1);
+      }
+
+      52% {
+        transform: rotate(-50deg) scale(0.3);
+      }
+
+      54% {
+        transform: rotate(-60deg) scale(0.1);
+      }
+
+      100% {
+        transform: rotate(0deg) scale(0.1);
+      }
+    }
+
+    /* 🌠 容器旋转动画 */
+    @keyframes rotate {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .shoot-star {
+      position: absolute;
+      top: 100px;
+      left: 400px;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      /* background: #fff; */
+      transform-origin: 100% 0;
+      opacity: 0;
+      animation: star-move 2.5s linear forwards;
+    }
+
+    .shoot-star::after {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 2px;
+      border: 1px solid #f00;
+      border-width: 1px 150px 1px 150px;
+      border-color: transparent transparent transparent #fff;
+      transform: rotate(-45deg) translate3d(1px, -1px, 0);
+      transform-origin: 0% 100%;
+      opacity: 0;
+      animation: shooting 2.5s linear forwards;
+    }
+
+    /* 🌠 流星滑动路径 + 渐隐效果 */
+    @keyframes star-move {
+      0% {
+        opacity: 0;
+        transform: scale(0.5) translate3d(200px, -200px, 0);
+      }
+
+      15% {
+        opacity: 1;
+      }
+
+      80% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+        /* ✅ 尾端慢慢消失 */
+        transform: scale(1) translate3d(-200px, 200px, 0);
+      }
+    }
+
+    /* 🌠 尾巴的光线随主体同步淡出 */
+    @keyframes shooting {
+      0% {
+        opacity: 0;
+        transform: scale(0.8) rotate(-45deg) translate(0px, 0px);
+      }
+
+      15% {
+        opacity: 1;
+      }
+
+      80% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+        /* ✅ 尾部同时慢慢消失 */
+        transform: scale(0.8) rotate(-45deg) translate(-5px, -5px);
+      }
+    }
+ 
+
+  /* kv css end*/
+</style>
+<section>
+    {%- capture slide_content -%}
+    <picture class="w_full to-left" style="transition-delay: 0.3s;">
+      {%- if section.settings.image_mobile -%}
+        <source
+          media="(max-width: 767px)"
+          srcset="{{ section.settings.image_mobile | image_url }}"
+          width="{{ section.settings.image_mobile.width }}"
+          height="{{ section.settings.image_mobile.height }}"
+        >
+      {%- endif -%}
+      {%- if section.settings.image -%}
+         <img src="{{ section.settings.image | image_url }}" alt="{{ section.settings.image.alt }}"  width="{{  section.settings.image.width  }}" height="{{  section.settings.image.height }}">
+      {%- endif -%}
+    </picture>
+    <div class="kv_content">
+      <div class="{% if section.settings.full_width %}kv_container{% endif %}{% unless section.settings.full_width %} page-width w100{% endunless %}">
+
+
+        {%- capture section_content -%}
+        <div class="top_txt">
+          <div class="top_bix">
+            <!-- {%- if section.settings.logo_image_tag -%}
+                <img src="{{ section.settings.logo_image_tag | image_url }}" alt="{{ section.settings.logo_image_tag.alt }}"  width="{{  section.settings.logo_image_tag.width  | divided_by: 2  }}" height="{{  section.settings.logo_image_tag.height  | divided_by: 2  }}">
+            {%- endif -%} -->
+
+            {%- if section.settings.logo_image_tag -%}
+             <picture class="to-top" style="transition-delay: 0.1s;">
+                         {%- if section.settings.mobile_logo_image_tag -%}
+                            <source media="(max-width: 767px)" srcset="{{ section.settings.mobile_logo_image_tag | image_url }}" width="{{  section.settings.mobile_logo_image_tag.width  | divided_by: 2  }}" height="{{  section.settings.mobile_logo_image_tag.height  | divided_by: 2  }}">
+                                 {%- endif -%}
+                             {%- if section.settings.logo_image_tag -%}
+                            <img src="{{ section.settings.logo_image_tag | image_url }}" alt="{{ section.settings.logo_image_tag.alt }}" width="{{  section.settings.logo_image_tag.width  | divided_by: 2  }}" height="{{  section.settings.logo_image_tag.height  | divided_by: 2  }}" class="logo_image_tag">
+                            {%- endif -%}
+                       </picture>
+              {%- endif -%}
+            
+            {%- if section.settings.tle != blank -%}
+              <h1 class="to-top" style="transition-delay: 0.1s;">{{ section.settings.tle }}</h1>
+            {%- endif -%}
+            {%- if section.settings.sub_tle != blank -%}
+              <div class="kv_txt to-top" style="transition-delay: 0.2s;">{{ section.settings.sub_tle }}</div>
+            {%- endif -%}
+             {%- if section.settings.sub_tle1 != blank -%}
+              <div class="kv_txt kv_txt1 to-top" style="transition-delay: 0.3s;">{{ section.settings.sub_tle1 }}</div>
+            {%- endif -%}
+
+            {%- if section.settings.logo_image1 -%}
+            <div class="logo__images-inner to-top" style="transition-delay: 0.4s;">
+             <picture class="logo__images-pic">
+                 {%- if section.settings.mobile_logo_image1 -%}
+                  <source media="(max-width: 767px)" srcset="{{ section.settings.mobile_logo_image1 | image_url }}" width="{{  section.settings.mobile_logo_image1.width  | divided_by: 2  }}" height="{{  section.settings.mobile_logo_image1.height  | divided_by: 2  }}">
+                       {%- endif -%}
+                   {%- if section.settings.logo_image1 -%}
+                  <img src="{{ section.settings.logo_image1 | image_url }}" alt="{{ section.settings.logo_image1.alt }}" width="{{  section.settings.logo_image1.width  | divided_by: 2  }}" height="{{  section.settings.logo_image1.height  | divided_by: 2  }}">
+                  {%- endif -%}
+                </picture>
+              {%- if section.settings.logo_image2 -%}
+                <picture class="logo__images-pic">
+                 {%- if section.settings.mobile_logo_image2 -%}
+                  <source media="(max-width: 767px)" srcset="{{ section.settings.mobile_logo_image2 | image_url }}" width="{{  section.settings.mobile_logo_image2.width  | divided_by: 2  }}" height="{{  section.settings.mobile_logo_image2.height  | divided_by: 2  }}">
+                       {%- endif -%}
+                   {%- if section.settings.logo_image2 -%}
+                  <img src="{{ section.settings.logo_image2 | image_url }}" alt="{{ section.settings.logo_image2.alt }}" width="{{  section.settings.logo_image2.width  | divided_by: 2  }}" height="{{  section.settings.logo_image2.height  | divided_by: 2  }}">
+                  {%- endif -%}
+                </picture>
+               {%- endif -%}
+            </div>
+             {%- endif -%}
+          
+          </div>
+          <picture>
+            {%- if section.settings.logo_image -%}
+              <source
+                media="(max-width: 767px)"
+                srcset="{{ section.settings.logo_image | image_url }}"
+                width="{{ section.settings.logo_image.width }}"
+                height="{{ section.settings.logo_image.height }}"
+              >
+            {%- endif -%}
+            {%- if section.settings.logo_image -%}
+              <img src="{{ section.settings.logo_image | image_url }}" alt="{{ section.settings.logo_image.alt }}"  width="{{  section.settings.logo_image.width  }}" height="{{  section.settings.logo_image.height }}">
+            {%- endif -%}
+          </picture>
+        </div>
+ {%- endcapture -%}
+
+         {%- assign text_alignment = section.settings.text_position | split: '_' | first -%}
+              {%- assign text_position = section.settings.text_position | split: '_' | last -%}
+
+          {%- assign mobile_text_alignment = section.settings.mobile_text_position | split: '_' | first -%}
+              {%- assign mobile_text_position = section.settings.mobile_text_position | split: '_' | last -%}
+              <div class="slideshow__text-wrapper slideshow__text-wrapper--{{ text_alignment }} mobile-slideshow__text-wrapper--{{ mobile_text_alignment }} vertical-breather">
+                <div class="content-box content-box--medium content-box--text-{{ text_position }} content-box--{{ text_position }} mobile-content-box--text-{{ mobile_text_position }} mobile-content-box--{{ mobile_text_position }} text-container">
+                  {{- section_content -}}
+                </div>
+              </div>
+
+
+      </div>
+              <div class="bottom_img">
+          <div class="bottom_img-box">
+            <picture>
+              {%- if section.settings.mobile_product_image1 -%}
+                <source
+                  media="(max-width: 767px)"
+                  srcset="{{ section.settings.mobile_product_image1 | image_url: width: '400x' }} 400w, {{ section.settings.mobile_product_image1 | image_url: width: '600x' }} 600w, {{ section.settings.mobile_product_image1 | image_url: width: '800x' }} 800w, {{ section.settings.mobile_product_image1 | image_url: width: '1000x' }} 1000w"
+                  width="{{ section.settings.mobile_product_image1.width }}"
+                  height="{{ section.settings.mobile_product_image1.height }}"
+                >
+              {%- endif -%}
+              {%- if section.settings.product_image1 -%}
+                {{-
+                  section.settings.product_image1
+                  | image_url: width: section.settings.product_image1.width
+                  | image_tag:
+                    loading: 'eager',
+                    sizes: '100vw',
+                    widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200',
+                    class: 'img1'
+                -}}
+              {%- endif -%}
+            </picture>
+            <picture>
+              {%- if section.settings.mobile_product_image2 -%}
+                <source
+                  media="(max-width: 767px)"
+                  srcset="{{ section.settings.mobile_product_image2 | image_url: width: '400x' }} 400w, {{ section.settings.mobile_product_image2 | image_url: width: '600x' }} 600w, {{ section.settings.mobile_product_image2 | image_url: width: '800x' }} 800w, {{ section.settings.mobile_product_image2 | image_url: width: '1000x' }} 1000w"
+                  width="{{ section.settings.mobile_product_image2.width }}"
+                  height="{{ section.settings.mobile_product_image2.height }}"
+                >
+              {%- endif -%}
+              {%- if section.settings.product_image2 -%}
+                {{-
+                  section.settings.product_image2
+                  | image_url: width: section.settings.product_image2.width
+                  | image_tag:
+                    loading: 'eager',
+                    sizes: '100vw',
+                    widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200',
+                    class: 'img2'
+                -}}
+              {%- endif -%}
+            </picture>
+          </div>
+          {%- if section.settings.note != blank -%}
+            
+            {%- if section.settings.note_full_width -%}
+            <div class="kv_note" style="transition-delay: 0.4s;">
+              {{ section.settings.note }}
+            </div>
+              {%- else -%}
+
+              <div class="kv_note-inner" style="transition-delay: 0.4s;">
+                <div class="kv_container">
+                  <div class="kv_note-txt">{{ section.settings.note }}</div>
+                </div>
+              
+              </div>
+                
+              {%- endif -%}
+
+
+                
+          {%- endif -%}
+        </div>
+    </div>
+   {%- endcapture -%}
+
+
+ {%- if section.settings.link_url != blank and  section.settings.button_txt == blank -%}
+            <a href="{{ section.settings.link_url }}" class="kv_box custom_banner">
+              {{- slide_content -}}
+                 <div class="star-sky">
+  </div>
+            </a>
+          {%- else -%}
+            <div class="kv_box custom_banner">
+              {{- slide_content -}}
+                 <div class="star-sky">
+  </div>
+            </div>
+          {%- endif -%}
+
+
+</section>
+<script>
+function initStarSky(options = {}) {
+      const STAR_COUNT = options.starCount || 1000;
+      const SHOOT_INTERVAL_MIN = options.shootIntervalMin || 1000;
+      const SHOOT_INTERVAL_MAX = options.shootIntervalMax || 4000;
+
+      const STARTW = window.innerWidth < 992? 2 :8
+
+      const sky = document.querySelector('.star-sky');
+      if (!sky) return console.warn('❌ 未找到 .star-sky 元素');
+
+      let wrap = sky.querySelector('.star-wrap');
+      if (!wrap) {
+        wrap = document.createElement('div');
+        wrap.className = 'star-wrap';
+        sky.appendChild(wrap);
+      }
+
+      // 🌟 创建星星
+      for (let i = 0; i < STAR_COUNT; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        if (i % 8 === 0) star.classList.add('star--red');
+        else if (i % 10 === 6) star.classList.add('star--blue');
+        const inner = document.createElement('div');
+        star.appendChild(inner);
+        const size = (Math.random() * 2 + STARTW).toFixed(2) + 'px';
+        star.style.width = size;
+        star.style.height = size;
+        star.style.top = (Math.random() * 100).toFixed(2) + '%';
+        star.style.left = (Math.random() * 100).toFixed(2) + '%';
+        star.style.opacity = (Math.random() * 0.5 + 0.5).toFixed(2);
+        star.style.animationDelay = (Math.random() * 100).toFixed(2) + 's';
+        wrap.appendChild(star);
+      }
+
+      // ☄️ 创建流星
+      function createShootStar() {
+        const shootStar = document.createElement('div');
+        shootStar.classList.add('shoot-star');
+         shootStar.style.display = 'block';
+        shootStar.style.top = (Math.random() * 20).toFixed(2) + '%';
+        shootStar.style.left = (Math.random() * 100).toFixed(2) + '%';
+        sky.appendChild(shootStar);
+        shootStar.addEventListener('animationend', () => shootStar.remove());
+      }
+
+      // ☄️ 随机间隔循环生成流星
+      let shootingTimer = null;
+
+      function startRandomShooting() {
+        if (document.hidden) return; // 页面不可见时暂停
+        const delay =
+          Math.random() * (SHOOT_INTERVAL_MAX - SHOOT_INTERVAL_MIN) +
+          SHOOT_INTERVAL_MIN;
+        shootingTimer = setTimeout(() => {
+          createShootStar();
+          startRandomShooting(); // 循环
+        }, delay);
+      }
+
+      // 页面可见状态变化时控制流星生成
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) {
+          // 页面切回前台，继续生成流星
+          startRandomShooting();
+        } else {
+          // 页面隐藏时停止
+          if (shootingTimer) clearTimeout(shootingTimer);
+        }
+      });
+
+      // 启动循环
+      startRandomShooting();
+    }
+ 
+        // 调用
+        initStarSky({
+        starCount: 1000,
+        shootIntervalMin: 1000,
+        shootIntervalMax: 4000
+        });
+
+</script>
+{% schema %}
+{
+  "name": "custom__banner-black",
+  "class": "shopify-section--summer-banner",
+  "settings": [
+     {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "t:sections.global.settings.full_width.label",
+      "default": true
+    },
+    {
+          "type": "image_picker",
+          "id": "logo_image_tag",
+          "label": "logo image tag"
+        },
+     {
+          "type": "image_picker",
+          "id": "mobile_logo_image_tag",
+          "label": "Mobile logo image tag"
+        },
+      {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        },
+     {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile Images"
+        },
+    {
+      "type": "richtext",
+      "id": "tle",
+      "label": "Title"
+    },
+     {
+      "type": "range",
+      "id": "tle_size",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Title Size",
+      "default": 50
+    },
+     {
+      "type": "range",
+      "id": "mobile_tle_size",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Title Size",
+      "default": 30
+    },
+    {
+      "type": "richtext",
+      "id": "sub_tle",
+      "label": "Sub Title"
+    },
+     {
+      "type": "range",
+      "id": "sub_tle_left",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Sub Title Left",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_sub_tle_left",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Mobile Sub Title Left",
+      "default": 0
+    },
+
+
+
+   {
+      "type": "range",
+      "id": "content_bottom",
+      "min": 0,
+      "max": 500,
+      "step": 5,
+      "unit": "px",
+      "label": "Content Bottom",
+      "default": 0
+    },
+    
+   {
+      "type": "range",
+      "id": "mobile_content_bottom",
+      "min": 0,
+      "max": 500,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile Content Bottom",
+      "default": 0
+    },
+
+    
+    
+     {
+      "type": "richtext",
+      "id": "sub_tle1",
+      "label": "Sub Title1"
+    },
+
+
+ {
+          "type": "image_picker",
+          "id": "logo_image1",
+          "label": "logo image1"
+        },
+     {
+          "type": "image_picker",
+          "id": "mobile_logo_image1",
+          "label": "Mobile logo image1"
+        },
+
+     {
+          "type": "image_picker",
+          "id": "logo_image2",
+          "label": "logo image2"
+        },
+     {
+          "type": "image_picker",
+          "id": "mobile_logo_image2",
+          "label": "Mobile logo image2"
+        },
+    
+
+
+      {
+      "type": "checkbox",
+      "id": "note_full_width",
+      "label": "Note Full Width",
+      "default": true
+    },
+     {
+      "type": "richtext",
+      "id": "note",
+      "label": "Note"
+    },
+     {
+      "type": "text",
+      "id": "button_txt",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Button Link"
+    },
+   {
+          "type": "select",
+          "id": "text_position",
+          "label": "Text position",
+          "options": [
+            {
+              "value": "top_left",
+              "label": "Top left"
+            },
+            {
+              "value": "top_center",
+              "label": "Top center"
+            },
+            {
+              "value": "top_right",
+              "label": "Top right"
+            },
+            {
+              "value": "middle_left",
+              "label": "Middle left"
+            },
+            {
+              "value": "middle_center",
+              "label": "Middle center"
+            },
+            {
+              "value": "middle_right",
+              "label": "Middle right"
+            },
+            {
+              "value": "bottom_left",
+              "label": "Bottom left"
+            },
+            {
+              "value": "bottom_center",
+              "label": "Bottom center"
+            },
+            {
+              "value": "bottom_right",
+              "label": "Bottom right"
+            }
+          ],
+          "default": "middle_center"
+        },
+
+      {
+          "type": "select",
+          "id": "mobile_text_position",
+          "label": "Mobile Text position",
+          "options": [
+            {
+              "value": "top_left",
+              "label": "Top left"
+            },
+            {
+              "value": "top_center",
+              "label": "Top center"
+            },
+            {
+              "value": "top_right",
+              "label": "Top right"
+            },
+            {
+              "value": "middle_left",
+              "label": "Middle left"
+            },
+            {
+              "value": "middle_center",
+              "label": "Middle center"
+            },
+            {
+              "value": "middle_right",
+              "label": "Middle right"
+            },
+            {
+              "value": "bottom_left",
+              "label": "Bottom left"
+            },
+            {
+              "value": "bottom_center",
+              "label": "Bottom center"
+            },
+            {
+              "value": "bottom_right",
+              "label": "Bottom right"
+            }
+          ],
+          "default": "middle_center"
+        },
+    
+      {
+          "type": "header",
+          "content": "Colors"
+        },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "rgba(0,0,0,0)"
+    }
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "custom__banner-black"
+    }
+  ]
+}
+{% endschema %}

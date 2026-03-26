@@ -5463,7 +5463,6 @@ class QuickView extends XModal {
   setInnerHTML(element, innerHTML) {
     element.innerHTML = innerHTML;
 
-    // Reinjects the script tags to allow execution. By default, scripts are disabled when using element.innerHTML.
     element.querySelectorAll('script').forEach(oldScriptTag => {
       const newScriptTag = document.createElement('script');
       Array.from(oldScriptTag.attributes).forEach(attribute => {
@@ -5602,13 +5601,7 @@ class VideoCard extends HTMLElement {
     if (button) {
      
       button.addEventListener('click', (event) => {
-      event.preventDefault(); // 阻止跳转
-        // 先暂停页面中所有其他 video（可选）
-        // document.querySelectorAll('video').forEach(v => {
-        //   if (v !== video) v.pause();
-        // });
-
-        // 播放当前组件内的视频
+      event.preventDefault();
         video.click();
       });
     }
@@ -5714,7 +5707,7 @@ window.customElements.define('text-collapse-new', TextCollapseNew);
       return;
     }
 
-    // **设备判断：是否禁用 Swiper**
+    //是否禁用 Swiper**
     const disableOn = this.getAttribute('disable-on'); // 'mobile' 或 'desktop'
     const isMobile = /Mobi|Android/i.test(navigator.userAgent);
     if ((disableOn === 'mobile' && isMobile) || (disableOn === 'desktop' && !isMobile)) {
@@ -5722,13 +5715,12 @@ window.customElements.define('text-collapse-new', TextCollapseNew);
       return;
     }
 
-    // **Swiper 组件参数**
     const slidesPerView = parseFloat(this.getAttribute('slides-per-view')) || 1.3;
     const spaceBetween = parseFloat(this.getAttribute('space-between')) || 10;
-    const loop = this.getAttribute('loop') !== 'false'; // 默认为 true
-    const centeredSlides = this.getAttribute('centered-slides') !== 'false'; // 默认为 true
-    const paginationEnabled = this.getAttribute('pagination') === 'true'; // 是否启用分页
-    const navigationEnabled = this.getAttribute('navigation') === 'true'; // 是否启用导航按钮
+    const loop = this.getAttribute('loop') !== 'false'; 
+    const centeredSlides = this.getAttribute('centered-slides') !== 'false';
+    const paginationEnabled = this.getAttribute('pagination') === 'true';
+    const navigationEnabled = this.getAttribute('navigation') === 'true';
     let breakpoints = {};
     try {
       breakpoints = JSON.parse(this.getAttribute('breakpoints') || '{}');
@@ -5812,7 +5804,7 @@ window.customElements.define('custom-swiper', CustomSwiperNew);
       });
 
       window.addEventListener('scroll', this.onScroll);
-      this.onScroll(); // 初始化判断
+      this.onScroll();
     }
 
     disconnectedCallback() {
@@ -5821,3 +5813,364 @@ window.customElements.define('custom-swiper', CustomSwiperNew);
   }
 
   customElements.define('scroll-to-top-button', ScrollToTopButton);
+
+
+  class CustomSwiperNew1 extends HTMLElement {
+  constructor() {
+    super();
+  }
+
+  connectedCallback() {
+    this.initSwiper();
+  }
+
+  initSwiper() {
+    const swiperContainer = this.querySelector('.swiper-container');
+    if (!swiperContainer) {
+      console.error('Swiper container not found');
+      return;
+    }
+
+    // 是否禁用 Swiper**
+    const disableOn = this.getAttribute('disable-on'); // 'mobile' 或 'desktop'
+    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+    if ((disableOn === 'mobile' && isMobile) || (disableOn === 'desktop' && !isMobile)) {
+      console.log(`Swiper disabled on ${disableOn}`);
+      return;
+    }
+
+    const slidesPerView = parseFloat(this.getAttribute('slides-per-view')) || 1.3;
+    const spaceBetween = parseFloat(this.getAttribute('space-between')) || 10;
+    const loop = this.getAttribute('loop') !== 'false'; 
+    const centeredSlides = this.getAttribute('centered-slides') !== 'false';
+    const paginationEnabled = this.getAttribute('pagination') === 'true'; 
+    const navigationEnabled = this.getAttribute('navigation') === 'true'; 
+    let breakpoints = {};
+    try {
+      breakpoints = JSON.parse(this.getAttribute('breakpoints') || '{}');
+    } catch (error) {
+      console.error('Invalid breakpoints format. Expected JSON.');
+    }
+
+    // **动态控制 navigation 和 pagination**
+    const prevButton = navigationEnabled ? this.querySelector('.swiper-prev') : null;
+    const nextButton = navigationEnabled ? this.querySelector('.swiper-next') : null;
+    const paginationEl = paginationEnabled ? { el: this.querySelector('.swiper-pagination'), clickable: true } : false;
+
+    this.swiper = new Swiper(swiperContainer, {
+      slidesPerView,
+      spaceBetween,
+      loop,
+      centeredSlides,
+      navigation: navigationEnabled ? { prevEl: prevButton, nextEl: nextButton } : false,
+      pagination: paginationEl,
+      breakpoints
+    });
+  }
+}
+
+window.customElements.define('custom-swiper-new', CustomSwiperNew1);
+
+
+//点击弹出弹框文字组件
+class textModal extends HTMLElement {
+      constructor() {
+        super();
+        this.textct = this.getAttribute('text-content') || 'jp';
+        this.modal = null;
+        this.setupEventListeners();
+      }
+
+      // 设置点击事件监听
+      setupEventListeners() {
+        this.addEventListener('click', () => this.createModal());
+      }
+
+      // 动态创建模态框
+      createModal() {
+        if (this.modal) return;
+
+        this.modal = document.createElement('div');
+        this.modal.id = 'cusvideoModal';
+        this.modal.className = 'cusmodal';
+
+        const modalContent = document.createElement('div');
+        modalContent.className = 'cusmodal-content';
+
+        const closeButton = document.createElement('button');
+        closeButton.id = 'cuscloseModal';
+        closeButton.className = 'cusclose-btn';
+        closeButton.innerHTML = `
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        `;
+        const textMd = document.createElement('div');
+        textMd.className = 'cusmodal-txt';
+        textMd.innerHTML = `${this.textct}`;
+
+        modalContent.appendChild(closeButton);
+        modalContent.appendChild(textMd);
+        this.modal.appendChild(modalContent);
+        document.body.appendChild(this.modal);
+
+        // 触发滑入动画
+        requestAnimationFrame(() => {
+          this.modal.classList.add('cusshow');
+        });
+
+        // 绑定关闭事件
+        closeButton.addEventListener('click', () => {
+          this.modal.classList.remove('cusshow');
+          setTimeout(() => {
+            this.modal.remove();
+            this.modal = null;
+          }, 300); 
+        });
+
+        this.modal.addEventListener('click', (e) => {
+          if (e.target === this.modal) {
+            this.modal.classList.remove('cusshow');
+            setTimeout(() => {
+              this.modal.remove(); 
+              this.modal = null; 
+            }, 300); 
+          }
+        });
+      }
+    }
+    window.customElements.define('text-modal', textModal);
+
+
+    class CountdownTimer1 extends HTMLElement {
+  constructor() {
+    super();
+    this.label = 'End in';
+    this.end = new Date();
+    this.timer = null;
+  }
+
+  connectedCallback() {
+    this.classList.add('countdown-ulike');
+    const labelAttr = this.getAttribute('label');
+    if (labelAttr) {
+      this.label = labelAttr;
+    }
+    const endTimeStr = this.getAttribute('end-time');
+    if (!endTimeStr) {
+      console.error('CountdownTimer: "end-time" attribute is required.');
+      return;
+    }
+    this.end = new Date(endTimeStr);
+    this.init();
+  }
+
+  disconnectedCallback() {
+    if (this.timer) {
+      clearInterval(this.timer);
+      this.timer = null;
+    }
+  }
+
+  init() {
+    const s = (cls, txt = '') => Object.assign(document.createElement('span'), { className: cls, textContent: txt });
+    const d = (cls) => Object.assign(document.createElement('div'), { className: `countdown-box ${cls}` });
+
+    this.labelEl = s('countdown-label', this.label);
+    this.days = d('days-box'); this.daysSep = s('countdown-separator', ':');
+    this.hours = d('hours-box'); this.mSep = s('countdown-separator', ':');
+    this.mins = d('minutes-box'); this.sSep = s('countdown-separator', ':');
+    this.secs = d('seconds-box');
+
+    this.append(this.labelEl, this.days, this.daysSep, this.hours, this.mSep, this.mins, this.sSep, this.secs);
+    this.update();
+    this.timer = setInterval(() => this.update(), 1000);
+  }
+
+  f(n) { return String(n).padStart(2, '0'); }
+
+  update() {
+    const t = this.end - new Date();
+    if (t <= 0) {
+      if (this.timer) {
+        clearInterval(this.timer);
+        this.timer = null;
+      }
+      return this.render(0, 0, 0, 0);
+    }
+    const d = Math.floor(t / 864e5),
+      h = Math.floor(t / 36e5 % 24),
+      m = Math.floor(t / 6e4 % 60),
+      s = Math.floor(t / 1e3 % 60);
+    // this.days.style.display = this.daysSep.style.display = d ? '' : 'none';
+    this.render(d, h, m, s);
+  }
+
+  render(d, h, m, s) {
+    this.days.textContent = this.f(d);
+    this.hours.textContent = this.f(h);
+    this.mins.textContent = this.f(m);
+    this.secs.textContent = this.f(s);
+  }
+}
+
+window.customElements.define('countdown-timer1', CountdownTimer1);
+
+
+
+class CopyButton extends HTMLElement {
+  static get observedAttributes() {
+    return ['text', 'target', 'data-text'];
+  }
+
+  constructor() {
+    super();
+    this._textToCopy = '';
+    this._timeout = null;
+  }
+
+  connectedCallback() {
+    // 确保有点击事件
+    if (!this.hasAttribute('role')) this.setAttribute('role', 'button');
+    if (!this.hasAttribute('tabindex')) this.setAttribute('tabindex', '0');
+
+    this.addEventListener('click', this._handleClick);
+    this.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this._handleClick();
+      }
+    });
+
+    this._resolveText();
+  }
+
+  disconnectedCallback() {
+    this.removeEventListener('click', this._handleClick);
+    if (this._timeout) clearTimeout(this._timeout);
+  }
+
+  attributeChangedCallback() {
+    this._resolveText();
+  }
+
+  // 优先级：text 属性 > data-text 属性 > target 指向的元素内容
+  _resolveText() {
+    if (this.hasAttribute('text')) {
+      this._textToCopy = this.getAttribute('text');
+    } else if (this.hasAttribute('data-text')) {
+      this._textToCopy = this.getAttribute('data-text');
+    } else if (this.hasAttribute('target')) {
+      const targetEl = document.getElementById(this.getAttribute('target'));
+      this._textToCopy = targetEl ? (targetEl.textContent || targetEl.value || '') : '';
+    } else {
+      this._textToCopy = this.textContent.trim();
+    }
+  }
+
+  async _handleClick() {
+    try {
+      await navigator.clipboard.writeText(this._textToCopy);
+      this._showFeedback('複製成功しました'); 
+    } catch (err) {
+      console.error('复制失败', err);
+      this._showFeedback('Failed', '#dc3545');
+    }
+  }
+
+  _showFeedback(message, bg = '#28a745') {
+    const originalText = this.textContent;
+    const originalBg = this.style.background || '';
+
+    // 临时改成成功样式
+    this.textContent = message;
+    // this.style.background = bg;
+    this.classList.add('copied');
+
+    if (this._timeout) clearTimeout(this._timeout);
+
+    this._timeout = setTimeout(() => {
+      this.textContent = originalText;
+      this.style.background = originalBg;
+      this.classList.remove('copied');
+    }, 2000);
+  }
+}
+
+window.customElements.define('copy-button', CopyButton);
+
+
+
+
+class Detail extends HTMLElement {
+  constructor() {
+    super();
+    this._content = null;
+    this._trigger = null;
+    this._duration = 500;
+  }
+
+  connectedCallback() {
+    this._trigger = this.querySelector('.instruction-list-top');
+    this._content = this.querySelector('.instruction-list-content');
+
+    if (!this._content || !this._trigger) return;
+
+    this._content.style.overflow = 'hidden';
+    this._content.style.transition = `height ${this._duration}ms ease`;
+
+    this._content.style.height = '0';
+    this._content.style.display = 'none';
+
+    this._trigger.addEventListener('click', () => this.toggle());
+  }
+
+  slideUp() {
+    const el = this._content;
+    el.style.height = el.offsetHeight + 'px';
+    this._trigger.classList.remove('active');
+    requestAnimationFrame(() => {
+      el.style.height = '0';
+    });
+    setTimeout(() => {
+      el.style.display = 'none';
+      // this._trigger.classList.remove('active');
+    }, this._duration);
+  }
+
+  slideDown() {
+    const el = this._content;
+    el.style.removeProperty('display');
+    const height = el.scrollHeight + 'px';
+    el.style.height = '0';
+     this._trigger.classList.add('active');
+    requestAnimationFrame(() => {
+      el.style.height = height;
+    });
+    setTimeout(() => {
+      el.style.height = 'auto';
+      // this._trigger.classList.add('active');
+    }, this._duration);
+  }
+
+  closeOthers() {
+    document.querySelectorAll('custom-detail').forEach(detail => {
+      if (detail !== this && detail._content && window.getComputedStyle(detail._content).display !== 'none') {
+        detail.slideUp();
+        detail._trigger.classList.remove('active');
+      }
+    });
+  }
+
+  toggle() {
+    const el = this._content;
+    if (window.getComputedStyle(el).display === 'none') {
+      this.closeOthers();
+      this.slideDown();
+    } else {
+      this.slideUp();
+    }
+  }
+}
+
+customElements.define('custom-detail', Detail);

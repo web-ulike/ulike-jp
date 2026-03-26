@@ -1,21 +1,32 @@
 <style>
+    #shopify-section-{{ section.id }} {
+    --section-width: {{ section.settings.container_width }}px;
+  }
 .pin-active-icon{
     position: fixed;
-    bottom: 43%;
+    bottom: 28%;
     right: 2rem;
     display: inline-block;
     cursor: pointer;
     z-index: 1000;
     transition: opacity 0.3s ease;
 }
-  
+  .pin-active-icon-inner img{
+  max-width: var(--section-width);
+  }
 @media only screen and (max-width: 992px) {
+  .pin-active-icon{
+    bottom: 22%;
+}
+    #shopify-section-{{ section.id }} {
+    --section-width: {{ section.settings.mobile_container_width }}px;
+  }
 }
 </style>
 <section class="pin-active-icon-inner">
     {%- if section.settings.logo_image -%}
         <a href="{{ section.settings.link_url }}">
-            <img src="{{  section.settings.logo_image | image_url }}" alt="{{ section.settings.logo_image.alt }}">
+            <img src="{{  section.settings.logo_image | image_url }}" alt="{{ section.settings.logo_image.alt }}" width="{{  section.settings.logo_image.width  | divided_by: 2  }}" height="{{  section.settings.logo_image.height  | divided_by: 2  }}">
         </a>
       {%- endif -%}
   </section>
@@ -33,7 +44,27 @@
       "type": "url",
       "id": "link_url",
       "label": "Button Link"
-    }
+    },
+    {
+  "type": "range",
+  "id": "container_width",
+  "label": "内容宽度",
+  "min": 50,
+  "max": 500,
+  "step": 10,
+  "default": 100,
+  "unit": "px"
+},
+    {
+  "type": "range",
+  "id": "mobile_container_width",
+  "label": "移动端内容宽度",
+  "min": 40,
+  "max": 200,
+  "step": 2,
+  "default": 40,
+  "unit": "px"
+}
   ],
   "blocks": [
   ],

@@ -1,6 +1,7 @@
 <style>
 .technology-trusted {
   padding-top: 50px;
+  padding-bottom:50px;
   background: #f6f6f6;
 }
 
@@ -62,7 +63,16 @@
 .technology-trusted .technology-trusted-arraws {
   display: none;
 }
-
+.technology-skin-text-note{
+color:  #190A0A;
+opacity: 0.5;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 2;
+margin-top:20px;
+text-align: center;
+}
 @media (max-width: 991px) {
   .technology-trusted {
     padding: 40px 0 16px 0;
@@ -151,6 +161,11 @@
           {%- endfor -%}
         </div>
       </div>
+       {%- if section.settings.note != blank -%}
+                    <div class="technology-skin-text-note">
+                      {{ section.settings.note }}
+                    </div>
+                  {%- endif -%}
       {%- if section.blocks.size > 1 -%}
         <div class="technology-trusted-arraws">
           <div class="technology-trusted-arraw technology-trusted-arraw-prev">
@@ -218,7 +233,12 @@
       "type": "text",
       "id": "text",
       "label": "Title"
-    }
+    },
+     {
+          "type": "richtext",
+          "id": "note",
+          "label": "Note"
+        }
   ],
   "presets": [
     {

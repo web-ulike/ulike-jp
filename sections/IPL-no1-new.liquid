@@ -29,6 +29,7 @@
   }
 
   .IPL-no1 .IPL-no1-color-title {
+    display:flex;
     font-size: 130px;
     color: rgba(0, 0, 0, 0);
     line-height: 1;
@@ -38,6 +39,11 @@
     background-image: linear-gradient(var(--deg-num), #be0737, #ff5f88);
     background-size: 100% 100%;
     font-family: var(--font-sans-family);
+  }
+  .IPL-no1 .IPL-no1-color-title span{
+  font-size: 35px;
+line-height: 1;
+
   }
 
   .IPL-no1 .IPL-no1-right {
@@ -115,6 +121,9 @@ line-height: 120%;
   }
   .IPL-no1 .IPL-no1-num span.num_scroll{
      font-family: var(--font-sans-family);
+  }
+  .sp3_ico{
+  font-size: 17px;
   }
   @media (max-width:1700px) {
     .IPL-no1 .IPL-no1-color-title{
@@ -258,6 +267,13 @@ font-size: 28px;
     .IPL-no1 .IPL-no1-item .ipl-icon{
        width:33px;
      }
+     .IPL-no1 .IPL-no1-color-title span{
+     font-size: 14px;
+     letter-spacing:normal;
+    }
+       .sp3_ico{
+  font-size: 10px;
+  }
   }
 
   @media (max-width:640px) {
@@ -278,8 +294,9 @@ font-size: 28px;
     } */
     
     .des_ipl-rt{
-      text-align: center;
+      {% comment %} text-align: center; {% endcomment %}
       margin-top:23px;
+      font-size:10px;
     }
   }
 </style>
@@ -294,7 +311,7 @@ font-size: 28px;
             <img loading="lazy"  class="ipl-logo" width="" height="" {% render 'image-attributes', image: section.settings.image %}>
           {%- endif -%}
           <div class="IPL-no1-sub">{{ section.settings.text }}</div>
-          <div class="IPL-no1-color-title" style="--deg-num:-76deg;">{{ section.settings.text1 }}</div>
+          <div class="IPL-no1-color-title" style="--deg-num:-76deg;">{{ section.settings.text1 }} {% if section.settings.text2!=blank %} <span>{{section.settings.text2 }}</span> {% endif %}</div>
         </div>
         <div class="IPL-no1-right">
           {%- for block in section.blocks -%}
@@ -308,8 +325,9 @@ font-size: 28px;
                     <span class="num_scroll">{{ block.settings.text }}</span>
                   {%- endif -%}
                   <span class="small_txt">{{ block.settings.text1 }}</span>
+                  {% if block.settings.text2!=blank %} <span class="sp3_ico">{{block.settings.text3 }}</span> {% endif %}
                 </div>
-                <div class="IPL-no1-p">{{ block.settings.text2 }}</div>
+                <div class="IPL-no1-p">{{ block.settings.text2 }} </div>
               </div>
             </div>
           {%- endfor -%}
@@ -365,6 +383,11 @@ font-size: 28px;
       "id": "text1",
       "label": "Text"
     },
+     {
+      "type": "text",
+      "id": "text2",
+      "label": "Text"
+    },
     {
       "type": "text",
       "id": "des",
@@ -401,6 +424,11 @@ font-size: 28px;
       {
         "type": "text",
         "id": "text2",
+        "label": "Text"
+      },
+       {
+        "type": "text",
+        "id": "text3",
         "label": "Text"
       }
     ]

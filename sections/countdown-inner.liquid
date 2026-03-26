@@ -1,0 +1,160 @@
+<style>
+    .media-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px);
+  }
+@media screen and (max-width: 768px){
+  .media-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.mobile_padding_top }}px);
+    padding-bottom: calc({{ section.settings.mobile_padding_bottom }}px);
+  }
+}
+              /* 倒计时 start */
+              .countdown-inner{
+                background: #000;
+              }
+             .countdown-inner .countdown-wrapper{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+              }
+           .countdown-inner .countdown-ulike {
+                display: flex;
+                align-items: center;
+                font-size: 21px;
+                gap: 6px;
+                justify-content: center;
+              }
+
+            .countdown-inner  .countdown-label {
+                font-size: 18px;
+                color: #FFFFFC;
+                padding-right: 4px;
+              }
+
+              .countdown-inner .countdown-box {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 36px;
+                height: 36px;
+                background: #FFFFFC;
+                 color: #190A0A;
+                border-radius: 5px;
+              }
+
+              .countdown-inner .countdown-separator {
+                font-size: 21px;
+                color: #FFFFFC;
+              }
+              .countdown-inner .countdown-label-wrapper{
+                display: flex;
+                gap: 6px;
+                margin-top: 5px;
+              }
+            .countdown-inner  .countdown-fx{
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+              }
+             .countdown-inner .time-label{
+                display: block;
+                font-size: 15px;
+                color: #fff;
+                width: 36px;
+                text-align: center;
+              }
+              .countdown-inner .time-label-sep{
+                display: block;
+                width: 5px;
+              }
+   /* 倒计时 end */
+</style>
+  <section>
+        <div class="countdown-inner media-{{ section.id }}-padding">
+        <div class="container">
+        <div class="countdown-wrapper">
+          <div class="countdown-fx">
+          <countdown-timer1 end-time="{{section.settings.end_time }}" label="{{section.settings.end_label }}" class="countdown-ulike">
+          </countdown-timer1>
+          <div class="countdown-label-wrapper">
+          <span class="time-label">日</span>
+            <span class="time-label-sep"></span>
+              <span class="time-label">時間</span>
+              <span class="time-label-sep"></span>
+                <span class="time-label">分</span>
+                <span class="time-label-sep"></span>
+        <span class="time-label">秒</span>
+
+          </div>
+          </div>
+        </div>
+        </div>
+        </div>
+       </section>
+{% schema %}
+{
+  "name": "countdown-inner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "end_time",
+      "label": "End Time",
+      "info": "格式：2025-11-14 24:00:00"
+    },
+     {
+      "type": "text",
+      "id": "end_label",
+      "label": "End Label"
+    },
+     {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 300,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 300,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 0
+    },
+     {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Bottom",
+      "default": 0
+    }
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "countdown-inner"
+    }
+  ]
+}
+{% endschema %}

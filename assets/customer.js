@@ -180,3 +180,4 @@ function addToCart(productId, button, properties，quantity =1) {
      console.error('Error adding product to cart:', error);
    });
 }
+

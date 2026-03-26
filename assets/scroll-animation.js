@@ -219,3 +219,122 @@ function animateNumber(element, start, end, duration) {
   };
   requestAnimationFrame(step);
 }
+
+
+
+/**
+ * Shopify Buy Now Web Component (Light DOM Version, No Shadow Root)
+ * 
+ * 使用方法：
+ * 1. 在 HTML 中添加 <shopify-buy-now product-id="123456" variant-id="789012">自定义按钮 HTML</shopify-buy-now>
+ *    - 如果提供内容（如 <button>现在购买</button>），组件会添加 click 事件到子按钮。
+ *    - 如果不提供内容，会创建默认按钮。
+ * 2. product-id 和 variant-id 是必需的。
+ * 3. button-text 属性仅用于 fallback 按钮文本。
+ * 4. 依赖 Shopify 的 AJAX Cart API。
+ * 
+ * 样式建议：使用外部 CSS 针对 .shopify-buy-now button { ... } 来自定义外观。
+ * 注意：Light DOM 中样式不隔离，请在主题 CSS 中定义类。
+ */
+
+class ShopifyBuyNow extends HTMLElement {
+  constructor() {
+    super();
+    this._defaultButtonCreated = false;
+  }
+
+  connectedCallback() {
+    this.render();
+    // 监听组件的 click 事件
+    this.addEventListener('click', this.handleBuyNow.bind(this));
+  }
+
+  static get observedAttributes() {
+    return ['product-id', 'variant-id', 'button-text'];
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (oldValue !== newValue) {
+      this[name] = newValue;
+      if (!this._defaultButtonCreated) {
+        this.render();
+      }
+    }
+  }
+
+  get productId() {
+    return this.getAttribute('product-id');
+  }
+
+  get variantId() {
+    return this.getAttribute('variant-id');
+  }
+
+  get buttonText() {
+    return this.getAttribute('button-text') || '今すぐ購入';
+  }
+
+  render() {
+    // 检查是否有子内容（自定义按钮）
+    const hasCustomContent = this.children.length > 0;
+
+    if (!hasCustomContent && !this._defaultButtonCreated) {
+      // 创建默认按钮
+      const button = document.createElement('button');
+      button.className = 'buy-now-btn';
+      button.textContent = this.buttonText;
+      this.appendChild(button);
+      this._defaultButtonCreated = true;
+    }
+
+    // 添加类到宿主元素，用于外部 CSS 针对性
+    this.classList.add('shopify-buy-now');
+  }
+
+  async handleBuyNow(event) {
+    // 确保只处理按钮点击（忽略其他子元素）
+    const button = event.target.closest('button');
+    if (!button || !this.contains(button)) return;
+
+    // 禁用按钮
+    button.disabled = true;
+    const originalText = button.textContent;
+    // button.textContent = originalText.includes('今すぐ購入') || originalText.includes('立即购买') ? '添加中...' : originalText.replace(/今すぐ購入|今すぐ購入/, '添加中...');
+
+    if (!this.variantId) {
+      console.error('Variant ID is required');
+      this.resetButton(button, originalText);
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+      formData.append('id', this.variantId);
+      formData.append('quantity', 1);
+
+      const response = await fetch('/cart/add.js', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to add to cart');
+      }
+
+      window.location.href = '/checkout';
+    } catch (error) {
+      console.error('Buy Now error:', error);
+      this.resetButton(button, '立即购买失败');
+    }
+  }
+
+  resetButton(button, text) {
+    if (button) {
+      button.disabled = false;
+      button.textContent = text || this.buttonText;
+    }
+  }
+}
+
+// 注册自定义元素
+window.customElements.define('shopify-buy-now', ShopifyBuyNow);

@@ -193,7 +193,7 @@ font-size: 20px;
 
                        {%- for block in section.blocks -%}
                       <div class="doctor-list swiper-slide">
-                        <div class="doctor-top">
+                        <div class="doctor-top" {% if  block.settings.background %}style="background:{{ block.settings.background }}"{% endif %}>
                          <picture>
                          {%- if block.settings.image_mobile -%}
                             <source media="(max-width: 767px)" srcset="{{ block.settings.image_mobile | image_url }}">
@@ -327,7 +327,12 @@ font-size: 20px;
       "type": "richtext",
       "id": "txt1",
       "label": "Text1"
-    }
+    },
+        {
+      "type": "color_background",
+      "id": "background",
+      "label": "Background"
+    },
         ]
       }
   ],

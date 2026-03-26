@@ -1,0 +1,228 @@
+<style>
+     #shopify-section-{{ section.id }} {
+      --section-background: {{ section.settings.background }};
+       background: var(--section-background);
+   }
+.media-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px);
+  }
+@media screen and (max-width: 768px){
+  .media-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.mobile_padding_top }}px);
+    padding-bottom: calc({{ section.settings.mobile_padding_bottom }}px);
+  }
+}
+
+.blf-bg-box{
+    position: relative;
+   }
+   .blf-bg-box .blf-bg-cnt{
+    display: flex;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+   }
+   .blf-bg-box .blf-bg-cnt .blf-bg-inner{
+    color: #FFFFFC;
+    margin-left: 145px;
+    max-width: 600px;
+   }
+   .blf-bg-inner h2{
+    color: #FFFFFC;
+font-size: 40px;
+font-style: normal;
+font-weight: 400;
+line-height: 125%;
+margin-bottom: 23px;
+   }
+   .blf-bg-inner .blf-bg-txt{
+color: #FFF;
+text-align: justify;
+font-size: 18px;
+font-style: normal;
+line-height: 150%;
+letter-spacing: 0.9px;
+margin-bottom: 46px;
+   }
+    .blf-bg-inner  .blf-bg-link{
+      display: inline-flex;
+height: 58px;
+padding: 19px 72px 18px 72px;
+justify-content: center;
+align-items: center;
+background: #E0004D;
+color: #FFF;
+text-align: center;
+font-size: 20px;
+font-style: normal;
+font-weight: 500;
+line-height: 21px;
+    }
+      .blf-bg-inner  .blf-bg-link:hover{
+        background: #A10112;
+      }
+
+      @media screen and (max-width: 991px) {
+        .blf-bg-section{
+          --container-gutter:0;
+        }
+        .gift-pic img{
+          width: 100%;
+          object-fit: cover;
+        }
+        .blf-bg-box .blf-bg-cnt{
+          align-items: flex-start;
+        }
+        .blf-bg-box .blf-bg-cnt .blf-bg-inner{
+          margin: 0;
+          padding: 63px 20px ;
+        }
+        .blf-bg-inner h2{
+          font-size: 28px;
+          margin-bottom: 17px;
+        }
+        .blf-bg-inner .blf-bg-txt{
+          font-size: 16px;
+          margin-bottom: 40px;
+        }
+        .blf-bg-inner .blf-bg-link{
+          padding: 14.118px 43.499px 12.882px 44.501px;
+          font-size: 15px;
+          height:43px;
+        }
+      }
+</style>
+  
+          <section class="blf-bg-section">
+            <div class="jp-container">
+              <div class="blf-bg-box">
+                <picture class="gift-pic">
+                        {%- if section.settings.image_mobile -%}
+                            <source media="(max-width: 767px)" srcset="{{ section.settings.image_mobile | image_url }}">
+                                 {%- endif -%}
+                             {%- if section.settings.image -%}
+                            <img src="{{ section.settings.image | image_url }}" alt="{{ section.settings.image.alt }}">
+                            {%- endif -%}
+                      </picture>
+                <div class="blf-bg-cnt to-top">
+                  <div class="blf-bg-inner">
+                    <h2>{{ section.settings.tle }}</h2>
+                  <div class="blf-bg-txt">{{ section.settings.txt }}</div>
+                  <a href="{{  section.settings.link_url  }}" class="blf-bg-link">{{ section.settings.link_text }}</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+{% schema %}
+{
+  "name": "blf-bg-box",
+  "blocks": [
+       
+  ],
+  "settings": [
+      {
+        
+        "type": "text",
+        "id": "custom_class",
+        "label": "Custom Class"
+      },
+    {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Images"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_mobile",
+        "label": "Mobile Images"
+      },
+     {
+        
+        "type": "text",
+        "id": "tle",
+        "label": "Title"
+      },
+           {
+        
+        "type": "richtext",
+        "id": "txt",
+        "label": "Text"
+      },
+     
+        {
+      "type": "url",
+      "id": "link_url",
+      "label": "Button Link"
+    },
+     {
+      "type": "text",
+      "id": "link_text",
+      "label": "Button Link Text"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button Background",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#fff"
+    },
+     
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Mobile Padding Top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Mobile Padding Bottom",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "blf-bg-box"
+    }
+  ]
+}
+{% endschema %}

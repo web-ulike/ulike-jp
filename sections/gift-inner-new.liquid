@@ -1,0 +1,295 @@
+<style>
+      .media-{{ section.id }}-padding {
+      padding-top: calc({{ section.settings.padding_top }}px);
+      padding-bottom: calc({{ section.settings.padding_bottom }}px);
+    }
+  @media screen and (max-width: 768px){
+    .media-{{ section.id }}-padding {
+      padding-top: calc({{ section.settings.mobile_padding_top }}px);
+      padding-bottom: calc({{ section.settings.mobile_padding_bottom }}px);
+    }
+  }
+
+    .gift-box1{
+      display: flex;
+      justify-content: space-between;
+      gap: 40px;
+    }
+    .gift-box1 h3{
+      color: #190A0A;
+font-size: 45px;
+font-style: normal;
+font-weight: 400;
+line-height: 1.2; 
+letter-spacing: 2.25px;
+    }
+    .gift-box1 .gift-box1-p{
+      color: #000;
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: 1.5;
+margin-top: 27px;
+    }
+    .gift-box1-lt{
+      max-width: 580px;
+      padding-top: 70px;
+          flex: 1;
+    }
+     .gift-box1-rt{
+      width: 49%;
+     }
+     .gift-box1-txt{
+      color: #000;
+text-align: center;
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: 1.5;
+margin-top: 20px;
+     }
+     .gift-box1 .gift-box1-p strong{
+      font-style: normal;
+font-weight: 400;
+position: relative;
+     }
+      .gift-box1 .gift-box1-p strong:after{
+content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(0deg, #FFE0EB 0%, #FFE0EB 100%), linear-gradient(0deg, #FFE0EB 0%, #FFE0EB 100%), linear-gradient(0deg, #FFE0EB 0%, #FFE0EB 100%), #FFE0EB;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+      }
+      .gift-box2{
+        display: flex;
+        gap: 20px;
+        padding-top: 80px;
+      }
+      .gift-box2 .gift-box2-p{
+                font-family: var(--font-heading-family);
+        color: #190A0A;
+        text-align: center;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1.5;
+        margin-top: 21px;
+      }
+      .gift-box-note{
+        color: #000;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 1.5; 
+letter-spacing: 1.2px;
+margin-top: 120px;
+      }
+          @media (max-width: 991px) {
+            .gift-box1{
+              flex-direction: column;
+              text-align: center;
+              align-items: center;
+              gap: 40px;
+            }
+            .gift-box1 h3{
+              font-size: 28px;
+            }
+            .gift-box1 .gift-box1-p{
+              font-size: 12px;
+              margin-top: 12px;
+            }
+            .gift-box1-txt{
+              font-size: 15px;
+              margin-top: 14px;
+            }
+            .gift-box2{
+                  gap: 10px;
+    padding-top: 17px;
+    flex-wrap: wrap;
+            }
+             .gift-box2 .gift-box-item{
+              flex-basis: calc((100% - 10px)/2);
+             }
+             .gift-box2 .gift-box2-p{
+              font-size: 14px;
+
+             }
+             .gift-box-note{
+              color: rgba(25, 10, 10, 0.70);
+              font-size: 9px;
+              margin-top: 33px;
+             }
+             .gift-box1-rt {
+    width: 100%;
+}
+.gift-box1-lt {
+    padding-top: 0px;
+}
+          }
+</style>
+<section>
+ <div class="gift-section media-{{ section.id }}-padding">
+      <div class="jp-container">
+        <div class="gift-section-wrapper"> 
+          <div class="gift-box1 to-top">
+            <div class="gift-box1-lt">
+            {% if section.settings.tle != blank %}
+              <h3>{{ section.settings.tle }}</h3>
+            {% endif %}
+             {% if section.settings.txt != blank %}
+              <div class="gift-box1-p">{{ section.settings.txt }}</div>
+                {% endif %}
+            </div>
+            <div class="gift-box1-rt">
+             <picture class="">
+                {% if section.settings.mobile_image %}
+                  <source media="(max-width: 767px)" srcset="{{ section.settings.mobile_image | image_url }}">
+                {% endif %}
+                {% if section.settings.image %}
+                  <img src="{{ section.settings.image | image_url }}" alt="">
+                {% endif %}
+              </picture>
+                {% if section.settings.img_txt != blank %}
+              <p class="gift-box1-txt">{{ section.settings.img_txt }}</p>
+               {% endif %}
+            </div>
+          </div>
+           <div class="gift-box2 to-top">
+
+             {% for block in section.blocks %}
+            <div class="gift-box-item">
+               <picture class="">
+                {% if block.settings.mobile_image %}
+                  <source media="(max-width: 767px)" srcset="{{ block.settings.mobile_image | image_url }}">
+                {% endif %}
+                {% if block.settings.image %}
+                  <img src="{{ block.settings.image | image_url }}" alt="">
+                {% endif %}
+              </picture>
+                 {% if block.settings.text != blank %}
+              <p class="gift-box2-p">{{ block.settings.text }}</p>
+               {% endif %}
+            </div>
+             {% endfor %}
+          </div>
+              {% if section.settings.note != blank %}
+          <div class="gift-box-note to-top">
+            {{ section.settings.note }}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+</section>
+{% schema %}
+{
+  "name": "gift-inner-new",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tle",
+      "label": "Title"
+    },
+
+        {
+      "type": "richtext",
+      "id": "txt",
+      "label": "Text"
+    },
+  {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile Image"
+        },
+           {
+      "type": "text",
+      "id": "img_txt",
+      "label": "Images Text"
+    },
+    {
+      "type": "richtext",
+      "id": "note",
+      "label": "Note"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 300,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 300,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Bottom",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile Image"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "gift-inner-new"
+    }
+  ]
+}
+{% endschema %}

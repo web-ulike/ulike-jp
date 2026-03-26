@@ -1,0 +1,880 @@
+<style>
+   #shopify-section-{{ section.id }} {
+      --section-background: {{ section.settings.background }};
+     --cnt-background:{{ section.settings.cnt_background }};
+     --logo-width:calc({{ section.settings.logo_width }}px);
+       background: var(--section-background);
+   }
+.media-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px);
+  }
+
+@media screen and (max-width: 768px){
+  .media-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.mobile_padding_top }}px);
+    padding-bottom: calc({{ section.settings.mobile_padding_bottom }}px);
+  }
+     #shopify-section-{{ section.id }} {
+      --mobile-section-background: {{ section.settings.mobile_background }};
+       background: var(--mobile-section-background);
+   }
+}
+
+/* home_md3 样式 */
+.slide-to-left:before {
+    background: #fff;
+
+}
+
+
+.home-md3_item{
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  /* gap: 130px; */
+}
+.home-md3_item.home-md3_item--reverse{
+  flex-direction: row-reverse;
+}
+.home-md3_item .pic{
+/* max-width: 488px; */
+width: 50%;
+      overflow: hidden;
+}
+.home-md3_item .home-md3-bix{
+  width: 50%;
+  display: flex;
+  align-items: center;
+  /* padding: 50px 86px; */
+  padding: 46px 40px;
+}
+.home-md3_right {
+  max-width: 600px;
+}
+.home-md3_right .sub_he{
+  font-size: 12px;
+  margin-bottom: 40px;
+}
+.home-md3_right h3{
+  margin-bottom: 23px;
+  color: #000;
+font-size: 40px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+}
+
+.home-md3_right .md3-ul_txt{
+ color:  #3F3636;
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+  margin-bottom: 10px;
+}
+.home-md3_right .md3-ul_txt.txt__wrap p{
+      display: flex;
+    flex-direction: column;
+}
+  .home-md3_right .md3-note_txt{
+color:  #B2B2B2;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}
+.home-md3_right .review-name{
+  font-size: 14px;
+  text-align: right;
+}
+.home-md3_right  .review_svg{
+  position: absolute;
+  top: -50%;
+  left: -30%;
+}
+.home-md3_right  .review_svg.review_svgrt{
+  left: auto;
+  right: -27%;
+  top: auto;
+  bottom: -20%;
+}
+/* .home-md3_right .md3-ul_txt p{
+  margin-bottom: 24px;
+} */
+.home-md3_right .md3-ul_txt p:not(:last-child){
+  margin-bottom: 24px;
+}
+.home-md3_right .md3-ul_txt p strong{
+  font-weight: 450;
+  font-style: normal;
+}
+
+.home-md3_right .review-txt-box{
+  position: relative;
+  /* margin-top: 130px; */
+  color: #030049;
+  max-width: 355px;
+  /* margin-left: auto; */
+  margin: 130px auto 0;
+}
+.home-md3_right .review-txt-box .review-txt{
+  font-weight: 450;
+letter-spacing: -0.48px;
+margin-bottom: 28px;
+}
+.home-md3_right .md3_txt{
+  font-size: 24px;
+font-weight: 450;
+letter-spacing: -0.72px;
+}
+.md3_pic{
+  margin-bottom: 30px;
+}
+ .logo_img__pic{
+  display: inline-block;
+  max-width:var(--logo-width);
+}
+.bg-md3{
+  background: linear-gradient(180deg, #FFF 0%, #CED8EA 100%);
+}
+.home-md3-bix .md3-ul__imgs{
+  display: flex;
+  margin-bottom: 40px;
+}
+.md3-li-img .md3-li-txt{
+  font-weight: 450;
+line-height: normal;
+letter-spacing: -0.48px;
+margin-top: 24px;
+position: relative;
+padding-left: 12px;
+}
+.md3-li-img .md3-li-txt::before{
+content: '';
+height: calc(100% - 10px);
+width: 2px;
+position: absolute;
+display: block;
+left: 0;
+background: #CED8EA;
+top: 50%;
+transform: translateY(-50%);
+}
+.md3-ul__ttx {
+  display: flex;
+  gap: 15px;
+}
+.md3-ul__ttx .ttx-li{
+  flex: 1;
+}
+.md3-ul__ttx h5{
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #000;
+  color: #000;
+}
+.home-md3_item .pic {
+  position: relative;
+}
+.md3__line1{
+  position: absolute;
+  width: 30%;
+  height: 46%;
+  border: 1px solid #CED8EA;
+  top: 25%;
+  left: 24%;
+    border-radius: 50%;
+    transform: rotate(15deg);
+    transition: transform 1.2s ease-out;
+}
+.md3__line2{
+  position: absolute;
+    width: 40%;
+    height: 58%;
+    border: 1px solid #CED8EA;
+    top: 19%;
+    left: 19%;
+  border-radius: 50%;
+  transform: rotate(15deg);
+  transition: transform 1.2s ease-out;
+}
+.md3__line3{
+  position: absolute;
+    width: 50%;
+    height: 75%;
+    border: 1px solid #CED8EA;
+    top: 11%;
+    left: 13%;
+    border-radius: 50%;
+    transform: rotate(15deg);
+    transition: transform 1.2s ease-out;
+}
+.roate-img picture img{
+  transform: rotate(-13deg);
+transition: all 1.2s ease-in-out;
+}
+
+.roate-img.appear picture img{
+transform: rotate(0deg);
+}
+
+.roate-img .line-scale{
+transform: rotate(15deg) scale(0.8);
+transition: all 1.2s ease-in-out;
+}
+
+.roate-img.appear .line-scale{
+transform: rotate(15deg) scale(1);
+}
+.home-md3_item .home-md3-bix.mobile-home-md3-bix__bg{
+  padding: 46px 20px;
+}
+picture{
+display:block;
+}
+.home_md3 .btn-link{
+display: inline-flex;
+padding: 14px 60px;
+justify-content: center;
+align-items: center;
+gap: 10px;
+border-radius: var(--br);
+background:  var(--bg);
+color: var(--cr);
+text-align: center;
+font-size: 20px;
+font-style: normal;
+margin-top:20px;
+margin-bottom:60px;
+}
+@media screen and (max-width:992px) {
+  .home-md3_item .video-wrapper {
+  aspect-ratio: 0.5165745856353591;
+    width:100%;
+  }
+}
+@media screen and (max-width:767px) {
+  .home-md3_right {
+    background:var(--cnt-background);
+  }
+  .home-md3_item {
+    flex-direction: column;
+    position: relative;
+  }
+  .home-md3_item .pic,.home-md3_item .home-md3-bix{
+    width: 100%;
+  }
+  .home-md3_item .home-md3-bix{
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    /* padding: 36px 20px; */
+    justify-content: center;
+  }
+  .home-md3_item.mobile-home-md3-txt_item_center .home-md3-bix{
+     top: 50%;
+    transform: translateY(-50%);
+  }
+   .home-md3_item.mobile-home-md3-txt_item_bottom .home-md3-bix{
+     top: auto;
+    bottom:0;
+  }
+  .home-md3_right .sub_he{
+    font-size: 10px;
+    margin-bottom: 18px;
+    text-align: center;
+  }
+  .home-md3_right h3 {
+    font-size: 28px;
+    margin-bottom: 14px;
+}
+.home-md3_right .md3-ul_txt{
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.home-md3_right .md3_txt{
+  font-size: 20px;
+}
+.md3_pic{
+  margin-bottom: 18px;
+  text-align: center;
+}
+/* .home-md3_right .md3-ul_txt p{
+  margin-bottom: 18px;
+} */
+  .home-md3_right .md3-ul_txt p:not(:last-child){
+  margin-bottom: 18px;
+}
+  
+.mdtes .home-md3_item .home-md3-bix{
+padding: 20px;
+height: 100%;
+}
+.mdtes .home-md3_right{
+  background: rgba(255, 255, 255, 0.70);
+  padding: 36px 22px;
+}
+.home-md3_right .review_svg {
+max-width: 64px;
+left: 0;
+top: -80%;
+}
+.home-md3_right .review_svg.review_svgrt{
+  right: 0;
+  bottom: -80%;
+}
+.home-md3_right .review-txt-box {
+  margin-bottom: 60px;
+  margin-top: 80px;
+  text-align: left;
+}
+.nopos .home-md3_item .home-md3-bix{
+  position: static;
+}
+.nopos .home-md3_item.home-md3_item--reverse {
+  flex-direction: column;
+}
+.nopos.mb--reverse .home-md3_item {
+  flex-direction: column-reverse;
+}
+.md3-ul__ttx{
+  flex-direction: column;
+}
+.md3-ul__ttx h5{
+  text-align: center;
+}
+.home-md3_box.item__fx .home-md3_item{
+  flex-direction: column;
+}
+.home-md3_box.item__fx .home-md3_item.mobile-home-md3_item_bottom{
+  flex-direction: column-reverse;
+}
+  .home-md3_box.item__fx .home-md3_item .home-md3-bix{
+    position: static;
+        padding:64px 0 24px;
+                width: 100%;
+        justify-content: left;
+        padding-left:0;
+  }
+
+ .home-md3_box.item__fx .home-md3_item .pic.roate-img {
+    transform: rotate(54deg);
+}
+  .mobile-home-md3-cnt__bg{
+      padding: 36px 25px;
+     background: var(--cnt-background);
+  }
+  .home-md3_box.container.mobile_container--full{
+    padding-left:0;
+    padding-right:0;
+  }
+  .home-md3_right{
+        text-align: left;
+  }
+  .md3-ul_txt.mobile-visbile{
+    display:none;
+  }
+  .home-md3-bix .md3-ul__imgs{
+    margin-top: 30px;
+  }
+  .md3-li-img img{
+    width: 55%;
+  }
+  .md3-li-img .md3-li-txt {
+    text-align: left;
+}
+.home_md3 .btn-link{
+    display:block;
+          width: max-content;
+padding: 11px 45px;
+font-size: 15px;
+margin:40px auto;
+}
+}
+
+ @media screen and (min-width: 741px) {
+       .home-md3_item .home-md3-bix,.home-md3_item .home-md3-bix.mobile-home-md3-bix__bg {
+        padding: 46px 36px;
+    }
+    .home-md3_item.home-md3_item--reverse .home-md3-bix {
+        padding-left: 0;
+  }
+  }
+   @media screen and (min-width: 767px) {
+    .home-md3_item.home-md3_item--reverse .home-md3-bix {
+        padding-left: 0;
+  }
+  }
+
+  @media screen and (min-width: 1200px) {
+       .home-md3_item .home-md3-bix,.home-md3_item .home-md3-bix.mobile-home-md3-bix__bg {
+        padding: 50px 86px;
+    }
+  }
+.home-md3_item.home-md3_item--reverse .home-md3-bix {
+
+}
+
+</style>
+   <section>
+      <div class="home_md3 media-{{ section.id }}-padding">
+            <div class="home-md3_box jp-container {% if section.settings.stack_mobile -%}item__fx{% endif %} {% unless section.settings.mobile_background_type == 'boxed' %}mobile_container--full{% endunless %}">
+              <div class="mobile-home-md3-txt_item_{{ section.settings.mobile_text_position }} mobile-home-md3_item_{{ section.settings.mobile_image_position }} home-md3_item{% if section.settings.image_position == 'right' %} home-md3_item--reverse{% endif %}">
+                <div class="pic{% if section.settings.is_roate %} roate-img{% endif %}">
+
+                  
+                 {%- if section.settings.video != blank -%}
+                   {%- assign video_url = section.settings.video -%}
+
+                  {%- if request.user_agent contains "Mobile" and section.settings.mobile_video != blank -%}
+                    {%- assign video_url = section.settings.mobile_video -%}
+                  {%- endif -%}
+                  <native-video class="video-wrapper video-wrapper--native" autoplay style="--aspect-ratio: {{ section.settings.video.aspect_ratio }}">
+                    {{- video_url | video_tag: controls: false, autoplay: false, playsinline: true, muted: true, loop: true -}}
+                  </native-video>
+                {%- else -%}
+                <picture class="{% unless section.settings.is_roate -%}slide-to-{{ section.settings.image_position }}{% endunless %}">
+                  {%- if section.settings.image_mobile -%}
+                  <source media="(max-width: 767px)" srcset="{{ section.settings.image_mobile | image_url}}">
+                    {%- endif -%}
+                  {%- if section.settings.image -%}
+                  <img src="{{ section.settings.image | image_url }}" class=""  alt="{{ section.settings.image.alt }}">
+                  {%- endif -%}
+                      </picture>
+
+                    {%- if section.settings.is_roate -%}
+                        <div class="md3__line1 line-scale"></div>
+                      <div class="md3__line2 line-scale"></div>
+                      <div class="md3__line3 line-scale"></div>
+                      {%- endif -%}
+              {%- endif -%}
+                  
+                </div>
+                <div class="home-md3-bix {% if section.settings.cnt_background != blank %}mobile-home-md3-bix__bg{% endif %}">
+                  <div class="home-md3_right to-top {% if section.settings.cnt_background != blank %}mobile-home-md3-cnt__bg{% endif %}">
+                      {%- if section.settings.logo_image -%}
+                          <div class="md3_pic">
+                            <picture class="logo_img__pic">
+                              {%- if section.settings.logo_image_mobile -%}
+                              <source media="(max-width: 767px)" srcset="{{ section.settings.logo_image_mobile | image_url}}">
+                                {%- endif -%}
+                              {%- if section.settings.logo_image -%}
+                              <img src="{{ section.settings.logo_image | image_url }}" alt="{{ section.settings.logo_image.alt }}"  width="{{  section.settings.logo_image.width  | divided_by: 2  }}" height="{{  section.settings.logo_image.height  | divided_by: 2  }}">
+                              {%- endif -%}
+                            </picture>
+                        </div>
+                      {%- endif -%}
+                     {%- if section.settings.subtle != blank -%}
+                    <div class="sub_he">{{ section.settings.subtle }}</div>
+                          {%- endif -%}
+                     {%- if section.settings.tle != blank -%}
+                    <h3 class="h3">{{ section.settings.tle }}</h3>
+                        {%- endif -%}
+
+                    
+
+                    
+                     {%- if section.settings.txt != blank -%}
+                    <div class="md3-ul_txt {% if section.settings.mobile_hidden_content -%}mobile-visbile{% endif %} {% if section.settings.is_wrap -%}txt__wrap{% endif %}">
+                  {{ section.settings.txt }}
+                    </div>
+                        {%- endif -%}
+
+                          {%- if section.settings.link_text != blank -%}
+                      <a href="{{ section.settings.link_url }}" target="_blank" class="btn-link" style="--bg:{{ section.settings.button_background }};--cr:{{ section.settings.button_text_color }};--br:{{ section.settings.border_raidus }}px">{{ section.settings.link_text }}</a>
+                         {%- endif -%}
+
+                      {%- if section.settings.note != blank -%}
+                    <div class="md3-note_txt">
+                  {{ section.settings.note }}
+                    </div>
+                        {%- endif -%}
+
+                        
+                    
+
+                       {%- if section.settings.review != blank -%}
+                    <div class="review-txt-box">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="89" height="68" viewBox="0 0 89 68" fill="none" class="review_svg review_svglt">
+                    <path d="M86.3554 1.25839L86.1754 0.949782L85.8484 1.09367C59.3628 12.7473 46.7678 27.6502 46.7678 46.643C46.7678 52.6635 48.5076 57.7204 51.692 61.2775C54.8808 64.8394 59.4858 66.8605 65.1356 66.8605C73.8437 66.8605 80.0685 59.514 80.0685 51.1349C80.0685 43.5206 74.3456 37.259 65.9283 37.259C63.5691 37.259 60.684 38.0137 58.7401 39.5627L58.1683 39.2768C59.6088 27.8749 70.2895 13.6023 88.034 4.99101L88.4227 4.80235L88.205 4.42911L86.3554 1.25839ZM40.9082 1.25839L40.7282 0.949782L40.4012 1.09367C13.9156 12.7473 1.3206 27.6502 1.3206 46.643C1.3206 52.6635 3.06041 57.7204 6.24482 61.2775C9.43364 64.8394 14.0387 66.8605 19.6884 66.8605C28.3965 66.8605 34.6213 59.514 34.6213 51.1349C34.6213 43.5206 28.8984 37.259 20.4811 37.259C18.1219 37.259 15.2368 38.0137 13.2929 39.5627L12.7211 39.2768C14.1617 27.8749 24.8423 13.6023 42.5868 4.99101L42.9755 4.80235L42.7578 4.42911L40.9082 1.25839Z" stroke="currentColor" stroke-width="0.80069"></path>
+                  </svg>
+                  <div class="review-txt">{{ section.settings.review }}</div>
+                  <div class="review-name">{{ section.settings.autor }}</div>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="89" height="68" viewBox="0 0 89 68" fill="none" class="review_svg review_svgrt">
+                    <path d="M48.3501 66.3215L48.5301 66.6301L48.8572 66.4863C75.3427 54.8326 87.9377 39.9297 87.9377 20.9369C87.9377 14.9165 86.1979 9.85954 83.0135 6.30248C79.8247 2.7405 75.2196 0.719467 69.5699 0.719467C60.8618 0.719467 54.637 8.06594 54.637 16.445C54.637 24.0593 60.3599 30.321 68.7772 30.321C71.1364 30.321 74.0215 29.5663 75.9654 28.0172L76.5372 28.3031C75.0966 39.705 64.416 53.9776 46.6715 62.5889L46.2828 62.7776L46.5005 63.1508L48.3501 66.3215ZM2.90295 66.3215L3.08298 66.6301L3.41 66.4863C29.8956 54.8326 42.4906 39.9297 42.4906 20.9369C42.4906 14.9165 40.7508 9.85954 37.5663 6.30248C34.3775 2.7405 29.7725 0.719467 24.1227 0.719467C15.4147 0.719467 9.18988 8.06594 9.18988 16.445C9.18988 24.0593 14.9128 30.321 23.3301 30.321C25.6893 30.321 28.5743 29.5663 30.5182 28.0172L31.0901 28.3031C29.6495 39.705 18.9689 53.9776 1.22438 62.5889L0.835637 62.7776L1.05336 63.1508L2.90295 66.3215Z" stroke="currentColor" stroke-width="0.80069"></path>
+                  </svg>
+                </div>
+                            {%- endif -%}
+
+
+
+
+               {% if section.blocks.size > 1 and  section.blocks.first.settings.image %}
+                <div class="md3-ul__imgs">
+                   {%- for block in section.blocks -%}
+                <div class="md3-li-img" {{ block.shopify_attributes }}>
+                  <img src="{{ block.settings.image | image_url  }}" alt="{{block.settings.image.alt}}"  width="{{  block.settings.image.width  | divided_by: 2  }}" height="{{  block.settings.image.height  | divided_by: 2  }}">
+                  <div class="md3-li-txt">{{  block.settings.tle }}</div>
+                </div>
+                {%- endfor -%}
+              
+              </div>
+                  {%- endif -%}
+
+
+
+
+                  {% if section.blocks.size > 1 and  section.blocks.first.settings.fit_tle!= blank %}
+                   <div class="md3-ul__ttx">
+                      {%- for block in section.blocks -%}
+               <div class="ttx-li" {{ block.shopify_attributes }}>
+                <h5 class="h5">{{ block.settings.fit_tle }}</h5>
+                <div class="ttx-tle">{{ block.settings.fit_txt }}</div>
+               </div>
+                 {%- endfor -%}
+
+               
+              </div>
+                  {%- endif -%}
+                    
+           
+                    
+
+                       {%- if section.settings.text2 != blank -%}
+                      <div class="md3-ul_txt">
+                  {{ section.settings.text2 }}
+                    </div>
+                         {%- endif -%}
+
+                    
+
+                       {%- if section.settings.text1 != blank -%}
+                    <div class="md3_txt">{{ section.settings.text1 }}</div>
+                          {%- endif -%}
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+  </section>
+{% schema %}
+{
+  "name": "home-md3",
+  "class": "home-md3",
+  "blocks": [
+                {
+        "type": "item",
+        "name": "item",
+        "settings": [
+          {
+      "type": "text",
+      "id": "tle",
+      "label": "Title"
+    },
+           {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        },
+     {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile Images"
+        },
+            {
+      "type": "text",
+      "id": "fit_tle",
+      "label": "Fit Title"
+    },
+            {
+      "type": "text",
+      "id": "fit_txt",
+      "label": "Fit Text"
+    }
+        ]
+      }
+  ],
+  "settings": [
+     {
+          "type": "image_picker",
+          "id": "logo_image",
+          "label": "Image Logo"
+        },
+     {
+          "type": "image_picker",
+          "id": "logo_image_mobile",
+          "label": "Image Logo Mobile"
+        },
+     {
+  "id": "logo_width",
+  "type": "number",
+  "label": "Width (in px)",
+  "default": 400
+    },
+     {
+          "type": "text",
+          "id": "subtle",
+          "label": "SubTitle"
+        },
+     {
+          "type": "text",
+          "id": "tle",
+          "label": "Title"
+        },
+     {
+          "type": "richtext",
+          "id": "txt",
+          "label": "Text"
+        },
+     {
+          "type": "richtext",
+          "id": "note",
+          "label": "Note"
+        },
+    {
+          "type": "richtext",
+          "id": "text1",
+          "label": "Text1"
+        },
+      {
+          "type": "richtext",
+          "id": "text2",
+          "label": "Text2"
+        },
+    {
+          "type": "richtext",
+          "id": "review",
+          "label": "Review"
+        },
+     {
+          "type": "richtext",
+          "id": "autor",
+          "label": "Autor"
+        },
+     {
+      "type": "url",
+      "id": "link_url",
+      "label": "Button Link"
+    },
+     {
+      "type": "text",
+      "id": "link_text",
+      "label": "Button Link Text"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button Background",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#fff"
+    },
+     {
+          "type": "range",
+          "id": "border_raidus",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "border raidus",
+          "default": 0
+        },
+     {
+      "type": "select",
+      "id": "image_position",
+      "label": "Desktop image position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        },
+     {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile Images"
+        },
+        {
+      "type": "video",
+      "id": "video",
+      "label": "Video",
+      "info": "Replaces the external video if both are set."
+    },
+    {
+      "type": "video",
+      "id": "mobile_video",
+      "label": "Mobile Video",
+      "info": "Replaces the external video if both are set."
+    },
+     {
+      "type": "checkbox",
+      "id": "stack_mobile",
+      "label": "Stack on mobile",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "mobile_image_position",
+      "label": "Mobile image position",
+      "options": [
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        }
+      ],
+      "default": "top"
+    },
+
+    {
+      "type": "select",
+      "id": "mobile_text_position",
+      "label": "Mobile Content position",
+      "options": [
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        }
+      ],
+      "default": "top"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_roate",
+      "label": "Roate Images",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_show_bg",
+      "label": "Mobile Show Content Background",
+      "default": false
+    },
+     {
+      "type": "select",
+      "id": "mobile_background_type",
+      "label": "Mobile Background",
+      "options": [
+        {
+          "value": "full_width",
+          "label": "Full width"
+        },
+        {
+          "value": "boxed",
+          "label": "Boxed"
+        }
+      ],
+      "default": "boxed"
+    },
+      {
+      "type": "checkbox",
+      "id": "mobile_hidden_content",
+      "label": "Mobile Hidden Content",
+      "default": false
+    },
+     {
+      "type": "checkbox",
+      "id": "is_wrap",
+      "label": "Whether to wrap",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color_background",
+      "id": "cnt_background",
+      "label": "Content Background"
+    },
+     {
+      "type": "color_background",
+      "id": "background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+         {
+      "type": "color_background",
+      "id": "mobile_background",
+      "label": "mobile Background",
+      "default": "#ffffff"
+    },
+     {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 30
+    },
+     {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Top",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Mobile Padding Bottom",
+      "default": 10
+    }
+  ],
+  "presets": [
+    {
+      "name": "home-md3"
+    }
+  ]
+}
+{% endschema %}

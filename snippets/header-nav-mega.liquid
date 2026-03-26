@@ -33,6 +33,15 @@
                 
                         {%- if menu_tag_downcase == link_title_downcase -%}
                           {%- assign menu_tag_block =  block.settings.code_txt | escape -%}
+
+                           {% comment %} {%- assign product = block.settings.product  -%}
+                            {%- if product.compare_at_price > product.price   -%}
+                            {%-  assign discount_amount = product.compare_at_price | minus: product.price  -%}
+                            {%- assign discount_percentage = discount_amount | times: 100 | divided_by: product.compare_at_price  -%}
+                            {%- endif -%} {% endcomment %}
+
+
+
                           {%- break -%}
                         {%- endif -%}
                       {%- endfor -%}
@@ -45,6 +54,10 @@
                          <div class="product-tag__box">
                            {{ menu_tag_block  }}
                          </div>
+                          {% comment %} {%- elsif menu_tag_block == '' and discount_percentage != blank  -%}
+                            <div class="product-tag__box">
+                                {{ discount_percentage | round }}%OFF
+                          </div> {% endcomment %}
                       {%- endif -%}
                     </li>
                   {%- endfor -%}

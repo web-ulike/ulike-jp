@@ -1,0 +1,274 @@
+<style>
+.shopify-product-container { display: flex; gap: 20px; }
+.shopify-product-images { flex: 1; }
+.shopify-product-info { flex: 1; }
+.shopify-product-option-0, .shopify-product-option-1 { margin: 10px 0; padding: 5px; }
+.sale-price { color: red; font-weight: bold; }
+.original-price { text-decoration: line-through; color: gray; }
+.stock-status.sold-out { color: red; }
+.shopify-buy-now-btn:disabled { background: gray; cursor: not-allowed; }
+ {%- liquid
+                    assign product = section.settings.product
+                  -%}
+</style>
+<section class="section-{{ section.id }}-padding">
+<shopify-product product-json='{{ product | json  }}'></shopify-product>
+</section>
+<script>
+    /**
+ * Shopify Product Module Web Component
+ * 
+ * 功能概述：
+ * - 支持产品变体选择（选项如颜色、大小），切换时更新图片、价格和可用性。
+ * - 结合 product.media：变体有特定媒体时切换图片，否则 fallback 到默认。
+ * - 处理无库存变体：禁用选择器、显示“售罄”标签，并禁用 Buy Now 按钮。
+ * - 集成 <shopify-buy-now> 组件（假设已定义）。
+ * 
+ * 使用方法：
+ * 1. 在 Liquid 模板中注入产品数据：
+ *    <shopify-product product-json='{{ product | json }}'></shopify-product>
+ * 2. product-json：JSON 字符串，包含 Shopify product 对象（variants, options, media, price 等）。
+ * 3. 组件内部生成 UI：图片、选项选择器、价格、库存状态、Buy Now 按钮。
+ * 4. 自定义：通过 CSS 类 .shopify-product-* 样式化。
+ * 
+ * 注意：Light DOM，无 Shadow。依赖 Fetch API 和之前的 shopify-buy-now 组件。
+ * 图片切换使用 product.media (images/videos)，优先变体特定媒体。
+ */
+
+class ShopifyProduct extends HTMLElement {
+  constructor() {
+    super();
+    this.product = null;
+    this.currentVariant = null;
+    this.optionSelectors = []; // 存储选项选择器元素
+    this.imageContainer = null;
+    this.priceElement = null;
+    this.stockElement = null;
+    this.buyNowElement = null;
+  }
+
+  connectedCallback() {
+    this.render();
+    this.initEventListeners();
+    this.updateVariant(); // 初始化当前变体
+  }
+
+  static get observedAttributes() {
+    return ['product-json'];
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === 'product-json' && oldValue !== newValue) {
+      try {
+        this.product = JSON.parse(newValue);
+        this.render();
+        this.initEventListeners();
+        this.updateVariant();
+      } catch (e) {
+        console.error('Invalid product JSON:', e);
+      }
+    }
+  }
+
+  render() {
+    if (!this.product) return;
+
+    this.innerHTML = `
+      <div class="shopify-product-container">
+        <!-- 图片容器 -->
+        <div class="shopify-product-images">
+          <img class="shopify-product-main-image" src="" alt="{{ product.title | escape }}" style="max-width: 100%;">
+        </div>
+
+        <!-- 产品信息 -->
+        <div class="shopify-product-info" alt="{{ product }}">
+          <h2 class="shopify-product-title">{{ product.title }}</h2>
+          
+          <!-- 选项选择器 -->
+          <div class="shopify-product-options"></div>
+
+          <!-- 价格和库存 -->
+          <div class="shopify-product-price"></div>
+          <div class="shopify-product-stock"></div>
+
+          <!-- Buy Now 按钮 -->
+          <shopify-buy-now class="shopify-buy-now-wrapper" 
+                           product-id="{{ product.id }}" 
+                           variant-id="" 
+                           button-text="现在购买">
+            <button class="shopify-buy-now-btn">现在购买</button>
+          </shopify-buy-now>
+        </div>
+      </div>
+    `;
+
+    // 缓存元素
+    this.imageContainer = this.querySelector('.shopify-product-main-image');
+    this.optionSelectorsContainer = this.querySelector('.shopify-product-options');
+    this.priceElement = this.querySelector('.shopify-product-price');
+    this.stockElement = this.querySelector('.shopify-product-stock');
+    this.buyNowElement = this.querySelector('shopify-buy-now');
+    if (this.buyNowElement) {
+      this.buyNowBtn = this.buyNowElement.querySelector('button');
+    }
+  }
+
+  initEventListeners() {
+    if (!this.product || !this.optionSelectorsContainer) return;
+
+    // 清空并渲染选项选择器
+    this.optionSelectorsContainer.innerHTML = '';
+    this.optionSelectors = [];
+
+    this.product.options.forEach((option, index) => {
+      const selector = document.createElement('select');
+      selector.className = `shopify-product-option-${index}`;
+      selector.innerHTML = `<option value="">选择 ${option.name}</option>`;
+      
+      // 添加选项值（从第一个变体推断可用值）
+      const uniqueValues = [...new Set(this.product.variants.map(v => v.options[index]))];
+      uniqueValues.forEach(value => {
+        const variant = this.product.variants.find(v => v.options[index] === value);
+        const disabled = variant ? variant.available ? '' : 'disabled' : 'disabled';
+        const text = variant ? (variant.available ? value : `${value} (售罄)`) : `${value} (不可用)`;
+        selector.innerHTML += `<option value="${value}" ${disabled}>${text}</option>`;
+      });
+
+      selector.addEventListener('change', (e) => this.handleOptionChange(e, index));
+      this.optionSelectorsContainer.appendChild(selector);
+      this.optionSelectors.push(selector);
+    });
+  }
+
+  handleOptionChange(event, optionIndex) {
+    this.updateVariant();
+  }
+
+  updateVariant() {
+    if (!this.product) return;
+
+    // 收集选中的选项
+    const selectedOptions = this.optionSelectors.map(select => select.value).filter(v => v);
+
+    // 查找匹配变体
+    let variant = this.product.variants.find(v => {
+      return selectedOptions.every((opt, i) => v.options[i] === opt);
+    });
+
+    // 如果选项不全，fallback 到第一个可用变体
+    if (!variant) {
+      variant = this.product.variants.find(v => v.available) || this.product.variants[0];
+    }
+
+    this.currentVariant = variant;
+
+    // 更新 UI
+    this.updateImages();
+    this.updatePrice();
+    this.updateStock();
+    this.updateBuyNow();
+  }
+
+  updateImages() {
+    if (!this.currentVariant || !this.imageContainer) return;
+
+    // 查找变体特定媒体（Shopify variants 有 media 属性，如果关联）
+    let variantMedia = this.currentVariant.media ? this.currentVariant.media[0] : null;
+    let imageSrc = '';
+
+    if (variantMedia && variantMedia.media_content_type === 'image') {
+      imageSrc = variantMedia.src; // 或 variantMedia.image.src
+    } else {
+      // Fallback 到产品默认图片，或第一个匹配变体选项的图片
+      const defaultImage = this.product.media[0];
+      if (defaultImage && defaultImage.media_content_type === 'image') {
+        imageSrc = defaultImage.src;
+      }
+    }
+
+    if (imageSrc) {
+      this.imageContainer.src = imageSrc;
+      this.imageContainer.alt = this.currentVariant.title || this.product.title;
+    }
+  }
+
+  updatePrice() {
+    if (!this.currentVariant || !this.priceElement) return;
+
+    let priceHtml = '';
+    if (this.currentVariant.compare_at_price > this.currentVariant.price) {
+      priceHtml = `
+        <span class="original-price">${this.formatMoney(this.currentVariant.compare_at_price)}</span>
+        <span class="sale-price">${this.formatMoney(this.currentVariant.price)}</span>
+      `;
+    } else {
+      priceHtml = `<span class="price">${this.formatMoney(this.currentVariant.price)}</span>`;
+    }
+
+    this.priceElement.innerHTML = `<div>价格: ${priceHtml}</div>`;
+  }
+
+  updateStock() {
+    if (!this.currentVariant || !this.stockElement) return;
+
+    const isAvailable = this.currentVariant.available;
+    const stockText = isAvailable ? '有货' : '售罄';
+    this.stockElement.innerHTML = `<div class="stock-status ${!isAvailable ? 'sold-out' : ''}">${stockText}</div>`;
+
+    // 禁用无库存选项
+    this.optionSelectors.forEach((select, index) => {
+      Array.from(select.options).forEach(option => {
+        if (option.value) {
+          const testVariant = this.product.variants.find(v => v.options[index] === option.value);
+          option.disabled = !testVariant || !testVariant.available;
+          if (option.disabled) {
+            option.textContent = `${option.value} (售罄)`;
+          }
+        }
+      });
+    });
+  }
+
+  updateBuyNow() {
+    if (!this.buyNowElement || !this.currentVariant) return;
+
+    // 更新 variant-id 属性
+    this.buyNowElement.setAttribute('variant-id', this.currentVariant.id);
+
+    // 禁用按钮如果无库存
+    if (this.buyNowBtn) {
+      this.buyNowBtn.disabled = !this.currentVariant.available;
+      this.buyNowBtn.textContent = this.currentVariant.available ? '现在购买' : '售罄';
+    }
+  }
+
+  formatMoney(amount) {
+    // 简单货币格式化，实际中用 Shopify 的 money_format
+    return new Intl.NumberFormat('zh-CN', { style: 'currency', currency: 'CNY' }).format(amount / 100); // 假设 cents
+  }
+}
+
+// 注册自定义元素
+window.customElements.define('shopify-product', ShopifyProduct);
+</script>
+{% schema %}
+{
+  "name": "product demo",
+  "class": "shopify-section--product-line",
+  "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+  ],
+  "blocks": [
+   
+  ],
+  "presets": [
+    {
+      "name": "product demo"
+    }
+  ]
+}
+{% endschema %}
