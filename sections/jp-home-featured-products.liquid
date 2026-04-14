@@ -1,0 +1,737 @@
+{% liquid
+  assign sid = section.id
+%}
+
+<section class="jp-home-featured-products jp-home-featured-products--{{ sid }}">
+  <div class="jp-container">
+    <div class="jp-home-featured-products__header">
+      <div class="jp-home-featured-products__header-main">
+        <div class="jp-home-featured-products__title-row">
+          {% if section.settings.heading_logo != blank %}
+            <div class="jp-home-featured-products__title-logo">
+              <img
+                src="{{ section.settings.heading_logo | image_url: width: 240 }}"
+                alt="{{ section.settings.heading_logo.alt | escape }}"
+                loading="lazy"
+                width="{{ section.settings.heading_logo.width }}"
+                height="{{ section.settings.heading_logo.height }}"
+              >
+            </div>
+          {% endif %}
+
+          {% if section.settings.heading != blank %}
+            <h2 class="jp-home-featured-products__title">{{ section.settings.heading }}</h2>
+          {% endif %}
+        </div>
+      </div>
+
+      {% if section.settings.tab_text_1 != blank or section.settings.tab_text_2 != blank %}
+        <div class="jp-home-featured-products__tabs" aria-label="Featured product tabs">
+          {% if section.settings.tab_text_1 != blank %}
+            <span class="jp-home-featured-products__tab is-active">{{ section.settings.tab_text_1 }}</span>
+          {% endif %}
+          {% if section.settings.tab_text_2 != blank %}
+            <span class="jp-home-featured-products__tab">{{ section.settings.tab_text_2 }}</span>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="jp-home-featured-products__body">
+      <div class="swiper jp-home-featured-products__swiper">
+        <div class="swiper-wrapper">
+          {% for block in section.blocks %}
+            {% liquid
+              assign product = block.settings.product
+              assign custom_image = block.settings.image
+              assign card_title = block.settings.title
+              assign card_desc = block.settings.text
+              assign badge_text = block.settings.badge_text
+              assign button_text = block.settings.button_text
+              assign button_link = block.settings.button_link
+              assign secondary_button_text = block.settings.secondary_button_text
+              assign secondary_button_link = block.settings.secondary_button_link
+              assign rating = block.settings.rating
+              assign rating_count = block.settings.rating_count
+
+              if product != blank
+                assign product_title = product.title
+                assign product_url = product.url
+                assign product_price_raw = product.selected_or_first_available_variant.price
+                assign product_price = product_price_raw | money
+                assign compare_price = product.selected_or_first_available_variant.compare_at_price
+                assign featured_image = product.featured_image
+              else
+                assign product_title = card_title
+                assign product_url = button_link
+                assign product_price = blank
+                assign compare_price = blank
+                assign featured_image = custom_image
+              endif
+
+              if card_title != blank
+                assign final_title = card_title
+              else
+                assign final_title = product_title
+              endif
+
+              if secondary_button_link == blank
+                assign secondary_button_link = product_url
+              endif
+              if rating == blank
+                assign rating = 5
+              endif
+            %}
+
+            <div class="swiper-slide jp-home-featured-products__slide" {{ block.shopify_attributes }}>
+              <div class="jp-home-featured-products__card">
+                {% if badge_text != blank %}
+                  <div class="jp-home-featured-products__badge">{{ badge_text }}</div>
+                {% endif %}
+
+                <a
+                  class="jp-home-featured-products__image-wrap"
+                  href="{{ product_url | default: '#' }}"
+                  aria-label="{{ final_title | escape }}"
+                >
+                  {% if custom_image != blank %}
+                    <img
+                      class="jp-home-featured-products__image"
+                      src="{{ custom_image | image_url: width: 900 }}"
+                      alt="{{ custom_image.alt | escape }}"
+                      loading="lazy"
+                      width="{{ custom_image.width }}"
+                      height="{{ custom_image.height }}"
+                    >
+                  {% elsif featured_image != blank %}
+                    <img
+                      class="jp-home-featured-products__image"
+                      src="{{ featured_image | image_url: width: 900 }}"
+                      alt="{{ featured_image.alt | escape }}"
+                      loading="lazy"
+                      width="{{ featured_image.width }}"
+                      height="{{ featured_image.height }}"
+                    >
+                  {% else %}
+                    {{ 'product-1' | placeholder_svg_tag: 'jp-home-featured-products__placeholder' }}
+                  {% endif %}
+                </a>
+
+                <div class="jp-home-featured-products__content">
+                  {% if final_title != blank %}
+                    <h3 class="jp-home-featured-products__product-title">
+                      <a href="{{ product_url | default: '#' }}">{{ final_title }}</a>
+                    </h3>
+                  {% endif %}
+
+                  <div class="jp-home-featured-products__rating-row">
+                    <div class="jp-home-featured-products__stars" aria-label="{{ rating }} stars">
+                      {% for i in (1..5) %}
+                        <span class="jp-home-featured-products__star{% if i <= rating %} is-active{% endif %}">★</span>
+                      {% endfor %}
+                    </div>
+                    {% if rating_count != blank %}
+                      <div class="jp-home-featured-products__rating-count">{{ rating_count }}</div>
+                    {% endif %}
+                  </div>
+
+                  {% if card_desc != blank %}
+                    <div class="jp-home-featured-products__text">{{ card_desc }}</div>
+                  {% elsif product != blank and product.description != blank %}
+                    <div class="jp-home-featured-products__text">
+                      {{ product.description | strip_html | truncate: 90 }}
+                    </div>
+                  {% endif %}
+
+                  {% if product != blank %}
+                    <div class="jp-home-featured-products__price-row">
+                      <span class="jp-home-featured-products__price">{{ product_price }}</span>
+                      {% if compare_price != blank and compare_price > product.selected_or_first_available_variant.price %}
+                        <span class="jp-home-featured-products__compare">
+                          {{ compare_price | money }}
+                        </span>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+
+                  <div class="jp-home-featured-products__actions">
+                    <a
+                      class="jp-home-featured-products__btn jp-home-featured-products__btn--secondary"
+                      href="{{ secondary_button_link | default: '#' }}"
+                    >
+                      {{ secondary_button_text | default: 'すべてを見る' }}
+                    </a>
+                    <a
+                      class="jp-home-featured-products__btn jp-home-featured-products__btn--primary"
+                      href="{{ product_url | default: button_link | default: '#' }}"
+                    >
+                      {{ button_text | default: '今すぐ購入' }}
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      {% if section.blocks.size > 1 %}
+        <div class="jp-home-featured-products__footer">
+          <div class="jp-home-featured-products__progress swiper-pagination"></div>
+          <div class="jp-home-featured-products__nav-group">
+            <button class="jp-home-featured-products__nav jp-home-featured-products__nav--prev" type="button" aria-label="Previous">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M11.25 14.25L6 9L11.25 3.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <button class="jp-home-featured-products__nav jp-home-featured-products__nav--next" type="button" aria-label="Next">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M6.75 14.25L12 9L6.75 3.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .jp-home-featured-products--{{ sid }} {
+    --jp-home-featured-products-title: #111111;
+    --jp-home-featured-products-text: #555555;
+    --jp-home-featured-products-border: #ebe5e8;
+    --jp-home-featured-products-bg: #ffffff;
+    --jp-home-featured-products-card-bg: #f8f6f7;
+    --jp-home-featured-products-badge-bg: #111111;
+    --jp-home-featured-products-badge-color: #ffffff;
+    --jp-home-featured-products-btn-bg: #111111;
+    --jp-home-featured-products-btn-secondary-bg: #ffffff;
+    --jp-home-featured-products-btn-secondary-color: #111111;
+    --jp-home-featured-products-btn-color: #ffffff;
+    --jp-home-featured-products-price: #111111;
+    --jp-home-featured-products-compare: #999999;
+    padding: 64px 0;
+    background: var(--jp-home-featured-products-bg);
+    position: relative;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 28px;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__header-main {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__title-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__title-logo {
+    flex: 0 0 auto;
+    width: 32px;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__title-logo img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__tabs {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex: 0 0 auto;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__tab {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 28px;
+    padding: 4px 14px;
+    border-radius: 999px;
+    border: 1px solid #111111;
+    background: #ffffff;
+    color: #111111;
+    font-size: 12px;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__tab.is-active {
+    background: #111111;
+    color: #ffffff;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__title {
+    margin: 0;
+    font-size: 40px;
+    line-height: 1.2;
+    font-weight: 400;
+    color: var(--jp-home-featured-products-title);
+  }
+
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__body {
+    position: relative;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__swiper {
+    overflow: hidden;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__slide {
+    height: auto;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__card {
+    position: relative;
+    height: 100%;
+    background: var(--jp-home-featured-products-card-bg);
+    border: 1px solid var(--jp-home-featured-products-border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__badge {
+    position: absolute;
+    left: 16px;
+    top: 16px;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 28px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--jp-home-featured-products-badge-bg);
+    color: var(--jp-home-featured-products-badge-color);
+    font-size: 12px;
+    line-height: 1;
+    font-weight: 600;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__image-wrap {
+    display: block;
+    aspect-ratio: 1 / 1;
+    background: #fff;
+    overflow: hidden;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__image,
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__placeholder {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__content {
+    padding: 18px 18px 20px;
+  }
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__rating-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__stars {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    line-height: 1;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__star {
+    font-size: 12px;
+    color: #d5d5d5;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__star.is-active {
+    color: #111111;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__rating-count {
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--jp-home-featured-products-text);
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__product-title {
+    margin: 0;
+    font-size: 22px;
+    line-height: 1.35;
+    font-weight: 700;
+    color: var(--jp-home-featured-products-title);
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__product-title a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__text {
+    margin-top: 10px;
+    min-height: 44px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--jp-home-featured-products-text);
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__price {
+    font-size: 24px;
+    line-height: 1.2;
+    font-weight: 700;
+    color: var(--jp-home-featured-products-price);
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__compare {
+    font-size: 14px;
+    line-height: 1.2;
+    color: var(--jp-home-featured-products-compare);
+    text-decoration: line-through;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 0;
+    min-height: 40px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 1;
+    transition: opacity .25s ease, background .25s ease, color .25s ease, border-color .25s ease;
+    border: 1px solid #111111;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__btn:hover {
+    opacity: .88;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__btn--primary {
+    background: var(--jp-home-featured-products-btn-bg);
+    color: var(--jp-home-featured-products-btn-color);
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__btn--secondary {
+    background: var(--jp-home-featured-products-btn-secondary-bg);
+    color: var(--jp-home-featured-products-btn-secondary-color);
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__footer {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-top: 28px;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__progress {
+    position: relative;
+    flex: 1 1 auto;
+    height: 2px;
+    background: #d9d9d9;
+    overflow: hidden;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__progress.swiper-pagination-progressbar {
+    background: #d9d9d9;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__progress .swiper-pagination-progressbar-fill {
+    background: #000;
+    transform-origin: left top;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__nav-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 0 0 auto;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__nav {
+    width: 42px;
+    height: 42px;
+    border: 1px solid #7d7d7d;
+    border-radius: 50%;
+    background: transparent;
+    color: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all .25s ease;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__nav:hover {
+    background: #111;
+    color: #fff;
+    border-color: #111;
+  }
+
+
+  @media screen and (max-width: 989px) {
+    .jp-home-featured-products--{{ sid }} {
+      padding: 42px 0;
+    }
+
+    .jp-home-featured-products--{{ sid }} .jp-home-featured-products__header {
+      align-items: flex-start;
+      flex-direction: column;
+      margin-bottom: 22px;
+    }
+
+    .jp-home-featured-products--{{ sid }} .jp-home-featured-products__title {
+      font-size: 20px;
+    }
+
+    .jp-home-featured-products--{{ sid }} .jp-home-featured-products__tabs {
+      width: 100%;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .jp-home-featured-products--{{ sid }} .jp-home-featured-products__tab {
+      min-height: 26px;
+      padding: 4px 12px;
+      font-size: 11px;
+    }
+
+    .jp-home-featured-products--{{ sid }} .jp-home-featured-products__title-row {
+      gap: 6px;
+    }
+
+    .jp-home-featured-products--{{ sid }} .jp-home-featured-products__title-logo {
+      width: 28px;
+    }
+
+    .jp-home-featured-products--{{ sid }} .jp-home-featured-products__content {
+      padding: 16px 16px 18px;
+    }
+
+    .jp-home-featured-products--{{ sid }} .jp-home-featured-products__product-title {
+      font-size: 18px;
+    }
+
+    .jp-home-featured-products--{{ sid }} .jp-home-featured-products__text {
+      min-height: auto;
+      font-size: 13px;
+    }
+
+    .jp-home-featured-products--{{ sid }} .jp-home-featured-products__price {
+      font-size: 20px;
+    }
+
+    .jp-home-featured-products--{{ sid }} .jp-home-featured-products__btn {
+      min-width: 120px;
+      min-height: 36px;
+      padding: 9px 10px;
+      font-size: 11px;
+    }
+
+    .jp-home-featured-products--{{ sid }} .jp-home-featured-products__footer {
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .jp-home-featured-products--{{ sid }} .jp-home-featured-products__nav {
+      width: 34px;
+      height: 34px;
+    }
+  }
+</style>
+
+<script>
+  (() => {
+    const sectionEl = document.querySelector('.jp-home-featured-products--{{ sid }}');
+    if (!sectionEl) return;
+
+    const initFeaturedProductsSwiper = () => {
+      const swiperEl = sectionEl.querySelector('.jp-home-featured-products__swiper');
+      if (!swiperEl || typeof window.Swiper === 'undefined') return;
+
+      if (swiperEl.swiper) {
+        swiperEl.swiper.destroy(true, true);
+      }
+
+      new window.Swiper(swiperEl, {
+        slidesPerView: 1.2,
+        spaceBetween: 14,
+        speed: 700,
+        watchOverflow: true,
+        navigation: {
+          nextEl: sectionEl.querySelector('.jp-home-featured-products__nav--next'),
+          prevEl: sectionEl.querySelector('.jp-home-featured-products__nav--prev')
+        },
+        pagination: {
+          el: sectionEl.querySelector('.jp-home-featured-products__progress'),
+          type: 'progressbar'
+        },
+        breakpoints: {
+          768: {
+            slidesPerView: 2,
+            spaceBetween: 18
+          },
+          990: {
+            slidesPerView: 3,
+            spaceBetween: 24
+          }
+        }
+      });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initFeaturedProductsSwiper);
+    } else {
+      initFeaturedProductsSwiper();
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "JP Home Featured Products",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Ulike のおすすめ商品"
+    },
+    {
+      "type": "image_picker",
+      "id": "heading_logo",
+      "label": "Heading logo"
+    },
+    {
+      "type": "text",
+      "id": "tab_text_1",
+      "label": "Tab text 1",
+      "default": "人気商品"
+    },
+    {
+      "type": "text",
+      "id": "tab_text_2",
+      "label": "Tab text 2",
+      "default": "販売店限定"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_card",
+      "name": "Product card",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom image"
+        },
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Badge text",
+          "default": "人気"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Rating",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "rating_count",
+          "label": "Rating count",
+          "default": "4.9/5"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Custom title"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Custom description"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text",
+          "default": "詳しく見る"
+        },
+        {
+          "type": "text",
+          "id": "secondary_button_text",
+          "label": "Secondary button text",
+          "default": "すべてを見る"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Custom link"
+        },
+        {
+          "type": "url",
+          "id": "secondary_button_link",
+          "label": "Secondary link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "JP Home Featured Products",
+      "blocks": [
+        {
+          "type": "product_card"
+        },
+        {
+          "type": "product_card"
+        },
+        {
+          "type": "product_card"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

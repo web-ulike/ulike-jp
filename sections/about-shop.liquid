@@ -137,7 +137,9 @@ font-size: 8px;
                     {%- when 'shoptop' -%}
                   <div class="shop-list-img">
                      {%- if block.settings.image -%}
-                   <img src="{{ block.settings.image | image_url }}" alt="" class="donki_md1-bg scale_img" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}">
+                      <a href="{{ block.settings.link }}" class="hop-list-link" target="_blank">
+                      <img src="{{ block.settings.image | image_url }}" alt="" class="donki_md1-bg scale_img" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}">
+                      </a>
                       {%- endif -%}
                   </div>
                    {%- endcase -%}
@@ -297,6 +299,11 @@ font-size: 8px;
           "type": "image_picker",
           "id": "image_mobile",
           "label": "Mobile Images"
+        },
+            {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
         }
         ]
       },
