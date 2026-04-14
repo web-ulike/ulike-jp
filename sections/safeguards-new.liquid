@@ -1,0 +1,358 @@
+<style>
+.safeguards-new {
+  padding: {{ section.settings.padding_top_desktop }}px 0 {{ section.settings.padding_bottom_desktop }}px;
+}
+
+.safeguards-new .safeguards-new-list {
+  display: flex;
+  gap: 20px;
+}
+
+.safeguards-new .safeguards-new-item {
+  width: calc(20% - 16px);
+  padding: 12px 10px;
+  border: 1px solid #ebebeb;
+}
+@media (min-width: 641px) {
+  .safeguards-new .hover-msg:hover {
+    border-color: #4f4f4f;
+  }
+}
+.safeguards-new .safeguards-new-item .img {
+  display: block;
+  width: 50px;
+}
+
+.safeguards-new .safeguards-new-h3 {
+  color: #190a0a;
+  font-size: 21px;
+  line-height: 1.5;
+  font-family: var(--heading-font-family);
+  margin-top: 8px;
+  display: inline-flex;
+  background: linear-gradient(0deg, #000 0%, #000 100%) no-repeat;
+  background-size: 100% 1.5px;
+  background-position: left bottom;
+}
+
+.safeguards-new .safeguards-new-p {
+  color: #756b6e;
+  font-size: 18px;
+  line-height: 1.5;
+  margin-top: 14px;
+}
+@media (min-width: 991px) {
+  .safeguards-new .safeguards-new-item:first-child{
+    order: -1;
+  }
+  
+  .safeguards-new .safeguards-new-item:last-child{
+    order: -1;
+  }
+  
+  .safeguards-new .safeguards-new-item:nth-child(2){
+    order: 1;
+  }
+}
+@media (max-width: 1400px) {
+  .safeguards-new .safeguards-new-list {
+    gap: 15px;
+  }
+  .safeguards-new .safeguards-new-item {
+    width: calc(20% - 12px);
+  }
+  .safeguards-new .safeguards-new-h3 {
+    font-size: 17px;
+  }
+  .safeguards-new .safeguards-new-p {
+    font-size: 14px;
+    margin-top: 8px;
+  }
+}
+
+@media (max-width: 991px) {
+  .safeguards-new {
+    padding: {{ section.settings.padding_top_mobile }}px 0 {{ section.settings.padding_bottom_mobile }}px;
+  }
+  .safeguards-new .safeguards-new-list {
+    flex-wrap: wrap;
+  }
+  .safeguards-new .safeguards-new-item {
+    width: calc(33.333% - 10px);
+  }
+  .safeguards-new .safeguards-new-item:nth-child(n + 4) {
+    width: calc(50% - 7.5px);
+  }
+}
+
+@media (max-width: 640px) {
+  .safeguards-new .safeguards-new-list {
+    gap: 16px;
+  }
+  .safeguards-new .safeguards-new-item,
+  .safeguards-new .safeguards-new-item:nth-child(n + 4) {
+    width: calc(50% - 8px);
+    padding: 8px;
+  }
+  .safeguards-new .safeguards-new-item:last-child {
+    width: 100%;
+  }
+  .safeguards-new .safeguards-new-item .img {
+    width: 32px;
+  }
+  .safeguards-new .safeguards-new-h3 {
+    font-size: 14px;
+    margin-top: 4px;
+    line-height: 1.3;
+  }
+  .safeguards-new .safeguards-new-p {
+    font-size: 12px;
+    margin-top: 9px;
+    line-height: 1.54;
+  }
+}
+  .safeguards-new-msg {
+  color: #fff;
+  font-size: 18px;
+  line-height: 1.33;
+  padding: 12px;
+  position: fixed;
+  z-index: 2;
+  background: rgba(25, 10, 10, 0.8);
+  display: none;
+}
+
+.safeguards-new-msg::before {
+  content: '';
+  position: absolute;
+  top: -31.5px;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border: 16px solid transparent;
+  border-color: transparent transparent rgba(25, 10, 10, 0.8) transparent;
+  transform: translateX(-50%);
+}
+
+.safeguards-new-msg .safeguards-new-msg-top {
+  height: 50px;
+  display: none;
+  align-items: center;
+  color: #161823;
+  font-size: 14px;
+  line-height: 1.42;
+  position: relative;
+  border-bottom: 1px solid rgba(22, 24, 35, 0.12);
+}
+
+.safeguards-new-msg .safeguards-new-msg-close {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 16px;
+  cursor: pointer;
+  width: 24px;
+}
+
+.safeguards-new-msg .safeguards-new-msg-close svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 640px) {
+  .safeguards-new-msg {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  .safeguards-new-msg::before {
+    display: none;
+  }
+  .safeguards-new-msg .safeguards-new-msg-top {
+    display: flex;
+    color: #161823;
+    font-size: 14px;
+    line-height: 1.4;
+    justify-content: center;
+    padding: 0 15px;
+  }
+  .safeguards-new-msg .safeguards-new-msg-cont {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    font-size: 14px;
+    color: #625959;
+    border-radius: 8px 8px 0px 0px;
+  }
+  .safeguards-new-msg .safeguards-new-msg-txt {
+    padding: 16px;
+    padding-bottom: 30px;
+    line-height: 1.4;
+  }
+}
+</style>
+<section class="section-box">
+  <div class="safeguards-new">
+    <div class="jp-container">
+      <div class="safeguards-new-list">
+        {%- for block in section.blocks -%}
+          <div class="safeguards-new-item {% if block.settings.text2 != blank %}hover-msg{% endif %}" {% if block.settings.text2 != blank %}data-txt="{{ block.settings.text2 }}"{% endif %} {{ block.shopify_attributes }}>
+            {%- if block.settings.image != blank -%}
+              <img
+                loading="lazy"
+                class="img"
+                width=""
+                height=""
+                {% render 'image-attributes', image: block.settings.image %}
+                alt="{{ block.settings.image.alt | escape }}"
+              >
+            {%- endif -%}
+            <div class="safeguards-new-h3">{{ block.settings.text }}</div>
+            <div class="safeguards-new-p">{{ block.settings.text1 }}</div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+  <div class="safeguards-new-msg">
+    <div class="safeguards-new-msg-cont">
+      <div class="safeguards-new-msg-top">
+        <span></span>
+        <div class="safeguards-new-msg-close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M16.8417 7.44357C16.6464 7.2483 16.3298 7.2483 16.1346 7.44357L12.4951 11.0831L8.85554 7.44357C8.66028 7.2483 8.3437 7.2483 8.14844 7.44357L7.79488 7.79712C7.59962 7.99238 7.59962 8.30896 7.79488 8.50423L11.4344 12.1437L7.79488 15.7833C7.59962 15.9785 7.59962 16.2951 7.79488 16.4904L8.14844 16.8439C8.3437 17.0392 8.66028 17.0392 8.85554 16.8439L12.4951 13.2044L16.1346 16.8439C16.3298 17.0392 16.6464 17.0392 16.8417 16.8439L17.1952 16.4904C17.3905 16.2951 17.3905 15.9785 17.1952 15.7833L13.5557 12.1437L17.1952 8.50423C17.3905 8.30896 17.3905 7.99238 17.1952 7.79712L16.8417 7.44357Z"
+              fill="#161823" />
+          </svg>
+        </div>
+      </div>
+      <div class="safeguards-new-msg-txt">
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  window.addEventListener('load', function () {
+    if (window.innerWidth > 641) {
+      $('#shopify-section-{{ section.id }} .safeguards-new-item').hover(function (e) {
+        let txt = $(this).attr('data-txt');
+        if (!txt) return;
+        let pd = $(this)[0].getBoundingClientRect()
+        var left = pd.left;
+        var top = pd.top + pd.height + 20;
+        var width = pd.width;
+        $(".safeguards-new-msg .safeguards-new-msg-txt").html(txt);
+        $(".safeguards-new-msg").css({
+          "left": left + 'px',
+          "top": top + 'px',
+          "width": width + 'px'
+        }).show()
+      }, function () {
+        $(".safeguards-new-msg").hide()
+      });
+      $(window).scroll(function () {
+        $(".safeguards-new-msg").hide()
+      })
+    } else {
+      $('#shopify-section-{{ section.id }} .safeguards-new .safeguards-new-item').click(function () {
+        let txt = $(this).attr('data-txt');
+        let title = $(this).find('.safeguards-new-h3').text();
+        if (!txt) return;
+        $(".safeguards-new-msg .safeguards-new-msg-top span").text(title);
+        $(".safeguards-new-msg .safeguards-new-msg-txt").html(txt);
+        $(".safeguards-new-msg").show()
+      })
+
+      $(".safeguards-new-msg,.safeguards-new-msg .safeguards-new-msg-close").click(function () {
+        $(".safeguards-new-msg").hide()
+      })
+    }
+  })
+</script>
+{% schema %}
+{
+  "name": "safeguards-new",
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "PC Padding Top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "PC Padding Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Mobile Padding Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Mobile Padding Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    }
+  ],
+  "blocks": [
+    {
+      "name": "item",
+      "type": "item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "text",
+          "id": "text1",
+          "label": "Text"
+        },
+        {
+          "type": "text",
+          "id": "text2",
+          "label": "浮窗信息"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "safeguards-new",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

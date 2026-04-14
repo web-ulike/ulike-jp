@@ -5717,6 +5717,9 @@ window.customElements.define('text-collapse-new', TextCollapseNew);
 
     const slidesPerView = parseFloat(this.getAttribute('slides-per-view')) || 1.3;
     const spaceBetween = parseFloat(this.getAttribute('space-between')) || 10;
+    const autoplayEnabled = this.getAttribute('autoplay') === 'true';
+    const autoplayDelay = parseInt(this.getAttribute('autoplay-delay')) || 3000;
+
     const loop = this.getAttribute('loop') !== 'false'; 
     const centeredSlides = this.getAttribute('centered-slides') !== 'false';
     const paginationEnabled = this.getAttribute('pagination') === 'true';
@@ -5740,7 +5743,14 @@ window.customElements.define('text-collapse-new', TextCollapseNew);
       centeredSlides,
       navigation: navigationEnabled ? { prevEl: prevButton, nextEl: nextButton } : false,
       pagination: paginationEl,
-      breakpoints
+      breakpoints,
+      autoplay: autoplayEnabled
+      ? {
+          delay: autoplayDelay,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        }
+      : false
     });
   }
 }

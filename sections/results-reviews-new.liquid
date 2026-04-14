@@ -1,0 +1,1659 @@
+<style>
+.results-reviews-new {
+  padding: 120px 0 60px 0;
+}
+@media (min-width: 992px) {
+  .results-reviews-new {
+    position: relative;
+    z-index: 2;
+  }
+}
+.results-reviews-new-box [hidden] {
+  display: none;
+}
+.results-reviews-new .results-reviews-new-box {
+  display: flex;
+  flex-direction: column;
+}
+.results-reviews-new .results-reviews-h3 {
+  color: #190a0a;
+  text-align: center;
+  font-size: 40px;
+  line-height: 1.77;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+.results-reviews-new .results-reviews-tab-cont {
+  display: flex;
+  overflow-x: auto;
+}
+
+.results-reviews-new .results-reviews-tab {
+  display: inline-flex;
+  justify-content: center;
+  border-radius: 80px;
+  border: 1px solid #000;
+  margin: 0 auto;
+}
+
+.results-reviews-new .results-reviews-tab-item {
+  min-width: clamp(80px, 8.4375vw, 162px);
+  height: clamp(40px, 3.75vw, 72px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  font-size: clamp(12px, 1.0417vw, 20px);
+  line-height: 1;
+  border-radius: 80px;
+  padding: 0 15px;
+  font-family: var(--heading-font-family);
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+@media (min-width: 991px) {
+  .results-reviews-new .results-reviews-tab-item:hover {
+    background-color: #eee;
+  }
+}
+.results-reviews-new .results-reviews-tab-item.active {
+  background-color: #000;
+  color: #fff;
+}
+.results-reviews-new .results-reviews-cont {
+  position: relative;
+  /* z-index: 1; */
+  /* margin-top: 30px; */
+}
+
+.results-reviews-new .results-reviews-new-top {
+  z-index: 2;
+  padding-bottom: 30px;
+  background: #fff;
+}
+
+.results-reviews-new .results-reviews-filter {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 178px;
+}
+
+.results-reviews-new .results-reviews-filter-cont {
+  /* width: 178px; */
+}
+
+.results-reviews-new .results-reviews-filter-top {
+  height: 44px;
+  border-radius: 4px;
+  border: 1px solid #ebebeb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  color: #190a0a;
+  font-size: 16px;
+  line-height: 1;
+  font-family: var(--heading-font-family);
+  cursor: pointer;
+}
+
+.results-reviews-new .close-btn {
+  width: 20px;
+}
+
+.results-reviews-new .close-btn svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.results-reviews-new .results-reviews-filter-cont .is-mb {
+  display: none;
+}
+.results-reviews-new .open-filter .close-btn {
+  transform: rotate(180deg);
+}
+
+.results-reviews-new .results-reviews-filter-tj {
+  background: #fff;
+  border-radius: 2px;
+  box-shadow: 0px 4px 4px 0px rgba(238, 222, 222, 0.25);
+  display: none;
+}
+
+.results-reviews-new .results-reviews-filter-box {
+  padding: 16px 12px;
+  border-bottom: 1px solid #ebebeb;
+}
+
+.results-reviews-new .results-reviews-filter-box:nth-child(3) {
+  border: 0;
+}
+.results-reviews-new .results-reviews-filter-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 12px 16px 12px;
+}
+.results-reviews-new .results-reviews-filter-btn-item {
+  display: flex;
+  width: 97px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  border: 1px solid #190a0a;
+  color: #190a0a;
+  font-size: 16px;
+  line-height: 1.3;
+  cursor: pointer;
+}
+.results-reviews-new .results-reviews-filter-btn-item:hover {
+  background-color: #190a0a;
+  color: #fff;
+}
+.results-reviews-new .results-reviews-filter-title {
+  color: #190a0a;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.results-reviews-new .results-reviews-filter-list {
+  display: flex;
+  gap: 16px;
+  flex-direction: column;
+  margin-top: 16px;
+}
+
+.results-reviews-new .results-reviews-filter-item {
+  color: #190a0a;
+  font-size: 14px;
+  line-height: 1.85;
+}
+.results-reviews-new .results-reviews-filter-item.disable-box{
+  opacity: .4;
+  cursor: no-drop;
+}
+.results-reviews-new .results-reviews-filter-item.disable-box label{
+  pointer-events: none;
+}
+  
+.results-reviews-new .results-reviews-filter-item.disable-box span{
+  background:#eee;
+}
+.results-reviews-new .results-reviews-filter-item label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+.results-reviews-new .results-reviews-filter-item span {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  border: 1px solid #ebebeb;
+  position: relative;
+}
+.results-reviews-new .results-reviews-filter-item input:checked + span {
+  background-color: #e0004d;
+  border-color: #e0004d;
+}
+
+.results-reviews-new .results-reviews-filter-item input:checked + span::before {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 6px;
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  margin-top: -2px;
+}
+.results-reviews-new .results-reviews-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.results-reviews-new .results-reviews-tag {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 4px;
+  border-radius: 2px;
+  background: #fce8ec;
+  color: #e0004d;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.results-reviews-new .results-reviews-tag svg {
+  display: block;
+  max-width: 14px;
+  height: auto;
+}
+
+.results-reviews-new .results-reviews-tag .tag-close {
+  display: block;
+  cursor: pointer;
+}
+
+.results-reviews-new .open-filter .results-reviews-tags {
+  display: none !important;
+}
+
+.results-reviews-new .results-reviews-scroll {
+  overflow: hidden;
+  max-width: 1380px;
+  margin: 0 auto;
+}
+
+.results-reviews-new .results-reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.results-reviews-new .results-reviews-item {
+  display: flex;
+  align-items: center;
+  gap: 10.87%;
+}
+
+.results-reviews-new .results-reviews-item-img {
+  width: 43.478%;
+}
+
+.results-reviews-new .results-reviews-item-img-cont {
+  padding-top: 59.83%;
+  position: relative;
+  z-index:1;
+}
+
+.results-reviews-new .results-reviews-item-img .img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.results-reviews-new .results-reviews-label {
+  position: absolute;
+  height: clamp(24px, 1.771vw, 34px);
+  display: flex;
+  align-items: center;
+  padding: 0 clamp(10px, 0.9375vw, 18px);
+  font-size: clamp(12px, 0.8334vw, 16px);
+  color: #fff;
+  font-family: var(--heading-font-family);
+  line-height: 1;
+  border-radius: 35px;
+  background: #190a0a;
+  bottom: 8px;
+  left: 25%;
+  transform: translateX(-50%);
+  z-index: 2;
+  margin-left: -5px;
+}
+
+.results-reviews-new .after-tag {
+  left: auto;
+  right: 25%;
+  transform: translateX(50%);
+  background: #e0004d;
+  margin-left: 5px;
+}
+
+.results-reviews-new .results-reviews-item-img video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.results-reviews-new .results-reviews-item-text {
+  flex: 1;
+  max-width: 520px;
+}
+
+.results-reviews-new .results-reviews-start {
+  display: flex;
+  align-items: center;
+  color: #1c1c1c;
+  font-size: 14px;
+  line-height: 1.4;
+  gap: 10px;
+  font-family: var(--heading-font-family);
+}
+
+.results-reviews-new .start-img {
+  width: 76px;
+  display: block;
+}
+
+.results-reviews-new .results-reviews-h4 {
+  color: #000;
+  font-size: 20px;
+  line-height: 1.78;
+  font-family: var(--heading-font-family);
+}
+
+.results-reviews-new .results-reviews-desc {
+  color: #333;
+  font-size: 16px;
+  line-height: 1.68;
+  margin-top: 8px;
+}
+
+.results-reviews-new .results-reviews-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #000;
+  font-size: 14px;
+  line-height: 1.2;
+  margin-top: 16px;
+}
+
+.results-reviews-new .user-img {
+  width: 40px;
+  display: block;
+}
+
+.results-reviews-new .results-reviews-product {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding:10px;
+  border-radius: 4px;
+  border: 1px solid #e5e5e5;
+  margin-top: 16px;
+  font-family: var(--heading-font-family);
+}
+
+.results-reviews-new .pro-img {
+  width: 68px;
+  display: block;
+}
+
+.results-reviews-new .results-reviews-product-txt{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.results-reviews-new .results-reviews-product-name {
+  color: #000;
+  font-size: 16px;
+  line-height: 1.1;
+  letter-spacing: 0.36px;
+}
+
+.results-reviews-new .results-reviews-product-price {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 12px;
+  line-height: 1.5;
+  margin-top: 4px;
+}
+.results-reviews-new .results-reviews-product-price span{
+  display:inline-block;
+  line-height: 1.5;
+}
+
+.results-reviews-new .n-price {
+  color: #190a0a;
+  letter-spacing: 0.36px;
+}
+
+.results-reviews-new .d-price {
+  color: #b3adad;
+  letter-spacing: 0.36px;
+  text-decoration: line-through;
+}
+
+.results-reviews-new .results-reviews-product-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #190a0a;
+  font-size: 12px;
+  line-height: 1.5;
+  letter-spacing: 0.36px;
+  background: linear-gradient(0deg, #000 0%, #000 100%) no-repeat;
+  background-size: 100% 1px;
+  background-position: left bottom;
+  cursor: pointer;
+  margin-top: 3px;
+  text-transform: uppercase;
+}
+
+.results-reviews-new .results-reviews-dz {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #190a0a;
+  font-size: 14px;
+  line-height: 1.7;
+  letter-spacing: 0.36px;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+.results-reviews-new .results-reviews-dz svg {
+  display: block;
+  width: 40px;
+  height: auto;
+}
+
+.results-reviews-new .results-reviews-dz.active circle {
+  stroke: #000;
+  fill: #000;
+}
+
+.results-reviews-new .results-reviews-dz.active path {
+  stroke: #000;
+  fill: #fff;
+}
+
+.results-reviews-new .results-reviews-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.results-reviews-new .results-reviews-more-tap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #e0004d;
+  font-size: 16px;
+  line-height: 1.3;
+  background: linear-gradient(0deg, #e0004d 0%, #e0004d 100%) no-repeat;
+  background-size: 100% 1px;
+  background-position: left bottom;
+  cursor: pointer;
+}
+
+@media (max-width: 991px) {
+  #shopify-section-header{
+    z-index: 5;
+  }
+  .results-reviews-new {
+    padding: 30px 0;
+  }
+  .results-reviews-new .results-reviews-new-top {
+    position: sticky;
+    top: 67px;
+    z-index: 4;
+    padding-top: 16px;
+    padding-bottom: 0;
+  }
+  .results-reviews-new .results-reviews-tab-cont{
+    padding-bottom: 16px;
+  }
+  .results-reviews-new .results-reviews-tab-cont::-webkit-scrollbar {
+  display: none;
+}
+  .results-reviews-new .results-reviews-h3 {
+    font-size: 24px;
+    line-height: 1.4;
+    width: 70%;
+    margin: 0 auto 20px;
+  }
+  .results-reviews-new .results-reviews-filter {
+    position: sticky;
+    width: 100%;
+    padding-bottom: 20px;
+    background: #fff;
+    z-index: 4;
+  }
+  .fixed-top .results-reviews-new .results-reviews-filter {
+    /* box-shadow: 0 0px 2px rgba(0, 0, 0, 0.1); */
+    padding: 0 24px 20px 24px;
+    width: calc(100% + 48px);
+    margin-left: -24px;
+    border-bottom: 1px solid rgba(0, 0, 0, .05);
+  }
+  .results-reviews-new .results-reviews-filter-top {
+    width: 120px;
+    height: 30px;
+    margin-left: auto;
+    font-size: 14px;
+  }
+  .results-reviews-new .close-btn {
+    display: none;
+  }
+  .results-reviews-new .results-reviews-tags {
+    display: none;
+    flex-wrap: nowrap;
+    margin-top: 20px;
+    overflow-x: auto;
+  }
+  .results-reviews-new .results-reviews-tag {
+    flex-shrink: 0;
+  }
+
+  .filter-fixed {
+    overflow: hidden;
+  }
+
+  .filter-fixed .results-reviews-new .results-reviews-filter {
+    position: fixed;
+    width: 100vw;
+    height: calc(100% + 2px);
+    margin-left: 0;
+    top: 0 !important;
+    left: 0;
+    padding: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 19;
+  }
+
+  .filter-fixed .results-reviews-new .results-reviews-filter-cont {
+    position: absolute;
+    background: #fff;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    border-radius: 4px 4px 0px 0px;
+    padding-bottom: 40px;
+  }
+
+  .filter-fixed .results-reviews-new .results-reviews-filter-top {
+    width: 100%;
+    height: 44px;
+    border: 0;
+    border-bottom: 1px solid #ebebeb;
+  }
+  .filter-fixed .results-reviews-new .open-filter .close-btn {
+    display: block;
+    width:30px;
+  }
+  .results-reviews-new .results-reviews-filter-cont .is-mb {
+    display: flex;
+  }
+  .results-reviews-new .results-reviews-filter-cont .is-pc {
+    display: none;
+  }
+  .results-reviews-new .done-filter-popup {
+    background: #000;
+    color: #fff;
+  }
+  .results-reviews-new .results-reviews-filter-tj {
+    box-shadow: none;
+    border-bottom: #ebebeb 1px solid;
+    padding-bottom: 10px;
+    max-height: 60vh;
+    overflow-y: auto;
+    padding-bottom:70px;
+  }
+
+  .results-reviews-new .results-reviews-filter-btn{
+    padding: 12px;
+    position: absolute;
+    width: 100%;
+    bottom: 41px;
+    left: 0;
+    background: #fff;
+    border-top:1px solid #ebebeb;
+  }
+  .results-reviews-new .results-reviews-scroll {
+    /* margin-top: 20px; */
+  }
+  .results-reviews-new .results-reviews-list {
+    gap: 24px;
+  }
+  .results-reviews-new .results-reviews-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .results-reviews-new .results-reviews-item-img {
+    width: 100%;
+  }
+  .results-reviews-new .results-reviews-item-text {
+    flex: none;
+    max-width: none;
+    width: 100%;
+  }
+  .results-reviews-new .results-reviews-start {
+    gap: 6px;
+    font-size: 12px;
+  }
+  .results-reviews-new .start-img {
+    width: 54px;
+  }
+  .results-reviews-new .results-reviews-h4 {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .results-reviews-new .results-reviews-desc {
+    font-size: 14px;
+    margin-top: 5px;
+    line-height: 1.4;
+  }
+  .results-reviews-new .results-reviews-user {
+    gap: 7;
+    font-size: 13px;
+  }
+  .results-reviews-new .user-img {
+    width: 30px;
+  }
+  .results-reviews-new .results-reviews-product {
+    padding: 12px 8px;
+  }
+  .results-reviews-new .pro-img {
+    width: 51px;
+  }
+  .results-reviews-new .results-reviews-product-price {
+    font-size: 14px;
+  }
+  .results-reviews-new .results-reviews-product-btn {
+    font-size: 14px;
+  }
+  .results-reviews-new .results-reviews-dz {
+    gap: 5px;
+    font-size: 12px;
+  }
+  .results-reviews-new .results-reviews-dz svg {
+    font-size: 30px;
+  }
+}
+</style>
+<section class="section-box">
+  <results-reviews-new>
+    <div class="results-reviews-new">
+      <div class="results-reviews-new-top">
+        <div class="jp-container">
+          <h3 class="results-reviews-h3">{{ section.settings.text }}</h3>
+          {% assign sub_items = section.settings.items_json | split: ','  %}
+          {%- if sub_items.size >0 -%}
+            <div class="results-reviews-tab-cont">
+              <div class="results-reviews-tab">
+                {% for item in sub_items %}
+                  <div class="results-reviews-tab-item {% if forloop.index == 1 %}active{% endif %}" data-type="{{ forloop.index }}">{{ item }}</div>
+                {% endfor %}
+              </div>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+      <div class="jp-container">
+        <div class="results-reviews-new-box">
+          <div class="results-reviews-cont">
+            <div class="results-reviews-filter">
+              <div class="results-reviews-filter-cont">
+                <div class="results-reviews-filter-top">
+                  絞り込み :
+                  <span class="close-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="is-pc" width="21" height="20" viewBox="0 0 21 20"
+                      fill="none">
+                      <path d="M4.12988 13L10.1299 7L16.1299 13" stroke="#190A0A" stroke-miterlimit="10"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="is-mb" width="25" height="24" viewBox="0 0 25 24"
+                      fill="none">
+                      <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M17.287 7.29299C17.0917 7.09773 16.7752 7.09773 16.5799 7.29299L12.9404 10.9325L9.30086 7.29299C9.10559 7.09773 8.78901 7.09773 8.59375 7.29299L8.2402 7.64655C8.04493 7.84181 8.04493 8.15839 8.2402 8.35365L11.8797 11.9932L8.2402 15.6327C8.04493 15.828 8.04493 16.1445 8.2402 16.3398L8.59375 16.6934C8.78901 16.8886 9.10559 16.8886 9.30086 16.6934L12.9404 13.0538L16.5799 16.6934C16.7752 16.8886 17.0917 16.8886 17.287 16.6934L17.6406 16.3398C17.8358 16.1445 17.8358 15.828 17.6406 15.6327L14.001 11.9932L17.6406 8.35365C17.8358 8.15839 17.8358 7.84181 17.6406 7.64655L17.287 7.29299Z"
+                        fill="#161823" />
+                    </svg>
+                  </span>
+                </div>
+                <div class="results-reviews-filter-tj">
+                  {% assign sub_items_p = section.settings.items_json1 | split: ','  %}
+                  {%- if sub_items_p.size >0 -%}
+                    <div class="results-reviews-filter-box">
+                      {%- if section.settings.text1 != blank -%}
+                      <div class="results-reviews-filter-title">{{ section.settings.text1 }}</div>
+                      {%- endif -%}
+                      <div class="results-reviews-filter-list">
+                        {% for item in sub_items_p %}
+                          <div class="results-reviews-filter-item" data-txt="{{ item }}">
+                            <label>
+                              <input type="checkbox" name="productType" value="{{ forloop.index }}" hidden>
+                              <span></span>
+                              {{ item }}
+                            </label>
+                          </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  {%- endif -%}
+                  {% assign sub_items_c = section.settings.items_json2 | split: ','  %}
+                  {%- if sub_items_c.size >0 -%}
+                    <div class="results-reviews-filter-box">
+                      {%- if section.settings.text2 != blank -%}
+                      <div class="results-reviews-filter-title">{{ section.settings.text2 }}</div>
+                      {%- endif -%}
+                      <div class="results-reviews-filter-list">
+                        {% for item in sub_items_c %}
+                          <div class="results-reviews-filter-item" data-txt="{{ item }}">
+                            <label>
+                              <input type="checkbox" name="cyclicality" value="{{ forloop.index }}" hidden>
+                              <span></span>
+                              {{ item }}
+                            </label>
+                          </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  {%- endif -%}
+                  {% assign sub_items_s = section.settings.items_json3 | split: ','  %}
+                  {%- if sub_items_s.size >0 -%}
+                    <div class="results-reviews-filter-box">
+                      {%- if section.settings.text3 != blank -%}
+                      <div class="results-reviews-filter-title">{{ section.settings.text3 }}</div>
+                      {%- endif -%}
+                      <div class="results-reviews-filter-list">
+                        {% for item in sub_items_s %}
+                          <div class="results-reviews-filter-item" data-txt="{{ item }}">
+                            <label>
+                              <input type="checkbox" name="skinTone" value="{{ forloop.index }}" hidden>
+                              <span></span>
+                              {{ item }}
+                            </label>
+                          </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  {%- endif -%}
+                  {% assign sub_items_o = section.settings.items_json4 | split: ','  %}
+                  {%- if sub_items_o.size >0 -%}
+                    <div class="results-reviews-filter-box">
+                      {%- if section.settings.text4 != blank -%}
+                      <div class="results-reviews-filter-title">{{ section.settings.text4 }}</div>
+                      {%- endif -%}
+                      <div class="results-reviews-filter-list">
+                        {% for item in sub_items_o %}
+                          <div class="results-reviews-filter-item" data-txt="{{ item }}">
+                            <label>
+                              <input type="checkbox" name="other" value="{{ forloop.index }}" hidden>
+                              <span></span>
+                              {{ item }}
+                            </label>
+                          </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  {%- endif -%}                  
+                  <div class="results-reviews-filter-btn">
+                    <div class="results-reviews-filter-btn-item clear-filter-all">Clear</div>
+                    <div class="results-reviews-filter-btn-item done-filter-popup is-mb">Done</div>
+                  </div>
+                </div>
+                <div class="results-reviews-tags"></div>
+              </div>
+            </div>
+            <div class="results-reviews-scroll">
+              <div class="results-reviews-list">
+              </div>
+              {%- if section.settings.text5 != blank -%}
+              <div class="results-reviews-more">
+                <div class="results-reviews-more-tap">
+                  {{ section.settings.text5 }}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="11" viewBox="0 0 15 11" fill="none">
+                    <path d="M0.450195 5.50061L13.5372 5.5" stroke="#E0004D" stroke-width="0.608696" />
+                    <path d="M10.7979 2.76086L14.0032 5.5006L10.7979 8.17095" stroke="#E0004D" stroke-width="0.608696"
+                      stroke-linejoin="round" />
+                  </svg>
+                </div>
+              </div>
+            {%- endif -%}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </results-reviews-new>
+</section>
+<script>
+  class resultsReviews extends HTMLElement {
+    constructor(el) {
+      super();
+      this.el = this;
+      this.isChecking = false;
+      this.filter = {
+        type: '1',
+        productType: [],
+        cyclicality: [],
+        skinTone: [],
+        other: [],
+        currentPage: 0,
+        pageSize: 3
+      }
+      this.filterTag = []
+      this.filterList = []
+      this.data = [
+          {% for block in section.blocks %}
+            {% assign img_url =  block.settings.image | image_url  %}
+            {
+              id: `{{ block.id }}`,
+              type: `{{ block.settings.text2 }}`,
+              productType: `{{ block.settings.text3 }}`,
+              cyclicality: `{{ block.settings.text4 }}`,
+              skinTone: `{{ block.settings.text5 }}`,
+              other: `{{ block.settings.text6 }}`,
+              {% if block.settings.image != blank %}
+                img: '{{ block.settings.image | image_url }}',
+              {% else %}
+                img: '',
+              {% endif %}
+              beforTxt: `{{ block.settings.befor_txt }}`,
+              afterTxt: `{{ block.settings.after_txt }}`,
+              {% if block.settings.video != blank %}
+                video: '{{-
+                      block.settings.video
+                      | video_tag:
+                        controls: false,
+                        autoplay: true,
+                        playsinline: true,
+                        muted: true,
+                        loop: true,
+                        poster: img_url
+                    -}}',
+                videoJson: {{ block.settings.video | json }},
+              {% else %}
+                video:'',
+                videoJson:false,
+              {% endif %}
+              starImg: '{{ block.settings.image_icon | image_url }}',
+              starTxt: `{{ block.settings.star_txt }}`,
+              title: `{{ block.settings.text }}`,
+              desc: `{{block.settings.text1}}`,
+              {% if block.settings.image_user != blank %}
+                userImg: '{{ block.settings.image_user | image_url }}',
+              {% else %}
+                userImg: '',
+              {% endif %}
+              userName: `{{ block.settings.user_txt }}`,
+              {% if block.settings.image_pro != blank %}
+                proImg: '{{ block.settings.image_pro | image_url }}',
+              {% else %}
+                proImg: '',
+              {% endif %}
+              {% if block.settings.product != blank %}
+                {% assign product = block.settings.product  %}
+                {% assign media = block.settings.product.media[0] | json   %}
+                proName: '{{ product.title }}',
+                proPrice: '{{ product.selected_or_first_available_variant.metafields.custom["page_price"] | times: 100 | money }}',
+                proPriceOld: '{{ product.price | money }}',
+                proId: '{{ product.selected_or_first_available_variant.id }}',
+                code:'{{ product.metafields.custom["discount_code"] }}',
+                media:{{ media }},
+              {% else %}
+                proName: '',
+                proPrice: '',
+                proPriceOld: '',
+                proId: '',
+                code:'',
+                media:'',
+              {% endif %}
+              proBtn: '{{ block.settings.text7 }}',
+              dzTxt: '{{ block.settings.text8 }}'
+          }{% if forloop.last == false %},{% endif %}
+        {% endfor %}
+      ]
+
+      this.init();
+    }
+
+    init() {
+      let that = this
+      // 初始设置点赞缓存和随机增加数据
+      // this.setDzData()
+      // 初始化页面数据
+      this.filterHtml(false, true);
+      // 合并监听点击事件
+      this.el.addEventListener('click', (event) => {
+        const target = event.target;
+        // 处理tab切换
+        const tabItem = target.closest('.results-reviews-tab-item');
+        if (tabItem) {
+          const allItems = that.el.querySelectorAll('.results-reviews-tab-item');
+          allItems.forEach(item => item.classList.remove('active'));
+          tabItem.classList.add('active');
+          that.filter.type = tabItem.getAttribute('data-type');
+          that.filterHtml(false,false,true);
+          that.el.querySelector('.clear-filter-all').click();
+          return; // 防止继续执行后面的代码
+        }
+
+        // 处理加入购物车
+        const addToCartButton = target.closest('.results-reviews-product-btn');
+        if (addToCartButton) {
+          const pId = addToCartButton.getAttribute('data-proId');
+          const code = addToCartButton.getAttribute('data-code');
+          that.toggleLoading(true);
+          window.UlikeCommon.addToCartPromise(pId).then(()=>{
+            that.toggleLoading(false);
+          })
+          return; // 防止继续执行后面的代码
+        }
+
+        // 处理点赞或取消
+        const likeButton = target.closest('.results-reviews-dz');
+        if (likeButton) {
+          const parentItem = likeButton.closest('.results-reviews-item');
+          if (!parentItem) return;
+          const id = parentItem.getAttribute('data-id');
+          let dzItem = that.setDzData(true, id, true); // 获取点赞数据 和 执行了点赞缓存数据更新(第三个参数为true)
+          const span = likeButton.querySelector('span');
+
+          if (!dzItem.isDz) {
+            likeButton.classList.remove('active');
+          } else {
+            likeButton.classList.add('active');
+          }
+
+          if (span) {
+            span.textContent = dzItem.num;
+          }
+          return; // 防止继续执行后面的代码
+        }
+
+        // 显示/隐藏筛选框
+        let showFilter = target.closest('.results-reviews-filter-top');
+        let doneFilter = target.closest('.done-filter-popup');
+        if (showFilter || doneFilter) {
+          if (!showFilter && doneFilter) showFilter = doneFilter;
+          const filterContainer = showFilter.closest('.results-reviews-filter');
+          filterContainer.classList.toggle('open-filter');
+          const sibling = showFilter.closest('.results-reviews-filter').querySelector('.results-reviews-filter-tj');
+          if (sibling) {
+            sibling.style.display = window.getComputedStyle(sibling).display == 'none' ? 'block' : 'none';
+            if (this.isMobile()) {
+              document.body.classList.toggle('filter-fixed');
+            }
+          }
+          return; // 防止继续执行后面的代码
+        }
+        // 过滤选项点击
+        const filtertem = target.closest('.results-reviews-filter-item');
+        if (filtertem) {
+          if(filtertem.classList.contains('disable-box')) return;
+          if (event.target.tagName === 'INPUT') {
+            const inputEl = filtertem.querySelector('input');
+            const name = inputEl.name;
+            const value = inputEl.value;
+            const tagTxt = filtertem.getAttribute('data-txt');
+            if (inputEl.checked) {
+              that.filter[name].push(value);
+              that.filterTag.push({ tagTxt, value, name })
+            } else {
+              that.filter[name] = that.filter[name].filter(item => item !== value);
+              that.filterTag = that.filterTag.filter(item => !(item.name === name && item.value === value));
+            }
+            that.filterHtml();
+          }
+          return; // 防止继续执行后面的代码
+        }
+
+        // 清除所有筛选条件
+        const clearAll = target.closest('.clear-filter-all');
+        if (clearAll) {
+          that.filter = {
+            type: that.filter.type,
+            productType: [],
+            cyclicality: [],
+            skinTone: [],
+            other: [],
+            currentPage: 0,
+            pageSize: 3
+          };
+          that.filterTag = [];
+
+          clearAll.closest('.results-reviews-filter-tj').querySelectorAll('input[type="checkbox"]').forEach(item => item.checked = false);
+          // const sibling = clearAll.closest('.results-reviews-filter').querySelector('.results-reviews-filter-tj');
+          // if (sibling) {
+          //   sibling.style.display = 'none';
+          // }
+          // that.el.querySelector('.results-reviews-filter').classList.remove('open-filter');
+          // if (this.isMobile()) {
+          //   document.body.classList.remove('filter-fixed');
+          // }
+          that.filterHtml();
+          return; // 防止继续执行后面的代码
+        }
+
+        // 删除单个筛选条件
+        const tagClose = target.closest('.tag-close');
+        if (tagClose) {
+          const parentTag = target.closest('.results-reviews-tag');
+          if (parentTag) {
+            const name = parentTag.getAttribute('data-name');
+            const value = parentTag.getAttribute('data-val');
+            target.closest('.results-reviews-filter').querySelector(`input[name="${name}"][value="${value}"]`).checked = false;
+            that.filterTag = that.filterTag.filter(item => !(item.name === name && item.value === value));
+            that.filter[name] = that.filter[name].filter(item => item !== value);
+            that.filterHtml();
+          }
+          return; // 防止继续执行后面的代码
+        }
+
+        // 加载更多
+        const loadMore = target.closest('.results-reviews-more-tap');
+        if (loadMore) {
+          that.filter.currentPage += 1;
+          that.filterHtml(true);
+        }
+
+      });
+
+      // 点击任意地方关闭指定弹窗
+      document.addEventListener('click', (event) => {
+        const ancestorClass = 'results-reviews-filter-cont';
+        const targetElement = event.target;
+        if (!targetElement.closest(`.${ancestorClass}`)) {
+          this.el.querySelector('.results-reviews-filter-tj').style.display = 'none';
+          this.el.querySelector('.results-reviews-filter').classList.remove('open-filter');
+          if (this.isMobile()) {
+            document.body.classList.remove('filter-fixed');
+          }
+        }
+      });
+      // 设置过滤按钮的top值
+      that.setFilterTop()
+
+      window.addEventListener('scroll', () => {
+        if (!this.isChecking) {
+          this.isChecking = true;
+          let top = this.checkSticky(this.el.querySelector('.results-reviews-new'));
+          requestAnimationFrame(() => {
+            this.isChecking = false;
+            if (top <= 0) {
+              this.el.classList.add('fixed-top');
+            } else {
+              this.el.classList.remove('fixed-top');
+            }
+          });
+        }
+      });
+    }
+
+    // 根据过滤后的数据 隐藏其他筛选条件下没有数据的筛选条件
+       filterHide(list) {
+        let $productType = this.el.querySelectorAll('[name="productType"]')
+        let $cyclicality = this.el.querySelectorAll('[name="cyclicality"]')
+        let $skinTone = this.el.querySelectorAll('[name="skinTone"]')
+        let $other = this.el.querySelectorAll('[name="other"]')
+        let productType = [], cyclicality = [], skinTone = [], other = [];
+        if (list.length === 0) {
+          this.el.querySelector('.results-reviews-filter').style.display = 'none'
+          return
+        } else {
+          this.el.querySelector('.results-reviews-filter').style.display = 'block'
+        }
+        list.forEach(item => {
+          productType.push(item.productType)
+          cyclicality.push(item.cyclicality)
+          skinTone.push(item.skinTone)
+          other.push(item.other)
+        })
+
+        if ($productType.length) {
+          $productType.forEach(item => {
+            if (productType.includes(item.value)) {
+              item.closest('.results-reviews-filter-item').classList.remove('disable-box')
+            } else {
+              item.closest('.results-reviews-filter-item').classList.add('disable-box')
+            }
+          })
+        }
+
+        if ($cyclicality.length) {
+          $cyclicality.forEach(item => {
+            if (cyclicality.includes(item.value)) {
+              item.closest('.results-reviews-filter-item').classList.remove('disable-box')
+            } else {
+              item.closest('.results-reviews-filter-item').classList.add('disable-box')
+            }
+          })
+        }
+
+        if ($skinTone.length) {
+          $skinTone.forEach(item => {
+            if (skinTone.includes(item.value)) {
+              item.closest('.results-reviews-filter-item').classList.remove('disable-box')
+            } else {
+              item.closest('.results-reviews-filter-item').classList.add('disable-box')
+            }
+          })
+        }
+
+        if ($other.length) {
+          $other.forEach(item => {
+            if (other.includes(item.value)) {
+              item.closest('.results-reviews-filter-item').classList.remove('disable-box')
+            } else {
+              item.closest('.results-reviews-filter-item').classList.add('disable-box')
+            }
+          })
+        }
+      }
+
+    // 判断元素是否到顶部
+    checkSticky(element) {
+      const rect = element.getBoundingClientRect();
+      return rect.top;
+    }
+
+    // 设置过滤按钮的top值
+    setFilterTop() {
+      if (!this.isMobile()) return;
+      const filterContainer = this.el.querySelector('.results-reviews-filter');
+      const reviewsTop = this.el.querySelector('.results-reviews-new-top');
+      const headerHeight = 67;
+      const top = this.getHeight(reviewsTop) + headerHeight;
+      filterContainer.style.top = `${top}px`;
+    }
+
+    // 获取指定元素的高度
+    getHeight(element) {
+      return element.getBoundingClientRect().height;
+    }
+    // 判断是否移动端（小于991）
+    isMobile() {
+      return window.innerWidth < 991;
+    }
+    // 初始设置点赞数据
+    setDzData(isGetItem = false, id, isDzTap = false) {
+      const dzList = localStorage.getItem('dzList') ? JSON.parse(localStorage.getItem('dzList')) : [];
+      if (isGetItem) {
+        // 根据id获取点赞数据
+        const dzIndex = dzList.findIndex(dz => dz.id === id);
+        if (isDzTap) {
+          // 执行点赞数据更新
+          dzList[dzIndex].num = dzList[dzIndex].num > dzList[dzIndex].randomNum ? dzList[dzIndex].num + (dzList[dzIndex].isDz ? -1 : 1) : dzList[dzIndex].randomNum + (dzList[dzIndex].isDz ? -1 : 1);
+          dzList[dzIndex].isDz = !dzList[dzIndex].isDz
+          if (!dzList[dzIndex].isDz && dzList[dzIndex].randomNum < dzList[dzIndex].num) {
+            dzList[dzIndex].randomNum = dzList[dzIndex].num
+          }
+          try {
+            localStorage.setItem('dzList', JSON.stringify(dzList));
+          } catch (error) {
+            
+          }
+          
+          
+          return { ...dzList[dzIndex] }
+        }
+        if (dzIndex !== -1) {
+          return { ...dzList[dzIndex] };
+        } else {
+          return { oldNum: 0, num: 0, isDz: false };
+        }
+      } else {
+        this.data.forEach(item => {
+          const dzIndex = dzList.findIndex(dz => dz.id === item.id);
+          item.dzTxt = item.dzTxt*1
+          // 有缓存更新缓存点赞数据
+          if (dzIndex !== -1) {
+            // 判断初始数据和缓存点赞oldNum是否一致，不一致则更新缓存数据
+            if (dzList[dzIndex].oldNum !== item.dzTxt) {
+              dzList[dzIndex] = { id: item.id, num: item.dzTxt || 0, oldNum: item.dzTxt || 0, randomNum: item.dzTxt || 0, isDz: dzList[dzIndex].isDz || false };
+            } else {
+              // 点赞数据和缓存点赞oldNum一致，则增加点赞数量
+              dzList[dzIndex] = { id: item.id, num: this.addDzNum(dzList[dzIndex].num || 0), oldNum: item.dzTxt || 0, randomNum: this.addDzNum(dzList[dzIndex].randomNum || 0), isDz: dzList[dzIndex].isDz || false };
+            }
+          } else {
+            // 没有缓存，则新增点赞数据
+            dzList.push({ id: item.id, num: item.dzTxt || 0, oldNum: item.dzTxt || 0, randomNum: item.dzTxt || 0, isDz: false });
+          }
+        });
+      }
+      try {
+        localStorage.setItem('dzList', JSON.stringify(dzList));
+      } catch (error) {
+        
+      }
+    }
+
+    // 随机返回范围内的数字
+    getRandomArbitrary(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    // 增加点赞数量
+    addDzNum(num) {
+      // 刷新概率百分之20增加点赞数量
+      return this.getRandomArbitrary(0, 10) > 2 ? num + this.getRandomArbitrary(1, 3) : num;
+    }
+
+    // 定义遮罩方法
+    toggleLoading(isOpen) {
+      let overlay = document.getElementById('loading-overlay');
+      let styleElement = document.getElementById('loading-style');
+
+      if (isOpen) {
+        if (!overlay) {
+          // 创建遮罩层
+          overlay = document.createElement('div');
+          overlay.id = 'loading-overlay';
+          overlay.style.position = 'fixed';
+          overlay.style.top = '0';
+          overlay.style.left = '0';
+          overlay.style.width = '100%';
+          overlay.style.height = '100%';
+          overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
+          overlay.style.zIndex = '1000';
+          overlay.style.display = 'flex';
+          overlay.style.justifyContent = 'center';
+          overlay.style.alignItems = 'center';
+
+          // 创建转圈动画
+          const spinner = document.createElement('div');
+          spinner.style.width = '40px';
+          spinner.style.height = '40px';
+          spinner.style.border = '3px solid #aaa';
+          spinner.style.borderTop = '3px solid #e0004d';
+          spinner.style.borderRadius = '50%';
+          spinner.style.animation = 'ulikeSpin 1s linear infinite';
+
+          overlay.appendChild(spinner);
+          document.body.appendChild(overlay);
+
+          // 添加 CSS 动画
+          if (!styleElement) {
+            styleElement = document.createElement('style');
+            styleElement.id = 'loading-style';
+            styleElement.innerHTML = `
+                body{
+                  overflow: hidden;
+                }
+                @keyframes ulikeSpin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+              `;
+            document.head.appendChild(styleElement);
+          }
+        }
+      } else {
+        // 移除遮罩层和样式
+        if (overlay) {
+          overlay.remove();
+        }
+        if (styleElement) {
+          styleElement.remove();
+        }
+      }
+    }
+
+    // 过滤更新html
+    filterHtml(isPage = false, isInit = false,isTab=false) {
+      if (!isPage) this.filter.currentPage = 0
+      this.filterList = this.filterData(this.data, this.filter)
+      this.filterHide(this.filterList)
+      let list = isPage ? this.getCurrentPageData(this.filterList) : this.filterList.slice(0, 3)
+      this.el.querySelector('.results-reviews-more').style.display = 'flex'
+
+      if (list.length < this.filter.pageSize || list.length === this.filterList.length) {
+        this.el.querySelector('.results-reviews-more').style.display = 'none'
+      }
+      // 更新缓存点赞数据
+      this.setDzData()
+      this.buildHtml(list,isPage)
+      if (isInit || isPage) return;
+      this.scrollToTopOfElement(this.el)
+    }
+
+    // 滚动到顶部
+    // scrollToTopOfElement(element) {
+    //   if (!element) return;
+    //   element.scrollIntoView({
+    //     behavior: 'smooth', // 平滑滚动
+    //     block: 'start',     // 滚动到目标元素顶部
+    //     inline: 'nearest',  // 水平方向的对齐方式
+    //   });
+    // }
+    // 滚动到顶部，保留一定的距离
+    scrollToTopOfElement(element, offset = 80) {
+      if (!element) return;
+      
+      const elementTop = element.getBoundingClientRect().top + window.scrollY;
+      const targetPosition = elementTop - offset;
+    
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth', // 平滑滚动
+      });
+    }
+    // 分页添加数据
+    getCurrentPageData(data = []) {
+      const start = this.filter.currentPage * this.filter.pageSize;
+      const end = start + this.filter.pageSize;
+      if (start >= data.length) return [];
+      return data.slice(start, end);
+    }
+    // 筛选数据
+    filterData(data, filter) {
+      return data.filter(item => {
+        // 根据每个条件进行筛选
+        return (
+          (item.type === filter.type) && // 匹配 type
+          (filter.productType.length === 0 || filter.productType.includes(item.productType)) && // 如果 productType 数组为空，则不过滤，否则匹配 productType
+          (filter.cyclicality.length === 0 || filter.cyclicality.includes(item.cyclicality)) && // 如果 cyclicality 数组为空，则不过滤，否则匹配 cyclicality
+          (filter.skinTone.length === 0 || filter.skinTone.includes(item.skinTone)) && // 如果 skinTone 数组为空，则不过滤，否则匹配 skinTone
+          (filter.other.length === 0 || filter.other.includes(item.other)) // 如果 other 数组为空，则不过滤，否则匹配 other
+        );
+      });
+    }
+
+    // 图片大小
+    convertShopifyImageUrl(url, size) {
+      return url?url.replace(/(\.[^/.]+)$/, `_${size}$1`):''
+    }
+
+    // 更新html
+    buildHtml(list = [], isPage = false) {
+      let tagHtml = '';
+      let html = '';
+      list.forEach((item, index) => {
+        let dzItem = this.setDzData(true, item.id)
+        html += `
+        <div class="results-reviews-item" data-id="${item.id}">
+          <div class="results-reviews-item-img">
+            <div class="results-reviews-item-img-cont">
+              ${item.img?`<img src="${item.img}" class="img" loading="lazy" alt="">`:''}
+              ${item.videoJson ? item.video : '' }
+              ${item.beforTxt ? `<div class="results-reviews-label before-tag">${item.beforTxt}</div>` : ''}
+              ${item.afterTxt ? `<div class="results-reviews-label after-tag">${item.afterTxt}</div>` : ''}
+            </div>
+          </div>
+          <div class="results-reviews-item-text">
+            <div class="results-reviews-start">
+              <img src="${item.starImg}" alt="" class="start-img">
+              ${item.starTxt}
+            </div>
+            <div class="results-reviews-h4">${item.title}</div>
+            <div class="results-reviews-desc">${item.desc}</div>
+            <div class="results-reviews-user">
+              ${item.userImg?`<img src="${item.userImg}" loading="lazy" alt="" class="user-img">`:''}
+              ${item.userName}
+            </div>
+            <div class="results-reviews-product">
+              ${item.proImg?`<img src="${item.proImg}" alt="" class="pro-img">`:`<img src="${this.convertShopifyImageUrl(item.media?.src,'80x')}" class="pro-img" alt="">`}
+              <div class="results-reviews-product-txt">
+                <div class="results-reviews-product-name">${item.proName}</div>
+                <div class="results-reviews-product-price">
+                  {% comment %} <span class="n-price">${item.proPrice}</span> {% endcomment %}
+                  <span class="n-price">${item.proPriceOld}</span>
+                </div>
+                <div class="results-reviews-product-btn" data-proId = "${item.proId}" data-code="${item.code}">
+                  ${item.proBtn}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="12" viewBox="0 0 15 12" fill="none">
+                    <path d="M0.950195 5.8656L14.0372 5.86499" stroke="#190A0A" stroke-width="0.608696" />
+                    <path d="M11.2979 3.12585L14.5032 5.86559L11.2979 8.53594" stroke="#190A0A"
+                      stroke-width="0.608696" stroke-linejoin="round" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="results-reviews-dz ${dzItem.isDz ? 'active' : ''}">
+              <svg xmlns="http://www.w3.org/2000/svg" width="41" height="41" viewBox="0 0 41 41" fill="none">
+                <circle cx="20.9502" cy="20.865" r="19.5853" stroke="#EBEBEB" stroke-width="0.829368" />
+                <path
+                  d="M17.0147 20.0521L20.2663 12.736C20.9131 12.736 21.5334 12.993 21.9907 13.4503C22.448 13.9076 22.705 14.5279 22.705 15.1747V18.4263H27.306C27.5417 18.4236 27.7751 18.4722 27.9901 18.5687C28.2051 18.6653 28.3966 18.8073 28.5512 18.9852C28.7059 19.163 28.82 19.3724 28.8857 19.5987C28.9514 19.8251 28.9672 20.063 28.9318 20.296L27.81 27.6121C27.7512 27.9997 27.5543 28.3531 27.2555 28.6071C26.9567 28.861 26.5763 28.9984 26.1842 28.994H17.0147M17.0147 20.0521V28.994M17.0147 20.0521H14.576C14.1448 20.0521 13.7313 20.2234 13.4264 20.5283C13.1215 20.8332 12.9502 21.2467 12.9502 21.6779V27.3682C12.9502 27.7994 13.1215 28.2129 13.4264 28.5178C13.7313 28.8227 14.1448 28.994 14.576 28.994H17.0147"
+                  stroke="#190A0A" stroke-width="0.812899" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span>
+                ${dzItem.isDz ? dzItem.num : (dzItem.randomNum || item.dzTxt || 0)}
+              </span>
+            </div>
+          </div>
+        </div>`
+      })
+
+      this.filterTag.forEach((item, index) => {
+        tagHtml += `
+          <div class="results-reviews-tag" data-name="${item.name}" data-val="${item.value}">
+            ${item.tagTxt}
+            <span class="tag-close">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
+                <path d="M10.8906 4.16956L3.89062 11.1696" stroke="#E0004D" stroke-width="0.753846" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3.89062 4.16956L10.8906 11.1696" stroke="#E0004D" stroke-width="0.753846" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+        `
+      })
+      if (this.filterTag.length) {
+        this.el.querySelector('.results-reviews-tags').innerHTML = tagHtml
+        this.el.querySelector('.results-reviews-tags').style.display = 'flex'
+      } else {
+        this.el.querySelector('.results-reviews-tags').style.display = 'none'
+      }
+
+      if (isPage) {
+        this.el.querySelector('.results-reviews-list').innerHTML +=html;
+      } else {
+        this.el.querySelector('.results-reviews-list').innerHTML = html;
+      }
+    }
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    customElements.define('results-reviews-new', resultsReviews);
+  })
+</script>
+{% schema %}
+{
+  "name": "results-reviews-new",
+  "blocks": [
+    {
+      "name": "item",
+      "type": "item",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "产品选择"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video"
+        },
+        {
+          "type": "text",
+          "id": "befor_txt",
+          "label": "Before Text",
+          "default":"Before"
+        },
+        {
+          "type": "text",
+          "id": "after_txt",
+          "label": "After Text",
+          "default":"After 1-4 "
+        },
+        {
+          "type": "image_picker",
+          "id": "image_icon",
+          "label": "Star Image"
+        },
+        {
+          "type": "text",
+          "id": "star_txt",
+          "label": "Star Text",
+          "default":"4.8"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default":"It’s amazing!"
+        },
+        {
+          "type": "text",
+          "id": "text1",
+          "label": "Text",
+          "default":"“It’s amazing, I was able to recover my hair with this powerful product. I don’t have extensions, and it feels so natural.”"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_user",
+          "label": "用户头像"
+        },
+        {
+          "type": "text",
+          "id": "user_txt",
+          "label": "用户名字",
+          "default":"Kiara B."
+        },
+        {
+          "type": "image_picker",
+          "id": "image_pro",
+          "label": "产品图片",
+          "info": "不传图片默认获取选择产品的第一张图"
+        },
+        {
+          "type": "text",
+          "id": "text7",
+          "label": "加购文案",
+          "default":"Add to Cart"
+        },
+        {
+          "type": "text",
+          "id": "text8",
+          "label": "点赞初始数据",
+          "default":"0"
+        },
+        {
+          "type": "header",
+          "content": "过滤条件"
+        },
+        {
+          "type": "text",
+          "id": "text2",
+          "label": "部位",
+          "default":"1",
+          "info": "对应部位JSON位置=> 1 2 3"
+        },
+        {
+          "type": "text",
+          "id": "text3",
+          "label": "产品",
+          "default":"1",
+          "info": "对应产品JSON位置=> 1 2 3"
+        },
+        {
+          "type": "text",
+          "id": "text4",
+          "label": "周期",
+          "default":"1",
+          "info": "对应周期JSON位置=> 1 2 3"
+        },
+        {
+          "type": "text",
+          "id": "text5",
+          "label": "肤色",
+          "default":"1",
+          "info": "对应肤色JSON位置=> 1 2 3"
+        },
+        {
+          "type": "text",
+          "id": "text6",
+          "label": "其他",
+          "default":"1",
+          "info": "对应其他JSON位置=> 1 2 3"
+        }      
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "标题"
+    },
+    {
+      "type": "textarea",
+      "id": "items_json",
+      "label": "部位(JSON)",
+      "info": "部位名称=》部位 1, 部位 2, 部位 3",
+      "default":"Armpit,face,Underbelly,leg,chest"
+    },
+    {
+      "type": "text",
+      "id": "text1",
+      "label": "过滤条件，产品标题文案",
+      "default":"Product"
+    },
+    {
+      "type": "textarea",
+      "id": "items_json1",
+      "label": "产品名称(JSON)",
+      "info": "产品名称=》产品 1, 产品 2, 产品 3",
+      "default":"Air 10,Air 3,Ulike X"
+    },
+    {
+      "type": "text",
+      "id": "text2",
+      "label": "过滤条件，周期标题文案",
+      "default":"Cyclicality"
+    },
+    {
+      "type": "textarea",
+      "id": "items_json2",
+      "label": "周期(JSON)",
+      "info": "周期=》周期 1,周期 2,周期 3",
+      "default":"Week 1-4,Week 5-8"
+    },
+    {
+      "type": "text",
+      "id": "text3",
+      "label": "过滤条件，肤色标题文案",
+      "default":"Skin Tone"
+    },
+    {
+      "type": "textarea",
+      "id": "items_json3",
+      "label": "肤色(JSON)",
+      "info": "肤色=》肤色 1, 肤色 2, 肤色 3",
+      "default":"Light,Medium,Dark"
+    },
+    {
+      "type": "text",
+      "id": "text4",
+      "label": "过滤条件，其他标题文案"
+    },
+    {
+      "type": "textarea",
+      "id": "items_json4",
+      "label": "其他(JSON)",
+      "info": "其他=》其他 1, 其他 2, 其他 3"
+    },
+    {
+      "type": "text",
+      "id": "text5",
+      "label": "查看更多",
+      "default":"Load More"
+    }
+  ],
+  "presets": [
+    {
+      "name": "results-reviews-new",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,261 @@
+{% comment %}
+  Section: u-ews-required-info
+  Usage:
+  - Extended warranty required info section
+  - Text is configurable
+  - Layout/style is fixed
+{% endcomment %}
+
+{%- liquid
+  assign sid = section.id
+  assign st = section.settings
+-%}
+
+<section id="u-ews-required-info-{{ sid }}" class="u-ews-required-info">
+  <div class="u-ews-required-info__inner page-width">
+    {%- if st.heading != blank -%}
+      <h2 class="u-ews-required-info__heading">
+        {{ st.heading }}
+      </h2>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="u-ews-required-info__grid">
+        {%- for block in section.blocks -%}
+          <div class="u-ews-required-info__item" {{ block.shopify_attributes }}>
+            {%- if block.settings.number != blank -%}
+              <div class="u-ews-required-info__number">
+                {{ block.settings.number }}
+              </div>
+            {%- endif -%}
+
+            {%- if block.settings.title != blank -%}
+              <div class="u-ews-required-info__title">
+                {{ block.settings.title }}
+              </div>
+            {%- endif -%}
+
+            {%- if block.settings.desc != blank -%}
+              <div class="u-ews-required-info__desc">
+                {{ block.settings.desc }}
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if st.note != blank -%}
+      <div class="u-ews-required-info__note rte">
+        {{ st.note }}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  #u-ews-required-info-{{ sid }} {
+    background: #ffffff;
+    padding: 80px 0 80px;
+    position: relative;
+  }
+
+  #u-ews-required-info-{{ sid }} .u-ews-required-info__inner {
+  }
+
+  #u-ews-required-info-{{ sid }} .u-ews-required-info__heading {
+    margin: 0 0 50px;
+    text-align: center;
+    color: #000;
+    font-size: 24px;
+    line-height: 1.3;
+    letter-spacing: 1.2px;
+    font-weight: 500;
+  }
+
+  #u-ews-required-info-{{ sid }} .u-ews-required-info__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 30px;
+    margin: 0 auto;
+  }
+
+  #u-ews-required-info-{{ sid }} .u-ews-required-info__item {
+    min-height: 220px;
+    background: #f7f7f9;
+    border-radius: 4px;
+    padding: 40px 20px 22px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  #u-ews-required-info-{{ sid }} .u-ews-required-info__number {
+    margin-bottom: 16px;
+    color: #E0004D;
+    font-size: 48px;
+    line-height: 1;
+    font-weight: 300;
+    letter-spacing: 2.4px;
+  }
+
+  #u-ews-required-info-{{ sid }} .u-ews-required-info__title {
+    color: #000;
+    font-size: 18px;
+    line-height: 1.6;
+    font-weight: 600;
+  }
+
+  #u-ews-required-info-{{ sid }} .u-ews-required-info__desc {
+    color: rgba(0, 0, 0, 0.70);
+    font-size: 14px;
+    line-height: 1.5;
+    width: 72%;
+    margin: 4px auto 0px;
+  }
+
+  #u-ews-required-info-{{ sid }} .u-ews-required-info__note {
+    max-width: 820px;
+    margin: 60px auto 0;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.70);
+    font-size: 12px;
+    line-height: 1.8;
+  }
+
+  #u-ews-required-info-{{ sid }} .u-ews-required-info__note p {
+    margin: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    #u-ews-required-info-{{ sid }} {
+      padding: 50px 0 30px;
+    }
+
+    #u-ews-required-info-{{ sid }} .u-ews-required-info__inner {
+    }
+
+    #u-ews-required-info-{{ sid }} .u-ews-required-info__heading {
+      font-size: 20px;
+      line-height: 1.5;
+       width: 60%;
+       margin: 0 auto 30px;
+       text-align: center;
+    }
+
+    #u-ews-required-info-{{ sid }} .u-ews-required-info__grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+      max-width: 100%;
+    }
+
+    #u-ews-required-info-{{ sid }} .u-ews-required-info__item {
+      min-height: 190px;
+      padding: 35px 16px 10px;
+      border-radius: 4px;
+    }
+
+    #u-ews-required-info-{{ sid }} .u-ews-required-info__number {
+      margin-bottom: 8px;
+      font-size: 40px;
+    }
+
+    #u-ews-required-info-{{ sid }} .u-ews-required-info__title {
+      font-size: 16px;
+      line-height: 1.55;
+    }
+
+    #u-ews-required-info-{{ sid }} .u-ews-required-info__desc {
+      margin-top: 6px;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    #u-ews-required-info-{{ sid }} .u-ews-required-info__note {
+      margin-top: 30px;
+      font-size: 12px;
+      line-height: 1.5;
+      text-align: left;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "u-ews-required-info",
+  "tag": "section",
+  "class": "section section-u-ews-required-info",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "有償延長保証サービス登録に必要な情報"
+    },
+    {
+      "type": "richtext",
+      "id": "note",
+      "label": "Note",
+      "default": "<p>お手元にてご購入の場合、注文番号のない状態がございますので、レシートや領収書などをアップロードすることを推奨です。</p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "info_item",
+      "name": "Info item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Number",
+          "default": "01"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "有償延長保証サービスの注文情報"
+        },
+        {
+          "type": "text",
+          "id": "desc",
+          "label": "Description",
+          "default": "注文番号・注文日付・購入本数"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "u-ews-required-info",
+      "blocks": [
+        {
+          "type": "info_item",
+          "settings": {
+            "number": "01",
+            "title": "有償延長保証サービスの注文情報",
+            "desc": "注文番号・注文日付・購入本数"
+          }
+        },
+        {
+          "type": "info_item",
+          "settings": {
+            "number": "02",
+            "title": "お客様情報",
+            "desc": "氏名・電話番号・ご住所・生年月日・メールアドレス"
+          }
+        },
+        {
+          "type": "info_item",
+          "settings": {
+            "number": "03",
+            "title": "本体をご注文の情報",
+            "desc": "注文番号・注文日付・シリアル（SN）・購入証明添付"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

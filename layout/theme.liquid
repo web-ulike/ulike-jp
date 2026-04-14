@@ -91,12 +91,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   {%- render 'js-variables' -%}
 
-
-
   {% comment %} 联盟代码 {% endcomment %}
-  {% include 'alliance_script' %}
+  {% comment %} {% include 'alliance_script' %} {% endcomment %}
 
-{% include 'pagefly-app-header' %}</head>
+  {% include 'pagefly-app-header' %}
+</head>
 
 <body class="template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}{% if request.path == '/challenge' %} template-challange{% endif %}{% if request.design_mode %} shopify-design-mode{% endif %}" data-rounded-button="{{ settings.rounded_button }}" data-rounded-input="{{ settings.rounded_input }}" data-rounded-block="{{ settings.rounded_block }}" data-button_hover="{{ settings.buttons_hover }}"{% if settings.enable_lazy_image %} data-lazy-image{% endif %} data-page-rendering>
   <a class="sr-only skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
@@ -129,7 +128,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
    {% render 'pin-to-top' %}
    {% section 'pin-active-icon' %}
 
-   {% section 'u-user-new-popup' %}
+   {% unless page.handle == 'spring-sale' %}
+     {% section 'u-user-new-popup' %}
+   {% endunless %}
 </body>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap" rel="stylesheet">

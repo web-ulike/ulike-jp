@@ -1,0 +1,318 @@
+<style>
+    #shopify-section-{{ section.id }}{
+      position: sticky;
+      top: 0px;
+      {% comment %} top: calc(var(--header-height, 0px) * var(--enable-sticky-header) + var(--announcement-bar-height, 0px) * var(--enable-sticky-announcement-bar)); {% endcomment %}
+      z-index: 3;
+    }
+    .bf-tab-box{
+      background:#000;
+    }
+    .bf-tab-box .bf-tab-cont{
+      border-bottom: 1px solid #666666;
+    }
+
+  .bf-tab-box .bf-tab-scroll{
+    overflow: hidden;
+  }
+
+  .bf-tab-box .bf-tab-list{
+    display: flex;
+  }
+  .bf-tab-box .bf-tab-item{
+    flex: 1;
+    text-align: center;
+    color: #666;
+    font-size: 24px;
+    /* margin-bottom: -1px; */
+    padding: 8px 0;
+    cursor: pointer;
+  }
+
+  .bf-tab-box .bf-tab-item.active{
+    font-family: var(--heading-font-family);
+    color: #fff;
+    border-bottom: 1px solid #DEB581;
+  }
+  .bf-2024.bf-tab-box{
+    background: linear-gradient(180deg, rgba(244, 52, 90, 1) -13.5%, #b4003e 113.5%);
+  }
+  .bf-2024 .bf-tab-cont{
+    border:0;
+  }
+    .bf-2024 .bf-tab-item{
+      color:#fff;
+      padding: 18px 0;
+      cursor: url('https://cdn.shopify.com/s/files/1/0656/9079/6273/files/cu3.svg'), auto;
+    }
+   .bf-2024 .bf-tab-item.active{
+      border:0;
+     color: #FFF3D4;
+     font-family: var(--text-font-family);
+    }
+    .chr-2024.bf-tab-box{
+      background: linear-gradient(180deg, #E9EFF9 0.3%, #F3F4F7 99.48%);
+    }
+    .chr-2024 .bf-tab-item{
+      color:#000;
+      flex:none;
+    }
+
+    .chr-2024 .bf-tab-item.active{
+      border:0;
+      color:#e0004d;
+    }
+
+    .chr-2024 .bf-tab-cont{
+      border:0;
+    }
+    .results-diy {
+      background: #fff;
+      border-top: 1px solid  #EBEBEB;
+      border-bottom: 1px solid  #EBEBEB;
+    }
+    .results-diy .bf-tab-item{
+      color: #190A0A;
+      font-size:14px;
+      flex:none;
+      height: 65px;
+      display: flex;
+      align-items: center;
+      border-bottom:2.5px solid transparent;
+    }
+
+    .results-diy .bf-tab-list{
+      gap:clamp(0px, 3.125vw, 60px);
+    }
+
+    .results-diy .bf-tab-item.active{
+      color: #190A0A;
+      border-bottom:2.5px solid #86868B;
+    }
+
+    .results-diy .bf-tab-cont{
+      border:0;
+    }
+
+    .new-2025.bf-tab-box{
+      background: linear-gradient(0deg, #B00427 -25%, #8F1224 125%);;
+    }
+    .new-2025 .bf-tab-item{
+      color:#fff;
+    }
+    .seo-diy.bf-tab-box{
+      background: #F9F9F9;
+    }
+    .seo-diy .bf-tab-item{
+      color: #000;
+    }
+    .seo-diy .bf-tab-item.active{
+      color: #E0004D;
+    }
+    .seo-diy .bf-tab-cont{
+      border:0;
+    }
+    .vd-2025 .bf-tab-list:after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #C0C0C0;
+    bottom: 0;
+    left: 0;
+  }
+   .vd-2025.bf-tab-box .bf-tab-list {
+      display: flex;
+      position: relative;
+  }
+  .bf-tab-item svg{
+  padding-left:10px;
+  display:none;
+  }
+    .bf-tab-item.active svg{
+      display:block;
+    }
+    @media (min-width:999px) {
+      .chr-2024 .bf-tab-list{
+        justify-content: center;
+        gap: 90px;
+      }
+    }
+  @media (max-width:999px) {
+    .bf-tab-box .bf-tab-cont{
+      border: 0;
+    }
+    .bf-tab-box .bf-tab-item{
+      color: #9D9D9D;
+      font-size: 16px;
+      flex-shrink: 0;
+      white-space: nowrap;
+      padding: 8px 10px;
+    }
+    .seo-diy .bf-tab-item {
+      color: #000;
+    }
+     .chr-2024 .bf-tab-item{
+      color:#000;
+    }
+     .bf-2024 .bf-tab-item{
+       color:#fff;
+     }
+    .bf-tab-box .bf-tab-item.active{
+      color: #DEB581;
+    }
+
+    .bf-2024 .bf-tab-item.active{
+       color:#FFF3D4;
+     }
+    .bf-tab-box .bf-tab-scroll{
+      overflow-x: auto;
+    }
+    .bf-tab-box .bf-tab-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .chr-2024 .bf-tab-item.active{
+      color: #e0004d;
+    }
+    .new-2025 .bf-tab-item ,.new-2025 .bf-tab-item.active{
+      color: #fff;
+    }
+    .results-diy  .bf-tab-item{
+      color: #190A0A;
+      font-size: 14px;
+    }
+    .results-diy  .bf-tab-item.active{
+      color: #190A0A;
+    }
+    .seo-diy .bf-tab-item.active{
+      color: #E0004D;
+    }
+    .vd-2025.bf-tab-box .bf-tab-list {
+      width: fit-content;
+  }
+  }
+  @media (max-width:740px) {
+    #shopify-section-{{ section.id }}{
+      {% comment %} top: 61px; {% endcomment %}
+    }
+    .bf-tab-item svg{
+  padding-left:5px;
+  width:13px;
+  height:13px;
+  }
+  }
+</style>
+<section class="section-box">
+  <div class="bf-tab-box {{ section.settings.text }}" style="background:{{ section.settings.bg_color }};">
+    <div class="jp-container">
+      <div class="bf-tab-cont">
+        <div class="bf-tab-scroll">
+          <div class="bf-tab-list">
+            {%- for block in section.blocks -%}
+              <div class="bf-tab-item" data-rout="{{ block.settings.text1 }}" {{ block.shopify_attributes }}>
+                {{ block.settings.text }}
+
+                {% if section.settings.is_love %}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+                    <path d="M4.54738 14.2647L4.55632 14.2728L11.8664 20.6915C12.1561 20.9462 12.527 21.0894 12.9127 21.0957C13.2984 21.1019 13.6737 20.9708 13.9716 20.7257L21.5083 14.5165C22.1462 14.0496 22.6754 13.45 23.0594 12.759C23.4435 12.068 23.6733 11.302 23.7331 10.5137C23.7929 9.72546 23.6812 8.93358 23.4058 8.19257C23.1304 7.45156 22.6977 6.779 22.1375 6.22116C21.5774 5.66332 20.903 5.23343 20.1609 4.96106C19.4187 4.68869 18.6264 4.58031 17.8384 4.64337C17.0503 4.70642 16.2853 4.93942 15.5959 5.32634C14.9065 5.71326 14.3091 6.24491 13.8448 6.88473L13.1875 7.79067L12.5302 6.88635C12.076 6.26034 11.4943 5.73769 10.8234 5.35285C10.1525 4.968 9.40769 4.72969 8.63801 4.65363C7.86833 4.57757 7.09127 4.66548 6.35804 4.91157C5.62481 5.15766 4.95205 5.55634 4.3841 6.08134C3.81615 6.60634 3.36591 7.24573 3.06304 7.95739C2.76017 8.66905 2.61155 9.43682 2.62698 10.2101C2.6424 10.9834 2.82153 11.7446 3.15254 12.4436C3.48355 13.1426 3.95894 13.7636 4.54738 14.2655V14.2647ZM1 10.099C0.999971 8.68658 1.42126 7.30627 2.21 6.13461C2.99873 4.96295 4.11905 4.0532 5.42764 3.52174C6.73624 2.99027 8.17363 2.86124 9.55596 3.15116C10.9383 3.44108 12.2027 4.13677 13.1875 5.14923C14.1723 4.13677 15.4367 3.44108 16.819 3.15116C18.2014 2.86124 19.6388 2.99027 20.9474 3.52174C22.256 4.0532 23.3763 4.96295 24.165 6.13461C24.9537 7.30627 25.375 8.68658 25.375 10.099C25.3777 11.2077 25.1193 12.3015 24.6208 13.2919C24.1222 14.2822 23.3975 15.1413 22.5053 15.7995L15.0059 21.9794C14.4103 22.4703 13.6595 22.7333 12.8878 22.7212C12.116 22.7092 11.3738 22.4229 10.7939 21.9135L3.48788 15.4964C2.70698 14.8307 2.08005 14.0032 1.65049 13.0712C1.22092 12.1393 0.998973 11.1252 1 10.099Z" fill="#E0004D"/>
+                    <path d="M1 10.1004C0.99997 8.68774 1.42135 7.30715 2.21024 6.13525C2.99914 4.96335 4.11968 4.05342 5.42855 3.52184C6.73741 2.99027 8.1751 2.86122 9.55771 3.15119C10.9403 3.44117 12.205 4.137 13.19 5.14967C14.175 4.137 15.4397 3.44117 16.8223 3.15119C18.2049 2.86122 19.6426 2.99027 20.9514 3.52184C22.2603 4.05342 23.3808 4.96335 24.1697 6.13525C24.9586 7.30715 25.38 8.68774 25.38 10.1004C25.3827 11.2094 25.1243 12.3034 24.6256 13.294C24.1269 14.2845 23.4021 15.1438 22.5096 15.8021L14.4748 22.4229C14.028 22.7911 13.4648 22.9884 12.8859 22.9793C12.307 22.9702 11.7502 22.7554 11.3152 22.3733L3.4892 15.499C2.70799 14.8332 2.08078 14.0055 1.65099 13.0734C1.22119 12.1413 0.999073 11.1269 1 10.1004Z" fill="#E0004D"/>
+                  </svg>
+                {% endif %}
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  window.addEventListener('load', function () {
+    $('.bf-tab-box .bf-tab-item[data-rout="to-top"]').addClass('active');
+    $('.bf-tab-box .bf-tab-item').click(function () {
+      let route = $(this).data('rout');
+      // $(this).addClass('active').siblings('.bf-tab-item').removeClass('active')
+      if (route == 'to-top') return $('html,body').animate({ scrollTop: 0 }, 'slow');
+      if ($('#' + route).length) {
+        $('html,body').animate({ scrollTop: $('#' + route).offset().top - 100 }, 'slow');
+      }
+    });
+    window.addEventListener('scroll', function () {
+      const scrollPosition = window.scrollY || window.pageYOffset;
+      $('.bf-tab-box .bf-tab-item').removeClass('active');
+      if (scrollPosition == 0) return $('.bf-tab-box .bf-tab-item[data-rout="to-top"]').addClass('active');
+      document.querySelectorAll('.bf-tab-box .bf-tab-item').forEach((item) => {
+        let classN = item.getAttribute('data-rout');
+        if (!classN || !document.querySelector('#' + classN)) return;
+        const sectionTop = document.querySelector('#' + classN).offsetTop;
+        const sectionHeight = document.querySelector('#' + classN).offsetHeight;
+        if (scrollPosition >= sectionTop - 120 && scrollPosition < sectionTop + sectionHeight - 150) {
+          // 移除之前高亮的导航
+          $('.bf-tab-box .bf-tab-item').removeClass('active');
+          // 高亮对应导航
+          item.classList.add('active');
+          if (window.innerWidth < 768) {
+            setTimeout(() => {
+              const scrollContainer = document.querySelector('.bf-tab-scroll');
+              const containerLeft = scrollContainer.offsetLeft;
+              const itemLeft = document.querySelector('.bf-tab-item.active')?.offsetLeft;
+              const scrollAmount = itemLeft - containerLeft;
+              scrollContainer.scrollTo({
+                left: scrollAmount,
+                behavior: 'smooth',
+              });
+            }, 100);
+          }
+        }
+      });
+    });
+  });
+</script>
+{% schema %}
+{
+  "name": "bf-tab-box",
+  "blocks": [
+    {
+      "name": "item",
+      "type": "item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "text",
+          "id": "text1",
+          "label": "Route"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "color_background",
+      "id": "bg_color",
+      "label": "背景颜色"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "自定义Class"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_love",
+      "label": "show Love",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "bf-tab-box",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

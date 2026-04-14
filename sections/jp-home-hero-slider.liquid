@@ -1,0 +1,574 @@
+{% liquid
+  assign sid = section.id
+%}
+
+<section class="jp-home-hero jp-home-hero--{{ sid }}">
+  <div class="jp-home-hero__inner">
+    <div class="swiper jp-home-hero__swiper">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          {% liquid
+            assign pc_image = block.settings.image_pc
+            assign mobile_image = block.settings.image_mobile
+            assign badge_image = block.settings.badge_image
+            assign title = block.settings.title
+            assign desc = block.settings.desc
+            assign button_text = block.settings.button_text
+            assign button_link = block.settings.button_link
+            assign secondary_button_text = block.settings.secondary_button_text
+            assign secondary_button_link = block.settings.secondary_button_link
+          %}
+          <div class="swiper-slide" {{ block.shopify_attributes }}>
+            <div class="jp-home-hero__slide">
+              <div class="jp-home-hero__media">
+                {% if pc_image != blank %}
+                  <img
+                    class="jp-home-hero__image jp-home-hero__image--pc"
+                    src="{{ pc_image | image_url: width: 2400 }}"
+                    alt="{{ pc_image.alt | escape }}"
+                    loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                    width="{{ pc_image.width }}"
+                    height="{{ pc_image.height }}"
+                  >
+                {% endif %}
+
+                {% if mobile_image != blank %}
+                  <img
+                    class="jp-home-hero__image jp-home-hero__image--mobile"
+                    src="{{ mobile_image | image_url: width: 1200 }}"
+                    alt="{{ mobile_image.alt | escape }}"
+                    loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                    width="{{ mobile_image.width }}"
+                    height="{{ mobile_image.height }}"
+                  >
+                {% elsif pc_image != blank %}
+                  <img
+                    class="jp-home-hero__image jp-home-hero__image--mobile"
+                    src="{{ pc_image | image_url: width: 1200 }}"
+                    alt="{{ pc_image.alt | escape }}"
+                    loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                    width="{{ pc_image.width }}"
+                    height="{{ pc_image.height }}"
+                  >
+                {% endif %}
+              </div>
+
+              <div class="jp-container">
+                <div class="jp-home-hero__content-wrap">
+                  <div class="jp-home-hero__content">
+                    {% if block.settings.subheading != blank %}
+                      <div class="jp-home-hero__subheading">
+                        {{ block.settings.subheading }}
+                      </div>
+                    {% endif %}
+
+                    {% if title != blank %}
+                      <h2 class="jp-home-hero__title">{{ title }}</h2>
+                    {% endif %}
+
+                    {% if desc != blank %}
+                      <div class="jp-home-hero__desc">{{ desc }}</div>
+                    {% endif %}
+
+                    {% if button_text != blank or secondary_button_text != blank %}
+                      <div class="jp-home-hero__buttons">
+                        {% if button_text != blank %}
+                          <a
+                            class="jp-home-hero__btn jp-home-hero__btn--primary"
+                            href="{{ button_link | default: '#' }}"
+                          >
+                            {{ button_text }}
+                          </a>
+                        {% endif %}
+
+                        {% if secondary_button_text != blank %}
+                          <a
+                            class="jp-home-hero__btn jp-home-hero__btn--secondary"
+                            href="{{ secondary_button_link | default: '#' }}"
+                          >
+                            {{ secondary_button_text }}
+                          </a>
+                        {% endif %}
+                      </div>
+                    {% endif %}
+                  </div>
+
+                  {% if badge_image != blank %}
+                    <div class="jp-home-hero__badge">
+                      <img
+                        src="{{ badge_image | image_url: width: 400 }}"
+                        alt="{{ badge_image.alt | escape }}"
+                        loading="lazy"
+                        width="{{ badge_image.width }}"
+                        height="{{ badge_image.height }}"
+                      >
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if section.settings.show_pagination %}
+        <div class="jp-home-hero__pagination swiper-pagination"></div>
+      {% endif %}
+
+      {% if section.settings.show_navigation %}
+        <button class="jp-home-hero__nav jp-home-hero__nav--prev" type="button" aria-label="Previous slide">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M11.25 14.25L6 9L11.25 3.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button class="jp-home-hero__nav jp-home-hero__nav--next" type="button" aria-label="Next slide">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M6.75 14.25L12 9L6.75 3.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .jp-home-hero--{{ sid }} {
+    --jp-home-hero-height-desktop: 680px;
+    --jp-home-hero-height-mobile: 520px;
+    --jp-home-hero-text-color: #111111;
+    --jp-home-hero-desc-color: #444444;
+    --jp-home-hero-accent-color: #e51f6e;
+    --jp-home-hero-primary-btn-bg: #111111;
+    --jp-home-hero-primary-btn-color: #ffffff;
+    --jp-home-hero-secondary-btn-color: #111111;
+    --jp-home-hero-secondary-btn-border: #111111;
+    position: relative;
+    overflow: hidden;
+    background: #f6f4f5;
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__inner,
+  .jp-home-hero--{{ sid }} .jp-home-hero__swiper,
+  .jp-home-hero--{{ sid }} .swiper-wrapper,
+  .jp-home-hero--{{ sid }} .swiper-slide,
+  .jp-home-hero--{{ sid }} .jp-home-hero__slide {
+    position: relative;
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__slide {
+    min-height: var(--jp-home-hero-height-desktop);
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__media {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__image--mobile {
+    display: none;
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__content-wrap {
+    position: relative;
+    z-index: 2;
+    min-height: var(--jp-home-hero-height-desktop);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 60px 0 72px;
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__content {
+    max-width: 520px;
+    color: var(--jp-home-hero-text-color);
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__subheading {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    padding: 4px 10px;
+    background: linear-gradient(290deg, #E0004D 12.6%, #FF7595 49.59%, #E0004D 85.57%);
+    color: #FFF;
+    font-size: 14px;
+    line-height: 1;
+    letter-spacing: .04em;
+    margin-bottom: 18px;
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__title {
+    margin: 0;
+    font-size: 48px;
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: -.02em;
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__desc {
+    margin-top: 16px;
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--jp-home-hero-desc-color);
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 28px;
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 140px;
+    min-height: 46px;
+    padding: 12px 22px;
+    text-decoration: none;
+    border-radius: 999px;
+    font-size: 14px;
+    line-height: 1;
+    transition: all .25s ease;
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__btn--primary {
+    background: var(--jp-home-hero-primary-btn-bg);
+    color: var(--jp-home-hero-primary-btn-color);
+    border: 1px solid var(--jp-home-hero-primary-btn-bg);
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__btn--primary:hover {
+    opacity: .88;
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__btn--secondary {
+    background: transparent;
+    color: var(--jp-home-hero-secondary-btn-color);
+    border: 1px solid var(--jp-home-hero-secondary-btn-border);
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__btn--secondary:hover {
+    background: rgba(0,0,0,.04);
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__badge {
+    flex: 0 0 auto;
+    width: min(180px, 18vw);
+    max-width: 180px;
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__badge img {
+    width: 100%;
+    display: block;
+    height: auto;
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__pagination {
+    position: absolute;
+    left: 50%;
+    bottom: 28px;
+    transform: translateX(-50%);
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__pagination .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    margin: 0 !important;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, .18);
+    opacity: 1;
+    transition: all .25s ease;
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__pagination .swiper-pagination-bullet-active {
+    width: 24px;
+    background: var(--jp-home-hero-accent-color);
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255,255,255,.88);
+    color: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all .25s ease;
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__nav:hover {
+    background: #fff;
+    box-shadow: 0 6px 20px rgba(0,0,0,.08);
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__nav--prev {
+    left: 24px;
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__nav--next {
+    right: 24px;
+  }
+
+  @media screen and (max-width: 989px) {
+    .jp-home-hero--{{ sid }} .jp-home-hero__slide {
+      min-height: var(--jp-home-hero-height-mobile);
+    }
+
+    .jp-home-hero--{{ sid }} .jp-home-hero__image--pc {
+      display: none;
+    }
+
+    .jp-home-hero--{{ sid }} .jp-home-hero__image--mobile {
+      display: block;
+    }
+
+    .jp-home-hero--{{ sid }} .jp-home-hero__content-wrap {
+      min-height: var(--jp-home-hero-height-mobile);
+      padding: 28px 0 56px;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 20px;
+    }
+
+    .jp-home-hero--{{ sid }} .jp-home-hero__content {
+      max-width: 72%;
+      padding-top: 10px;
+    }
+
+    .jp-home-hero--{{ sid }} .jp-home-hero__title {
+      font-size: 28px;
+      line-height: 1.3;
+    }
+
+    .jp-home-hero--{{ sid }} .jp-home-hero__desc {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .jp-home-hero--{{ sid }} .jp-home-hero__buttons {
+      margin-top: 18px;
+      gap: 10px;
+    }
+
+    .jp-home-hero--{{ sid }} .jp-home-hero__btn {
+      min-width: 112px;
+      min-height: 40px;
+      padding: 10px 16px;
+      font-size: 12px;
+    }
+
+    .jp-home-hero--{{ sid }} .jp-home-hero__badge {
+      position: absolute;
+      right: 0;
+      top: 24px;
+      width: 88px;
+      max-width: 88px;
+    }
+
+    .jp-home-hero--{{ sid }} .jp-home-hero__pagination {
+      bottom: 18px;
+    }
+
+    .jp-home-hero--{{ sid }} .jp-home-hero__nav {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  (() => {
+    const sectionEl = document.querySelector('.jp-home-hero--{{ sid }}');
+    if (!sectionEl) return;
+
+    const initHeroSwiper = () => {
+      const swiperEl = sectionEl.querySelector('.jp-home-hero__swiper');
+      if (!swiperEl || typeof window.Swiper === 'undefined') return;
+
+      if (swiperEl.swiper) {
+        swiperEl.swiper.destroy(true, true);
+      }
+
+      new window.Swiper(swiperEl, {
+        loop: {{ section.settings.enable_loop | json }},
+        speed: {{ section.settings.speed }},
+        effect: 'slide',
+        autoHeight: false,
+        {% if section.settings.enable_autoplay %}
+        autoplay: {
+          delay: {{ section.settings.autoplay_delay }},
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true
+        },
+        {% endif %}
+        pagination: {{ section.settings.show_pagination | json }} ? {
+          el: sectionEl.querySelector('.jp-home-hero__pagination'),
+          clickable: true
+        } : false,
+        navigation: {{ section.settings.show_navigation | json }} ? {
+          nextEl: sectionEl.querySelector('.jp-home-hero__nav--next'),
+          prevEl: sectionEl.querySelector('.jp-home-hero__nav--prev')
+        } : false
+      });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initHeroSwiper);
+    } else {
+      initHeroSwiper();
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "JP Home Hero Slider",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Slider"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_loop",
+      "label": "Enable loop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_autoplay",
+      "label": "Enable autoplay",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_delay",
+      "label": "Autoplay delay",
+      "min": 2000,
+      "max": 8000,
+      "step": 500,
+      "default": 5000
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Transition speed",
+      "min": 300,
+      "max": 1500,
+      "step": 100,
+      "default": 700
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pagination",
+      "label": "Show pagination",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_navigation",
+      "label": "Show navigation",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image_pc",
+          "label": "PC image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile image"
+        },
+        {
+          "type": "image_picker",
+          "id": "badge_image",
+          "label": "Badge image"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "人気商品"
+        },
+        {
+          "type": "textarea",
+          "id": "title",
+          "label": "Title",
+          "default": "我が家の光美容器\n効果も、やさしさも"
+        },
+        {
+          "type": "textarea",
+          "id": "desc",
+          "label": "Description",
+          "default": "ムダ毛・VIO・ヒゲ・美容のトータルサポート。"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Primary button text",
+          "default": "詳しく見る"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Primary button link"
+        },
+        {
+          "type": "text",
+          "id": "secondary_button_text",
+          "label": "Secondary button text"
+        },
+        {
+          "type": "url",
+          "id": "secondary_button_link",
+          "label": "Secondary button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "JP Home Hero Slider",
+      "blocks": [
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
