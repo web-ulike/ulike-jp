@@ -14,260 +14,462 @@
     assign share_title = section.settings.share_title
   endif
 -%}
+
 <div
   id="u-social-share-{{ section.id }}"
-  class="u-social-share u-social-share--{{ section.settings.position }}"
+  class="u-fixed-side-tools u-fixed-side-tools--{{ section.settings.position }}"
   data-share-url="{{ share_url | url_encode }}"
   data-share-title="{{ share_title | strip_html | escape | url_encode }}"
 >
-  <div class="u-social-share__wrap">
+  <div class="u-fixed-side-tools__inner">
+    
 
-    <div class="u-social-share__panel">
-      <button
-        type="button"
-        class="u-social-share__main"
-        aria-label="{{ section.settings.main_label }}"
-      >
-        {%- if section.settings.main_icon != blank -%}
-          <img
-            src="{{ section.settings.main_icon | image_url: width: 100 }}"
-            alt="{{ section.settings.main_label | escape }}"
-            loading="lazy"
+    <div class="u-fixed-side-tools__stack">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'badge_item' -%}
+          {%- assign badge_tag = 'div' -%}
+          {%- if block.settings.link != blank -%}
+            {%- assign badge_tag = 'a' -%}
+          {%- endif -%}
+
+          <{{ badge_tag }}
+            class="u-fixed-side-tools__circle u-fixed-side-tools__circle--badge{% if block.settings.custom_class != blank %} {{ block.settings.custom_class }}{% endif %}"
+            data-ga-event="fixed_side_tools_click_badge"
+            data-ga-type="badge"
+            data-ga-label="{{ block.settings.label | strip_html | strip_newlines | escape }}"
+            {% if badge_tag == 'a' %}
+              href="{{ block.settings.link }}"
+            {% endif %}
+            {% if block.settings.label != blank %}
+              aria-label="{{ block.settings.label | escape }}"
+            {% endif %}
+            {{ block.shopify_attributes }}
           >
-        {%- else -%}
-          <img
-            src="https://cdn.shopify.com/s/files/1/0854/4052/8666/files/share-icon.png?v=1737884293"
-            alt="{{ section.settings.main_label | escape }}"
-            loading="lazy"
+            <span class="u-fixed-side-tools__badge-text">{{ block.settings.label | newline_to_br }}</span>
+          </{{ badge_tag }}>
+        {%- elsif block.type == 'review_tab' -%}
+          <a
+            class="u-fixed-side-tools__circle u-fixed-side-tools__circle--review{% if block.settings.custom_class != blank %} {{ block.settings.custom_class }}{% endif %}"
+            data-ga-event="fixed_side_tools_click_review"
+            data-ga-type="review"
+            data-ga-label="{{ block.settings.text | escape }}"
+            href="{{ block.settings.link | default: '#' }}"
+            data-no-instant
+            {{ block.shopify_attributes }}
           >
-        {%- endif -%}
-      </button>
-
-      <div class="u-social-share__list">
-        {%- if section.settings.show_copy -%}
-          <button type="button" class="u-social-share__item" data-type="copy" aria-label="Copy link" title="Copy link">
-            <img
-              src="https://cdn.shopify.com/s/files/1/0854/4052/8666/files/share-icon.png?v=1737884293"
-              alt="Copy link"
-              loading="lazy"
-            >
-          </button>
-        {%- endif -%}
-
-        {%- if section.settings.show_x -%}
-          <a class="u-social-share__item" data-type="x" href="#" target="_blank" rel="noopener" aria-label="X" title="X">
-            <img
-              src="https://cdn.shopify.com/s/files/1/0854/4052/8666/files/twitter-x48.png?v=1726198699"
-              alt="X"
-              loading="lazy"
-            >
-          </a>
-        {%- endif -%}
-
-        {%- if section.settings.show_whatsapp -%}
-          <a class="u-social-share__item" data-type="whatsapp" href="#" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp">
-            <img
-              src="https://cdn.shopify.com/s/files/1/0854/4052/8666/files/whatsapp-black-white.png?v=1757992858"
-              alt="WhatsApp"
-              loading="lazy"
-            >
-          </a>
-        {%- endif -%}
-
-        {%- if section.settings.show_facebook -%}
-          <a class="u-social-share__item" data-type="facebook" href="#" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook">
-            <img
-              src="https://cdn.shopify.com/s/files/1/0854/4052/8666/files/facebook.png?v=1726158950"
-              alt="Facebook"
-              loading="lazy"
-            >
-          </a>
-        {%- endif -%}
-
-        {%- if section.settings.show_line -%}
-          <a class="u-social-share__item" data-type="line" href="#" target="_blank" rel="noopener" aria-label="LINE" title="LINE">
-            <img
-              src="https://cdn.shopify.com/s/files/1/0854/4052/8666/files/line48.png?v=1726199109"
-              alt="LINE"
-              loading="lazy"
-            >
-          </a>
-        {%- endif -%}
-
-
-        {%- if section.settings.show_linkedin -%}
-          <a class="u-social-share__item u-social-share__item--circle" data-type="linkedin" href="#" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
-            {%- if section.settings.linkedin_icon != blank -%}
+            {%- if block.settings.icon != blank -%}
               <img
-                src="{{ section.settings.linkedin_icon | image_url: width: 100 }}"
-                alt="LinkedIn"
+                class="u-fixed-side-tools__circle-icon"
+                src="{{ block.settings.icon | image_url: width: 120 }}"
+                alt="{{ block.settings.text | escape }}"
                 loading="lazy"
               >
             {%- else -%}
-              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path d="M6.94 8.5A1.56 1.56 0 1 1 6.94 5.38a1.56 1.56 0 0 1 0 3.12ZM5.6 9.7h2.68V18H5.6V9.7Zm4.36 0h2.56v1.13h.04c.36-.67 1.23-1.37 2.53-1.37 2.7 0 3.2 1.78 3.2 4.1V18H15.6v-3.93c0-.94-.02-2.15-1.31-2.15-1.31 0-1.51 1.02-1.51 2.08V18H9.96V9.7Z" fill="currentColor"/>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11.718 11.214" class="u-fixed-side-tools__circle-icon" aria-hidden="true" focusable="false">
+                <path d="M6.456.324,7.777,3.015a.6.6,0,0,0,.465.343L11.2,3.8a.626.626,0,0,1,.343,1.077L9.417,6.955a.592.592,0,0,0-.171.563l.514,2.936a.625.625,0,0,1-.905.661L6.211,9.72a.623.623,0,0,0-.587,0L2.957,11.114a.62.62,0,0,1-.905-.661l.514-2.936a.681.681,0,0,0-.171-.563L.216,4.875A.632.632,0,0,1,.559,3.8l2.961-.44a.568.568,0,0,0,.465-.343L5.306.324A.648.648,0,0,1,6.456.324Z" transform="translate(-0.027 0.025)"></path>
               </svg>
             {%- endif -%}
+            <span class="u-fixed-side-tools__circle-text">{{ block.settings.text }}</span>
           </a>
-        {%- endif -%}
+        {%- elsif block.type == 'share_panel' -%}
+          <div class="u-fixed-side-tools__share{% if block.settings.custom_class != blank %} {{ block.settings.custom_class }}{% endif %}" {{ block.shopify_attributes }}>
+            <button
+              type="button"
+              class="u-fixed-side-tools__circle u-fixed-side-tools__share-trigger"
+              data-ga-event="fixed_side_tools_click_share_trigger"
+              data-ga-type="share_trigger"
+              data-ga-label="{{ block.settings.trigger_label | default: 'Share' | escape }}"
+              aria-label="{{ block.settings.trigger_label | default: 'Share' | escape }}"
+            >
+              {%- if block.settings.trigger_icon != blank -%}
+                <img
+                  class="u-fixed-side-tools__circle-icon"
+                  src="{{ block.settings.trigger_icon | image_url: width: 120 }}"
+                  alt="{{ block.settings.trigger_label | default: 'Share' | escape }}"
+                  loading="lazy"
+                >
+              {%- else -%}
+                <img
+                  class="u-fixed-side-tools__circle-icon"
+                  src="https://cdn.shopify.com/s/files/1/0854/4052/8666/files/share-icon.png?v=1737884293"
+                  alt="{{ block.settings.trigger_label | default: 'Share' | escape }}"
+                  loading="lazy"
+                >
+              {%- endif -%}
+            </button>
 
-        {%- if section.settings.show_pinterest -%}
-          <a class="u-social-share__item u-social-share__item--circle" data-type="pinterest" href="#" target="_blank" rel="noopener" aria-label="Pinterest" title="Pinterest">
-            {%- if section.settings.pinterest_icon != blank -%}
+            <div class="u-fixed-side-tools__share-panel">
+              <div class="u-fixed-side-tools__share-list">
+                {%- if block.settings.show_x -%}
+                  <a class="u-fixed-side-tools__share-item" data-no-instant data-type="x" href="#" target="_blank" rel="noopener" aria-label="X" title="X">
+                    {%- if block.settings.icon_x != blank -%}
+                      <img src="{{ block.settings.icon_x | image_url: width: 120 }}" alt="X" loading="lazy">
+                    {%- else -%}
+                      <img src="https://cdn.shopify.com/s/files/1/0854/4052/8666/files/twitter-x48.png?v=1726198699" alt="X" loading="lazy">
+                    {%- endif -%}
+                  </a>
+                {%- endif -%}
+
+                {%- if block.settings.show_whatsapp -%}
+                  <a class="u-fixed-side-tools__share-item" data-no-instant data-type="whatsapp" href="#" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp">
+                    {%- if block.settings.icon_whatsapp != blank -%}
+                      <img src="{{ block.settings.icon_whatsapp | image_url: width: 120 }}" alt="WhatsApp" loading="lazy">
+                    {%- else -%}
+                      <img src="https://cdn.shopify.com/s/files/1/0854/4052/8666/files/whatsapp-black-white.png?v=1757992858" alt="WhatsApp" loading="lazy">
+                    {%- endif -%}
+                  </a>
+                {%- endif -%}
+
+                {%- if block.settings.show_facebook -%}
+                  <a class="u-fixed-side-tools__share-item" data-no-instant data-type="facebook" href="#" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook">
+                    {%- if block.settings.icon_facebook != blank -%}
+                      <img src="{{ block.settings.icon_facebook | image_url: width: 120 }}" alt="Facebook" loading="lazy">
+                    {%- else -%}
+                      <img src="https://cdn.shopify.com/s/files/1/0854/4052/8666/files/facebook.png?v=1726158950" alt="Facebook" loading="lazy">
+                    {%- endif -%}
+                  </a>
+                {%- endif -%}
+
+                {%- if block.settings.show_sns -%}
+                  <a class="u-fixed-side-tools__share-item" data-type="sns" href="#" target="_blank" rel="noopener" aria-label="SNS" title="SNS">
+                    {%- if block.settings.icon_sns != blank -%}
+                      <img src="{{ block.settings.icon_sns | image_url: width: 120 }}" alt="SNS" loading="lazy">
+                    {%- else -%}
+                      <img src="https://cdn.shopify.com/s/files/1/0854/4052/8666/files/instagram.png?v=1757994018" alt="SNS" loading="lazy">
+                    {%- endif -%}
+                  </a>
+                {%- endif -%}
+
+                {%- if block.settings.show_line -%}
+                  <a class="u-fixed-side-tools__share-item" data-type="line" href="#" target="_blank" rel="noopener" aria-label="LINE" title="LINE">
+                    {%- if block.settings.icon_line != blank -%}
+                      <img src="{{ block.settings.icon_line | image_url: width: 120 }}" alt="LINE" loading="lazy">
+                    {%- else -%}
+                      <img src="https://cdn.shopify.com/s/files/1/0854/4052/8666/files/line48.png?v=1726199109" alt="LINE" loading="lazy">
+                    {%- endif -%}
+                  </a>
+                {%- endif -%}
+
+                {%- if block.settings.show_email -%}
+                  <a class="u-fixed-side-tools__share-item" data-type="email" href="#" target="_blank" rel="noopener" aria-label="Email" title="Email">
+                    {%- if block.settings.icon_email != blank -%}
+                      <img src="{{ block.settings.icon_email | image_url: width: 120 }}" alt="Email" loading="lazy">
+                    {%- else -%}
+                      <img src="https://cdn.shopify.com/s/files/1/0854/4052/8666/files/gmail48.png?v=1726199110" alt="Email" loading="lazy">
+                    {%- endif -%}
+                  </a>
+                {%- endif -%}
+
+                {%- if block.settings.show_copy -%}
+                  <button type="button" class="u-fixed-side-tools__share-item" data-type="copy" aria-label="Copy link" title="Copy link">
+                    {%- if block.settings.icon_copy != blank -%}
+                      <img src="{{ block.settings.icon_copy | image_url: width: 120 }}" alt="Copy link" loading="lazy">
+                    {%- else -%}
+                      <img src="https://cdn.shopify.com/s/files/1/0854/4052/8666/files/share-icon.png?v=1737884293" alt="Copy link" loading="lazy">
+                    {%- endif -%}
+                  </button>
+                {%- endif -%}
+              </div>
+
+              <span class="u-fixed-side-tools__copied">{{ section.settings.copied_text }}</span>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'action_item' -%}
+          {%- assign item_tag = 'button' -%}
+          {%- if block.settings.link != blank -%}
+            {%- assign item_tag = 'a' -%}
+          {%- endif -%}
+
+          <{{ item_tag }}
+            class="u-fixed-side-tools__circle u-fixed-side-tools__circle--action{% if block.settings.show_cart_count %} u-fixed-side-tools__circle--cart{% endif %}{% if block.settings.custom_class != blank %} {{ block.settings.custom_class }}{% endif %}"
+            data-ga-event="fixed_side_tools_click_action"
+            data-ga-type="action"
+            data-ga-label="{{ block.settings.label | escape }}"
+            {% if item_tag == 'a' %}
+              href="{{ block.settings.link }}"
+            {% else %}
+              type="button"
+            {% endif %}
+            {{ block.shopify_attributes }}
+          >
+            {%- if block.settings.icon != blank -%}
               <img
-                src="{{ section.settings.pinterest_icon | image_url: width: 100 }}"
-                alt="Pinterest"
+                class="u-fixed-side-tools__circle-icon"
+                src="{{ block.settings.icon | image_url: width: 120 }}"
+                alt="{{ block.settings.label | escape }}"
                 loading="lazy"
               >
-            {%- else -%}
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path d="M12 2C6.477 2 2 6.477 2 12c0 4.239 2.635 7.86 6.356 9.318-.088-.792-.167-2.007.035-2.873.183-.78 1.177-4.965 1.177-4.965s-.3-.6-.3-1.487c0-1.393.808-2.433 1.814-2.433.855 0 1.268.642 1.268 1.411 0 .86-.548 2.146-.83 3.338-.236.998.5 1.811 1.484 1.811 1.78 0 3.149-1.877 3.149-4.587 0-2.398-1.724-4.075-4.184-4.075-2.85 0-4.524 2.137-4.524 4.346 0 .861.331 1.785.745 2.287.082.1.094.188.07.289-.077.318-.251 1.005-.285 1.146-.045.188-.148.228-.343.137-1.279-.596-2.079-2.466-2.079-3.968 0-3.229 2.346-6.194 6.765-6.194 3.551 0 6.314 2.531 6.314 5.913 0 3.527-2.224 6.367-5.312 6.367-1.037 0-2.013-.539-2.345-1.177l-.638 2.431c-.231.889-.855 2.003-1.274 2.683.959.296 1.974.456 3.027.456 5.523 0 10-4.477 10-10S17.523 2 12 2z" fill="currentColor"/>
-              </svg>
             {%- endif -%}
-          </a>
-        {%- endif -%}
 
-        {%- if section.settings.show_email -%}
-          <a class="u-social-share__item" data-type="email" href="#" target="_blank" rel="noopener" aria-label="Email" title="Email">
-            <img
-              src="https://cdn.shopify.com/s/files/1/0854/4052/8666/files/gmail48.png?v=1726199110"
-              alt="Email"
-              loading="lazy"
+            {%- if block.settings.label != blank -%}
+              <span class="u-fixed-side-tools__circle-label visually-hidden">{{ block.settings.label }}</span>
+            {%- endif -%}
+            {%- if block.settings.show_cart_count -%}
+              <span class="u-fixed-side-tools__cart-badge">
+                <cart-count class="count" aria-label="{{ cart.item_count }} 件">{{ cart.item_count }}</cart-count>
+              </span>
+            {%- endif -%}
+          </{{ item_tag }}>
+
+        {%- elsif block.type == 'scroll_top_item' -%}
+          <scroll-to-top-button threshold="{{ block.settings.threshold | default: 300 }}" {{ block.shopify_attributes }}>
+            <button
+              class="u-fixed-side-tools__circle u-fixed-side-tools__circle--action{% if block.settings.custom_class != blank %} {{ block.settings.custom_class }}{% endif %}"
+              data-ga-event="fixed_side_tools_click_scroll_top"
+              data-ga-type="scroll_top"
+              data-ga-label="{{ block.settings.label | default: 'Back to top' | escape }}"
+              type="button"
+              aria-label="{{ block.settings.label | default: 'Back to top' | escape }}"
             >
-          </a>
-        {%- endif -%}
-      </div>
+              {%- if block.settings.icon != blank -%}
+                <img
+                  class="u-fixed-side-tools__circle-icon"
+                  src="{{ block.settings.icon | image_url: width: 120 }}"
+                  alt="{{ block.settings.label | default: 'Back to top' | escape }}"
+                  loading="lazy"
+                >
+              {%- endif -%}
 
-      <span class="u-social-share__copied">{{ section.settings.copied_text }}</span>
+              <span class="u-fixed-side-tools__circle-label visually-hidden">{{ block.settings.label | default: 'Back to top' }}</span>
+            </button>
+          </scroll-to-top-button>
+        {%- endif -%}
+      {%- endfor -%}
+       {% comment %} {% render 'pin-to-top' %} {% endcomment %}
     </div>
   </div>
 </div>
 
-{%- for block in section.blocks -%}
-  {%- if block.type == 'review_tab' -%}
-    <a
-      class="u-social-share__review-tab"
-      href="{{ block.settings.link }}"
-    >
-       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11.718 11.214" class="u-social-share__review-tab-star" aria-hidden="true" focusable="false">
-        <path d="M6.456.324,7.777,3.015a.6.6,0,0,0,.465.343L11.2,3.8a.626.626,0,0,1,.343,1.077L9.417,6.955a.592.592,0,0,0-.171.563l.514,2.936a.625.625,0,0,1-.905.661L6.211,9.72a.623.623,0,0,0-.587,0L2.957,11.114a.62.62,0,0,1-.905-.661l.514-2.936a.681.681,0,0,0-.171-.563L.216,4.875A.632.632,0,0,1,.559,3.8l2.961-.44a.568.568,0,0,0,.465-.343L5.306.324A.648.648,0,0,1,6.456.324Z" transform="translate(-0.027 0.025)"></path>
-      </svg>
-      <span>{{ block.settings.text }}</span>
-    </a>
-  {%- endif -%}
-{%- endfor -%}
-
 <style>
   #u-social-share-{{ section.id }} {
-    --share-size: {{ section.settings.icon_size }}px;
-    --share-gap: 12px;
-    --share-side: {{ section.settings.offset_side }}px;
-    --share-top-radius: 8px;
-    --share-border: transparent;
+    --tool-size: 68px;
+    --tool-gap: 10px;
+    --tool-bg: {{ section.settings.circle_bg }};
+    --tool-color: {{ section.settings.icon_color }};
+    --badge-bg: {{ section.settings.badge_bg }};
+    --badge-color: {{ section.settings.badge_color }};
     position: fixed;
     top: 50%;
     z-index: 9;
     transform: translateY(-50%);
   }
 
-  #u-social-share-{{ section.id }}.u-social-share--left {
-    left: var(--share-side);
+  #u-social-share-{{ section.id }}.u-fixed-side-tools--left {
+    left: 20px;
   }
 
-  #u-social-share-{{ section.id }}.u-social-share--right {
-    right: var(--share-side);
+  #u-social-share-{{ section.id }}.u-fixed-side-tools--right {
+    right: 20px;
   }
 
-  #u-social-share-{{ section.id }} .u-social-share__wrap {
-    display: flex;
-    align-items: flex-start;
-    gap: 0;
-  }
-
-  #u-social-share-{{ section.id }}.u-social-share--right .u-social-share__wrap {
-    flex-direction: row-reverse;
-  }
-
-
-  #u-social-share-{{ section.id }} .u-social-share__panel {
+  #u-social-share-{{ section.id }} .u-fixed-side-tools__inner {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--share-gap);
-    padding: 10px;
-    border-radius: var(--share-top-radius);
-    background: var(--share-bg);
-    border: 1px solid var(--share-border);
-    box-shadow: var(--share-shadow);
-    transition: opacity .25s ease, transform .25s ease;
+    gap: 14px;
+  }
+
+  #u-social-share-{{ section.id }} .u-fixed-side-tools__circle--badge {
+    text-align: center;
+    width: var(--tool-size);
+    height: var(--tool-size);
+    min-width: var(--tool-size);
+    font-size: calc(var(--tool-size) * 0.206);
+    line-height: 1.2;
+    font-weight: bold;
+    padding: calc(var(--tool-size) * 0.059);
+    background: #E0004D;
+    color: #FFFFFF;
+  }
+
+  #u-social-share-{{ section.id }} .u-fixed-side-tools__badge-text {
+    display: inline-block;
+    color: inherit;
+  }
+
+  #u-social-share-{{ section.id }} .u-fixed-side-tools__stack {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--tool-gap);
     position: relative;
+  }
+
+  #u-social-share-{{ section.id }} scroll-to-top-button {
+    position: initial;
+  }
+
+  #u-social-share-{{ section.id }} .u-fixed-side-tools__circle {
+    width: var(--tool-size);
+    height: var(--tool-size);
+    min-width: var(--tool-size);
+    border-radius: 50%;
+    background: var(--tool-bg);
+    color: var(--tool-color);
+    border: 0;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 6px;
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;
+    transition: transform .2s ease, opacity .2s ease;
     overflow: visible;
   }
 
 
-  #u-social-share-{{ section.id }} .u-social-share__main,
-  #u-social-share-{{ section.id }} .u-social-share__item {
-    width: var(--share-size);
-    height: var(--share-size);
-    border: 0;
-    padding: 4px;
-    border-radius: 0;
-    background: transparent;
+  #u-social-share-{{ section.id }} .u-fixed-side-tools__circle-icon {
+    width: calc(var(--tool-size) * 0.46);
+    height: calc(var(--tool-size) * 0.46);
+    display: block;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  #u-social-share-{{ section.id }} .u-fixed-side-tools__cart-badge {
+    position: absolute;
+    top: 6px;
+    right: 4px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    border-radius: 999px;
+    background: #E0004D;
+    color: #FFFFFF;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    text-decoration: none;
-    transition: transform .2s ease, opacity .2s ease;
+    line-height: 1;
+    z-index: 2;
+    pointer-events: none;
   }
 
-  #u-social-share-{{ section.id }} .u-social-share__main:hover,
-  #u-social-share-{{ section.id }} .u-social-share__item:hover {
-    transform: scale(1.08);
-  }
-
-  #u-social-share-{{ section.id }} .u-social-share__main img,
-  #u-social-share-{{ section.id }} .u-social-share__item img,
-  #u-social-share-{{ section.id }} .u-social-share__item svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: contain;
-    border-radius: inherit;
-  }
-
-  #u-social-share-{{ section.id }} .u-social-share__item--circle {
-    border-radius: 999px;
-    background: transparent;
-    color: #111;
-    font-size: 18px;
+  #u-social-share-{{ section.id }} .u-fixed-side-tools__cart-badge .count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    font-size: 10px;
     font-weight: 700;
-    box-shadow: none;
+    line-height: 1;
+    color: inherit;
+  }
+
+  #u-social-share-{{ section.id }} .u-fixed-side-tools__cart-badge .count:empty,
+  #u-social-share-{{ section.id }} .u-fixed-side-tools__cart-badge .count[hidden] {
+    display: none;
+  }
+
+  #u-social-share-{{ section.id }} .u-fixed-side-tools__cart-badge.is-hidden {
+    display: none;
   }
 
 
-  #u-social-share-{{ section.id }} .u-social-share__list {
+  #u-social-share-{{ section.id }} .u-fixed-side-tools__circle--review {
+    gap: 4px;
+    padding-top: 6px;
+  }
+
+  #u-social-share-{{ section.id }} .u-fixed-side-tools__circle--review .u-fixed-side-tools__circle-icon {
+    width: calc(var(--tool-size) * 0.353);
+    height: calc(var(--tool-size) * 0.353);
+  }
+
+  #u-social-share-{{ section.id }} .u-fixed-side-tools__circle-text {
+    font-size: calc(var(--tool-size) * 0.176);
+    line-height: 1;
+    color: var(--tool-color);
+    font-weight: bold;
+  }
+
+  #u-social-share-{{ section.id }} .u-fixed-side-tools__share {
+    position: relative;
+    width: var(--tool-size);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  #u-social-share-{{ section.id }} .u-fixed-side-tools__share-trigger {
+    position: relative;
+    z-index: 10000;
+  }
+
+  #u-social-share-{{ section.id }} .u-fixed-side-tools__share-panel {
+    position: absolute;
+    top: calc(100% - 30px);
+    left: 0;
+    right: auto;
+    width: var(--tool-size);
+    margin-right: 0;
+    padding: 22px 0 10px;
+    border-radius: 0 0 34px 34px;
+    background: var(--tool-bg);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-4px);
+    transition: opacity .2s ease, visibility .2s ease, transform .2s ease;
+    z-index: 4;
+  }
+
+  #u-social-share-{{ section.id }} .u-fixed-side-tools__share-list {
     display: flex;
     flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    width: var(--tool-size);
+  }
+
+  #u-social-share-{{ section.id }} .u-fixed-side-tools__share-item {
+    width: var(--tool-size);
+    height: 56px;
+    min-width: var(--tool-size);
+    border-radius: 0;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    display: inline-flex;
     align-items: center;
-    gap: var(--share-gap);
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    transition: max-height .28s ease, opacity .2s ease;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform .2s ease;
   }
 
-  #u-social-share-{{ section.id }}.is-hover .u-social-share__list,
-  #u-social-share-{{ section.id }}.is-open .u-social-share__list {
-    max-height: 520px;
+  #u-social-share-{{ section.id }} .u-fixed-side-tools__share-item:hover {
+    transform: scale(1.04);
+  }
+
+  #u-social-share-{{ section.id }} .u-fixed-side-tools__share-item img,
+  #u-social-share-{{ section.id }} .u-fixed-side-tools__share-item svg {
+    width: calc(var(--tool-size) * 0.44);
+    height: calc(var(--tool-size) * 0.44);
+    display: block;
+    object-fit: contain;
+  }
+
+  #u-social-share-{{ section.id }} .u-fixed-side-tools__share:hover .u-fixed-side-tools__share-panel,
+  #u-social-share-{{ section.id }} .u-fixed-side-tools__share.is-open .u-fixed-side-tools__share-panel {
     opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
   }
 
-  #u-social-share-{{ section.id }} .u-social-share__copied {
+  #u-social-share-{{ section.id }} .u-fixed-side-tools__copied {
     position: absolute;
-    left: 50%;
-    bottom: -30px;
-    transform: translateX(-50%);
+    right: calc(100% + 8px);
+    top: 50%;
+    transform: translateY(-50%);
     white-space: nowrap;
     font-size: 12px;
     line-height: 1;
@@ -277,108 +479,60 @@
     color: #fff;
     opacity: 0;
     pointer-events: none;
-    transition: opacity .2s ease, transform .2s ease;
+    transition: opacity .2s ease;
   }
 
-  #u-social-share-{{ section.id }} .u-social-share__copied.is-show {
+  #u-social-share-{{ section.id }} .u-fixed-side-tools__copied.is-show {
     opacity: 1;
-    transform: translateX(-50%) translateY(-2px);
   }
 
-  .u-social-share__review-tab {
-    position: fixed;
-    top: 50%;
-    right: 0;
-    z-index: 29;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    padding: 8px 16px;
-    border-radius: 0px 0 10px 10px;
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 1.3;
-    text-align: center;
-    text-decoration: none;
+  #u-social-share-{{ section.id }} .visually-hidden {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
     white-space: nowrap;
-    background: #E4004D;
-    color: #FFFFFF;
-    transform: rotate(90deg) translate(50%, 50%);
-    transform-origin: 100% 50%;
-    letter-spacing: 1px;
-    transition: background 0.2s, color 0.2s;
-  }
-
-
-  .u-social-share__review-tab:hover {
-    background: #c80042;
-    color: #fff;
-  }
-
-  .u-social-share__review-tab-star {
-    width: 16px;
-    height: 16px;
-    display: block;
-    flex: 0 0 16px;
-    fill: currentColor;
+    border: 0;
   }
 
   @media (max-width: 768px) {
     #u-social-share-{{ section.id }} {
+      --tool-size: 55px;
+      right: 10px;
+      left: auto;
       top: auto;
-      bottom: 70px;
       transform: none;
     }
 
-    #u-social-share-{{ section.id }}.u-social-share--left {
-      left: 10px;
+    #u-social-share-{{ section.id }} .u-fixed-side-tools__share-panel {
+      left: 0;
+      margin-right: 0;
+      width: var(--tool-size);
+      padding: 20px 0 10px;
+      border-radius: 0 0 calc(var(--tool-size) / 2) calc(var(--tool-size) / 2);
+    }
+    #u-social-share-{{ section.id }} .u-fixed-side-tools__share-list {
+      gap: 0px;
+    }
+    #u-social-share-{{ section.id }} .u-fixed-side-tools__share-item {
+      height: 48px;
     }
 
-    #u-social-share-{{ section.id }}.u-social-share--right {
-      right: 10px;
+    #u-social-share-{{ section.id }} .u-fixed-side-tools__cart-badge {
+      top: 3px;
+      right: 1px;
+      min-width: 16px;
+      height: 16px;
+      padding: 0 3px;
     }
 
-    #u-social-share-{{ section.id }} .u-social-share__panel {
-      gap: 8px;
-      padding: 10px 10px;
-      background: transparent;
-      transition: background .2s ease;
+    #u-social-share-{{ section.id }} .u-fixed-side-tools__cart-badge .count {
+      min-width: 16px;
+      font-size: 9px;
     }
-
-    #u-social-share-{{ section.id }}.is-open .u-social-share__panel {
-      background: rgba(150, 150, 150, 0.5);
-      border-radius: 12px;
-    }
-
-    #u-social-share-{{ section.id }} .u-social-share__main,
-    #u-social-share-{{ section.id }} .u-social-share__item {
-      width: {{ section.settings.mobile_icon_size }}px;
-      height: {{ section.settings.mobile_icon_size }}px;
-      min-width: {{ section.settings.mobile_icon_size }}px;
-    }
-
-    #u-social-share-{{ section.id }} .u-social-share__list {
-      max-height: 0;
-      opacity: 0;
-    }
-
-    #u-social-share-{{ section.id }}.is-open .u-social-share__list {
-      max-height: 520px;
-      opacity: 1;
-      gap: 6px;
-    }
-
-    #u-social-share-{{ section.id }}.is-hover .u-social-share__list {
-      max-height: 0;
-      opacity: 0;
-    }
-    .u-social-share__review-tab {
-      right: 0;
-      transform: rotate(90deg) translate(42%, 50%);
-      transform-origin: 100% 50%;
-    }
-    
   }
 </style>
 
@@ -387,12 +541,43 @@
     var root = document.getElementById('u-social-share-{{ section.id }}');
     if (!root) return;
 
-    var panel = root.querySelector('.u-social-share__panel');
-    var mainBtn = root.querySelector('.u-social-share__main');
-    var copiedTip = root.querySelector('.u-social-share__copied');
-    var items = root.querySelectorAll('.u-social-share__item');
+    var shareWrap = root.querySelector('.u-fixed-side-tools__share');
+    var stack = root.querySelector('.u-fixed-side-tools__stack');
+    var shareTrigger = root.querySelector('.u-fixed-side-tools__share-trigger');
+    var copiedTip = root.querySelector('.u-fixed-side-tools__copied');
+    var items = root.querySelectorAll('.u-fixed-side-tools__share-item');
+    var cartCounts = root.querySelectorAll('.u-fixed-side-tools__cart-badge .count');
     var shareUrl = decodeURIComponent(root.getAttribute('data-share-url') || window.location.href);
     var shareTitle = decodeURIComponent(root.getAttribute('data-share-title') || document.title);
+
+    var shareImpressionEventName = 'share_view_default';
+
+    function trackGaEvent(eventName, params) {
+      if (typeof window.gtag !== 'function') return;
+      window.gtag('event', eventName, params || {});
+    }
+
+    function getShareEventParams(extraParams) {
+      return Object.assign({
+        share_url: shareUrl,
+        share_title: shareTitle,
+        section_id: '{{ section.id }}'
+      }, extraParams || {});
+    }
+
+    function trackFixedToolClick(target) {
+      if (!target) return;
+
+      var eventName = target.getAttribute('data-ga-event');
+      if (!eventName) return;
+
+      trackGaEvent(eventName, {
+        section_id: '{{ section.id }}',
+        tool_type: target.getAttribute('data-ga-type') || '',
+        tool_label: target.getAttribute('data-ga-label') || '',
+        page_url: window.location.href
+      });
+    }
 
     function isMobile() {
       return window.matchMedia('(max-width: 768px)').matches;
@@ -409,12 +594,10 @@
           href = 'https://wa.me/?text=' + encodeURIComponent(shareTitle + ' ' + shareUrl);
         } else if (type === 'facebook') {
           href = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(shareUrl);
+        } else if (type === 'sns') {
+          href = 'https://www.instagram.com/';
         } else if (type === 'line') {
           href = 'https://social-plugins.line.me/lineit/share?url=' + encodeURIComponent(shareUrl);
-        } else if (type === 'linkedin') {
-          href = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(shareUrl);
-        } else if (type === 'pinterest') {
-          href = 'https://pinterest.com/pin/create/button/?url=' + encodeURIComponent(shareUrl) + '&description=' + encodeURIComponent(shareTitle);
         } else if (type === 'email') {
           href = 'mailto:?subject=' + encodeURIComponent(shareTitle) + '&body=' + encodeURIComponent(shareTitle + '\n' + shareUrl);
         }
@@ -425,7 +608,14 @@
       });
     }
 
+    function trackShareClick(type) {
+      trackGaEvent('share_click_' + type, getShareEventParams({
+        share_type: type
+      }));
+    }
+
     function showCopied() {
+      if (!copiedTip) return;
       copiedTip.classList.add('is-show');
       clearTimeout(copiedTip._timer);
       copiedTip._timer = setTimeout(function() {
@@ -440,56 +630,89 @@
       input.select();
       document.execCommand('copy');
       document.body.removeChild(input);
+      trackShareClick('copy');
       showCopied();
     }
 
     function copyLink() {
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(shareUrl).then(showCopied).catch(fallbackCopy);
+        navigator.clipboard.writeText(shareUrl).then(function() {
+          trackShareClick('copy');
+          showCopied();
+        }).catch(fallbackCopy);
       } else {
         fallbackCopy();
       }
     }
 
-    function openDesktop() {
-      if (isMobile()) return;
-      root.classList.add('is-hover');
-    }
+    function syncCartBadgeState() {
+      cartCounts.forEach(function(count) {
+        var badge = count.closest('.u-fixed-side-tools__cart-badge');
+        if (!badge) return;
 
-    function closeDesktop() {
-      if (isMobile()) return;
-      root.classList.remove('is-hover');
+        var countText = (count.textContent || '').trim();
+        var isHidden = count.hasAttribute('hidden') || !countText || countText === '0';
+        badge.classList.toggle('is-hidden', isHidden);
+      });
     }
-
 
     buildLinks();
+    syncCartBadgeState();
+    trackGaEvent(shareImpressionEventName, getShareEventParams());
 
+    if (shareTrigger) {
+      shareTrigger.addEventListener('click', function(e) {
+        if (!isMobile()) return;
+        e.preventDefault();
+        shareWrap.classList.toggle('is-open');
+      });
+    }
 
-    panel.addEventListener('mouseenter', openDesktop);
-    panel.addEventListener('mouseleave', closeDesktop);
-    mainBtn.addEventListener('mouseenter', openDesktop);
-
-    mainBtn.addEventListener('click', function(e) {
-      if (!isMobile()) return;
-      e.preventDefault();
-      root.classList.toggle('is-open');
-    });
+    if (stack) {
+      stack.addEventListener('click', function(e) {
+        var target = e.target.closest('[data-ga-event]');
+        if (!target || !stack.contains(target)) return;
+        trackFixedToolClick(target);
+      });
+    }
 
     document.addEventListener('click', function(e) {
       if (!isMobile()) return;
-      if (!root.contains(e.target)) {
-        root.classList.remove('is-open');
+      if (!shareWrap.contains(e.target)) {
+        shareWrap.classList.remove('is-open');
       }
     });
 
     items.forEach(function(item) {
-      if (item.getAttribute('data-type') === 'copy') {
+      var type = item.getAttribute('data-type');
+
+      if (type === 'copy') {
         item.addEventListener('click', function(e) {
           e.preventDefault();
           copyLink();
         });
+        return;
       }
+
+      item.addEventListener('click', function() {
+        trackShareClick(type);
+      });
     });
+
+    cartCounts.forEach(function(count) {
+      var observer = new MutationObserver(function() {
+        syncCartBadgeState();
+      });
+
+      observer.observe(count, {
+        attributes: true,
+        attributeFilter: ['hidden', 'aria-label'],
+        childList: true,
+        characterData: true,
+        subtree: true
+      });
+    });
+
   })();
 </script>
 
@@ -501,53 +724,23 @@
       "type": "select",
       "id": "position",
       "label": "Position",
-      "default": "left",
+      "default": "right",
       "options": [
         { "value": "left", "label": "Left" },
         { "value": "right", "label": "Right" }
       ]
     },
     {
-      "type": "range",
-      "id": "offset_side",
-      "label": "Side offset",
-      "min": 0,
-      "max": 80,
-      "step": 2,
-      "default": 10
+      "type": "color",
+      "id": "circle_bg",
+      "label": "Circle background",
+      "default": "#F4F4F4"
     },
     {
-      "type": "range",
-      "id": "icon_size",
-      "label": "Desktop icon size",
-      "min": 30,
-      "max": 60,
-      "step": 1,
-      "default": 35
-    },
-    {
-      "type": "range",
-      "id": "mobile_icon_size",
-      "label": "Mobile icon size",
-      "min": 24,
-      "max": 48,
-      "step": 1,
-      "default": 30
-    },
-    {
-      "type": "image_picker",
-      "id": "main_icon",
-      "label": "Main share icon"
-    },
-    {
-      "type": "image_picker",
-      "id": "linkedin_icon",
-      "label": "LinkedIn icon"
-    },
-    {
-      "type": "image_picker",
-      "id": "pinterest_icon",
-      "label": "Pinterest icon"
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon/text color",
+      "default": "#E0004D"
     },
     {
       "type": "header",
@@ -560,75 +753,51 @@
     },
     {
       "type": "text",
-      "id": "main_label",
-      "label": "Main button label",
-      "default": "Share"
-    },
-    {
-      "type": "text",
       "id": "copied_text",
       "label": "Copied text",
       "default": "Copied"
-    },
-    {
-      "type": "header",
-      "content": "Channels"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_copy",
-      "label": "Show copy link",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_x",
-      "label": "Show X",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_whatsapp",
-      "label": "Show WhatsApp",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_facebook",
-      "label": "Show Facebook",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_line",
-      "label": "Show LINE",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_linkedin",
-      "label": "Show LinkedIn",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_pinterest",
-      "label": "Show Pinterest",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_email",
-      "label": "Show Email",
-      "default": true
     }
   ],
+  "max_blocks": 12,
   "blocks": [
+    {
+      "type": "badge_item",
+      "name": "Badge item",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "label",
+          "label": "Text",
+          "default": "2500円\nOFF"
+        },
+        {
+          "type": "text",
+          "id": "custom_class",
+          "label": "Custom class"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    },
     {
       "type": "review_tab",
       "name": "Review tab",
       "limit": 1,
       "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "custom_class",
+          "label": "Custom class"
+        },
         {
           "type": "text",
           "id": "text",
@@ -641,6 +810,174 @@
           "label": "Link"
         }
       ]
+    },
+    {
+      "type": "share_panel",
+      "name": "Share panel",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "trigger_icon",
+          "label": "Trigger icon"
+        },
+        {
+          "type": "text",
+          "id": "trigger_label",
+          "label": "Trigger label",
+          "default": "Share"
+        },
+        {
+          "type": "text",
+          "id": "custom_class",
+          "label": "Custom class"
+        },
+        {
+          "type": "header",
+          "content": "Channels"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_x",
+          "label": "Show X",
+          "default": true
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_x",
+          "label": "X icon"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_whatsapp",
+          "label": "Show WhatsApp",
+          "default": true
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_whatsapp",
+          "label": "WhatsApp icon"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_facebook",
+          "label": "Show Facebook",
+          "default": true
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_facebook",
+          "label": "Facebook icon"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_sns",
+          "label": "Show SNS",
+          "default": true
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_sns",
+          "label": "SNS icon"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_line",
+          "label": "Show LINE",
+          "default": true
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_line",
+          "label": "LINE icon"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_email",
+          "label": "Show Email",
+          "default": true
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_email",
+          "label": "Email icon"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_copy",
+          "label": "Show Copy link",
+          "default": false
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_copy",
+          "label": "Copy icon"
+        }
+      ]
+    },
+    {
+      "type": "action_item",
+      "name": "Action item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon image"
+        },
+        {
+          "type": "text",
+          "id": "custom_class",
+          "label": "Custom class"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_cart_count",
+          "label": "Show cart count",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "type": "scroll_top_item",
+      "name": "Scroll to top",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon image"
+        },
+        {
+          "type": "text",
+          "id": "custom_class",
+          "label": "Custom class"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Back to top"
+        },
+        {
+          "type": "range",
+          "id": "threshold",
+          "label": "Scroll threshold",
+          "min": 0,
+          "max": 1000,
+          "step": 50,
+          "default": 300
+        }
+      ]
     }
   ],
   "presets": [
@@ -648,7 +985,22 @@
       "name": "U Social Share",
       "blocks": [
         {
+          "type": "badge_item"
+        },
+        {
           "type": "review_tab"
+        },
+        {
+          "type": "share_panel"
+        },
+        {
+          "type": "action_item"
+        },
+        {
+          "type": "action_item"
+        },
+        {
+          "type": "scroll_top_item"
         }
       ]
     }

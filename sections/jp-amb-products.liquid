@@ -1,0 +1,833 @@
+{%- liquid
+  assign sid = section.id
+  assign st = section.settings
+-%}
+
+<section class="jp-amb-products jp-amb-products--{{ sid }}">
+  <div class="jp-container">
+    <div class="jp-amb-products__header">
+      {%- if st.title != blank -%}
+        <h2 class="jp-amb-products__title">{{ st.title }}</h2>
+      {%- endif -%}
+
+      {%- if st.subtitle != blank -%}
+        <div class="jp-amb-products__subtitle">{{ st.subtitle }}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="jp-amb-products__grid">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign bs = block.settings
+          assign product = bs.product
+          assign variant = product.selected_or_first_available_variant
+          assign product_url = product.url | default: bs.link
+        -%}
+
+        <div class="jp-amb-products__card" {{ block.shopify_attributes }}>
+          {%- if bs.badge != blank -%}
+            <div class="jp-amb-products__badge">{{ bs.badge }}</div>
+          {%- endif -%}
+
+          <a class="jp-amb-products__media" href="{{ product_url }}">
+            {%- if bs.image != blank -%}
+              <img
+                class="jp-amb-products__image"
+                src="{{ bs.image | image_url: width: 1000 }}"
+                alt="{{ bs.image.alt | escape }}"
+                loading="lazy"
+              >
+            {%- elsif product.featured_image != blank -%}
+              <img
+                class="jp-amb-products__image"
+                src="{{ product.featured_image | image_url: width: 1000 }}"
+                alt="{{ product.featured_image.alt | escape }}"
+                loading="lazy"
+              >
+            {%- endif -%}
+          </a>
+
+          <div class="jp-amb-products__info">
+            {%- if bs.label != blank -%}
+              <div class="jp-amb-products__label">{{ bs.label }}</div>
+            {%- endif -%}
+
+            <h3 class="jp-amb-products__name">
+              <a href="{{ product_url }}">
+                {{ bs.title | default: product.title }}
+              </a>
+            </h3>
+
+            {%- if bs.desc != blank -%}
+              <div class="jp-amb-products__desc">{{ bs.desc }}</div>
+            {%- endif -%}
+
+            <div class="jp-amb-products__price-row">
+              {%- if st.price_label != blank -%}
+                <span class="jp-amb-products__price-label">{{ st.price_label }}</span>
+              {%- endif -%}
+
+              {%- if bs.price_text != blank -%}
+                <span class="jp-amb-products__price-wrap">
+                  <span class="jp-amb-products__price">{{ bs.price_text }}</span>
+                  {%- if st.price_tax_label != blank -%}
+                    <span class="jp-amb-products__price-tax">{{ st.price_tax_label }}</span>
+                  {%- endif -%}
+                </span>
+              {%- elsif variant != blank -%}
+                <span class="jp-amb-products__price-wrap">
+                  <span class="jp-amb-products__price">{{ variant.price | money }}</span>
+                  {%- if st.price_tax_label != blank -%}
+                    <span class="jp-amb-products__price-tax">{{ st.price_tax_label }}</span>
+                  {%- endif -%}
+                </span>
+              {%- endif -%}
+
+              {%- if bs.compare_text != blank -%}
+                <span class="jp-amb-products__compare-wrap">
+                  {%- if st.compare_label != blank -%}
+                    <span class="jp-amb-products__compare-label">{{ st.compare_label }}</span>
+                  {%- endif -%}
+                  <span class="jp-amb-products__compare-price-wrap">
+                    <span class="jp-amb-products__compare">{{ bs.compare_text }}</span>
+                    {%- if st.compare_tax_label != blank -%}
+                      <span class="jp-amb-products__compare-tax">{{ st.compare_tax_label }}</span>
+                    {%- endif -%}
+                  </span>
+                </span>
+              {%- elsif variant.compare_at_price > variant.price -%}
+                <span class="jp-amb-products__compare-wrap">
+                  {%- if st.compare_label != blank -%}
+                    <span class="jp-amb-products__compare-label">{{ st.compare_label }}</span>
+                  {%- endif -%}
+                  <span class="jp-amb-products__compare-price-wrap">
+                    <span class="jp-amb-products__compare">{{ variant.compare_at_price | money }}</span>
+                    {%- if st.compare_tax_label != blank -%}
+                      <span class="jp-amb-products__compare-tax">{{ st.compare_tax_label }}</span>
+                    {%- endif -%}
+                  </span>
+                </span>
+              {%- endif -%}
+            </div>
+
+            {%- if bs.coupon_left_text != blank or bs.coupon_copy_text != blank or bs.coupon_code != blank -%}
+              <div
+                class="jp-amb-products__coupon"
+                {% if bs.coupon_bg_image != blank %}style="--coupon-bg-image: url('{{ bs.coupon_bg_image | image_url: width: 900 }}');"{% endif %}
+              >
+                {%- if bs.coupon_left_text != blank -%}
+                  <span class="jp-amb-products__coupon-discount">{{ bs.coupon_left_text }}</span>
+                {%- endif -%}
+
+                <div class="jp-amb-products__coupon-right">
+                  {%- if bs.coupon_copy_text != blank -%}
+                    <span class="jp-amb-products__coupon-code-text">{{ bs.coupon_copy_text }}</span>
+                  {%- endif -%}
+                  <button
+                    type="button"
+                    class="jp-amb-products__coupon-copy"
+                    data-copy-text="{{ bs.coupon_code | escape }}"
+                    data-default-text="{{ bs.coupon_copy_btn_text | escape }}"
+                    data-success-text="{{ bs.coupon_success_text | escape }}"
+                  >
+                    {{ bs.coupon_copy_btn_text }}
+                  </button>
+                </div>
+              </div>
+            {%- endif -%}
+
+            {%- if bs.promo_note != blank -%}
+              <div class="jp-amb-products__promo-note">{{ bs.promo_note }}</div>
+            {%- endif -%}
+
+            <div class="jp-amb-products__actions">
+              {%- if variant != blank -%}
+                <button
+                  type="button"
+                  class="jp-amb-products__btn jp-amb-products__btn--cart"
+                  data-variant-id="{{ variant.id }}"
+                  data-discount-code="{{ bs.discount_code | escape }}"
+                >
+                  {{ bs.cart_text | default: 'カートに追加' }}
+                </button>
+              {%- endif -%}
+
+              {%- if bs.buy_text != blank -%}
+                <a class="jp-amb-products__btn jp-amb-products__btn--buy" href="{{ product_url }}">
+                  {{ bs.buy_text }}
+                </a>
+              {%- endif -%}
+            </div>
+
+            {%- if bs.footnote != blank -%}
+              <div class="jp-amb-products__footnote">{{ bs.footnote }}</div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector('.jp-amb-products--{{ sid }}');
+    section.querySelectorAll('.jp-amb-products__coupon-copy').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const copyText = btn.getAttribute('data-copy-text') || '';
+        const defaultText = btn.getAttribute('data-default-text') || btn.textContent.trim();
+        const successText = btn.getAttribute('data-success-text') || 'Copied';
+
+        if (!copyText) return;
+
+        try {
+          await navigator.clipboard.writeText(copyText);
+          btn.textContent = successText;
+          window.setTimeout(() => {
+            btn.textContent = defaultText;
+          }, 1800);
+        } catch (error) {
+          console.error(error);
+        }
+      });
+    });
+
+    section.querySelectorAll('[data-variant-id]').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const variantId = btn.getAttribute('data-variant-id');
+        const discountCode = btn.getAttribute('data-discount-code') || '';
+
+        if (!variantId) return;
+
+        btn.classList.add('is-loading');
+
+        try {
+          if (window.UlikeCommon && typeof window.UlikeCommon.addToCartPromise === 'function') {
+            await window.UlikeCommon.addToCartPromise(variantId, btn, {}, discountCode, 1);
+          } else {
+            await fetch('/cart/add.js', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
+              body: JSON.stringify({
+                id: Number(variantId),
+                quantity: 1
+              })
+            });
+
+            if (discountCode) {
+              window.location.href = '/discount/' + encodeURIComponent(discountCode) + '?redirect=/cart';
+            } else {
+              window.location.href = '/cart';
+            }
+          }
+        } catch (error) {
+          console.error(error);
+        } finally {
+          btn.classList.remove('is-loading');
+        }
+      });
+    });
+  })
+</script>
+
+<style>
+  .jp-amb-products--{{ sid }} {
+    padding: 100px 0 100px;
+    background: #fff;
+    color: #111;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__header {
+    text-align: center;
+    margin-bottom: 100px;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__title {
+    margin: 0;
+    font-size: 40px;
+    line-height: 1.5;
+    letter-spacing: 4px;
+    font-weight: 500;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__subtitle {
+    font-size: 26px;
+    line-height: 1.5;
+    letter-spacing: 1.3px;
+    color: rgba(0, 0, 0, 0.80);
+    width: 53%;
+    margin: 20px auto 0px;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__grid {
+    width: 100%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 145px;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__card {
+    position: relative;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__badge {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    z-index: 2;
+    min-width: 60px;
+    padding: 8px 25px;
+    border-radius: 50px;
+    background: linear-gradient(106deg, #E0004D 23.04%, #FF7595 50.38%, #E0004D 76.96%);
+    color: #fff;
+    font-size: 20px;
+    line-height: 1;
+    text-align: center;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__media {
+    display: block;
+    background: #fff;
+    overflow: hidden;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__image {
+    width: 100%;
+    display: block;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__info {
+    padding-top: 40px;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__label {
+    margin-bottom: 20px;
+    font-size: 32px;
+    line-height: 120%;
+    color: #000;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__name {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 400;
+    color: #000;
+    line-height: 150%; /* 36px */
+    letter-spacing: .04em;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__name a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__desc {
+    margin: 40px 0px 30px;
+    padding-bottom: 30px;
+    min-height: 48px;
+    font-size: 16px;
+    line-height: 1;
+    color: rgba(0, 0, 0, 0.70);
+    white-space: pre-line;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__price-row {
+    margin-top: 24px;
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 16px;
+    line-height: 1.4;
+    color: #000;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__price-label {
+    font-size: 18px;
+    color: #000;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__price-wrap {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__price-tax {
+    font-size: 18px;
+    color: #3F3636;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__price {
+    font-size: 32px;
+    line-height: 1;
+    font-weight: 400;
+    color: #E0004D;
+    letter-spacing: .02em;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__compare-wrap {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+    padding-left: 8px;
+    color: #3F3636;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__compare-price-wrap {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0;
+    text-decoration: line-through;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__compare-label {
+    font-size: 14px;
+    color: #3F3636;
+    text-decoration: line-through;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__compare {
+    position: relative;
+    font-size: 26px;
+    color: #3F3636;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__compare-tax {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.65);
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__coupon {
+    position: relative;
+    width: fit-content;
+    margin-top: 28px;
+    min-height: 52px;
+    min-width: 340px;
+    display: inline-flex;
+    align-items: stretch;
+    border-radius: 4px;
+    background-image: var(--coupon-bg-image);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__coupon:not([style*="--coupon-bg-image"]) {
+    background: linear-gradient(90deg, #E1054F 0%, #FECBCD 100%);
+  }
+
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__coupon-discount {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 47%;
+    padding: 0 15px;
+    font-size: 24px;
+    font-weight: 500;
+  }
+
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__coupon-right {
+    width: 53%;
+    padding: 0 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__coupon-code-text {
+    display: inline-block;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__coupon-copy {
+    padding: 0;
+    border: 0;
+    border-bottom: 1px solid currentColor;
+    background: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: 1.1;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__promo-note {
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #666;
+    white-space: pre-line;
+    letter-spacing: 0.5px;
+  }
+  .jp-amb-products--{{ sid }} .jp-amb-products__promo-note span{
+    text-decoration:underline;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__actions {
+    margin-top: 35px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__btn {
+    height: 48px;
+    border: 1px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    line-height: 1;
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity .2s ease;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__btn:hover {
+    opacity: .82;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__btn--cart {
+    background: #fff;
+    color: #000;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__btn--buy {
+    background: #190A0A;
+    border-color: #190A0A;
+    color: #fff;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__footnote {
+    margin-top: 30px;
+    font-size: 12px;
+    line-height: 1.6;
+    color: rgba(0, 0, 0, 0.3);
+    white-space: pre-line;
+  }
+
+  .jp-amb-products--{{ sid }} .jp-amb-products__btn.is-loading {
+    opacity: .5;
+    pointer-events: none;
+  }
+
+  @media (max-width: 768px) {
+    .jp-amb-products--{{ sid }} {
+      padding: 64px 0 72px;
+    }
+
+    .jp-amb-products--{{ sid }} .jp-amb-products__header {
+      margin-bottom: 34px;
+    }
+
+    .jp-amb-products--{{ sid }} .jp-amb-products__title {
+      font-size: 24px;
+    }
+
+    .jp-amb-products--{{ sid }} .jp-amb-products__subtitle {
+      font-size: 14px;
+      width: 90%;
+      margin: 0 auto;
+    }
+
+    .jp-amb-products--{{ sid }} .jp-amb-products__grid {
+      width: 100%;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .jp-amb-products--{{ sid }} .jp-amb-products__badge {
+      font-size: 14px;
+      padding: 2px 13px;
+      top: 15px;
+      left: 15px;
+    }
+
+    .jp-amb-products--{{ sid }} .jp-amb-products__info {
+      padding-top: 20px;
+    }
+
+    .jp-amb-products--{{ sid }} .jp-amb-products__label {
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+
+    .jp-amb-products--{{ sid }} .jp-amb-products__name {
+      font-size: 13px;
+    }
+
+    .jp-amb-products--{{ sid }} .jp-amb-products__desc {
+      font-size: 12px;
+      margin: 16px 0px 16px;
+      padding-bottom: 16px;
+    }
+
+    .jp-amb-products--{{ sid }} .jp-amb-products__price-row,
+    .jp-amb-products--{{ sid }} .jp-amb-products__price-label {
+      font-size: 13px;
+    }
+
+    .jp-amb-products--{{ sid }} .jp-amb-products__price {
+      font-size: 24px;
+    }
+
+    .jp-amb-products--{{ sid }} .jp-amb-products__price-tax {
+      font-size: 13px;
+    }
+
+    .jp-amb-products--{{ sid }} .jp-amb-products__compare-wrap {
+      padding-left: 4px;
+    }
+
+    .jp-amb-products--{{ sid }} .jp-amb-products__compare {
+      font-size: 14px;
+    }
+
+    .jp-amb-products--{{ sid }} .jp-amb-products__compare-label {
+      font-size: 12px;
+    }
+
+    .jp-amb-products--{{ sid }} .jp-amb-products__compare-tax {
+      font-size: 12px;
+    }
+
+    .jp-amb-products--{{ sid }} .jp-amb-products__coupon {
+      width: 100%;
+      min-width: 0;
+      min-height: 52px;
+      margin-top: 18px;
+    }
+
+    .jp-amb-products--{{ sid }} .jp-amb-products__coupon-discount,
+    .jp-amb-products--{{ sid }} .jp-amb-products__coupon-right {
+      min-width: 0;
+      min-height: 52px;
+      padding: 0 12px;
+    }
+
+
+    .jp-amb-products--{{ sid }} .jp-amb-products__coupon-discount {
+      font-size: 20px;
+    }
+
+    .jp-amb-products--{{ sid }} .jp-amb-products__coupon-right {
+      gap: 5px;
+      font-size: 12px;
+    }
+
+    .jp-amb-products--{{ sid }} .jp-amb-products__promo-note {
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .jp-amb-products--{{ sid }} .jp-amb-products__actions {
+      margin-top: 24px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .jp-amb-products--{{ sid }} .jp-amb-products__btn {
+      height: 22px;
+      font-size: 11px;
+    }
+
+    .jp-amb-products--{{ sid }} .jp-amb-products__footnote {
+      margin-top: 18px;
+      font-size: 10px;
+      line-height: 1.55;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "JP Amb Products",
+  "settings": [
+    {
+      "type": "html",
+      "id": "title",
+      "label": "Title",
+      "default": "おすすめ商品"
+    },
+    {
+      "type": "html",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Ulikeの人気モデルを特別価格で"
+    },
+    {
+      "type": "text",
+      "id": "price_label",
+      "label": "Price label",
+      "default": "期間限定"
+    },
+    {
+      "type": "text",
+      "id": "price_tax_label",
+      "label": "Price tax label",
+      "default": "(税込)"
+    },
+    {
+      "type": "text",
+      "id": "compare_label",
+      "label": "Compare price label",
+      "default": "価格"
+    },
+    {
+      "type": "text",
+      "id": "compare_tax_label",
+      "label": "Compare tax label",
+      "default": "(税込)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product card",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom image"
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge",
+          "default": "限定"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Small label"
+        },
+        {
+          "type": "html",
+          "id": "title",
+          "label": "Custom title"
+        },
+        {
+          "type": "html",
+          "id": "desc",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "price_text",
+          "label": "Price text"
+        },
+        {
+          "type": "text",
+          "id": "compare_text",
+          "label": "Compare price text"
+        },
+        {
+          "type": "image_picker",
+          "id": "coupon_bg_image",
+          "label": "Coupon background image"
+        },
+        {
+          "type": "text",
+          "id": "coupon_left_text",
+          "label": "Coupon left text",
+          "default": "30% OFF"
+        },
+        {
+          "type": "text",
+          "id": "coupon_code",
+          "label": "Coupon code"
+        },
+        {
+          "type": "text",
+          "id": "coupon_copy_text",
+          "label": "Coupon code display text",
+          "default": "Code: AIR10MAX"
+        },
+        {
+          "type": "text",
+          "id": "coupon_copy_btn_text",
+          "label": "Coupon copy button text",
+          "default": "Copy"
+        },
+        {
+          "type": "text",
+          "id": "coupon_success_text",
+          "label": "Coupon copied text",
+          "default": "Copied"
+        },
+        {
+          "type": "textarea",
+          "id": "promo_note",
+          "label": "Promo note"
+        },
+        {
+          "type": "textarea",
+          "id": "footnote",
+          "label": "Footnote"
+        },
+        {
+          "type": "text",
+          "id": "discount_code",
+          "label": "Discount code"
+        },
+        {
+          "type": "text",
+          "id": "cart_text",
+          "label": "Cart button text",
+          "default": "カートに追加"
+        },
+        {
+          "type": "text",
+          "id": "buy_text",
+          "label": "Buy button text",
+          "default": "詳しく見る"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Fallback link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "JP Amb Products",
+      "blocks": [
+        {
+          "type": "product"
+        },
+        {
+          "type": "product"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

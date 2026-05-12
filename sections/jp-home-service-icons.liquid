@@ -1,9 +1,10 @@
 {% liquid
   assign sid = section.id
+  assign container_class = section.settings.container_class | default: ''
 %}
 
 <section class="jp-home-service-icons jp-home-service-icons--{{ sid }}">
-  <div class="jp-container">
+  <div class="{{ container_class }}">
     <div class="jp-home-service-icons__inner">
       <div class="jp-home-service-icons__list swiper">
         <div class="swiper-wrapper">
@@ -49,9 +50,9 @@
     --jp-home-service-icons-border: #ece7ea;
     --jp-home-service-icons-text: #111111;
     --jp-home-service-icons-bg: #ffffff;
-    --jp-home-service-icons-icon-size: 22px;
+    --jp-home-service-icons-icon-size: 37px;
     --jp-home-service-icons-gap: 10px;
-    padding: 18px 0;
+    padding: 33px 30px;
     background: var(--jp-home-service-icons-bg);
     border-bottom: 1px solid var(--jp-home-service-icons-border);
   }
@@ -71,7 +72,19 @@
   }
 
   .jp-home-service-icons--{{ sid }} .jp-home-service-icons__item {
+    position: relative;
     min-width: 0;
+  }
+
+  .jp-home-service-icons--{{ sid }} .jp-home-service-icons__item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 1px;
+    height: 22px;
+    background: #cfc7cb;
+    transform: translateY(-50%);
   }
 
   .jp-home-service-icons--{{ sid }} .jp-home-service-icons__link {
@@ -83,7 +96,7 @@
     text-decoration: none;
     color: var(--jp-home-service-icons-text);
     text-align: center;
-    padding: 8px 14px;
+    padding: 8px 12px;
   }
 
   .jp-home-service-icons--{{ sid }} .jp-home-service-icons__icon {
@@ -104,15 +117,23 @@
   }
 
   .jp-home-service-icons--{{ sid }} .jp-home-service-icons__text {
-    font-size: 13px;
-    line-height: 1.5;
-    font-weight: 500;
+    font-size: 24px;
+    line-height: 1.3;
+    font-weight: 400;
     white-space: nowrap;
   }
 
   @media screen and (max-width: 989px) {
     .jp-home-service-icons--{{ sid }} {
-      padding: 12px 0;
+      --jp-home-service-icons-icon-size: 42px;
+      padding: 0;
+      border-top: 0;
+      border-bottom: 1px solid #dedede;
+    }
+
+    .jp-home-service-icons--{{ sid }} .jp-container {
+      padding-left: 0;
+      padding-right: 0;
     }
 
     .jp-home-service-icons--{{ sid }} .jp-home-service-icons__list {
@@ -125,26 +146,56 @@
     }
 
     .jp-home-service-icons--{{ sid }} .jp-home-service-icons__item {
-      width: auto;
-      min-width: 160px;
+      width: 25%;
+      min-width: 25%;
+      flex: 0 0 25%;
+      position: relative;
+    }
+
+    .jp-home-service-icons--{{ sid }} .jp-home-service-icons__item:not(:last-child)::after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 24px;
+      right: 0;
+      width: 1px;
+      height: 44px;
+      background: #eeeeee;
+      transform: none;
     }
 
     .jp-home-service-icons--{{ sid }} .jp-home-service-icons__link {
-      min-height: 44px;
-      justify-content: flex-start;
-      padding: 6px 12px;
+      min-height: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 16px 4px 14px;
       gap: 8px;
     }
 
+    .jp-home-service-icons--{{ sid }} .jp-home-service-icons__item:first-child .jp-home-service-icons__link,
+    .jp-home-service-icons--{{ sid }} .jp-home-service-icons__item:last-child .jp-home-service-icons__link {
+      justify-content: center;
+      text-align: center;
+      padding-left: 4px;
+      padding-right: 4px;
+    }
+
     .jp-home-service-icons--{{ sid }} .jp-home-service-icons__icon {
-      width: 18px;
-      height: 18px;
-      flex-basis: 18px;
+      width: var(--jp-home-service-icons-icon-size);
+      height: var(--jp-home-service-icons-icon-size);
+      flex: 0 0 var(--jp-home-service-icons-icon-size);
     }
 
     .jp-home-service-icons--{{ sid }} .jp-home-service-icons__text {
-      font-size: 12px;
+      width: 100%;
+      font-size: 13px;
+      line-height: 1.25;
+      text-align: center;
       white-space: nowrap;
+      color: #111111;
     }
   }
 </style>
@@ -167,7 +218,7 @@
       if (!isMobile) return;
 
       new window.Swiper(swiperEl, {
-        slidesPerView: 'auto',
+        slidesPerView: 4,
         spaceBetween: 0,
         freeMode: true,
         watchOverflow: true
@@ -184,7 +235,13 @@
   "name": "JP Home Service Icons",
   "tag": "section",
   "class": "section",
-  "settings": [],
+  "settings": [
+    {
+      "type": "text",
+      "id": "container_class",
+      "label": "Container class"
+    }
+  ],
   "blocks": [
     {
       "type": "item",
