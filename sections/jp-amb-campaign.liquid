@@ -1,0 +1,334 @@
+{%- liquid
+  assign sid = section.id
+  assign st = section.settings
+-%}
+
+<section class="jp-amb-campaign jp-amb-campaign--{{ sid }}">
+  <div class="jp-container jp-amb-campaign__wrap">
+    <picture class="jp-amb-campaign__picture">
+      {%- if st.mobile_bg_image != blank -%}
+        <source media="(max-width: 768px)" srcset="{{ st.mobile_bg_image | image_url: width: 900 }}">
+      {%- endif -%}
+
+      {%- if st.bg_image != blank -%}
+        <img
+          class="jp-amb-campaign__bg"
+          src="{{ st.bg_image | image_url: width: 2400 }}"
+          alt="{{ st.bg_image.alt | escape }}"
+          loading="lazy"
+        >
+      {%- elsif st.mobile_bg_image != blank -%}
+        <img
+          class="jp-amb-campaign__bg"
+          src="{{ st.mobile_bg_image | image_url: width: 900 }}"
+          alt="{{ st.mobile_bg_image.alt | escape }}"
+          loading="lazy"
+        >
+      {%- endif -%}
+    </picture>
+
+    <div class="jp-amb-campaign__overlay jp-container">
+      {%- if st.title != blank -%}
+        <h2 class="jp-amb-campaign__title">{{ st.title }}</h2>
+      {%- endif -%}
+
+      <div class="jp-amb-campaign__info">
+        {%- if st.period_title != blank or st.period_text != blank -%}
+          <div class="jp-amb-campaign__group">
+            {%- if st.period_title != blank -%}
+              <div class="jp-amb-campaign__group-title">{{ st.period_title }}</div>
+            {%- endif -%}
+            {%- if st.period_text != blank -%}
+              <div class="jp-amb-campaign__group-text">{{ st.period_text }}</div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- if st.prize_title != blank or st.prize_text != blank -%}
+          <div class="jp-amb-campaign__group">
+            {%- if st.prize_title != blank -%}
+              <div class="jp-amb-campaign__group-title">{{ st.prize_title }}</div>
+            {%- endif -%}
+            {%- if st.prize_text != blank -%}
+              <div class="jp-amb-campaign__group-text">{{ st.prize_text }}</div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- if st.how_title != blank or st.how_text != blank -%}
+          <div class="jp-amb-campaign__group jp-amb-campaign__group--last">
+            {%- if st.how_title != blank -%}
+              <div class="jp-amb-campaign__group-title">{{ st.how_title }}</div>
+            {%- endif -%}
+            {%- if st.how_text != blank -%}
+              <div class="jp-amb-campaign__group-text">{{ st.how_text }}</div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- if st.note != blank -%}
+        <div class="jp-amb-campaign__note">{{ st.note }}</div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  .jp-amb-campaign--{{ sid }} {
+    position: relative;
+    background: linear-gradient(66deg, #D0DBE2 -16.91%, #EDF0F9 35.4%, #D0DBE2 124.17%);
+    color: #000;
+    padding: 10% 0px 10%;
+    overflow: hidden;
+  }
+
+  .jp-amb-campaign--{{ sid }} .jp-amb-campaign__wrap {
+    position: relative;
+    width: 100%;
+  }
+
+  .jp-amb-campaign--{{ sid }} .jp-amb-campaign__picture {
+    display: block;
+    width: 100%;
+  }
+
+  .jp-amb-campaign--{{ sid }} .jp-amb-campaign__bg {
+    width: 100%;
+    display: block;
+  }
+
+  .jp-amb-campaign--{{ sid }} .jp-amb-campaign__overlay {
+    position: absolute;
+    inset: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+
+  .jp-amb-campaign--{{ sid }} .jp-amb-campaign__title {
+    position: absolute;
+    top: -13%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    font-size: 40px;
+    line-height: 1.45;
+    font-weight: 500;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  .jp-amb-campaign--{{ sid }} .jp-amb-campaign__info {
+    position: absolute;
+    left: 10%;
+    top: 30%;
+    width: 40%;
+    max-width: 720px;
+    pointer-events: auto;
+  }
+
+  .jp-amb-campaign--{{ sid }} .jp-amb-campaign__group {
+    padding: 0 0 35px;
+    margin: 0 0 35px;
+    border-bottom: 1px solid rgba(0, 0, 0, .12);
+  }
+
+  .jp-amb-campaign--{{ sid }} .jp-amb-campaign__group--last {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .jp-amb-campaign--{{ sid }} .jp-amb-campaign__group-title {
+    margin-bottom: 10px;
+    font-size: 24px;
+    line-height: 1.5;
+    font-weight: 500;
+  }
+
+  .jp-amb-campaign--{{ sid }} .jp-amb-campaign__group-text {
+    font-size: 24px;
+    line-height: 1.5;
+    letter-spacing: .02em;
+  }
+
+  .jp-amb-campaign--{{ sid }} .jp-amb-campaign__group-text p {
+    margin: 0 0 4px;
+  }
+
+  .jp-amb-campaign--{{ sid }} .jp-amb-campaign__group-text p:last-child {
+    margin-bottom: 0;
+  }
+
+  .jp-amb-campaign--{{ sid }} .jp-amb-campaign__note {
+    position: absolute;
+    left: 5%;
+    bottom: -5%;
+    max-width: 80%;
+    font-size: 14px;
+    line-height: 1.4;
+    color: rgba(0, 0, 0, 0.50);
+    pointer-events: auto;
+  }
+
+  @media (max-width: 768px) {
+    .jp-amb-campaign--{{ sid }} {
+      padding: 0;
+    }
+
+    .jp-amb-campaign--{{ sid }} .jp-amb-campaign__wrap {
+      width: 100%;
+      max-width: none;
+      padding: 40px 18px 30px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .jp-amb-campaign--{{ sid }} .jp-amb-campaign__bg {
+      min-height: 0;
+      object-fit: initial;
+    }
+
+    .jp-amb-campaign--{{ sid }} .jp-amb-campaign__overlay {
+      position: static;
+      inset: auto;
+      left: auto;
+      transform: none;
+      width: 100%;
+      max-width: none;
+      padding: 0;
+      display: contents;
+      pointer-events: auto;
+    }
+
+    .jp-amb-campaign--{{ sid }} .jp-amb-campaign__title {
+      position: static;
+      transform: none;
+      order: 1;
+      width: 80%;
+      padding: 0px;
+      margin: 0 auto 30px;
+      font-size: 24px;
+      line-height: 1.55;
+      letter-spacing: .04em;
+      white-space: inherit;
+    }
+
+    .jp-amb-campaign--{{ sid }} .jp-amb-campaign__picture {
+      order: 2;
+      display: block;
+      width: 100%;
+      margin: 0 0 20px;
+    }
+
+    .jp-amb-campaign--{{ sid }} .jp-amb-campaign__info {
+      position: static;
+      order: 3;
+      width: 100%;
+      max-width: none;
+      padding: 28px 20px 26px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.92);
+      box-sizing: border-box;
+    }
+
+    .jp-amb-campaign--{{ sid }} .jp-amb-campaign__group {
+      padding-bottom: 18px;
+      margin-bottom: 19px;
+      border-bottom-color: rgba(0, 0, 0, 0.10);
+    }
+
+    .jp-amb-campaign--{{ sid }} .jp-amb-campaign__group-title {
+      margin-bottom: 8px;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .jp-amb-campaign--{{ sid }} .jp-amb-campaign__group-text {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .jp-amb-campaign--{{ sid }} .jp-amb-campaign__note {
+      position: static;
+      order: 4;
+      max-width: none;
+      margin-top: 14px;
+      font-size: 10px;
+      line-height: 1.55;
+      color: rgba(0, 0, 0, 0.5);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "JP Amb Campaign",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "PC background image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_bg_image",
+      "label": "Mobile background image"
+    },
+    {
+      "type": "html",
+      "id": "title",
+      "label": "Title",
+      "default": "＼ 新アンバサダー就任記念キャンペーン ／"
+    },
+    {
+      "type": "text",
+      "id": "period_title",
+      "label": "Period title",
+      "default": "開催期間"
+    },
+    {
+      "type": "html",
+      "id": "period_text",
+      "label": "Period text",
+      "default": "5/19(火) ～ 5/31(日)"
+    },
+    {
+      "type": "text",
+      "id": "prize_title",
+      "label": "Prize title",
+      "default": "賞品"
+    },
+    {
+      "type": "html",
+      "id": "prize_text",
+      "label": "Prize text",
+      "default": "最新モデル Ulike Air 10 Max ＋<br>桐谷美玲さんサイン入りカード <span style='color:#E0004D;font-weight:500;'>5名様</span>"
+    },
+    {
+      "type": "text",
+      "id": "how_title",
+      "label": "How to apply title",
+      "default": "参加方法"
+    },
+    {
+      "type": "html",
+      "id": "how_text",
+      "label": "How to apply text",
+      "default": "1.Ulike 公式 Instagram または X をフォロー<br>2.キャンペーン投稿を「いいね」<br>3.『#WelikeUlike』『#Ulike桐谷美玲アンバサダー』のハッシュタグを付けて、新アンバサダーへの感想をコメント！"
+    },
+    {
+      "type": "textarea",
+      "id": "note",
+      "label": "Note",
+      "default": "＊キャンペーンの詳細はUlike公式Instagramまたは公式Xをご確認ください。"
+    }
+  ],
+  "presets": [
+    {
+      "name": "JP Amb Campaign"
+    }
+  ]
+}
+{% endschema %}

@@ -10,122 +10,109 @@
           {% liquid
             assign pc_image = block.settings.image_pc
             assign mobile_image = block.settings.image_mobile
-            assign badge_image = block.settings.badge_image
             assign title = block.settings.title
             assign desc = block.settings.desc
             assign button_text = block.settings.button_text
             assign button_link = block.settings.button_link
-            assign secondary_button_text = block.settings.secondary_button_text
-            assign secondary_button_link = block.settings.secondary_button_link
+            assign info_text = block.settings.info_text
           %}
           <div class="swiper-slide" {{ block.shopify_attributes }}>
             <div class="jp-home-hero__slide">
               <div class="jp-home-hero__media">
-                {% if pc_image != blank %}
-                  <img
-                    class="jp-home-hero__image jp-home-hero__image--pc"
-                    src="{{ pc_image | image_url: width: 2400 }}"
-                    alt="{{ pc_image.alt | escape }}"
-                    loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
-                    width="{{ pc_image.width }}"
-                    height="{{ pc_image.height }}"
-                  >
-                {% endif %}
+                {% if pc_image != blank or mobile_image != blank %}
+                  <picture>
+                    {% if mobile_image != blank %}
+                      <source
+                        media="(max-width: 989px)"
+                        srcset="{{ mobile_image | image_url: width: 1200 }}"
+                        width="{{ mobile_image.width }}"
+                        height="{{ mobile_image.height }}"
+                      >
+                    {% elsif pc_image != blank %}
+                      <source
+                        media="(max-width: 989px)"
+                        srcset="{{ pc_image | image_url: width: 1200 }}"
+                        width="{{ pc_image.width }}"
+                        height="{{ pc_image.height }}"
+                      >
+                    {% endif %}
 
-                {% if mobile_image != blank %}
-                  <img
-                    class="jp-home-hero__image jp-home-hero__image--mobile"
-                    src="{{ mobile_image | image_url: width: 1200 }}"
-                    alt="{{ mobile_image.alt | escape }}"
-                    loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
-                    width="{{ mobile_image.width }}"
-                    height="{{ mobile_image.height }}"
-                  >
-                {% elsif pc_image != blank %}
-                  <img
-                    class="jp-home-hero__image jp-home-hero__image--mobile"
-                    src="{{ pc_image | image_url: width: 1200 }}"
-                    alt="{{ pc_image.alt | escape }}"
-                    loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
-                    width="{{ pc_image.width }}"
-                    height="{{ pc_image.height }}"
-                  >
+                    {% if pc_image != blank %}
+                      <img
+                        class="jp-home-hero__image"
+                        src="{{ pc_image | image_url: width: 2400 }}"
+                        alt="{{ mobile_image.alt | default: pc_image.alt | escape }}"
+                        loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                        width="{{ pc_image.width }}"
+                        height="{{ pc_image.height }}"
+                      >
+                    {% elsif mobile_image != blank %}
+                      <img
+                        class="jp-home-hero__image"
+                        src="{{ mobile_image | image_url: width: 1200 }}"
+                        alt="{{ mobile_image.alt | escape }}"
+                        loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                        width="{{ mobile_image.width }}"
+                        height="{{ mobile_image.height }}"
+                      >
+                    {% endif %}
+                  </picture>
                 {% endif %}
               </div>
 
-              <div class="jp-container">
-                <div class="jp-home-hero__content-wrap">
-                  <div class="jp-home-hero__content">
-                    {% if block.settings.subheading != blank %}
-                      <div class="jp-home-hero__subheading">
-                        {{ block.settings.subheading }}
-                      </div>
-                    {% endif %}
+              <div class="jp-home-hero__content-wrap">
+                <div class="jp-container">
+                  <div class="jp-home-hero__content-inner">
+                    <div class="jp-home-hero__content">
+                      {% if block.settings.subheading != blank %}
+                        <div class="jp-home-hero__subheading">
+                          {{ block.settings.subheading }}
+                        </div>
+                      {% endif %}
 
-                    {% if title != blank %}
-                      <h2 class="jp-home-hero__title">{{ title }}</h2>
-                    {% endif %}
+                      {% if title != blank %}
+                        <div class="jp-home-hero__title rte">{{ title }}</div>
+                      {% endif %}
 
-                    {% if desc != blank %}
-                      <div class="jp-home-hero__desc">{{ desc }}</div>
-                    {% endif %}
+                      {% if desc != blank %}
+                        <div class="jp-home-hero__desc">{{ desc }}</div>
+                      {% endif %}
 
-                    {% if button_text != blank or secondary_button_text != blank %}
-                      <div class="jp-home-hero__buttons">
-                        {% if button_text != blank %}
+                      {% if button_text != blank %}
+                        <div class="jp-home-hero__buttons">
                           <a
                             class="jp-home-hero__btn jp-home-hero__btn--primary"
                             href="{{ button_link | default: '#' }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
                           >
                             {{ button_text }}
                           </a>
-                        {% endif %}
+                        </div>
+                      {% endif %}
 
-                        {% if secondary_button_text != blank %}
-                          <a
-                            class="jp-home-hero__btn jp-home-hero__btn--secondary"
-                            href="{{ secondary_button_link | default: '#' }}"
-                          >
-                            {{ secondary_button_text }}
-                          </a>
-                        {% endif %}
-                      </div>
-                    {% endif %}
-                  </div>
-
-                  {% if badge_image != blank %}
-                    <div class="jp-home-hero__badge">
-                      <img
-                        src="{{ badge_image | image_url: width: 400 }}"
-                        alt="{{ badge_image.alt | escape }}"
-                        loading="lazy"
-                        width="{{ badge_image.width }}"
-                        height="{{ badge_image.height }}"
-                      >
                     </div>
-                  {% endif %}
+
+                  </div>
                 </div>
               </div>
+
+              {% if info_text != blank %}
+                <div class="jp-home-hero__info-wrap">
+                  <div class="jp-container">
+                    <div class="jp-home-hero__info">
+                      {{ info_text }}
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
             </div>
           </div>
         {% endfor %}
       </div>
 
       {% if section.settings.show_pagination %}
-        <div class="jp-home-hero__pagination swiper-pagination"></div>
-      {% endif %}
-
-      {% if section.settings.show_navigation %}
-        <button class="jp-home-hero__nav jp-home-hero__nav--prev" type="button" aria-label="Previous slide">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <path d="M11.25 14.25L6 9L11.25 3.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-        <button class="jp-home-hero__nav jp-home-hero__nav--next" type="button" aria-label="Next slide">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <path d="M6.75 14.25L12 9L6.75 3.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
+        <div class="jp-home-hero__pagination swiper-pagination" aria-label="Slider pagination"></div>
       {% endif %}
     </div>
   </div>
@@ -133,8 +120,6 @@
 
 <style>
   .jp-home-hero--{{ sid }} {
-    --jp-home-hero-height-desktop: 680px;
-    --jp-home-hero-height-mobile: 520px;
     --jp-home-hero-text-color: #111111;
     --jp-home-hero-desc-color: #444444;
     --jp-home-hero-accent-color: #e51f6e;
@@ -156,39 +141,57 @@
   }
 
   .jp-home-hero--{{ sid }} .jp-home-hero__slide {
-    min-height: var(--jp-home-hero-height-desktop);
+    position: relative;
   }
 
   .jp-home-hero--{{ sid }} .jp-home-hero__media {
-    position: absolute;
-    inset: 0;
+    position: relative;
     z-index: 1;
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__media picture {
+    display: block;
+    width: 100%;
+    height: 100%;
   }
 
   .jp-home-hero--{{ sid }} .jp-home-hero__image {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
     display: block;
   }
 
-  .jp-home-hero--{{ sid }} .jp-home-hero__image--mobile {
-    display: none;
+  .jp-home-hero--{{ sid }} .jp-home-hero__content-wrap {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    padding: 0;
+    pointer-events: none;
   }
 
-  .jp-home-hero--{{ sid }} .jp-home-hero__content-wrap {
+  .jp-home-hero--{{ sid }} .jp-home-hero__content-wrap > .jp-container {
+    height: 100%;
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__content-inner {
     position: relative;
-    z-index: 2;
-    min-height: var(--jp-home-hero-height-desktop);
+    top: 22%;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     gap: 40px;
-    padding: 60px 0 72px;
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__content-wrap > .jp-container,
+  .jp-home-hero--{{ sid }} .jp-home-hero__content,
+  .jp-home-hero--{{ sid }} .jp-home-hero__btn,
+  .jp-home-hero--{{ sid }} .jp-home-hero__info-wrap .jp-container,
+  .jp-home-hero--{{ sid }} .jp-home-hero__info {
+    pointer-events: auto;
   }
 
   .jp-home-hero--{{ sid }} .jp-home-hero__content {
-    max-width: 520px;
+    max-width: 550px;
     color: var(--jp-home-hero-text-color);
   }
 
@@ -207,16 +210,30 @@
 
   .jp-home-hero--{{ sid }} .jp-home-hero__title {
     margin: 0;
-    font-size: 48px;
+    font-size: 60px;
     line-height: 1.2;
-    font-weight: 700;
-    letter-spacing: -.02em;
+    font-weight: 500;
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__title > *:first-child {
+    margin-top: 0;
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__title > *:last-child {
+    margin-bottom: 0;
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__title p {
+    margin: 0;
+    font-size: inherit;
+    line-height: inherit;
+    font-weight: inherit;
   }
 
   .jp-home-hero--{{ sid }} .jp-home-hero__desc {
-    margin-top: 16px;
-    font-size: 15px;
-    line-height: 1.8;
+    margin-top: 20px;
+    font-size: 24px;
+    line-height: 1.3;
     color: var(--jp-home-hero-desc-color);
   }
 
@@ -224,7 +241,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 14px;
-    margin-top: 28px;
+    margin-top: 50px;
   }
 
   .jp-home-hero--{{ sid }} .jp-home-hero__btn {
@@ -235,7 +252,7 @@
     min-height: 46px;
     padding: 12px 22px;
     text-decoration: none;
-    border-radius: 999px;
+    border-radius: 4px;
     font-size: 14px;
     line-height: 1;
     transition: all .25s ease;
@@ -251,149 +268,172 @@
     opacity: .88;
   }
 
-  .jp-home-hero--{{ sid }} .jp-home-hero__btn--secondary {
-    background: transparent;
-    color: var(--jp-home-hero-secondary-btn-color);
-    border: 1px solid var(--jp-home-hero-secondary-btn-border);
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__info-wrap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 30px;
+    z-index: 3;
+    pointer-events: none;
   }
 
-  .jp-home-hero--{{ sid }} .jp-home-hero__btn--secondary:hover {
-    background: rgba(0,0,0,.04);
+  .jp-home-hero--{{ sid }} .jp-home-hero__info {
+    max-width: 550px;
+    margin: 0;
+    font-size: 8px;
+    line-height: 1.5;
+    color: rgba(0, 0, 0, 0.50);
   }
 
-  .jp-home-hero--{{ sid }} .jp-home-hero__badge {
-    flex: 0 0 auto;
-    width: min(180px, 18vw);
-    max-width: 180px;
-  }
-
-  .jp-home-hero--{{ sid }} .jp-home-hero__badge img {
-    width: 100%;
-    display: block;
-    height: auto;
-  }
 
   .jp-home-hero--{{ sid }} .jp-home-hero__pagination {
     position: absolute;
     left: 50%;
-    bottom: 28px;
+    bottom: 40px;
     transform: translateX(-50%);
     z-index: 3;
+    width: max-content;
+    min-height: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 0;
+    line-height: 0;
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__pagination.swiper-pagination-lock {
+    display: none;
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__pagination:empty {
+    display: none;
   }
 
   .jp-home-hero--{{ sid }} .jp-home-hero__pagination .swiper-pagination-bullet {
+    position: relative;
+    display: inline-block;
+    flex: 0 0 auto;
     width: 8px;
     height: 8px;
-    margin: 0 !important;
+    margin: 0 30px 0 0 !important;
+    padding: 0;
+    border: none;
     border-radius: 999px;
-    background: rgba(0, 0, 0, .18);
+    background: #7a7a7a;
     opacity: 1;
+    cursor: pointer;
+    box-shadow: none;
+    appearance: none;
+    -webkit-appearance: none;
     transition: all .25s ease;
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__pagination .swiper-pagination-bullet:last-child {
+    margin-right: 0 !important;
   }
 
   .jp-home-hero--{{ sid }} .jp-home-hero__pagination .swiper-pagination-bullet-active {
-    width: 24px;
-    background: var(--jp-home-hero-accent-color);
+    width: 22px;
+    height: 22px;
+    margin-top: -7px !important;
+    margin-bottom: -7px !important;
+    background: transparent;
+    border: 2px solid #000;
   }
 
-  .jp-home-hero--{{ sid }} .jp-home-hero__nav {
+  .jp-home-hero--{{ sid }} .jp-home-hero__pagination .swiper-pagination-bullet-active::after {
+    content: '';
     position: absolute;
+    left: 50%;
     top: 50%;
-    transform: translateY(-50%);
-    z-index: 3;
-    width: 42px;
-    height: 42px;
-    border: none;
-    border-radius: 50%;
-    background: rgba(255,255,255,.88);
-    color: #111;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all .25s ease;
-  }
-
-  .jp-home-hero--{{ sid }} .jp-home-hero__nav:hover {
-    background: #fff;
-    box-shadow: 0 6px 20px rgba(0,0,0,.08);
-  }
-
-  .jp-home-hero--{{ sid }} .jp-home-hero__nav--prev {
-    left: 24px;
-  }
-
-  .jp-home-hero--{{ sid }} .jp-home-hero__nav--next {
-    right: 24px;
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: #000;
+    transform: translate(-50%, -50%);
   }
 
   @media screen and (max-width: 989px) {
     .jp-home-hero--{{ sid }} .jp-home-hero__slide {
-      min-height: var(--jp-home-hero-height-mobile);
+   
     }
 
-    .jp-home-hero--{{ sid }} .jp-home-hero__image--pc {
-      display: none;
+    .jp-home-hero--{{ sid }} .jp-home-hero__subheading {
+      padding: 4px 15px;
+    }
+    .jp-home-hero--{{ sid }} .jp-home-hero__info-wrap {
+      bottom: 15px;
     }
 
-    .jp-home-hero--{{ sid }} .jp-home-hero__image--mobile {
-      display: block;
+    .jp-home-hero--{{ sid }} .jp-home-hero__info {
+      max-width: none;
+      margin: 0;
+      text-align: left;
     }
-
     .jp-home-hero--{{ sid }} .jp-home-hero__content-wrap {
-      min-height: var(--jp-home-hero-height-mobile);
-      padding: 28px 0 56px;
+      inset: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    .jp-home-hero--{{ sid }} .jp-home-hero__content-inner {
+      top: 5%;
       align-items: flex-start;
-      justify-content: flex-start;
+      justify-content: center;
       gap: 20px;
+      padding-top: 0;
     }
 
     .jp-home-hero--{{ sid }} .jp-home-hero__content {
-      max-width: 72%;
       padding-top: 10px;
     }
 
     .jp-home-hero--{{ sid }} .jp-home-hero__title {
       font-size: 28px;
       line-height: 1.3;
+      width: 72%;
+      margin: 0 auto;
     }
 
     .jp-home-hero--{{ sid }} .jp-home-hero__desc {
       margin-top: 10px;
-      font-size: 13px;
-      line-height: 1.7;
+      font-size: 14px;
+      line-height: 1.4;
     }
 
     .jp-home-hero--{{ sid }} .jp-home-hero__buttons {
-      margin-top: 18px;
+      margin-top: 20px;
       gap: 10px;
     }
 
     .jp-home-hero--{{ sid }} .jp-home-hero__btn {
-      min-width: 112px;
-      min-height: 40px;
       padding: 10px 16px;
       font-size: 12px;
-    }
-
-    .jp-home-hero--{{ sid }} .jp-home-hero__badge {
-      position: absolute;
-      right: 0;
-      top: 24px;
-      width: 88px;
-      max-width: 88px;
+      margin: 0 auto;
+      min-height: 38px;
     }
 
     .jp-home-hero--{{ sid }} .jp-home-hero__pagination {
-      bottom: 18px;
+      bottom: 80px;
     }
 
-    .jp-home-hero--{{ sid }} .jp-home-hero__nav {
-      display: none;
+    .jp-home-hero--{{ sid }} .jp-home-hero__pagination .swiper-pagination-bullet {
+      width: 6px;
+      height: 6px;
+      margin: 0 24px 0 0 !important;
+    }
+
+    .jp-home-hero--{{ sid }} .jp-home-hero__pagination .swiper-pagination-bullet-active {
+      width: 18px;
+      height: 18px;
+      margin-top: -6px !important;
+      margin-bottom: -6px !important;
+    }
+
+    .jp-home-hero--{{ sid }} .jp-home-hero__pagination .swiper-pagination-bullet-active::after {
+      width: 6px;
+      height: 6px;
     }
   }
 </style>
@@ -403,9 +443,12 @@
     const sectionEl = document.querySelector('.jp-home-hero--{{ sid }}');
     if (!sectionEl) return;
 
-    const initHeroSwiper = () => {
+    let initTimer = null;
+
+    const buildSwiper = () => {
       const swiperEl = sectionEl.querySelector('.jp-home-hero__swiper');
-      if (!swiperEl || typeof window.Swiper === 'undefined') return;
+
+      if (!swiperEl || typeof window.Swiper === 'undefined') return false;
 
       if (swiperEl.swiper) {
         swiperEl.swiper.destroy(true, true);
@@ -416,6 +459,9 @@
         speed: {{ section.settings.speed }},
         effect: 'slide',
         autoHeight: false,
+        observer: true,
+        observeParents: true,
+        watchOverflow: true,
         {% if section.settings.enable_autoplay %}
         autoplay: {
           delay: {{ section.settings.autoplay_delay }},
@@ -423,15 +469,27 @@
           pauseOnMouseEnter: true
         },
         {% endif %}
-        pagination: {{ section.settings.show_pagination | json }} ? {
+        pagination: {
           el: sectionEl.querySelector('.jp-home-hero__pagination'),
+          type: 'bullets',
           clickable: true
-        } : false,
-        navigation: {{ section.settings.show_navigation | json }} ? {
-          nextEl: sectionEl.querySelector('.jp-home-hero__nav--next'),
-          prevEl: sectionEl.querySelector('.jp-home-hero__nav--prev')
-        } : false
+        }
       });
+
+      return true;
+    };
+
+    const initHeroSwiper = () => {
+      if (buildSwiper()) return;
+
+      let retryCount = 0;
+      clearInterval(initTimer);
+      initTimer = setInterval(() => {
+        retryCount += 1;
+        if (buildSwiper() || retryCount >= 40) {
+          clearInterval(initTimer);
+        }
+      }, 150);
     };
 
     if (document.readyState === 'loading') {
@@ -439,6 +497,18 @@
     } else {
       initHeroSwiper();
     }
+
+    document.addEventListener('shopify:section:load', function (event) {
+      if (event.target && event.target.contains(sectionEl)) {
+        initHeroSwiper();
+      }
+    });
+
+    document.addEventListener('shopify:block:select', function (event) {
+      if (event.target && event.target.closest('.jp-home-hero--{{ sid }}')) {
+        initHeroSwiper();
+      }
+    });
   })();
 </script>
 
@@ -489,10 +559,8 @@
       "default": true
     },
     {
-      "type": "checkbox",
-      "id": "show_navigation",
-      "label": "Show navigation",
-      "default": true
+      "type": "paragraph",
+      "content": "Pagination bullets are shown automatically when multiple slides exist."
     }
   ],
   "blocks": [
@@ -511,21 +579,16 @@
           "label": "Mobile image"
         },
         {
-          "type": "image_picker",
-          "id": "badge_image",
-          "label": "Badge image"
-        },
-        {
           "type": "text",
           "id": "subheading",
           "label": "Subheading",
           "default": "人気商品"
         },
         {
-          "type": "textarea",
+          "type": "html",
           "id": "title",
           "label": "Title",
-          "default": "我が家の光美容器\n効果も、やさしさも"
+          "default": "<p>我が家の光美容器<br>効果も、やさしさも</p>"
         },
         {
           "type": "textarea",
@@ -545,14 +608,10 @@
           "label": "Primary button link"
         },
         {
-          "type": "text",
-          "id": "secondary_button_text",
-          "label": "Secondary button text"
-        },
-        {
-          "type": "url",
-          "id": "secondary_button_link",
-          "label": "Secondary button link"
+          "type": "textarea",
+          "id": "info_text",
+          "label": "Info text",
+          "default": "*フロスト&サリバン調べ; 2023 年世界の光美容器の小売販売台数から算出。2024 年 10 月に実施された調査に基づく。光美容器とは、レーザーやIPLといった技術を利用して無駄毛を処理する美容機器を指す。"
         }
       ]
     }

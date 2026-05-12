@@ -1,0 +1,780 @@
+{%- liquid
+  assign sid = section.id
+  assign st = section.settings
+-%}
+
+<style>
+  #shopify-section-{{ sid }} {
+    background: {{ st.bg_color }};
+  }
+
+  .jp-brand-story-hero--{{ sid }} {
+    position: relative;
+    overflow: hidden;
+    background: {{ st.bg_color }};
+    color: {{ st.text_color }};
+    padding-top: {{ st.padding_top }}px;
+    padding-bottom: {{ st.padding_bottom }}px;
+  }
+
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__inner {
+    position: relative;
+    margin: 0 auto;
+  }
+
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__content {
+    position: relative;
+    z-index: 3;
+    display: grid;
+    grid-template-columns: 19% 29%;
+    width: 100%;
+    padding: 180px 80px 70px 150px;
+  }
+
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__eyebrow {
+    font-size: 60px;
+    line-height: 1.3;
+    color: rgba(0, 0, 0, 0.50);
+    text-transform: uppercase;
+  }
+
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__title {
+    margin: 0;
+    color: {{ st.title_color }};
+    font-size: 40px;
+    line-height: 1.3;
+  }
+
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__text {
+      max-width: 450px;
+  }
+
+
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__desc {
+    margin-top: 36px;
+    color: {{ st.desc_color }};
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__desc p,
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__note p {
+    margin: 0;
+  }
+
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__desc p + p {
+    margin-top: 14px;
+  }
+
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__note {
+    margin-top: 50px;
+    color: {{ st.note_color }};
+    font-size: 12px;
+    line-height: 1.5;
+    color: #8E8E8E;
+  }
+
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__media {
+    position: absolute;
+    top: 180px;
+    right: 0px;
+    z-index: 4;
+    width: 48%;
+    max-width: 920px;
+  }
+
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__media-inner {
+    position: relative;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    background: #f3f4f8;
+  }
+
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__image {
+    display: block;
+    width: 100%;
+  }
+
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__video {
+    display: block;
+    width: 100%;
+  }
+
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__play {
+    position: absolute;
+    right: 60px;
+    bottom: 30px;
+    transform: translateY(-50%);
+    width: 80px;
+    height: 80px;
+    border: 0;
+    border-radius: 50%;
+    background: {{ st.play_bg }};
+    color: {{ st.play_color }};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    z-index: 6;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__play:hover {
+    transform: translateY(-50%) scale(1.06);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.12);
+  }
+
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__play svg {
+    width: 13px;
+    height: 13px;
+    margin-left: 2px;
+  }
+
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__map {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    pointer-events: none;
+  }
+
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__map img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stats {
+    position: absolute;
+    left: 8%;
+    bottom: 18%;
+    z-index: 3;
+    display: flex;
+    align-items: flex-start;
+    gap: 70px;
+  }
+
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stat {
+    min-width: 120px;
+  }
+
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stat-number {
+    display: flex;
+    align-items: flex-start;
+    color: {{ st.stat_color }};
+    font-size: 73px;
+    line-height: 1.3;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stat-unit {
+    margin-left: 2px;
+    font-size: 45px;
+    line-height: 1;
+    font-weight: 600;
+  }
+
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stat-text {
+    color: {{ st.stat_text_color }};
+    font-size: 16px;
+    line-height: 1.4;
+    font-weight: 500;
+    white-space: nowrap;
+    text-align: right;
+    margin-right: 20%;
+  }
+
+  @media screen and (max-width: 1200px) {
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__content {
+      grid-template-columns: 18% 36%;
+      width: 100%;
+      padding-left: 48px;
+      padding-right: 48px;
+    }
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__media {
+      right: 48px;
+      width: 40%;
+    }
+
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stats {
+      left: 48px;
+      gap: 34px;
+    }
+
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stat-number {
+      font-size: 38px;
+    }
+
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__eyebrow {
+      font-size: 32px;
+    }
+
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__title {
+      font-size: 24px;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .jp-brand-story-hero--{{ sid }} {
+      padding-top: {{ st.mobile_padding_top }}px;
+      padding-bottom: {{ st.mobile_padding_bottom }}px;
+    }
+
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__inner {
+      display: block;
+      min-height: auto;
+      max-width: 100%;
+    }
+
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__content {
+      position: relative;
+      display: block;
+      width: 100%;
+      padding: 0 20px 0;
+    }
+
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__eyebrow {
+      font-size: 36px;
+      line-height: 150%; /* 54px */
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+    }
+
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__text {
+      max-width: none;
+      margin-top: 18px;
+    }
+
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__title {
+      font-size: 28px;
+      line-height: 1.4;
+    }
+
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__desc {
+      margin-top: 20px;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__note {
+      position: relative;
+      z-index: 4;
+      margin: 20px 20px 0;
+      font-size: 10px;
+      line-height: 1.55;
+    }
+
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__media {
+      position: relative;
+      top: auto;
+      right: auto;
+      width: 100%;
+      max-width: none;
+      margin-top: 36px;
+    }
+
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__image {
+      min-height: auto;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__video {
+      min-height: auto;
+      width: 100%;
+    }
+
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__play {
+      right: 18px;
+      top: auto;
+      bottom: 18px;
+      transform: none;
+      width: 38px;
+      height: 38px;
+    }
+
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__play:hover {
+      transform: scale(1.04);
+    }
+
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__play svg {
+      width: 10px;
+      height: 10px;
+    }
+
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__map {
+      position: relative;
+      width: 100%;
+    }
+
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stats {
+      left: auto;
+      bottom: auto;
+      z-index: 4;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      padding: 22px 10px 0;
+    }
+
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stat {
+      min-width: 0;
+      text-align: center;
+    }
+
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stat-number {
+      justify-content: center;
+      font-size: 36px;
+    }
+
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stat-unit {
+      font-size: 20px;
+    }
+
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stat-text {
+      margin-top: 5px;
+      font-size: 10px;
+      line-height: 1.35;
+      white-space: normal;
+    }
+  }
+</style>
+
+<section class="jp-brand-story-hero jp-brand-story-hero--{{ sid }}">
+  <div class="jp-brand-story-hero__inner">
+    <div class="jp-brand-story-hero__content">
+      {%- if st.eyebrow != blank -%}
+        <div class="jp-brand-story-hero__eyebrow">
+          {{ st.eyebrow | newline_to_br }}
+        </div>
+      {%- endif -%}
+
+      <div class="jp-brand-story-hero__text">
+        {%- if st.title != blank -%}
+          <h2 class="jp-brand-story-hero__title">
+            {{ st.title }}
+          </h2>
+        {%- endif -%}
+
+        {%- if st.desc != blank -%}
+          <div class="jp-brand-story-hero__desc">
+            {{ st.desc }}
+          </div>
+        {%- endif -%}
+
+        {%- if st.note != blank -%}
+          <div class="jp-brand-story-hero__note jp-brand-story-hero__note--desktop">
+            {{ st.note }}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="jp-brand-story-hero__media">
+      <div class="jp-brand-story-hero__media-inner">
+        {%- if st.video_url != blank -%}
+          <video
+            class="jp-brand-story-hero__video"
+            src="{{ st.video_url }}"
+            {% if st.image_pc != blank %}
+              poster="{{ st.image_pc | image_url: width: 1200 }}"
+            {% endif %}
+            playsinline
+            muted
+            preload="metadata"
+          ></video>
+
+          {%- if st.show_play -%}
+            <button
+              class="jp-brand-story-hero__play"
+              type="button"
+              aria-label="{{ st.play_aria | escape }}"
+            >
+              <svg viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11.2 6.48C11.6 6.71 11.6 7.29 11.2 7.52L1.3 13.23C0.9 13.46 0.4 13.17 0.4 12.71V1.29C0.4 0.83 0.9 0.54 1.3 0.77L11.2 6.48Z" fill="currentColor"/>
+              </svg>
+            </button>
+          {%- endif -%}
+        {%- else -%}
+          <picture>
+            {%- if st.image_mobile != blank -%}
+              <source
+                media="(max-width: 767px)"
+                srcset="{{ st.image_mobile | image_url: width: 900 }}"
+              >
+            {%- endif -%}
+
+            {%- if st.image_pc != blank -%}
+              <img
+                class="jp-brand-story-hero__image"
+                src="{{ st.image_pc | image_url: width: 1200 }}"
+                alt="{{ st.image_pc.alt | escape }}"
+                loading="lazy"
+                width="{{ st.image_pc.width }}"
+                height="{{ st.image_pc.height }}"
+              >
+            {%- else -%}
+              {{ 'image' | placeholder_svg_tag: 'jp-brand-story-hero__image placeholder-svg' }}
+            {%- endif -%}
+          </picture>
+        {%- endif -%}
+      </div>
+    </div>
+
+
+    <div class="jp-brand-story-hero__stats">
+      {%- for i in (1..3) -%}
+        {%- liquid
+          assign number_key = 'stat_' | append: i | append: '_number'
+          assign unit_key = 'stat_' | append: i | append: '_unit'
+          assign text_key = 'stat_' | append: i | append: '_text'
+
+          assign number = st[number_key]
+          assign unit = st[unit_key]
+          assign text = st[text_key]
+        -%}
+
+        {%- if number != blank or text != blank -%}
+          <div class="jp-brand-story-hero__stat">
+            {%- if number != blank -%}
+              <div class="jp-brand-story-hero__stat-number">
+                {{ number }}
+                {%- if unit != blank -%}
+                  <span class="jp-brand-story-hero__stat-unit">{{ unit }}</span>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+
+            {%- if text != blank -%}
+              <div class="jp-brand-story-hero__stat-text">
+                {{ text }}
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- if st.map_image != blank or st.map_image_mobile != blank -%}
+      <div class="jp-brand-story-hero__map">
+        <picture>
+          {%- if st.map_image_mobile != blank -%}
+            <source
+              media="(max-width: 767px)"
+              srcset="{{ st.map_image_mobile | image_url: width: 900 }}"
+            >
+          {%- endif -%}
+
+          {%- if st.map_image != blank -%}
+            <img
+              src="{{ st.map_image | image_url: width: 1800 }}"
+              alt="{{ st.map_image.alt | escape }}"
+              loading="lazy"
+              width="{{ st.map_image.width }}"
+              height="{{ st.map_image.height }}"
+            >
+          {%- elsif st.map_image_mobile != blank -%}
+            <img
+              src="{{ st.map_image_mobile | image_url: width: 900 }}"
+              alt="{{ st.map_image_mobile.alt | escape }}"
+              loading="lazy"
+              width="{{ st.map_image_mobile.width }}"
+              height="{{ st.map_image_mobile.height }}"
+            >
+          {%- endif -%}
+        </picture>
+      </div>
+    {%- endif -%}
+
+    {%- if st.note != blank -%}
+      <div class="jp-brand-story-hero__note jp-brand-story-hero__note--mobile">
+        {{ st.note }}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var section = document.querySelector('.jp-brand-story-hero--{{ sid }}');
+    if (!section) return;
+
+    var video = section.querySelector('.jp-brand-story-hero__video');
+    var playButton = section.querySelector('.jp-brand-story-hero__play');
+
+    if (!video || !playButton) return;
+
+    playButton.addEventListener('click', function () {
+      video.play();
+      playButton.style.display = 'none';
+    });
+
+    video.addEventListener('click', function () {
+      if (video.paused) {
+        video.play();
+        playButton.style.display = 'none';
+      } else {
+        video.pause();
+        playButton.style.display = 'flex';
+      }
+    });
+
+    video.addEventListener('ended', function () {
+      playButton.style.display = 'flex';
+    });
+  });
+</script>
+
+<style>
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__note--mobile {
+    display: none;
+  }
+
+  @media screen and (max-width: 767px) {
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__note--desktop {
+      display: none;
+    }
+
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__note--mobile {
+      display: block;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "JP Brand Story Hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "textarea",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "OUR\nSTORY"
+    },
+    {
+      "type": "html",
+      "id": "title",
+      "label": "Title",
+      "default": "3年連続世界 No.1* の<br>販売実績を誇るUlike"
+    },
+    {
+      "type": "html",
+      "id": "desc",
+      "label": "Description",
+      "default": "<p>Ulikeは、美しさ以上に自信に満ちたすべての人を応援してきました。</p><p>革新的な技術によって、世界中のお客様の美しさをサポートしています。</p>"
+    },
+    {
+      "type": "html",
+      "id": "note",
+      "label": "Note",
+      "default": "<p>*1 出典：Euromonitor International Limited；家庭用光美容器小売販売台数において。</p>"
+    },
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_pc",
+      "label": "Main image PC"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Main image Mobile"
+    },
+    {
+      "type": "image_picker",
+      "id": "map_image",
+      "label": "Map image PC"
+    },
+    {
+      "type": "image_picker",
+      "id": "map_image_mobile",
+      "label": "Map image Mobile"
+    },
+    {
+      "type": "header",
+      "content": "Video"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_play",
+      "label": "Show play button",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "Video link"
+    },
+    {
+      "type": "text",
+      "id": "play_aria",
+      "label": "Play aria label",
+      "default": "Play video"
+    },
+    {
+      "type": "header",
+      "content": "Stats"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_number",
+      "label": "Stat 1 number",
+      "default": "1000"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_unit",
+      "label": "Stat 1 unit",
+      "default": "+"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_text",
+      "label": "Stat 1 text",
+      "default": "専門家からの推薦"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_number",
+      "label": "Stat 2 number",
+      "default": "10"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_unit",
+      "label": "Stat 2 unit",
+      "default": "+"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_text",
+      "label": "Stat 2 text",
+      "default": "10年以上の研究"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_number",
+      "label": "Stat 3 number",
+      "default": "800"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_unit",
+      "label": "Stat 3 unit",
+      "default": "万台+"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_text",
+      "label": "Stat 3 text",
+      "default": "世界中の販売実績"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background",
+      "default": "#F6F8FB"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "desc_color",
+      "label": "Description color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "stat_color",
+      "label": "Stat number color",
+      "default": "#E60044"
+    },
+    {
+      "type": "color",
+      "id": "stat_text_color",
+      "label": "Stat text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "play_bg",
+      "label": "Play button background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "play_color",
+      "label": "Play button icon",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top PC",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom PC",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Padding top Mobile",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Padding bottom Mobile",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "JP Brand Story Hero"
+    }
+  ]
+}
+{% endschema %}

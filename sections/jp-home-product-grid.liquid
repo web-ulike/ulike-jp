@@ -108,9 +108,9 @@
 
 <style>
   .jp-home-product-showcase-grid--{{ sid }} {
-    --jp-home-product-showcase-grid-title: #111111;
-    --jp-home-product-showcase-grid-text: #555555;
-    --jp-home-product-showcase-grid-link: #111111;
+    --jp-home-product-showcase-grid-title: #000;
+    --jp-home-product-showcase-grid-text: #000;
+    --jp-home-product-showcase-grid-link: #000;
     --jp-home-product-showcase-grid-border: #ebe5e8;
     --jp-home-product-showcase-grid-bg: #ffffff;
     padding: 28px 0 56px;
@@ -137,7 +137,6 @@
 
   .jp-home-product-showcase-grid--{{ sid }} .jp-home-product-showcase-grid__image-wrap {
     display: block;
-    aspect-ratio: 1 / 1.02;
     overflow: hidden;
     background: #f7f5f6;
     text-decoration: none;
@@ -145,9 +144,7 @@
 
   .jp-home-product-showcase-grid--{{ sid }} .jp-home-product-showcase-grid__image {
     width: 100%;
-    height: 100%;
     display: block;
-    object-fit: cover;
   }
 
   .jp-home-product-showcase-grid--{{ sid }} .jp-home-product-showcase-grid__image--mobile {
@@ -156,7 +153,7 @@
 
   .jp-home-product-showcase-grid--{{ sid }} .jp-home-product-showcase-grid__content {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
     gap: 24px;
     padding: 58px 60px;
@@ -191,14 +188,14 @@
     max-width: 100%;
     width: auto;
     height: auto;
-    max-height: 60px;
+    max-height: 28px;
   }
 
   .jp-home-product-showcase-grid--{{ sid }} .jp-home-product-showcase-grid__text {
-    margin-top: 10px;
+    margin-top: 20px;
     max-width: 420px;
-    font-size: 14px;
-    line-height: 1.7;
+    font-size: 20px;
+    line-height: 1.5;
     color: var(--jp-home-product-showcase-grid-text);
   }
 
@@ -213,7 +210,7 @@
     gap: 4px;
     color: var(--jp-home-product-showcase-grid-link);
     text-decoration: none;
-    font-size: 12px;
+    font-size: 16px;
     line-height: 1;
     letter-spacing: .02em;
     white-space: nowrap;
@@ -225,12 +222,12 @@
 
   @media screen and (max-width: 989px) {
     .jp-home-product-showcase-grid--{{ sid }} {
-      padding: 18px 0 40px;
+      padding: 20px 16px 40px;
     }
 
     .jp-home-product-showcase-grid--{{ sid }} .jp-home-product-showcase-grid__list {
       grid-template-columns: 1fr;
-      gap: 0;
+      gap: 20px;
     }
 
     .jp-home-product-showcase-grid--{{ sid }} .jp-home-product-showcase-grid__image--pc {
@@ -241,15 +238,11 @@
       display: block;
     }
 
-    .jp-home-product-showcase-grid--{{ sid }} .jp-home-product-showcase-grid__image-wrap {
-      aspect-ratio: 1 / 1.04;
-    }
-
     .jp-home-product-showcase-grid--{{ sid }} .jp-home-product-showcase-grid__content {
       align-items: flex-start;
       flex-direction: column;
       gap: 10px;
-      padding: 18px 18px 20px;
+      padding: 30px 20px ;
     }
 
     .jp-home-product-showcase-grid--{{ sid }} .jp-home-product-showcase-grid__title {
@@ -257,13 +250,13 @@
     }
 
     .jp-home-product-showcase-grid--{{ sid }} .jp-home-product-showcase-grid__title img {
-      max-height: 48px;
+      max-height: 20px;
     }
 
     .jp-home-product-showcase-grid--{{ sid }} .jp-home-product-showcase-grid__text {
       margin-top: 6px;
-      font-size: 13px;
-      line-height: 1.7;
+      font-size: 14px;
+      line-height: 1.4;
     }
 
     .jp-home-product-showcase-grid--{{ sid }} .jp-home-product-showcase-grid__actions {

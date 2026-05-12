@@ -200,14 +200,14 @@
   </div>
 
   {% if section.settings.rt_float_image %}
-    <div id="floating-box">
+    {% comment %} <div id="floating-box" class="g-floating-box">
       <img
         src="{{ section.settings.rt_float_image |  img_url }}"
         loading="lazy"
         alt="login"
         class="floating-box-icon"
       >
-    </div>
+    </div> {% endcomment %}
   {% endif %}
 
   <script>
@@ -395,7 +395,7 @@
         }
       });
 
-      $(document).on('click', '#floating-box', function () {
+      $(document).on('click', '.g-floating-box', function () {
         commonGtmEvent('vip_Teaser', 'click', '');
         const isSubscribed = localStorage.getItem('ulike-subscribed') === 'true';
         if (isSubscribed) {
@@ -457,13 +457,14 @@
       console.log('isSubscribed', isSubscribed);
       if (isSubscribed) {
         thatLogin.hide();
-        $('#floating-box').hide();
+        $('.g-floating-box').hide();
       } else {
         // 倒计时结束
         setTimeout(() => {
           timerEnded = true;
           checkAndShowPopup(); // 提取调用
         }, popupDelay);
+        $('.g-floating-box').show();
         window.addEventListener('scroll', onUserScroll);
       }
 
@@ -621,7 +622,7 @@
         }
       }
       // ✅ 2) JS 里 define 的名字必须和上面标签一致：countdown-timer-today
-       window.customElements.define('countdown-timer-today', CountdownTimerToday);
+      window.customElements.define('countdown-timer-today', CountdownTimerToday);
     });
 
     /**
@@ -1078,7 +1079,10 @@
               cursor: pointer;
               z-index: 17;
               user-select: none;
-              {% comment %} display:none; {% endcomment %}
+              display:none;
+            }
+            .g-floating-box {
+              display:none;
             }
 
             #floating-box .circle-tag {
