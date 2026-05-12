@@ -20,6 +20,16 @@
             "show_rating": false
           }
         },
+        "countdown": {
+          "type": "countdown",
+          "settings": {
+            "heading": "期間限定で17,950円OFF！",
+            "subheading": "終了まであと:",
+            "color_text": "#e11d48",
+            "color_background": "#fff1f2",
+            "gradient_background": ""
+          }
+        },
         "description": {
           "type": "description",
           "settings": {
@@ -96,16 +106,6 @@
             "text_size": "text-3xs"
           }
         },
-        "countdown": {
-          "type": "countdown",
-          "settings": {
-            "heading": "Hurry up!",
-            "subheading": "Sale end in:",
-            "color_text": "#e11d48",
-            "color_background": "#fff1f2",
-            "gradient_background": ""
-          }
-        },
         "inventory": {
           "type": "inventory",
           "disabled": true,
@@ -155,6 +155,7 @@
       "block_order": [
         "vendor",
         "title",
+        "countdown",
         "description",
         "ulike_giveaway_LiGj9z",
         "variant_picker",
@@ -164,7 +165,6 @@
         "collapsible_tab_i9YDmT",
         "collapsible_tab_GMeNDy",
         "custom_text_aaiQQL",
-        "countdown",
         "inventory",
         "pickup_availability",
         "ulike_giveaway_AQLP7E",
@@ -557,8 +557,18 @@
     "17098718307bcd2722": {
       "type": "apps",
       "blocks": {
+        "judge_me_reviews_review_widget_aP3FiU": {
+          "type": "shopify:\/\/apps\/judge-me-reviews\/blocks\/review_widget\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "real_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "other_products_reviews"
+          }
+        },
         "ryviu_reviews_qa_ryviu_widget_yigzrd": {
           "type": "shopify:\/\/apps\/ryviu-product-reviews\/blocks\/ryviu-widget\/807ad6ed-1a6a-4559-abea-ed062858d9da",
+          "disabled": true,
           "settings": {
             "r_wapper_class": "",
             "r_max_width": 1440,
@@ -570,6 +580,7 @@
         }
       },
       "block_order": [
+        "judge_me_reviews_review_widget_aP3FiU",
         "ryviu_reviews_qa_ryviu_widget_yigzrd"
       ],
       "settings": {
