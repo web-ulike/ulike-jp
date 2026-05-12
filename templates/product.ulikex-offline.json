@@ -568,8 +568,18 @@
     "17098718307bcd2722": {
       "type": "apps",
       "blocks": {
+        "judge_me_reviews_review_widget_CcHLnA": {
+          "type": "shopify:\/\/apps\/judge-me-reviews\/blocks\/review_widget\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "real_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "other_products_reviews"
+          }
+        },
         "ryviu_reviews_qa_ryviu_widget_yigzrd": {
           "type": "shopify:\/\/apps\/ryviu-product-reviews\/blocks\/ryviu-widget\/807ad6ed-1a6a-4559-abea-ed062858d9da",
+          "disabled": true,
           "settings": {
             "r_wapper_class": "",
             "r_max_width": 1440,
@@ -581,6 +591,7 @@
         }
       },
       "block_order": [
+        "judge_me_reviews_review_widget_CcHLnA",
         "ryviu_reviews_qa_ryviu_widget_yigzrd"
       ],
       "settings": {

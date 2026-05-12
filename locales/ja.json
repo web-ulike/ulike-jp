@@ -20,7 +20,7 @@
       "total_reviews": "レビュー数の合計",
       "star_reviews_info": "{{ rating_max }}つ星中{{ rating_value }}つ",
       "play_video": "動画を再生する",
-      "load_video": "Load video: {{ description }}",
+      "load_video": " {{ description }}を読み込む",
       "refresh_page": "選択結果を選ぶと、ページが全面的に更新されます。",
       "link_messages": {
         "new_window": "新しいウィンドウで開きます。",
@@ -30,8 +30,8 @@
       "drag": "引っ張る"
     },
     "meta": {
-      "tags": "Tagged \"{{ tags }}\"",
-      "page": "Page {{ page }}"
+      "tags": "\"{{ tags }}\"がタグ付けされました",
+      "page": "ページ {{ page }}"
     },
     "pagination": {
       "page": "{{ number }}ページ",
@@ -146,8 +146,8 @@
       "day": "日",
       "days": "日",
       "h": "時",
-      "hour": "時",
-      "hours": "時",
+      "hour": "時間",
+      "hours": "時間",
       "m": "分",
       "minute": "分",
       "minutes": "分",
@@ -221,8 +221,8 @@
       "quantity": "数量"
     },
     "gift_wrapping": {
-      "message_html": "For {{ price }}, please wrap the products in this order.",
-      "note_placeholder": "Gift message (free and optional)"
+      "message_html": "{{ price }}にて、こちらの注文商品をラッピングしてください。",
+      "note_placeholder": "ギフトメッセージ（無料、記入任意）"
     }
   },
   "collections": {
@@ -401,12 +401,12 @@
       "color_swatch_trigger": "カラー",
       "size_trigger": "サイズ",
       "size_chart": "サイズ表",
-      "save_html": "Save {{ saved_amount }}",
+      "save_html": "{{ saved_amount }}お得",
       "sale": "セール",
       "regular_price": "通常価格",
       "sale_price": "セール価格",
       "unit_price": "単価",
-      "from_text_html": "<small>From<\/small> {{ price }}"
+      "from_text_html": "<small>～<\/small> {{ price }}"
     },
     "product": {
       "product_variants": "商品バリエーション",
@@ -429,10 +429,10 @@
       "quick_view": "見る"
     },
     "media": {
-      "open_media": "Open media {{ index }} in modal",
-      "play_model": "Play 3D Viewer",
-      "play_video": "Play video",
-      "gallery_viewer": "Gallery Viewer"
+      "open_media": "メディア{{ index }} をモーダルで開く",
+      "play_model": "3Dビューアを再生",
+      "play_video": "動画を再生",
+      "gallery_viewer": "ギャラリービューア"
     },
     "quantity": {
       "label": "数量",
@@ -504,47 +504,47 @@
   "pagefly": {
     "products": {
       "product": {
-        "regular_price": "Regular price",
-        "sold_out": "Sold out",
-        "unavailable": "Unavailable",
-        "on_sale": "Sale",
-        "quantity": "Quantity",
-        "add_to_cart": "Add to cart",
-        "back_to_collection": "Back to {{ title }}",
-        "view_details": "View details",
+        "regular_price": "通常価格",
+        "sold_out": "売り切れ",
+        "unavailable": "利用不可",
+        "on_sale": "セール",
+        "quantity": "数量",
+        "add_to_cart": "カートに入れる",
+        "back_to_collection": "{{ title }}に戻る",
+        "view_details": "もっと見る",
         "add_to_cart_custom": ""
       }
     },
     "article": {
-      "tags": "Tags:",
-      "all_topics": "All topics",
-      "by_author": "by {{ author }}",
-      "posted_in": "Posted in",
-      "read_more": "Read more",
-      "back_to_blog": "Back to {{ title }}"
+      "tags": "タグ:",
+      "all_topics": "すべてのトピック",
+      "by_author": "投稿者： {{ author }}",
+      "posted_in": "カテゴリ：",
+      "read_more": "続きを読む",
+      "back_to_blog": "{{ title }}に戻る"
     },
     "comments": {
-      "title": "Leave a comment",
-      "name": "Name",
-      "email": "Email",
-      "message": "Message",
-      "post": "Post comment",
-      "moderated": "Please note, comments must be approved before they are published",
-      "success_moderated": "Your comment was posted successfully. We will publish it in a little while, as our blog is moderated.",
-      "success": "Your comment was posted successfully! Thank you!",
+      "title": "コメントを書く",
+      "name": "お名前",
+      "email": "メールアドレス",
+      "message": "メッセージ",
+      "post": "コメントを投稿",
+      "moderated": "コメントは承認後に公開されます。",
+      "success_moderated": "コメントは正常に投稿されました。公開までしばらくお待ちください。",
+      "success": "コメントを投稿しました！ありがとうございます！",
       "comments_with_count": {
-        "one": "{{ count }} comment",
-        "other": "{{ count }} comments"
+        "one": "{{ count }} コメント",
+        "other": "{{ count }} コメント"
       }
     },
     "password_page": {
-      "login_form_message": "Enter store using password:",
-      "login_form_password_label": "Password",
-      "login_form_password_placeholder": "Your password",
-      "login_form_submit": "Enter",
-      "signup_form_email_label": "Email",
-      "signup_form_success": "We will send you an email right before we open!",
-      "password_link": "Enter using password"
+      "login_form_message": "パスワードでストアにアクセス",
+      "login_form_password_label": "パスワード",
+      "login_form_password_placeholder": "パスワードを入力",
+      "login_form_submit": "入力",
+      "signup_form_email_label": "メールアドレス",
+      "signup_form_success": "オープン前にメールでお知らせします。",
+      "password_link": "パスワードでアクセス"
     }
   },
   "shopify": {
