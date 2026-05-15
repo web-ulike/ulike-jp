@@ -16,12 +16,11 @@
     endif
   endfor
 %}
-
 <section class="jp-home-featured-products jp-home-featured-products--{{ sid }}">
   <div class="jp-container">
     <div class="jp-home-featured-products__header">
       <div class="jp-home-featured-products__header-main">
-        <div class="jp-home-featured-products__title-row">
+        <div class="jp-home-featured-products__title-row to-top">
           {% if section.settings.heading_logo != blank %}
             <div class="jp-home-featured-products__title-logo">
               <img
@@ -68,7 +67,7 @@
       {% endif %}
     </div>
 
-    <div class="jp-home-featured-products__body">
+    <div class="jp-home-featured-products__body to-top">
       <div class="swiper jp-home-featured-products__swiper">
         <div class="swiper-wrapper">
           {% for block in section.blocks %}
@@ -237,6 +236,7 @@
 
                     <a
                       class="jp-home-featured-products__btn jp-home-featured-products__btn--primary"
+                      target="_blank"
                       href="{{ product_url | default: button_link | default: '#' }}"
                     >
                       {{ button_text | default: '今すぐ購入' }}

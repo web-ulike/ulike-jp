@@ -346,14 +346,14 @@
   <div class="jp-brand-story-hero__inner">
     <div class="jp-brand-story-hero__content">
       {%- if st.eyebrow != blank -%}
-        <div class="jp-brand-story-hero__eyebrow">
+        <div class="jp-brand-story-hero__eyebrow to-top">
           {{ st.eyebrow | newline_to_br }}
         </div>
       {%- endif -%}
 
-      <div class="jp-brand-story-hero__text">
+      <div class="jp-brand-story-hero__text to-top"  >
         {%- if st.title != blank -%}
-          <h2 class="jp-brand-story-hero__title">
+          <h2 class="jp-brand-story-hero__title" style="transition-delay: 0.4s">
             {{ st.title }}
           </h2>
         {%- endif -%}

@@ -4,7 +4,7 @@
 
 <section class="jp-home-reviews jp-home-reviews--{{ sid }}">
   <div class="jp-container">
-    <div class="jp-home-reviews__top">
+    <div class="jp-home-reviews__top to-top">
       <div class="jp-home-reviews__top-left">
         {% if section.settings.heading != blank %}
           <h2 class="jp-home-reviews__title">{{ section.settings.heading }}</h2>
@@ -28,7 +28,7 @@
       </div>
     {% endif %}
 
-    <div class="jp-home-reviews__body">
+    <div class="jp-home-reviews__body to-top">
       <div class="swiper jp-home-reviews__swiper">
         <div class="swiper-wrapper">
           {% for block in section.blocks %}

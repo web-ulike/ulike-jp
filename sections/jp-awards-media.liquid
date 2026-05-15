@@ -71,7 +71,7 @@
     color: #000;
     font-size: 14px;
     line-height: 1.2;
-    font-weight: 500;
+    font-weight: bold;
   }
 
 
@@ -151,7 +151,7 @@
 
   .jp-awards-media--{{ sid }} .jp-awards-media__media-card img {
     display: block;
-    width: 100%;
+    height: 203px;
   }
 
   .jp-awards-media--{{ sid }} .jp-awards-media__progress {
@@ -215,6 +215,11 @@
     .jp-awards-media--{{ sid }} .jp-awards-media__progress {
       display: block;
     }
+    .jp-awards-media--{{ sid }} .jp-awards-media__media-card img {
+      display: block;
+      height: initial;
+      width: 100%;
+    }
   }
 </style>
 
@@ -224,7 +229,7 @@
       <div class="jp-awards-media__section jp-awards-media__section--awards">
         <div class="jp-awards-media__head">
           {%- if st.awards_title != blank -%}
-            <h2 class="jp-awards-media__title">{{ st.awards_title }}</h2>
+            <div class="jp-awards-media__title">{{ st.awards_title }}</div>
           {%- endif -%}
         </div>
 
