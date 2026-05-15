@@ -1,0 +1,998 @@
+{% if section.settings.product and template.name != 'product' %}
+  {% assign product = section.settings.product %}
+{% endif %}
+
+<div class="jp-product-new">
+  {%- render 'product-media-new', product: product -%}
+  {%- render 'product-info-new', product: product, update_url: true, section: section -%}
+</div>
+
+{% schema %}
+{
+  "name": "JP Product page",
+  "class": "shopify-section--main-product",
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "variant_picker",
+      "name": "Variant picker",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "hide_sold_out_variants",
+          "label": "Hide sold out variants",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "selector_mode",
+          "label": "Selector type",
+          "options": [
+            {
+              "value": "block",
+              "label": "Block"
+            },
+            {
+              "value": "dropdown",
+              "label": "Dropdown"
+            }
+          ],
+          "default": "block"
+        },
+        {
+          "type": "select",
+          "id": "color_mode",
+          "label": "Color selector type",
+          "info": "Variant image mode requires that all variant have an associated image. [Learn more](https://help.shopify.com/en/manual/products/product-media/add-images-variants#add-images-to-existing-variants)",
+          "options": [
+            {
+              "value": "dropdown",
+              "label": "Dropdown"
+            },
+            {
+              "value": "color",
+              "label": "Color swatch"
+            }
+          ],
+          "default": "color"
+        },
+        {
+          "type": "page",
+          "id": "size_chart_page",
+          "label": "Size chart page",
+          "info": "Feature a page for size option"
+        }
+      ]
+    },
+    {
+      "type": "quantity_selector",
+      "name": "Quantity selector",
+      "limit": 1
+    },
+    {
+      "type": "buy_buttons",
+      "name": "Buy buttons",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_payment_button",
+          "label": "Show dynamic checkout button",
+          "info": "是否显示快捷支付,such as PayPal or Apple Pay. [Learn more](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "移动端悬浮-按钮名称",
+          "info": "Add TO CART"
+        },
+        {
+          "type": "color",
+          "id": "atc_button_background",
+          "label": "Add to cart background",
+          "default": "rgba(0,0,0,0)"
+        },
+        {
+          "type": "color",
+          "id": "atc_button_text_color",
+          "label": "Add to cart color",
+          "default": "rgba(0,0,0,0)"
+        },
+        {
+          "type": "color",
+          "id": "buy_now_button_background",
+          "label": "Buy now background",
+          "default": "rgba(0,0,0,0)"
+        },
+        {
+          "type": "color",
+          "id": "buy_now_button_text_color",
+          "label": "Buy now color",
+          "default": "rgba(0,0,0,0)"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_buy_button",
+          "label": "显示直接购买",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "description",
+      "name": "Description",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "liquid",
+          "id": "liquid",
+          "label": "Liquid",
+          "info": "Add app snippets or other Liquid code to create advanced customizations."
+        },
+        {
+          "type": "image_picker",
+          "id": "image1",
+          "label": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image2",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "type": "inventory",
+      "name": "Inventory",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "range",
+          "id": "low_inventory_threshold",
+          "label": "Low inventory threshold",
+          "info": "Use low stock color when quantity is below the threshold. Choose 0 to always show in stock.",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 0
+        }
+      ]
+    },
+    {
+      "type": "price",
+      "name": "Price",
+      "settings": [
+        {
+          "type": "text",
+          "id": "price_text",
+          "label": "折扣价"
+        },
+        {
+          "type": "text",
+          "id": "original_price",
+          "label": "原价"
+        },
+        {
+          "type": "html",
+          "id": "discount_information",
+          "label": "折扣信息"
+        }
+      ]
+    },
+    {
+      "type": "installment",
+      "name": "installment",
+      "settings": [
+        {
+          "type": "html",
+          "id": "html_text",
+          "label": "网页文本"
+        },
+        {
+          "type": "html",
+          "id": "html_m_text",
+          "label": "移动端文本"
+        },
+        {
+          "type": "checkbox",
+          "id": "html_m_checkbox",
+          "label": "是否开启折叠"
+        }
+      ]
+    },
+    {
+      "type": "rec_products_click",
+      "name": "Rec_products_click",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product_recommend",
+          "label": "选择产品"
+        },
+        {
+          "type": "text",
+          "id": "recommend_title",
+          "label": "标题"
+        }
+      ]
+    },
+    {
+      "type": "product_recommend_item",
+      "name": "Rec_products_atc",
+      "settings": [
+        {
+          "type": "text",
+          "id": "variant_id",
+          "label": "归属变体ID"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "产品图片"
+        },
+        { "type": "text", "id": "v_title", "label": "产品标题" },
+        {
+          "type": "product",
+          "id": "product_recommend_item",
+          "label": "选择产品"
+        },
+        {
+          "type": "text",
+          "id": "vid",
+          "label": "加购变体ID"
+        },
+        {
+          "type": "text",
+          "id": "code",
+          "label": "code"
+        },
+        {
+          "type": "html",
+          "id": "text_desc",
+          "label": "底部描述"
+        },
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "角标文字"
+        },
+        {
+          "type": "html",
+          "id": "price_discount",
+          "label": "折扣信息"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "顶部大标题"
+        }
+      ]
+    },
+    {
+      "type": "discountCode",
+      "name": " discountCode",
+      "settings": [
+        {
+          "type": "text",
+          "id": "discount_text",
+          "label": "折扣值"
+        },
+        {
+          "type": "image_picker",
+          "id": "bg_image",
+          "label": "背景图片"
+        },
+        {
+          "type": "text",
+          "id": "code_text",
+          "label": "code"
+        },
+        {
+          "type": "text",
+          "id": "copy_text",
+          "label": "拷贝文案",
+          "default": "Copy"
+        },
+        {
+          "type": "html",
+          "id": "sussess_text",
+          "label": "成功文案"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_auto_apply",
+          "label": "是否自动应用折扣"
+        },
+        {
+          "type": "text",
+          "id": "code",
+          "label": "code-自动折扣值"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "文案颜色"
+        }
+      ]
+    },
+    {
+      "type": "aftermarket",
+      "name": "aftermarket",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "text1",
+          "label": "Text"
+        },
+        {
+          "type": "image_picker",
+          "id": "image1",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "text2",
+          "label": "Text"
+        },
+        {
+          "type": "image_picker",
+          "id": "image2",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "text3",
+          "label": "Text"
+        },
+        {
+          "type": "image_picker",
+          "id": "image3",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "select",
+          "id": "image_alignment",
+          "label": "Alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "left"
+        },
+        {
+          "type": "range",
+          "id": "image_width",
+          "min": 50,
+          "max": 500,
+          "step": 10,
+          "unit": "px",
+          "label": "Width",
+          "default": 150
+        }
+      ]
+    },
+    {
+      "type": "product_claim",
+      "name": "Product claim",
+      "settings": [
+        {
+          "type": "text",
+          "id": "ulike_d1",
+          "label": "Countdown end time",
+          "info": "Example: 2026-03-15T23:59:59"
+        },
+        {
+          "type": "range",
+          "id": "progress_num",
+          "label": "Progress claimed (%)",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 0
+        },
+        {
+          "type": "text",
+          "id": "progress_text",
+          "label": "Progress text",
+          "default": "Deal is [value]% claimed"
+        },
+        {
+          "type": "text",
+          "id": "claim_label_text",
+          "label": "Claim label text",
+          "default": "40% Off"
+        }
+      ]
+    },
+    {
+      "type": "match",
+      "name": "Match",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    },
+    {
+      "type": "coupon",
+      "name": "Coupon",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Button",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Create link to your contact page, external marketplace..."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "checkbox",
+          "id": "stretch",
+          "label": "Stretch button",
+          "default": true
+        },
+        {
+          "type": "color",
+          "id": "background",
+          "label": "Background",
+          "default": "rgba(0,0,0,0)"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "rgba(0,0,0,0)"
+        }
+      ]
+    },
+    {
+      "type": "liquid",
+      "name": "Custom Liquid",
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "liquid",
+          "label": "Liquid",
+          "info": "Add app snippets or other Liquid code to create advanced customizations."
+        }
+      ]
+    },
+    {
+      "type": "collapsible_tab",
+      "name": "Collapsible Tab",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "options": [
+            {
+              "value": "none",
+              "label": "None"
+            },
+            {
+              "value": "apple",
+              "label": "Apple"
+            },
+            {
+              "value": "banana",
+              "label": "Banana"
+            },
+            {
+              "value": "bottle",
+              "label": "Bottle"
+            },
+            {
+              "value": "box",
+              "label": "Box"
+            },
+            {
+              "value": "carrot",
+              "label": "Carrot"
+            },
+            {
+              "value": "chat_bubble",
+              "label": "Chat Bubble"
+            },
+            {
+              "value": "check_mark",
+              "label": "Check Mmark"
+            },
+            {
+              "value": "clipboard",
+              "label": "Clipboard"
+            },
+            {
+              "value": "dairy",
+              "label": "Dairy"
+            },
+            {
+              "value": "dairy_free",
+              "label": "Dairy Free"
+            },
+            {
+              "value": "dryer",
+              "label": "Dryer"
+            },
+            {
+              "value": "eye",
+              "label": "Eye"
+            },
+            {
+              "value": "fire",
+              "label": "Fire"
+            },
+            {
+              "value": "gluten_free",
+              "label": "Gluten Free"
+            },
+            {
+              "value": "heart",
+              "label": "Heart"
+            },
+            {
+              "value": "iron",
+              "label": "Iron"
+            },
+            {
+              "value": "leaf",
+              "label": "Leaf"
+            },
+            {
+              "value": "leather",
+              "label": "Leather"
+            },
+            {
+              "value": "lightning_bolt",
+              "label": "Lightning Bolt"
+            },
+            {
+              "value": "lipstick",
+              "label": "Lipstick"
+            },
+            {
+              "value": "lock",
+              "label": "Lock"
+            },
+            {
+              "value": "map_pin",
+              "label": "Map Pin"
+            },
+            {
+              "value": "nut_free",
+              "label": "Nut Free"
+            },
+            {
+              "value": "pants",
+              "label": "Pants"
+            },
+            {
+              "value": "paw_print",
+              "label": "Paw Print"
+            },
+            {
+              "value": "pepper",
+              "label": "Pepper"
+            },
+            {
+              "value": "perfume",
+              "label": "Perfume"
+            },
+            {
+              "value": "plane",
+              "label": "Plane"
+            },
+            {
+              "value": "plant",
+              "label": "Plant"
+            },
+            {
+              "value": "price_tag",
+              "label": "Price Tag"
+            },
+            {
+              "value": "question_mark",
+              "label": "Question Mark"
+            },
+            {
+              "value": "recycle",
+              "label": "Recycle"
+            },
+            {
+              "value": "return",
+              "label": "Return"
+            },
+            {
+              "value": "ruler",
+              "label": "Ruler"
+            },
+            {
+              "value": "serving_dish",
+              "label": "Serving Dish"
+            },
+            {
+              "value": "shirt",
+              "label": "Shirt"
+            },
+            {
+              "value": "shoe",
+              "label": "Shoe"
+            },
+            {
+              "value": "silhouette",
+              "label": "Silhouette"
+            },
+            {
+              "value": "snowflake",
+              "label": "Snowflake"
+            },
+            {
+              "value": "star",
+              "label": "Star"
+            },
+            {
+              "value": "stopwatch",
+              "label": "Stopwatch"
+            },
+            {
+              "value": "truck",
+              "label": "Truck"
+            },
+            {
+              "value": "washing",
+              "label": "Washing"
+            }
+          ],
+          "default": "none",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Collapsible tab",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Rich Text",
+          "default": "<p>Use collapsible tabs for more detailed information that will help customers make a purchasing decision.</p><p>Ex: Shipping and return policies, size guides, and other common questions.</p>"
+        },
+        {
+          "type": "page",
+          "id": "page",
+          "label": "Page Content"
+        }
+      ]
+    },
+    {
+      "type": "hair-removal",
+      "name": "hair-removal",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "标题"
+        },
+        {
+          "type": "textarea",
+          "id": "time",
+          "label": "时间"
+        },
+        {
+          "type": "textarea",
+          "id": "time_text",
+          "label": "时间文案"
+        },
+        {
+          "type": "textarea",
+          "id": "percent",
+          "label": "百分比"
+        },
+        {
+          "type": "textarea",
+          "id": "percent_text",
+          "label": "百分比文案"
+        }
+      ]
+    },
+    {
+      "type": "product-review",
+      "name": "product-review",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "title",
+          "label": "名称"
+        },
+        {
+          "type": "textarea",
+          "id": "desc",
+          "label": "描述"
+        },
+        {
+          "type": "textarea",
+          "id": "star",
+          "label": "星级"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "对比图"
+        }
+      ]
+    },
+    {
+      "type": "p-countdown",
+      "name": "p-Countdown Timer",
+      "settings": [
+        {
+          "type": "number",
+          "id": "countdown_ts",
+          "label": "End timestamp (ms)",
+          "info": "请填写 13 位毫秒时间戳，例如 1735833600000"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_labels",
+          "label": "Show unit labels",
+          "default": true
+        },
+        { "type": "text", "id": "prefix_text", "label": "Prefix text", "default": "Sales ends in" }
+      ]
+    },
+    {
+      "type": "p-delivery-time",
+      "name": "p-delivery-time",
+      "settings": []
+    }
+  ],
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_sticky_add_to_cart",
+      "label": "Show sticky add to cart",
+      "info": "Will be hidden if no Buy buttons block is added onto the page.",
+      "default": true
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "prodcut"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_share_buttons",
+      "label": "Show share buttons",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "paragraph",
+      "content": "Learn more about [media types](https://help.shopify.com/en/manual/products/product-media)"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_video_autoplay",
+      "label": "Enable video autoplay",
+      "info": "Video are muted automatically to allow autoplay",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_video_looping",
+      "label": "Enable video looping",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_image_zoom",
+      "label": "Enable image zoom",
+      "info": "Zoom does not show video nor 3D models.",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_thumbnails_on_mobile",
+      "label": "Show thumbnails on mobile",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "desktop_thumbnails_position",
+      "label": "Desktop thumbnails position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        }
+      ],
+      "default": "bottom"
+    },
+    {
+      "type": "select",
+      "id": "transition_effect",
+      "label": "Transition effect",
+      "options": [
+        {
+          "value": "slide",
+          "label": "Slide"
+        },
+        {
+          "value": "fade",
+          "label": "Fade"
+        }
+      ],
+      "default": "slide"
+    },
+    {
+      "type": "text",
+      "id": "end_date",
+      "label": "End Date",
+      "info": "Please configure according to the format of 2020-10-03T00:00:00"
+    },
+    {
+      "type": "text",
+      "id": "text_discount",
+      "label": "右上角折扣信息"
+    },
+    {
+      "type": "text",
+      "id": "price_txt",
+      "label": "Price"
+    },
+    {
+      "type": "text",
+      "id": "price_txt1",
+      "label": "Price"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_gift",
+      "label": "显示产品礼品",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "text_add_cart",
+      "label": "添加购物车按钮名称",
+      "default": "Add to cart"
+    },
+    {
+      "type": "text",
+      "id": "text_ab_1",
+      "label": "文案1",
+      "default": "Head-to-toe hair removal."
+    },
+    {
+      "type": "text",
+      "id": "text_ab_2",
+      "label": "文案2",
+      "default": "Description"
+    },
+    {
+      "type": "text",
+      "id": "text_ab_3",
+      "label": "文案3",
+      "default": "Review 4.8 (932 reviews)"
+    },
+    {
+      "type": "text",
+      "id": "text_ab_4",
+      "label": "文案4",
+      "default": "See All 932 Reviews"
+    },
+    {
+      "type": "header",
+      "content": "捆绑相关配置"
+    },
+    {
+      "type": "text",
+      "id": "build_title",
+      "label": "捆绑-首个大标题"
+    },
+    {
+      "type": "text",
+      "id": "build_product_title",
+      "label": "捆绑-首个产品标题"
+    },
+    {
+      "type": "text",
+      "id": "build_product_text",
+      "label": "捆绑-首个产品描述"
+    },
+    {
+      "type": "text",
+      "id": "build_product_price_text",
+      "label": "捆绑-首个产品价格折扣"
+    },
+    {
+      "type": "text",
+      "id": "build_product_badge_text",
+      "label": "捆绑-首个产品角标"
+    }
+  ],
+  "presets": [
+    {
+      "name": "jp-main-prodcut",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}
