@@ -1,0 +1,317 @@
+{%- comment -%}
+  Snippet: product-info-new
+  用途：产品页右侧信息区，根据 jp-main-product.liquid 的 blocks 配置逐块渲染。
+
+  参数：
+  - product: 当前产品对象
+  - section: 当前 section 对象
+  - update_url: 是否允许变体切换时更新 URL，预留给后续 JS 使用
+{%- endcomment -%}
+
+{%- liquid
+  assign current_product = product
+  assign current_variant = current_product.selected_or_first_available_variant
+  assign form_id = 'product-form-' | append: section.id
+  assign quantity_blocks = section.blocks | where: 'type', 'quantity_selector'
+  assign buy_button_blocks = section.blocks | where: 'type', 'buy_buttons'
+  assign has_quantity_selector = false
+  assign has_buy_buttons = false
+
+  if quantity_blocks.size > 0
+    assign has_quantity_selector = true
+  endif
+
+  if buy_button_blocks.size > 0
+    assign has_buy_buttons = true
+  endif
+-%}
+
+<div class="jp-product-info" data-product-info data-product-id="{{ current_product.id }}">
+  {%- form 'product',
+    current_product,
+    id: form_id,
+    class: 'jp-product-info__form product-form',
+    novalidate: 'novalidate',
+    data-type: 'add-to-cart-form',
+    data-hide-errors: 'false',
+    is: 'product-form'
+  -%}
+    <input type="hidden" name="id" value="{{ current_variant.id }}" data-product-variant-id>
+
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when '@app' -%}
+          <div class="jp-product-info__block jp-product-info__block--app" {{ block.shopify_attributes }}>
+            {%- render block -%}
+          </div>
+
+        {%- when 'title' -%}
+          <div class="jp-product-info__block jp-product-info__block--title" {{ block.shopify_attributes }}>
+            <h1 class="jp-product-info__title">{{ current_product.title }}</h1>
+          </div>
+
+        {%- when 'review_badge' -%}
+          <div class="jp-product-info__block jp-product-info__block--review" {{ block.shopify_attributes }}>
+            {{ current_product.metafields.judgeme.badge }}
+          </div>
+
+        {%- when 'product_description' -%}
+          {%- if current_product.description != blank -%}
+            <div class="jp-product-info__block jp-product-info__block--description" {{ block.shopify_attributes }}>
+              <div class="jp-product-info__description rte">
+                {{ current_product.description }}
+              </div>
+            </div>
+          {%- endif -%}
+
+        {%- when 'price' -%}
+          <div class="jp-product-info__block jp-product-info__block--price" {{ block.shopify_attributes }}>
+            <div class="jp-product-info__price-row">
+              {%- liquid
+                assign original_price = block.settings.original_price
+                if original_price == blank and current_variant.compare_at_price > current_variant.price
+                  assign original_price = current_variant.compare_at_price | money
+                endif
+              -%}
+
+              <div class="jp-product-info__price-item">
+                {%- if block.settings.label != blank -%}
+                  <div class="jp-product-info__price-label">{{ block.settings.label }}</div>
+                {%- endif -%}
+                <div class="jp-product-info__price" data-product-price>
+                  {%- if block.settings.price_text != blank -%}
+                    <span data-product-price-money data-static-price="true">{{ block.settings.price_text }}</span>
+                  {%- else -%}
+                    <span data-product-price-money>{{ current_variant.price | money }}</span>
+                  {%- endif -%}
+                  <span class="jp-product-info__tax-label">（税込）</span>
+                </div>
+              </div>
+
+              {%- if original_price != blank -%}
+                <div class="jp-product-info__price-item">
+                  {%- if block.settings.original_price_label != blank -%}
+                    <div class="jp-product-info__price-label">{{ block.settings.original_price_label }}</div>
+                  {%- endif -%}
+                  <div class="jp-product-info__compare-price" data-product-compare-price>
+                    <span data-product-compare-price-money{% if block.settings.original_price != blank %} data-static-price="true"{% endif %}>{{ original_price }}</span>
+                    <span class="jp-product-info__tax-label">（税込）</span>
+                  </div>
+                </div>
+              {%- endif -%}
+            </div>
+
+            {%- if block.settings.discount_information != blank -%}
+              <div class="jp-product-info__discount-info">
+                {{ block.settings.discount_information }}
+              </div>
+            {%- endif -%}
+          </div>
+
+        {%- when 'discount_code' -%}
+          {%- liquid
+            assign coupon_style = ''
+            if block.settings.bg_image != blank
+              assign coupon_bg = block.settings.bg_image | image_url: width: 1000
+              assign coupon_style = 'background-image: url(' | append: coupon_bg | append: ');'
+            endif
+          -%}
+
+          <div class="jp-product-info__block jp-product-info__block--discount-code" {{ block.shopify_attributes }}>
+            <div class="jp-product-coupon" data-discount-code-card>
+              <div class="jp-product-coupon__main" style="{{ coupon_style }}">
+                {%- if block.settings.discount_text != blank -%}
+                  <div class="jp-product-coupon__discount">{{ block.settings.discount_text }}</div>
+                {%- endif -%}
+
+                {%- if block.settings.code_text != blank -%}
+                  <button
+                    type="button"
+                    class="jp-product-coupon__copy"
+                    data-discount-code-copy
+                    data-code="{{ block.settings.code_text | escape }}"
+                    data-auto-apply="{{ block.settings.is_auto_apply }}"
+                  >
+                    <span class="jp-product-coupon__copy-label">{{ block.settings.copy_text | default: 'Copy:' }}</span>
+                    <span class="jp-product-coupon__code">{{ block.settings.code_text }}</span>
+                    <div class="copy-success" aria-hidden="true">
+                      <img loading="lazy" src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/Union_4.svg?v=1723451359" alt="">
+                      Copied
+                    </div>
+                  </button>
+                {%- endif -%}
+              </div>
+
+              {%- if block.settings.tip_text != blank -%}
+                <div class="jp-product-coupon__tip">{{ block.settings.tip_text }}</div>
+              {%- endif -%}
+
+              {%- if block.settings.success_text != blank -%}
+                <div class="jp-product-coupon__success" data-discount-code-success hidden>
+                  {{ block.settings.success_text }}
+                </div>
+              {%- else -%}
+                <div class="jp-product-coupon__success" data-discount-code-success hidden>
+                  コピーしました
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+
+        {%- when 'variant_picker' -%}
+          {%- unless current_product.has_only_default_variant -%}
+            <div class="jp-product-info__block jp-product-info__block--variant-picker" {{ block.shopify_attributes }}>
+              <div class="jp-product-variants" data-product-variants>
+                {%- for option in current_product.options_with_values -%}
+                  <fieldset class="jp-product-variants__group">
+                    <legend class="jp-product-variants__legend">{{ option.name }}</legend>
+
+                    {%- if block.settings.selector_mode == 'dropdown' -%}
+                      <select class="jp-product-variants__select" data-option-position="{{ option.position }}">
+                        {%- for value in option.values -%}
+                          <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>{{ value }}</option>
+                        {%- endfor -%}
+                      </select>
+                    {%- else -%}
+                      <div class="jp-product-variants__list">
+                        {%- for value in option.values -%}
+                          {%- liquid
+                            assign input_id = section.id | append: '-' | append: option.position | append: '-' | append: forloop.index
+                          -%}
+                          <input
+                            id="{{ input_id }}"
+                            class="jp-product-variants__input visually-hidden"
+                            type="radio"
+                            name="option{{ option.position }}"
+                            value="{{ value | escape }}"
+                            data-option-position="{{ option.position }}"
+                            {% if option.selected_value == value %}checked{% endif %}
+                          >
+                          <label class="jp-product-variants__item" for="{{ input_id }}">{{ value }}</label>
+                        {%- endfor -%}
+                      </div>
+                    {%- endif -%}
+                  </fieldset>
+                {%- endfor -%}
+              </div>
+
+              <script type="application/json" data-product-variants-json>
+                {{ current_product.variants | json }}
+              </script>
+            </div>
+          {%- endunless -%}
+
+        {%- when 'quantity_selector' -%}
+          {%- unless has_buy_buttons -%}
+            <div class="jp-product-info__block jp-product-info__block--quantity" {{ block.shopify_attributes }}>
+              <div class="jp-product-quantity" data-product-quantity>
+                <button class="jp-product-quantity__button" type="button" data-quantity-minus aria-label="Decrease quantity">−</button>
+                <input class="jp-product-quantity__input" type="number" name="quantity" value="1" min="1" inputmode="numeric" data-quantity-input>
+                <button class="jp-product-quantity__button" type="button" data-quantity-plus aria-label="Increase quantity">+</button>
+              </div>
+            </div>
+          {%- endunless -%}
+
+        {%- when 'buy_buttons' -%}
+          <div class="jp-product-info__block jp-product-info__block--buy-buttons" {{ block.shopify_attributes }}>
+            <div class="jp-product-purchase">
+              <div class="jp-product-form-error product-form__error-message" role="alert" hidden></div>
+              <div class="jp-product-purchase__primary{% unless has_quantity_selector %} jp-product-purchase__primary--button-only{% endunless %}">
+                {%- if has_quantity_selector -%}
+                  <div class="jp-product-quantity" data-product-quantity>
+                    <button class="jp-product-quantity__button" type="button" data-quantity-minus aria-label="Decrease quantity">−</button>
+                    <input class="jp-product-quantity__input" type="number" name="quantity" value="1" min="1" inputmode="numeric" data-quantity-input>
+                    <button class="jp-product-quantity__button" type="button" data-quantity-plus aria-label="Increase quantity">+</button>
+                  </div>
+                {%- else -%}
+                  <input type="hidden" name="quantity" value="1">
+                {%- endif -%}
+
+                <button
+                  type="submit"
+                  name="add"
+                  form="{{ form_id }}"
+                  class="jp-product-buttons__btn jp-product-buttons__btn--cart"
+                  {% unless current_variant.available %}disabled{% endunless %}
+                >
+                  <span class="jp-product-buttons__fill" aria-hidden="true"></span>
+                  <span class="jp-product-buttons__text btn-text" data-add-to-cart-text>
+                    {%- if current_variant.available -%}
+                      {{ block.settings.add_to_cart_text | default: 'カートに追加する' }}
+                    {%- else -%}
+                      売り切れ
+                    {%- endif -%}
+                  </span>
+                  <span class="jp-product-buttons__loader" aria-hidden="true"></span>
+                </button>
+              </div>
+
+              {%- if block.settings.show_buy_button -%}
+                <button
+                  type="button"
+                  name="buy_now"
+                  form="{{ form_id }}"
+                  class="jp-product-buttons__btn jp-product-buttons__btn--buy-now"
+                  data-buy-now-button
+                  {% unless current_variant.available %}disabled{% endunless %}
+                >
+                  <span class="jp-product-buttons__fill" aria-hidden="true"></span>
+                  <span class="jp-product-buttons__text">{{ block.settings.buy_now_text | default: '今すぐ注文' }}</span>
+                  <span class="jp-product-buttons__loader" aria-hidden="true"></span>
+                </button>
+              {%- endif -%}
+            </div>
+          </div>
+
+        {%- when 'aftermarket' -%}
+          <div class="jp-product-info__block jp-product-info__block--aftermarket" {{ block.shopify_attributes }}>
+            <div class="jp-product-service">
+              {%- for i in (0..4) -%}
+                {%- liquid
+                  if i == 0
+                    assign icon = block.settings.image
+                    assign text = block.settings.text
+                  elsif i == 1
+                    assign icon = block.settings.image1
+                    assign text = block.settings.text1
+                  elsif i == 2
+                    assign icon = block.settings.image2
+                    assign text = block.settings.text2
+                  elsif i == 3
+                    assign icon = block.settings.image3
+                    assign text = block.settings.text3
+                  else
+                    assign icon = block.settings.image4
+                    assign text = block.settings.text4
+                  endif
+                -%}
+
+                {%- if icon != blank or text != blank -%}
+                  <div class="jp-product-service__item">
+                    {%- if icon != blank -%}
+                      {{ icon | image_url: width: 80 | image_tag: class: 'jp-product-service__icon', loading: 'lazy', widths: '40, 60, 80', sizes: '40px' }}
+                    {%- endif -%}
+                    {%- if text != blank -%}
+                      <div class="jp-product-service__text">{{ text }}</div>
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+            {%- if block.settings.note_text != blank -%}
+              <div class="jp-product-service-note">
+                {{ block.settings.note_text }}
+              </div>
+            {%- endif -%}
+          </div>
+
+        {%- when 'liquid' -%}
+          {%- if block.settings.liquid != blank -%}
+            <div class="jp-product-info__block jp-product-info__block--liquid" {{ block.shopify_attributes }}>
+              {{ block.settings.liquid }}
+            </div>
+          {%- endif -%}
+      {%- endcase -%}
+    {%- endfor -%}
+  {%- endform -%}
+</div>
