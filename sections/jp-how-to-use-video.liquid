@@ -1,0 +1,526 @@
+{% comment %}
+  Section: jp-how-to-use-video
+  - PC: left content + right video poster
+  - Mobile: heading/link + video poster + notice
+  - Click poster/play button to play video inline
+{% endcomment %}
+
+{%- liquid
+  assign sid = section.id
+  assign st = section.settings
+-%}
+
+<section id="jp-how-to-use-video-{{ sid }}" class="jp-how-to-use-video">
+  <div class="jp-container jp-how-to-use-video__inner">
+    <div class="jp-how-to-use-video__content">
+      {% if st.heading != blank %}
+        <h2 class="jp-how-to-use-video__heading">{{ st.heading }}</h2>
+      {% endif %}
+
+      {% if st.link_text != blank %}
+        {% if st.link_url != blank %}
+          <a class="jp-how-to-use-video__link" href="{{ st.link_url }}">
+            <span>{{ st.link_text }}</span>
+            <svg class="jp-how-to-use-video__link-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13" fill="none" aria-hidden="true">
+              <path d="M0.17357 10.9051L4.91791 6.16017L0.17357 1.4149C-0.216962 1.02437 0.17357 0 0.17357 0L6.33355 6.16091L0.17357 12.3207C0.17357 12.3207 -0.216962 11.2964 0.17357 10.9051Z" fill="black"/>
+              <path d="M7.03765 10.9051L11.7827 6.16017L7.03765 1.4149C6.64712 1.02437 7.03765 0 7.03765 0L13.1992 6.16091L7.03765 12.3207C7.03765 12.3207 6.64712 11.2964 7.03765 10.9051Z" fill="black"/>
+            </svg>
+          </a>
+        {% else %}
+          <div class="jp-how-to-use-video__link jp-how-to-use-video__link--no-url">
+            <span>{{ st.link_text }}</span>
+            <svg class="jp-how-to-use-video__link-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13" fill="none" aria-hidden="true">
+              <path d="M0.17357 10.9051L4.91791 6.16017L0.17357 1.4149C-0.216962 1.02437 0.17357 0 0.17357 0L6.33355 6.16091L0.17357 12.3207C0.17357 12.3207 -0.216962 11.2964 0.17357 10.9051Z" fill="black"/>
+              <path d="M7.03765 10.9051L11.7827 6.16017L7.03765 1.4149C6.64712 1.02437 7.03765 0 7.03765 0L13.1992 6.16091L7.03765 12.3207C7.03765 12.3207 6.64712 11.2964 7.03765 10.9051Z" fill="black"/>
+            </svg>
+          </div>
+        {% endif %}
+      {% endif %}
+
+      {% if st.note != blank %}
+        <div class="jp-how-to-use-video__note jp-how-to-use-video__note--pc">
+          {{ st.note }}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="jp-how-to-use-video__media">
+      <button
+        type="button"
+        class="jp-how-to-use-video__poster"
+        aria-label="Play video"
+        data-video-trigger
+      >
+        {% if st.poster_image != blank %}
+          <img
+            src="{{ st.poster_image | image_url: width: 1600 }}"
+            srcset="
+              {{ st.poster_image | image_url: width: 600 }} 600w,
+              {{ st.poster_image | image_url: width: 900 }} 900w,
+              {{ st.poster_image | image_url: width: 1200 }} 1200w,
+              {{ st.poster_image | image_url: width: 1600 }} 1600w,
+              {{ st.poster_image | image_url }} 2000w
+            "
+            sizes="(max-width: 768px) 100vw, 50vw"
+            alt="{{ st.poster_image.alt | default: st.heading | escape }}"
+            loading="lazy"
+          >
+        {% elsif st.video != blank and st.video.preview_image != blank %}
+          <img
+            src="{{ st.video.preview_image | image_url: width: 1600 }}"
+            srcset="
+              {{ st.video.preview_image | image_url: width: 600 }} 600w,
+              {{ st.video.preview_image | image_url: width: 900 }} 900w,
+              {{ st.video.preview_image | image_url: width: 1200 }} 1200w,
+              {{ st.video.preview_image | image_url: width: 1600 }} 1600w,
+              {{ st.video.preview_image | image_url }} 2000w
+            "
+            sizes="(max-width: 768px) 100vw, 50vw"
+            alt="{{ st.heading | escape }}"
+            loading="lazy"
+          >
+        {% else %}
+          <div class="jp-how-to-use-video__placeholder">
+            Upload poster image or video
+          </div>
+        {% endif %}
+
+        <span class="jp-how-to-use-video__play">
+          <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80" fill="none">
+            <path d="M39.84 79.68C61.843 79.68 79.68 61.843 79.68 39.84C79.68 17.837 61.843 0 39.84 0C17.837 0 0 17.837 0 39.84C0 61.843 17.837 79.68 39.84 79.68Z" fill="white"/>
+            <path d="M32 25.5V54.5L55 40L32 25.5Z" fill="#190A0A"/>
+          </svg>
+        </span>
+      </button>
+
+      <div class="jp-how-to-use-video__player" data-video-player>
+        {% if st.video != blank %}
+          {{
+            st.video
+            | video_tag:
+              controls: false,
+              autoplay: false,
+              loop: false,
+              muted: false,
+              playsinline: true,
+              preload: 'metadata',
+              image_size: '1600x',
+              class: 'jp-how-to-use-video__video'
+          }}
+        {% elsif st.video_url != blank %}
+          <video
+            class="jp-how-to-use-video__video"
+            playsinline
+            preload="metadata"
+            {% if st.poster_image != blank %}
+              poster="{{ st.poster_image | image_url: width: 1600 }}"
+            {% endif %}
+          >
+            <source src="{{ st.video_url }}" type="video/mp4">
+          </video>
+        {% else %}
+          <div class="jp-how-to-use-video__placeholder">
+            Upload video
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    {% if st.note != blank %}
+      <div class="jp-how-to-use-video__note jp-how-to-use-video__note--mobile">
+        {{ st.note }}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  #jp-how-to-use-video-{{ sid }} {
+    background: {{ st.bg_color }};
+    padding: {{ st.pc_padding_top }}px 0 {{ st.pc_padding_bottom }}px;
+  }
+
+  #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__inner {
+    display: grid;
+    grid-template-columns: 42% 58%;
+    align-items: center;
+    gap: 56px;
+    padding: 0px;
+  }
+
+  #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__content {
+    color: #190a0a;
+  }
+
+  #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__heading {
+    margin: 0 0 34px;
+    font-size: 48px;
+    line-height: 1.2;
+    font-weight: 400;
+    color: #190A0A;
+  }
+
+  #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 48px;
+    color: #000;
+    font-size: 18px;
+    line-height: 1.5;
+    text-decoration: none;
+  }
+
+  #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__link span {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    text-decoration-thickness: 1px;
+  }
+
+  #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__link-icon {
+    flex: 0 0 auto;
+    width: 14px;
+    height: 13px;
+  }
+
+  #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__link--no-url {
+    cursor: default;
+  }
+
+  #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__note {
+    color: rgba(0, 0, 0, 0.50);
+    font-size: 12px;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+
+  #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__note p {
+    margin: 0;
+  }
+
+  #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__media {
+    position: relative;
+    width: 100%;
+  }
+
+  #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__poster {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__poster img,
+  #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__video {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__player {
+    display: none;
+    position: relative;
+    width: 100%;
+  }
+
+  #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__media.is-playing .jp-how-to-use-video__poster {
+    display: none;
+  }
+
+  #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__media.is-playing .jp-how-to-use-video__player {
+    display: block;
+  }
+
+  #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__video {
+    background: #000;
+    cursor: pointer;
+  }
+
+  #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__media.is-paused .jp-how-to-use-video__player::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 78px;
+    height: 78px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.92);
+    pointer-events: none;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__media.is-paused .jp-how-to-use-video__player::before {
+    content: '';
+    position: absolute;
+    left: calc(50% + 4px);
+    top: 50%;
+    width: 0;
+    height: 0;
+    transform: translate(-50%, -50%);
+    border-top: 16px solid transparent;
+    border-bottom: 16px solid transparent;
+    border-left: 25px solid #190a0a;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__play {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 78px;
+    height: 78px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__poster:hover .jp-how-to-use-video__play {
+    transform: translate(-50%, -50%) scale(1.06);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  }
+
+  #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__play svg {
+    margin-left: 4px;
+    fill: #000;
+  }
+
+  #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__placeholder {
+    min-height: 360px;
+    background: #f4f4f4;
+    color: #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+
+  #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__note--mobile {
+    display: none;
+  }
+
+  @media screen and (max-width: 768px) {
+    #jp-how-to-use-video-{{ sid }} {
+      padding: {{ st.mb_padding_top }}px 0 {{ st.mb_padding_bottom }}px;
+    }
+
+    #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__inner {
+      display: block;
+    }
+
+    #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__heading {
+      margin: 0 0 23px;
+      font-size: 24px;
+      line-height: 1.2;
+      font-weight: 400;
+    }
+
+    #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__link {
+      margin-bottom: 23px;
+      font-size: 12px;
+      line-height: 1.4;
+      text-underline-offset: 6px;
+    }
+
+    #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__media {
+      margin-bottom: 23px;
+    }
+
+    #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__play {
+      width: 30px;
+      height: 30px;
+    }
+
+    #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__play svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__media.is-paused .jp-how-to-use-video__player::after {
+      width: 30px;
+      height: 30px;
+    }
+
+    #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__media.is-paused .jp-how-to-use-video__player::before {
+      border-top-width: 12px;
+      border-bottom-width: 12px;
+      border-left-width: 19px;
+    }
+
+    #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__note--pc {
+      display: none;
+    }
+
+    #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__note--mobile {
+      display: block;
+      font-size: 10px;
+      line-height: 1.5;
+    }
+
+    #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__placeholder {
+      min-height: 100px;
+    }
+  }
+
+</style>
+
+<script>
+  (() => {
+    const section = document.querySelector('#jp-how-to-use-video-{{ sid }}');
+    if (!section) return;
+
+    const media = section.querySelector('.jp-how-to-use-video__media');
+    const trigger = section.querySelector('[data-video-trigger]');
+    const video = section.querySelector('.jp-how-to-use-video__video');
+
+    if (!media || !trigger) return;
+
+    const playVideo = () => {
+      media.classList.add('is-playing');
+      media.classList.remove('is-paused');
+
+      if (video) {
+        video.play().catch(() => {});
+      }
+    };
+
+    const pauseVideo = () => {
+      if (!video) return;
+      video.pause();
+      media.classList.add('is-paused');
+    };
+
+    trigger.addEventListener('click', () => {
+      if (video) video.currentTime = 0;
+      playVideo();
+    });
+
+    if (video) {
+      video.addEventListener('click', () => {
+        if (video.paused) {
+          playVideo();
+        } else {
+          pauseVideo();
+        }
+      });
+
+      video.addEventListener('play', () => {
+        media.classList.remove('is-paused');
+      });
+
+      video.addEventListener('pause', () => {
+        if (media.classList.contains('is-playing') && !video.ended) {
+          media.classList.add('is-paused');
+        }
+      });
+
+      video.addEventListener('ended', () => {
+        media.classList.remove('is-paused');
+      });
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "JP How To Use Video",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "使い方動画"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "Link text",
+      "default": "アプリの使用ガイドをダウンロード 》"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "poster_image",
+      "label": "Video poster image"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video"
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "Fallback MP4 video URL"
+    },
+    {
+      "type": "richtext",
+      "id": "note",
+      "label": "Notice text",
+      "default": "<p>*注意：<br>1. 本体は水洗いできません。アルコールワイプでヘッドを拭いてお手入れしてください。<br>2. 照射する前に、目を保護するため、付属のゴーグルを着用してください。<br>3. 本製品はボディクリームは付いておりません。<br>4. 照射部位には、香水やシートマスク、スクラブ配合の化粧品類を使わないでください。</p>"
+    },
+    {
+      "type": "range",
+      "id": "pc_padding_top",
+      "label": "PC padding top",
+      "min": 0,
+      "max": 180,
+      "step": 4,
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "pc_padding_bottom",
+      "label": "PC padding bottom",
+      "min": 0,
+      "max": 180,
+      "step": 4,
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "mb_padding_top",
+      "label": "Mobile padding top",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "mb_padding_bottom",
+      "label": "Mobile padding bottom",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "default": 64
+    }
+  ],
+  "presets": [
+    {
+      "name": "JP How To Use Video"
+    }
+  ]
+}
+{% endschema %}

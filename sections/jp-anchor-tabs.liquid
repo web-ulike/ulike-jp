@@ -1,0 +1,359 @@
+{% comment %}
+  Section: jp-anchor-tabs
+  - JP anchor navigation tabs
+  - Optional sticky
+  - Smooth scroll to target ID
+{% endcomment %}
+
+{%- liquid
+  assign sid = section.id
+  assign st = section.settings
+-%}
+
+<section
+  id="jp-anchor-tabs-{{ sid }}"
+  class="jp-anchor-tabs{% if st.enable_sticky %} is-sticky{% endif %}"
+  style="
+    --jp-anchor-bg: {{ st.bg_color }};
+    --jp-anchor-text: {{ st.text_color }};
+    --jp-anchor-active: {{ st.active_color }};
+    --jp-anchor-border: {{ st.border_color }};
+    --jp-anchor-sticky-top-pc: {{ st.sticky_top_pc }}px;
+    --jp-anchor-sticky-top-mb: {{ st.sticky_top_mb }}px;
+    --jp-anchor-scroll-offset-pc: {{ st.scroll_offset_pc }}px;
+    --jp-anchor-scroll-offset-mb: {{ st.scroll_offset_mb }}px;
+  "
+>
+  <div class="jp-container">
+    <div class="jp-anchor-tabs__list" role="tablist">
+      {% for block in section.blocks %}
+        {%- liquid
+          assign bs = block.settings
+          assign target_id = bs.target_id | strip | remove: '#'
+        -%}
+
+        {% if bs.title != blank and target_id != blank %}
+          <button
+            type="button"
+            class="jp-anchor-tabs__item{% if forloop.first %} is-active{% endif %}"
+            data-anchor-target="{{ target_id }}"
+            {{ block.shopify_attributes }}
+          >
+            {{ bs.title }}
+          </button>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  #jp-anchor-tabs-{{ sid }} {
+    background: var(--jp-anchor-bg);
+    border-bottom: 1px solid var(--jp-anchor-border);
+    position: relative;
+    z-index: 20;
+  }
+
+  #jp-anchor-tabs-{{ sid }}.is-sticky {
+    position: sticky;
+    top: var(--jp-anchor-sticky-top-pc);
+    z-index: 50;
+  }
+
+  #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    width: 100%;
+    height: 48px;
+  }
+
+  #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__item {
+    position: relative;
+    flex: 1 1 0;
+    height: 100%;
+    padding: 0 24px;
+    border: 0;
+    background: transparent;
+    color: var(--jp-anchor-text);
+    font-size: 13px;
+    line-height: 1.4;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.25s ease, transform 0.25s ease;
+  }
+
+  #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__item::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 1px;
+    background: var(--jp-anchor-active);
+    transform: translateX(-50%);
+    transition: width 0.28s ease;
+  }
+
+  #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__item:hover {
+    color: var(--jp-anchor-active);
+  }
+
+  #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__item.is-active {
+    color: var(--jp-anchor-active);
+  }
+
+  #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__item.is-active::after {
+    width: 140px;
+    max-width: 80%;
+  }
+
+  @media screen and (max-width: 768px) {
+    #jp-anchor-tabs-{{ sid }}.is-sticky {
+      top: var(--jp-anchor-sticky-top-mb);
+    }
+
+    #jp-anchor-tabs-{{ sid }} .jp-container {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__list {
+      justify-content: flex-start;
+      height: 49px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__list::-webkit-scrollbar {
+      display: none;
+    }
+
+    #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__item {
+      flex: 0 0 auto;
+      padding: 0 24px;
+      font-size: 16px;
+      letter-spacing: 0.04em;
+    }
+
+    #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__item.is-active::after {
+      width: 100%;
+      max-width: calc(100% - 24px);
+    }
+  }
+</style>
+
+<script>
+  (() => {
+    const section = document.querySelector('#jp-anchor-tabs-{{ sid }}');
+    if (!section) return;
+
+    const buttons = Array.from(section.querySelectorAll('[data-anchor-target]'));
+    if (!buttons.length) return;
+
+    const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
+
+    const getOffset = () => {
+      const pcOffset = parseInt(getComputedStyle(section).getPropertyValue('--jp-anchor-scroll-offset-pc')) || 0;
+      const mbOffset = parseInt(getComputedStyle(section).getPropertyValue('--jp-anchor-scroll-offset-mb')) || 0;
+      return isMobile() ? mbOffset : pcOffset;
+    };
+
+    const setActive = (activeBtn) => {
+      buttons.forEach((btn) => btn.classList.toggle('is-active', btn === activeBtn));
+
+      if (isMobile() && activeBtn) {
+        activeBtn.scrollIntoView({
+          behavior: 'smooth',
+          inline: 'center',
+          block: 'nearest'
+        });
+      }
+    };
+
+    const scrollToTarget = (targetId) => {
+      const target = document.getElementById(targetId);
+      if (!target) return;
+
+      const targetTop = target.getBoundingClientRect().top + window.pageYOffset;
+      const offset = getOffset();
+
+      window.scrollTo({
+        top: targetTop - offset,
+        behavior: 'smooth'
+      });
+    };
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.dataset.anchorTarget;
+        setActive(btn);
+        scrollToTarget(targetId);
+      });
+    });
+
+    const targetMap = buttons
+      .map((btn) => {
+        const target = document.getElementById(btn.dataset.anchorTarget);
+        return target ? { btn, target } : null;
+      })
+      .filter(Boolean);
+
+    if (!targetMap.length) return;
+
+    let ticking = false;
+
+    const updateActiveByScroll = () => {
+      const offset = getOffset() + 8;
+      let current = targetMap[0];
+
+      targetMap.forEach((item) => {
+        const top = item.target.getBoundingClientRect().top;
+        if (top - offset <= 0) {
+          current = item;
+        }
+      });
+
+      if (current && current.btn) {
+        setActive(current.btn);
+      }
+
+      ticking = false;
+    };
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateActiveByScroll);
+        ticking = true;
+      }
+    }, { passive: true });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "JP Anchor Tabs",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_sticky",
+      "label": "Enable sticky",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#190A0A"
+    },
+    {
+      "type": "color",
+      "id": "active_color",
+      "label": "Active color",
+      "default": "#190A0A"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#E5E5E5"
+    },
+    {
+      "type": "range",
+      "id": "sticky_top_pc",
+      "label": "Sticky top PC",
+      "min": 0,
+      "max": 160,
+      "step": 2,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "sticky_top_mb",
+      "label": "Sticky top Mobile",
+      "min": 0,
+      "max": 160,
+      "step": 2,
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "scroll_offset_pc",
+      "label": "Scroll offset PC",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "scroll_offset_mb",
+      "label": "Scroll offset Mobile",
+      "min": 0,
+      "max": 240,
+      "step": 4,
+      "default": 64
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Anchor item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Tab title",
+          "default": "機能詳細"
+        },
+        {
+          "type": "text",
+          "id": "target_id",
+          "label": "Target element ID",
+          "info": "Only fill ID name, no #. Example: product-features"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "JP Anchor Tabs",
+      "blocks": [
+        {
+          "type": "tab",
+          "settings": {
+            "title": "機能詳細",
+            "target_id": "features"
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "title": "使用ステップ",
+            "target_id": "steps"
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "title": "よくある質問",
+            "target_id": "faq"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

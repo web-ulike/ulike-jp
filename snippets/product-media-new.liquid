@@ -1,0 +1,115 @@
+
+
+{%- liquid
+  assign media_product = product
+  assign media_count = media_product.media.size
+-%}
+
+<div class="jp-product-media" data-product-media>
+  {%- if media_count > 0 -%}
+    <div class="jp-product-media__thumbs-wrap">
+      <div class="swiper jp-product-media__thumbs" data-product-media-thumbs>
+        <div class="swiper-wrapper">
+          {%- for media in media_product.media -%}
+            <button
+              type="button"
+              class="swiper-slide jp-product-media__thumb"
+              data-media-id="{{ media.id }}"
+              aria-label="View media {{ forloop.index }}"
+            >
+              {%- case media.media_type -%}
+                {%- when 'image' -%}
+                  {{ media.preview_image | image_url: width: 160 | image_tag: class: 'jp-product-media__thumb-img', loading: 'lazy', widths: '80, 120, 160', sizes: '64px' }}
+                {%- when 'video', 'external_video' -%}
+                  <span class="jp-product-media__thumb-play" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="18" height="18">
+                      <path d="M8 5v14l11-7z" fill="currentColor"></path>
+                    </svg>
+                  </span>
+                  {{ media.preview_image | image_url: width: 160 | image_tag: class: 'jp-product-media__thumb-img', loading: 'lazy', widths: '80, 120, 160', sizes: '64px' }}
+                {%- when 'model' -%}
+                  <span class="jp-product-media__thumb-play" aria-hidden="true">3D</span>
+                  {{ media.preview_image | image_url: width: 160 | image_tag: class: 'jp-product-media__thumb-img', loading: 'lazy', widths: '80, 120, 160', sizes: '64px' }}
+                {%- else -%}
+                  {{ media.preview_image | image_url: width: 160 | image_tag: class: 'jp-product-media__thumb-img', loading: 'lazy', widths: '80, 120, 160', sizes: '64px' }}
+              {%- endcase -%}
+            </button>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+
+    <div class="jp-product-media__main-wrap">
+      <div class="swiper jp-product-media__main" data-product-media-main>
+        <div class="swiper-wrapper">
+          {%- for media in media_product.media -%}
+            {%- assign image_loading = 'lazy' -%}
+            {%- if forloop.first -%}
+              {%- assign image_loading = 'eager' -%}
+            {%- endif -%}
+
+            <div class="swiper-slide jp-product-media__slide" data-media-id="{{ media.id }}">
+              {%- liquid
+                assign zoom_src = ''
+                assign zoom_width = ''
+                assign zoom_height = ''
+                if media.media_type == 'image'
+                  assign zoom_src = media | image_url: width: 2400
+                  assign zoom_width = media.preview_image.width
+                  assign zoom_height = media.preview_image.height
+                endif
+              -%}
+              <div
+                class="product__media card media media--adapt_first mobile:media--adapt_first flex w-full flex-auto relative overflow-hidden jp-product-media__item jp-product-media__item--{{ media.media_type }}"
+                data-media-type="{{ media.media_type }}"
+                data-media-id="{{ media.id }}"
+                {% if media.media_type == 'image' %}
+                  data-product-media-zoom
+                  data-zoom-src="{{ zoom_src }}"
+                  data-zoom-width="{{ zoom_width }}"
+                  data-zoom-height="{{ zoom_height }}"
+                  role="button"
+                  tabindex="0"
+                  aria-label="Open image zoom"
+                {% endif %}
+              >
+                {%- case media.media_type -%}
+                  {%- when 'image' -%}
+                    {{ media | image_url: width: 1400 | image_tag: class: 'jp-product-media__image', loading: image_loading, widths: '500, 700, 900, 1100, 1400', sizes: '(min-width: 1200px) 55vw, 100vw' }}
+                  {%- when 'video' -%}
+                    {{ media | video_tag: class: 'jp-product-media__video', image_size: '1200x', controls: true, muted: true, playsinline: true }}
+                  {%- when 'external_video' -%}
+                    {{ media | external_video_tag: class: 'jp-product-media__video' }}
+                  {%- when 'model' -%}
+                    {{ media | model_viewer_tag: class: 'jp-product-media__model', image_size: '1200x', reveal: 'interaction', toggleable: true }}
+                  {%- else -%}
+                    {{ media.preview_image | image_url: width: 1400 | image_tag: class: 'jp-product-media__image', loading: 'lazy', widths: '500, 700, 900, 1100, 1400', sizes: '(min-width: 1200px) 55vw, 100vw' }}
+                {%- endcase -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+        {%- if media_count > 1 -%}
+          <div class="jp-product-media__pagination swiper-pagination" data-product-media-pagination aria-label="Media pagination"></div>
+        {%- endif -%}
+      </div>
+
+      {%- if media_count > 1 -%}
+        <button class="jp-product-media__nav jp-product-media__nav--prev" type="button" data-product-media-prev aria-label="Previous media">
+        <svg xmlns="http://www.w3.org/2000/svg" width="27" height="38" viewBox="0 0 27 38" fill="none">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M17.7929 37.1213L18.5 37.8284L19.9142 36.4142L19.2071 35.707L12.7514 29.2513L6.66616 23.1661C5.88511 22.3851 4.61878 22.3851 3.83774 23.1661L11.3372 30.6655L17.7929 37.1213ZM0.292902 18.207C-0.0976241 18.5976 -0.0976241 19.2307 0.292902 19.6213C0.424398 19.7528 0.583406 19.84 0.751398 19.8829L0.751398 19.9142L0.997818 19.9142L1.0022 19.9142L1.75139 19.9142L12.0019 19.9142L22.2525 19.9142L24.7526 19.9142C25.8571 19.9142 26.7526 19.0187 26.7526 17.9142L22.2525 17.9142L3.41421 17.9142L19.2071 2.12126L19.9142 1.41416L18.5 -5.79419e-05L17.7929 0.70705L0.292902 18.207Z" fill="black"/>
+        </svg>
+        </button>
+        <button class="jp-product-media__nav jp-product-media__nav--next" type="button" data-product-media-next aria-label="Next media">
+         <svg xmlns="http://www.w3.org/2000/svg" width="27" height="38" viewBox="0 0 27 38" fill="none">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M8.95974 0.707108L8.25263 1.44291e-06L6.83842 1.41421L7.54552 2.12132L14.0012 8.57704L20.0865 14.6623C20.8675 15.4433 22.1338 15.4433 22.9149 14.6623L15.4155 7.16282L8.95974 0.707108ZM26.4597 19.6213C26.8502 19.2308 26.8502 18.5976 26.4597 18.2071C26.3282 18.0756 26.1692 17.9884 26.0012 17.9455L26.0012 17.9142L25.7548 17.9142L25.7504 17.9142L25.0012 17.9142L14.7507 17.9142L4.50012 17.9142L2.00004 17.9142C0.895475 17.9142 4.43949e-05 18.8096 4.42018e-05 19.9142L4.50012 19.9142L23.3384 19.9142L7.54552 35.7071L6.83841 36.4142L8.25262 37.8284L8.95973 37.1213L26.4597 19.6213Z" fill="black"/>
+        </svg>
+        </button>
+      {%- endif -%}
+    </div>
+  {%- else -%}
+    <div class="jp-product-media__empty">
+      {{ 'product-1' | placeholder_svg_tag: 'jp-product-media__placeholder' }}
+    </div>
+  {%- endif -%}
+</div>
