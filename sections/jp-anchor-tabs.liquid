@@ -2,7 +2,7 @@
   Section: jp-anchor-tabs
   - JP anchor navigation tabs
   - Optional sticky
-  - Smooth scroll to target ID
+  - Show/hide multiple target IDs per tab
 {% endcomment %}
 
 {%- liquid
@@ -10,6 +10,7 @@
   assign st = section.settings
 -%}
 
+<div id="jp-anchor-tabs-placeholder-{{ sid }}" class="jp-anchor-tabs__placeholder"></div>
 <section
   id="jp-anchor-tabs-{{ sid }}"
   class="jp-anchor-tabs{% if st.enable_sticky %} is-sticky{% endif %}"
@@ -29,14 +30,14 @@
       {% for block in section.blocks %}
         {%- liquid
           assign bs = block.settings
-          assign target_id = bs.target_id | strip | remove: '#'
+          assign target_ids = bs.target_ids | default: bs.target_id | strip
         -%}
 
-        {% if bs.title != blank and target_id != blank %}
+        {% if bs.title != blank %}
           <button
             type="button"
             class="jp-anchor-tabs__item{% if forloop.first %} is-active{% endif %}"
-            data-anchor-target="{{ target_id }}"
+            data-anchor-targets="{{ target_ids | escape }}"
             {{ block.shopify_attributes }}
           >
             {{ bs.title }}
@@ -53,12 +54,32 @@
     border-bottom: 1px solid var(--jp-anchor-border);
     position: relative;
     z-index: 20;
+    margin: 60px 0px;
   }
 
   #jp-anchor-tabs-{{ sid }}.is-sticky {
-    position: sticky;
+    position: relative;
+    z-index: 22;
+  }
+
+  #jp-anchor-tabs-{{ sid }}.is-fixed {
+    position: fixed;
+    left: 0;
+    right: 0;
     top: var(--jp-anchor-sticky-top-pc);
-    z-index: 50;
+    width: 100%;
+    z-index: 999;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
+    margin: 0px;
+  }
+
+  #jp-anchor-tabs-placeholder-{{ sid }} {
+    display: none;
+    height: 0;
+  }
+
+  #jp-anchor-tabs-placeholder-{{ sid }}.is-active {
+    display: block;
   }
 
   #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__list {
@@ -66,7 +87,8 @@
     align-items: center;
     justify-content: center;
     gap: 0;
-    width: 100%;
+    width: 80%;
+    margin: 0 auto;
     height: 48px;
   }
 
@@ -78,10 +100,10 @@
     border: 0;
     background: transparent;
     color: var(--jp-anchor-text);
-    font-size: 13px;
+    font-size: 16px;
     line-height: 1.4;
     font-weight: 400;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.04em;
     cursor: pointer;
     white-space: nowrap;
     transition: color 0.25s ease, transform 0.25s ease;
@@ -108,18 +130,16 @@
   }
 
   #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__item.is-active::after {
-    width: 140px;
+    width: 280px;
     max-width: 80%;
   }
 
   @media screen and (max-width: 768px) {
-    #jp-anchor-tabs-{{ sid }}.is-sticky {
-      top: var(--jp-anchor-sticky-top-mb);
+    #jp-anchor-tabs-{{ sid }}{
+      margin: 20px 0px;
     }
-
-    #jp-anchor-tabs-{{ sid }} .jp-container {
-      padding-left: 0;
-      padding-right: 0;
+    #jp-anchor-tabs-{{ sid }}.is-fixed {
+      top: var(--jp-anchor-sticky-top-mb);
     }
 
     #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__list {
@@ -129,6 +149,9 @@
       overflow-y: hidden;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
+      width: 100%;
+      max-width: none;
+      margin: 0;
     }
 
     #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__list::-webkit-scrollbar {
@@ -138,13 +161,13 @@
     #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__item {
       flex: 0 0 auto;
       padding: 0 24px;
-      font-size: 16px;
-      letter-spacing: 0.04em;
+      font-size: 14px;
+      line-height: 1.4;
     }
 
     #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__item.is-active::after {
       width: 100%;
-      max-width: calc(100% - 24px);
+      max-width: 120px;
     }
   }
 </style>
@@ -152,17 +175,69 @@
 <script>
   (() => {
     const section = document.querySelector('#jp-anchor-tabs-{{ sid }}');
+    const placeholder = document.querySelector('#jp-anchor-tabs-placeholder-{{ sid }}');
     if (!section) return;
 
-    const buttons = Array.from(section.querySelectorAll('[data-anchor-target]'));
+    const buttons = Array.from(section.querySelectorAll('[data-anchor-targets]'));
     if (!buttons.length) return;
+    const normalizeSelector = (value) => {
+      const selector = (value || '').trim();
+      if (!selector) return '';
+      return selector.startsWith('#') ? selector : `#${selector}`;
+    };
+
+    const getButtonSelectors = (btn) => {
+      return (btn.dataset.anchorTargets || '')
+        .split(',')
+        .map((item) => normalizeSelector(item))
+        .filter(Boolean);
+    };
+
+    const getTargetBySelector = (selector) => {
+      const target = document.querySelector(selector);
+      return target;
+    };
+
+    const getCurrentControlledSelectors = () => {
+      const selectors = [];
+
+      buttons.forEach((btn) => {
+        getButtonSelectors(btn).forEach((selector) => {
+          if (!selectors.includes(selector)) {
+            selectors.push(selector);
+          }
+        });
+      });
+
+      return selectors;
+    };
+
+    const getControlledTargets = () => {
+      return getCurrentControlledSelectors()
+        .map((selector) => {
+          const target = getTargetBySelector(selector);
+          console.log('[JP Anchor Tabs] find controlled target:', selector, target);
+          return target;
+        })
+        .filter(Boolean);
+    };
 
     const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
 
-    const getOffset = () => {
-      const pcOffset = parseInt(getComputedStyle(section).getPropertyValue('--jp-anchor-scroll-offset-pc')) || 0;
-      const mbOffset = parseInt(getComputedStyle(section).getPropertyValue('--jp-anchor-scroll-offset-mb')) || 0;
-      return isMobile() ? mbOffset : pcOffset;
+    const getCssNumber = (name) => {
+      return parseInt(getComputedStyle(section).getPropertyValue(name), 10) || 0;
+    };
+
+    const getStickyTop = () => {
+      return isMobile()
+        ? getCssNumber('--jp-anchor-sticky-top-mb')
+        : getCssNumber('--jp-anchor-sticky-top-pc');
+    };
+
+    const getScrollOffset = () => {
+      return isMobile()
+        ? getCssNumber('--jp-anchor-scroll-offset-mb')
+        : getCssNumber('--jp-anchor-scroll-offset-pc');
     };
 
     const setActive = (activeBtn) => {
@@ -177,40 +252,96 @@
       }
     };
 
-    const scrollToTarget = (targetId) => {
-      const target = document.getElementById(targetId);
-      if (!target) return;
-
-      const targetTop = target.getBoundingClientRect().top + window.pageYOffset;
-      const offset = getOffset();
+    const scrollToTabs = () => {
+      const stickyTop = section.classList.contains('is-sticky') ? getStickyTop() : 0;
+      const rectTop = section.getBoundingClientRect().top + window.pageYOffset;
+      const targetTop = section.classList.contains('is-fixed') ? sectionStartTop : rectTop;
 
       window.scrollTo({
-        top: targetTop - offset,
+        top: Math.max(targetTop - stickyTop - 24, 0),
         behavior: 'smooth'
+      });
+    };
+
+    const showTargets = (activeBtn) => {
+      const activeSelectors = getButtonSelectors(activeBtn);
+      console.log('[JP Anchor Tabs] clicked tab:', activeBtn);
+      console.log('[JP Anchor Tabs] active selectors:', activeSelectors);
+
+      const activeTargets = [];
+
+      activeSelectors.forEach((selector) => {
+        const target = getTargetBySelector(selector);
+        if (target) {
+          activeTargets.push(target);
+        }
+        else {
+          console.warn('[JP Anchor Tabs] target not found:', selector);
+        }
+      });
+
+      getControlledTargets().forEach((target) => {
+        const shouldShow = activeTargets.includes(target);
+        console.log(shouldShow ? '[JP Anchor Tabs] keep/show target:' : '[JP Anchor Tabs] hide target:', target.id, target);
+
+        target.classList.toggle('is-active', shouldShow);
+        target.style.display = shouldShow ? '' : 'none';
       });
     };
 
     buttons.forEach((btn) => {
       btn.addEventListener('click', () => {
-        const targetId = btn.dataset.anchorTarget;
+        console.log('[JP Anchor Tabs] tab click raw targets:', btn.dataset.anchorTargets);
         setActive(btn);
-        scrollToTarget(targetId);
+        showTargets(btn);
+        scrollToTabs();
       });
     });
 
     const targetMap = buttons
       .map((btn) => {
-        const target = document.getElementById(btn.dataset.anchorTarget);
+        const firstSelector = getButtonSelectors(btn)[0];
+        const target = firstSelector ? document.querySelector(firstSelector) : null;
         return target ? { btn, target } : null;
       })
       .filter(Boolean);
 
-    if (!targetMap.length) return;
+    let sectionStartTop = 0;
 
-    let ticking = false;
+    const unsetFixed = () => {
+      section.classList.remove('is-fixed');
+      if (placeholder) {
+        placeholder.classList.remove('is-active');
+        placeholder.style.height = '0px';
+      }
+    };
+
+    const updateSectionTop = () => {
+      unsetFixed();
+      sectionStartTop = section.getBoundingClientRect().top + window.pageYOffset;
+    };
+
+    const updateFixed = () => {
+      if (!section.classList.contains('is-sticky')) return;
+
+      const stickyTop = getStickyTop();
+      const shouldFixed = window.pageYOffset >= sectionStartTop - stickyTop;
+
+      if (shouldFixed) {
+        if (placeholder) {
+          placeholder.style.height = `${section.offsetHeight}px`;
+          placeholder.classList.add('is-active');
+        }
+        section.classList.add('is-fixed');
+      } else {
+        unsetFixed();
+      }
+    };
 
     const updateActiveByScroll = () => {
-      const offset = getOffset() + 8;
+      if (!targetMap.length) return;
+
+      const offset = getScrollOffset() + 12;
       let current = targetMap[0];
 
       targetMap.forEach((item) => {
@@ -223,16 +354,35 @@
       if (current && current.btn) {
         setActive(current.btn);
       }
-
-      ticking = false;
     };
 
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        window.requestAnimationFrame(updateActiveByScroll);
-        ticking = true;
-      }
-    }, { passive: true });
+    let ticking = false;
+
+    const onScroll = () => {
+      if (ticking) return;
+      window.requestAnimationFrame(() => {
+        updateFixed();
+        ticking = false;
+      });
+      ticking = true;
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', () => {
+      updateSectionTop();
+      updateFixed();
+    });
+    window.addEventListener('load', () => {
+      updateSectionTop();
+      updateFixed();
+    });
+
+    showTargets(buttons.find((btn) => btn.classList.contains('is-active')) || buttons[0]);
+    window.setTimeout(() => {
+      showTargets(buttons.find((btn) => btn.classList.contains('is-active')) || buttons[0]);
+    }, 300);
+    updateSectionTop();
+    updateFixed();
   })();
 </script>
 
@@ -319,10 +469,10 @@
           "default": "機能詳細"
         },
         {
-          "type": "text",
-          "id": "target_id",
-          "label": "Target element ID",
-          "info": "Only fill ID name, no #. Example: product-features"
+          "type": "textarea",
+          "id": "target_ids",
+          "label": "Target element IDs",
+          "info": "product-features,product-reviews or #product-features,#product-reviews"
         }
       ]
     }
@@ -335,21 +485,21 @@
           "type": "tab",
           "settings": {
             "title": "機能詳細",
-            "target_id": "features"
+            "target_ids": "features"
           }
         },
         {
           "type": "tab",
           "settings": {
             "title": "使用ステップ",
-            "target_id": "steps"
+            "target_ids": "steps"
           }
         },
         {
           "type": "tab",
           "settings": {
             "title": "よくある質問",
-            "target_id": "faq"
+            "target_ids": "faq"
           }
         }
       ]

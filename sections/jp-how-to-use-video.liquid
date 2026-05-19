@@ -19,7 +19,7 @@
 
       {% if st.link_text != blank %}
         {% if st.link_url != blank %}
-          <a class="jp-how-to-use-video__link" href="{{ st.link_url }}">
+          <a class="jp-how-to-use-video__link" target="_blank" href="{{ st.link_url }}" download>
             <span>{{ st.link_text }}</span>
             <svg class="jp-how-to-use-video__link-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13" fill="none" aria-hidden="true">
               <path d="M0.17357 10.9051L4.91791 6.16017L0.17357 1.4149C-0.216962 1.02437 0.17357 0 0.17357 0L6.33355 6.16091L0.17357 12.3207C0.17357 12.3207 -0.216962 11.2964 0.17357 10.9051Z" fill="black"/>
@@ -98,7 +98,7 @@
           {{
             st.video
             | video_tag:
-              controls: false,
+              controls: true,
               autoplay: false,
               loop: false,
               muted: false,

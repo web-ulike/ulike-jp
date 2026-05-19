@@ -257,10 +257,6 @@
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.jp-product-media__nav:hover {
-  transform: translateY(-50%) scale(1.04);
-}
-
 .jp-product-media__nav.swiper-button-disabled {
   opacity: 0.35;
   cursor: not-allowed;
@@ -376,9 +372,8 @@
   min-height: auto;
   margin: 0 6px 0 0;
   padding: 0;
-  background: transparent;
   color: #190a0a;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.2;
   white-space: nowrap;
 }
@@ -396,6 +391,11 @@
   align-items: baseline;
   min-width: 0;
 }
+.jp-product-info__price-item:nth-child(2) .jp-product-info__price-label{
+  text-decoration: line-through;
+  margin: 0px;
+  font-size: 14px;
+}
 
 .jp-product-info__price {
   display: inline-flex;
@@ -406,6 +406,14 @@
   line-height: 1.3;
   white-space: nowrap;
 }
+
+.jp-product-info__price span{
+  color: #E0004D;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
 
 .jp-product-info__tax-label {
   color: #3F3636;
@@ -418,12 +426,16 @@
   display: inline-flex;
   align-items: baseline;
   color: #3F3636;
-  font-size: 22px;
+  font-size: 26px;
   font-weight: 400;
   line-height: 1.1;
   text-decoration: line-through;
   white-space: nowrap;
 }
+.jp-product-info__compare-price span{
+  font-size: 19px;
+}
+
 
 .jp-product-info__compare-price .jp-product-info__tax-label {
   color: inherit;
