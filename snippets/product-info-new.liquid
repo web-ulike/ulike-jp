@@ -80,11 +80,11 @@
                 {%- endif -%}
                 <div class="jp-product-info__price" data-product-price>
                   {%- if block.settings.price_text != blank -%}
-                    <span data-product-price-money data-static-price="true">{{ block.settings.price_text }}</span>
+                    <div data-product-price-money data-static-price="true">{{ block.settings.price_text }}</div>
                   {%- else -%}
-                    <span data-product-price-money>{{ current_variant.price | money }}</span>
+                    <div data-product-price-money>{{ current_variant.price | money }}</div>
                   {%- endif -%}
-                  <span class="jp-product-info__tax-label">（税込）</span>
+                  <div class="jp-product-info__tax-label">（税込）</div>
                 </div>
               </div>
 
@@ -94,7 +94,7 @@
                     <div class="jp-product-info__price-label">{{ block.settings.original_price_label }}</div>
                   {%- endif -%}
                   <div class="jp-product-info__compare-price" data-product-compare-price>
-                    <span data-product-compare-price-money{% if block.settings.original_price != blank %} data-static-price="true"{% endif %}>{{ original_price }}</span>
+                    <div data-product-compare-price-money{% if block.settings.original_price != blank %} data-static-price="true"{% endif %}>{{ original_price }}</div>
                     <span class="jp-product-info__tax-label">（税込）</span>
                   </div>
                 </div>

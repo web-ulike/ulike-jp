@@ -33,6 +33,7 @@
 
         {% if bs.pc_image != blank or bs.mobile_image != blank %}
           <div
+            {% if bs.item_id != blank %}id="{{ bs.item_id | handleize }}"{% endif %}
             class="jp-image-loop__item{% if bs.hide_on_pc %} jp-image-loop__item--hide-pc{% endif %}"
             {{ block.shopify_attributes }}
           >
@@ -156,6 +157,12 @@
           "type": "text",
           "id": "alt_text",
           "label": "图片 Alt 文案"
+        },
+        {
+          "type": "text",
+          "id": "item_id",
+          "label": "图片项 ID",
+          "info": "用于单张图片跳转锚点，无需填写"
         },
         {
           "type": "checkbox",
