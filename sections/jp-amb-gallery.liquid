@@ -160,29 +160,35 @@
   .jp-amb-gallery--{{ sid }} picture {
     display: block;
     width: 100%;
+    height: auto;
   }
 
   .jp-amb-gallery--{{ sid }} .jp-amb-gallery__image,
   .jp-amb-gallery--{{ sid }} .jp-amb-gallery__video {
     width: 100%;
+    height: auto;
     display: block;
+    object-fit: contain;
   }
 
   .jp-amb-gallery--{{ sid }} .jp-amb-gallery__video {
-    height: auto;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    height: 100%;
     object-fit: cover;
   }
 
   .jp-amb-gallery--{{ sid }} .jp-amb-gallery__cover {
-    position: absolute;
-    inset: 0;
+    position: relative;
     z-index: 2;
+    transition: opacity .25s ease, visibility .25s ease;
   }
 
   .jp-amb-gallery--{{ sid }} .jp-amb-gallery__cover .jp-amb-gallery__image {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    object-fit: contain;
   }
 
   .jp-amb-gallery--{{ sid }} .jp-amb-gallery__play {
@@ -205,7 +211,11 @@
     display: block;
   }
 
-  .jp-amb-gallery--{{ sid }} .jp-amb-gallery__video-card.is-playing .jp-amb-gallery__cover,
+  .jp-amb-gallery--{{ sid }} .jp-amb-gallery__video-card.is-playing .jp-amb-gallery__cover {
+    opacity: 0;
+    visibility: hidden;
+  }
+
   .jp-amb-gallery--{{ sid }} .jp-amb-gallery__video-card.is-playing .jp-amb-gallery__play {
     display: none;
   }
@@ -257,6 +267,31 @@
       width: 100%;
       margin: 0 auto;
       order: 2;
+      aspect-ratio: 375 / 560;
+    }
+    .jp-amb-gallery--{{ sid }} picture {
+      height: 100%;
+    }
+    .jp-amb-gallery--{{ sid }} .jp-amb-gallery__cover {
+      position: absolute;
+      inset: 0;
+    }
+
+    .jp-amb-gallery--{{ sid }} .jp-amb-gallery__image,
+    .jp-amb-gallery--{{ sid }} .jp-amb-gallery__video {
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .jp-amb-gallery--{{ sid }} .jp-amb-gallery__video {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+
+    .jp-amb-gallery--{{ sid }} .jp-amb-gallery__cover .jp-amb-gallery__image {
+      height: 100%;
+      object-fit: cover;
     }
 
     .jp-amb-gallery--{{ sid }} .jp-amb-gallery__caption {

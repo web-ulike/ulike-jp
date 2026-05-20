@@ -1,8 +1,9 @@
 {% liquid
   assign sid = section.id
+  assign custom_class = section.settings.custom_class
 %}
 
-<section class="jp-home-hero jp-home-hero--{{ sid }}">
+<section class="jp-home-hero jp-home-hero--{{ sid }}{% if custom_class != blank %} {{ custom_class | escape }}{% endif %}">
   <div class="jp-home-hero__inner">
     <div class="swiper jp-home-hero__swiper">
       <div class="swiper-wrapper">
@@ -11,12 +12,13 @@
             assign pc_image = block.settings.image_pc
             assign mobile_image = block.settings.image_mobile
             assign title = block.settings.title
+            assign subheading_logo = block.settings.subheading_logo
             assign desc = block.settings.desc
             assign button_text = block.settings.button_text
             assign button_link = block.settings.button_link
             assign info_text = block.settings.info_text
           %}
-          <div class="swiper-slide" {{ block.shopify_attributes }}>
+          <div class="swiper-slide jp-home-hero__item jp-home-hero__item{{ forloop.index }}" {{ block.shopify_attributes }}>
             <div class="jp-home-hero__slide">
               <div class="jp-home-hero__media">
                 {% if pc_image != blank or mobile_image != blank %}
@@ -40,7 +42,7 @@
                     {% if pc_image != blank %}
                       <img
                         class="jp-home-hero__image"
-                        src="{{ pc_image | image_url: width: 2400 }}"
+                        src="{{ pc_image | image_url }}"
                         alt="{{ mobile_image.alt | default: pc_image.alt | escape }}"
                         loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
                         width="{{ pc_image.width }}"
@@ -64,9 +66,23 @@
                 <div class="jp-container">
                   <div class="jp-home-hero__content-inner">
                     <div class="jp-home-hero__content">
-                      {% if block.settings.subheading != blank %}
-                        <div class="jp-home-hero__subheading">
-                          {{ block.settings.subheading }}
+                      {% if block.settings.subheading != blank or subheading_logo != blank %}
+                        <div class="jp-home-hero__subheading-wrap">
+                          {% if subheading_logo != blank %}
+                            <img
+                              class="jp-home-hero__subheading-logo"
+                              src="{{ subheading_logo | image_url: width: 160 }}"
+                              alt="{{ subheading_logo.alt | default: block.settings.subheading | escape }}"
+                              loading="lazy"
+                              width="{{ subheading_logo.width }}"
+                              height="{{ subheading_logo.height }}"
+                            >
+                          {% endif %}
+                          {% if block.settings.subheading != blank %}
+                            <div class="jp-home-hero__subheading">
+                              <span class="jp-home-hero__subheading-text">{{ block.settings.subheading }}</span>
+                            </div>
+                          {% endif %}
                         </div>
                       {% endif %}
 
@@ -120,13 +136,12 @@
 
 <style>
   .jp-home-hero--{{ sid }} {
-    --jp-home-hero-text-color: #111111;
-    --jp-home-hero-desc-color: #444444;
+    --jp-home-hero-text-color: #000;
     --jp-home-hero-accent-color: #e51f6e;
-    --jp-home-hero-primary-btn-bg: #111111;
+    --jp-home-hero-primary-btn-bg: #000;
     --jp-home-hero-primary-btn-color: #ffffff;
-    --jp-home-hero-secondary-btn-color: #111111;
-    --jp-home-hero-secondary-btn-border: #111111;
+    --jp-home-hero-secondary-btn-color: #000;
+    --jp-home-hero-secondary-btn-border: #000;
     position: relative;
     overflow: hidden;
     background: #f6f4f5;
@@ -191,8 +206,15 @@
   }
 
   .jp-home-hero--{{ sid }} .jp-home-hero__content {
-    max-width: 550px;
+    max-width: 850px;
     color: var(--jp-home-hero-text-color);
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__subheading-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 18px;
   }
 
   .jp-home-hero--{{ sid }} .jp-home-hero__subheading {
@@ -205,7 +227,18 @@
     font-size: 14px;
     line-height: 1;
     letter-spacing: .04em;
-    margin-bottom: 18px;
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__subheading-logo {
+    display: block;
+    width: auto;
+    height: 106px;
+    flex: 0 0 auto;
+    object-fit: contain;
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__subheading-text {
+    display: inline-block;
   }
 
   .jp-home-hero--{{ sid }} .jp-home-hero__title {
@@ -234,7 +267,6 @@
     margin-top: 20px;
     font-size: 24px;
     line-height: 1.3;
-    color: var(--jp-home-hero-desc-color);
   }
 
   .jp-home-hero--{{ sid }} .jp-home-hero__buttons {
@@ -354,14 +386,61 @@
     transform: translate(-50%, -50%);
   }
 
+
+  {% comment %} 自定义class名称 {% endcomment %}
+  .jp-home-hero__item2 .jp-home-hero__title,
+  .jp-home-hero__item2 .jp-home-hero__desc,
+  .jp-home-hero__item3 .jp-home-hero__title {
+    font-size: 55px;
+    font-weight: 500;
+    margin-top: 0px;
+  }
+  
+  .jp-home-hero__item2 .jp-home-hero__title span{
+    font-weight: bold;
+    font-size: 24px;
+    vertical-align: top;
+    line-height: 1;
+    padding-top: 10px;
+    display: inline-block;
+  }
+
+  .jp-home-hero__item3 .jp-home-hero__content {
+    color: #fff;
+  }
+  .jp-home-hero__item3 .jp-home-hero__btn--primary{
+    background: var(--jp-home-hero-primary-btn-color);
+    color: var(--jp-home-hero-text-color);
+    border: 1px solid var(--jp-home-hero-primary-btn-color);
+  }
+  .jp-home-hero__item3 .jp-home-hero__info{
+    color: rgba(255, 255, 255, 0.50);
+  }
+  .jp-home-hero__item2 .jp-home-hero__subheading-wrap{
+    margin-bottom: 0px;
+  }
+  .jp-home-hero__item3 .jp-home-hero__subheading-wrap { 
+    margin-bottom: 48px;
+  }
+
+
   @media screen and (max-width: 989px) {
     .jp-home-hero--{{ sid }} .jp-home-hero__slide {
    
     }
 
+    .jp-home-hero--{{ sid }} .jp-home-hero__subheading-wrap {
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
     .jp-home-hero--{{ sid }} .jp-home-hero__subheading {
       padding: 4px 15px;
       font-size: 10px;
+    }
+
+    .jp-home-hero--{{ sid }} .jp-home-hero__subheading-logo {
+      height: 40px;
     }
     .jp-home-hero--{{ sid }} .jp-home-hero__info-wrap {
       bottom: 15px;
@@ -393,7 +472,7 @@
     .jp-home-hero--{{ sid }} .jp-home-hero__title {
       font-size: 28px;
       line-height: 1.3;
-      width: 72%;
+      width: 100%;
       margin: 0 auto;
     }
 
@@ -436,6 +515,32 @@
       width: 6px;
       height: 6px;
     }
+
+    {% comment %} 自定义移动端样式 {% endcomment %}
+    .jp-home-hero__item2 .jp-home-hero__title{
+      font-size: 20px;
+      font-weight: 400;
+    }
+    .jp-home-hero__item2 .jp-home-hero__title span{
+      font-size: 14px;
+      padding-top: 2px;
+    }
+
+    .jp-home-hero__item2 .jp-home-hero__desc{
+      font-size: 30px;
+    }
+    .jp-home-hero__item2 .jp-home-hero__subheading-wrap{
+      margin-bottom: 0px;
+    }
+    .jp-home-hero__item3 .jp-home-hero__subheading-wrap{
+      margin-bottom: 20px;
+    }
+
+    .jp-home-hero__item3 .jp-home-hero__desc{
+      font-size: 16px;
+    }
+
+
   }
 </style>
 
@@ -524,6 +629,11 @@
       "content": "Slider"
     },
     {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom class name"
+    },
+    {
       "type": "checkbox",
       "id": "enable_loop",
       "label": "Enable loop",
@@ -582,8 +692,12 @@
         {
           "type": "text",
           "id": "subheading",
-          "label": "Subheading",
-          "default": "人気商品"
+          "label": "Subheading"
+        },
+        {
+          "type": "image_picker",
+          "id": "subheading_logo",
+          "label": "Subheading logo"
         },
         {
           "type": "html",
@@ -594,8 +708,7 @@
         {
           "type": "textarea",
           "id": "desc",
-          "label": "Description",
-          "default": "ムダ毛・VIO・ヒゲ・美容のトータルサポート。"
+          "label": "Description"
         },
         {
           "type": "text",
@@ -612,7 +725,6 @@
           "type": "textarea",
           "id": "info_text",
           "label": "Info text",
-          "default": "*フロスト&サリバン調べ; 2023 年世界の光美容器の小売販売台数から算出。2024 年 10 月に実施された調査に基づく。光美容器とは、レーザーやIPLといった技術を利用して無駄毛を処理する美容機器を指す。"
         }
       ]
     }

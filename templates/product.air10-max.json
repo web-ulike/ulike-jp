@@ -97,7 +97,7 @@
           "type": "tab",
           "settings": {
             "title": "機能詳細",
-            "target_ids": "shopify-section-template--19058268241968__jp_image_loop_YDMRrK,\nshopify-section-template--19058268241968__jp_awards_media_hCWbrc,shopify-section-template--19058268241968__p_ipl_no1_7CDAcd"
+            "target_ids": "shopify-section-template--19058268241968__jp_image_loop_YDMRrK,\nshopify-section-template--19058268241968__jp_awards_media_hCWbrc,shopify-section-template--19058268241968__p_ipl_no1_7CDAcd,shopify-section-template--19058268241968__jp_triple_guarantee_B4KCV4"
           }
         },
         "tab_h9UJAD": {
@@ -256,7 +256,7 @@
         "image_item_bNg8nN": {
           "type": "image_item",
           "settings": {
-            "mobile_image": "shopify:\/\/shop_images\/12_939cd2fd-23c5-4ba2-9891-f4e26cc6bf04.jpg",
+            "mobile_image": "shopify:\/\/shop_images\/Air10Max-12.jpg",
             "alt_text": "",
             "item_id": "",
             "hide_on_pc": true
@@ -342,6 +342,7 @@
         },
         "image_item_ERLjrG": {
           "type": "image_item",
+          "disabled": true,
           "settings": {
             "pc_image": "shopify:\/\/shop_images\/14_6db1fa33-5737-4100-a993-a6bd5f9c195a.jpg",
             "mobile_image": "shopify:\/\/shop_images\/20.jpg",
@@ -378,6 +379,51 @@
       "settings": {
         "anchor_id": "",
         "container_class": ""
+      }
+    },
+    "jp_triple_guarantee_B4KCV4": {
+      "type": "jp-triple-guarantee",
+      "blocks": {
+        "guarantee_mygPpV": {
+          "type": "guarantee",
+          "settings": {
+            "title": "90日間の返金・返品保証",
+            "text": "<p>製品の効果や使用感に万が一ご満足いただけない場合も、購入から90日間は全額返金・返品可能。じっくり試せる3ヶ月の期間で、あなたの肌との相性や効果を実感いただいた上でのご判断ができます。自信を持ってお届けする製品だからこそ実現できる、お客様目線の安心保証です。<\/p>",
+            "note": ""
+          }
+        },
+        "guarantee_8FP97h": {
+          "type": "guarantee",
+          "settings": {
+            "title": "2年間の長期メーカー保証",
+            "text": "<p>購入後2年間の長期メーカー保証付きで、万一の故障や不具合にも迅速に対応。世界No.1*1光美容器メーカーの高品質だからこそ提供できる充実の保証期間で、長期にわたって安心してご使用いただけます。お客様の美容ライフを確かな品質とサポートで支え続けます。<\/p>",
+            "note": "<p>*1. Ulike(ユーライク) - 家庭用光美容器の販売台数世界NO.1。Footnote: ユーロモニターインターナショナル調べ；2022年世界の家庭用光美容器の小売販売台数から測定；2023年12月に実施された調査に基づく；家庭用光美容器とは、IPLやレーザーといった光エネルギーを利用して無駄毛を処理する家庭用機器を指す。<\/p>"
+          }
+        },
+        "guarantee_7D989H": {
+          "type": "guarantee",
+          "settings": {
+            "title": "90万回*2照射可能な長寿命設計",
+            "text": "<p>A++グレードのサファイア素材、ダブルパイプ放熱特許技術、さらにVC液冷放熱特許技術を採用した高効率冷却設計。これらの放熱・温度制御技術により、電子部品や光学系への熱負荷を抑え、機器全体の耐久性を向上させています。照射面には高硬度サファイアを使用し、劣化を抑制。内部温度を安定的に管理することで、長期間にわたり安定した照射性能を維持し、90万発の長寿命を支える耐久設計です。<\/p>",
+            "note": "<p>*2. 当社の耐久性試験結果。最大90万回連続で照射できます。<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "guarantee_mygPpV",
+        "guarantee_8FP97h",
+        "guarantee_7D989H"
+      ],
+      "name": "JP Triple Guarantee",
+      "settings": {
+        "bg_color": "#ffffff",
+        "container_width": 1320,
+        "heading": "長く安心して使え「トリプル保証」",
+        "image": "shopify:\/\/shop_images\/Mask_group_2_0b15a06c-d3b5-4737-887c-a6120db62f1b.jpg",
+        "pc_padding_top": 92,
+        "pc_padding_bottom": 92,
+        "mb_padding_top": 48,
+        "mb_padding_bottom": 48
       }
     },
     "jp_awards_media_hCWbrc": {
@@ -437,6 +483,7 @@
         },
         "media_HniArY": {
           "type": "media",
+          "disabled": true,
           "settings": {
             "image": "shopify:\/\/shop_images\/FINEBOYS_plus_BEAUTY_vol.10_1.png",
             "link": ""
@@ -513,7 +560,7 @@
       "settings": {
         "bg_color": "#ffffff",
         "heading": "使い方動画",
-        "link_text": "アプリの使用ガイドをダウンロード 》",
+        "link_text": "アプリの使用ガイドをダウンロード",
         "link_url": "https:\/\/cdn.shopify.com\/s\/files\/1\/0553\/7392\/2352\/files\/Air10_Max_Ulike_X_Max_48dcc3e8-7ab6-46d8-a939-1ecf6c982460.pdf?v=1779109820",
         "poster_image": "shopify:\/\/shop_images\/1_d3194bf8-e545-4af4-9954-c8e8bacb853a.jpg",
         "video": "shopify:\/\/files\/videos\/A10 Max.mov",
@@ -531,8 +578,8 @@
         "question_HeKazg": {
           "type": "question",
           "settings": {
-            "title": "Frequently asked question",
-            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.<\/p>",
+            "title": "<strong>パスワードを忘れたらどうすればいいですか？<\/strong>",
+            "text": "<p>ログインの画面では、パスワードを入力する欄の下に「パスワードを忘れた」があります。ここをクリックしてご案内に従えばパスワードを変更することができます。<\/p>",
             "highlighted_text": "none",
             "highlighted_scribble": "circle"
           }
@@ -540,8 +587,8 @@
         "question_PaWa7K": {
           "type": "question",
           "settings": {
-            "title": "Frequently asked question",
-            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.<\/p>",
+            "title": "<strong>新発売のAir10 Max & Ulike X Maxは従来のAir10 & Ulike Xとの違いは何ですか？<\/strong>",
+            "text": "<p>従来のAir10 & Ulike Xに比べると、新発売のAir10 Max & Ulike X Maxは照射パワーが上がり、照射モードの切り替えも簡単になり、全部スキンセンサー機能とアプリ連携機能も搭載されるようになっています。指などのような照射範囲が狭いところにも使えるために、オンラインストアで販売するUlike X Maxと家電量販店で販売するAir10 Maxには専用のアタッチメントも付属されるようになっています。<\/p>",
             "highlighted_text": "none",
             "highlighted_scribble": "circle"
           }
@@ -549,8 +596,44 @@
         "question_bRUXh4": {
           "type": "question",
           "settings": {
-            "title": "Frequently asked question",
-            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.<\/p>",
+            "title": "<strong>プランを作成して、ケアも開始しましたが、ケア記録が保存されないのはなぜでしょうか？<\/strong>",
+            "text": "<p>ケア記録が保存されないのは主に下記の原因があります：<br\/>a）使用中、bluetoothがオフになって接続が切れてしまった<br\/>b）使用中、別の画面に戻してしまった<br\/>c）使用が完了した際に、先に本体の電源をオフにした<br\/>d）使用が完了してから、アプリ内の「ケア停止」を押し忘れた<br\/>e）「ケア停止」を押したが、ホームに戻って「今すぐ記録」を押し忘れた<br\/><strong>■正しい方法：<br\/><\/strong>ケアを開始してから、なるべく３分以上のご使用を推奨いたします。ケア完了後、まず「ケア停止」を押してから本体電源をオフにしてください。最後はホームに戻って「今すぐ記録」を押してケア記録を保存します。<\/p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "question_pTHJLi": {
+          "type": "question",
+          "settings": {
+            "title": "<strong>本体とスマホのbluetoothが接続できない場合はどうすればいいですか？<\/strong>",
+            "text": "<p>まずスマホのbluetoothをオンにして、再度本体を起動させて、本体のbluetoothもオンにして、再度デバイスをスキャンしてください。<\/p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "question_KbYCjm": {
+          "type": "question",
+          "settings": {
+            "title": "<strong>ホームでの「今すぐ記録」のボタンがグレイ色のまま押せないのはなぜでしょうか？<\/strong>",
+            "text": "<p>ケア時間が３分間未満、もしくは使用途中でケア記録が保存されていない場合、ケア記録が無効になり、再度ケアを開始してください。<\/p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "question_pPyEXB": {
+          "type": "question",
+          "settings": {
+            "title": "<strong>家族共用の場合、どのようにプランを作成しますか？<\/strong>",
+            "text": "<p>Ulikeは利用者のプライバシーを徹底的に保護しておりますので、脱毛器は家族共用の場合、同一アカウントで他人のケアプランを作成できず、違うメールアドレスでアカウントを作成してから、デバイスを追加するのを推奨いたします。<\/p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "question_pTbNYK": {
+          "type": "question",
+          "settings": {
+            "title": "<strong>アタッチメントキットをつけてうまく照射できないのはなぜでしょうか？<\/strong>",
+            "text": "<p>アタッチメントキットが付属されている機種はAI検知機能が搭載されているため、まず本体電源をオンにして照射を試して該当部位の肌色を識別してから、アタッチメントキットを再度取り付けて照射してください。<\/p>",
             "highlighted_text": "none",
             "highlighted_scribble": "circle"
           }
@@ -559,12 +642,19 @@
       "block_order": [
         "question_HeKazg",
         "question_PaWa7K",
-        "question_bRUXh4"
+        "question_bRUXh4",
+        "question_pTHJLi",
+        "question_KbYCjm",
+        "question_pPyEXB",
+        "question_pTbNYK"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 1024px) {.page-width--narrow {max-width: inherit; --page-padding: var(--sp-60); }}"
       ],
       "name": "t:sections.faq.presets.name",
       "settings": {
         "style": "with-border",
-        "heading": "FAQs",
+        "heading": "<strong>よくあるご質問<\/strong>",
         "heading_size": "title-md",
         "heading_alignment": "text-left md:items-end md:flex-row",
         "heading_tag": "h2",
@@ -638,6 +728,7 @@
     "jp_anchor_tabs_4RWxYh",
     "jp_amb_hero_FHVQNH",
     "jp_image_loop_YDMRrK",
+    "jp_triple_guarantee_B4KCV4",
     "jp_awards_media_hCWbrc",
     "jp_image_loop_yjaGQe",
     "jp_how_to_use_video_6YEd66",
