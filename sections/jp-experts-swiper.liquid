@@ -28,8 +28,24 @@
                           loop: false,
                           muted: true,
                           controls: false,
-                          image_size: '1200x'
+                          playsinline: true,
+                          preload: 'metadata',
+                          image_size: '1200x',
+                          class: 'jp-experts-swiper__video'
                       }}
+
+                      {% if block.settings.image != blank %}
+                        <div class="jp-experts-swiper__video-cover" data-video-cover>
+                          <img
+                            class="jp-experts-swiper__media-image"
+                            src="{{ block.settings.image | image_url: width: 900 }}"
+                            alt="{{ block.settings.image.alt | escape }}"
+                            loading="lazy"
+                            width="{{ block.settings.image.width }}"
+                            height="{{ block.settings.image.height }}"
+                          >
+                        </div>
+                      {% endif %}
                     {% elsif block.settings.image != blank %}
                       <img
                         class="jp-experts-swiper__media-image"
@@ -195,6 +211,7 @@
   }
 
   .jp-experts-swiper--{{ sid }} .jp-experts-swiper__media-shape {
+    position: relative;
     width: 100%;
     aspect-ratio: 1 / 1.04;
     overflow: hidden;
@@ -208,6 +225,32 @@
     height: 100%;
     display: block;
     object-fit: cover;
+  }
+
+  .jp-experts-swiper--{{ sid }} .jp-experts-swiper__media-shape video {
+    cursor: pointer;
+  }
+
+  .jp-experts-swiper--{{ sid }} .jp-experts-swiper__video-cover {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: #ebebeb;
+    transition: opacity .25s ease, visibility .25s ease;
+    cursor: pointer;
+  }
+
+  .jp-experts-swiper--{{ sid }} .jp-experts-swiper__video-cover .jp-experts-swiper__media-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  .jp-experts-swiper--{{ sid }} .jp-experts-swiper__media-card.is-playing .jp-experts-swiper__video-cover {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
   }
 
   .jp-experts-swiper--{{ sid }} .jp-experts-swiper__play {
@@ -225,7 +268,7 @@
     justify-content: center;
     cursor: pointer;
     padding: 0;
-    z-index: 2;
+    z-index: 4;
   }
 
   .jp-experts-swiper--{{ sid }} .jp-experts-swiper__play img {
@@ -233,6 +276,12 @@
     height: 100%;
     object-fit: contain;
     display: block;
+  }
+
+  .jp-experts-swiper--{{ sid }} .jp-experts-swiper__media-card.is-playing .jp-experts-swiper__play {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
   }
 
   .jp-experts-swiper--{{ sid }} .jp-experts-swiper__dots {
@@ -499,21 +548,101 @@
 
       mediaSwiper.controller.control = contentSwiper;
       contentSwiper.controller.control = mediaSwiper;
+
+      mediaSwiper.on('slideChange', function () {
+        pauseOtherVideos();
+      });
+    };
+
+    const pauseOtherVideos = (currentVideo) => {
+      sectionEl.querySelectorAll('video').forEach((video) => {
+        if (video === currentVideo) return;
+        video.pause();
+
+        const mediaCard = video.closest('.jp-experts-swiper__media-card');
+        if (mediaCard) mediaCard.classList.remove('is-playing');
+      });
+    };
+
+    const toggleVideo = (video) => {
+      if (!video) return;
+
+      const mediaCard = video.closest('.jp-experts-swiper__media-card');
+      video.muted = true;
+      video.playsInline = true;
+
+      if (video.paused) {
+        pauseOtherVideos(video);
+        const playPromise = video.play();
+
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              if (mediaCard) mediaCard.classList.add('is-playing');
+            })
+            .catch(() => {
+              if (mediaCard) mediaCard.classList.remove('is-playing');
+            });
+        } else if (mediaCard) {
+          mediaCard.classList.add('is-playing');
+        }
+      } else {
+        video.pause();
+        if (mediaCard) mediaCard.classList.remove('is-playing');
+      }
     };
 
     const bindVideoPlay = () => {
       sectionEl.querySelectorAll('[data-video-play]').forEach((btn) => {
-        btn.addEventListener('click', function () {
-          const slide = this.closest('.swiper-slide');
-          if (!slide) return;
-          const video = slide.querySelector('video');
-          if (!video) return;
+        if (btn.dataset.videoBound === 'true') return;
+        btn.dataset.videoBound = 'true';
 
-          if (video.paused) {
-            video.play();
-          } else {
-            video.pause();
-          }
+        btn.addEventListener('click', function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+
+          const mediaCard = this.closest('.jp-experts-swiper__media-card');
+          if (!mediaCard) return;
+
+          const video = mediaCard.querySelector('video');
+          toggleVideo(video);
+        });
+      });
+
+      sectionEl.querySelectorAll('[data-video-cover]').forEach((cover) => {
+        if (cover.dataset.videoBound === 'true') return;
+        cover.dataset.videoBound = 'true';
+
+        cover.addEventListener('click', function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+
+          const mediaCard = this.closest('.jp-experts-swiper__media-card');
+          if (!mediaCard) return;
+
+          const video = mediaCard.querySelector('video');
+          toggleVideo(video);
+        });
+      });
+
+      sectionEl.querySelectorAll('.jp-experts-swiper__media-shape video').forEach((video) => {
+        if (video.dataset.videoBound === 'true') return;
+        video.dataset.videoBound = 'true';
+
+        video.addEventListener('click', function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+          toggleVideo(this);
+        });
+
+        video.addEventListener('pause', function () {
+          const mediaCard = this.closest('.jp-experts-swiper__media-card');
+          if (mediaCard) mediaCard.classList.remove('is-playing');
+        });
+
+        video.addEventListener('ended', function () {
+          const mediaCard = this.closest('.jp-experts-swiper__media-card');
+          if (mediaCard) mediaCard.classList.remove('is-playing');
         });
       });
     };
@@ -605,7 +734,7 @@
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Image"
+          "label": "Image / Video cover image"
         },
         {
           "type": "video",

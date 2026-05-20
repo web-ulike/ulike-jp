@@ -124,7 +124,12 @@
                         <span>{{ block.settings.link_text | default: '詳しく見る ≫' }}</span>
                       </a>
                       {% elsif block.settings.link_text != blank %}
-                        <div class="jp-home-reviews__link jp-home-reviews__link--static">{{ block.settings.link_text }}</div>
+                        <div class="jp-home-reviews__link jp-home-reviews__link--static">{{ block.settings.link_text }}
+                          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="12" viewBox="0 0 13 12" fill="none">
+                            <path d="M0.166638 10.4627L4.71871 5.91059L0.166638 1.35784C-0.208298 0.982899 0.166638 0 0.166638 0L6.07644 5.90974L0.166638 11.8239C0.166638 11.8239 -0.208298 10.8385 0.166638 10.4627Z" fill="black"/>
+                            <path d="M6.75353 10.4627L11.3056 5.91059L6.75353 1.35784C6.3786 0.982899 6.75353 0 6.75353 0L12.6633 5.90974L6.75353 11.8239C6.75353 11.8239 6.37687 10.8385 6.75353 10.4627Z" fill="black"/>
+                          </svg>
+                        </div>
                       {% endif %}
                     </div>
                   </div>
@@ -420,13 +425,14 @@
   }
 
   .jp-home-reviews--{{ sid }} .jp-home-reviews__link {
-    margin-top: 2px;
+    margin-top: 10px;
     display: inline-flex;
     align-items: center;
     font-size: 14px;
     line-height: 1.4;
     color: #000000;
     text-decoration: none;
+    gap: 6px;
   }
 
   .jp-home-reviews--{{ sid }} .jp-home-reviews__link--static {
@@ -448,7 +454,7 @@
     background: transparent;
     color: #3d3d3d;
     font-size: 18px;
-    line-height: 28px;
+    line-height: 30px;
     text-align: center;
     text-decoration: none;
     box-sizing: border-box;

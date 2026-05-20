@@ -417,9 +417,9 @@
   .jp-home-featured-products--{{ sid }} .jp-home-featured-products__image,
   .jp-home-featured-products--{{ sid }} .jp-home-featured-products__placeholder {
     width: 100%;
-    height: 100%;
     display: block;
     object-fit: contain;
+    max-height: 442px;
   }
 
   .jp-home-featured-products--{{ sid }} .jp-home-featured-products__content {
@@ -427,8 +427,8 @@
   }
 
   .jp-home-featured-products--{{ sid }} .jp-home-featured-products__product-title {
-    font-size: 24px;
-    line-height: 1.35;
+    font-size: 20px;
+    line-height: 1.5;
     font-weight: 400;
     color: var(--jp-home-featured-products-title);
   }
@@ -824,6 +824,9 @@
       gap: 8px;
       margin-top: 10px;
     }
+    .jp-home-featured-products--{{ sid }} .jp-home-featured-products__image {
+      max-height: 270px;
+    }
 
     .jp-home-featured-products--{{ sid }} .jp-home-featured-products__btn {
       min-height: 34px;
@@ -849,6 +852,10 @@
     .jp-home-featured-products--{{ sid }} .jp-home-featured-products__nav svg {
       width: 14px;
       height: 14px;
+    }
+
+    .jp-home-featured-products--{{ sid }} .jp-home-featured-products__compare {
+      font-size: 14px;
     }
   }
 </style>
@@ -902,10 +909,12 @@
       }
 
       featuredSwiper = new window.Swiper(swiperEl, {
-        slidesPerView: 1.18,
-        spaceBetween: 14,
+        slidesPerView: 1.1,
+        spaceBetween: 20,
         speed: 700,
-        followFinger: false,
+        allowTouchMove: true,
+        simulateTouch: true,
+        followFinger: true,
         slideToClickedSlide: false,
         watchOverflow: true,
         observer: true,
@@ -921,7 +930,10 @@
           },
           990: {
             slidesPerView: 3,
-            spaceBetween: 20
+            spaceBetween: 20,
+            allowTouchMove: true,
+            simulateTouch: true,
+            followFinger: true
           }
         },
         on: {
@@ -982,12 +994,6 @@
       );
 
       interactiveEls.forEach((el) => {
-        ['pointerdown', 'mousedown', 'touchstart', 'touchmove', 'mouseup', 'touchend'].forEach((eventName) => {
-          el.addEventListener(eventName, (event) => {
-            event.stopPropagation();
-          }, { capture: true, passive: true });
-        });
-
         el.addEventListener('click', (event) => {
           event.stopPropagation();
         }, { capture: true });

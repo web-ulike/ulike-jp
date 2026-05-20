@@ -67,6 +67,40 @@
     margin-top: 14px;
   }
 
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__button {
+    margin-top: 28px;
+  }
+
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__button-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 140px;
+    height: 30px;
+    padding: 0 20px;
+    border: 1px solid rgba(0, 0, 0, 0.30);
+    border-radius: 999px;
+    color: #000;
+    background: transparent;
+    font-size: 12px;
+    line-height: 1;
+    font-weight: 400;
+    text-decoration: none;
+    transition: background .25s ease, border-color .25s ease, transform .25s ease;
+  }
+
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__button-link:hover {
+    background: rgba(255,255,255,.45);
+    border-color: #8E8E8E;
+  }
+
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__button-link svg {
+    width: 12px;
+    height: 11px;
+    flex: 0 0 auto;
+  }
+
   .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__note {
     margin-top: 50px;
     color: {{ st.note_color }};
@@ -178,6 +212,10 @@
     font-weight: 600;
   }
 
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stat:nth-child(3) .jp-brand-story-hero__stat-unit {
+    margin-top: 16px;
+  }
+
   .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stat-text {
     color: {{ st.stat_text_color }};
     font-size: 16px;
@@ -260,6 +298,23 @@
       line-height: 1.8;
     }
 
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__button {
+      margin-top: 24px;
+    }
+
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__button-link {
+      min-width: 146px;
+      height: 34px;
+      padding: 0 18px;
+      gap: 7px;
+      font-size: 10px;
+    }
+
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__button-link svg {
+      width: 11px;
+      height: 10px;
+    }
+
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__note {
       position: relative;
       z-index: 4;
@@ -318,7 +373,7 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 0;
-      padding: 22px 10px 0;
+      padding: 30px 10px 0;
     }
 
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stat {
@@ -337,10 +392,11 @@
     }
 
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stat-text {
-      margin-top: 5px;
+      margin-top: 0px;
       font-size: 10px;
-      line-height: 1.35;
-      white-space: normal;
+    }
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stat:nth-child(3) .jp-brand-story-hero__stat-unit {
+      margin-top: 8px;
     }
   }
 </style>
@@ -364,6 +420,18 @@
         {%- if st.desc != blank -%}
           <div class="jp-brand-story-hero__desc">
             {{ st.desc }}
+          </div>
+        {%- endif -%}
+
+        {%- if st.button_text != blank and st.button_link != blank -%}
+          <div class="jp-brand-story-hero__button">
+            <a class="jp-brand-story-hero__button-link" target="_blank" href="{{ st.button_link }}">
+              <span>{{ st.button_text }}</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="11" viewBox="0 0 12 11" fill="none" aria-hidden="true" focusable="false">
+                <path d="M0.147588 9.55262L4.18299 5.89495L0.147588 2.23799C-0.184484 1.93701 0.147588 1.14697 0.147588 1.14697L5.38546 5.89495L0.147588 10.6431C0.147588 10.6431 -0.184484 9.85301 0.147588 9.55262Z" fill="currentColor"/>
+                <path d="M5.98479 9.55262L10.0202 5.89495L5.98479 2.23799C5.65272 1.93701 5.98479 1.14697 5.98479 1.14697L11.2227 5.89495L5.98479 10.6431C5.98479 10.6431 5.65272 9.85301 5.98479 9.55262Z" fill="currentColor"/>
+              </svg>
+            </a>
           </div>
         {%- endif -%}
 
@@ -571,6 +639,17 @@
       "id": "desc",
       "label": "Description",
       "default": "<p>Ulikeは、美しさ以上に自信に満ちたすべての人を応援してきました。</p><p>革新的な技術によって、世界中のお客様の美しさをサポートしています。</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "会社情報を見る"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
     },
     {
       "type": "html",
