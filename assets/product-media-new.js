@@ -683,12 +683,107 @@
   }
 
   /**
+   * 初始化产品倒计时。
+   *
+   * @param {HTMLElement} root - 产品信息组件根节点。
+   */
+  function initCountdown(root) {
+    root.querySelectorAll('[data-product-countdown]').forEach(function (countdown) {
+      if (countdown.dataset.countdownInitialized === 'true') return;
+
+      var endValue = (countdown.dataset.countdownEnd || '').trim();
+      var endTime = parseCountdownEndTime(endValue);
+      var dayEl = countdown.querySelector('[data-countdown-days]');
+      var hourEl = countdown.querySelector('[data-countdown-hours]');
+      var minuteEl = countdown.querySelector('[data-countdown-minutes]');
+      var secondEl = countdown.querySelector('[data-countdown-seconds]');
+
+      if (!endTime || Number.isNaN(endTime)) return;
+
+      function pad(value) {
+        return String(value).padStart(2, '0');
+      }
+
+      function renderCountdown() {
+        var remaining = Math.max(0, endTime - Date.now());
+        var totalSeconds = Math.floor(remaining / 1000);
+        var days = Math.floor(totalSeconds / 86400);
+        var hours = Math.floor((totalSeconds % 86400) / 3600);
+        var minutes = Math.floor((totalSeconds % 3600) / 60);
+        var seconds = totalSeconds % 60;
+
+        if (dayEl) dayEl.textContent = pad(days);
+        if (hourEl) hourEl.textContent = pad(hours);
+        if (minuteEl) minuteEl.textContent = pad(minutes);
+        if (secondEl) secondEl.textContent = pad(seconds);
+
+        if (remaining <= 0) {
+          window.clearInterval(timer);
+          countdown.classList.add('is-ended');
+        }
+      }
+
+      var timer = window.setInterval(renderCountdown, 1000);
+      renderCountdown();
+      countdown.dataset.countdownInitialized = 'true';
+    });
+  }
+
+  /**
+   * 解析倒计时结束时间，兼容 ISO 字符串、带空格的日期时间和毫秒时间戳。
+   *
+   * @param {string} value - 后台配置的结束时间。
+   * @returns {number}
+   */
+  function parseCountdownEndTime(value) {
+    if (!value) return NaN;
+
+    if (/^\d+$/.test(value)) {
+      return Number(value);
+    }
+
+    var normalizedValue = value.replace(/\s+/, 'T');
+    var parsedTime = Date.parse(normalizedValue);
+
+    if (!Number.isNaN(parsedTime)) {
+      return parsedTime;
+    }
+
+    var match = normalizedValue.match(
+      /^(\d{4})-(\d{1,2})-(\d{1,2})T(\d{1,2}):(\d{1,2})(?::(\d{1,2}))?(Z|[+-]\d{2}:?\d{2})?$/
+    );
+
+    if (!match) return NaN;
+
+    var year = Number(match[1]);
+    var month = Number(match[2]) - 1;
+    var day = Number(match[3]);
+    var hour = Number(match[4]);
+    var minute = Number(match[5]);
+    var second = Number(match[6] || 0);
+    var timezone = match[7];
+    var utcTime = Date.UTC(year, month, day, hour, minute, second);
+
+    if (!timezone || timezone === 'Z') {
+      return timezone === 'Z' ? utcTime : new Date(year, month, day, hour, minute, second).getTime();
+    }
+
+    var timezoneMatch = timezone.match(/^([+-])(\d{2}):?(\d{2})$/);
+    if (!timezoneMatch) return utcTime;
+
+    var offsetMinutes = Number(timezoneMatch[2]) * 60 + Number(timezoneMatch[3]);
+    return utcTime - (timezoneMatch[1] === '+' ? offsetMinutes : -offsetMinutes) * 60000;
+  }
+
+  /**
    * 初始化单个产品信息组件。
    *
    * @param {HTMLElement} root - 产品信息组件根节点。
    */
   function initProductInfo(root) {
     if (!root || root.dataset.infoInitialized === 'true') return;
+
+    initCountdown(root);
 
     initVariantPicker(root);
     initQuantity(root);
@@ -705,6 +800,8 @@
     document.querySelectorAll('[data-product-info]').forEach(function (root) {
       initProductInfo(root);
     });
+
+    initCountdown(document);
   }
 
   if (document.readyState === 'loading') {
@@ -721,5 +818,6 @@
       root.dataset.infoInitialized = 'false';
       initProductInfo(root);
     });
+    initCountdown(event.target);
   });
 })();

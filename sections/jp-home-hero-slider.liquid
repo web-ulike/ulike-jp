@@ -68,6 +68,11 @@
                     <div class="jp-home-hero__content">
                       {% if block.settings.subheading != blank or subheading_logo != blank %}
                         <div class="jp-home-hero__subheading-wrap">
+                          {% if block.settings.subheading != blank %}
+                            <div class="jp-home-hero__subheading">
+                              <span class="jp-home-hero__subheading-text">{{ block.settings.subheading }}</span>
+                            </div>
+                          {% endif %}
                           {% if subheading_logo != blank %}
                             <img
                               class="jp-home-hero__subheading-logo"
@@ -78,11 +83,7 @@
                               height="{{ subheading_logo.height }}"
                             >
                           {% endif %}
-                          {% if block.settings.subheading != blank %}
-                            <div class="jp-home-hero__subheading">
-                              <span class="jp-home-hero__subheading-text">{{ block.settings.subheading }}</span>
-                            </div>
-                          {% endif %}
+                        
                         </div>
                       {% endif %}
 
@@ -227,6 +228,7 @@
     font-size: 14px;
     line-height: 1;
     letter-spacing: .04em;
+    margin-bottom: 10px;
   }
 
   .jp-home-hero--{{ sid }} .jp-home-hero__subheading-logo {
@@ -388,6 +390,13 @@
 
 
   {% comment %} 自定义class名称 {% endcomment %}
+  .jp-home-hero__item1 .jp-home-hero__title{
+    display: none;
+  }
+  .jp-home-hero__item1 .jp-home-hero__subheading-wrap {
+    display: block;
+  }
+
   .jp-home-hero__item2 .jp-home-hero__title,
   .jp-home-hero__item2 .jp-home-hero__desc,
   .jp-home-hero__item3 .jp-home-hero__title {
@@ -517,6 +526,13 @@
     }
 
     {% comment %} 自定义移动端样式 {% endcomment %}
+    .jp-home-hero__item1 .jp-home-hero__title{
+      display: block;
+    }
+    .jp-home-hero__item1 .jp-home-hero__subheading-logo {
+       display: none;
+    }
+
     .jp-home-hero__item2 .jp-home-hero__title{
       font-size: 20px;
       font-weight: 400;

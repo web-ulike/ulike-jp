@@ -58,7 +58,7 @@
         {%- when 'product_description' -%}
           {%- if current_product.description != blank -%}
             <div class="jp-product-info__block jp-product-info__block--description" {{ block.shopify_attributes }}>
-              <div class="jp-product-info__description rte">
+              <div class="jp-product-info__description ">
                 {{ current_product.description }}
               </div>
             </div>
@@ -303,6 +303,55 @@
                 {{ block.settings.note_text }}
               </div>
             {%- endif -%}
+          </div>
+
+        {%- when 'link_button' -%}
+          {%- if block.settings.text != blank -%}
+            <div class="jp-product-info__block jp-product-info__block--link-button" {{ block.shopify_attributes }}>
+              <a
+                class="jp-product-link-button"
+                target="_blank"
+                href="{{ block.settings.link | default: '#' }}"
+                {% if block.settings.open_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
+              >
+                <span>{{ block.settings.text }}</span>
+                {%- if block.settings.show_arrow -%}
+                  <span class="jp-product-link-button__arrow" aria-hidden="true">»</span>
+                {%- endif -%}
+              </a>
+            </div>
+          {%- endif -%}
+
+        {%- when 'countdown' -%}
+          <div class="jp-product-info__block jp-product-info__block--countdown" {{ block.shopify_attributes }}>
+            <div class="jp-product-countdown" data-product-countdown data-countdown-end="{{ block.settings.end_time | escape }}">
+              <div class="jp-product-countdown__headline">
+                {%- if block.settings.prefix_text != blank -%}
+                  <span>{{ block.settings.prefix_text }}</span>
+                {%- endif -%}
+                {%- if block.settings.highlight_text != blank -%}
+                  <span class="jp-product-countdown__highlight">{{ block.settings.highlight_text }}</span>
+                {%- endif -%}
+                {%- if block.settings.suffix_text != blank -%}
+                  <span>{{ block.settings.suffix_text }}</span>
+                {%- endif -%}
+              </div>
+
+              <div class="jp-product-countdown__timer" aria-live="polite">
+                <span class="jp-product-countdown__label">{{ block.settings.label_text | default: '終了まであと' }}</span>
+                <span class="jp-product-countdown__value" data-countdown-days>00</span>
+                <span class="jp-product-countdown__unit">日</span>
+                <span class="jp-product-countdown__separator">:</span>
+                <span class="jp-product-countdown__value" data-countdown-hours>00</span>
+                <span class="jp-product-countdown__unit">時間</span>
+                <span class="jp-product-countdown__separator">:</span>
+                <span class="jp-product-countdown__value" data-countdown-minutes>00</span>
+                <span class="jp-product-countdown__unit">分</span>
+                <span class="jp-product-countdown__separator">:</span>
+                <span class="jp-product-countdown__value" data-countdown-seconds>00</span>
+                <span class="jp-product-countdown__unit">秒</span>
+              </div>
+            </div>
           </div>
 
         {%- when 'liquid' -%}
