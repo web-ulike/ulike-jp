@@ -344,6 +344,7 @@
 .jp-product-info__description ol {
   margin: 8px 0 0;
   padding-left: 1.3em;
+  list-style-type: inherit;
 }
 
 .jp-product-info__description li {
@@ -852,6 +853,125 @@
 }
 
 /* ================================
+   Link Button
+   链接按钮
+================================ */
+.jp-product-link-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 24px;
+  border: 1px solid #e0004d;
+  border-radius: 999px;
+  background: #fff;
+  color: #e0004d;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.jp-product-link-button:hover {
+  background: #e0004d;
+  color: #fff;
+}
+
+.jp-product-link-button__arrow {
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* ================================
+   Countdown
+   倒计时
+================================ */
+.jp-product-countdown {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  height: 154px;
+  padding: 26px 32px 28px;
+  overflow: hidden;
+  border-radius: 0 46px 0 46px;
+  background: #fff0f6;
+  color: #190a0a;
+  text-align: center;
+}
+
+.jp-product-countdown__headline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2px;
+  min-width: 0;
+  margin-bottom: 14px;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+.jp-product-countdown__highlight {
+  color: #e0004d;
+  font-weight: 500;
+}
+
+.jp-product-countdown__timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 6px;
+  min-width: 0;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.jp-product-countdown__label {
+  flex-shrink: 0;
+  margin-right: 6px;
+}
+
+.jp-product-countdown__value {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 36px;
+  padding: 0 6px;
+  border-radius: 5px;
+  background: #e0004d;
+  color: #fff;
+  font-size: 21px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.jp-product-countdown__separator {
+  flex-shrink: 0;
+  color: #190a0a;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.jp-product-countdown__unit {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* ================================
    Service Icons
    底部服务图标
 ================================ */
@@ -1182,9 +1302,52 @@
     border-radius: 4px;
   }
 
- .jp-product-buttons__btn--cart {
+  .jp-product-buttons__btn--cart {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+  }
+
+  .jp-product-link-button {
+    min-height: 46px;
+    padding: 10px 18px;
+    font-size: 14px;
+  }
+
+  .jp-product-countdown {
+    height: auto;
+    min-height: 95px;
+    padding: 18px 10px 20px;
+    border-radius: 0 28px 0 28px;
+  }
+
+  .jp-product-countdown__headline {
+    margin-bottom: 12px;
+    font-size: 14px;
+  }
+
+  .jp-product-countdown__timer {
+    gap: 3px;
+    font-size: 12px;
+  }
+
+  .jp-product-countdown__label {
+    margin-right: 3px;
+  }
+
+  .jp-product-countdown__value {
+    min-width: 25px;
+    height: 25px;
+    padding: 0 4px;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  .jp-product-countdown__separator {
+    font-size: 13px;
+  }
+
+  .jp-product-countdown__unit {
+    letter-spacing: 0;
   }
 
   .jp-product-service {

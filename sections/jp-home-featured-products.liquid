@@ -197,34 +197,36 @@
                     </div>
                   {% endif %}
 
-                  <div class="jp-home-featured-products__actions">
+                  <div class="jp-home-featured-products__actions{% if tab_group == 'tab2' and product != blank and current_variant != blank and current_variant.available == false %} is-single{% endif %}">
                     {% if product != blank and current_variant != blank %}
-                      <product-form class="jp-home-featured-products__form">
-                        {%- form 'product', product, class: 'jp-home-featured-products__cart-form', novalidate: 'novalidate', data-type: 'add-to-cart-form', data-hide-errors: 'false', is: 'product-form' -%}
-                          <input type="hidden" name="id" value="{{ current_variant.id }}">
-                          <input type="hidden" name="quantity" value="1">
-                          <div class="jp-home-featured-products__error-message product-form__error-message alert alert--error text-sm font-medium leading-tight" role="alert" hidden></div>
-                          <button
-                            type="submit"
-                            name="add"
-                            class="jp-home-featured-products__btn jp-home-featured-products__btn--secondary jp-home-featured-products__btn--cart product-form__submit"
-                            {% unless current_variant.available %}disabled{% endunless %}
-                          >
-                            <span class="btn-text">
-                              {%- if current_variant.available -%}
-                                {{ secondary_button_text | default: 'カートに追加' }}
-                              {%- else -%}
-                                売り切れ
-                              {%- endif -%}
-                            </span>
-                            <span class="btn-loader" aria-hidden="true">
-                              <span></span>
-                              <span></span>
-                              <span></span>
-                            </span>
-                          </button>
-                        {%- endform -%}
-                      </product-form>
+                      {% unless tab_group == 'tab2' and current_variant.available == false %}
+                        <product-form class="jp-home-featured-products__form">
+                          {%- form 'product', product, class: 'jp-home-featured-products__cart-form', novalidate: 'novalidate', data-type: 'add-to-cart-form', data-hide-errors: 'false', is: 'product-form' -%}
+                            <input type="hidden" name="id" value="{{ current_variant.id }}">
+                            <input type="hidden" name="quantity" value="1">
+                            <div class="jp-home-featured-products__error-message product-form__error-message alert alert--error text-sm font-medium leading-tight" role="alert" hidden></div>
+                            <button
+                              type="submit"
+                              name="add"
+                              class="jp-home-featured-products__btn jp-home-featured-products__btn--secondary jp-home-featured-products__btn--cart product-form__submit"
+                              {% unless current_variant.available %}disabled{% endunless %}
+                            >
+                              <span class="btn-text">
+                                {%- if current_variant.available -%}
+                                  {{ secondary_button_text | default: 'カートに追加' }}
+                                {%- else -%}
+                                  売り切れ
+                                {%- endif -%}
+                              </span>
+                              <span class="btn-loader" aria-hidden="true">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                              </span>
+                            </button>
+                          {%- endform -%}
+                        </product-form>
+                      {% endunless %}
                     {% else %}
                       <a
                         class="jp-home-featured-products__btn jp-home-featured-products__btn--secondary jp-home-featured-products__btn--cart"
@@ -235,7 +237,7 @@
                     {% endif %}
 
                     <a
-                      class="jp-home-featured-products__btn jp-home-featured-products__btn--primary"
+                      class="jp-home-featured-products__btn jp-home-featured-products__btn--primary{% if tab_group == 'tab2' %} jp-home-featured-products__btn--tab2-primary{% endif %}"
                       target="_blank"
                       href="{{ product_url | default: button_link | default: '#' }}"
                     >
@@ -525,6 +527,10 @@
     margin-top: 12px;
   }
 
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__actions.is-single {
+    grid-template-columns: 1fr;
+  }
+
   .jp-home-featured-products--{{ sid }} .jp-home-featured-products__actions,
   .jp-home-featured-products--{{ sid }} .jp-home-featured-products__actions * {
     touch-action: manipulation;
@@ -624,6 +630,19 @@
   .jp-home-featured-products--{{ sid }} .jp-home-featured-products__btn--primary {
     background: var(--jp-home-featured-products-btn-bg);
     color: var(--jp-home-featured-products-btn-color);
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__btn--tab2-primary {
+    background: #ffffff;
+    color: #000000;
+    border-color: #000000;
+  }
+
+  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__btn--tab2-primary:hover {
+    background: #000000;
+    color: #ffffff;
+    border-color: #000000;
+    opacity: 1;
   }
 
   .jp-home-featured-products--{{ sid }} .jp-home-featured-products__btn--secondary {

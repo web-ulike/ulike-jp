@@ -248,6 +248,73 @@
       ]
     },
     {
+      "type": "link_button",
+      "name": "链接按钮",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "按钮文案",
+          "default": "販売店舗はこちら"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "按钮链接"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_arrow",
+          "label": "显示箭头",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "open_new_tab",
+          "label": "新窗口打开",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "countdown",
+      "name": "倒计时",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "prefix_text",
+          "label": "前置文案",
+          "default": "期間限定で"
+        },
+        {
+          "type": "text",
+          "id": "highlight_text",
+          "label": "高亮文案",
+          "default": "22,680円"
+        },
+        {
+          "type": "text",
+          "id": "suffix_text",
+          "label": "后置文案",
+          "default": "OFF"
+        },
+        {
+          "type": "text",
+          "id": "label_text",
+          "label": "倒计时标签",
+          "default": "終了まであと"
+        },
+        {
+          "type": "text",
+          "id": "end_time",
+          "label": "结束时间",
+          "info": "支持 ISO 时间，例如 2026-06-01T23:59:59+09:00，也支持 13 位毫秒时间戳。"
+        }
+      ]
+    },
+    {
       "type": "liquid",
       "name": "自定义 Liquid",
       "settings": [
