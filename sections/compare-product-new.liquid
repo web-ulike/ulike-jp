@@ -1,0 +1,1206 @@
+{%- liquid
+  assign se_stts = section.settings
+  assign se_bks = section.blocks
+-%}
+<style>
+  .product-area-box {
+    position: relative;
+    z-index: 1;
+    padding: 80px 0;
+  }
+
+  .compare-container {
+    width: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+  }
+
+  .compare-top-title {
+    width: 100%;
+    text-align: center;
+    color: #000;
+    font-size: 48px;
+    font-weight: 500;
+    line-height: normal;
+    margin-top: 50px;
+  }
+
+  /* 选择容器样式 */
+  #selectContainer {
+    display: flex;
+    width: 100%;
+    margin-top: 46px;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    text-align: center;
+  }
+
+  .select-wrapper {
+    flex: 1;
+    height: 100%;
+  }
+
+  #selectLeft,
+  #selectRight {
+    padding: 0 20px;
+    margin: 0 auto;
+    font-size: 20px;
+    line-height: 58px;
+    border: 1px solid #000;
+    border-radius: 29px;
+    background-color: #fff;
+    width: 264px;
+    height: 56px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    text-align: left;
+    appearance: none;
+    /* 去掉默认的浏览器箭头 */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    /* 使用黑色SVG箭头图标 */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 50 l50 50 50-50' stroke='%23000000' stroke-width='15' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    /* 调整箭头位置 */
+    background-size: 16px 16px;
+  }
+
+  #selectLeft:focus,
+  #selectRight:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+  }
+
+  #selectContainer.fixed {
+    width: 100%;
+    position: fixed;
+    top: 27px;
+    left: 0;
+    right: 0;
+    border-top: 1px solid #cbcbcb;
+    border-bottom: 1px solid #eee;
+    box-shadow: 0 6px 12px -6px rgba(0, 0, 0, 0.1);
+     top: calc(var(--header-height, 0px) * var(--enable-sticky-header) + var(--announcement-bar-height, 0px) * var(--enable-sticky-announcement-bar) - 50px);
+  }
+
+  /* 产品详情容器样式 */
+  #productDetailsContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    width: 100%;
+    flex-wrap: wrap;
+    margin: 0px 0px 40px;
+  }
+
+  #productDetailsContainer .product-area-item {
+    position: relative;
+    overflow: hidden;
+    flex: 1;
+    width: 50%;
+    background: #fff;
+  }
+
+  #productDetailsContainer .product-area-item:hover {
+  }
+
+  #productDetailsContainer .product-area-img-list {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    width: 100%;
+    height: 310px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #productDetailsContainer .product-area-img-item {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  #productDetailsContainer .product-area-img-item.active {
+    opacity: 1;
+    z-index: 2;
+  }
+
+  #productDetailsContainer .product-area-img-item img {
+    height: 100%;
+    border-radius: 4px;
+  }
+
+  #productDetailsContainer .product-area-cont {
+    padding: 25px 25px 0 25px;
+    position: relative;
+    text-align: center;
+  }
+
+  #productDetailsContainer .product-area-h3 {
+    line-height: 1.2;
+    margin: 0;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  #productDetailsContainer .product-area-price {
+    font-size: 20px;
+    color: #e0004d;
+    line-height: 1.2;
+    display: inline-block;
+    padding-left: 15px;
+    margin-left: 15px;
+    border-left: 1px solid #eee;
+  }
+
+  #productDetailsContainer .product-area-price span {
+    color: rgba(224, 0, 77, 1);
+    display: inline-block;
+    font-size: 22px;
+    font-weight: 500;
+  }
+
+  #productDetailsContainer .product-area-dot {
+    position: relative;
+    margin: 25px 0;
+    justify-content: center;
+    z-index: 2;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+
+  #productDetailsContainer .product-area-dot .product-area-dot-item {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: inset 0px 0px 2px 1px rgba(0, 0, 0, 0.1), inset 0px 0px 2px 1px rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  #productDetailsContainer .product-area-dot .product-area-dot-item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+  }
+
+  #productDetailsContainer .product-area-dot .product-area-dot-item.active {
+    transform: scale(1.15);
+  }
+
+  #productDetailsContainer .product-area-dot .product-area-dot-item.active::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border: 2px solid #2c3e50;
+    border-radius: 50%;
+    z-index: 1;
+  }
+
+  #productDetailsContainer .product-area-btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  #productDetailsContainer .btn-diy {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    background: #000;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 500;
+    width: 224px;
+    /* 最小宽度 */
+    padding: 0 20px;
+    /* 增加左右内边距适应长文本 */
+    height: 60px;
+    /* 保证最小高度 */
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  #productDetailsContainer .btn-diy .btn-txt {
+    position: relative;
+    display: block;
+    white-space: normal;
+    /* 允许换行 */
+    text-align: center;
+    width: 100%;
+    overflow-wrap: break-word;
+  }
+
+  #productDetailsContainer .btn-diy .btn-txt span {
+    transition: all 0.4s ease;
+    display: block;
+    position: relative;
+    z-index: 1;
+    color: white;
+    line-height: 1.4;
+    word-break: break-word;
+  }
+
+  #productDetailsContainer .btn-diy .btn-txt::before {
+    content: attr(text);
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transition: all 0.4s ease;
+    transform: translateY(100%);
+    z-index: 1;
+    color: #000;
+    text-align: center;
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.4;
+  }
+
+  #productDetailsContainer .btn-diy::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s;
+    border-radius: 6px;
+    z-index: 0;
+  }
+
+  #productDetailsContainer .btn-diy:hover {
+    border: 2px solid #000;
+    background: #fff;
+  }
+
+  #productDetailsContainer .btn-diy:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  #productDetailsContainer .btn-diy:hover .btn-txt::before {
+    transform: translateY(0);
+  }
+
+  #productDetailsContainer .btn-diy:hover .btn-txt span {
+    transform: translateY(-100%);
+  }
+
+  #productDetailsContainer .product-area-p {
+    font-size: 16px;
+    color: #7f8c8d;
+    line-height: 1.5;
+    text-align: center;
+    margin: 5px auto;
+    width: 224px;
+    height: 52px;
+    word-wrap: break-word;
+    white-space: normal;
+    overflow: hidden;
+  }
+
+  /* 比较表格样式 */
+  #compareContainer {
+    width: 100%;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .group {
+    width: 100%;
+    padding: 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  .group-title {
+    text-align: center;
+    position: relative;
+    color: #000;
+    font-size: 40px;
+    font-weight: 500;
+    line-height: 80px;
+    padding: 10px;
+    background: #f9f9ff;
+  }
+
+  .fields-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0px 40px;
+  }
+
+  .fields-row {
+    display: flex;
+    justify-content: space-between;
+    background: #fff;
+    border-radius: 8px;
+  }
+
+  .fields-row .left_comp {
+    border-right: 1px solid #eee;
+    padding: 20px;
+  }
+
+  .fields-row .right_comp {
+    border-right: 1px solid #eee;
+    padding: 24px 0px;
+  }
+
+  .field-col {
+    width: 50%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .field-content-container {
+    display: flex;
+    width: 240px;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .field-icon {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin-bottom: 8px;
+  }
+
+  .field-title {
+    font-size: 18px;
+    line-height: 1.3;
+  }
+  .field-title strong {
+    font-weight: 500;
+  }
+
+  .field-content-text {
+    color: #636363;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  /* 隐藏原生 select，但功能保留 */
+  select#selectLeft,
+  select#selectRight {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* 自定义下拉wrapper */
+  .custom-select-wrapper {
+    flex: 1;
+  }
+
+  .left-box,
+  .right-box {
+    width: 264px;
+    margin: 0 auto;
+    position: relative;
+    text-align: left;
+  }
+
+  /* 显示区域 */
+  .custom-display {
+    padding: 0 20px;
+    height: 58px;
+    line-height: 58px;
+    background: #fff;
+    border: 1px solid #000;
+    border-radius: 29px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* 箭头 */
+  .custom-display::after {
+    content: '∨';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: #000;
+  }
+
+  /* 下拉面板 */
+  .custom-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    border: 1px solid #000;
+    border-radius: 6px;
+    margin-top: 4px;
+    overflow-y: auto;
+    display: none;
+    z-index: 10;
+  }
+
+  /* 选项项 */
+  .custom-option {
+    padding: 10px;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .custom-option:hover {
+    background-color: #f0f0f0;
+  }
+
+  /* 响应式设计 */
+  @media (max-width: 1200px) {
+    #productDetailsContainer {
+      gap: 30px;
+    }
+
+    #productDetailsContainer .product-area-img-list {
+      height: 280px;
+    }
+
+    #productDetailsContainer .product-area-h3 {
+      font-size: 24px;
+    }
+
+    #productDetailsContainer .product-area-price {
+      font-size: 24px;
+    }
+  }
+
+  @media (max-width: 992px) {
+    #productDetailsContainer {
+      align-items: center;
+      gap: 30px;
+      padding: 0px 20px;
+    }
+
+    #productDetailsContainer .product-area-img-item {
+      padding: 0px;
+    }
+
+    .fields-row {
+      gap: 10px;
+    }
+
+    .field-col {
+      width: 100%;
+    }
+
+    #selectContainer {
+      gap: 12px;
+    }
+
+    select {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .fields-container {
+      padding: 10px 0 20px;
+    }
+    #selectContainer {
+      padding: 20px 0;
+      margin-top: 20px;
+    }
+    #selectContainer.fixed {
+      top: 8px;
+      gap: 10px;
+    }
+
+    #productDetailsContainer .product-area-img-list {
+      height: 240px;
+    }
+
+    #productDetailsContainer .product-area-h3 {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    #productDetailsContainer .product-area-price {
+      padding-left: 0;
+      margin-left: 0;
+      border-left: none;
+    }
+    #productDetailsContainer .product-area-dot {
+      margin: 10px 0px;
+    }
+
+    #productDetailsContainer .btn-diy {
+      width: 100%;
+      height: 40px;
+    }
+
+    #selectContainer.fixed {
+      top: 46px;
+      padding: 20px 0;
+      top: calc(var(--header-height, 0px) * var(--enable-sticky-header) + var(--announcement-bar-height, 0px) * var(--enable-sticky-announcement-bar) - 20px);
+    }
+
+    .fields-row .left_comp {
+      padding: 10px;
+    }
+    .fields-row .right_comp {
+      padding: 10px;
+    }
+
+    .compare-top-title {
+      font-size: 30px;
+      margin-top: 40px;
+    }
+
+    .left-box,
+    .right-box {
+      width: 156px;
+    }
+
+    .field-icon {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+    }
+
+    .custom-display {
+      height: 45px;
+      line-height: 45px;
+    }
+
+    #productDetailsContainer .product-area-img-list {
+      height: 180px;
+    }
+
+    #productDetailsContainer .product-area-cont {
+      padding: 10px 10px 0 10px;
+    }
+
+    #productDetailsContainer .product-area-h3 {
+      font-size: 22px;
+    }
+
+    #productDetailsContainer .product-area-price {
+      font-size: 22px;
+    }
+
+    .field-title {
+      font-size: 12px;
+    }
+
+    .field-content-container {
+      width: 150px;
+    }
+
+    .group-title {
+      height: auto;
+      line-height: 1.5;
+      font-size: 24px;
+      padding: 20px 0px 20px;
+    }
+
+    .field-content-text {
+      font-size: 0.9rem;
+    }
+
+    #productDetailsContainer .btn-diy .btn-txt span {
+      font-size: 18px;
+    }
+
+    #productDetailsContainer .product-area-p {
+      line-height: 1.2;
+      width: 140px;
+      height: 38px;
+    }
+  }
+</style>
+<section class="section-box">
+  <div class="compare-container">
+    <div class="compare-top-title">{{ se_stts.title }}</div>
+    <div id="selectContainer">
+      <div class="custom-select-wrapper">
+        <div class="left-box">
+          <select id="selectLeft"></select>
+          <div class="custom-display"></div>
+          <div class="custom-options"></div>
+        </div>
+      </div>
+      <div class="custom-select-wrapper">
+        <div class="right-box">
+          <select id="selectRight"></select>
+          <div class="custom-display"></div>
+          <div class="custom-options"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="productDetailsContainer"></div>
+
+    <div id="compareContainer"></div>
+  </div>
+  <script>
+    window.addEventListener('DOMContentLoaded', function () {
+      // 这里是你原有的事件绑定和数据获取
+      let sectionSettings = {{ section.settings | json }};
+      {%- assign color_swatch_config = settings.color_swatch_config | newline_to_br | split: '<br />' -%}
+      const colorSwatchConfig = {
+        {% for item in color_swatch_config %}
+          {% assign parts = item | split: ':' %}
+          {{ parts[0] | strip | json }}: {{ parts[1] | strip | json }}{% unless forloop.last %}, {% endunless %}
+        {% endfor %}
+      };
+
+      {% comment %} console.log(colorSwatchConfig); {% endcomment %}
+      // 1. 注入产品数据，保留变体/颜色字段
+      var sectionBlocks = [
+        {% for block in se_bks %}
+          {% if block.type == 'product-item' %}
+          {
+            title: {{ block.settings.product.title | json }},
+            id: {{ block.settings.product.id | json }},
+            price: {{ block.settings.product.price | money | json }},
+            variants: [
+              {% for variant in block.settings.product.variants %}
+              {
+                color: {{ variant.option1 | json }},
+                image: {% if variant.featured_image %}
+                  {{ variant.featured_image | img_url: '600x' | json }}
+                {% else %}
+                  {{ block.settings.product.featured_image | img_url: '600x' | json }}
+                {% endif %}
+              }{% unless forloop.last %}, {% endunless %}
+              {% endfor %}
+            ],
+            url: {{ block.settings.product.url | json }},
+            btn_txt: {{ block.settings.btn_txt | json }},
+            link: {{ block.settings.link | json }}
+          }
+          {% unless forloop.last %}, {% endunless %}
+          {% endif %}
+        {% endfor %}
+      ];
+
+    console.log(sectionBlocks);
+    const groupConfigs = [
+      {% for block in se_bks %}
+        {% if block.type == 'item' %}
+          {
+            module_title: {{ block.settings.title | json }},
+            module_sort: {{ block.settings.sort | json }},
+            module_image: {{ block.settings.image | image_url: '600x' | json }},
+            module_text: {{ block.settings.text | json }},
+            {% for i in (1..5) %}
+              {% assign image_key = 'image' | append: i %}
+              {% assign text_key = 'text' | append: i %}
+              {% assign image_val = block.settings[image_key] %}
+              {% assign text_val = block.settings[text_key] %}
+              module_image{{ i }}: {{ image_val | image_url: '600x' | json }},
+              module_text{{ i }}: {{ text_val | json }},
+            {% endfor %}
+          }{% unless forloop.last %}, {% endunless %}
+        {% endif %}
+      {% endfor %}
+    ];
+    console.log(groupConfigs);
+
+
+    const selectLeft = document.getElementById("selectLeft");
+    const selectRight = document.getElementById("selectRight");
+
+    const compareContainer = document.getElementById("compareContainer");
+    const productDetailsContainer = document.getElementById("productDetailsContainer");
+    const selectContainer = document.getElementById("selectContainer");
+
+    // 初始化选择框
+    function initSelects() {
+      sectionBlocks.forEach((product, i) => {
+        const optionL = document.createElement("option");
+        optionL.value = i;
+        optionL.textContent = product.title;
+        selectLeft.appendChild(optionL);
+
+        const optionR = document.createElement("option");
+        optionR.value = i;
+        optionR.textContent = product.title;
+        selectRight.appendChild(optionR);
+      });
+      selectLeft.value = 0;
+      selectRight.value = sectionBlocks.length > 1 ? 1 : 0;
+    }
+
+    // 创建字段内容
+    function createFieldContent(product, index, i) {
+      let _image = product[index][`module_image${i == 0? '' :i}`];
+      let _text = product[index][`module_text${i == 0? '' :i}`];
+      if (!_image && !_text) return ''; // 如果没有图片和文本则不创建
+      const container = document.createElement("div");
+      container.className = "field-content-container";
+
+      if (_image) {
+        const img = document.createElement("img");
+        img.src = _image;
+        img.loading = "lazy";
+        img.alt = "";
+        img.className = "field-icon";
+        container.appendChild(img);
+      }
+
+      // 标题
+      if (_text) {
+        const titleDiv = document.createElement("div");
+        titleDiv.className = "field-title";
+        titleDiv.innerHTML = _text;
+        container.appendChild(titleDiv);
+      }
+
+      return container;
+    }
+
+    // 渲染比较表格
+    function renderCompare() {
+      compareContainer.innerHTML = "";
+
+      const _leftProduct = groupConfigs.filter(item => item.module_sort === parseInt(selectLeft.value) + 1);
+      const _rightProduct = groupConfigs.filter(item => item.module_sort === parseInt(selectRight.value) + 1);
+
+      _leftProduct.forEach((group, index) => {
+     
+        const groupDiv = document.createElement("div");
+        groupDiv.className = "group";
+        const groupTitle = group.module_title || "";
+
+        if (groupTitle) {
+          const titleDiv = document.createElement("div");
+          titleDiv.className = "group-title";
+          titleDiv.textContent = groupTitle;
+          groupDiv.appendChild(titleDiv);
+        }
+
+        const fieldsContainer = document.createElement("div");
+        fieldsContainer.className = "fields-container";
+
+        for(let i = 0; i <= 5; i++){
+          const rowDiv = document.createElement("div");
+          rowDiv.className = "fields-row";
+          
+          const leftField = createFieldContent(_leftProduct, index, i);
+      
+          let leftCol = document.createElement("div");
+          if (leftField) {
+            leftCol.className = "field-col left_comp";
+            leftCol.appendChild(leftField);
+            rowDiv.appendChild(leftCol);
+          }
+
+          const rightField = createFieldContent(_rightProduct, index, i);
+          const rightCol = document.createElement("div");
+          if (rightField) {
+            rightCol.className = "field-col right_comp";
+            rightCol.appendChild(rightField);
+            rowDiv.appendChild(rightCol);
+          }
+
+          if (leftField && rightField) {
+            fieldsContainer.appendChild(rowDiv);
+          }
+
+        }
+
+        groupDiv.appendChild(fieldsContainer); 
+        compareContainer.appendChild(groupDiv);
+      });
+
+      renderProductDetails();
+    }
+
+    // 渲染产品详情
+    function renderProductDetails() {
+      productDetailsContainer.innerHTML = '';
+
+      const leftProduct = sectionBlocks[parseInt(selectLeft.value)];
+      const rightProduct = sectionBlocks[parseInt(selectRight.value)];
+
+      function createProductCard(product, index) {
+        const card = document.createElement('div');
+        card.className = 'product-area-item';
+        // 图片容器
+        const imgList = document.createElement('div');
+        imgList.className = 'product-area-img-list';
+
+
+        // 创建图片项
+        product.variants.forEach((imgData, i) => {
+          const imgItem = document.createElement('div');
+          imgItem.className = i === 0 ? 'product-area-img-item active' : 'product-area-img-item';
+
+          const img = document.createElement('img');
+          img.loading = "eager";
+          img.src = imgData.image;
+          img.alt = product.title;
+
+          imgItem.appendChild(img);
+          imgList.appendChild(imgItem);
+        });
+
+        card.appendChild(imgList);
+
+        // 内容容器
+        const content = document.createElement('div');
+        content.className = 'product-area-cont';
+
+        // 标题和价格
+        if (product.title || product.price) {
+          const title = document.createElement('h3');
+          title.className = 'product-area-h3';
+
+          if (product.title) {
+            const titleText = document.createElement('div');
+            titleText.textContent = product.title;
+            title.appendChild(titleText);
+          }
+
+          if (product.price) {
+            const priceSpan = document.createElement('span');
+            priceSpan.className = 'product-area-price';
+            priceSpan.innerHTML = product.price;
+            title.appendChild(priceSpan);
+          }
+
+          content.appendChild(title);
+        }
+
+        // 颜色选择点
+        const dotContainer = document.createElement('div');
+        dotContainer.className = 'product-area-dot';
+        // 创建颜色点
+        product.variants.forEach((imgData, i) => {
+          if (!imgData.color) return;
+
+          const dot = document.createElement('div');
+          dot.className = i === 0 ? 'product-area-dot-item active' : 'product-area-dot-item';
+      
+          dot.style.background = colorSwatchConfig[imgData.color] || '#000'; // 使用颜色配置或默认黑色
+
+          // 添加激活状态边框
+          if (i === 0) {
+            const dotBefore = document.createElement('div');
+            dotBefore.className = 'active-border';
+            dot.appendChild(dotBefore);
+          }
+
+          // 添加点击事件
+          dot.addEventListener('click', function () {
+            switchImage(imgList, i);
+            setActiveDot(dotContainer, dot);
+          });
+
+          dotContainer.appendChild(dot);
+        });
+
+        content.appendChild(dotContainer);
+
+        // 按钮
+        if (product.btn_txt && product.link) {
+          const btnContainer = document.createElement('div');
+          btnContainer.className = 'product-area-btn';
+
+          const btn = document.createElement('a');
+          btn.href = product.link;
+          btn.className = `btn-diy`;
+
+          const btnTxt = document.createElement('div');
+          btnTxt.className = 'btn-txt';
+          btnTxt.setAttribute('text', product.btn_txt);
+
+          const btnSpan = document.createElement('span');
+          btnSpan.textContent = product.btn_txt;
+
+          btnTxt.appendChild(btnSpan);
+          btn.appendChild(btnTxt);
+          btnContainer.appendChild(btn);
+          content.appendChild(btnContainer);
+        }
+
+        // 附加文本
+        {% comment %} if (product.text3) {
+          const addText = document.createElement('p');
+          addText.className = 'product-area-p';
+          addText.textContent = product.text3;
+          content.appendChild(addText);
+        } else {
+          const addText = document.createElement('p');
+          addText.className = 'product-area-p';
+          addText.textContent = "";
+          content.appendChild(addText);
+        } {% endcomment %}
+
+        card.appendChild(content);
+        return card;
+      }
+
+      // 图片切换函数
+      function switchImage(container, index) {
+        const imgItems = container.querySelectorAll('.product-area-img-item');
+
+        // 移除所有活动状态
+        imgItems.forEach(item => {
+          item.classList.remove('active');
+        });
+
+        // 添加新活动状态
+        if (imgItems[index]) {
+          imgItems[index].classList.add('active');
+        }
+      }
+
+      // 设置活动点
+      function setActiveDot(container, activeDot) {
+        const dots = container.querySelectorAll('.product-area-dot-item');
+
+        // 移除所有活动状态
+        dots.forEach(dot => {
+          dot.classList.remove('active');
+          const border = dot.querySelector('.active-border');
+          if (border) border.remove();
+        });
+
+        // 添加新活动状态
+        activeDot.classList.add('active');
+        const dotBefore = document.createElement('div');
+        dotBefore.className = 'active-border';
+        activeDot.appendChild(dotBefore);
+      }
+
+      // 创建并添加产品卡片
+      const leftCard = createProductCard(leftProduct, 1);
+      const rightCard = createProductCard(rightProduct, 2);
+
+      productDetailsContainer.appendChild(leftCard);
+      productDetailsContainer.appendChild(rightCard);
+    }
+
+    // 选择框变化处理
+    function onSelectChange() {
+      const leftIndex = parseInt(selectLeft.value);
+      const rightIndex = parseInt(selectRight.value);
+
+      // 互斥处理
+      if (leftIndex === rightIndex) {
+        if (this === selectLeft) {
+          selectRight.value = leftIndex === 0 ? 1 : 0;
+        } else {
+          selectLeft.value = rightIndex === 0 ? 1 : 0;
+        }
+      }
+
+      // 更新自定义显示文本
+      updateCustomDisplay(selectLeft);
+      updateCustomDisplay(selectRight);
+
+      // 渲染比较内容
+      renderCompare();
+    }
+    // 更新单个select对应的显示文本
+    function updateCustomDisplay(nativeSelect) {
+      const wrapper = nativeSelect.parentElement;
+      const display = wrapper.querySelector('.custom-display');
+      const selectedOption = nativeSelect.options[nativeSelect.selectedIndex];
+      display.textContent = selectedOption ? selectedOption.text : '';
+    }
+    // 固定选择容器
+    function handleScroll() {
+      if (window.scrollY > 100) {
+        selectContainer.classList.add('fixed');
+      } else {
+        selectContainer.classList.remove('fixed');
+      }
+    }
+    function initCustomSelect(nativeSelect) {
+      const wrapper = nativeSelect.parentElement;
+      const display = wrapper.querySelector('.custom-display');
+      const optsContainer = wrapper.querySelector('.custom-options');
+
+      // 清空旧选项，防止重复添加
+      optsContainer.innerHTML = '';
+
+      // 填选项
+      Array.from(nativeSelect.options).forEach(opt => {
+        const div = document.createElement('div');
+        div.className = 'custom-option';
+        div.textContent = opt.text;
+        div.dataset.value = opt.value;
+        div.addEventListener('click', () => {
+          nativeSelect.value = div.dataset.value;
+          display.textContent = opt.text;
+          optsContainer.style.display = 'none';
+          nativeSelect.dispatchEvent(new Event('change'));
+        });
+        optsContainer.appendChild(div);
+      });
+
+      // 初始值显示
+      display.textContent = nativeSelect.options[nativeSelect.selectedIndex]?.text || '';
+
+      // 展开/关闭
+      display.addEventListener('click', () => {
+        optsContainer.style.display =
+          optsContainer.style.display === 'block' ? 'none' : 'block';
+      });
+
+      // 点击外部收起
+      document.addEventListener('click', e => {
+        if (!wrapper.contains(e.target)) optsContainer.style.display = 'none';
+      });
+    }
+
+    // 初始化
+    function init() {
+      initSelects(); // 先填充 option
+      initCustomSelect(selectLeft);
+      initCustomSelect(selectRight);
+      renderCompare();
+
+      selectLeft.addEventListener("change", onSelectChange);
+      selectRight.addEventListener("change", onSelectChange);
+      window.addEventListener('scroll', handleScroll);
+    }
+
+    // 启动应用
+    init(); 
+  });
+  </script>
+</section>
+{% schema %}
+{
+  "name": "compare-product-new",
+  "class": "compare-product-new",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Compare Product Test"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Compare Ulike Models"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product-item",
+      "name": "product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select Product"
+        },
+        {
+          "type": "text",
+          "id": "btn_txt",
+          "label": "Button Text",
+          "default": "Buy Now"
+        },
+        {
+          "type": "text",
+          "id": "link",
+          "label": "Button Link",
+          "default": "/collections/all"
+        }
+      ]
+    },
+    {
+      "type": "item",
+      "name": "Product Item",
+      "settings": [
+        { "type": "header", "content": "小模块", "info": "11" },
+        { "type": "html", "id": "title", "label": "Title" },
+        { "type": "number", "id": "sort", "label": "Sort" },
+        { "type": "image_picker", "id": "image", "label": "Main Image" },
+        { "type": "richtext", "id": "text", "label": "Desc" },
+        { "type": "image_picker", "id": "image1", "label": "Image 1" },
+        { "type": "richtext", "id": "text1", "label": "Desc 1" },
+        { "type": "image_picker", "id": "image2", "label": "Image 2" },
+        { "type": "richtext", "id": "text2", "label": "Desc 2" },
+        { "type": "image_picker", "id": "image3", "label": "Image 3" },
+        { "type": "richtext", "id": "text3", "label": "Desc 3" },
+        { "type": "image_picker", "id": "image4", "label": "Image 4" },
+        { "type": "richtext", "id": "text4", "label": "Desc 4" },
+        { "type": "image_picker", "id": "image5", "label": "Image 5" },
+        { "type": "richtext", "id": "text5", "label": "Desc 5" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "compare-product-new",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,248 @@
+<style>
+.tracker-box {
+  padding: 0px 0 50px 0;
+}
+
+.tracker-box .tracker-cont {
+  padding: 100px 0 48px 0;
+  border-top: 1px solid #190a0a;
+  border-bottom: 1px solid #190a0a;
+  display: flex;
+  align-items: center;
+  gap: 100px;
+}
+
+.tracker-box .tracker-img,
+.tracker-box .tracker-text {
+  flex: 1;
+}
+
+.tracker-box .tracker-img img {
+  width: 100%;
+}
+
+.tracker-box .tracker-text-cont {
+  max-width: 445px;
+}
+
+.tracker-box .tracker-text-title {
+  color: #190a0a;
+  font-size: 32px;
+  line-height: 1.75;
+  letter-spacing: -0.32px;
+  font-family: var(--heading-font-family);
+}
+
+.tracker-box .tracker-text-p {
+  color: #190a0a;
+  font-size: 16px;
+  line-height: 1.68;
+  letter-spacing: -0.32px;
+  margin: 0;
+  margin-top: 8px;
+}
+
+.tracker-box .tracker-text-free{
+  display: flex;
+  align-items: center;
+  color: #E0004D;
+  font-size: 16px;
+  line-height: 1.68;
+  letter-spacing: -0.32px;
+  font-family: var(--heading-font-family);
+  margin-top: 16px;
+}
+
+.tracker-box .tracker-text-free-num em{
+  color: #190A0A;
+  font-size: 33px;
+  line-height: 1.25;
+  font-style: normal;
+  text-decoration: line-through;
+}
+
+.tracker-box .tracker-text-free-num strong{
+  color: #E0004D;
+  font-size: 30px;
+  line-height: 1.25;
+  font-family: var(--heading-font-family);
+  font-weight: normal;
+}
+    
+.tracker-box .tracker-text-free-num p{
+  margin:0;
+}
+
+.tracker-box .tracker-btn {
+  width: 200px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #190a0a;
+  font-size: 16px;
+  line-height: 1.3;
+  font-family: var(--heading-font-family);
+  cursor: pointer;
+  border: 1px solid #190a0a;
+  border-radius: 4px;
+  margin-top: 16px;
+}
+
+.tracker-box .tracker-btn:hover {
+  background-color: #190a0a;
+  color: #fff;
+}
+
+@media (max-width: 991px) {
+  .tracker-box{
+    padding:0;
+  }
+  .tracker-box .tracker-cont {
+    padding-bottom: 24px;
+    flex-direction: column;
+    gap: 22px;
+    align-items: normal;
+  }
+  
+  .tracker-box .tracker-text-cont {
+    max-width: 100%;
+  }
+
+  .tracker-box .tracker-text {
+    padding: 0 8px;
+  }
+
+  .tracker-box .tracker-text-title {
+    font-size: 22px;
+  }
+
+  .tracker-box .tracker-text-p {
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
+  .tracker-box .tracker-text-free{
+    font-size:14px;
+  }
+  
+  .tracker-box .tracker-btn {
+    margin-top: 12px;
+    width: 140px;
+    height: 44px;
+    font-size: 14px;
+    border-radius: 1.5px;
+  }
+}
+</style>
+<section class="section-box">
+  <div class="tracker-box margin-left-diy {{ section.settings.text2 }}">
+    <div class="container">
+      <div class="tracker-cont">
+        {%- if section.settings.image != blank -%}
+          <div class="tracker-img">
+            <img width="" height="" src="{{ section.settings.image | image_url }}">
+          </div>
+        {%- endif -%}
+        <div class="tracker-text">
+          <div class="tracker-text-cont">
+            {%- if section.settings.title != blank -%}
+              <div class="tracker-text-title">{{ section.settings.title }}</div>
+            {%- endif -%}
+            {%- if section.settings.text != blank -%}
+              <p class="tracker-text-p">
+                {{ section.settings.text }}
+              </p>
+            {%- endif -%}
+            {%- if section.settings.text3 != blank -%}
+              <p class="tracker-text-free">
+                <svg xmlns="http://www.w3.org/2000/svg" width="27" height="28" viewBox="0 0 27 28" fill="none">
+                  <path d="M13.5 21.0986C17.366 21.0986 20.5 17.9646 20.5 14.0986C20.5 10.2326 17.366 7.09863 13.5 7.09863C9.63401 7.09863 6.5 10.2326 6.5 14.0986C6.5 17.9646 9.63401 21.0986 13.5 21.0986Z" stroke="#E0004D" stroke-width="1.26909" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M13.5 9.89844V14.0984L16.3 15.4984" stroke="#E0004D" stroke-width="1.26909" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                {{ section.settings.text3 }}
+              </p>
+            {%- endif -%}
+            {%- if section.settings.text4 != blank -%}
+              <div class="tracker-text-free-num">
+                {{ section.settings.text4 }}
+              </div>
+            {%- endif -%}
+            {%- if section.settings.text1 != blank -%}
+              <div class="tracker-btn" data-link="{{ section.settings.link }}">
+                {{ section.settings.text1 }}
+              </div>
+            {%- endif -%}
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  document.querySelector(".tracker-box .tracker-btn").addEventListener("click", function() {
+      const link = this.getAttribute("data-link"); // 获取 data-link 属性值
+      if (link) {
+          window.open(link, "_blank"); // 新标签页中打开链接
+      } else {
+          console.error("未找到链接！");
+      }
+  });
+</script>
+{% schema %}
+{
+  "name": "tracker-box",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default":"Ulike Treatment Tracker"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "default":"Stay on top of sessions with a treatment schedule tailored to your hair, skin, and body areas."
+    },
+    {
+      "type": "text",
+      "id": "text3",
+      "label": "Text"
+    },
+    {
+      "type": "richtext",
+      "id": "text4",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "text1",
+      "label": "按钮文案",
+      "default":"Learn More"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "链接"
+    },
+    {
+      "type": "text",
+      "id": "text2",
+      "label": "自定义Class"
+    }
+  ],
+  "presets": [
+    {
+      "name": "tracker-box",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

@@ -3,18 +3,30 @@
 <html class="no-js" lang="{{ request.locale.iso_code }}" dir="{{ text_direction }}">
 <head>
     <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-N4D9QK53');</script>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-N4D9QK53');</script>
   <!-- End Google Tag Manager -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="google-site-verification" content="LFXtK0nMZw56btAezr_aQ0i7CTgHqngDUSwiYnmZ6H8" />
+  <meta name="google-site-verification" content="rfqnC7SkaSvFrHeuj5NjmFuX0mJdSh1FH61d6IvjA-g" /> <!-- 数据部门的 -->
   <meta name="theme-color" content="{{ settings.color_button_background }}">
-  <link rel="canonical" href="{{ canonical_url }}">
+  
+  {% comment %} 增加产品页面canonical 配置 {% endcomment %}
+   {%- liquid
+      assign product_custom_canonical = blank
+      if template.name == 'product'
+        assign product_custom_canonical = product.metafields.seo.custom_canonical.value | default: product.metafields.seo.custom_canonical
+      endif
+    -%}
+    <link rel="canonical" href="{{ product_custom_canonical | default: canonical_url }}">
+  {% comment %} {%- if template == 'product' and settings.product_canonical_url != blank -%}
+    <link rel="canonical" href="{{ settings.product_canonical_url }}">
+  {%- endif -%} {% endcomment %}
   <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
   <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
   <link rel="dns-prefetch" href="https://productreviews.shopifycdn.com">
@@ -60,7 +72,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <link rel="stylesheet" href="{{ 'apps.css' | asset_url }}" rel="stylesheet" >
   <link type="text/css" href="{{ 'custom-root.css' | asset_url }}" rel="stylesheet">
   <link type="text/css" href="{{ 'custom.css' | asset_url }}" rel="stylesheet">
-  
+
   {{ content_for_header }}
 
     <script type="text/javascript">
@@ -90,11 +102,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   {%- endif -%}
 
   {%- render 'js-variables' -%}
+  {% include 'pagefly-app-header' %}
 
-  {% comment %} 联盟代码 {% endcomment %}
-  {% comment %} {% include 'alliance_script' %} {% endcomment %}
-
-{% include 'pagefly-app-header' %}</head>
+</head>
 
 <body class="template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}{% if request.path == '/challenge' %} template-challange{% endif %}{% if request.design_mode %} shopify-design-mode{% endif %}" data-rounded-button="{{ settings.rounded_button }}" data-rounded-input="{{ settings.rounded_input }}" data-rounded-block="{{ settings.rounded_block }}" data-button_hover="{{ settings.buttons_hover }}"{% if settings.enable_lazy_image %} data-lazy-image{% endif %} data-page-rendering>
   <a class="sr-only skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>

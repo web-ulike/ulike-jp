@@ -1,0 +1,123 @@
+<style>
+.point-sale-new {
+  padding: 50px 0;
+}
+
+.point-sale-new .point-sale-list {
+  display: flex;
+  gap: 24px;
+}
+
+.point-sale-new .point-sale-item {
+  flex: 1;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: #190a0a;
+  font-size: 20px;
+  line-height: 1.2;
+  font-family: var(--heading-font-family);
+}
+
+.point-sale-new .img {
+  display: block;
+  width: 79px;
+}
+
+.point-sale-new .point-sale-item:nth-child(2) {
+  justify-content: center;
+}
+
+.point-sale-new .point-sale-item:last-child {
+  justify-content: flex-end;
+}
+
+@media (max-width: 991px) {
+  .point-sale-new {
+    padding: 8px 0;
+  }
+  .point-sale-new .point-sale-list {
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .point-sale-new .point-sale-item {
+    
+    flex: none;
+    gap: 9px;
+    font-size: 12px;
+  }
+
+  .point-sale-new .img {
+    width: 30px;
+  }
+}
+</style>
+<section class="section-box">
+  <div class="point-sale-new margin-left-diy {{ section.settings.text_c }}" {% if section.settings.is_hide %}style="display: none;"{% endif %}>
+    <div class="container">
+      <div class="point-sale-list">
+        {%- for block in section.blocks -%}
+          <div class="point-sale-item">
+            {%- if block.settings.image != blank -%}
+              <img
+                loading="lazy"
+                class="img"
+                width="{{ block.settings.image.width }}"
+                height="{{ block.settings.image.height }}"
+                {% render 'image-attributes', image: block.settings.image %}
+                alt="{{ block.settings.image.alt | escape }}"
+              > 
+            {%- endif -%}
+            <span>{{ block.settings.text }}</span>
+          </div>
+        {%- endfor -%} 
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "point-sale-new",
+  "blocks": [
+    {
+      "name": "item",
+      "type": "item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default":"SkinSensor"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "text_c",
+      "label": "自定义Class"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_hide",
+      "label": "默认隐藏",
+      "default":false
+    }
+    
+  ],
+  "presets": [
+    {
+      "name": "point-sale-new",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

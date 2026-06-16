@@ -155,6 +155,17 @@
       </div>
     </div>
   </div>
+  <div class="jp-experts-swiper__modal" data-video-modal hidden>
+    <div class="jp-experts-swiper__modal-overlay" data-video-modal-close></div>
+    <div class="jp-experts-swiper__modal-dialog" role="dialog" aria-modal="true" aria-label="Video player">
+      <button class="jp-experts-swiper__modal-close" type="button" aria-label="Close video" data-video-modal-close>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+          <path d="M2 2L16 16M16 2L2 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <div class="jp-experts-swiper__modal-video-wrap" data-video-modal-content></div>
+    </div>
+  </div>
 </section>
 
 <style>
@@ -278,11 +289,68 @@
     display: block;
   }
 
-  .jp-experts-swiper--{{ sid }} .jp-experts-swiper__media-card.is-playing .jp-experts-swiper__play {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
+  .jp-experts-swiper--{{ sid }} .jp-experts-swiper__modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
   }
+
+  .jp-experts-swiper--{{ sid }} .jp-experts-swiper__modal[hidden] {
+    display: none;
+  }
+
+  .jp-experts-swiper--{{ sid }} .jp-experts-swiper__modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, .72);
+  }
+
+  .jp-experts-swiper--{{ sid }} .jp-experts-swiper__modal-dialog {
+    position: relative;
+    width: min(900px, 92vw);
+    background: #000;
+    border-radius: 16px;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .jp-experts-swiper--{{ sid }} .jp-experts-swiper__modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .92);
+    color: #111;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    z-index: 2;
+  }
+
+  .jp-experts-swiper--{{ sid }} .jp-experts-swiper__modal-video-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+  }
+
+  .jp-experts-swiper--{{ sid }} .jp-experts-swiper__modal-video-wrap video {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    background: #000;
+  }
+
 
   .jp-experts-swiper--{{ sid }} .jp-experts-swiper__dots {
     display: flex;
@@ -441,6 +509,22 @@
       height: 14px;
     }
 
+    .jp-experts-swiper--{{ sid }} .jp-experts-swiper__modal {
+      padding: 20px 12px;
+    }
+
+    .jp-experts-swiper--{{ sid }} .jp-experts-swiper__modal-dialog {
+      width: 100%;
+      border-radius: 12px;
+    }
+
+    .jp-experts-swiper--{{ sid }} .jp-experts-swiper__modal-close {
+      top: 8px;
+      right: 8px;
+      width: 32px;
+      height: 32px;
+    }
+
     .jp-experts-swiper--{{ sid }} .jp-experts-swiper__dots {
       gap: 18px;
       min-height: 25px;
@@ -514,6 +598,12 @@
     const contentEl = sectionEl.querySelector('#jp-experts-content-{{ sid }}');
     const dotsEl = sectionEl.querySelector('#jp-experts-dots-{{ sid }}');
 
+    const modalEl = sectionEl.querySelector('[data-video-modal]');
+    const modalContentEl = sectionEl.querySelector('[data-video-modal-content]');
+
+    let activeInlineVideo = null;
+    let activeModalVideo = null;
+
     let mediaSwiper;
     let contentSwiper;
 
@@ -550,6 +640,7 @@
       contentSwiper.controller.control = mediaSwiper;
 
       mediaSwiper.on('slideChange', function () {
+        closeVideoModal();
         pauseOtherVideos();
       });
     };
@@ -564,31 +655,56 @@
       });
     };
 
-    const toggleVideo = (video) => {
-      if (!video) return;
+    const closeVideoModal = () => {
+      if (activeModalVideo) {
+        activeModalVideo.pause();
+        activeModalVideo.remove();
+        activeModalVideo = null;
+      }
+
+      if (activeInlineVideo) {
+        const mediaCard = activeInlineVideo.closest('.jp-experts-swiper__media-card');
+        activeInlineVideo.pause();
+        if (mediaCard) mediaCard.classList.remove('is-playing');
+        activeInlineVideo = null;
+      }
+
+      if (modalContentEl) modalContentEl.innerHTML = '';
+      if (modalEl) modalEl.hidden = true;
+    };
+
+    const openVideoModal = (video) => {
+      if (!video || !modalEl || !modalContentEl) return;
+
+      closeVideoModal();
+      pauseOtherVideos(video);
 
       const mediaCard = video.closest('.jp-experts-swiper__media-card');
+      const modalVideo = video.cloneNode(true);
+
+      activeInlineVideo = video;
+      activeModalVideo = modalVideo;
+
+      video.pause();
       video.muted = true;
-      video.playsInline = true;
+      if (mediaCard) mediaCard.classList.add('is-playing');
 
-      if (video.paused) {
-        pauseOtherVideos(video);
-        const playPromise = video.play();
+      modalVideo.controls = true;
+      modalVideo.autoplay = true;
+      modalVideo.muted = false;
+      modalVideo.playsInline = true;
+      modalVideo.currentTime = 0;
 
-        if (playPromise !== undefined) {
-          playPromise
-            .then(() => {
-              if (mediaCard) mediaCard.classList.add('is-playing');
-            })
-            .catch(() => {
-              if (mediaCard) mediaCard.classList.remove('is-playing');
-            });
-        } else if (mediaCard) {
-          mediaCard.classList.add('is-playing');
-        }
-      } else {
-        video.pause();
-        if (mediaCard) mediaCard.classList.remove('is-playing');
+      modalContentEl.innerHTML = '';
+      modalContentEl.appendChild(modalVideo);
+      modalEl.hidden = false;
+
+      const playPromise = modalVideo.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          modalVideo.muted = true;
+          modalVideo.play().catch(() => {});
+        });
       }
     };
 
@@ -605,7 +721,7 @@
           if (!mediaCard) return;
 
           const video = mediaCard.querySelector('video');
-          toggleVideo(video);
+          openVideoModal(video);
         });
       });
 
@@ -621,7 +737,7 @@
           if (!mediaCard) return;
 
           const video = mediaCard.querySelector('video');
-          toggleVideo(video);
+          openVideoModal(video);
         });
       });
 
@@ -632,20 +748,26 @@
         video.addEventListener('click', function (event) {
           event.preventDefault();
           event.stopPropagation();
-          toggleVideo(this);
+          openVideoModal(this);
         });
+      });
 
-        video.addEventListener('pause', function () {
-          const mediaCard = this.closest('.jp-experts-swiper__media-card');
-          if (mediaCard) mediaCard.classList.remove('is-playing');
-        });
+      sectionEl.querySelectorAll('[data-video-modal-close]').forEach((btn) => {
+        if (btn.dataset.videoModalCloseBound === 'true') return;
+        btn.dataset.videoModalCloseBound = 'true';
 
-        video.addEventListener('ended', function () {
-          const mediaCard = this.closest('.jp-experts-swiper__media-card');
-          if (mediaCard) mediaCard.classList.remove('is-playing');
+        btn.addEventListener('click', function (event) {
+          event.preventDefault();
+          closeVideoModal();
         });
       });
     };
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && modalEl && !modalEl.hidden) {
+        closeVideoModal();
+      }
+    });
 
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', function () {

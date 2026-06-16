@@ -1,0 +1,1066 @@
+<style>
+.use-step {
+  padding: 50px 0;
+  position: relative;
+  z-index:1;
+}
+
+.use-step .use-step-title {
+  color: #000;
+  font-size: 30px;
+  line-height: 1.5;
+  font-family: var(--heading-font-family);
+  font-weight: normal;
+  margin: 0;
+  margin-bottom: 30px;
+}
+
+.use-step .use-step-cont {
+  position: relative;
+  padding: 24px 0;
+  border-top: 1px solid #190a0a;
+  border-bottom: 1px solid #190a0a;
+}
+
+.use-step .use-step-jump {
+  position: absolute;
+  top: -72px;
+  right: 0;
+  z-index: 2;
+  padding: 0 24px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 4px;
+  border: 1px solid #e0004d;
+  color: #e0004d;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.use-step .use-step-jump:hover {
+  border: 1px solid #BC0047;
+  color: #BC0047;
+}
+
+.use-step .use-step-jump svg {
+  display: block;
+  pointer-events: none;
+}
+
+.use-step .use-step-jump:hover path{
+  stroke:#BC0047;
+}
+
+.use-step .use-step-tab {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  border-bottom: 2px solid #dbdbdb;
+}
+
+.use-step .use-step-tab-item {
+  height: 75px;
+  padding: 0 38px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #212121;
+  font-size: 26px;
+  line-height: 1.35;
+  letter-spacing: 1.359px;
+  margin-bottom: -2px;
+}
+
+.use-step .use-step-tab-item.active {
+  font-family: var(--heading-font-family);
+  border-bottom: 3px solid #212121;
+}
+
+.use-step .use-step-list {
+  margin-top: 48px;
+}
+
+.use-step .use-step-item {
+  display: none;
+  position: relative;
+  gap: 60px;
+}
+
+.use-step .use-step-item.active {
+  display: flex;
+}
+
+.use-step .use-step-item-text,
+.use-step .use-step-item-img {
+  width: calc(50% - 30px);
+}
+
+.use-step .use-step-item-img-box {
+  padding-top: 67.365%;
+  overflow: hidden;
+  position: relative;
+}
+
+.use-step .use-step-item-img-box img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.use-step .use-step-item-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 30px;
+}
+
+.use-step .other-step .use-step-item-text {
+  padding-top: 0;
+}
+
+.use-step .use-step-item-text-tag {
+  color: #fff;
+  font-size: 14px;
+  line-height: 1;
+  font-family: var(--heading-font-family);
+  border-radius: 2px;
+  background: #e0004d;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 8px;
+  margin-bottom: 6px;
+}
+
+.use-step .use-step-item-text-title {
+  color: #190a0a;
+  font-size: 24px;
+  line-height: 1.3;
+  font-family: var(--heading-font-family);
+  font-weight: normal;
+  margin: 0;
+}
+
+.use-step .use-step-item-text-p {
+  color: #190a0a;
+  font-size: 16px;
+  line-height: 1.8;
+  margin-top: 8px;
+}
+
+.use-step .use-step-item-text-sub {
+  color: #756b6e;
+  font-size: 14px;
+  line-height: 1;
+  margin: 0;
+  margin-top: 25px;
+  transform: translateY(16px);
+}
+
+.use-step .use-step-mode {
+  margin-top: 30px;
+}
+.use-step .use-step-mode-item {
+  border-bottom: 1px solid #86868b;
+}
+.use-step .use-step-mode-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+.use-step .use-step-mode-title-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #190a0a;
+  font-size: 18px;
+  line-height: 1;
+  font-family: var(--heading-font-family);
+}
+
+.use-step .use-step-mode-show {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  cursor: pointer;
+}
+
+.use-step .use-step-mode-show::before,
+.use-step .use-step-mode-show::after {
+  position: absolute;
+  content: '';
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 14px;
+  background-color: #190a0a;
+  transform: translate(-50%, -50%);
+}
+
+.use-step .use-step-mode-show::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.use-step .open.use-step-mode-show::before {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.use-step .use-step-mode-p {
+  color: #190a0a;
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 0;
+  margin-top: 5px;
+  margin-bottom: 24px;
+  display: none;
+}
+
+.use-step .use-step-mode-item.active .use-step-mode-p {
+  display: block;
+}
+.use-step .use-step-mode-item.active .use-step-mode-img {
+  display: block;
+}
+
+.use-step .use-step-mode-img {
+  position: absolute;
+  top: 0;
+  left: calc(50% + 30px);
+  width: calc(50% - 30px);
+  height: 100%;
+  display: none;
+}
+
+.use-step .use-step-mode-img-box {
+  position: relative;
+  width: 100%;
+  padding-top: 67.365%;
+}
+
+.use-step .use-step-mode-img img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  display: block;
+}
+
+.use-step .use-step-mode-label {
+  color: #fff;
+  font-size: 20px;
+  line-height: 1.2;
+  font-family: var(--heading-font-family);
+  display: flex;
+  align-items: center;
+  height: 50px;
+  padding: 0 16px;
+  border-radius: 103px;
+  border: 1px solid #fff;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(2.6px);
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+}
+
+.use-step .use-step-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 2;
+}
+
+.use-step .mb-box{
+  display:none;
+}
+@media (min-width: 991px) {
+  .use-step .use-step-item-text-top{
+    min-height:350px;
+  }
+}
+  
+@media (max-width: 1400px) {
+  .use-step .use-step-item {
+    gap: 40px;
+  }
+  .use-step .use-step-item-text,
+  .use-step .use-step-item-img {
+    width: calc(50% - 20px);
+  }
+}
+
+@media (max-width: 991px) {
+  .use-step {
+    padding-bottom: 0;
+    overflow: hidden;
+  }
+
+  .use-step .use-step-title {
+    font-size: 28px;
+    line-height: 1.25;
+  }
+
+  .use-step .use-step-jump {
+    height: 30px;
+    padding: 0 18px;
+    font-size: 13px;
+    gap: 0;
+    top: -60px;
+  }
+
+  .use-step .use-step-jump svg {
+    width: 18px;
+  }
+
+  .use-step .use-step-cont {
+    padding-top: 8px;
+  }
+
+  .use-step .use-step-tab {
+    gap: 4px;
+    border-width: 1px;
+    position: relative;
+  }
+  .use-step .use-step-tab::before {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    height: 1px;
+    background-color: #dbdbdb;
+    z-index: 0;
+  }
+
+  .use-step .use-step-tab-item {
+    padding: 0 15px;
+    font-size: 14px;
+    height: 37px;
+    border-width: 2px;
+    margin-bottom: 0;
+  }
+
+  .use-step .use-step-list {
+    margin-top: 24px;
+  }
+
+  .use-step .use-step-item {
+    flex-direction: column;
+    gap: 0px;
+  }
+
+  .use-step .use-step-item-text,
+  .use-step .use-step-item-img {
+    width: 100%;
+  }
+
+  .use-step .use-step-item-img{
+    margin-top:30px;
+  }
+
+  .use-step .use-step-item-text{
+    padding-top:0;
+  }
+
+  .use-step .use-step-item-text-tag {
+    height: 20px;
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+
+  .use-step .use-step-item-text-p {
+    font-size: 14px;
+    line-height: 1.57;
+    margin-top: 8px;
+  }
+
+  .use-step .use-step-item-text-sub {
+    margin-top:8px;
+    transform: translateY(0px);
+    line-height: 1.57;
+  }
+  .use-step .mb-box{
+    display:block;
+  }
+
+  .use-step .pc-box{
+    display:none;
+  }
+
+  .use-step .use-step-mode-img {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    height: auto;
+    padding-bottom: 10px;
+  }
+
+  .use-step .use-step-mode {
+    margin-top: 24px;
+  }
+
+  .use-step .use-step-mode-item:last-child {
+    border: 0;
+  }
+
+  .use-step .use-step-mode-title-left img {
+    width: 23px;
+  }
+
+  .use-step .use-step-mode-title-left {
+    font-size: 20px;
+    gap: 12px;
+  }
+
+  .use-step .use-step-mode-p {
+    margin-top: 0;
+    line-height: 1.5;
+  }
+
+  .use-step .use-step-mode-label {
+    height: 30px;
+    padding: 0 12px;
+    font-size: 12px;
+  }
+}
+</style>
+<section class="section-box">
+  <div class="use-step margin-left-diy {{ section.settings.text_c }}" {% if section.settings.is_hide %}style="display: none;"{% endif %}>
+    <div class="container">
+      {%- if section.settings.title != blank -%}
+        <h3 class="use-step-title">{{ section.settings.title }}</h3>
+      {%- endif -%}
+      <div class="use-step-cont">
+        <div class="use-step-jump" data-id="{{ section.settings.text1 }}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M7 5.99854L12 10.9985L17 5.99854" stroke="#E0004D" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path d="M7 10.9985L12 15.9985L17 10.9985" stroke="#E0004D" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+          FAQs
+        </div>
+        <div class="use-step-tab">
+          {%- for block in section.blocks -%}
+            <div class="use-step-tab-item {% if forloop.index == 1 %}active{% endif %}">{{ block.settings.text }}</div>
+          {%- endfor -%}
+        </div>
+        <div class="use-step-list">
+        {%- for block in section.blocks -%}
+          {% if block.type == 'item' %}
+            <div class="use-step-item {% if forloop.index == 1 %}active{% endif %}">
+              <div class="use-step-item-text">
+                <div class="use-step-item-text-top">
+                  {%- if block.settings.text1 != blank -%}
+                    <div class="use-step-item-text-tag">{{ block.settings.text1 }}</div>
+                  {%- endif -%}
+                  {%- if block.settings.text2 != blank -%}
+                    <h4 class="use-step-item-text-title">{{ block.settings.text2 }}</h4>
+                  {%- endif -%}
+                  {%- if block.settings.text3 != blank -%}
+                    <p class="use-step-item-text-p">{{ block.settings.text3 }}</p>
+                  {%- endif -%}
+                </div>
+                {%- if block.settings.text4 != blank -%}
+                  <p class="use-step-item-text-sub pc-box">{{ block.settings.text4 }}</p>
+                {%- endif -%}
+              </div>
+              <div class="use-step-item-img">
+                <div class="use-step-item-img-box">
+                  {%- if block.settings.image != blank -%}
+                    <img
+                      loading="lazy"
+                      class="use-step-item-pic"
+                      width="{{ block.settings.image.width }}"
+                      height="{{ block.settings.image.height }}"
+                      {% render 'image-attributes', image: block.settings.image %}
+                      alt="{{ block.settings.image.alt | escape }}"
+                    > 
+                  {%- endif -%}
+                  {%- if block.settings.video != blank -%}
+                    <native-video autoplay class="use-step-video video-wrapper video-wrapper--native video-wrapper--native-custom">
+                      {{-
+                        block.settings.video
+                        | video_tag:
+                          controls: false,
+                          autoplay: true,
+                          playsinline: true,
+                          muted: true,
+                          loop: true
+                      -}}
+                    </native-video>
+                  {%- endif -%}
+                </div>
+              </div>
+              {%- if block.settings.text4 != blank -%}
+                <p class="use-step-item-text-sub mb-box">{{ block.settings.text4 }}</p>
+              {%- endif -%}
+            </div>
+          {% else %}
+            <div class="use-step-item other-step">
+              <div class="use-step-item-text">
+                <div class="use-step-item-text-top">
+                  {%- if block.settings.text1 != blank -%}
+                    <div class="use-step-item-text-tag">{{ block.settings.text1 }}</div>
+                  {%- endif -%}
+                  {%- if block.settings.text2 != blank -%}
+                    <h4 class="use-step-item-text-title">{{ block.settings.text2 }}</h4>
+                  {%- endif -%}
+                  <div class="use-step-mode">
+                    {%- if block.settings.text3 != blank -%}
+                      <div class="use-step-mode-item active">
+                        <div class="use-step-mode-title">
+                          <div class="use-step-mode-title-left">
+                            {%- if block.settings.image != blank -%}
+                              <img
+                                loading="lazy"
+                                width="{{ block.settings.image.width }}"
+                                height="{{ block.settings.image.height }}"
+                                {% render 'image-attributes', image: block.settings.image %}
+                                alt="{{ block.settings.image.alt | escape }}"
+                              > 
+                            {%- endif -%}
+                            {{ block.settings.text3 }}
+                          </div>
+                          <div class="use-step-mode-show open"></div>
+                        </div>
+                        {%- if block.settings.text4 != blank -%}
+                          <p class="use-step-mode-p">{{ block.settings.text4 }}</p>
+                        {%- endif -%}
+                        
+                          <div class="use-step-mode-img">
+                            {%- if block.settings.text5 != blank -%}
+                              <div class="use-step-mode-label">{{ block.settings.text5 }}</div>
+                            {%- endif -%}
+                            <div class="use-step-mode-img-box">
+                              {%- if block.settings.image1 != blank -%}
+                                <img
+                                  loading="lazy"
+                                  class="use-step-mode-pic"
+                                  width="{{ block.settings.image1.width }}"
+                                  height="{{ block.settings.image1.height }}"
+                                  {% render 'image-attributes', image: block.settings.image1 %}
+                                  alt="{{ block.settings.image1.alt | escape }}"
+                                > 
+                              {%- endif -%}
+                              {%- if block.settings.video != blank -%}
+                                <native-video autoplay class="use-step-video video-wrapper video-wrapper--native video-wrapper--native-custom">
+                                  {{-
+                                    block.settings.video
+                                    | video_tag:
+                                      controls: false,
+                                      autoplay: true,
+                                      playsinline: true,
+                                      muted: true,
+                                      loop: true
+                                  -}}
+                                </native-video>
+                              {%- endif -%}
+                            </div>
+                          </div>
+                      </div>
+                    {%- endif -%}
+                    
+                    {%- if block.settings.text6 != blank -%}
+                      <div class="use-step-mode-item">
+                        <div class="use-step-mode-title">
+                          <div class="use-step-mode-title-left">
+                            {%- if block.settings.image2 != blank -%}
+                              <img
+                                loading="lazy"
+                                width="{{ block.settings.image2.width }}"
+                                height="{{ block.settings.image2.height }}"
+                                {% render 'image-attributes', image: block.settings.image2 %}
+                                alt="{{ block.settings.image2.alt | escape }}"
+                              > 
+                            {%- endif -%}
+                            {{ block.settings.text6 }}
+                          </div>
+                          <div class="use-step-mode-show"></div>
+                        </div>
+                        {%- if block.settings.text7 != blank -%}
+                          <p class="use-step-mode-p">{{ block.settings.text7 }}</p>
+                        {%- endif -%}
+                          <div class="use-step-mode-img">
+                            {%- if block.settings.text8 != blank -%}
+                              <div class="use-step-mode-label">{{ block.settings.text8 }}</div>
+                            {%- endif -%}
+                            <div class="use-step-mode-img-box">
+                              {%- if block.settings.image3 != blank -%}
+                                <img
+                                  loading="lazy"
+                                  class="use-step-mode-pic"
+                                  width="{{ block.settings.image3.width }}"
+                                  height="{{ block.settings.image3.height }}"
+                                  {% render 'image-attributes', image: block.settings.image3 %}
+                                  alt="{{ block.settings.image3.alt | escape }}"
+                                > 
+                              {%- endif -%}
+                              {%- if block.settings.video1 != blank -%}
+                                <native-video autoplay class="use-step-video video-wrapper video-wrapper--native video-wrapper--native-custom">
+                                  {{-
+                                    block.settings.video1
+                                    | video_tag:
+                                      controls: false,
+                                      autoplay: true,
+                                      playsinline: true,
+                                      muted: true,
+                                      loop: true
+                                  -}}
+                                </native-video>
+                              {%- endif -%}
+                            </div>
+                          </div>
+                      </div>
+                    {%- endif -%}
+
+                    {%- if block.settings.text9 != blank -%}
+                      <div class="use-step-mode-item">
+                        <div class="use-step-mode-title">
+                          <div class="use-step-mode-title-left">
+                            {%- if block.settings.image4 != blank -%}
+                              <img
+                                loading="lazy"
+                                width="{{ block.settings.image4.width }}"
+                                height="{{ block.settings.image4.height }}"
+                                {% render 'image-attributes', image: block.settings.image4 %}
+                                alt="{{ block.settings.image4.alt | escape }}"
+                              > 
+                            {%- endif -%}
+                            {{ block.settings.text9 }}
+                          </div>
+                          <div class="use-step-mode-show"></div>
+                        </div>
+                        {%- if block.settings.text10 != blank -%}
+                          <p class="use-step-mode-p">{{ block.settings.text10 }}</p>
+                        {%- endif -%}
+                        
+                          <div class="use-step-mode-img">
+                            {%- if block.settings.text11 != blank -%}
+                              <div class="use-step-mode-label">{{ block.settings.text11 }}</div>
+                            {%- endif -%}
+                            <div class="use-step-mode-img-box">
+                              {%- if block.settings.image5 != blank -%}
+                                <img
+                                  loading="lazy"
+                                  class="use-step-mode-pic"
+                                  width="{{ block.settings.image5.width }}"
+                                  height="{{ block.settings.image5.height }}"
+                                  {% render 'image-attributes', image: block.settings.image5 %}
+                                  alt="{{ block.settings.image5.alt | escape }}"
+                                > 
+                              {%- endif -%}
+                              {%- if block.settings.video2 != blank -%}
+                                <native-video autoplay class="use-step-video video-wrapper video-wrapper--native video-wrapper--native-custom">
+                                  {{-
+                                    block.settings.video2
+                                    | video_tag:
+                                      controls: false,
+                                      autoplay: true,
+                                      playsinline: true,
+                                      muted: true,
+                                      loop: true
+                                  -}}
+                                </native-video>
+                              {%- endif -%}
+                            </div>
+                          </div>
+                        
+                      </div>
+                    {%- endif -%}
+
+                    {%- if block.settings.text12 != blank -%}
+                      <div class="use-step-mode-item">
+                        <div class="use-step-mode-title">
+                          <div class="use-step-mode-title-left">
+                            {%- if block.settings.image6 != blank -%}
+                              <img
+                                loading="lazy"
+                                width="{{ block.settings.image6.width }}"
+                                height="{{ block.settings.image6.height }}"
+                                {% render 'image-attributes', image: block.settings.image6 %}
+                                alt="{{ block.settings.image6.alt | escape }}"
+                              > 
+                            {%- endif -%}
+                            {{ block.settings.text12 }}
+                          </div>
+                          <div class="use-step-mode-show"></div>
+                        </div>
+                        {%- if block.settings.text13 != blank -%}
+                          <p class="use-step-mode-p">{{ block.settings.text13 }}</p>
+                        {%- endif -%}
+                        
+                          <div class="use-step-mode-img">
+                            {%- if block.settings.text14 != blank -%}
+                              <div class="use-step-mode-label">{{ block.settings.text14 }}</div>
+                            {%- endif -%}
+                            <div class="use-step-mode-img-box">
+                              {%- if block.settings.image7 != blank -%}
+                                <img
+                                  loading="lazy"
+                                  class="use-step-mode-pic"
+                                  width="{{ block.settings.image7.width }}"
+                                  height="{{ block.settings.image7.height }}"
+                                  {% render 'image-attributes', image: block.settings.image7 %}
+                                  alt="{{ block.settings.image7.alt | escape }}"
+                                > 
+                              {%- endif -%}
+                              {%- if block.settings.video3 != blank -%}
+                                <native-video autoplay class="use-step-video video-wrapper video-wrapper--native video-wrapper--native-custom">
+                                  {{-
+                                    block.settings.video3
+                                    | video_tag:
+                                      controls: false,
+                                      autoplay: true,
+                                      playsinline: true,
+                                      muted: true,
+                                      loop: true
+                                  -}}
+                                </native-video>
+                              {%- endif -%}
+                            </div>
+                          </div>
+                      </div>
+                    {%- endif -%}
+                    
+                  </div>
+                </div>
+                {%- if block.settings.text15 != blank -%}
+                  <p class="use-step-item-text-sub">{{ block.settings.text15 }}</p>
+                {%- endif -%}
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  document.querySelector('#shopify-section-{{ section.id }} .use-step .use-step-jump').addEventListener('click', (event) => {
+    const targetId = event.target.getAttribute('data-id');
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      targetElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  });
+  
+  document.querySelectorAll('#shopify-section-{{ section.id }} .use-step .use-step-tab-item').forEach((item, index) => {
+    item.addEventListener('click', () => {
+      document.querySelectorAll('#shopify-section-{{ section.id }} .use-step .use-step-tab-item').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('#shopify-section-{{ section.id }} .use-step .use-step-tab-item')[index].classList.add('active');
+      document.querySelectorAll('#shopify-section-{{ section.id }} .use-step .use-step-item').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('#shopify-section-{{ section.id }} .use-step .use-step-item')[index].classList.add('active');
+    });
+  });
+
+  document.querySelectorAll('#shopify-section-{{ section.id }} .use-step .use-step-mode-title').forEach(item => {
+    item.addEventListener('click', function () {
+      let parentItem = this.closest('.use-step-mode-item');
+      if (window.innerWidth < 991) {
+        this.querySelector('.use-step-mode-show').classList.toggle('open');
+      } else {
+        this.querySelector('.use-step-mode-show').classList.add('open');
+      }
+      if (parentItem) {
+        if (window.innerWidth < 991) return parentItem.classList.toggle('active');
+        parentItem.classList.add('active');
+        parentItem.parentElement.querySelectorAll('.use-step-mode-item').forEach(sibling => {
+          if (sibling !== parentItem) {
+            sibling.classList.remove('active');
+            sibling.querySelector('.use-step-mode-show').classList.remove('open');
+          }
+        });
+      }
+    });
+  });
+</script>
+{% schema %}
+{
+  "name": "use-step",
+  "blocks": [
+    {
+      "name": "item",
+      "type": "item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default":"STEP 1"
+        },
+        {
+          "type": "text",
+          "id": "text1",
+          "label": "Label",
+          "default":"STEP 1"
+        },
+        {
+          "type": "text",
+          "id": "text2",
+          "label": "Title",
+          "default":"Prep Skin"
+        },
+        {
+          "type": "text",
+          "id": "text3",
+          "label": "Text",
+          "default":"Use the included razor to shave any hairs longer than 2 mm (1/16 in) in the treatment area."
+        },
+        {
+          "type": "text",
+          "id": "text4",
+          "label": "Text",
+          "default":"Safety Tip Description"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video"
+        }
+      ]
+    },
+    {
+      "name": "other",
+      "type": "other",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default":"STEP 1"
+        },
+        {
+          "type": "text",
+          "id": "text1",
+          "label": "Label",
+          "default":"STEP 1"
+        },
+        {
+          "type": "text",
+          "id": "text2",
+          "label": "Title",
+          "default":"Select Mode"
+        },
+        {
+          "type": "text",
+          "id": "text15",
+          "label": "Text",
+          "default":"Patch test a small area to check you skin sensitivity."
+        },
+        {
+          "type": "header",
+          "content": "列表1"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "text3",
+          "label": "Text",
+          "default":"Fast Mode"
+        },
+        {
+          "type": "text",
+          "id": "text4",
+          "label": "Text",
+          "default":"Flashing every 0.5 seconds, it's ideal for maintenance treatments on larger areas and for quick touch-ups."
+        },
+        {
+          "type": "text",
+          "id": "text5",
+          "label": "Label",
+          "default":"Fast Mode"
+        },
+        {
+          "type": "image_picker",
+          "id": "image1",
+          "label": "Image"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video"
+        },
+        {
+          "type": "header",
+          "content": "列表2"
+        },
+        {
+          "type": "image_picker",
+          "id": "image2",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "text6",
+          "label": "Text",
+          "default":"Normal Mode"
+        },
+        {
+          "type": "text",
+          "id": "text7",
+          "label": "Text",
+          "default":"The perfect balance between power and flash speed, suitable for removing finer to normal hair on most body parts."
+        },
+        {
+          "type": "text",
+          "id": "text8",
+          "label": "Label",
+          "default":"Normal Mode"
+        },
+        {
+          "type": "image_picker",
+          "id": "image3",
+          "label": "Image"
+        },
+        {
+          "type": "video",
+          "id": "video1",
+          "label": "Video"
+        },
+        {
+          "type": "header",
+          "content": "列表3"
+        },
+        {
+          "type": "image_picker",
+          "id": "image4",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "text9",
+          "label": "Text",
+          "default":"High Mode"
+        },
+        {
+          "type": "text",
+          "id": "text10",
+          "label": "Text",
+          "default":"Flashing every 0.5 seconds, it's ideal for maintenance treatments on larger areas and for quick touch-ups."
+        },
+        {
+          "type": "text",
+          "id": "text11",
+          "label": "Label",
+          "default":"High Mode"
+        },
+        {
+          "type": "image_picker",
+          "id": "image5",
+          "label": "Image"
+        },
+        {
+          "type": "video",
+          "id": "video2",
+          "label": "Video"
+        },
+        {
+          "type": "header",
+          "content": "列表4"
+        },
+        {
+          "type": "image_picker",
+          "id": "image6",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "text12",
+          "label": "Text",
+          "default":"SHR Mode"
+        },
+        {
+          "type": "text",
+          "id": "text13",
+          "label": "Text",
+          "default":"Flashing every 0.5 seconds, it's ideal for maintenance treatments on larger areas and for quick touch-ups."
+        },
+        {
+          "type": "text",
+          "id": "text14",
+          "label": "Label",
+          "default":"SHR Mode"
+        },
+        {
+          "type": "image_picker",
+          "id": "image7",
+          "label": "Image"
+        },
+        {
+          "type": "video",
+          "id": "video3",
+          "label": "Video"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "text_c",
+      "label": "自定义Class"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_hide",
+      "label": "默认隐藏",
+      "default":false
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default":"How to Use"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "default":"FAQs"
+    },
+    {
+      "type": "text",
+      "id": "text1",
+      "label": "定位ID"
+    }
+  ],
+  "presets": [
+    {
+      "name": "use-step",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

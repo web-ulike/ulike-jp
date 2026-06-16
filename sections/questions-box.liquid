@@ -1,0 +1,925 @@
+<style>
+.questions-box {
+  padding: 50px 0 34px 0;
+}
+
+.questions-box .questions-title {
+  gap: 10px;
+  color: #000;
+  font-size: 30px;
+  line-height: 1.5;
+  font-family: var(--heading-font-family);
+  font-weight: normal;
+  margin: 0;
+  margin-bottom: 30px;
+}
+
+.questions-box .questions-cont {
+  padding: 24px 0;
+  border-top: 1px solid #190a0a;
+}
+
+.questions-box .questions-tab {
+  display: flex;
+  border-bottom: 1px solid #dbdbdb;
+  margin-bottom: 24px;
+}
+
+.questions-box .questions-tab-item {
+  padding: 0 8px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #190a0a;
+  font-size: 16px;
+  letter-spacing: 1.359px;
+  border-bottom: 2px solid transparent;
+}
+
+.questions-box .questions-tab-item.active {
+  font-family: var(--heading-font-family);
+  border-bottom: 2px solid #190a0a;
+}
+
+.questions-box .questions-item {
+  padding: 24px 0;
+  border-bottom: 1px solid #86868B;
+}
+
+.questions-box .questions-item-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.questions-box .questions-item-top-right{
+  flex:1;
+}
+
+.questions-box .questions-item-top .questions-item-zm {
+  width: 80px;
+  height: auto;
+  flex-shrink: 0;
+}
+
+.questions-box .questions-item-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #190a0a;
+  font-size: 22px;
+  font-family: var(--heading-font-family);
+  font-weight: normal;
+  line-height: 1.5;
+  margin: 0;
+  margin-bottom: 11px;
+  cursor: pointer;
+}
+
+.questions-box .questions-change-c {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+}
+
+.questions-box .questions-change-c::before,
+.questions-box .questions-change-c::after {
+  position: absolute;
+  content: '';
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 18px;
+  background-color: #190a0a;
+  transform: translate(-50%, -50%);
+}
+
+.questions-box .questions-change-c::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.questions-box .active .questions-change-c::before {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.questions-box .questions-item-content {
+  color: #190a0a;
+  font-size: 18px;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.questions-box .questions-user-z {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 8px;
+  font-family: var(--heading-font-family);
+}
+
+.questions-box .questions-user-tag {
+  color: #190a0a;
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.questions-box .questions-user-z-num {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #190a0a;
+  font-size: 14px;
+  line-height: 1.7;
+  letter-spacing: 0.36px;
+  cursor: pointer;
+}
+
+.questions-box .questions-user-z-num svg {
+  display: block;
+  width: 40px;
+  height: auto;
+}
+
+.questions-box .questions-user-z-num.active circle {
+  stroke: #190a0a;
+  fill: #190a0a;
+}
+
+.questions-box .questions-user-z-num.active path {
+  fill: #fff;
+}
+
+.questions-box .questions-user-info {
+  padding-top: 16px;
+  margin-top: 24px;
+  border-top: 1px solid #eeeded;
+  padding-left: 122px;
+  display: none;
+}
+
+.questions-box .active .questions-user-info {
+  display: block;
+}
+
+.questions-box .questions-user-info-title {
+  color: #190a0a;
+  font-size: 24px;
+  font-family: var(--heading-font-family);
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.questions-box .questions-user-info-cont {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.questions-box .user-img {
+  width: 80px;
+  flex-shrink: 0;
+}
+
+.questions-box .questions-user-sub {
+  color: #e0004d;
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.questions-box .questions-user-name {
+  color: #190a0a;
+  font-size: 24px;
+  line-height: 1.2;
+  font-family: var(--heading-font-family);
+  padding-bottom: 16px;
+  margin-top: 8px;
+  border-bottom: 1px solid #eeeded;
+}
+
+.questions-box .questions-user-txt {
+  color: #190a0a;
+  font-size: 18px;
+  line-height: 1.55;
+  margin: 0;
+  margin-top: 24px;
+}
+
+.questions-box .questions-user-bottom {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.questions-box .questions-user-dz {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #190a0a;
+  font-size: 14px;
+  line-height: 1.7;
+  letter-spacing: 0.36px;
+  cursor: pointer;
+}
+
+.questions-box .questions-user-dz svg {
+  display: block;
+  width: 40px;
+}
+
+.questions-box .questions-user-dz.active circle {
+  stroke: #190a0a;
+  fill: #190a0a;
+}
+
+.questions-box .questions-user-dz.active path {
+  fill: #fff;
+}
+
+.questions-box .questions-advisory {
+  /* text-align: center; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.questions-box .questions-advisory-title {
+  color: #190a0a;
+  font-size: 24px;
+  line-height: 1;
+  font-family: var(--heading-font-family);
+}
+
+.questions-box .questions-advisory-p {
+  color: #756b6e;
+  font-size: 18px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.questions-box .questions-advisory-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px;
+  gap: 16px;
+  border-radius: 4px;
+  border: 1px solid #b3adad;
+  color: #e0004d;
+  font-size: 20px;
+  line-height: 1.25;
+  font-family: var(--heading-font-family);
+  cursor: pointer;
+  margin-top: 16px;
+}
+
+.questions-box .questions-advisory-btn:hover{
+  color:#BC0047;
+}
+
+.questions-box .advisory-img {
+  width: 49px;
+}
+
+.questions-box .advisory-text {
+  background: linear-gradient(to right, #e0004d 50%, #e0004d 50%) no-repeat;
+  background-size: 100% 1px;
+  background-position: left bottom;
+}
+
+.questions-box .questions-guide{
+  color:#190A0A;
+  font-size: 20px;
+  font-family: var(--heading-font-family);
+  line-height: 1.25;
+  background: linear-gradient(to right, #190A0A 50%, #190A0A 50%) no-repeat;
+  background-size: 100% 1px;
+  background-position: left bottom;
+  margin-top:30px;
+}
+
+@media (max-width: 991px) {
+  .questions-box .questions-title {
+    font-size: 28px;
+    line-height: 1.25;
+  }
+  .questions-box .questions-tab {
+    margin-bottom: 16px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    margin-right: -24px;
+  }
+
+  .questions-box .questions-tab::-webkit-scrollbar {
+    display: none;
+  }
+
+  .questions-box .questions-tab-item {
+    font-size: 12px;
+    padding: 0 6px;
+    height: 36px;
+    flex-shrink: 0;
+  }
+
+  .questions-box .questions-cont {
+    padding-top: 16px;
+  }
+
+  .questions-box .questions-item {
+    padding: 24px 0 16px 0;
+  }
+
+  .questions-box .questions-item-top {
+    gap: 8px;
+  }
+
+  .questions-box .questions-change-c::before,
+  .questions-box .questions-change-c::after {
+    height: 13px;
+  }
+
+  .questions-box .questions-item-top .questions-item-zm {
+    width: 50px;
+  }
+
+  .questions-box .questions-item-title {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+
+  .questions-box .questions-item-content {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .questions-box .questions-user-z {
+    margin-top: 16px;
+  }
+
+  .questions-box .questions-user-tag {
+    font-size: 13px;
+  }
+
+  .questions-box .questions-user-z-num {
+    font-size: 12px;
+    line-height: 1;
+  }
+
+  .questions-box .questions-user-z-num svg {
+    width: 30px;
+  }
+
+  .questions-box .questions-user-info {
+    padding-left: 58px;
+    padding-top: 12px;
+  }
+
+  .questions-box .questions-user-info-title {
+    font-size: 15px;
+    margin-bottom: 16px;
+  }
+
+  .questions-box .questions-user-info-cont {
+    gap: 6px;
+  }
+
+  .questions-box .user-img {
+    width: 50px;
+  }
+
+  .questions-box .questions-user-sub {
+    font-size: 12px;
+  }
+
+  .questions-box .questions-user-name {
+    font-size: 15px;
+    margin-top: 6px;
+    padding-bottom: 12px;
+  }
+
+  .questions-box .questions-user-txt {
+    margin-top: 18px;
+    font-size: 13px;
+  }
+
+  .questions-box .questions-user-bottom {
+    margin-top: 16px;
+  }
+
+  .questions-box .questions-user-dz {
+    font-size: 12px;
+  }
+
+  .questions-box .questions-user-dz svg {
+    width: 30px;
+  }
+
+  .questions-box .questions-advisory-title {
+    font-size: 18px;
+  }
+
+  .questions-box .questions-advisory-p {
+    font-size: 14px;
+  }
+
+  .questions-box .questions-advisory-btn {
+    margin-top: 12px;
+    gap: 12px;
+    font-size: 15px;
+  }
+
+  .questions-box .advisory-img {
+    width: 37px;
+  }
+  .questions-box .questions-guide{
+    font-size:15px;
+    margin-top:17px;
+  }
+}
+</style>
+<section class="section-box">
+  <questions-box>
+    <div class="questions-box margin-left-diy {{ section.settings.text3 }}">
+      <div class="container">
+        {%- if section.settings.title != blank -%}
+          <h3 class="questions-title">{{ section.settings.title }}</h3>
+        {%- endif -%}
+        <div class="questions-cont">
+          {% assign sub_items = section.settings.items_json | split: ','  %}
+          {%- if sub_items.size >0 -%}
+            <div class="questions-tab">
+              {% for item in sub_items %}
+                  <div class="questions-tab-item {% if forloop.index == 1 %}active{% endif %}" data-index="{{ forloop.index }}">{{ item }}</div>
+                {% endfor %}
+            </div>
+          {%- endif -%}
+          <div class="questions-list">
+          </div>
+        </div>
+        <div class="questions-advisory">
+          {%- if section.settings.text != blank -%}
+            <div class="questions-advisory-title">{{ section.settings.text }}</div>
+            {%- endif -%}
+          {%- if section.settings.text1 != blank -%}
+            <p class="questions-advisory-p">{{ section.settings.text1 }}</p>
+          {%- endif -%}
+          {%- if section.settings.text2 != blank -%}
+            <div class="questions-advisory-btn">
+              {%- if section.settings.image != blank -%}
+                <img class="advisory-img" width="" height="" src="{{ section.settings.image | image_url }}">
+              {%- endif -%}
+              <div class="advisory-text">{{ section.settings.text2 }}</div>
+            </div>
+          {%- endif -%}
+          {%- if section.settings.text4 != blank -%}
+            <a href="{{ section.settings.link }}" class="questions-guide">{{ section.settings.text4 }}</a>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </questions-box>
+</section>
+<script>
+  class askedQuestions extends HTMLElement {
+    constructor() {
+      super();
+      this.el = this
+      this.type = '1'
+      this.data = [
+        {% for block in section.blocks %}
+        {
+          id:`{{ block.id }}`,
+          type: `{{ block.settings.text }}`,
+          tag: `{{ block.settings.text1 }}`,
+          title: `{{ block.settings.text2 }}`,
+          content: `{{ block.settings.text3 }}`,
+          label:`{{ block.settings.text4 }}`,
+          num: `{{ block.settings.text5 }}`,
+          userTitle: `{{ block.settings.text6 }}`,
+          {% if block.settings.image != blank %}
+            userImg: '{{ block.settings.image | image_url }}',
+          {% else %}
+            userImg: '',
+          {% endif %}
+          expert: `{{ block.settings.text7 }}`,
+          name: `{{ block.settings.text8 }}`,
+          userTxt:`{{ block.settings.text9 }}`,
+          userDz: `{{ block.settings.text10 }}`
+        }{% if forloop.last == false %},{% endif %}
+        {% endfor %}
+        
+      ]
+      this.init()
+    }
+    init() {
+      let that = this
+      this.setDzData();
+      this.filters()
+
+      // 监听点击事件
+      this.el.addEventListener('click', (e) => {
+        let target = e.target
+        let questionsTab = target.closest('.questions-tab-item');
+        if (questionsTab) {
+          let type = questionsTab.getAttribute('data-index')
+          if (this.type === type) return
+          const allItems = that.el.querySelectorAll('.questions-tab-item')
+          allItems.forEach((item) => item.classList.remove('active'))
+          questionsTab.classList.add('active')
+          this.type = type
+          this.filters()
+          return
+        }
+        // 点击questions-change-c 显示隐藏 questions-user-info
+        let questionsChangeC = target.closest('.questions-item-title');
+        if (questionsChangeC) {
+          if (window.innerWidth > 991) {
+            this.el.querySelectorAll('.questions-item').forEach((item) => {
+              if (questionsChangeC.closest('.questions-item') !== item) {
+                item.classList.remove('active')
+              }
+            })
+          }
+          questionsChangeC.closest('.questions-item').classList.toggle('active')
+          return
+        }
+
+        // 处理点赞或取消
+        const likeButton = target.closest('.questions-user-z-num')
+        const likeButton1 = target.closest('.questions-user-dz')
+        if (likeButton || likeButton1) {
+          let thisItem = likeButton || likeButton1
+          const parentItem = thisItem.closest('.questions-item')
+          if (!parentItem) return
+          const id = parentItem.getAttribute('data-id')
+          let dzItem = that.setDzData(true, id, true, likeButton ? 'num' : 'userDz') // 获取点赞数据 和 执行了点赞缓存数据更新(第三个参数为true)
+          const span = thisItem.querySelector('span')
+
+          if (!dzItem[likeButton ? 'isDz' : 'isDz1']) {
+            thisItem.classList.remove('active')
+          } else {
+            thisItem.classList.add('active')
+          }
+
+          if (span) {
+            span.textContent = dzItem[likeButton ? 'num' : 'num1']
+          }
+          return // 防止继续执行后面的代码
+        }
+
+        // 点击弹出客服
+        const questionsKf = target.closest('.questions-advisory-btn')
+        if (questionsKf) {
+            opensinppet()
+          return
+        }
+      })
+    }
+
+    // 初始设置点赞数据
+    setDzData(isGetItem = false, id, isDzTap = false, type) {
+      const dzList = localStorage.getItem('dzListHs')
+        ? JSON.parse(localStorage.getItem('dzListHs'))
+        : []
+      if (isGetItem) {
+        // 根据id获取点赞数据
+        const dzIndex = dzList.findIndex((dz) => dz.id === id)
+        if (isDzTap) {
+          // 执行点赞数据更新
+          if (type === 'num') {
+            dzList[dzIndex].num =
+              dzList[dzIndex].num > dzList[dzIndex].randomNum
+                ? dzList[dzIndex].num + (dzList[dzIndex].isDz ? -1 : 1)
+                : dzList[dzIndex].randomNum + (dzList[dzIndex].isDz ? -1 : 1)
+            dzList[dzIndex].isDz = !dzList[dzIndex].isDz
+            if (
+              !dzList[dzIndex].isDz &&
+              dzList[dzIndex].randomNum < dzList[dzIndex].num
+            ) {
+              dzList[dzIndex].randomNum = dzList[dzIndex].num
+            }
+          } else {
+            dzList[dzIndex].num1 =
+              dzList[dzIndex].num1 > dzList[dzIndex].randomNum1
+                ? dzList[dzIndex].num1 + (dzList[dzIndex].isDz1 ? -1 : 1)
+                : dzList[dzIndex].randomNum1 + (dzList[dzIndex].isDz1 ? -1 : 1)
+            dzList[dzIndex].isDz1 = !dzList[dzIndex].isDz1
+            if (
+              !dzList[dzIndex].isDz1 &&
+              dzList[dzIndex].randomNum1 < dzList[dzIndex].num1
+            ) {
+              dzList[dzIndex].randomNum1 = dzList[dzIndex].num1
+            }
+          }
+
+          try {
+            localStorage.setItem('dzListHs', JSON.stringify(dzList))
+          } catch (error) {
+            
+          }
+          return { ...dzList[dzIndex] }
+        }
+        if (dzIndex !== -1) {
+          return { ...dzList[dzIndex] }
+        } else {
+          return { oldNum: 0, num: 0, isDz: false, oldNum1: 0, num1: 0, isDz1: false }
+        }
+      } else {
+        this.data.forEach((item) => {
+          const dzIndex = dzList.findIndex((dz) => dz.id === item.id)
+          item.num = item.num*1
+          item.userDz = item.userDz*1
+          // 有缓存更新缓存点赞数据
+          if (dzIndex !== -1) {
+            // 判断初始数据和缓存点赞oldNum是否一致，不一致则更新缓存数据
+            if (dzList[dzIndex].oldNum !== item.num) {
+
+              dzList[dzIndex].num = item.num || 0
+              dzList[dzIndex].oldNum = item.num || 0
+              dzList[dzIndex].randomNum = item.num || 0
+              dzList[dzIndex].isDz = dzList[dzIndex].isDz || false
+            } else {
+              // 点赞数据和缓存点赞oldNum一致，则增加点赞数量
+              dzList[dzIndex].num = this.addDzNum(dzList[dzIndex].num || 0)
+              dzList[dzIndex].oldNum = item.num || 0
+              dzList[dzIndex].randomNum = this.addDzNum(dzList[dzIndex].randomNum || 0)
+              dzList[dzIndex].isDz = dzList[dzIndex].isDz || false
+            }
+            if (dzList[dzIndex].oldNum1 !== item.userDz) {
+              dzList[dzIndex].num1 = item.userDz || 0
+              dzList[dzIndex].oldNum1 = item.userDz || 0
+              dzList[dzIndex].randomNum1 = item.userDz || 0
+              dzList[dzIndex].isDz1 = dzList[dzIndex].isDz1 || false
+            } else {
+              // 点赞数据和缓存点赞oldNum一致，则增加点赞数量
+              dzList[dzIndex].num1 = this.addDzNum(dzList[dzIndex].num1 || 0)
+              dzList[dzIndex].oldNum1 = item.userDz || 0
+              dzList[dzIndex].randomNum1 = this.addDzNum(dzList[dzIndex].randomNum1 || 0)
+              dzList[dzIndex].isDz1 = dzList[dzIndex].isDz1 || false
+            }
+          } else {
+            // 没有缓存，则新增点赞数据
+            dzList.push({
+              id: item.id,
+              num: item.num || 0,
+              oldNum: item.num || 0,
+              randomNum: item.num || 0,
+              isDz: false,
+              num1: item.userDz || 0,
+              oldNum1: item.userDz || 0,
+              randomNum1: item.userDz || 0,
+              isDz1: false,
+            })
+          }
+        })
+      }
+      try {
+        localStorage.setItem('dzListHs', JSON.stringify(dzList))
+      } catch (error) {
+        
+      }
+    }
+
+    // 随机返回范围内的数字
+    getRandomArbitrary(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min
+    }
+
+    // 增加点赞数量
+    addDzNum(num) {
+      // 刷新概率百分之20增加点赞数量
+      return this.getRandomArbitrary(0, 10) > 2
+        ? num + this.getRandomArbitrary(1, 3)
+        : num
+    }
+    filters() {
+      let list = this.data.filter(item => item.type === this.type)
+      this.buildHtml(list)
+    }
+
+    buildHtml(list) {
+      let html = ``
+      list.forEach((item,index) => {
+        let dzItem = this.setDzData(true, item.id)
+        html += `
+          <div class="questions-item ${index==0?'active':''}" data-id="${item.id}">
+          <div class="questions-item-top">
+            <svg xmlns="http://www.w3.org/2000/svg" class="questions-item-zm"
+              xmlns:xlink="http://www.w3.org/1999/xlink" width="80" height="80" viewBox="0 1 80 80" fill="none">
+              <mask id="mask0_303_26779" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="80"
+                height="81">
+                <path
+                  d="M79.9752 0.835938H0.0654297V35.4901C0.073241 37.4788 0.096675 39.4714 0.182599 41.4562C0.63175 51.696 3.61567 60.1422 8.99376 66.8414C13.1377 72.0081 17.9924 75.2836 23.2104 77.4517C31.3771 80.8403 39.7079 81.5149 48.1167 80.0292C53.487 79.0817 58.6894 77.1553 63.5792 73.7355C74.4331 66.1434 80.1041 53.9226 80.0025 36.2933C79.8932 16.6091 79.9752 0.835938 79.9752 0.835938Z"
+                  fill="#E0004D" />
+              </mask>
+              <g mask="url(#mask0_303_26779)">
+                <rect x="-92.5918" y="-60.6016" width="181.138" height="162.758" rx="1.36414"
+                  fill="url(#pattern0_303_26779)" />
+                <rect x="-92.5918" y="-60.6016" width="181.138" height="162.758" rx="1.36414" fill="#E0004D" />
+                <text x="50%" y="50%" fill="white" font-size="48" font-family="Arial" text-anchor="middle"
+                  dominant-baseline="middle">${item.tag}</text>
+              </g>
+            </svg>
+            <div class="questions-item-top-right">
+              <h4 class="questions-item-title">${item.title}<span
+                  class="questions-change-c"></span></h4>
+              <p class="questions-item-content">${item.content}</p>
+              <div class="questions-user-z">
+                <div class="questions-user-tag">${item.label}</div>
+                <div class="questions-user-z-num ${dzItem.isDz ? 'active' : ''}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="41" height="41" viewBox="0 0 41 41" fill="none">
+                    <circle cx="20.8633" cy="20.8359" r="19.5853" stroke="#EBEBEB" stroke-width="0.829368" />
+                    <path
+                      d="M16.9273 20.0231L20.1789 12.707C20.8257 12.707 21.446 12.964 21.9033 13.4213C22.3606 13.8787 22.6176 14.4989 22.6176 15.1457V18.3973H27.2186C27.4543 18.3947 27.6877 18.4433 27.9027 18.5398C28.1177 18.6363 28.3092 18.7784 28.4638 18.9562C28.6185 19.134 28.7326 19.3434 28.7983 19.5697C28.864 19.7961 28.8797 20.034 28.8444 20.267L27.7226 27.5831C27.6638 27.9708 27.4669 28.3241 27.1681 28.5781C26.8693 28.832 26.4889 28.9694 26.0968 28.965H16.9273M16.9273 20.0231V28.965M16.9273 20.0231H14.4886C14.0574 20.0231 13.6439 20.1944 13.339 20.4993C13.0341 20.8042 12.8628 21.2177 12.8628 21.6489V27.3392C12.8628 27.7704 13.0341 28.1839 13.339 28.4888C13.6439 28.7937 14.0574 28.965 14.4886 28.965H16.9273"
+                      stroke="#190A0A" stroke-width="0.812899" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  <span>${dzItem.isDz ? dzItem.num : (dzItem.randomNum || item.num || 0)}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="questions-user-info">
+            <div class="questions-user-info-title">${item.userTitle}</div>
+            <div class="questions-user-info-cont">
+              <img src="${item.userImg}" alt="" class="user-img">
+              <div class="questions-user-text">
+                <div class="questions-user-sub">${item.expert}</div>
+                <div class="questions-user-name">${item.name}</div>
+                <p class="questions-user-txt">${item.userTxt}</p>
+                <div class="questions-user-bottom">
+                  <div class="questions-user-dz ${dzItem.isDz1 ? 'active' : ''}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="41" height="41" viewBox="0 0 41 41" fill="none">
+                      <circle cx="20.8633" cy="20.8359" r="19.5853" stroke="#EBEBEB" stroke-width="0.829368" />
+                      <path
+                        d="M16.9273 20.0231L20.1789 12.707C20.8257 12.707 21.446 12.964 21.9033 13.4213C22.3606 13.8787 22.6176 14.4989 22.6176 15.1457V18.3973H27.2186C27.4543 18.3947 27.6877 18.4433 27.9027 18.5398C28.1177 18.6363 28.3092 18.7784 28.4638 18.9562C28.6185 19.134 28.7326 19.3434 28.7983 19.5697C28.864 19.7961 28.8797 20.034 28.8444 20.267L27.7226 27.5831C27.6638 27.9708 27.4669 28.3241 27.1681 28.5781C26.8693 28.832 26.4889 28.9694 26.0968 28.965H16.9273M16.9273 20.0231V28.965M16.9273 20.0231H14.4886C14.0574 20.0231 13.6439 20.1944 13.339 20.4993C13.0341 20.8042 12.8628 21.2177 12.8628 21.6489V27.3392C12.8628 27.7704 13.0341 28.1839 13.339 28.4888C13.6439 28.7937 14.0574 28.965 14.4886 28.965H16.9273"
+                        stroke="#190A0A" stroke-width="0.812899" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <span> ${dzItem.isDz1 ? dzItem.num1 : (dzItem.randomNum1 || item.userDz || 0)}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>`
+      })
+
+      this.el.querySelector('.questions-list').innerHTML = html
+
+    }
+
+  }
+
+  customElements.define('questions-box', askedQuestions);
+</script>
+{% schema %}
+{
+  "name": "questions-box",
+  "blocks": [
+    {
+      "name": "item",
+      "type": "item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "类型",
+          "default":"1",
+          "info": "对应Tab切换位置1,2,3"
+        },
+        {
+          "type": "text",
+          "id": "text1",
+          "label": "Label",
+          "default":"A"
+        },
+        {
+          "type": "text",
+          "id": "text2",
+          "label": "Title",
+          "default":"What is the best IPL device for hair removal?"
+        },
+        {
+          "type": "text",
+          "id": "text3",
+          "label": "Text",
+          "default":"Users often want to know the expected timeline for visible results from IPL treatments. They may ask when they will notice reduced hair growth and how long it takes to achieve smooth, hair-free skin."
+        },
+        {
+          "type": "text",
+          "id": "text4",
+          "label": "Text",
+          "default":"User A"
+        },
+        {
+          "type": "text",
+          "id": "text5",
+          "label": "初始点赞",
+          "default":"0"
+        },
+        {
+          "type": "text",
+          "id": "text6",
+          "label": "Text",
+          "default":"Expert Reply"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "用户头像"
+        },
+        {
+          "type": "text",
+          "id": "text7",
+          "label": "Text",
+          "default":"Ulike Board-Certified Dermatologist"
+        },
+        {
+          "type": "text",
+          "id": "text8",
+          "label": "Text",
+          "default":"Dr. Davin Lim"
+        },
+        {
+          "type": "text",
+          "id": "text9",
+          "label": "Text",
+          "default":"For optimal results, use the device once a week during the initial phase. Once hair growth significantly reduces, switch to 1-2 times per month for maintenance."
+        },
+        {
+          "type": "text",
+          "id": "text10",
+          "label": "初始点赞",
+          "default":"0"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "text3",
+      "label": "自定义Class"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default":"Make the most of your IPL treatments with these helpful tips:"
+    },
+    {
+      "type": "textarea",
+      "id": "items_json",
+      "label": "Tab(JSON)",
+      "info": "Tab=》QUESTION CATEGORY 1, QUESTION CATEGORY 2, QUESTION CATEGORY 3",
+      "default":"QUESTION CATEGORY 1,QUESTION CATEGORY 2,QUESTION CATEGORY 3,QUESTION CATEGORY 4"
+    },
+    {
+      "type": "header",
+      "content": "客服"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "default":"Still have questions?"
+    },
+    {
+      "type": "text",
+      "id": "text1",
+      "label": "Text",
+      "default":"Let Ulike experts help you."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "text2",
+      "label": "Text",
+      "default":"Ask the Ulike Experts"
+    },
+    {
+      "type": "text",
+      "id": "text4",
+      "label": "Read Guide"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "链接"
+    }
+  ],
+  "presets": [
+    {
+      "name": "questions-box",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

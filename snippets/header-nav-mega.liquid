@@ -26,12 +26,12 @@
 
                    {%- assign link_title_downcase = grandchildlink.title | strip | downcase -%}
                     {%- assign menu_tag_block = '' -%}
-
+                       <!--grandchildlink.url  {{ grandchildlink.url }}-->
                         {%- for block in section.blocks -%}
       
                         {%- assign menu_tag_downcase = block.settings.menu_tle | strip | downcase -%}
                 
-                        {%- if menu_tag_downcase == link_title_downcase -%}
+                        {%- if menu_tag_downcase == grandchildlink.url or menu_tag_downcase == link_title_downcase  -%}
                           {%- assign menu_tag_block =  block.settings.code_txt | escape -%}
 
                            {% comment %} {%- assign product = block.settings.product  -%}
@@ -39,9 +39,6 @@
                             {%-  assign discount_amount = product.compare_at_price | minus: product.price  -%}
                             {%- assign discount_percentage = discount_amount | times: 100 | divided_by: product.compare_at_price  -%}
                             {%- endif -%} {% endcomment %}
-
-
-
                           {%- break -%}
                         {%- endif -%}
                       {%- endfor -%}

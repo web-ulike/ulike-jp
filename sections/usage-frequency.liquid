@@ -1,0 +1,481 @@
+<style>
+.usage-frequency {
+  padding: 50px 0;
+  overflow: hidden;
+}
+
+.usage-frequency .usage-frequency-title {
+  color: #000;
+  font-size: 30px;
+  line-height: 1.5;
+  font-family: var(--heading-font-family);
+  font-weight: normal;
+  margin: 0;
+  margin-bottom: 30px;
+}
+
+.usage-frequency .usage-frequency-cont {
+  position: relative;
+  padding: 30px 0 24px 0;
+  border-top: 1px solid #190a0a;
+  border-bottom: 1px solid #190a0a;
+  overflow: hidden;
+}
+
+.usage-frequency .usage-frequency-top {
+  position: relative;
+  padding: 83px 0 37px 0;
+  width: 1180px;
+  --left-num: 0%;
+  transition: all 0.3s ease-in-out;
+}
+
+.usage-frequency .usage-frequency-pic {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 60px;
+  margin-left: 18px;
+  left: var(--left-num);
+  z-index: 2;
+  transition: all 0.3s ease-in-out;
+}
+
+.usage-frequency .usage-frequency-line {
+  position: relative;
+  height: 1px;
+  background: #756b6e;
+  z-index: 1;
+}
+
+.usage-frequency .usage-frequency-line::before,
+.usage-frequency .usage-frequency-line::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #756b6e;
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+}
+
+.usage-frequency .usage-frequency-line::after {
+  left: auto;
+  right: 0;
+}
+
+.usage-frequency .usage-frequency-line::before {
+  left: 0;
+}
+
+.usage-frequency .usage-frequency-arraws {
+  display: flex;
+  gap: 60px;
+  position: absolute;
+  right: 0;
+  top: 35px;
+}
+
+.usage-frequency .usage-frequency-arraw:not(.disable-box) {
+  cursor: pointer;
+}
+
+.usage-frequency .disable-box {
+  pointer-events: none;
+}
+
+.usage-frequency .usage-frequency-arraw svg {
+  display: block;
+}
+
+.usage-frequency .usage-frequency-arraw:not(.disable-box) path {
+  fill: #190a0a;
+}
+
+.usage-frequency .usage-frequency-arraw:not(.disable-box) circle {
+  stroke: #190a0a;
+}
+
+.usage-frequency .usage-frequency-list {
+  margin-top: 30px;
+}
+
+.usage-frequency .usage-frequency-flex {
+  display: flex;
+  gap: 60px;
+  transition: all 0.3s ease-in-out;
+}
+
+.usage-frequency .usage-frequency-item {
+  width: calc(25% - 45px);
+}
+
+.usage-frequency .usage-frequency-item-tag {
+  color: #190a0a;
+  font-family: var(--heading-font-family);
+  font-size: 18px;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.usage-frequency .usage-frequency-item-tag svg {
+  display: block;
+}
+
+.usage-frequency .usage-frequency-item-tag path {
+  transition: all 0.4s ease;
+}
+
+.usage-frequency .usage-frequency-item-tag path:first-child {
+  fill: #fff;
+  stroke: #fff;
+}
+
+.usage-frequency .active .usage-frequency-item-tag path:first-child {
+  fill: #fff;
+  stroke: #190a0a;
+}
+
+.usage-frequency .usage-frequency-item-text {
+  margin-top: 24px;
+  opacity: 0;
+  transition: all 0.8s ease;
+}
+
+.usage-frequency .active .usage-frequency-item-text {
+  opacity: 1;
+}
+
+.usage-frequency .usage-frequency-h4 {
+  color: #190a0a;
+  font-size: 18px;
+  line-height: 1.2;
+  font-family: var(--heading-font-family);
+  font-weight: normal;
+  margin: 0;
+  margin-bottom: 8px;
+}
+
+.usage-frequency .usage-frequency-p {
+  color: #190a0a;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.usage-frequency .usage-frequency-p p {
+  margin: 0;
+}
+
+.usage-frequency .usage-frequency-p strong {
+  font-weight: normal;
+  font-family: var(--heading-font-family);
+}
+
+.usage-frequency .img {
+  width: 100%;
+  margin: 16px 0;
+}
+
+@media (max-width: 1600px) {
+  .usage-frequency .usage-frequency-item {
+    width: 250px;
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 991px) {
+  .usage-frequency{
+    padding-bottom:0;
+  }
+  .usage-frequency .usage-frequency-title {
+    font-size: 28px;
+    line-height: 1.25;
+  }
+
+  .usage-frequency .usage-frequency-item-text {
+    opacity: 1;
+  }
+
+  .usage-frequency .usage-frequency-cont {
+    padding-bottom: 72px;
+  }
+
+  .usage-frequency .usage-frequency-arraws {
+    gap: 40px;
+    top: auto;
+    bottom: 24px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+
+  .usage-frequency .usage-frequency-arraw svg {
+    width: 32px;
+    height: auto;
+  }
+
+  .usage-frequency .usage-frequency-item-tag path:first-child {
+    fill: #fff;
+    stroke: #190a0a;
+  }
+}
+</style>
+<section class="section-box">
+  <div class="usage-frequency margin-left-diy {{ section.settings.text_c }}" {% if section.settings.is_hide %}style="display: none;"{% endif %}>
+    <div class="container">
+      {%- if section.settings.title != blank -%}
+        <h3 class="usage-frequency-title">{{ section.settings.title }}</h3>
+      {%- endif -%}
+      <div class="usage-frequency-cont">
+        <div class="usage-frequency-top">
+          <div class="usage-frequency-line"></div>
+          {%- if section.settings.image != blank -%}
+            <img
+              loading="lazy"
+              class="usage-frequency-pic"
+              width="{{ section.settings.image.width }}"
+              height="{{ section.settings.image.height }}"
+              {% render 'image-attributes', image: section.settings.image %}
+              alt="{{ section.settings.image.alt | escape }}"
+            > 
+          {%- endif -%}
+        </div>
+        <div class="usage-frequency-arraws">
+          <div class="usage-frequency-arraw disable-box">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="41" viewBox="0 0 40 41" fill="none">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M23.6003 33.6395L24.1054 34.1445L25.1155 33.1344L24.6104 32.6293L19.9992 28.0181L15.6526 23.6715C15.0947 23.1136 14.1902 23.1136 13.6323 23.6715L18.9891 29.0282L23.6003 33.6395ZM11.1003 20.1293C10.8213 20.4083 10.8213 20.8605 11.1003 21.1395C11.1942 21.2334 11.3078 21.2957 11.4278 21.3264L11.4278 21.3487L11.6038 21.3487L11.6069 21.3487L12.1421 21.3487L19.4639 21.3487L26.7857 21.3487L28.5715 21.3487C29.3605 21.3487 30.0001 20.7091 30.0001 19.9201L26.7857 19.9201L13.3298 19.9201L24.6104 8.63946L25.1155 8.13438L24.1054 7.12423L23.6003 7.6293L11.1003 20.1293Z"
+                fill="#B3ADAD" />
+              <circle cx="20" cy="20.5732" r="19.2857" transform="rotate(-180 20 20.5732)" stroke="#B3ADAD"
+                stroke-width="1.42857" />
+            </svg>
+          </div>
+          <div class="usage-frequency-arraw">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="41" viewBox="0 0 40 41" fill="none">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M16.3997 7.50703L15.8946 7.00195L14.8845 8.01211L15.3896 8.51718L20.0008 13.1284L24.3474 17.475C24.9053 18.0329 25.8098 18.0329 26.3677 17.475V17.475L21.011 12.1183L16.3997 7.50703ZM28.8997 21.0172C29.1787 20.7382 29.1787 20.286 28.8997 20.007C28.8058 19.9131 28.6922 19.8508 28.5722 19.8201V19.7978H28.3962H28.3931H27.8579H20.5361H13.2143H11.4285C10.6395 19.7978 9.99995 20.4374 9.99995 21.2264V21.2264H13.2143H26.6702L15.3896 32.507L14.8845 33.0121L15.8946 34.0223L16.3997 33.5172L28.8997 21.0172Z"
+                fill="#B3ADAD" />
+              <circle cx="20" cy="20.5732" r="19.2857" stroke="#B3ADAD" stroke-width="1.42857" />
+            </svg>
+          </div>
+        </div>
+        <div class="usage-frequency-list">
+          <div class="usage-frequency-flex">
+            {%- for block in section.blocks -%}
+              <div class="usage-frequency-item {% if forloop.index == 1 %}active{% endif %}">
+                {%- if block.settings.text != blank -%}
+                  <div class="usage-frequency-item-tag">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="23" viewBox="0 0 22 23" fill="none">
+                      <path
+                        d="M10.9999 19.157C8.68367 19.157 6.636 18.5364 5.18191 17.4039C3.74342 16.2836 2.85064 14.6381 2.85064 12.4789V3.84038H19.1492V12.4789C19.1492 14.6381 18.2564 16.2836 16.8179 17.4039C15.3638 18.5364 13.3161 19.157 10.9999 19.157Z"
+                        stroke="#190A0A" stroke-width="1.19932" />
+                      <path
+                        d="M11.0008 17.1285C7.70654 17.1285 5.03613 15.3651 5.03613 12.1668V5.86865H16.9654V12.1668C16.9654 15.3651 14.295 17.1285 11.0008 17.1285Z"
+                        fill="#E0004D" />
+                    </svg>
+                    {{ block.settings.text }}
+                  </div>
+                {%- endif -%}
+                <div class="usage-frequency-item-text">
+                  {%- if block.settings.text1 != blank -%}
+                  <h4 class="usage-frequency-h4">{{ block.settings.text1 }}</h4>
+                  {%- endif -%}
+                  {%- if block.settings.text2 != blank -%}
+                  <div class="usage-frequency-p">{{ block.settings.text2 }}</div>
+                  {%- endif -%}
+                  {%- if block.settings.image != blank -%}
+                    <img
+                      loading="lazy"
+                      class="img"
+                      width="{{ block.settings.image.width }}"
+                      height="{{ block.settings.image.height }}"
+                      {% render 'image-attributes', image: block.settings.image %}
+                      alt="{{ block.settings.image.alt | escape }}"
+                    > 
+                  {%- endif -%}
+                  {%- if block.settings.text3 != blank -%}
+                  <div class="usage-frequency-p">{{ block.settings.text3 }}</div>
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  function usageFrequency{{ section.id | replace: "template--", "" | replace: "__", ""  }}() {
+    let $p = document.querySelector('#shopify-section-{{ section.id }} .usage-frequency')
+    let $cont = $p.querySelector('.usage-frequency-cont')
+    let $top = $p.querySelector('.usage-frequency-top')
+    let $arraws = $p.querySelectorAll('.usage-frequency-arraw')
+    let $tags = $p.querySelectorAll('.usage-frequency-item-tag')
+    let $list = $p.querySelector('.usage-frequency-flex')
+    let $items = $p.querySelectorAll('.usage-frequency-item')
+    let index = 0
+    let pW = $cont.offsetWidth
+    let lW = 1180
+    let tf = 0
+
+    $arraws.forEach((item, i) => {
+      item.addEventListener('click', () => {
+        index += i ? 1 : -1
+        changeItem()
+      })
+    })
+
+    $tags.forEach((item, i) => {
+      item.addEventListener('click', () => {
+        index = i
+        changeItem()
+      })
+    })
+
+    function addSwipeListener(element, callback) {
+      let startX = 0;
+      let endX = 0;
+
+      element.addEventListener("touchstart", (e) => {
+        startX = e.touches[0].clientX;
+      });
+
+      element.addEventListener("touchmove", (e) => {
+        endX = e.touches[0].clientX;
+      });
+
+      element.addEventListener("touchend", () => {
+        const diffX = endX - startX;
+        if (Math.abs(diffX) > 15) {
+          if (diffX > 0) {
+            callback(0);
+          } else {
+            callback(1);
+          }
+        }
+      });
+    }
+
+    addSwipeListener($list, (direction) => {
+      index += direction ? 1 : -1
+      if (index < 0) return index = 0
+      if (index > $items.length - 1) return index = $items.length - 1
+      changeItem()
+    })
+
+    function changeItem() {
+      pW = $cont.offsetWidth
+      if (index == 0) {
+        $arraws[0].classList.add('disable-box')
+      } else {
+        $arraws[0].classList.remove('disable-box')
+      }
+
+      if (index == $items.length - 1) {
+        $arraws[1].classList.add('disable-box')
+      } else {
+        $arraws[1].classList.remove('disable-box')
+      }
+      $items.forEach((item, i) => {
+        if (i <= index) {
+          item.classList.add('active')
+        } else {
+          item.classList.remove('active')
+        }
+      })
+      $top.style.setProperty('--left-num', `calc(${index * 25}% + ${index * 15}px)`)
+
+      if (window.innerWidth < 1600) {
+        tf = index * (310)
+
+        if (lW - tf < pW) {
+          tf = lW - pW
+        }
+        // 设置偏移
+        $top.style.transform = `translateX(-${tf}px)`
+        $list.style.transform = `translateX(-${tf}px)`
+      }
+
+    }
+  }
+  usageFrequency{{ section.id | replace: "template--", "" | replace: "__", ""  }}()
+</script>          
+{% schema %}
+{
+  "name": "usage-frequency",
+  "blocks": [
+    {
+      "name": "item",
+      "type": "item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default":"Week 1-4"
+        },
+        {
+          "type": "text",
+          "id": "text1",
+          "label": "Text",
+          "default":"2-3 times per week"
+        },
+        {
+          "type": "text",
+          "id": "text2",
+          "label": "Text",
+          "default":"By the end of this cycle, 93% of hair will stop growing, starting from surrounding areas, with some growth near joints or central regions."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "text3",
+          "label": "Text",
+          "default":"IPL removes most hair, but some enter the growth phase, so consistent use is essential."
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default":"Usage Frequency"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "text_c",
+      "label": "自定义Class"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_hide",
+      "label": "默认隐藏",
+      "default":false
+    }
+    
+  ],
+  "presets": [
+    {
+      "name": "usage-frequency",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}
