@@ -1,0 +1,140 @@
+<style>
+.IPL-used {
+  padding: 50px 0;
+}
+
+.IPL-used .IPL-used-title {
+  color: #000;
+  font-size: 30px;
+  line-height: 1.5;
+  font-family: var(--heading-font-family);
+  font-weight: normal;
+  margin: 0;
+  margin-bottom: 30px;
+}
+.IPL-used .IPL-used-cont {
+  padding: 24px 0;
+  border-top: 1px solid #190a0a;
+  border-bottom: 1px solid #190a0a;
+}
+
+.IPL-used .IPL-used-list {
+  display: flex;
+  gap: 57px;
+}
+
+.IPL-used .IPL-used-item {
+  flex: 1;
+}
+
+.IPL-used .IPL-used-item img {
+  width: 100%;
+  display: block;
+}
+
+.IPL-used .IPL-used-text{
+  padding:0 20px;
+  margin-top:16px;
+  font-size: 20px;
+  line-height: 1.5;
+  color: #190A0A;
+}
+
+.IPL-used .IPL-used-h4{
+  font-family: var(--heading-font-family);
+  font-weight: normal;
+  margin:0;
+}
+@media (max-width: 991px) {
+  .IPL-used {
+    padding-bottom: 0;
+  }
+
+  .IPL-used .IPL-used-title {
+    font-size: 28px;
+    line-height: 1.25;
+  }
+  .IPL-used .IPL-used-text{
+    padding:0;
+    font-size:14px;
+    line-height: 1.57;
+  }
+}
+</style>
+<section class="section-box">
+  <div class="IPL-used margin-left-diy {{ section.settings.text }}">
+    <div class="container">
+      {%- if section.settings.title != blank -%}
+        <h3 class="IPL-used-title">{{ section.settings.title }}</h3>
+      {%- endif -%}
+      <div class="IPL-used-cont">
+        <div class="IPL-used-list">
+          <div class="IPL-used-item">
+            {%- if section.settings.image != blank or section.settings.image1 != blank -%}
+              <picture>
+                <source srcset="{{ section.settings.image1 | image_url }}" media="(max-width: 991px)">
+                <img class="img" width="" height="" src="{{ section.settings.image | image_url }}">
+              </picture>
+            {%- endif -%}
+            {%- if section.settings.text1 != blank or section.settings.text2 != blank -%}
+              <div class="IPL-used-text">
+                {%- if section.settings.text1 != blank -%}
+                  <h4 class="IPL-used-h4">{{ section.settings.text1 }}</h4>
+                {%- endif -%}
+                {%- if section.settings.text2 != blank -%}
+                  <p class="IPL-used-p">{{ section.settings.text2 }}</p>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "IPL-used",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default":"Where IPL Devices Can Be Used?"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image1",
+      "label": "Image M"
+    },
+    {
+      "type": "text",
+      "id": "text1",
+      "label": "Text",
+      "default":"Use single block of text for disclaimer extending below both male and female"
+    },
+    {
+      "type": "text",
+      "id": "text2",
+      "label": "Text",
+      "default":"Safe for use on shaded areas.Do NOT use on genitals, nipples, tattoos, scars, overly tanned skin, moles, or if pregnant/nursing."
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "自定义Class"
+    } 
+  ],
+  "presets": [
+    {
+      "name": "IPL-used",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

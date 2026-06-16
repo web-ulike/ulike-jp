@@ -1,0 +1,214 @@
+<style>
+.product-tab {
+  padding: 100px 0 50px 0;
+}
+
+.product-tab .product-tab-list {
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+}
+
+.product-tab .product-tab-item {
+  padding: 8px 16px;
+  border-radius: 14px;
+  border: 0.881px solid #86868b;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  cursor: pointer;
+}
+
+.product-tab .product-tab-item span {
+  color: #756b6e;
+  font-size: 28px;
+  line-height: 1.3;
+  font-family: var(--heading-font-family);
+  display: inline-block;
+}
+
+.product-tab .product-tab-item .span{
+  width:70px;
+}
+
+.product-tab .product-tab-item img {
+  width: 75px;
+  display: block;
+}
+
+.product-tab .product-tab-item.active {
+  border-color: #190a0a;
+}
+
+.product-tab .product-tab-item.active span {
+  color: #190a0a;
+  background: linear-gradient(180deg, #190a0a 0%, #190a0a 100%) no-repeat;
+  background-position: left bottom;
+  background-size: 100% 1px;
+}
+
+.product-tab .product-tab-item:hover span{
+  background: linear-gradient(180deg, #756b6e 0%, #756b6e 100%) no-repeat;
+  background-position: left bottom;
+  background-size: 100% 1px;
+}
+@media (min-width: 991px) {
+  .product-tab .product-tab-item:hover{
+    background:#F5F4F4;
+  }
+}
+.product-tab .product-tab-item.active:hover span {
+  background-size: 100% 1px;
+}
+
+@media (max-width: 991px) {
+  #shopify-section-{{ section.id }}{
+    position: sticky;
+    {% comment %} top: 45px; {% endcomment %}
+    top: calc(var(--header-height, 0px) * var(--enable-sticky-header) + var(--announcement-bar-height, 0px) * var(--enable-sticky-announcement-bar) - 20px);
+    z-index: 3;
+  }
+  .product-tab {
+    padding: 42px 0 18px 0;
+    background: #fff;
+  }
+
+  .product-tab .product-tab-list {
+    gap: 30px;
+  }
+
+  .product-tab .product-tab-item {
+    height: 58px;
+    padding: 5px 10px;
+    border-radius: 9px;
+    gap: 25px;
+  }
+  .product-tab .product-tab-item span {
+    font-size: 18px;
+  }
+  .product-tab .product-tab-item .span{
+    width:45px;
+  }
+  .product-tab .product-tab-item img {
+    width: 48px;
+  }
+}
+</style>
+<section class="section-box">
+  <div class="product-tab margin-left-diy sticky-align-box">
+    <div class="container">
+      <div class="product-tab-list">
+        {%- for block in section.blocks -%}
+          {%- if block.settings.text != blank -%}
+            <div class="product-tab-item {% if forloop.index == 1 %}active{% endif %}" data-id="{{ block.settings.text1 }}" data-id1="{{ block.settings.text2 }}">
+              <div class="span">
+                <span>{{ block.settings.text }}</span>
+              </div>
+              {%- if block.settings.image != blank -%}
+                <img
+                  loading="lazy"
+                  class="img"
+                  width="{{ block.settings.image.width }}"
+                  height="{{ block.settings.image.height }}"
+                  {% render 'image-attributes', image: block.settings.image %}
+                  alt="{{ block.settings.image.alt | escape }}"
+                >   
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  function productStickyPosition(a) {
+    if (!a || window.innerWidth > 991) return;
+    function updatePosition() {
+      const rectA = a.getBoundingClientRect();
+      const offsetTopC = window.scrollY + rectA.top;
+
+      if (window.scrollY >= offsetTopC) {
+        document.querySelector('.product-tab').closest('.shopify-section').style.position = 'relative';
+      } else {
+        document.querySelector('.product-tab').closest('.shopify-section').style.position = 'sticky';
+      }
+    }
+
+    window.addEventListener('scroll', updatePosition);
+    window.addEventListener('resize', updatePosition);
+    updatePosition();
+  }
+  window.addEventListener('load', function () {
+    productStickyPosition(document.querySelector('.{{ section.settings.text }}'))
+  })
+  document.querySelectorAll('.product-tab .product-tab-item').forEach(button => {
+    button.addEventListener('click', () => {
+      const targetId = button.getAttribute('data-id');
+      const targetId1 = button.getAttribute('data-id1');
+      if(targetId){
+        document.querySelectorAll('.' + targetId).forEach(item => {
+          item.closest('.shopify-section').style.display = 'block';
+          item.style.display = 'block';
+        })
+      }
+      if(targetId1){
+        document.querySelectorAll('.' + targetId1).forEach(item => {
+          item.closest('.shopify-section').style.display = 'none';
+          item.style.display = 'none';
+        })
+      }
+      document.querySelectorAll('.product-tab .product-tab-item').forEach(item => {
+        item.classList.remove('active');
+      })
+      button.classList.add('active');
+    });
+  })
+</script>
+{% schema %}
+{
+  "name": "product-tab",
+  "blocks": [
+    {
+      "name": "item",
+      "type": "item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default":"Air 10"
+        },
+        {
+          "type": "text",
+          "id": "text1",
+          "label": "显示Class"
+        },
+        {
+          "type": "text",
+          "id": "text2",
+          "label": "隐藏Class"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "移动端结束吸顶Class"
+    }
+  ],
+  "presets": [
+    {
+      "name": "product-tab",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

@@ -25,10 +25,8 @@
           break
         endif
 
-        if menu_tag_downcase == link_title_handle
-        assign menu_tag_block =  block.settings.code_txt | escape
-
-
+        if menu_tag_downcase == link.url or menu_tag_downcase == link_title_handle
+          assign menu_tag_block =  block.settings.code_txt | escape
         endif
       endfor
     -%}
