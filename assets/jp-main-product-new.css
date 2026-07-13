@@ -896,7 +896,7 @@
 ================================ */
 .jp-product-countdown {
   box-sizing: border-box;
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: center;
   width: 100%;
@@ -908,6 +908,10 @@
   background: #fff0f6;
   color: #190a0a;
   text-align: center;
+}
+
+.jp-product-countdown.is-active {
+  display: flex;
 }
 
 .jp-product-countdown__headline {
@@ -973,6 +977,10 @@
 .jp-product-countdown__unit {
   flex-shrink: 0;
   white-space: nowrap;
+}
+
+.jp-product-countdown.is-ended {
+  display: none;
 }
 
 /* ================================

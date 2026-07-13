@@ -698,7 +698,12 @@
       var minuteEl = countdown.querySelector('[data-countdown-minutes]');
       var secondEl = countdown.querySelector('[data-countdown-seconds]');
 
-      if (!endTime || Number.isNaN(endTime)) return;
+      countdown.classList.remove('is-active', 'is-ended');
+
+      if (!endTime || Number.isNaN(endTime)) {
+        countdown.dataset.countdownInitialized = 'true';
+        return;
+      }
 
       function pad(value) {
         return String(value).padStart(2, '0');
@@ -717,14 +722,24 @@
         if (minuteEl) minuteEl.textContent = pad(minutes);
         if (secondEl) secondEl.textContent = pad(seconds);
 
-        if (remaining <= 0) {
-          window.clearInterval(timer);
-          countdown.classList.add('is-ended');
-        }
+        return remaining;
       }
 
-      var timer = window.setInterval(renderCountdown, 1000);
-      renderCountdown();
+      if (renderCountdown() <= 0) {
+        countdown.classList.add('is-ended');
+        countdown.dataset.countdownInitialized = 'true';
+        return;
+      }
+
+      countdown.classList.add('is-active');
+
+      var timer = window.setInterval(function () {
+        if (renderCountdown() <= 0) {
+          window.clearInterval(timer);
+          countdown.classList.remove('is-active');
+          countdown.classList.add('is-ended');
+        }
+      }, 1000);
       countdown.dataset.countdownInitialized = 'true';
     });
   }
@@ -794,6 +809,32 @@
   }
 
   /**
+   * 初始化 Judge.me 评分点击跳转评论区。
+   */
+  function initJudgeMeReviewScroll() {
+    if (document.documentElement.dataset.judgeMeReviewScrollInitialized === 'true') return;
+
+    document.addEventListener('click', function (event) {
+      var badge = event.target.closest('.jdgm-prev-badge');
+
+      if (!badge) return;
+
+      event.preventDefault();
+
+      var target = document.querySelector('#judgeme_product_reviews');
+
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+
+    document.documentElement.dataset.judgeMeReviewScrollInitialized = 'true';
+  }
+
+  /**
    * 初始化页面中所有产品信息组件。
    */
   function initAllProductInfo() {
@@ -802,6 +843,7 @@
     });
 
     initCountdown(document);
+    initJudgeMeReviewScroll();
   }
 
   if (document.readyState === 'loading') {
@@ -820,4 +862,5 @@
     });
     initCountdown(event.target);
   });
+
 })();

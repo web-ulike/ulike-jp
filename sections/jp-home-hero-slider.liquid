@@ -13,6 +13,7 @@
             assign mobile_image = block.settings.image_mobile
             assign title = block.settings.title
             assign subheading_logo = block.settings.subheading_logo
+            assign feature_image = block.settings.feature_image
             assign desc = block.settings.desc
             assign button_text = block.settings.button_text
             assign button_link = block.settings.button_link
@@ -83,8 +84,18 @@
                               height="{{ subheading_logo.height }}"
                             >
                           {% endif %}
-                        
                         </div>
+                      {% endif %}
+
+                      {% if feature_image != blank %}
+                        <img
+                          class="jp-home-hero__feature-image"
+                          src="{{ feature_image | image_url: width: 1440 }}"
+                          alt="{{ feature_image.alt | escape }}"
+                          loading="lazy"
+                          width="{{ feature_image.width }}"
+                          height="{{ feature_image.height }}"
+                        >
                       {% endif %}
 
                       {% if title != blank %}
@@ -191,9 +202,9 @@
 
   .jp-home-hero--{{ sid }} .jp-home-hero__content-inner {
     position: relative;
-    top: 22%;
+    height: 100%;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
     gap: 40px;
   }
@@ -241,6 +252,14 @@
 
   .jp-home-hero--{{ sid }} .jp-home-hero__subheading-text {
     display: inline-block;
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__feature-image {
+    width: 770px;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-top: 0px;
   }
 
   .jp-home-hero--{{ sid }} .jp-home-hero__title {
@@ -451,6 +470,11 @@
     .jp-home-hero--{{ sid }} .jp-home-hero__subheading-logo {
       height: 40px;
     }
+
+    .jp-home-hero--{{ sid }} .jp-home-hero__feature-image {
+      width: 90%;
+      margin: 24px auto 0;
+    }
     .jp-home-hero--{{ sid }} .jp-home-hero__info-wrap {
       bottom: 15px;
     }
@@ -467,15 +491,17 @@
     }
 
     .jp-home-hero--{{ sid }} .jp-home-hero__content-inner {
-      top: 5%;
+      height: 100%;
       align-items: flex-start;
       justify-content: center;
       gap: 20px;
-      padding-top: 0;
+      padding-top: 5%;
+      box-sizing: border-box;
     }
 
     .jp-home-hero--{{ sid }} .jp-home-hero__content {
       padding-top: 10px;
+      width: 100%;
     }
 
     .jp-home-hero--{{ sid }} .jp-home-hero__title {
@@ -714,6 +740,11 @@
           "type": "image_picker",
           "id": "subheading_logo",
           "label": "Subheading logo"
+        },
+        {
+          "type": "image_picker",
+          "id": "feature_image",
+          "label": "Feature image"
         },
         {
           "type": "html",

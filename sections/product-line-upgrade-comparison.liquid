@@ -103,7 +103,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 20px 140px 20px 116px;
+    padding: 20px 100px 20px 116px;
   }
 
   #pluc-{{ sid }} .pluc__tag-image,
@@ -194,9 +194,16 @@
 
   #pluc-{{ sid }} .pluc__price-row {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     gap: 13px;
-    margin-bottom: 30px;
+    margin-bottom: 0px;
+  }
+
+  #pluc-{{ sid }} .pluc__price-notice {
+    color: #3F3636;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.3;
   }
 
   #pluc-{{ sid }} .pluc__price {
@@ -207,11 +214,15 @@
     line-height: 1.3;
   }
 
+  #pluc-{{ sid }} .pluc__price-suffix {
+    font-size: 20px;
+    color: #000;
+  }
+
   #pluc-{{ sid }} .pluc__compare-price {
     color: #3f3636;
-    font-family: var(--font-sans-family);
-    font-size: 24px;
-    font-weight: 300;
+    font-size: 20px;
+    color: #3F3636;
     line-height: 1.3;
     text-decoration: line-through;
   }
@@ -459,7 +470,7 @@
     justify-content: flex-end;
     align-items: center;
     gap: 10px;
-    padding: 20px 18px 12px;
+    padding: 20px 18px 0px;
   }
 
   #pluc-{{ sid }} .pluc-compare__name {
@@ -485,6 +496,12 @@
     justify-content: center;
   }
 
+  #pluc-{{ sid }} .pluc-compare__hero > picture {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   #pluc-{{ sid }} .pluc-compare__product {
     display: block;
     max-width: 145px;
@@ -495,7 +512,7 @@
   #pluc-{{ sid }} .pluc-compare__model--old .pluc-compare__hero {
     gap: 10px;
     padding-top: 20px;
-    padding-bottom: 5px;
+    padding-bottom: 0px;
   }
 
   #pluc-{{ sid }} .pluc-compare__model--old .pluc-compare__logo {
@@ -659,15 +676,23 @@
 
     #pluc-{{ sid }} .pluc__price-row {
       gap: 8px;
-      margin-bottom: 13px;
+      margin-bottom: 20px;
+    }
+
+    #pluc-{{ sid }} .pluc__price-notice {
+      font-size: 20px;
     }
 
     #pluc-{{ sid }} .pluc__price {
-      font-size: 35px;
+      font-size: 25px;
+    }
+
+    #pluc-{{ sid }} .pluc__price-suffix {
+      font-size: 15px;
     }
 
     #pluc-{{ sid }} .pluc__compare-price {
-      font-size: 12px;
+      font-size: 15px;
     }
 
     #pluc-{{ sid }} .pluc__buttons {
@@ -732,7 +757,7 @@
       width: min(355px, calc(100vw - 20px));
       max-height: calc(100vh - 36px);
       border-radius: 8px;
-      padding: 64px 15px 54px;
+      padding: 50px 15px 40px;
       overflow-x: auto;
     }
 
@@ -749,8 +774,8 @@
     }
 
     #pluc-{{ sid }} .pluc-compare {
-      grid-template-columns: 105px 110px 110px;
-      width: 325px;
+      grid-template-columns: 95px 103px auto;
+      width: 100%;
       justify-content: start;
     }
 
@@ -822,7 +847,6 @@
     #pluc-{{ sid }} .pluc-compare__model--old .pluc-compare__hero {
       gap: 6px;
       padding-top: 22px;
-      padding-bottom: 8px;
     }
 
     #pluc-{{ sid }} .pluc-compare__model--old .pluc-compare__logo {
@@ -832,24 +856,24 @@
 
     #pluc-{{ sid }} .pluc-compare__model--old .pluc-compare__product {
       max-width: 62px;
-      max-height: 78px;
+      max-height: 65px;
     }
 
     #pluc-{{ sid }} .pluc-compare__model--new .pluc-compare__logo {
-      max-width: 60px;
-      max-height: 16px;
+      max-width: 82px;
+      max-height: 20px;
     }
 
     #pluc-{{ sid }} .pluc-compare__model--new .pluc-compare__product {
-      max-width: 80px;
-      max-height: 90px;
+      max-width: 102px;
+      max-height: 104px;
     }
 
     #pluc-{{ sid }} .pluc-compare__model--new .pluc-compare__hero {
       gap: 5px;
       padding-top: 18px;
       padding-right: 10px;
-      padding-bottom: 8px;
+      padding-bottom: 0px;
       padding-left: 10px;
     }
 
@@ -957,22 +981,36 @@
             <div class="pluc__description">{{ section.settings.description }}</div>
           {%- endif -%}
 
+          {%- assign compare_price_label = section.settings.compare_price_label | default: '定価' -%}
+          {%- if section.settings.price_notice_text != blank -%}
+            <div class="pluc__price-notice">{{ section.settings.price_notice_text }}</div>
+          {%- endif -%}
           {%- if product != blank -%}
             <div class="pluc__price-row">
-              <div class="pluc__price">{{ product.price | money }}</div>
+              <div class="pluc__price">
+                {{ product.price | money }}
+                {%- if section.settings.price_suffix != blank -%}
+                  <span class="pluc__price-suffix">{{ section.settings.price_suffix }}</span>
+                {%- endif -%}
+              </div>
               {%- if product.compare_at_price > product.price -%}
-                <div class="pluc__compare-price">{{ product.compare_at_price | money }}</div>
+                <div class="pluc__compare-price">{{ compare_price_label }}{{ product.compare_at_price | money }}{{ section.settings.compare_price_suffix }}</div>
               {%- elsif section.settings.compare_price != blank -%}
-                <div class="pluc__compare-price">{{ section.settings.compare_price }}</div>
+                <div class="pluc__compare-price">{{ compare_price_label }}{{ section.settings.compare_price }}{{ section.settings.compare_price_suffix }}</div>
               {%- endif -%}
             </div>
           {%- elsif section.settings.price != blank or section.settings.compare_price != blank -%}
             <div class="pluc__price-row">
               {%- if section.settings.price != blank -%}
-                <div class="pluc__price">{{ section.settings.price }}</div>
+                <div class="pluc__price">
+                  {{ section.settings.price }}
+                  {%- if section.settings.price_suffix != blank -%}
+                    <span class="pluc__price-suffix">{{ section.settings.price_suffix }}</span>
+                  {%- endif -%}
+                </div>
               {%- endif -%}
               {%- if section.settings.compare_price != blank -%}
-                <div class="pluc__compare-price">{{ section.settings.compare_price }}</div>
+                <div class="pluc__compare-price">{{ compare_price_label }}{{ section.settings.compare_price }}{{ section.settings.compare_price_suffix }}</div>
               {%- endif -%}
             </div>
           {%- endif -%}
@@ -1014,16 +1052,16 @@
             {%- endif -%}
 
             {%- if section.settings.buy_button_text != blank -%}
-              {%- if section.settings.buy_button_link != blank -%}
-                <a href="{{ section.settings.buy_button_link }}" class="pluc__link pluc__link--primary">{{ section.settings.buy_button_text }}</a>
-              {%- elsif product != blank -%}
+              {%- if product != blank -%}
                 <shopify-buy-now
                   product-id="{{ product.id }}"
                   variant-id="{{ product.selected_or_first_available_variant.id }}"
                   button-text="{{ section.settings.buy_button_text }}"
                 >
-                  <button class="pluc__link pluc__link--primary" type="button">{{ section.settings.buy_button_text }}</button>
+                  <button class="pluc__link pluc__link--primary btn-buy-now" type="button">{{ section.settings.buy_button_text }}</button>
                 </shopify-buy-now>
+              {%- elsif section.settings.buy_button_link != blank -%}
+                <a href="{{ section.settings.buy_button_link }}" class="pluc__link pluc__link--primary btn-buy-now">{{ section.settings.buy_button_text }}</a>
               {%- endif -%}
             {%- endif -%}
           </div>
@@ -1431,8 +1469,29 @@
     },
     {
       "type": "text",
+      "id": "price_suffix",
+      "label": "Price Suffix"
+    },
+    {
+      "type": "text",
       "id": "compare_price",
       "label": "Compare Price"
+    },
+    {
+      "type": "text",
+      "id": "compare_price_suffix",
+      "label": "Compare Price Suffix"
+    },
+    {
+      "type": "text",
+      "id": "compare_price_label",
+      "label": "Compare Price Label",
+      "default": "定価"
+    },
+    {
+      "type": "text",
+      "id": "price_notice_text",
+      "label": "Price Notice Text"
     },
     {
       "type": "text",
@@ -1444,7 +1503,7 @@
       "type": "text",
       "id": "buy_button_text",
       "label": "Buy Button Text",
-      "default": "詳しく見る"
+      "default": "今すぐ購入"
     },
     {
       "type": "url",
