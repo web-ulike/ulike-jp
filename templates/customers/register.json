@@ -1,17 +1,20 @@
 {
   "sections": {
-    "main-register": {
-      "type": "main-register",
-      "settings": {
-        "heading_size": "title-xl tracking-heading",
-        "show_email_consent": true,
-        "padding_top": 72,
-        "padding_bottom": 100,
-        "rounded": false
-      }
+    "main": {
+      "type": "main-customers-register",
+      "blocks": {
+        "register_form": {
+          "type": "register",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "register_form"
+      ],
+      "settings": {}
     }
   },
   "order": [
-    "main-register"
+    "main"
   ]
 }
