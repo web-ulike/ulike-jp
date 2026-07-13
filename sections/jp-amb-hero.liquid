@@ -20,29 +20,49 @@
   </picture>
 
   <div class="jp-amb-hero__content">
-    <div class="jp-amb-hero__text">
-      {%- if st.kicker != blank -%}
-        <div class="jp-amb-hero__kicker">{{ st.kicker }}</div>
-      {%- endif -%}
+    <div class="jp-container jp-amb-hero__container">
+      <div class="jp-amb-hero__text">
+        {%- if st.kicker != blank -%}
+          <div class="jp-amb-hero__kicker">{{ st.kicker }}</div>
+        {%- endif -%}
 
-      {%- if st.title != blank -%}
-        <div class="jp-amb-hero__title">{{ st.title }}</div>
-      {%- endif -%}
+        {%- if st.title != blank -%}
+          <div class="jp-amb-hero__title">{{ st.title }}</div>
+        {%- endif -%}
 
-      {%- if st.icon_image != blank -%}
-        <img
-          class="jp-amb-hero__icon"
-          src="{{ st.icon_image | image_url: width: 280 }}"
-          alt="{{ st.icon_image.alt | escape }}"
-          loading="lazy"
-        >
-      {%- endif -%}
+        {%- if st.icon_image != blank -%}
+          <img
+            class="jp-amb-hero__icon"
+            src="{{ st.icon_image | image_url: width: 280 }}"
+            alt="{{ st.icon_image.alt | escape }}"
+            loading="lazy"
+          >
+        {%- endif -%}
+
+        {%- if st.feature_image != blank or st.mobile_feature_image != blank -%}
+          <picture class="jp-amb-hero__feature-picture">
+            {%- if st.mobile_feature_image != blank -%}
+              <source media="(max-width: 768px)" srcset="{{ st.mobile_feature_image | image_url: width: 900 }}">
+            {%- endif -%}
+
+            {%- assign feature_image = st.feature_image | default: st.mobile_feature_image -%}
+            <img
+              class="jp-amb-hero__feature-image"
+              src="{{ feature_image | image_url: width: 1440 }}"
+              alt="{{ feature_image.alt | escape }}"
+              loading="lazy"
+            >
+          </picture>
+        {%- endif -%}
+      </div>
     </div>
   </div>
 
   {%- if st.info != blank -%}
     <div class="jp-amb-hero__info-wrap">
-      <div class="jp-amb-hero__info">{{ st.info }}</div>
+      <div class="jp-container jp-amb-hero__info-container">
+        <div class="jp-amb-hero__info">{{ st.info }}</div>
+      </div>
     </div>
   {%- endif -%}
 </section>
@@ -67,20 +87,23 @@
 
   .jp-amb-hero--{{ sid }} .jp-amb-hero__content {
     position: absolute;
-    left: 8.3%;
-    top: 30%;
-    bottom: 0;
+    inset: 0;
     z-index: 2;
     display: flex;
+    align-items: center;
     pointer-events: none;
+  }
+
+  .jp-amb-hero--{{ sid }} .jp-amb-hero__container {
+    width: 100%;
   }
 
 
   .jp-amb-hero--{{ sid }} .jp-amb-hero__text {
-    width: 560px;
-    max-width: 42vw;
+    {% comment %} width: 560px;
+    max-width: 42vw; {% endcomment %}
     padding-left: 0;
-    transform: translateY(-6px);
+    {% comment %} transform: translateY(-6px); {% endcomment %}
   }
 
   .jp-amb-hero--{{ sid }} .jp-amb-hero__kicker {
@@ -107,18 +130,34 @@
     display: block;
   }
 
+  .jp-amb-hero--{{ sid }} .jp-amb-hero__feature-picture {
+    display: block;
+    width: 720px;
+    max-width: 100%;
+    margin-top: 40px;
+  }
+
+  .jp-amb-hero--{{ sid }} .jp-amb-hero__feature-image {
+    width: 100%;
+    display: block;
+  }
+
   .jp-amb-hero--{{ sid }} .jp-amb-hero__info-wrap {
     position: absolute;
-    left: 8.4%;
-    right: auto;
+    left: 0;
+    right: 0;
     bottom: 28px;
     z-index: 2;
     pointer-events: none;
   }
 
+  .jp-amb-hero--{{ sid }} .jp-amb-hero__info-container {
+    width: 100%;
+  }
+
   .jp-amb-hero--{{ sid }} .jp-amb-hero__info {
-    max-width: 430px;
-    font-size: 8px;
+    max-width: 630px;
+    font-size: 10px;
     line-height: 1.5;
     color: rgba(0, 0, 0, 0.50);
     letter-spacing: .02em;
@@ -127,12 +166,14 @@
 
   @media (max-width: 768px) {
     .jp-amb-hero--{{ sid }} .jp-amb-hero__content {
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: auto;
+      inset: 0;
       display: block;
       padding-top: 30px;
+      box-sizing: border-box;
+    }
+
+    .jp-amb-hero--{{ sid }} .jp-amb-hero__container {
+      width: 100%;
     }
 
     .jp-amb-hero--{{ sid }} .jp-amb-hero__text {
@@ -158,10 +199,20 @@
       margin: 40px 0 0 40px;
     }
 
+    .jp-amb-hero--{{ sid }} .jp-amb-hero__feature-picture {
+      width: 80%;
+      max-width: 80%;
+      margin: 24px auto 0;
+    }
+
     .jp-amb-hero--{{ sid }} .jp-amb-hero__info-wrap {
-      left: 18px;
-      right: 18px;
+      left: 0;
+      right: 0;
       bottom: 14px;
+    }
+
+    .jp-amb-hero--{{ sid }} .jp-amb-hero__info-container {
+      width: 100%;
     }
 
     .jp-amb-hero--{{ sid }} .jp-amb-hero__info {
@@ -204,6 +255,16 @@
       "type": "image_picker",
       "id": "icon_image",
       "label": "Icon image"
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_image",
+      "label": "Feature image - PC"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_feature_image",
+      "label": "Feature image - Mobile"
     },
     {
       "type": "textarea",

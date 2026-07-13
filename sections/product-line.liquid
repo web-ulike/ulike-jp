@@ -105,22 +105,35 @@ font-family: var(--font-heading-family);
   margin-bottom: 30px;
 
   }
+  .product__content-wrapper .price-notice{
+    margin-bottom: 4px;
+    color: #3F3636;
+    font-family: var(--font-sans-family);
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 130%;
+  }
   .product__content-wrapper  .price{
     color:  #E0004D;
-  font-size: 32px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 130%;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 130%;
      font-family: var(--font-sans-family);
+  }
+  .product__content-wrapper .price-suffix{
+    color: #000;
+    font-size: 20px;
   }
   .product__content-wrapper .oriprice{
     font-family: var(--font-sans-family);
     color:  #3F3636;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 300;
-  line-height: 130%;
-  text-decoration: line-through;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 130%;
+    text-decoration: line-through;
   }
   .product__content-wrapper .btn-wrapper{
     display: flex;
@@ -349,6 +362,12 @@ font-weight:400;
     gap: 8px;
     margin-bottom: 13px;
   }
+  .product__content-wrapper .price-notice{
+    font-size: 14px;
+  }
+  .product__content-wrapper .price-suffix{
+    font-size: 14px;
+  }
   .product__content-wrapper .btn-wrapper {
       flex-direction:row;
   }
@@ -479,6 +498,9 @@ font-size: 15px;
                    <div class="discount-cnt-txt"><span class="discount-cnt1">%</span> <span class="discount-cnt2">OFF</span></div>
                  </div>
                 {% endif %}
+                {% if block.settings.price_notice_text != blank %}
+                  <div class="price-notice">{{ block.settings.price_notice_text }}</div>
+                {% endif %}
                 <div class="price-wrapper">
                   {% comment %}
                     <div class="price">{{ block.settings.price }}</div>
@@ -489,9 +511,15 @@ font-size: 15px;
                 {% endif %}
                   {%- liquid
                     assign product = block.settings.product
+                    assign compare_price_label = block.settings.compare_price_label | default: '定価'
                   -%}
-                  <div class="price">{{ product.price | money }}</div>
-                  <div class="oriprice">定価 {{ product.compare_at_price | money }}</div>
+                  <div class="price">
+                    {{ product.price | money }}
+                    {%- if block.settings.price_suffix != blank -%}
+                      <span class="price-suffix">{{ block.settings.price_suffix }}</span>
+                    {%- endif -%}
+                  </div>
+                  <div class="oriprice">{{ compare_price_label }} {{ product.compare_at_price | money }}{{ block.settings.compare_price_suffix }}</div>
                 </div>
                 {% if block.settings.discount != blank %}
                   </div>
@@ -777,10 +805,15 @@ font-size: 15px;
           "id": "discount",
           "label": "Discount"
         },
-         {
+        {
           "type": "text",
           "id": "discount_txt",
           "label": "Discount Text"
+        },
+        {
+          "type": "text",
+          "id": "price_notice_text",
+          "label": "Price Notice Text"
         },
         {
           "type": "text",
@@ -789,8 +822,24 @@ font-size: 15px;
         },
         {
           "type": "text",
+          "id": "price_suffix",
+          "label": "Price Suffix"
+        },
+        {
+          "type": "text",
           "id": "ori_price",
           "label": "Origin Price"
+        },
+        {
+          "type": "text",
+          "id": "compare_price_label",
+          "label": "Compare Price Label",
+          "default": "定価"
+        },
+        {
+          "type": "text",
+          "id": "compare_price_suffix",
+          "label": "Compare Price Suffix"
         },
         {
           "type": "text",
