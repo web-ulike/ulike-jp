@@ -1,0 +1,72 @@
+{% assign sid = section.id %}
+
+<style>
+  #p-airpro-s-trust-stats-{{ sid }} { padding: 100px 0 84px; background: var(--p-trust-bg); color: var(--p-trust-text); }
+  #p-airpro-s-trust-stats-{{ sid }} .p-aps-trust__in { margin: 0 auto; }
+  #p-airpro-s-trust-stats-{{ sid }} .p-aps-trust__lead { margin: 0; font-size: 30px; font-weight: 500; line-height: 1.45; }
+  #p-airpro-s-trust-stats-{{ sid }} .p-aps-trust__row { display: grid; grid-template-columns: 360px 1fr; align-items: center; gap: 66px; margin-top: 34px; }
+  #p-airpro-s-trust-stats-{{ sid }} .p-aps-trust__award { display: block; width: 100%; height: auto; }
+  #p-airpro-s-trust-stats-{{ sid }} .p-aps-trust__stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  #p-airpro-s-trust-stats-{{ sid }} .p-aps-trust__stat { min-height: 86px; padding: 0 30px; border-left: 1px solid #dedede; text-align: center; }
+  #p-airpro-s-trust-stats-{{ sid }} .p-aps-trust__stat:first-child { border-left: 0; }
+  #p-airpro-s-trust-stats-{{ sid }} .p-aps-trust__mark { display: none; }
+  #p-airpro-s-trust-stats-{{ sid }} .p-aps-trust__num { margin: 0; font-size: 54px; font-weight: 600; line-height: 1; letter-spacing: -.05em; }
+  #p-airpro-s-trust-stats-{{ sid }} .p-aps-trust__num sup { font-size: .52em; vertical-align: top; }
+  #p-airpro-s-trust-stats-{{ sid }} .p-aps-trust__label { margin: 12px 0 0; font-size: 16px; font-weight: 500; line-height: 1.35; }
+  #p-airpro-s-trust-stats-{{ sid }} .p-aps-trust__note { margin: 34px 0 0; color: #8a8a8a; font-size: 10px; line-height: 1.5; }
+
+  @media screen and (max-width: 749px) {
+    #p-airpro-s-trust-stats-{{ sid }} { padding: 42px 0 25px; }
+    #p-airpro-s-trust-stats-{{ sid }} > .container { padding-right: 24px; padding-left: 24px; }
+    #p-airpro-s-trust-stats-{{ sid }} .p-aps-trust__lead { font-size: 20px; line-height: 1.45; }
+    #p-airpro-s-trust-stats-{{ sid }} .p-aps-trust__row { display: block; margin-top: 20px; }
+    #p-airpro-s-trust-stats-{{ sid }} .p-aps-trust__award { width: min(210px, 74%); margin: 0 auto 16px; }
+    #p-airpro-s-trust-stats-{{ sid }} .p-aps-trust__stats { display: block; }
+    #p-airpro-s-trust-stats-{{ sid }} .p-aps-trust__stat { display: grid; grid-template-columns: 34px 1fr; align-items: center; min-height: 58px; padding: 8px 0; border-top: 1px solid #e5e5e5; border-left: 0; text-align: left; }
+    #p-airpro-s-trust-stats-{{ sid }} .p-aps-trust__stat:last-child { border-bottom: 1px solid #e5e5e5; }
+    #p-airpro-s-trust-stats-{{ sid }} .p-aps-trust__mark { display: block; font-size: 27px; font-weight: 300; line-height: 1; text-align: left; }
+    #p-airpro-s-trust-stats-{{ sid }} .p-aps-trust__num { font-size: 27px; }
+    #p-airpro-s-trust-stats-{{ sid }} .p-aps-trust__label { margin: 3px 0 0; font-size: 8px; }
+    #p-airpro-s-trust-stats-{{ sid }} .p-aps-trust__note { margin-top: 14px; font-size: 7px; }
+  }
+</style>
+
+<section id="p-airpro-s-trust-stats-{{ sid }}" class="p-aps-trust" style="--p-trust-bg: {{ section.settings.background }}; --p-trust-text: {{ section.settings.text_color }};">
+  <div class="container">
+    <div class="p-aps-trust__in">
+      {% if section.settings.heading != blank %}<h2 class="p-aps-trust__lead">{{ section.settings.heading }}</h2>{% endif %}
+      <div class="p-aps-trust__row">
+        {% if section.settings.award_image != blank %}{{ section.settings.award_image | image_url: width: 800 | image_tag: class: 'p-aps-trust__award', loading: 'lazy', widths: '300, 500, 800' }}{% endif %}
+        <div class="p-aps-trust__stats">
+          {% for block in section.blocks %}
+            <div class="p-aps-trust__stat" {{ block.shopify_attributes }}>
+              <span class="p-aps-trust__mark" aria-hidden="true">{{ block.settings.icon }}</span>
+              <div><p class="p-aps-trust__num">{{ block.settings.number }}</p><p class="p-aps-trust__label">{{ block.settings.label }}</p></div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% if section.settings.note != blank %}<p class="p-aps-trust__note">{{ section.settings.note }}</p>{% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "P Air Pro S 信赖背书",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "html", "id": "heading", "label": "标题", "default": "日本一だから、<br>安心して選べる。" },
+    { "type": "image_picker", "id": "award_image", "label": "奖项图片" },
+    { "type": "textarea", "id": "note", "label": "脚注" },
+    { "type": "color", "id": "background", "label": "背景色", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "文字颜色", "default": "#111111" }
+  ],
+  "blocks": [{ "type": "stat", "name": "数据项", "settings": [
+    { "type": "text", "id": "icon", "label": "移动端图标", "default": "◎" },
+    { "type": "html", "id": "number", "label": "数字", "default": "1000<sup>+</sup>" },
+    { "type": "text", "id": "label", "label": "说明", "default": "取得特許" }
+  ]}],
+  "presets": [{ "name": "P Air Pro S 信赖背书", "blocks": [{ "type": "stat" }, { "type": "stat", "settings": { "icon": "◷", "number": "10年<sup>+</sup>", "label": "IPL開発経験" } }, { "type": "stat", "settings": { "icon": "◎", "number": "1000万<sup>+</sup>", "label": "販売台数" } }] }]
+}
+{% endschema %}

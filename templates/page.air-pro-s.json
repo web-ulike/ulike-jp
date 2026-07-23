@@ -93,7 +93,7 @@
       "type": "p-airpro-s-result-banner",
       "settings": {
         "image": "shopify:\/\/shop_images\/2_93c41b92-b9a5-47e3-af0f-2337e40273b7.png",
-        "image_mobile": "shopify:\/\/shop_images\/1_1_ca1f0c08-928c-4678-a839-6dd93dfa55ea.png",
+        "image_mobile": "shopify:\/\/shop_images\/3_cbf9b626-dcfc-4782-a30a-a8e357dad1f4.jpg",
         "eyebrow": "コスパよく",
         "title": "2週間<sup>*1<\/sup>で効果実感",
         "text": "<p>コンパクトモデルUlike Air Proがさらにアップグレード。<br>最大22J<sup>*2<\/sup>で、効果実感まで2週間。<\/p>",
@@ -232,8 +232,40 @@
         "body_title": "お顔からVIOまで<br>1台で全身対応",
         "body_text": "お顔、ヒゲ、腕、脚、脇、VIOなど、アタッチメント付け替えの手間なしで、全身*トータルケアが1台で完結。",
         "body_image": "shopify:\/\/shop_images\/4a6f97b398af29fa34a10e7d3c8d78c6.png",
-        "body_image_mobile": "shopify:\/\/shop_images\/1-05_1.png",
+        "body_image_mobile": "shopify:\/\/shop_images\/4a6f97b398af29fa34a10e7d3c8d78c6_282b0493-d134-42c2-8663-f50c4de39b85.png",
         "background": "#ffffff",
+        "text_color": "#111111"
+      }
+    },
+    "p_airpro_s_trust": {
+      "type": "p-airpro-s-trust-stats",
+      "blocks": {
+        "patents": { "type": "stat", "settings": { "icon": "◎", "number": "1000<sup>+</sup>", "label": "取得特許" } },
+        "experience": { "type": "stat", "settings": { "icon": "◷", "number": "10年<sup>+</sup>", "label": "IPL開発経験" } },
+        "sales": { "type": "stat", "settings": { "icon": "◎", "number": "1000万<sup>+</sup>", "label": "販売台数*" } }
+      },
+      "block_order": ["patents", "experience", "sales"],
+      "settings": {
+        "heading": "日本一だから、<br>安心して選べる。",
+        "award_image": "shopify:\/\/shop_images\/Vector_3_8de6d772-40d4-46e7-bea1-6d917980320c.svg",
+        "note": "* 販売台数はシリーズ累計。",
+        "background": "#ffffff",
+        "text_color": "#111111"
+      }
+    },
+    "p_airpro_s_use": {
+      "type": "p-airpro-s-use-guide",
+      "blocks": {
+        "shaving": { "type": "step", "settings": { "image": "shopify:\/\/shop_images\/1568750bc4e03f32975a35cc8683db83_6e93eff8-f54e-4fa2-803d-c71994a3aa50.png", "title": "シェービング", "text": "ケアする部位の毛をシェービングします。" } },
+        "test": { "type": "step", "settings": { "image": "shopify:\/\/shop_images\/0582eba9fd1d36a07b4603df48163de6.png", "title": "テスト", "text": "腕などで肌のコンディションを確認してください。" } },
+        "care": { "type": "step", "settings": { "image": "shopify:\/\/shop_images\/2_-1.png", "title": "ムダ毛ケア", "text": "照射面を肌に密着させてケアします。" } },
+        "moisturize": { "type": "step", "settings": { "image": "shopify:\/\/shop_images\/1568750bc4e03f32975a35cc8683db83_df648722-7605-474c-857c-259399413654.png", "title": "潤す＆紫外線対策", "text": "ケア後は保湿と紫外線対策を行ってください。" } }
+      },
+      "block_order": ["shaving", "test", "care", "moisturize"],
+      "settings": {
+        "heading": "つるすべ肌への正しい使い方",
+        "note": "* 使用前に取扱説明書をご確認ください。",
+        "background": "#f7f7f7",
         "text_color": "#111111"
       }
     }
@@ -246,6 +278,8 @@
     "p_airpro_s_ushr_showcase",
     "p_airpro_s_speed_care",
     "p_airpro_s_salon",
-    "p_airpro_s_compact_body"
+    "p_airpro_s_compact_body",
+    "p_airpro_s_trust",
+    "p_airpro_s_use"
   ]
 }
