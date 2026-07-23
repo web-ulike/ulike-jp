@@ -7,7 +7,8 @@
     "secondary_background": "#f5f5f5",
     "success_color": "#2e9e7b",
     "error_color": "#de2a2a",
-    "header_background": "#282828",
+    "header_background": "#FFFFFF",
+    "header_text_color": "#000000",
     "footer_background": "#282828",
     "footer_text_color": "#ffffff",
     "primary_button_background": "#405de6",
@@ -26,6 +27,7 @@
     "currency_code_enabled": false,
     "stagger_products_apparition": true,
     "round_color_swatches": false,
+    "color_swatch_config": "ダークグリーン:#1C645E\nしろ: #FFFFFF\nくろ: #6F6E69\nグレー: #55565B\n桜色:#F6DDD8",
     "show_vendor": false,
     "show_secondary_image": true,
     "show_product_rating": false,
@@ -33,11 +35,42 @@
     "product_image_size": "natural",
     "cart_type": "message",
     "cart_show_free_shipping_threshold": true,
+    "favicon": "shopify:\/\/shop_images\/ulike-logo.webp",
     "accent_color": "#405de6",
     "checkout_sidebar_background_color": "#f5f5f5",
     "checkout_accent_color": "#282828",
     "checkout_button_color": "#405de6",
-    "checkout_error_color": "#de2a2a"
+    "checkout_error_color": "#de2a2a",
+    "sections": {
+      "mini-cart": {
+        "type": "mini-cart",
+        "settings": {
+          "show_order_note": true,
+          "show_checkout_button": true,
+          "empty_button_link": "shopify:\/\/collections\/all",
+          "show_recommendations": true,
+          "recommendations_title": "You may also like"
+        }
+      }
+    },
+    "content_for_index": [],
+    "blocks": {
+      "12657775114333427046": {
+        "type": "shopify:\/\/apps\/essential-countdown-timer\/blocks\/app_embed\/722378e8-5a70-4eae-aa89-9e44e8e9f6de",
+        "disabled": false,
+        "settings": {}
+      },
+      "16278478101612877664": {
+        "type": "shopify:\/\/apps\/pagefly-page-builder\/blocks\/app-embed\/83e179f7-59a0-4589-8c66-c0dddf959200",
+        "disabled": false,
+        "settings": {}
+      },
+      "14060646107696862457": {
+        "type": "shopify:\/\/apps\/judge-me-reviews\/blocks\/judgeme_core\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+        "disabled": false,
+        "settings": {}
+      }
+    }
   },
   "presets": {
     "Focal": {

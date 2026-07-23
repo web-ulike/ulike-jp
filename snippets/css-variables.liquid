@@ -228,4 +228,14 @@ other resources, such as CSS or JS
       --vertical-breather-tight: {% if settings.vertical_spacing == 'small' %}48px{% elsif settings.vertical_spacing == 'medium' %}48px{% else %}64px{% endif %};
     }
   }
+
+  @font-face {
+    font-family: "Saans Regular";
+    src:  url('{{ "Saans-Regular1.woff2" | asset_url }}') format('woff2'),
+    url('{{ "Saans-Regular1.woff" | asset_url }}' format('woff'),
+     url('{{ "Saans-Regular1.otf" | asset_url }}' format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
 </style>

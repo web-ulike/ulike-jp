@@ -2,60 +2,15 @@
   "type": "footer",
   "name": "Footer group",
   "sections": {
-    "text-with-icons": {
-      "type": "text-with-icons",
-      "blocks": {
-        "item-1": {
-          "type": "item",
-          "settings": {
-            "icon": "picto-box",
-            "title": "Free shipping",
-            "content": "<p>Free worldwide shipping and returns - customs and duties taxes included<\/p>"
-          }
-        },
-        "item-2": {
-          "type": "item",
-          "settings": {
-            "icon": "picto-phone",
-            "title": "Customer service",
-            "content": "<p>We are available from monday to friday to answer your questions.<\/p>"
-          }
-        },
-        "item-3": {
-          "type": "item",
-          "settings": {
-            "icon": "picto-lock",
-            "title": "Secure payment",
-            "content": "<p>Your payment information is processed securely.<\/p>"
-          }
-        },
-        "item-4": {
-          "type": "item",
-          "settings": {
-            "icon": "picto-email",
-            "title": "Contact us",
-            "content": "<p>Need to contact us ? Just send us an e-mail at info@yourstore.com<\/p>"
-          }
-        }
-      },
-      "block_order": [
-        "item-1",
-        "item-2",
-        "item-3",
-        "item-4"
-      ],
-      "settings": {}
-    },
-    "newsletter": {
-      "type": "newsletter",
-      "settings": {}
-    },
     "footer": {
       "type": "footer",
       "blocks": {
         "text": {
           "type": "text",
-          "settings": {}
+          "settings": {
+            "title": "About our store",
+            "content": "<p>Use this text area to tell your customers about your brand and vision. You can change it in the theme editor.<\/p>"
+          }
         },
         "links": {
           "type": "links",
@@ -65,11 +20,17 @@
         },
         "newsletter": {
           "type": "newsletter",
-          "settings": {}
+          "settings": {
+            "title": "Newsletter",
+            "content": "<p>A short sentence describing what someone will receive by subscribing<\/p>"
+          }
         },
         "social_media": {
           "type": "social_media",
-          "settings": {}
+          "settings": {
+            "title": "Follow us",
+            "content": "<p>To configure social media, go to your social media settings. Change this text in the theme editor.<\/p>"
+          }
         }
       },
       "block_order": [
@@ -78,12 +39,16 @@
         "newsletter",
         "social_media"
       ],
-      "settings": {}
+      "settings": {
+        "show_payment_icons": true,
+        "show_powered_by_shopify": true,
+        "enable_follow_on_shop": true,
+        "show_country_selector": true,
+        "show_locale_selector": true
+      }
     }
   },
   "order": [
-    "text-with-icons",
-    "newsletter",
     "footer"
   ]
 }

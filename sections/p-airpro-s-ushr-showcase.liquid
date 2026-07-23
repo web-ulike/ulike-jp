@@ -1,0 +1,256 @@
+{% comment %}USHR showcase with auto radial card carousel.{% endcomment %}
+{% assign sid = section.id %}
+
+<style>
+  #p-airpro-s-ushr-{{ sid }} { overflow: hidden; background: var(--p-ushr-bg); color: var(--p-ushr-text); }
+  #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__in { position: relative; }
+  #p-airpro-s-ushr-{{ sid }} picture { display: block; }
+  #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__bg { display: block; width: 100%; height: auto; }
+  #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__top,
+  #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__arc,
+  #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__body,
+  #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__note { position: absolute; z-index: 1; }
+  #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__top { top: 4%; right: 0; left: 0; text-align: center; }
+  #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__top-in { width: 1250px; margin: 0 auto; }
+  #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__eyebrow { margin: 0; font-size: clamp(16px, 1.25vw, 24px); }
+  #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__title { margin: 6px 0 0; font-size: clamp(44px, 3.9vw, 74px); line-height: 1.08; font-weight: 600; }
+  #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__text { margin: 24px auto 0; font-size: 16px; line-height: 1.75; }
+  #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__compare { width: 1110px; margin: 60px auto 0; }
+  #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__compare img { display: block; width: 100%; height: auto; border-radius: 5px; }
+  #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__compare-copy { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 16px; }
+  #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__compare-copy-item { text-align: center; }
+  #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__compare-copy h3 { margin: 0; font-size: 24px; line-height: 1.35; font-weight: 600; }
+  #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__compare-copy p { margin: 6px 0 0; font-size: 10px; line-height: 1.5; }
+  #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__arc { top: 43%; right: 0; left: 0; height: 760px; overflow: hidden; }
+  #p-airpro-s-ushr-{{ sid }} .radial-marquee__half-circle { -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 3%, #000 97%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 3%, #000 97%, transparent 100%); }
+  #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__circle { --radius-negative: -1300px; position: absolute; top: 150px; left: 50%; width: 2600px; height: 2600px; margin-left: -1300px; transform: rotate(-90deg); }
+  #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__collection { position: absolute; inset: 0; }
+  #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__track { position: absolute; inset: 0; width: 100%; height: 100%; will-change: transform; }
+  #p-airpro-s-ushr-{{ sid }} [data-radial-marquee-rotate] { animation: p-aps-ushr-rotate-marquee 90s linear infinite; transform-origin: center center; animation-play-state: paused; }
+  #p-airpro-s-ushr-{{ sid }}.is-radial-running [data-radial-marquee-rotate] { animation-play-state: running; }
+  #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__item { position: absolute; top: 50%; left: 50%; width: 330px; height: 258px; transform: translate(-50%, -50%) rotate(var(--radial-position)) translateY(var(--radius-negative)); transform-origin: center center; text-align: center; font-size: 16px; }
+  #p-airpro-s-ushr-{{ sid }} .radial-marquee__card-inner { width: 330px; height: 258px; overflow: hidden; border-radius: 10px; background: #d9e0dc; box-shadow: 0 10px 24px rgba(0, 0, 0, .16); }
+  #p-airpro-s-ushr-{{ sid }} .radial-marquee__card-inner img { display: block; width: 100%;  }
+  #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__item span { display: block; margin-top: 12px; }
+  #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__body { top: 60%; right: 0; left: 0; text-align: center; }
+  #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__body-in { width: min(720px, 100%); margin: 0 auto; }
+  #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__body h3 { margin: 0;
+     font-size: 40px; line-height: 1.5; font-weight: 500; }
+  #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__body div { margin-top: 12px; font-size: 16px; line-height: 1.7; }
+  #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__note { right: 6%; bottom: 4%; left: 6%; margin: 0; color: color-mix(in srgb, var(--p-ushr-text) 68%, transparent); font-size: 9px; line-height: 1.5; }
+  @keyframes p-aps-ushr-rotate-marquee { to { transform: rotate(360deg); } }
+
+  @media screen and (max-width: 749px) {
+    #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__top { top: 4%; }
+    #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__top-in { width: min(90%, 360px); }
+    #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__eyebrow { font-size: 10px; }
+    #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__title { font-size: clamp(24px, 8vw, 31px); }
+    #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__text { margin-top: 13px; font-size: 10px; line-height: 1.55; text-align: left; }
+    #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__compare { width: 100%; margin-top: 24px; }
+    #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__compare-copy { margin-top: 8px; }
+    #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__compare-copy h3 { font-size: 14px; }
+    #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__compare-copy { gap: 5px; }
+    #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__compare-copy p { margin-top: 3px; font-size: 7px; }
+    #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__arc { top: 43%; height: 260px; }
+    #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__circle { --radius-negative: -450px; top: 52px; width: 900px; height: 900px; margin-left: -450px; }
+    #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__item { width: 126px; height: 98px; font-size: 9px; }
+    #p-airpro-s-ushr-{{ sid }} .radial-marquee__card-inner { width: 126px; height: 98px; border-radius: 5px; }
+    #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__item span { margin-top: 4px; }
+    #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__body { top: 64%; }
+    #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__body-in { width: min(82%, 320px); }
+    #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__body h3 { font-size: 14px; line-height: 1.4; }
+    #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__body div { margin-top: 6px; font-size: 9px; line-height: 1.55; }
+    #p-airpro-s-ushr-{{ sid }} .p-aps-ushr__note { right: 14px; bottom: 3%; left: 14px; font-size: 7px; line-height: 1.4; }
+  }
+</style>
+
+<section
+  id="p-airpro-s-ushr-{{ sid }}"
+  class="p-aps-ushr"
+  style="--p-ushr-bg: {{ section.settings.background }}; --p-ushr-text: {{ section.settings.text_color }};"
+>
+  <div class="p-aps-ushr__in">
+    <picture>
+      {% if section.settings.image_mobile != blank %}
+        <source media="(max-width: 749px)" srcset="{{ section.settings.image_mobile | image_url: width: 1000 }}">
+      {% endif %}
+      {% if section.settings.image != blank -%}
+        {{-
+          section.settings.image
+          | image_url: width: 2400
+          | image_tag: class: 'p-aps-ushr__bg', loading: 'lazy', widths: '750, 1200, 1600, 1920, 2400'
+        -}}
+      {%- endif %}
+    </picture>
+    <div class="p-aps-ushr__top container">
+      <div class="p-aps-ushr__top-in">
+        {% if section.settings.eyebrow != blank %}
+          <p class="p-aps-ushr__eyebrow">{{ section.settings.eyebrow }}</p>
+        {% endif %}
+        {% if section.settings.title != blank %}
+          <h2 class="p-aps-ushr__title">{{ section.settings.title }}</h2>
+        {% endif %}
+        {% if section.settings.text != blank %}
+          <div class="p-aps-ushr__text">{{ section.settings.text }}</div>
+        {% endif %}
+        {% if section.settings.compare_image != blank %}
+          <div class="p-aps-ushr__compare">
+            {{
+              section.settings.compare_image
+              | image_url: width: 1600
+              | image_tag: loading: 'lazy', widths: '400, 700, 1000, 1600'
+            }}
+            {% if section.settings.compare_heading_1 != blank or section.settings.compare_text_1 != blank or section.settings.compare_heading_2 != blank or section.settings.compare_text_2 != blank %}
+              <div class="p-aps-ushr__compare-copy">
+                <div class="p-aps-ushr__compare-copy-item">
+                  {% if section.settings.compare_heading_1 != blank %}<h3>{{ section.settings.compare_heading_1 }}</h3>{% endif %}
+                  {% if section.settings.compare_text_1 != blank %}<p>{{ section.settings.compare_text_1 }}</p>{% endif %}
+                </div>
+                <div class="p-aps-ushr__compare-copy-item">
+                  {% if section.settings.compare_heading_2 != blank %}<h3>{{ section.settings.compare_heading_2 }}</h3>{% endif %}
+                  {% if section.settings.compare_text_2 != blank %}<p>{{ section.settings.compare_text_2 }}</p>{% endif %}
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="p-aps-ushr__arc radial-marquee__half-circle" aria-label="対応部位">
+      <div class="p-aps-ushr__circle">
+        <div class="p-aps-ushr__collection">
+          <div class="p-aps-ushr__track" data-radial-marquee-rotate>
+            {% for pass in (0..3) %}
+              {% for block in section.blocks %}
+                {% if block.settings.image != blank %}
+                  {% assign offset = pass | times: section.blocks.size %}
+                  {% assign item_index = forloop.index0 | plus: offset %}
+                  {% assign rotation = item_index | times: 20 %}
+                  <div
+                    class="p-aps-ushr__item"
+                    data-radial-marquee-angle="{{ rotation }}"
+                    style="--radial-position: {{ rotation }}deg;"
+                    {% if pass > 0 %}
+                      aria-hidden="true"
+                    {% else %}
+                      {{ block.shopify_attributes -}}
+                    {% endif %}
+                  >
+                    <div class="radial-marquee__card-inner">
+                      {{ block.settings.image | image_url: width: 700 | image_tag: loading: 'lazy' }}
+                    </div>
+                    <span>{{ block.settings.label }}</span>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="p-aps-ushr__body container">
+      <div class="p-aps-ushr__body-in">
+        {% if section.settings.body_title != blank %}
+          <h3>{{ section.settings.body_title }}</h3>
+        {% endif %}
+        {% if section.settings.body_text != blank %}
+          <div>{{ section.settings.body_text }}</div>
+        {% endif %}
+      </div>
+    </div>
+    {% if section.settings.note != blank %}
+      <p class="p-aps-ushr__note">{{ section.settings.note | escape | newline_to_br }}</p>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+  (() => {
+    const root = document.getElementById('p-airpro-s-ushr-{{ sid }}');
+    const arc = root?.querySelector('.p-aps-ushr__arc');
+    if (
+      !root ||
+      !arc ||
+      root.dataset.radialReady === 'true' ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    )
+      return;
+
+    root.dataset.radialReady = 'true';
+    let visible = true;
+    let hovering = false;
+    const updateState = () => root.classList.toggle('is-radial-running', visible && !hovering);
+
+    arc.addEventListener('pointerenter', () => {
+      hovering = true;
+      updateState();
+    });
+    arc.addEventListener('pointerleave', () => {
+      hovering = false;
+      updateState();
+    });
+    new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting;
+        updateState();
+      },
+      { threshold: 0.05 }
+    ).observe(root);
+    updateState();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "P Air Pro S USHR Showcase",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "PC 大背景图（1920）" },
+    { "type": "image_picker", "id": "image_mobile", "label": "移动端大背景图" },
+    { "type": "text", "id": "eyebrow", "label": "顶部小标题", "default": "Air Proからのアップグレード" },
+    { "type": "html", "id": "title", "label": "顶部标题", "default": "USHR<sup>モード</sup>を新搭載" },
+    {
+      "type": "html",
+      "id": "text",
+      "label": "顶部说明",
+      "default": "新たに搭載したUSHR（Strong Hair Removal）モードで、ハイパワーと肌への優しさを両立。"
+    },
+    { "type": "image_picker", "id": "compare_image", "label": "对比整图" },
+    { "type": "html", "id": "compare_heading_1", "label": "图片下方左侧标题", "default": "従来の単発照射" },
+    { "type": "html", "id": "compare_text_1", "label": "图片下方左侧说明" },
+    { "type": "html", "id": "compare_heading_2", "label": "图片下方右侧标题", "default": "USHRモードソフト照射" },
+    { "type": "html", "id": "compare_text_2", "label": "图片下方右侧说明" },
+    {
+      "type": "html",
+      "id": "body_title",
+      "label": "下方标题",
+      "default": "お顔やヒゲ、VIOなど、<br>剛毛でもデリケートな部位のケアに<br>おすすめ。"
+    },
+    { "type": "html", "id": "body_text", "label": "下方说明" },
+    { "type": "textarea", "id": "note", "label": "底部脚注" },
+    { "type": "color", "id": "background", "label": "背景色", "default": "#0d2f20" },
+    { "type": "color", "id": "text_color", "label": "文字色", "default": "#ffffff" }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "部位卡片",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "图片" },
+        { "type": "text", "id": "label", "label": "部位名称", "default": "顔" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "P Air Pro S USHR Showcase",
+      "blocks": [
+        { "type": "card", "settings": { "label": "顔" } },
+        { "type": "card", "settings": { "label": "ヒゲ" } },
+        { "type": "card", "settings": { "label": "VIO" } },
+        { "type": "card", "settings": { "label": "脇" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

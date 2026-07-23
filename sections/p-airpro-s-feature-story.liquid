@@ -1,0 +1,253 @@
+{% assign sid = section.id %}
+
+<style>
+  #p-airpro-s-feature-story-{{ sid }} { overflow: hidden; background: var(--p-story-bg); color: var(--p-story-text); }
+  #p-airpro-s-feature-story-{{ sid }} .p-aps-story__in { position: relative; }
+  #p-airpro-s-feature-story-{{ sid }} .p-aps-story__bg,
+  #p-airpro-s-feature-story-{{ sid }} .p-aps-story__pic picture { display: block; }
+  #p-airpro-s-feature-story-{{ sid }} .p-aps-story__bg,
+  #p-airpro-s-feature-story-{{ sid }} .p-aps-story__img { display: block; width: 100%; height: auto; }
+  #p-airpro-s-feature-story-{{ sid }} .p-aps-story__head,
+  #p-airpro-s-feature-story-{{ sid }} .p-aps-story__feat { position: absolute; z-index: 1; }
+  #p-airpro-s-feature-story-{{ sid }} .p-aps-story__head {
+    top: 7%;
+    right: 20px;
+    left: 20px;
+    margin: 0;
+    text-align: center;
+     font-size: 48px; line-height: 1.5;
+    font-weight: 500;
+  }
+  #p-airpro-s-feature-story-{{ sid }} .p-aps-story__f1 { top: 21%; left: 62%; width: min(23vw, 400px); }
+  #p-airpro-s-feature-story-{{ sid }} .p-aps-story__f2 { top: 50%; right: 17%; left: 17%; display: grid; grid-template-columns: minmax(0, 520px) 1fr; column-gap: 64px; width: 1250px; }
+  #p-airpro-s-feature-story-{{ sid }} .p-aps-story__body { max-width: min(31vw, 520px); }
+  #p-airpro-s-feature-story-{{ sid }} .p-aps-story__pic { width: min(100%, 620px); margin-top: clamp(22px, 3vw, 52px); }
+  #p-airpro-s-feature-story-{{ sid }} .p-aps-story__num {
+    margin: 0 0 0px; 
+    line-height: 1.3; 
+    font-weight: 300;
+    color: #000;
+    font-family: Roboto;
+    font-size: 100px;
+
+  }
+  #p-airpro-s-feature-story-{{ sid }} .p-aps-story__ttl {
+     margin: 0; font-size: 24px; 
+     line-height: 1.45; 
+     font-weight: 500;
+     }
+  #p-airpro-s-feature-story-{{ sid }} .p-aps-story__txt { margin-top: 20px; font-size: 13px; line-height: 1.75; }
+  #p-airpro-s-feature-story-{{ sid }} .p-aps-story__lead { margin: 0 0 20px; font-size: clamp(17px, 1.35vw, 25px); line-height: 1.35; font-weight: 600; }
+  #p-airpro-s-feature-story-{{ sid }} .p-aps-story__f1 .p-aps-story__ttl { display: table; padding: .18em .38em; color: #fff; background: linear-gradient(135deg, #41c9ff, #aeeeff); font-size: clamp(21px, 1.75vw, 32px); line-height: 1.2; }
+  #p-airpro-s-feature-story-{{ sid }} .p-aps-story__f1 .p-aps-story__txt { 
+    margin-top: 18px; font-size: 24px; line-height: 1.5; font-weight: 500; }
+  #p-airpro-s-feature-story-{{ sid }} .p-aps-story__note {
+    margin: 80px 0 0;
+    color: #000; 
+    font-size: 10px; 
+    line-height: 1.5; 
+    opacity: 0.5;
+  }
+
+  #p-airpro-s-feature-story-{{ sid }} .p-aps-story__icons { display: flex; gap: 24px; margin-top: 24px; }
+  #p-airpro-s-feature-story-{{ sid }} .p-aps-story__icon { display: block; width: 48px; height: auto; }
+  #p-airpro-s-feature-story-{{ sid }} .p-aps-story__f2 .p-aps-story__body { max-width: 520px; }
+  #p-airpro-s-feature-story-{{ sid }} .p-aps-story__f2 .p-aps-story__icons { position: absolute; top: 44px; right: 0; gap: 52px; margin: 0; }
+  #p-airpro-s-feature-story-{{ sid }} .p-aps-story__f2 .p-aps-story__icon-item { width: 96px; text-align: center; }
+  #p-airpro-s-feature-story-{{ sid }} .p-aps-story__f2 .p-aps-story__icon { width: 100%; }
+  #p-airpro-s-feature-story-{{ sid }} .p-aps-story__ilabel { margin: 8px 0 0; font-size: 13px; line-height: 1.35; font-weight: 500; }
+  #p-airpro-s-feature-story-{{ sid }} .p-aps-story__f2 .p-aps-story__pic { grid-column: 1 / -1; width: 100%; margin-top: 54px; }
+
+  @media screen and (max-width: 749px) {
+    #p-airpro-s-feature-story-{{ sid }} .p-aps-story__head { top: 3.8%; right: 12px; left: 12px; font-size: clamp(20px, 6.2vw, 25px); line-height: 1.3; }
+    #p-airpro-s-feature-story-{{ sid }} .p-aps-story__f1 { top: 13.5%; left: 36%; width: 57%; }
+    #p-airpro-s-feature-story-{{ sid }} .p-aps-story__f2 { top: 51%; right: 5%; left: 5%; display: block; width: auto; }
+    #p-airpro-s-feature-story-{{ sid }} .p-aps-story__body { max-width: 100%; }
+    #p-airpro-s-feature-story-{{ sid }} .p-aps-story__pic { width: 100%; margin-top: 22px; }
+    #p-airpro-s-feature-story-{{ sid }} .p-aps-story__num { margin-bottom: 6px; font-size: clamp(28px, 9.2vw, 42px); }
+    #p-airpro-s-feature-story-{{ sid }} .p-aps-story__ttl { font-size: clamp(10px, 3.1vw, 13px); line-height: 1.35; }
+    #p-airpro-s-feature-story-{{ sid }} .p-aps-story__txt { margin-top: 5px; font-size: clamp(8px, 2.4vw, 10px); line-height: 1.48; }
+    #p-airpro-s-feature-story-{{ sid }} .p-aps-story__lead { margin-bottom: 5px; font-size: clamp(10px, 3.1vw, 13px); line-height: 1.35; }
+    #p-airpro-s-feature-story-{{ sid }} .p-aps-story__f1 .p-aps-story__ttl { padding: .15em .28em; font-size: clamp(13px, 4.15vw, 17px); }
+    #p-airpro-s-feature-story-{{ sid }} .p-aps-story__f1 .p-aps-story__txt { margin-top: 9px; font-size: clamp(10px, 3.05vw, 13px); line-height: 1.42; }
+    #p-airpro-s-feature-story-{{ sid }} .p-aps-story__f1 .p-aps-story__num {
+      position: absolute;
+      top: clamp(58px, 18vw, 78px);
+      right: 0;
+      margin: 0;
+    }
+    #p-airpro-s-feature-story-{{ sid }} .p-aps-story__f1 .p-aps-story__note {
+      position: absolute;
+      top: clamp(220px, 68vw, 285px);
+      left: calc(-36vw + 12px);
+      width: 90vw;
+      margin: 0;
+      font-size: 7px;
+      line-height: 1.45;
+    }
+    #p-airpro-s-feature-story-{{ sid }} .p-aps-story__f2 .p-aps-story__ttl { display: none; }
+    #p-airpro-s-feature-story-{{ sid }} .p-aps-story__f2 .p-aps-story__txt { margin-top: 9px; font-size: 10px; line-height: 1.48; }
+    #p-airpro-s-feature-story-{{ sid }} .p-aps-story__icons { gap: 20px; margin-top: 14px; }
+    #p-airpro-s-feature-story-{{ sid }} .p-aps-story__icon { width: 42px; }
+    #p-airpro-s-feature-story-{{ sid }} .p-aps-story__f2 .p-aps-story__icons { position: static; justify-content: flex-start; gap: 42px; margin-top: 22px; }
+    #p-airpro-s-feature-story-{{ sid }} .p-aps-story__f2 .p-aps-story__icon-item { width: 64px; }
+    #p-airpro-s-feature-story-{{ sid }} .p-aps-story__f2 .p-aps-story__icon { width: 100%; }
+    #p-airpro-s-feature-story-{{ sid }} .p-aps-story__ilabel { margin-top: 5px; font-size: 8px; line-height: 1.35; }
+    #p-airpro-s-feature-story-{{ sid }} .p-aps-story__f2 .p-aps-story__pic { width: 100%; margin-top: 32px; }
+  }
+</style>
+
+<section
+  id="p-airpro-s-feature-story-{{ sid }}"
+  class="p-aps-story"
+  style="--p-story-bg: {{ section.settings.background }}; --p-story-text: {{ section.settings.text_color }};"
+>
+  <div class="p-aps-story__in">
+    <div class="p-aps-story__media">
+      <picture>
+        {% if section.settings.background_image_mobile != blank %}
+          <source
+            media="(max-width: 749px)"
+            srcset="{{ section.settings.background_image_mobile | image_url: width: 1000 }}"
+          >
+        {% endif %}
+        {% if section.settings.background_image != blank %}
+          {{
+            section.settings.background_image
+            | image_url: width: 2400
+            | image_tag: class: 'p-aps-story__bg', loading: 'lazy', widths: '750, 1200, 1600, 1920, 2400'
+          }}
+        {% endif %}
+      </picture>
+    </div>
+
+    {% if section.settings.heading != blank %}
+      <h2 class="p-aps-story__head">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    <article class="p-aps-story__feat p-aps-story__f1">
+      <div class="p-aps-story__body">
+        {% if section.settings.feature_1_number != blank %}
+          <p class="p-aps-story__num">{{ section.settings.feature_1_number }}</p>
+        {% endif %}
+        {% if section.settings.feature_1_lead != blank %}
+          <p class="p-aps-story__lead">{{ section.settings.feature_1_lead }}</p>
+        {% endif %}
+        {% if section.settings.feature_1_title != blank %}
+          <h3 class="p-aps-story__ttl">{{ section.settings.feature_1_title }}</h3>
+        {% endif %}
+        {% if section.settings.feature_1_text != blank %}
+          <div class="p-aps-story__txt">{{ section.settings.feature_1_text }}</div>
+        {% endif %}
+        {% if section.settings.feature_1_note != blank %}
+          <div class="p-aps-story__note">{{ section.settings.feature_1_note | escape | newline_to_br }}</div>
+        {% endif %}
+      </div>
+    </article>
+
+    <article class="p-aps-story__feat p-aps-story__f2">
+      <div class="p-aps-story__body">
+        {% if section.settings.feature_2_number != blank %}
+          <p class="p-aps-story__num">{{ section.settings.feature_2_number }}</p>
+        {% endif %}
+        {% if section.settings.feature_2_title != blank %}
+          <h3 class="p-aps-story__ttl">{{ section.settings.feature_2_title }}</h3>
+        {% endif %}
+        {% if section.settings.feature_2_text != blank %}
+          <div class="p-aps-story__txt">{{ section.settings.feature_2_text }}</div>
+        {% endif %}
+        {% if section.settings.feature_2_icon_1 != blank or section.settings.feature_2_icon_2 != blank %}
+          <div class="p-aps-story__icons">
+            {% if section.settings.feature_2_icon_1 != blank -%}
+              <div class="p-aps-story__icon-item">
+                {{-
+                  section.settings.feature_2_icon_1
+                  | image_url: width: 200
+                  | image_tag: class: 'p-aps-story__icon', loading: 'lazy'
+                -}}
+                {% if section.settings.feature_2_icon_1_label != blank %}<p class="p-aps-story__ilabel">{{ section.settings.feature_2_icon_1_label }}</p>{% endif %}
+              </div>
+            {%- endif %}
+            {% if section.settings.feature_2_icon_2 != blank -%}
+              <div class="p-aps-story__icon-item">
+                {{-
+                  section.settings.feature_2_icon_2
+                  | image_url: width: 200
+                  | image_tag: class: 'p-aps-story__icon', loading: 'lazy'
+                -}}
+                {% if section.settings.feature_2_icon_2_label != blank %}<p class="p-aps-story__ilabel">{{ section.settings.feature_2_icon_2_label }}</p>{% endif %}
+              </div>
+            {%- endif %}
+          </div>
+        {% endif %}
+      </div>
+      {% if section.settings.feature_2_image != blank %}
+        <div class="p-aps-story__pic">
+          <picture>
+            {% if section.settings.feature_2_image_mobile != blank %}
+              <source
+                media="(max-width: 749px)"
+                srcset="{{ section.settings.feature_2_image_mobile | image_url: width: 800 }}"
+              >
+            {% endif %}
+            {{
+              section.settings.feature_2_image
+              | image_url: width: 1200
+              | image_tag: class: 'p-aps-story__img', loading: 'lazy', widths: '400, 700, 1000, 1200'
+            }}
+          </picture>
+        </div>
+      {% endif %}
+    </article>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "P Air Pro S 图文故事",
+  "settings": [
+    { "type": "image_picker", "id": "background_image", "label": "PC 背景图（1920）" },
+    { "type": "image_picker", "id": "background_image_mobile", "label": "移动端背景图" },
+    {
+      "type": "html",
+      "id": "heading",
+      "label": "模块标题",
+      "default": "特許技術による<br>痛みレス<sup>*1</sup>な全身ケア。"
+    },
+    { "type": "header", "content": "01 文案" },
+    { "type": "text", "id": "feature_1_number", "label": "01 编号", "default": "01" },
+    { "type": "text", "id": "feature_1_lead", "label": "01 技术说明", "default": "日本国内でも特許取得済みの" },
+    { "type": "html", "id": "feature_1_title", "label": "01 标题", "default": "サファイア冷感技術" },
+    {
+      "type": "html",
+      "id": "feature_1_text",
+      "label": "01 说明",
+      "default": "により、<br>痛みレス<sup>*1</sup>なケアを実現。"
+    },
+    {
+      "type": "textarea",
+      "id": "feature_1_note",
+      "label": "01 脚注",
+      "default": "※1 痛みの感じ方には個人差と部位差があります。\n※2 特許第2326132号。"
+    },
+    { "type": "header", "content": "02 图文" },
+    { "type": "text", "id": "feature_2_number", "label": "02 编号", "default": "02" },
+    { "type": "html", "id": "feature_2_title", "label": "02 标题", "default": "冷却機能を一体化したデザイン" },
+    {
+      "type": "richtext",
+      "id": "feature_2_text",
+      "label": "02 说明",
+      "default": "<p>照射ヘッドに冷却面を一体化。肌をひんやり冷却しながらそのまま照射可能。</p>"
+    },
+    { "type": "image_picker", "id": "feature_2_image", "label": "02 PC 对比图" },
+    { "type": "image_picker", "id": "feature_2_image_mobile", "label": "02 移动端对比图" },
+    { "type": "image_picker", "id": "feature_2_icon_1", "label": "02 图标 1" },
+    { "type": "text", "id": "feature_2_icon_1_label", "label": "02 图标 1 文案", "default": "ジェル不要" },
+    { "type": "image_picker", "id": "feature_2_icon_2", "label": "02 图标 2" },
+    { "type": "text", "id": "feature_2_icon_2_label", "label": "02 图标 2 文案", "default": "保冷剤不要" },
+    { "type": "color", "id": "background", "label": "背景色", "default": "#f7f7f8" },
+    { "type": "color", "id": "text_color", "label": "文字色", "default": "#111111" }
+  ],
+  "presets": [{ "name": "P Air Pro S 图文故事" }]
+}
+{% endschema %}

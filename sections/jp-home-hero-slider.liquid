@@ -64,7 +64,7 @@
               </div>
 
               <div class="jp-home-hero__content-wrap">
-                <div class="jp-container">
+                <div class="container">
                   <div class="jp-home-hero__content-inner">
                     <div class="jp-home-hero__content">
                       {% if block.settings.subheading != blank or subheading_logo != blank %}
@@ -127,7 +127,7 @@
 
               {% if info_text != blank %}
                 <div class="jp-home-hero__info-wrap">
-                  <div class="jp-container">
+                  <div class="container">
                     <div class="jp-home-hero__info">
                       {{ info_text }}
                     </div>
@@ -196,7 +196,7 @@
     pointer-events: none;
   }
 
-  .jp-home-hero--{{ sid }} .jp-home-hero__content-wrap > .jp-container {
+  .jp-home-hero--{{ sid }} .jp-home-hero__content-wrap > .container {
     height: 100%;
   }
 
@@ -209,10 +209,10 @@
     gap: 40px;
   }
 
-  .jp-home-hero--{{ sid }} .jp-home-hero__content-wrap > .jp-container,
+  .jp-home-hero--{{ sid }} .jp-home-hero__content-wrap > .container,
   .jp-home-hero--{{ sid }} .jp-home-hero__content,
   .jp-home-hero--{{ sid }} .jp-home-hero__btn,
-  .jp-home-hero--{{ sid }} .jp-home-hero__info-wrap .jp-container,
+  .jp-home-hero--{{ sid }} .jp-home-hero__info-wrap .container,
   .jp-home-hero--{{ sid }} .jp-home-hero__info {
     pointer-events: auto;
   }

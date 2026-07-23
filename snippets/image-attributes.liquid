@@ -1,0 +1,71 @@
+{%- comment -%}
+  图片响应式属性（优化版）
+
+  用法：
+  <img {% render 'image-attributes', image: image, sizes: '320,480,768,1200' %}>
+
+  可选参数：
+  - sizes：以逗号分隔的目标宽度；未传时使用常用响应式宽度。
+  - height_constraint：同时限制图片高度。
+  - crop：裁切方式，例如 'center'、'top'。
+  - alt：替代图片自身 alt 文本。
+  - native：传入 true 时输出原生 loading="lazy" 属性。
+  - ignore_src：传入 true 时仅输出 srcset，不输出 src。
+  - sizes_only：传入 true 时只输出 srcset 内容，适用于 picture/source 标签。
+
+  此 snippet 使用 Shopify 推荐的 image_url，避免已弃用的 img_url。
+{%- endcomment -%}
+
+{%- if image != blank -%}
+  {%- assign requested_sizes = sizes | default: '320,480,640,768,960,1200,1440,1600,1920' | remove: ' ' | split: ',' -%}
+  {%- assign supported_sizes = '' -%}
+
+  {%- for size in requested_sizes -%}
+    {%- assign width = size | times: 1 -%}
+
+    {%- if width <= 0 -%}
+      {%- continue -%}
+    {%- endif -%}
+
+    {%- if image.width <= width -%}
+      {%- assign supported_sizes = supported_sizes | append: image.width -%}
+      {%- break -%}
+    {%- endif -%}
+
+    {%- assign supported_sizes = supported_sizes | append: width | append: ',' -%}
+  {%- endfor -%}
+
+  {%- if supported_sizes == blank -%}
+    {%- assign supported_sizes = image.width -%}
+  {%- endif -%}
+
+  {%- assign supported_sizes = supported_sizes | split: ',' | compact -%}
+  {%- assign srcset = '' -%}
+
+  {%- for width in supported_sizes -%}
+    {%- if height_constraint -%}
+      {%- capture image_src -%}{{ image | image_url: width: width, height: height_constraint, crop: crop }}{%- endcapture -%}
+    {%- else -%}
+      {%- capture image_src -%}{{ image | image_url: width: width }}{%- endcapture -%}
+    {%- endif -%}
+
+    {%- capture srcset -%}{{ srcset }}{{ image_src | strip }} {{ width }}w{% unless forloop.last %}, {% endunless %}{%- endcapture -%}
+  {%- endfor -%}
+
+  {%- assign largest_width = supported_sizes | last -%}
+
+  {%- if sizes_only -%}
+    {{- srcset | strip -}}
+  {%- else -%}
+    width="{{ image.width }}" height="{{ image.height }}" alt="{{ alt | default: image.alt | escape }}"
+    {%- if native %} loading="lazy"{% endif -%}
+    {%- unless ignore_src -%}
+      {%- if height_constraint -%}
+        src="{{ image | image_url: width: largest_width, height: height_constraint, crop: crop }}"
+      {%- else -%}
+        src="{{ image | image_url: width: largest_width }}"
+      {%- endif -%}
+    {%- endunless -%}
+    srcset="{{ srcset | strip }}"
+  {%- endif -%}
+{%- endif -%}

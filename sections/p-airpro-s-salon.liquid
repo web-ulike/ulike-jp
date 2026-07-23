@@ -1,0 +1,147 @@
+{% assign sid = section.id %}
+
+<style>
+  #p-airpro-s-salon-{{ sid }} {
+    overflow: hidden;
+    background: var(--p-salon-bg);
+    color: var(--p-salon-text);
+  }
+
+  #p-airpro-s-salon-{{ sid }} .p-aps-salon__in { position: relative; }
+  #p-airpro-s-salon-{{ sid }} picture { display: block; }
+  #p-airpro-s-salon-{{ sid }} .p-aps-salon__img { display: block; width: 100%; height: auto; }
+
+  #p-airpro-s-salon-{{ sid }} .p-aps-salon__copy {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    width: min(1250px, calc(100% - 64px));
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  #p-airpro-s-salon-{{ sid }} .p-aps-salon__copy-in {
+    width: 624px;
+  }
+
+  #p-airpro-s-salon-{{ sid }} .p-aps-salon__body { 
+    width: 100%; 
+  
+  }
+  #p-airpro-s-salon-{{ sid }} .p-aps-salon__title {
+    margin: 0;
+    color: #000;
+    font-size: 48px;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  #p-airpro-s-salon-{{ sid }} .p-aps-salon__lead,
+  #p-airpro-s-salon-{{ sid }} .p-aps-salon__outro {
+    margin: 20px 0 0;
+    color: #000;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  #p-airpro-s-salon-{{ sid }} .p-aps-salon__callout {
+    margin-top: 30px;
+    padding: 18px 22px;
+    border-radius: 8px;
+    max-width: 520px;
+    background: #dff0e9;
+    color: #000;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.55;
+  }
+
+  #p-airpro-s-salon-{{ sid }} .p-aps-salon__callout strong {
+    font-size: 1.45em;
+    font-weight: 700;
+    line-height: 0;
+  }
+
+  #p-airpro-s-salon-{{ sid }} .p-aps-salon__outro { margin-top: 30px; font-size: 16px; }
+  #p-airpro-s-salon-{{ sid }} .p-aps-salon__outro strong { font-size: 1.35em; }
+
+  #p-airpro-s-salon-{{ sid }} .p-aps-salon__note {
+    position: absolute;
+    z-index: 1;
+    bottom: 60px;
+    left: 50%;
+    width: min(1250px, calc(100% - 64px));
+    transform: translateX(-50%);
+    margin: 0;
+    color: #000;
+    font-size: 10px;
+    opacity: 0.5;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  @media screen and (max-width: 749px) {
+    #p-airpro-s-salon-{{ sid }} .p-aps-salon__in { display: flex; flex-direction: column; }
+    #p-airpro-s-salon-{{ sid }} .p-aps-salon__copy {
+      position: relative;
+      inset: auto;
+      display: block;
+      transform: none;
+      width: auto;
+      padding: 62px 16px 28px;
+    }
+
+    #p-airpro-s-salon-{{ sid }} .p-aps-salon__copy-in { width: 100%; margin: 0; }
+    #p-airpro-s-salon-{{ sid }} .p-aps-salon__body { width: 100%; }
+    #p-airpro-s-salon-{{ sid }} .p-aps-salon__title { font-size: clamp(28px, 8.5vw, 36px); line-height: 1.32; }
+    #p-airpro-s-salon-{{ sid }} .p-aps-salon__lead { margin-top: 16px; font-size: 13px; line-height: 1.55; }
+    #p-airpro-s-salon-{{ sid }} .p-aps-salon__callout { margin-top: 16px; padding: 12px; border-radius: 8px; font-size: 16px; line-height: 1.55; }
+    #p-airpro-s-salon-{{ sid }} .p-aps-salon__outro { margin-top: 16px; font-size: 15px; line-height: 1.65; }
+    #p-airpro-s-salon-{{ sid }} .p-aps-salon__pic { width: 100%; }
+    #p-airpro-s-salon-{{ sid }} .p-aps-salon__note { bottom: 11px; width: calc(100% - 32px); font-size: 8px; }
+  }
+</style>
+
+<section id="p-airpro-s-salon-{{ sid }}" class="p-aps-salon" style="--p-salon-bg: {{ section.settings.background }}; --p-salon-text: {{ section.settings.text_color }};">
+  <div class="p-aps-salon__in">
+    <div class="p-aps-salon__copy">
+      <div class="p-aps-salon__copy-in">
+        <div class="p-aps-salon__body">
+          {% if section.settings.title != blank %}<h2 class="p-aps-salon__title">{{ section.settings.title }}</h2>{% endif %}
+          {% if section.settings.lead != blank %}<div class="p-aps-salon__lead">{{ section.settings.lead }}</div>{% endif %}
+          {% if section.settings.callout != blank %}<div class="p-aps-salon__callout">{{ section.settings.callout }}</div>{% endif %}
+          {% if section.settings.outro != blank %}<div class="p-aps-salon__outro">{{ section.settings.outro }}</div>{% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="p-aps-salon__pic">
+      <picture>
+        {% if section.settings.image_mobile != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.image_mobile | image_url: width: 900 }}">{% endif %}
+        {% if section.settings.image != blank %}{{ section.settings.image | image_url: width: 1920 | image_tag: class: 'p-aps-salon__img', loading: 'lazy', widths: '750, 1200, 1600, 1920' }}{% endif %}
+      </picture>
+    </div>
+
+    {% if section.settings.note != blank %}<p class="p-aps-salon__note">{{ section.settings.note }}</p>{% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "P Air Pro S 沙龙对比",
+  "settings": [
+    { "type": "html", "id": "title", "label": "标题", "default": "脱毛サロンよりもコスパ良し" },
+    { "type": "html", "id": "lead", "label": "标题说明", "default": "脱毛サロンに通うと、1人で数万円から数十万円もの費用がかかる上に、<br>予約の手間や通院時間の確保も大変…。" },
+    { "type": "html", "id": "callout", "label": "高亮文案", "default": "Ulike Air Pro Sなら、最大<strong>90万回</strong>*照射可能。<br>パートナーや家族との共有もおすすめ。" },
+    { "type": "html", "id": "outro", "label": "底部说明", "default": "シェアしてコスパよく、ムダ毛ケアができます。<strong>たった1台で。</strong>" },
+    { "type": "text", "id": "note", "label": "脚注", "default": "*当社の耐久性試験結果。" },
+    { "type": "image_picker", "id": "image", "label": "PC 图片" },
+    { "type": "image_picker", "id": "image_mobile", "label": "移动端图片" },
+    { "type": "color", "id": "background", "label": "背景色", "default": "#f5f7f8" },
+    { "type": "color", "id": "text_color", "label": "文字色", "default": "#111111" }
+  ],
+  "presets": [{ "name": "P Air Pro S 沙龙对比" }]
+}
+{% endschema %}

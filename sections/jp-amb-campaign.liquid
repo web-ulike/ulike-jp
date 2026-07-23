@@ -4,7 +4,7 @@
 -%}
 
 <section class="jp-amb-campaign jp-amb-campaign--{{ sid }}">
-  <div class="jp-container jp-amb-campaign__wrap">
+  <div class="container jp-amb-campaign__wrap">
     <picture class="jp-amb-campaign__picture">
       {%- if st.mobile_bg_image != blank -%}
         <source media="(max-width: 768px)" srcset="{{ st.mobile_bg_image | image_url: width: 900 }}">
@@ -27,7 +27,7 @@
       {%- endif -%}
     </picture>
 
-    <div class="jp-amb-campaign__overlay jp-container">
+    <div class="jp-amb-campaign__overlay container">
       {%- if st.title != blank -%}
         <h2 class="jp-amb-campaign__title">{{ st.title }}</h2>
       {%- endif -%}

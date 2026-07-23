@@ -420,7 +420,7 @@ margin:40px auto;
 </style>
    <section>
       <div class="home_md3 media-{{ section.id }}-padding">
-            <div class="home-md3_box jp-container {% if section.settings.stack_mobile -%}item__fx{% endif %} {% unless section.settings.mobile_background_type == 'boxed' %}mobile_container--full{% endunless %}">
+            <div class="home-md3_box container {% if section.settings.stack_mobile -%}item__fx{% endif %} {% unless section.settings.mobile_background_type == 'boxed' %}mobile_container--full{% endunless %}">
               <div class="mobile-home-md3-txt_item_{{ section.settings.mobile_text_position }} mobile-home-md3_item_{{ section.settings.mobile_image_position }} home-md3_item{% if section.settings.image_position == 'right' %} home-md3_item--reverse{% endif %}">
                 <div class="pic{% if section.settings.is_roate %} roate-img{% endif %}">
 

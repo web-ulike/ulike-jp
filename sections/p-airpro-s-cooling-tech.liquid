@@ -1,0 +1,51 @@
+{% assign sid = section.id %}
+
+<style>
+  #p-airpro-s-cooling-tech-{{ sid }} { padding: 96px 20px 110px; overflow: hidden; background: var(--p-cooling-bg); color: var(--p-cooling-text); }
+  #p-airpro-s-cooling-tech-{{ sid }} .p-airpro-s-cooling-tech__heading { margin: 0 auto 60px; text-align: center; font-size: clamp(28px, 2.5vw, 46px); line-height: 1.28; font-weight: 600; letter-spacing: .04em; }
+  #p-airpro-s-cooling-tech-{{ sid }} .p-airpro-s-cooling-tech__stage { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: .8fr 1.2fr; align-items: center; gap: clamp(32px, 7vw, 110px); }
+  #p-airpro-s-cooling-tech-{{ sid }} .p-airpro-s-cooling-tech__number { margin: 0 0 14px; font-size: clamp(42px, 4vw, 72px); line-height: 1; font-weight: 300; }
+  #p-airpro-s-cooling-tech-{{ sid }} .p-airpro-s-cooling-tech__title { margin: 0; font-size: clamp(19px, 1.55vw, 27px); line-height: 1.4; font-weight: 600; }
+  #p-airpro-s-cooling-tech-{{ sid }} .p-airpro-s-cooling-tech__text { margin: 14px 0 0; font-size: 13px; line-height: 1.8; }
+  #p-airpro-s-cooling-tech-{{ sid }} .p-airpro-s-cooling-tech__media picture, #p-airpro-s-cooling-tech-{{ sid }} .p-airpro-s-cooling-tech__comparison picture { display: block; }
+  #p-airpro-s-cooling-tech-{{ sid }} .p-airpro-s-cooling-tech__image { display: block; width: 100%; height: auto; }
+  #p-airpro-s-cooling-tech-{{ sid }} .p-airpro-s-cooling-tech__lower { max-width: 930px; margin: 66px auto 0; display: grid; grid-template-columns: 1fr .9fr; align-items: center; gap: clamp(32px, 7vw, 100px); }
+  #p-airpro-s-cooling-tech-{{ sid }} .p-airpro-s-cooling-tech__icons { display: flex; gap: 28px; margin-top: 26px; }
+  #p-airpro-s-cooling-tech-{{ sid }} .p-airpro-s-cooling-tech__icon { width: 44px; }
+  #p-airpro-s-cooling-tech-{{ sid }} .p-airpro-s-cooling-tech__icon img { display: block; width: 100%; height: auto; }
+  @media screen and (max-width: 749px) { #p-airpro-s-cooling-tech-{{ sid }} { padding: 60px 20px 70px; } #p-airpro-s-cooling-tech-{{ sid }} .p-airpro-s-cooling-tech__heading { margin-bottom: 35px; } #p-airpro-s-cooling-tech-{{ sid }} .p-airpro-s-cooling-tech__stage, #p-airpro-s-cooling-tech-{{ sid }} .p-airpro-s-cooling-tech__lower { grid-template-columns: 1fr; gap: 28px; } #p-airpro-s-cooling-tech-{{ sid }} .p-airpro-s-cooling-tech__stage { text-align: center; } #p-airpro-s-cooling-tech-{{ sid }} .p-airpro-s-cooling-tech__lower { margin-top: 48px; } #p-airpro-s-cooling-tech-{{ sid }} .p-airpro-s-cooling-tech__lower .p-airpro-s-cooling-tech__content { order: -1; } }
+</style>
+
+<section id="p-airpro-s-cooling-tech-{{ sid }}" class="p-airpro-s-cooling-tech" style="--p-cooling-bg: {{ section.settings.background }}; --p-cooling-text: {{ section.settings.text_color }};">
+  {% if section.settings.heading != blank %}<h2 class="p-airpro-s-cooling-tech__heading">{{ section.settings.heading }}</h2>{% endif %}
+  <div class="p-airpro-s-cooling-tech__stage">
+    <div class="p-airpro-s-cooling-tech__content"><p class="p-airpro-s-cooling-tech__number">01</p><h3 class="p-airpro-s-cooling-tech__title">{{ section.settings.feature_1_title }}</h3>{% if section.settings.feature_1_text != blank %}<div class="p-airpro-s-cooling-tech__text">{{ section.settings.feature_1_text }}</div>{% endif %}</div>
+    <div class="p-airpro-s-cooling-tech__media"><picture>{% if section.settings.main_image_mobile != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.main_image_mobile | image_url: width: 1000 }}">{% endif %}{% if section.settings.main_image != blank %}{{ section.settings.main_image | image_url: width: 1600 | image_tag: class: 'p-airpro-s-cooling-tech__image', loading: 'lazy', widths: '600, 900, 1200, 1600' }}{% endif %}</picture></div>
+  </div>
+  <div class="p-airpro-s-cooling-tech__lower">
+    <div class="p-airpro-s-cooling-tech__comparison"><picture>{% if section.settings.comparison_image_mobile != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.comparison_image_mobile | image_url: width: 900 }}">{% endif %}{% if section.settings.comparison_image != blank %}{{ section.settings.comparison_image | image_url: width: 1200 | image_tag: class: 'p-airpro-s-cooling-tech__image', loading: 'lazy', widths: '500, 800, 1200' }}{% endif %}</picture></div>
+    <div class="p-airpro-s-cooling-tech__content"><p class="p-airpro-s-cooling-tech__number">02</p><h3 class="p-airpro-s-cooling-tech__title">{{ section.settings.feature_2_title }}</h3>{% if section.settings.feature_2_text != blank %}<div class="p-airpro-s-cooling-tech__text">{{ section.settings.feature_2_text }}</div>{% endif %}<div class="p-airpro-s-cooling-tech__icons">{% if section.settings.icon_1 != blank %}{{ section.settings.icon_1 | image_url: width: 100 | image_tag: class: 'p-airpro-s-cooling-tech__icon', loading: 'lazy' }}{% endif %}{% if section.settings.icon_2 != blank %}{{ section.settings.icon_2 | image_url: width: 100 | image_tag: class: 'p-airpro-s-cooling-tech__icon', loading: 'lazy' }}{% endif %}</div></div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "P Air Pro S 冷感技术",
+  "settings": [
+    { "type": "html", "id": "heading", "label": "模块标题", "default": "特許技術による<br>痛みレス<sup>*1</sup>な全身ケア。" },
+    { "type": "image_picker", "id": "main_image", "label": "01 PC 主视觉图" },
+    { "type": "image_picker", "id": "main_image_mobile", "label": "01 移动端主视觉图" },
+    { "type": "html", "id": "feature_1_title", "label": "01 标题", "default": "サファイア冷感技術" },
+    { "type": "richtext", "id": "feature_1_text", "label": "01 说明", "default": "<p>より、痛みレスなケアを実現。</p>" },
+    { "type": "image_picker", "id": "comparison_image", "label": "02 PC 对比图" },
+    { "type": "image_picker", "id": "comparison_image_mobile", "label": "02 移动端对比图" },
+    { "type": "html", "id": "feature_2_title", "label": "02 标题", "default": "冷却機能を一体化したデザイン" },
+    { "type": "richtext", "id": "feature_2_text", "label": "02 说明", "default": "<p>照射ヘッドに冷却面を一体化。肌をひんやり冷却しながらそのまま照射可能。</p>" },
+    { "type": "image_picker", "id": "icon_1", "label": "图标 1" },
+    { "type": "image_picker", "id": "icon_2", "label": "图标 2" },
+    { "type": "color", "id": "background", "label": "背景色", "default": "#f7f8f8" },
+    { "type": "color", "id": "text_color", "label": "文字色", "default": "#111111" }
+  ],
+  "presets": [{ "name": "P Air Pro S 冷感技术" }]
+}
+{% endschema %}

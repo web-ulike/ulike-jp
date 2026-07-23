@@ -7,60 +7,34 @@
           "type": "text",
           "disabled": true,
           "settings": {
-            "text": "{{ product.vendor }}",
-            "text_size": "text-base"
+            "text": "<p>{{ product.vendor }}<\/p>"
           }
         },
         "title": {
           "type": "title",
-          "settings": {
-            "title_size": "product-title-sm",
-            "title_size_mobile": "product-title-md",
-            "show_price": true,
-            "show_rating": false
-          }
+          "settings": {}
         },
         "description": {
           "type": "description",
-          "settings": {
-            "text_size": "text-sm"
-          }
+          "settings": {}
         },
         "countdown": {
           "type": "countdown",
-          "settings": {
-            "heading": "Hurry up!",
-            "subheading": "Sale end in:",
-            "color_text": "#e11d48",
-            "color_background": "#fff1f2",
-            "gradient_background": ""
-          }
+          "settings": {}
         },
         "ulike_giveaway_zMwakW": {
           "type": "ulike_giveaway",
           "disabled": true,
-          "settings": {
-            "giveaway_image": "shopify:\/\/shop_images\/giveaway.png"
-          }
+          "settings": {}
         },
         "variant_picker": {
           "type": "variant_picker",
-          "settings": {
-            "show_variant_labels": true,
-            "picker_type": "button",
-            "enable_color_swatches": false,
-            "color_swatch_type": "color",
-            "size_chart": ""
-          }
+          "settings": {}
         },
         "inventory": {
           "type": "inventory",
           "disabled": true,
-          "settings": {
-            "inventory_threshold": 15,
-            "show_inventory_transfer": true,
-            "color_scheme": "accent-1"
-          }
+          "settings": {}
         },
         "liquid_YHhXh7": {
           "type": "liquid",
@@ -72,37 +46,20 @@
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
-            "show_quantity_selector": true,
-            "show_dynamic_checkout": true,
             "show_gift_card_recipient": false
           }
         },
         "collapsible_tab_CWcnye": {
           "type": "collapsible_tab",
-          "settings": {
-            "icon": "truck",
-            "heading": "全国送料無料：通常1-3日以内の配達。",
-            "content": "<p>発送後のお届け先の変更、配送方法の変更はできません。<\/p>",
-            "page": "",
-            "liquid": ""
-          }
+          "settings": {}
         },
         "collapsible_tab_Y8Hxh9": {
           "type": "collapsible_tab",
-          "settings": {
-            "icon": "return",
-            "heading": "90日返金・返品保証",
-            "content": "<p>返品・交換をご希望の場合は、jpsupport@ulikeglobal.comまでお客様のお名前、注文番号、返品商品の写真をご連絡ください。<\/p>",
-            "page": "",
-            "liquid": ""
-          }
+          "settings": {}
         },
         "custom_text_38QizU": {
           "type": "custom_text",
-          "settings": {
-            "text": "*1. 家庭用光美容器内で。本製品は医療機器ではありません。*2. トリートメントスケジュールに従った場合。効果には個人差があります。*3. 当社従来品比較。*4. 痛みの感じ方には個人差があります。*5. 当社調べ。お手入れにかかる時間には個人差があります。",
-            "text_size": "text-3xs"
-          }
+          "settings": {}
         },
         "pickup_availability": {
           "type": "pickup_availability",
@@ -110,50 +67,21 @@
         },
         "payment_method_zGM6cR": {
           "type": "payment_method",
-          "settings": {
-            "amex": true,
-            "diners": true,
-            "discover": true,
-            "family-mart": true,
-            "jcb": true,
-            "lawson": true,
-            "maestro": true,
-            "ministop": true,
-            "payeasy": true,
-            "paypal": true,
-            "visa": true,
-            "visa-electron": true,
-            "netbanking": true,
-            "mastercard": true
-          }
+          "settings": {}
         },
         "ulike_giveaway_XMxHWB": {
           "type": "ulike_giveaway",
           "disabled": true,
-          "settings": {
-            "giveaway_image": "shopify:\/\/shop_images\/2_ccd949e1-53eb-400b-b5ab-84198f7ad09e_1.png",
-            "m_giveaway_image": "shopify:\/\/shop_images\/20250306-140034.jpg"
-          }
+          "settings": {}
         },
         "share": {
           "type": "share",
-          "settings": {
-            "share_label": "Share",
-            "show_help_desk": false,
-            "help_label": "お問い合わせ",
-            "help_type": "drawer",
-            "help_page": ""
-          }
+          "settings": {}
         },
         "complementary": {
           "type": "complementary",
           "disabled": true,
-          "settings": {
-            "heading": "あなたも好きかも",
-            "product_limit": 4,
-            "show_vendor": false,
-            "show_price": true
-          }
+          "settings": {}
         },
         "sticky_buy_button": {
           "type": "sticky_buy_button",
@@ -182,25 +110,8 @@
         "sticky_buy_button"
       ],
       "settings": {
-        "code_num": "25%OFF",
-        "code": "12F14",
-        "enable_sticky_info": true,
-        "media_size": 66,
-        "gallery_layout": "thumbnail",
-        "thumbnail_position": "below",
-        "image_ratio": "adapt_first",
-        "image_zoom": "lightbox",
-        "hide_variants": false,
         "enable_video_autoplay": true,
-        "enable_video_looping": true,
-        "mobile_layout": "full_width",
-        "image_ratio_mobile": "adapt_first",
-        "mobile_thumbnail": false,
-        "padding_top": 40,
-        "padding_bottom": 40,
-        "divider": false,
-        "full_width": true,
-        "rounded": false
+        "enable_video_looping": true
       }
     },
     "help-drawer": {
@@ -377,39 +288,14 @@
       "type": "product-recommendations",
       "disabled": true,
       "settings": {
-        "product_limit": 3,
-        "columns": 3,
-        "carousel_on_desktop": false,
-        "columns_mobile": "1",
-        "swipe_on_mobile": true,
-        "heading": "あなたも好きかも",
-        "heading_size": "title-sm",
-        "heading_alignment": "text-left md:items-end md:flex-row",
-        "heading_tag": "h2",
-        "subheading": "",
-        "description": "",
-        "highlighted_text": "none",
-        "highlighted_scribble": "circle",
-        "color_text": "",
-        "color_background": "",
-        "gradient_background": "",
-        "color_highlight": "",
-        "gradient_highlight": "",
-        "color_button_text": "",
-        "color_button_background": "",
-        "color_button_gradient": "",
-        "padding_top": 40,
-        "padding_bottom": 40,
-        "divider": false,
-        "full_width": false,
-        "rounded": true
+        "subheading": ""
       }
     },
     "17098718307bcd2722": {
       "type": "apps",
       "blocks": {
         "ryviu_reviews_qa_ryviu_widget_yigzrd": {
-          "type": "shopify:\/\/apps\/ryviu-reviews-qa\/blocks\/ryviu-widget\/807ad6ed-1a6a-4559-abea-ed062858d9da",
+          "type": "shopify:\/\/apps\/ryviu-product-reviews\/blocks\/ryviu-widget\/807ad6ed-1a6a-4559-abea-ed062858d9da",
           "settings": {
             "r_wapper_class": "",
             "r_max_width": 1440,
@@ -423,22 +309,7 @@
       "block_order": [
         "ryviu_reviews_qa_ryviu_widget_yigzrd"
       ],
-      "settings": {
-        "enable_reviews_integration": true,
-        "color_text": "",
-        "color_background": "",
-        "gradient_background": "",
-        "color_highlight": "",
-        "gradient_highlight": "",
-        "color_button_text": "",
-        "color_button_background": "",
-        "color_button_gradient": "",
-        "padding_top": 40,
-        "padding_bottom": 80,
-        "divider": false,
-        "full_width": false,
-        "rounded": false
-      }
+      "settings": {}
     }
   },
   "order": [
