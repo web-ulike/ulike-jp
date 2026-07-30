@@ -65,11 +65,6 @@
   }
   .product__content-wrapper {
     padding: 20px 140px 20px 116px;
-    align-self: stretch;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background: var(--product-content-background);
   }
   .product__content-wrapper .tag-img{
     margin-bottom: 18px;
@@ -476,7 +471,7 @@ font-size: 15px;
                 </div>
                   {%- endif -%}
               </div>
-              <div class="product__content-wrapper to-top" style="--product-content-background: {{ block.settings.content_background | default: '#F4F9FF' }};">
+              <div class="product__content-wrapper  to-top">
                 {%- if block.settings.tag_image -%}
                   <div class="tag-img">
                     <img src="{{ block.settings.tag_image | image_url }}" alt="">
@@ -747,12 +742,6 @@ font-size: 15px;
             }
           ],
           "default": "left"
-        },
-        {
-          "type": "color_background",
-          "id": "content_background",
-          "label": "Content background",
-          "default": "#F4F9FF"
         },
 
         {

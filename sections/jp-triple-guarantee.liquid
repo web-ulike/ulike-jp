@@ -17,26 +17,20 @@
 
     <div class="jp-triple-guarantee__body">
       <div class="jp-triple-guarantee__image-wrap">
-        {% if st.image != blank or st.image_mobile != blank %}
-          {% assign fallback_image = st.image | default: st.image_mobile %}
-          <picture>
-            {% if st.image_mobile != blank %}
-              <source media="(max-width: 768px)" srcset="{{ st.image_mobile | image_url: width: 1000 }}">
-            {% endif %}
-            <img
-              class="jp-triple-guarantee__image"
-              src="{{ fallback_image | image_url: width: 1200 }}"
-              srcset="
-                {{ fallback_image | image_url: width: 600 }} 600w,
-                {{ fallback_image | image_url: width: 900 }} 900w,
-                {{ fallback_image | image_url: width: 1200 }} 1200w,
-                {{ fallback_image | image_url }} 1600w
-              "
-              sizes="(max-width: 768px) 100vw, 45vw"
-              alt="{{ fallback_image.alt | default: st.heading | escape }}"
-              loading="lazy"
-            >
-          </picture>
+        {% if st.image != blank %}
+          <img
+            class="jp-triple-guarantee__image"
+            src="{{ st.image | image_url: width: 1200 }}"
+            srcset="
+              {{ st.image | image_url: width: 600 }} 600w,
+              {{ st.image | image_url: width: 900 }} 900w,
+              {{ st.image | image_url: width: 1200 }} 1200w,
+              {{ st.image | image_url }} 1600w
+            "
+            sizes="(max-width: 768px) 100vw, 45vw"
+            alt="{{ st.image.alt | default: st.heading | escape }}"
+            loading="lazy"
+          >
         {% else %}
           <div class="jp-triple-guarantee__placeholder">Upload image</div>
         {% endif %}
@@ -380,12 +374,7 @@
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Left image (PC)"
-    },
-    {
-      "type": "image_picker",
-      "id": "image_mobile",
-      "label": "Left image (mobile)"
+      "label": "Left image"
     },
     {
       "type": "range",
