@@ -1,0 +1,225 @@
+{% comment %}
+  Air Pro S landing page hero. Configure separate desktop and mobile artwork in the theme editor.
+{% endcomment %}
+{% assign sid = section.id %}
+
+<style>
+  .p-aps-hero {
+    overflow: hidden;
+    background: var(--p-hero-bg);
+  }
+  .p-aps-hero__inner {
+    position: relative;
+  }
+
+  .p-aps-hero__media picture {
+    display: block;
+    width: 100%;
+  }
+  .p-aps-hero__image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .p-aps-hero__content {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    right: 0;
+    left: 0;
+    width: auto;
+    transform: translateY(-50%);
+    color: var(--p-hero-text);
+  }
+  .p-aps-hero__content-inner {
+    width: 800px;
+  }
+  .p-aps-hero__title {
+    margin: 0;
+    font-size: 46px;
+    line-height: 1.25;
+    font-weight: 500;
+    text-align: center;
+  }
+  .p-aps-hero__title em {
+    font-style: normal;
+    font-weight: 300;
+  }
+  .p-aps-hero__subtitle {
+    margin: 14px 0 0;
+    font-size: clamp(17px, 1.28vw, 25px);
+    line-height: 1.4;
+    letter-spacing: 0.06em;
+  }
+  .p-aps-hero__copy {
+    margin: 28px 0 0;
+    font-size: 14px;
+    line-height: 1.8;
+    letter-spacing: 0.08em;
+  }
+  .p-aps-hero__award {
+    display: block;
+    width: 780px;
+    margin-top: 40px;
+  }
+  .p-aps-hero__note {
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    bottom: 94px;
+    left: 0;
+    width: auto;
+    color: #000;
+    font-size: 10px;
+    line-height: 1.5;
+    opacity: 0.5;
+  }
+  .p-aps-hero__note-inner {
+    width: 600px;
+    margin: 0;
+    padding-left: 10%;
+    text-align: center;
+  }
+  @media screen and (max-width: 749px) {
+    .p-aps-hero__inner {
+      min-height: max(720px, 192vw);
+      background: var(--p-hero-bg);
+    }
+    .p-aps-hero__media {
+      position: absolute;
+      inset: 0;
+      min-height: 0;
+    }
+    .p-aps-hero__media picture,
+    .p-aps-hero__image {
+      width: 100%;
+      height: 100%;
+    }
+    .p-aps-hero__image {
+      object-fit: cover;
+      object-position: 62% center;
+    }
+    .p-aps-hero__content {
+      top: 50px;
+      right: 0;
+      bottom: auto;
+      left: 0;
+      width: auto;
+      transform: none;
+    }
+    .p-aps-hero__content-inner {
+      width: 100%;
+    }
+    .p-aps-hero__title {
+      font-size: 20px;
+      text-align: center;
+    }
+    .p-aps-hero__subtitle {
+      margin-top: 8px;
+      font-size: clamp(14px, 4.2vw, 17px);
+    }
+    .p-aps-hero__copy {
+      margin-top: 14px;
+      font-size: 11px;
+      line-height: 1.65;
+    }
+    .p-aps-hero__award {
+      width: 305px;
+      margin: 24px auto 0;
+    }
+    .p-aps-hero__note {
+      right: 0;
+      bottom: 20px;
+      left: 0;
+      width: auto;
+      font-size: 10px;
+    }
+    .p-aps-hero__note-inner {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      text-align: left;
+    }
+  }
+</style>
+
+<section
+  id="p-hero-{{ sid }}"
+  class="p-aps-hero"
+  style="--p-hero-bg: {{ section.settings.background }}; --p-hero-text: {{ section.settings.text_color }};"
+>
+  <div class="p-aps-hero__inner">
+    <div class="p-aps-hero__media">
+      <picture>
+        {% if section.settings.image_mobile != blank %}
+          <source media="(max-width: 749px)" srcset="{{ section.settings.image_mobile | image_url: width: 1000 }}">
+        {% endif %}
+        {% if section.settings.image != blank -%}
+          {{-
+            section.settings.image
+            | image_url: width: 2400
+            | image_tag: class: 'p-aps-hero__image', loading: 'eager', widths: '750, 1100, 1500, 1920, 2400'
+          -}}
+        {%- endif %}
+      </picture>
+    </div>
+    {% if section.settings.title != blank
+      or section.settings.subtitle != blank
+      or section.settings.copy != blank
+      or section.settings.content_image != blank
+    %}
+      <div class="p-aps-hero__content jp-container">
+        <div class="p-aps-hero__content-inner">
+          {% if section.settings.title != blank %}
+            <h2 class="p-aps-hero__title to-top">{{ section.settings.title }}</h2>
+          {% endif %}
+          {% if section.settings.subtitle != blank %}
+            <p class="p-aps-hero__subtitle to-top" style="transition-delay: .1s">{{ section.settings.subtitle }}</p>
+          {% endif %}
+          {% if section.settings.copy != blank %}
+            <div class="p-aps-hero__copy to-top" style="transition-delay: .2s">{{ section.settings.copy }}</div>
+          {% endif %}
+          {% if section.settings.content_image != blank %}
+            <picture>
+              {% if section.settings.content_image_mobile != blank %}
+                <source
+                  media="(max-width: 749px)"
+                  srcset="{{ section.settings.content_image_mobile | image_url: width: 700 }}"
+                >
+              {% endif %}
+              {{
+                section.settings.content_image
+                | image_url: width: 1200
+                | image_tag: class: 'p-aps-hero__award to-top', style: 'transition-delay: .3s', loading: 'eager', widths: '360, 540, 760, 1000, 1200'
+              }}
+            </picture>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+    {% if section.settings.note != blank %}
+      <div class="p-aps-hero__note jp-container">
+        <p class="p-aps-hero__note-inner">{{ section.settings.note | escape | newline_to_br }}</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "P Air Pro S 首屏",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "PC 主视觉图片（1920）" },
+    { "type": "image_picker", "id": "image_mobile", "label": "移动端图片" },
+    { "type": "html", "id": "title", "label": "标题", "default": "Ulike <em>Air Pro S</em>" },
+    { "type": "text", "id": "subtitle", "label": "副标题", "default": "IPL光美容器" },
+    { "type": "richtext", "id": "copy", "label": "说明", "default": "<p>キレイもコスパも、欲張っていい。</p>" },
+    { "type": "image_picker", "id": "content_image", "label": "文案区 PC 图片（奖项图）" },
+    { "type": "image_picker", "id": "content_image_mobile", "label": "文案区移动端图片（奖项图）" },
+    { "type": "textarea", "id": "note", "label": "底部注释" },
+    { "type": "color", "id": "background", "label": "背景色", "default": "#f3f6f7" },
+    { "type": "color", "id": "text_color", "label": "文字色", "default": "#101010" }
+  ],
+  "presets": [{ "name": "P Air Pro S 首屏" }]
+}
+{% endschema %}

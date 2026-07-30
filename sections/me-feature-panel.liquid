@@ -1,0 +1,28 @@
+{% assign sid = section.id %}
+<section id="me-feature-panel-{{ sid }}" class="me-feature-panel me-feature-panel--{{ section.settings.media_side }}" style="--me-panel-bg: {{ section.settings.background }}; --me-panel-accent: {{ section.settings.accent }};">
+  <div class="me-feature-panel__inner">
+    <div class="me-feature-panel__content">
+      {% if section.settings.eyebrow != blank %}<p class="me-feature-panel__eyebrow">{{ section.settings.eyebrow }}</p>{% endif %}
+      {% if section.settings.heading != blank %}<h2>{{ section.settings.heading }}</h2>{% endif %}
+      {% if section.settings.copy != blank %}<div class="me-feature-panel__copy">{{ section.settings.copy }}</div>{% endif %}
+      {% if section.settings.note != blank %}<p class="me-feature-panel__note">{{ section.settings.note }}</p>{% endif %}
+    </div>
+    <div class="me-feature-panel__media">
+      {% if section.settings.image != blank %}<picture>{% if section.settings.image_mobile != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.image_mobile | image_url: width: 1000 }}">{% endif %}{{ section.settings.image | image_url: width: 1800 | image_tag: class: 'me-feature-panel__image', loading: 'lazy', widths: '600, 900, 1200, 1600, 1800' }}</picture>{% else %}<div class="me-feature-panel__empty">画像を設定</div>{% endif %}
+    </div>
+  </div>
+</section>
+<style>
+  #me-feature-panel-{{ sid }} { overflow: hidden; background: var(--me-panel-bg); color: #111; }
+  #me-feature-panel-{{ sid }} .me-feature-panel__inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: 710px; }
+  #me-feature-panel-{{ sid }} .me-feature-panel__content { align-self: center; width: min(520px, calc(100% - 100px)); justify-self: end; padding: 74px 8vw; }
+  #me-feature-panel-{{ sid }} .me-feature-panel__media { min-height: 100%; } #me-feature-panel-{{ sid }} .me-feature-panel__image { display: block; width: 100%; height: 100%; min-height: 710px; object-fit: cover; }
+  #me-feature-panel-{{ sid }} .me-feature-panel__empty { display:grid; height:100%; min-height:710px; place-items:center; color:#7194b4; background:#eaf4fd; }
+  #me-feature-panel-{{ sid }} h2 { margin: 0; font-size: clamp(32px, 3vw, 52px); line-height: 1.25; font-weight: 600; } #me-feature-panel-{{ sid }} .me-feature-panel__eyebrow { margin: 0 0 8px; font-size: 24px; font-weight: 600; color: var(--me-panel-accent); }
+  #me-feature-panel-{{ sid }} .me-feature-panel__copy { margin-top: 28px; font-size: 16px; line-height: 1.9; } #me-feature-panel-{{ sid }} .me-feature-panel__copy p { margin: 0; } #me-feature-panel-{{ sid }} .me-feature-panel__copy mark { background: #bfe7ff; } #me-feature-panel-{{ sid }} .me-feature-panel__note { margin: 24px 0 0; color: #697583; font-size: 11px; line-height: 1.6; }
+  #me-feature-panel-{{ sid }}.me-feature-panel--left .me-feature-panel__content { order: 2; justify-self: start; } #me-feature-panel-{{ sid }}.me-feature-panel--left .me-feature-panel__media { order: 1; }
+  @media (max-width:749px) { #me-feature-panel-{{ sid }} .me-feature-panel__inner { display:flex; min-height:0; flex-direction:column; } #me-feature-panel-{{ sid }}.me-feature-panel--left .me-feature-panel__content { order: 1; } #me-feature-panel-{{ sid }}.me-feature-panel--left .me-feature-panel__media { order: 2; } #me-feature-panel-{{ sid }} .me-feature-panel__content { width:auto; padding:42px 20px 27px; } #me-feature-panel-{{ sid }} .me-feature-panel__image, #me-feature-panel-{{ sid }} .me-feature-panel__empty { min-height:0; aspect-ratio:1 / .92; } #me-feature-panel-{{ sid }} h2 { font-size:27px; } #me-feature-panel-{{ sid }} .me-feature-panel__eyebrow { font-size:18px; } #me-feature-panel-{{ sid }} .me-feature-panel__copy { margin-top:14px; font-size:12px; line-height:1.75; } }
+</style>
+{% schema %}
+{"name":"Ulike ME 图文模块","settings":[{"type":"select","id":"media_side","label":"图片位置","default":"right","options":[{"value":"right","label":"右侧"},{"value":"left","label":"左侧"}]},{"type":"image_picker","id":"image","label":"PC 图片"},{"type":"image_picker","id":"image_mobile","label":"移动端图片"},{"type":"text","id":"eyebrow","label":"小标题"},{"type":"html","id":"heading","label":"标题"},{"type":"richtext","id":"copy","label":"说明"},{"type":"textarea","id":"note","label":"注释"},{"type":"color","id":"background","label":"背景","default":"#f2f8fd"},{"type":"color","id":"accent","label":"强调色","default":"#68b6ee"}],"presets":[{"name":"Ulike ME 图文模块"}]}
+{% endschema %}

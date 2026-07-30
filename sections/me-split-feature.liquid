@@ -1,0 +1,130 @@
+{% comment %} Ulike ME split feature: left copy + supporting image, right product/lifestyle image. {% endcomment %}
+{% assign sid = section.id %}
+
+<section
+  id="me-split-feature-{{ sid }}"
+  class="me-split-feature"
+  style="--me-split-bg: {{ section.settings.background }}; --me-split-color: {{ section.settings.text_color }};"
+>
+  <div class="me-split-feature__inner">
+    <div class="me-split-feature__copy-column">
+      <div class="me-split-feature__copy">
+        {% if section.settings.title_html != blank %}
+          <div class="me-split-feature__desktop me-split-feature__title">{{ section.settings.title_html }}</div>
+        {% endif %}
+        {% if section.settings.description_html != blank %}
+          <div class="me-split-feature__desktop me-split-feature__description">
+            {{ section.settings.description_html }}
+          </div>
+        {% endif %}
+        {% if section.settings.title_html_mobile != blank %}
+          <div class="me-split-feature__mobile me-split-feature__title">{{ section.settings.title_html_mobile }}</div>
+        {% endif %}
+        {% if section.settings.description_html_mobile != blank %}
+          <div class="me-split-feature__mobile me-split-feature__description">
+            {{ section.settings.description_html_mobile }}
+          </div>
+        {% endif %}
+      </div>
+      {% if section.settings.bottom_image != blank or section.settings.bottom_image_mobile != blank %}
+        {% assign bottom_fallback = section.settings.bottom_image | default: section.settings.bottom_image_mobile %}
+        <picture class="me-split-feature__bottom-media">
+          {% if section.settings.bottom_image_mobile != blank %}
+            <source
+              media="(max-width: 749px)"
+              srcset="{{ section.settings.bottom_image_mobile | image_url: width: 720 }}"
+            >
+          {% endif %}
+          {{
+            bottom_fallback
+            | image_url: width: 900
+            | image_tag: class: 'me-split-feature__bottom-image', loading: 'lazy', widths: '320, 480, 720, 900'
+          }}
+        </picture>
+      {% endif %}
+    </div>
+
+    <div class="me-split-feature__main-media">
+      {% if section.settings.image != blank or section.settings.image_mobile != blank %}
+        {% assign main_fallback = section.settings.image | default: section.settings.image_mobile %}
+        <picture>
+          {% if section.settings.image_mobile != blank %}
+            <source media="(max-width: 749px)" srcset="{{ section.settings.image_mobile | image_url: width: 1000 }}">
+          {% endif %}
+          {{
+            main_fallback
+            | image_url: width: 1400
+            | image_tag: class: 'me-split-feature__main-image', loading: 'lazy', widths: '500, 750, 1000, 1400'
+          }}
+        </picture>
+      {% else %}
+        <div class="me-split-feature__placeholder">右侧图片</div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<style>
+  #me-split-feature-{{ sid }} { background: var(--me-split-bg); color: var(--me-split-color); padding: 110px 24px; }
+  #me-split-feature-{{ sid }} .me-split-feature__inner { display: grid; grid-template-columns: 430px minmax(0, 1fr); align-items: center; width: min(1260px, 100%); margin: 0 auto; gap: 78px; }
+  #me-split-feature-{{ sid }} .me-split-feature__copy-column { width: 100%; }
+  #me-split-feature-{{ sid }} .me-split-feature__title { font-size: 36px; line-height: 1.28; font-weight: 600; letter-spacing: -.03em; }
+  #me-split-feature-{{ sid }} .me-split-feature__title > * { margin: 0; }
+  #me-split-feature-{{ sid }} .me-split-feature__description { margin-top: 28px; font-size: 14px; line-height: 1.85; }
+  #me-split-feature-{{ sid }} .me-split-feature__description > * { margin: 0; }
+  #me-split-feature-{{ sid }} .me-split-feature__bottom-media { display: block; width: {{ section.settings.bottom_image_width }}px; max-width: 100%; margin-top: 34px; }
+  #me-split-feature-{{ sid }} .me-split-feature__bottom-image { display: block; width: 100%; height: auto; }
+  #me-split-feature-{{ sid }} .me-split-feature__main-image { display: block; width: 100%; height: auto; }
+  #me-split-feature-{{ sid }} .me-split-feature__placeholder { display: grid; min-height: 430px; place-items: center; background: #edf6fe; color: #7194b4; }
+  #me-split-feature-{{ sid }} .me-split-feature__mobile { display: none; }
+  @media (max-width: 749px) {
+    #me-split-feature-{{ sid }} { padding: 48px 16px 0; }
+    #me-split-feature-{{ sid }} .me-split-feature__inner { display: flex; width: 100%; flex-direction: column; gap: 28px; }
+    #me-split-feature-{{ sid }} .me-split-feature__copy-column { display: contents; }
+    #me-split-feature-{{ sid }} .me-split-feature__copy { width: 100%; }
+    #me-split-feature-{{ sid }} .me-split-feature__desktop { display: none; }
+    #me-split-feature-{{ sid }} .me-split-feature__mobile { display: block; }
+    #me-split-feature-{{ sid }} .me-split-feature__title { font-size: 23px; }
+    #me-split-feature-{{ sid }} .me-split-feature__description { margin-top: 13px; font-size: 11px; line-height: 1.7; }
+    #me-split-feature-{{ sid }} .me-split-feature__bottom-media { order: 3; width: {{ section.settings.mobile_bottom_image_width }}px; margin: 0 auto; }
+    #me-split-feature-{{ sid }} .me-split-feature__main-media { order: 2; width: 100%; }
+    #me-split-feature-{{ sid }} .me-split-feature__placeholder { min-height: 290px; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Ulike ME 左右图文模块",
+  "settings": [
+    { "type": "html", "id": "title_html", "label": "PC 左侧标题（HTML）" },
+    { "type": "html", "id": "description_html", "label": "PC 左侧描述（HTML）" },
+    { "type": "html", "id": "title_html_mobile", "label": "移动端左侧标题（HTML）" },
+    { "type": "html", "id": "description_html_mobile", "label": "移动端左侧描述（HTML）" },
+    { "type": "image_picker", "id": "bottom_image", "label": "PC 左下图片" },
+    { "type": "image_picker", "id": "bottom_image_mobile", "label": "移动端底部图片" },
+    { "type": "image_picker", "id": "image", "label": "PC 右侧图片" },
+    { "type": "image_picker", "id": "image_mobile", "label": "移动端右侧图片" },
+    {
+      "type": "range",
+      "id": "bottom_image_width",
+      "label": "PC 左下图片宽度",
+      "min": 120,
+      "max": 500,
+      "step": 10,
+      "default": 300
+    },
+    {
+      "type": "range",
+      "id": "mobile_bottom_image_width",
+      "label": "移动端底部图片宽度",
+      "min": 100,
+      "max": 340,
+      "step": 10,
+      "default": 240
+    },
+    { "type": "color", "id": "background", "label": "背景", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "文字颜色", "default": "#111111" }
+  ],
+  "presets": [{ "name": "Ulike ME 左右图文模块" }]
+}
+{% endschema %}

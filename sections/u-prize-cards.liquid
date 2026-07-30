@@ -1,0 +1,81 @@
+<section id="u-prize-cards-{{ section.id }}" class="u-prize-cards">
+  <div class="u-prize-cards__inner jp-container">
+    {%- if section.settings.heading != blank -%}<div class="u-prize-cards__heading">{{ section.settings.heading }}</div>{%- endif -%}
+    <div class="u-prize-cards__grid">
+      {%- for block in section.blocks -%}
+        <article class="u-prize-cards__card" {{ block.shopify_attributes }}>
+          <div class="u-prize-cards__copy">
+            {%- if block.settings.title != blank -%}<h3 class="u-prize-cards__title">{{ block.settings.title }}</h3>{%- endif -%}
+            {%- if block.settings.description != blank -%}<div class="u-prize-cards__description u-prize-cards__description--desktop">{{ block.settings.description }}</div>{%- endif -%}
+            {%- if block.settings.description_mobile != blank -%}
+              <div class="u-prize-cards__description u-prize-cards__description--mobile">{{ block.settings.description_mobile }}</div>
+            {%- elsif block.settings.description != blank -%}
+              <div class="u-prize-cards__description u-prize-cards__description--mobile">{{ block.settings.description }}</div>
+            {%- endif -%}
+          </div>
+          {%- if block.settings.image != blank -%}<div class="u-prize-cards__media">{{ block.settings.image | image_url: width: 720 | image_tag: loading: 'lazy', widths: '320,480,720', alt: block.settings.image.alt }}</div>{%- endif -%}
+        </article>
+      {%- endfor -%}
+    </div>
+    {%- if section.settings.disclaimer != blank -%}<div class="u-prize-cards__disclaimer">{{ section.settings.disclaimer }}</div>{%- endif -%}
+  </div>
+</section>
+
+<style>
+  #u-prize-cards-{{ section.id }} { background: {{ section.settings.background }}; 
+   padding: {{ section.settings.padding_top }}px 0px {{ section.settings.padding_bottom }}px; 
+   color: {{ section.settings.text_color }}; 
+  }
+  #u-prize-cards-{{ section.id }} .u-prize-cards__inner {
+     margin: 0 auto;
+  }
+  #u-prize-cards-{{ section.id }} .u-prize-cards__heading { 
+    margin: 0 0 80px; text-align: center; font-size: 48px; font-weight: 500; line-height: 1.3;
+  }
+  #u-prize-cards-{{ section.id }} .u-prize-cards__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  #u-prize-cards-{{ section.id }} .u-prize-cards__card { display: grid; grid-template-columns: minmax(0, 1fr) 42%; min-height: 180px; overflow: hidden; border-radius: {{ section.settings.radius }}px; background: linear-gradient(105deg, {{ section.settings.card_color_one }}, {{ section.settings.card_color_two }}); }
+  #u-prize-cards-{{ section.id }} .u-prize-cards__copy { 
+    padding: 45px 8px 28px 34px; 
+  }
+  #u-prize-cards-{{ section.id }} p, #u-prize-cards-{{ section.id }} h3 { margin: 0; }
+  #u-prize-cards-{{ section.id }} .u-prize-cards__title { 
+    color: #E0004D; font-size: 24px; 
+    font-weight: 500; line-height: 1.5; 
+  }
+  #u-prize-cards-{{ section.id }} .u-prize-cards__description { margin-top: 16px; font-size: 18px; line-height: 1.5; }
+  #u-prize-cards-{{ section.id }} .u-prize-cards__description--mobile { display: none; }
+  #u-prize-cards-{{ section.id }} .u-prize-cards__media { display: flex; align-items: center; justify-content: center; padding: 16px; }
+  #u-prize-cards-{{ section.id }} .u-prize-cards__media img { display: block; width: 100%; max-height: 145px; object-fit: contain; }
+  #u-prize-cards-{{ section.id }} .u-prize-cards__card:nth-child(2) .u-prize-cards__media img { height: 230px; max-height: none; }
+  #u-prize-cards-{{ section.id }} .u-prize-cards__disclaimer {
+     margin-top: 30px; 
+     color: #000;
+     opacity: 0.5;
+     font-size: 10px; line-height: 1.5;
+  }
+
+  @media screen and (max-width: 767px) { #u-prize-cards-{{ section.id }} { padding: {{ section.settings.mobile_padding_top }}px 0 {{ section.settings.mobile_padding_bottom }}px; } #u-prize-cards-{{ section.id }} .u-prize-cards__inner { padding-right: 18px; padding-left: 18px; } #u-prize-cards-{{ section.id }} .u-prize-cards__heading { margin-bottom: 28px; font-size: 30px; } #u-prize-cards-{{ section.id }} .u-prize-cards__grid { grid-template-columns: 1fr; gap: 14px; } #u-prize-cards-{{ section.id }} .u-prize-cards__card { display: flex; box-sizing: border-box; min-height: 230px; padding: 26px 18px 16px; flex-direction: column; border-radius: {{ section.settings.mobile_radius }}px; } #u-prize-cards-{{ section.id }} .u-prize-cards__copy { padding: 0; text-align: center; } #u-prize-cards-{{ section.id }} .u-prize-cards__title { font-size: 16px; } #u-prize-cards-{{ section.id }} .u-prize-cards__description { margin-top: 7px; font-size: 12px; text-align: center; } #u-prize-cards-{{ section.id }} .u-prize-cards__description--desktop { display: none; } #u-prize-cards-{{ section.id }} .u-prize-cards__description--mobile { display: block; } #u-prize-cards-{{ section.id }} .u-prize-cards__media { flex: 1; padding: 10px 0 0; } #u-prize-cards-{{ section.id }} .u-prize-cards__media img { max-height: 115px; } #u-prize-cards-{{ section.id }} .u-prize-cards__card:nth-child(2) .u-prize-cards__media img { max-height: none; } #u-prize-cards-{{ section.id }} .u-prize-cards__disclaimer { margin-top: 18px; font-size: 8px; } }
+</style>
+
+{% schema %}
+{ "name": "u Prize cards", "settings": [
+  { "type": "text", "id": "heading", "label": "Heading", "default": "豪華賞品をご用意" },
+  { "type": "richtext", "id": "disclaimer", "label": "Disclaimer", "default": "<p>・キャンペーンの内容・期間は、予告なく変更となる場合がございます。<br>・賞品はなくなり次第終了となります。</p>" },
+  { "type": "color", "id": "background", "label": "Background", "default": "#f3fbff" },
+  { "type": "color", "id": "card_color_one", "label": "Card color one", "default": "#fde5fa" },
+  { "type": "color", "id": "card_color_two", "label": "Card color two", "default": "#d7efff" },
+  { "type": "color", "id": "text_color", "label": "Text color", "default": "#171717" },
+  { "type": "color", "id": "accent_color", "label": "Accent color", "default": "#e80063" },
+  { "type": "range", "id": "radius", "label": "Desktop card radius", "min": 0, "max": 24, "step": 1, "unit": "px", "default": 8 },
+  { "type": "range", "id": "mobile_radius", "label": "Mobile card radius", "min": 0, "max": 24, "step": 1, "unit": "px", "default": 5 },
+  { "type": "range", "id": "padding_top", "label": "Desktop padding top", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 64 },
+  { "type": "range", "id": "padding_bottom", "label": "Desktop padding bottom", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 72 },
+  { "type": "range", "id": "mobile_padding_top", "label": "Mobile padding top", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 44 },
+  { "type": "range", "id": "mobile_padding_bottom", "label": "Mobile padding bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 40 }
+], "blocks": [{ "type": "prize", "name": "Prize", "settings": [
+  { "type": "image_picker", "id": "image", "label": "Prize image" },
+  { "type": "text", "id": "title", "label": "Title", "default": "賞品" },
+  { "type": "html", "id": "description", "label": "Desktop description (HTML)" },
+  { "type": "html", "id": "description_mobile", "label": "Mobile description (HTML)" }
+] }], "presets": [{ "name": "u Prize cards", "blocks": [{ "type": "prize" }, { "type": "prize", "settings": { "title": "イベント情報" } }] }] }
+{% endschema %}

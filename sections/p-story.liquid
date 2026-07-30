@@ -1,0 +1,336 @@
+{% assign sid = section.id %}
+
+<style>
+  #p-story-{{ sid }} { overflow: hidden; background: var(--p-story-bg); color: var(--p-story-text); }
+  #p-story-{{ sid }} .p-aps-story__in { position: relative; }
+  #p-story-{{ sid }} .p-aps-story__bg,
+  #p-story-{{ sid }} .p-aps-story__pic picture { display: block; }
+  #p-story-{{ sid }} .p-aps-story__bg,
+  #p-story-{{ sid }} .p-aps-story__img { display: block; width: 100%; height: auto; }
+  #p-story-{{ sid }} .p-aps-story__head,
+  #p-story-{{ sid }} .p-aps-story__feat { position: absolute; z-index: 1; }
+  #p-story-{{ sid }} .p-aps-story__head {
+    top: 7%;
+    right: 20px;
+    left: 20px;
+    margin: 0;
+    text-align: center;
+     font-size: 48px; line-height: 1.5;
+    font-weight: 500;
+  }
+  #p-story-{{ sid }} .p-aps-story__f1 { top: 21%; left: 62%; width: 500px; }
+  #p-story-{{ sid }} .p-aps-story__f2 {
+    top: 55%; 
+    right: auto; 
+    left: 50%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    width: min(1250px, calc(100% - 48px));
+    transform: translateX(-50%); }
+  #p-story-{{ sid }} .p-aps-story__body { max-width: 700px; }
+  #p-story-{{ sid }} .p-aps-story__pic { width: 100%; margin-top: clamp(22px, 3vw, 52px); }
+  #p-story-{{ sid }} .p-aps-story__num {
+    margin: 0 0 0px;
+    line-height: 1.3;
+    font-weight: 300;
+    color: #000;
+    font-size: 100px;
+    font-family: Roboto;
+  }
+  #p-story-{{ sid }} .p-aps-story__ttl {
+     margin: 0; font-size: 24px;
+     line-height: 1.45;
+     font-weight: 500;
+     }
+  #p-story-{{ sid }} .p-aps-story__txt { margin-top: 20px; font-size: 13px; line-height: 1.75; }
+  #p-story-{{ sid }} .p-aps-story__mobile { display: none; }
+  #p-story-{{ sid }} .p-aps-story__lead {
+    margin: 0 0 10px;
+    font-size: 32px;
+    line-height: 1.35;
+    font-weight: 500;
+  }
+  #p-story-{{ sid }} .p-aps-story__f1 .p-aps-story__ttl-img { display: block; width: min(100%, 320px); height: auto; }
+  #p-story-{{ sid }} .p-aps-story__f1 .p-aps-story__txt {
+    margin-top: 18px; font-size: 24px; line-height: 1.5; font-weight: 500; }
+  #p-story-{{ sid }} .p-aps-story__note {
+    margin: 80px 0 0;
+    color: #000;
+    font-size: 10px;
+    line-height: 1.5;
+    opacity: 0.5;
+  }
+
+  #p-story-{{ sid }} .p-aps-story__icons { display: flex; gap: 24px; margin-top: 24px; }
+  #p-story-{{ sid }} .p-aps-story__icon { display: block; width: 48px; height: auto; }
+
+  #p-story-{{ sid }} .p-aps-story__f2 .p-aps-story__icons {
+    position: absolute; 
+    top: 12%; 
+    right: 40px; 
+    gap: 80px;
+    margin: 0;
+  }
+  #p-story-{{ sid }} .p-aps-story__f2 .p-aps-story__body { grid-row: 1; }
+  #p-story-{{ sid }} .p-aps-story__f2 .p-aps-story__icon-item { width: 130px; text-align: center; }
+  #p-story-{{ sid }} .p-aps-story__f2 .p-aps-story__icon { width: 100%; }
+  #p-story-{{ sid }} .p-aps-story__ilabel {
+    margin: 10px 0 0; font-size: 20px;
+    line-height: 1.5; font-weight: 500;
+   }
+  #p-story-{{ sid }} .p-aps-story__f2 .p-aps-story__pic {
+     width: 100%;
+     margin-top: 100px; 
+  }
+
+  @media screen and (max-width: 749px) {
+    #p-story-{{ sid }} .p-aps-story__desktop { display: none; }
+    #p-story-{{ sid }} .p-aps-story__mobile { display: block; }
+    #p-story-{{ sid }} .p-aps-story__head {
+       top: 40px;
+       right: 12px; 
+       left: 12px; 
+       font-size: 32px;
+       line-height: 1.3; 
+    }
+    #p-story-{{ sid }} .p-aps-story__f1 { 
+      top: 15%; right: 0; left: 0; width: 100%;
+    }
+    #p-story-{{ sid }} .p-aps-story__f1 .p-aps-story__body {
+       max-width: 63%; 
+       margin-left: auto;
+       padding-right: 12px;
+    }
+    #p-story-{{ sid }} .p-aps-story__f2 { 
+      top: inherit;
+      bottom: 40px;
+      right: 5%;
+      left: 5%; 
+      display: block; width: auto; transform: none;
+    }
+    #p-story-{{ sid }} .p-aps-story__body { max-width: 100%; }
+    #p-story-{{ sid }} .p-aps-story__pic { width: 100%; margin-top: 22px; }
+    #p-story-{{ sid }} .p-aps-story__num { 
+      margin-bottom: 10px; 
+      font-size: 56px;
+    }
+    #p-story-{{ sid }} .p-aps-story__ttl { font-size: 16px; }
+
+    #p-story-{{ sid }} .p-aps-story__txt { margin-top: 5px; font-size: clamp(8px, 2.4vw, 10px); line-height: 1.48; }
+    #p-story-{{ sid }} .p-aps-story__lead { 
+      margin-bottom: 5px;
+      font-size: 12px;
+      line-height: 1.35; 
+    }
+    #p-story-{{ sid }} .p-aps-story__f1 .p-aps-story__ttl-img { width: 100%; max-width: 210px; }
+    #p-story-{{ sid }} .p-aps-story__f1 .p-aps-story__txt { margin-top: 9px; font-size: clamp(10px, 3.05vw, 13px); line-height: 1.42; }
+    #p-story-{{ sid }} .p-aps-story__f1 .p-aps-story__num {
+      position: absolute;
+      top: 120px;
+      right: 7%;
+      margin: 0;
+    }
+    #p-story-{{ sid }} .p-aps-story__f1 .p-aps-story__note {
+      position: absolute;
+      bottom: -23rem;
+      left: 5%;
+      width: calc(100% - 30px);
+      font-size: 10px;
+    }
+    #p-story-{{ sid }} .p-aps-story__f2 .p-aps-story__txt { margin-top: 9px; font-size: 10px; line-height: 1.48; }
+    #p-story-{{ sid }} .p-aps-story__icons { gap: 20px; margin-top: 14px; }
+    #p-story-{{ sid }} .p-aps-story__icon { width: 42px; }
+    #p-story-{{ sid }} .p-aps-story__f2 .p-aps-story__icons { 
+      position: static; justify-content: flex-start;
+      gap: 46px;
+      margin-top: 40px; 
+    }
+    #p-story-{{ sid }} .p-aps-story__f2 .p-aps-story__icon-item { width: 90px; }
+    #p-story-{{ sid }} .p-aps-story__f2 .p-aps-story__icon { width: 100%; }
+    #p-story-{{ sid }} .p-aps-story__ilabel { margin-top: 10px; font-size: 14px; line-height: 1.35; }
+    #p-story-{{ sid }} .p-aps-story__f2 .p-aps-story__pic { width: 100%; margin-top: 50px; }
+  }
+
+  @media screen and (max-width: 399px) {
+    #p-story-{{ sid }} .p-aps-story__f1 .p-aps-story__note { bottom: -18rem; }
+  }
+</style>
+
+<section
+  id="p-story-{{ sid }}"
+  class="p-aps-story"
+  style="--p-story-bg: {{ section.settings.background }}; --p-story-text: {{ section.settings.text_color }};"
+>
+  <div class="p-aps-story__in">
+    <div class="p-aps-story__media">
+      <picture>
+        {% if section.settings.background_image_mobile != blank %}
+          <source
+            media="(max-width: 749px)"
+            srcset="{{ section.settings.background_image_mobile | image_url: width: 1000 }}"
+          >
+        {% endif %}
+        {% if section.settings.background_image != blank %}
+          {{
+            section.settings.background_image
+            | image_url: width: 2400
+            | image_tag: class: 'p-aps-story__bg', loading: 'lazy', widths: '750, 1200, 1600, 1920, 2400'
+          }}
+        {% endif %}
+      </picture>
+    </div>
+
+    {% if section.settings.heading != blank %}
+      <h2 class="p-aps-story__head to-top">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    <article class="p-aps-story__feat p-aps-story__f1 to-top" style="transition-delay: .15s">
+      <div class="p-aps-story__body">
+        {% if section.settings.feature_1_number != blank %}
+          <p class="p-aps-story__num">{{ section.settings.feature_1_number }}</p>
+        {% endif %}
+        {% if section.settings.feature_1_lead != blank %}
+          <div class="p-aps-story__lead p-aps-story__desktop">{{ section.settings.feature_1_lead }}</div>
+        {% endif %}
+        {% if section.settings.feature_1_lead_mobile != blank %}
+          <div class="p-aps-story__lead p-aps-story__mobile">{{ section.settings.feature_1_lead_mobile }}</div>
+        {% elsif section.settings.feature_1_lead != blank %}
+          <div class="p-aps-story__lead p-aps-story__mobile">{{ section.settings.feature_1_lead }}</div>
+        {% endif %}
+        {% if section.settings.feature_1_title != blank %}
+          {{
+            section.settings.feature_1_title
+            | image_url: width: 640
+            | image_tag: class: 'p-aps-story__ttl-img', loading: 'lazy', widths: '200, 320, 640'
+          }}
+        {% endif %}
+        {% if section.settings.feature_1_text != blank %}
+          <div class="p-aps-story__txt p-aps-story__desktop">{{ section.settings.feature_1_text }}</div>
+        {% endif %}
+        {% if section.settings.feature_1_text_mobile != blank %}
+          <div class="p-aps-story__txt p-aps-story__mobile">{{ section.settings.feature_1_text_mobile }}</div>
+        {% elsif section.settings.feature_1_text != blank %}
+          <div class="p-aps-story__txt p-aps-story__mobile">{{ section.settings.feature_1_text }}</div>
+        {% endif %}
+        {% if section.settings.feature_1_note != blank %}
+          <div class="p-aps-story__note">{{ section.settings.feature_1_note | escape | newline_to_br }}</div>
+        {% endif %}
+      </div>
+    </article>
+
+    <article class="p-aps-story__feat p-aps-story__f2 to-top" style="transition-delay: .3s">
+      <div class="p-aps-story__body">
+        {% if section.settings.feature_2_number != blank %}
+          <p class="p-aps-story__num">{{ section.settings.feature_2_number }}</p>
+        {% endif %}
+        {% if section.settings.feature_2_title != blank %}
+          <h3 class="p-aps-story__ttl">{{ section.settings.feature_2_title }}</h3>
+        {% endif %}
+        {% if section.settings.feature_2_text != blank %}
+          <div class="p-aps-story__txt">{{ section.settings.feature_2_text }}</div>
+        {% endif %}
+        {% if section.settings.feature_2_icon_1 != blank or section.settings.feature_2_icon_2 != blank %}
+          <div class="p-aps-story__icons">
+            {% if section.settings.feature_2_icon_1 != blank -%}
+              <div class="p-aps-story__icon-item">
+                {{-
+                  section.settings.feature_2_icon_1
+                  | image_url: width: 200
+                  | image_tag: class: 'p-aps-story__icon', loading: 'lazy'
+                -}}
+                {% if section.settings.feature_2_icon_1_label != blank %}
+                  <p class="p-aps-story__ilabel">{{ section.settings.feature_2_icon_1_label }}</p>
+                {% endif %}
+              </div>
+            {%- endif %}
+            {% if section.settings.feature_2_icon_2 != blank -%}
+              <div class="p-aps-story__icon-item">
+                {{-
+                  section.settings.feature_2_icon_2
+                  | image_url: width: 200
+                  | image_tag: class: 'p-aps-story__icon', loading: 'lazy'
+                -}}
+                {% if section.settings.feature_2_icon_2_label != blank %}
+                  <p class="p-aps-story__ilabel">{{ section.settings.feature_2_icon_2_label }}</p>
+                {% endif %}
+              </div>
+            {%- endif %}
+          </div>
+        {% endif %}
+      </div>
+      {% if section.settings.feature_2_image != blank %}
+        <div class="p-aps-story__pic">
+          <picture>
+            {% if section.settings.feature_2_image_mobile != blank %}
+              <source
+                media="(max-width: 749px)"
+                srcset="{{ section.settings.feature_2_image_mobile | image_url: width: 800 }}"
+              >
+            {% endif %}
+            {{
+              section.settings.feature_2_image
+              | image_url: width: 1200
+              | image_tag: class: 'p-aps-story__img', loading: 'lazy', widths: '400, 700, 1000, 1200'
+            }}
+          </picture>
+        </div>
+      {% endif %}
+    </article>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "P Air Pro S 图文故事",
+  "settings": [
+    { "type": "image_picker", "id": "background_image", "label": "PC 背景图（1920）" },
+    { "type": "image_picker", "id": "background_image_mobile", "label": "移动端背景图" },
+    {
+      "type": "html",
+      "id": "heading",
+      "label": "模块标题",
+      "default": "特許技術による<br>痛みレス<sup>*1</sup>な全身ケア。"
+    },
+    { "type": "header", "content": "01 文案" },
+    { "type": "text", "id": "feature_1_number", "label": "01 编号", "default": "01" },
+    {
+      "type": "html",
+      "id": "feature_1_lead",
+      "label": "01 技术说明 PC（支持 HTML）"
+    },
+    { "type": "html", "id": "feature_1_lead_mobile", "label": "01 技术说明移动端（支持 HTML）" },
+    { "type": "image_picker", "id": "feature_1_title", "label": "01 标题图片" },
+    {
+      "type": "html",
+      "id": "feature_1_text",
+      "label": "01 说明 PC（支持 HTML）",
+      "default": "により、<br>痛みレス<sup>*1</sup>なケアを実現。"
+    },
+    { "type": "html", "id": "feature_1_text_mobile", "label": "01 说明移动端（支持 HTML）" },
+    {
+      "type": "textarea",
+      "id": "feature_1_note",
+      "label": "01 脚注",
+      "default": "※1 痛みの感じ方には個人差と部位差があります。\n※2 特許第2326132号。"
+    },
+    { "type": "header", "content": "02 图文" },
+    { "type": "text", "id": "feature_2_number", "label": "02 编号", "default": "02" },
+    { "type": "html", "id": "feature_2_title", "label": "02 标题", "default": "冷却機能を一体化したデザイン" },
+    {
+      "type": "richtext",
+      "id": "feature_2_text",
+      "label": "02 说明",
+      "default": "<p>照射ヘッドに冷却面を一体化。肌をひんやり冷却しながらそのまま照射可能。</p>"
+    },
+    { "type": "image_picker", "id": "feature_2_image", "label": "02 PC 对比图" },
+    { "type": "image_picker", "id": "feature_2_image_mobile", "label": "02 移动端对比图" },
+    { "type": "image_picker", "id": "feature_2_icon_1", "label": "02 图标 1" },
+    { "type": "text", "id": "feature_2_icon_1_label", "label": "02 图标 1 文案", "default": "ジェル不要" },
+    { "type": "image_picker", "id": "feature_2_icon_2", "label": "02 图标 2" },
+    { "type": "text", "id": "feature_2_icon_2_label", "label": "02 图标 2 文案", "default": "保冷剤不要" },
+    { "type": "color", "id": "background", "label": "背景色", "default": "#f7f7f8" },
+    { "type": "color", "id": "text_color", "label": "文字色", "default": "#111111" }
+  ],
+  "presets": [{ "name": "P Air Pro S 图文故事" }]
+}
+{% endschema %}

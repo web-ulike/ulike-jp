@@ -1,0 +1,26 @@
+{% assign sid = section.id %}
+<section id="me-painless-care-{{ sid }}" class="me-painless-care" style="--me-bg:{{ section.settings.background }};--me-color:{{ section.settings.text_color }};">
+  <div class="me-painless-care__inner">
+    <div class="me-painless-care__left">
+      <div class="me-painless-care__desktop">{{ section.settings.title_html }}{{ section.settings.description_html }}</div>
+      <div class="me-painless-care__mobile">{{ section.settings.title_html_mobile }}{{ section.settings.description_html_mobile }}</div>
+      {% if section.settings.bottom_image != blank or section.settings.bottom_image_mobile != blank %}
+        {% assign bottom = section.settings.bottom_image | default: section.settings.bottom_image_mobile %}
+        <picture class="me-painless-care__bottom">{% if section.settings.bottom_image_mobile != blank %}<source media="(max-width:749px)" srcset="{{ section.settings.bottom_image_mobile | image_url: width:720 }}">{% endif %}{{ bottom | image_url: width:900 | image_tag: loading: 'lazy', widths: '320, 480, 720, 900' }}</picture>
+      {% endif %}
+    </div>
+    <div class="me-painless-care__right">
+      {% if section.settings.image != blank or section.settings.image_mobile != blank %}
+        {% assign main = section.settings.image | default: section.settings.image_mobile %}
+        <picture>{% if section.settings.image_mobile != blank %}<source media="(max-width:749px)" srcset="{{ section.settings.image_mobile | image_url: width:1000 }}">{% endif %}{{ main | image_url: width:1400 | image_tag: class: 'me-painless-care__image', loading: 'lazy', widths: '500, 750, 1000, 1400' }}</picture>
+      {% endif %}
+    </div>
+  </div>
+</section>
+<style>
+ #me-painless-care-{{ sid }}{padding:136px 24px 128px;background:var(--me-bg);color:var(--me-color)}#me-painless-care-{{ sid }} .me-painless-care__inner{display:grid;grid-template-columns:360px minmax(0,570px);align-items:center;gap:92px;width:min(1100px,100%);margin:auto}#me-painless-care-{{ sid }} .me-painless-care__left{align-self:start;padding-top:4px}#me-painless-care-{{ sid }} h2,#me-painless-care-{{ sid }} h3{margin:0;font-size:32px;line-height:1.3;letter-spacing:-.035em;font-weight:600}#me-painless-care-{{ sid }} p{margin:22px 0 0;font-size:12px;line-height:1.75;letter-spacing:-.01em}#me-painless-care-{{ sid }} .me-painless-care__bottom{display:block;width:270px;max-width:100%;margin-top:38px}#me-painless-care-{{ sid }} .me-painless-care__bottom img{display:block;width:100%;height:auto}#me-painless-care-{{ sid }} .me-painless-care__right{width:100%}#me-painless-care-{{ sid }} .me-painless-care__image{display:block;width:100%;aspect-ratio:1.29;object-fit:cover}#me-painless-care-{{ sid }} .me-painless-care__mobile{display:none}@media(max-width:749px){#me-painless-care-{{ sid }}{padding:48px 16px 0}#me-painless-care-{{ sid }} .me-painless-care__inner{display:flex;flex-direction:column;gap:28px;width:100%}#me-painless-care-{{ sid }} .me-painless-care__left{padding-top:0}#me-painless-care-{{ sid }} .me-painless-care__desktop{display:none}#me-painless-care-{{ sid }} .me-painless-care__mobile{display:block}#me-painless-care-{{ sid }} h2,#me-painless-care-{{ sid }} h3{font-size:23px}#me-painless-care-{{ sid }} p{margin-top:13px;font-size:11px;line-height:1.7}#me-painless-care-{{ sid }} .me-painless-care__bottom{width:240px;margin:26px auto 0}#me-painless-care-{{ sid }} .me-painless-care__image{aspect-ratio:auto}}
+  #me-painless-care-{{ sid }} .me-painless-care__desktop > :first-child{margin:0;font-size:48px;font-weight:500;line-height:1.4;letter-spacing:-.035em}#me-painless-care-{{ sid }} .me-painless-care__desktop > :not(:first-child){margin:24px 0 0;font-size:14px;line-height:1.5;letter-spacing:0}@media(max-width:749px){#me-painless-care-{{ sid }} .me-painless-care__mobile > :first-child{margin:0;font-size:25px;font-weight:600;line-height:1.4}#me-painless-care-{{ sid }} .me-painless-care__mobile > :not(:first-child){margin:14px 0 0;font-size:13px;line-height:1.65}}
+</style>
+{% schema %}
+{"name":"Ulike ME 痛み解決模块","settings":[{"type":"html","id":"title_html","label":"PC 左侧标题（HTML）"},{"type":"html","id":"description_html","label":"PC 左侧描述（HTML）"},{"type":"html","id":"title_html_mobile","label":"移动端标题（HTML）"},{"type":"html","id":"description_html_mobile","label":"移动端描述（HTML）"},{"type":"image_picker","id":"bottom_image","label":"PC 左下图片"},{"type":"image_picker","id":"bottom_image_mobile","label":"移动端底部图片"},{"type":"image_picker","id":"image","label":"PC 右侧图片"},{"type":"image_picker","id":"image_mobile","label":"移动端右侧图片"},{"type":"color","id":"background","label":"背景","default":"#ffffff"},{"type":"color","id":"text_color","label":"文字颜色","default":"#111111"}],"presets":[{"name":"Ulike ME 痛み解決模块"}]}
+{% endschema %}

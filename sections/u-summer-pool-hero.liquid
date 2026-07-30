@@ -1,0 +1,83 @@
+{%- liquid
+  assign sid = section.id
+  assign st = section.settings
+  assign fallback_image = st.image_desktop | default: st.image_mobile
+-%}
+
+<section id="u-summer-pool-hero-{{ sid }}" class="u-summer-pool-hero">
+  <div class="u-summer-pool-hero__media">
+    {%- if fallback_image != blank -%}
+      <picture>
+        {%- if st.image_mobile != blank -%}
+          <source media="(max-width: 767px)" srcset="{{ st.image_mobile | image_url: width: 375 }} 375w, {{ st.image_mobile | image_url: width: 550 }} 550w, {{ st.image_mobile | image_url: width: 750 }} 750w, {{ st.image_mobile | image_url: width: 900 }} 900w" sizes="100vw">
+        {%- endif -%}
+        {%- if st.image_desktop != blank -%}
+          <source media="(min-width: 768px)" srcset="{{ st.image_desktop | image_url: width: 768 }} 768w, {{ st.image_desktop | image_url: width: 1200 }} 1200w, {{ st.image_desktop | image_url: width: 1600 }} 1600w, {{ st.image_desktop | image_url: width: 1920 }} 1920w, {{ st.image_desktop | image_url: width: 2400 }} 2400w" sizes="100vw">
+        {%- endif -%}
+        {{ fallback_image | image_url: width: 2400 | image_tag: class: 'u-summer-pool-hero__image', loading: 'eager', fetchpriority: 'high', widths: '750,900,1440,1920,2400', alt: st.image_alt, draggable: false }}
+      </picture>
+    {%- else -%}
+      <div class="u-summer-pool-hero__placeholder"></div>
+    {%- endif -%}
+  </div>
+
+  <div class="u-summer-pool-hero__inner jp-container">
+    <div class="u-summer-pool-hero__content">
+      {%- if st.eyebrow != blank -%}<div class="u-summer-pool-hero__eyebrow">{{ st.eyebrow }}</div>{%- endif -%}
+      {%- if st.heading != blank -%}<div class="u-summer-pool-hero__heading">{{ st.heading }}</div>{%- endif -%}
+      {%- if st.description != blank -%}<div class="u-summer-pool-hero__description">{{ st.description }}</div>{%- endif -%}
+      {%- if st.period != blank -%}
+        {%- if st.period_link != blank -%}
+          <a class="u-summer-pool-hero__period" href="{{ st.period_link }}">{{ st.period }}</a>
+        {%- else -%}
+          <div class="u-summer-pool-hero__period">{{ st.period }}</div>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  #u-summer-pool-hero-{{ sid }} { position: relative; overflow: hidden; background: #08142e; color: {{ st.text_color }}; }
+  #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__media, #u-summer-pool-hero-{{ sid }} picture { display: block; width: 100%; }
+  #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__image { display: block; width: 100%; height: auto; user-select: none; pointer-events: none; -webkit-user-drag: none; }
+  #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__placeholder { aspect-ratio: 1920 / 780; background: linear-gradient(115deg, #08142e 0%, #123b70 42%, #fa5cba 72%, #63d9ff 100%); }
+  #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__inner { position: absolute; z-index: 1; inset: 0; height: 100%; pointer-events: none; }
+  #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__content { position: absolute; top: {{ st.content_top }}%; left: {{ st.content_left }}%; width: min(29vw, 390px); transform: translateY(-50%); text-align: left; text-shadow: 0 2px 12px rgba(0, 0, 0, .35); }
+  #u-summer-pool-hero-{{ sid }} p, #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__heading { margin: 0; color: inherit; }
+  #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__eyebrow { color: #FFF; text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25); font-size: 20px; font-weight: 500; line-height: 1.4; text-transform: capitalize; }
+  #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__heading { margin-top: 6px; font-size: 64px; font-weight: 500; line-height: 1.05; letter-spacing: -.04em; }
+  #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__description { margin-top: 14px; font-size: 20px; line-height: 1.5; }
+  #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__description p { margin: 0; }
+  #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__period { display: inline-flex; align-items: center; justify-content: center; width: 145px; height: 36px; margin-top: 22px; padding: 0; background: #000; color: inherit; font-size: clamp(11px, 1vw, 16px); line-height: 1; pointer-events: auto; text-decoration: none; }
+  #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__eyebrow p, #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__heading p, #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__period p { margin: 0; }
+  @media screen and (max-width: 767px) {
+    #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__placeholder { aspect-ratio: 750 / 1125; }
+    #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__content { top: {{ st.mobile_content_top }}%; left: 50%; width: calc(100% - 48px); transform: translate(-50%, -50%); text-align: center; }
+    #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__eyebrow { font-size: 14px; }
+    #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__heading { margin-top: 5px; font-size: 32px; }
+    #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__description { margin-top: 8px; font-size: 12px; }
+    #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__period { margin-top: 14px; background: #e0004d; font-size: 11px; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "u Summer pool hero",
+  "settings": [
+    { "type": "image_picker", "id": "image_desktop", "label": "Desktop background" },
+    { "type": "image_picker", "id": "image_mobile", "label": "Mobile background" },
+    { "type": "text", "id": "image_alt", "label": "Image alt text", "default": "Ulike 夏スイッチONキャンペーン" },
+    { "type": "richtext", "id": "eyebrow", "label": "Eyebrow (HTML)", "default": "<p>Ulike 夏スイッチONキャンペーン</p>" },
+    { "type": "richtext", "id": "heading", "label": "Heading (HTML)", "default": "<p>最大40%OFF</p>" },
+    { "type": "richtext", "id": "description", "label": "Description", "default": "<p>心も身体も、夏を楽しもう</p>" },
+    { "type": "html", "id": "period", "label": "Button text (HTML)", "default": "7/3（金）〜 8/3（月）" },
+    { "type": "url", "id": "period_link", "label": "Button link" },
+    { "type": "range", "id": "content_top", "label": "Desktop content top", "min": 10, "max": 90, "step": 1, "unit": "%", "default": 49 },
+    { "type": "range", "id": "content_left", "label": "Desktop content left", "min": 0, "max": 50, "step": 1, "unit": "%", "default": 8 },
+    { "type": "range", "id": "mobile_content_top", "label": "Mobile content top", "min": 5, "max": 80, "step": 1, "unit": "%", "default": 19 },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#ffffff" }
+  ],
+  "presets": [{ "name": "u Summer pool hero" }]
+}
+{% endschema %}

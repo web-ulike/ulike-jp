@@ -1,0 +1,12 @@
+{% assign sid = section.id %}
+<section id="me-hero-{{ sid }}" class="me-hero" style="--me-hero-bg: {{ section.settings.background }}; --me-hero-color: {{ section.settings.text_color }};">
+  <div class="me-hero__media">{% if section.settings.image != blank %}<picture>{% if section.settings.image_mobile != blank %}<source media="(max-width:749px)" srcset="{{ section.settings.image_mobile | image_url: width: 1000 }}">{% endif %}{{ section.settings.image | image_url: width: 2400 | image_tag: class: 'me-hero__image', loading: 'eager', widths: '750, 1200, 1600, 1920, 2400' }}</picture>{% endif %}</div>
+  <div class="me-hero__content"><div>{% if section.settings.title != blank %}<h1>{{ section.settings.title }}</h1>{% endif %}{% if section.settings.copy != blank %}<p>{{ section.settings.copy }}</p>{% endif %}</div></div>
+</section>
+<style>
+  #me-hero-{{ sid }} { position:relative; overflow:hidden; background:var(--me-hero-bg); color:var(--me-hero-color); } #me-hero-{{ sid }} .me-hero__media picture, #me-hero-{{ sid }} .me-hero__image { display:block; width:100%; } #me-hero-{{ sid }} .me-hero__image { height:auto; } #me-hero-{{ sid }} .me-hero__content { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; padding:40px; text-align:center; } #me-hero-{{ sid }} h1 { margin:0; font-size:clamp(34px,4.5vw,72px); font-weight:600; line-height:1.22; } #me-hero-{{ sid }} p { margin:20px 0 0; font-size:clamp(14px,1.25vw,20px); line-height:1.7; }
+  @media(max-width:749px) { #me-hero-{{ sid }} { min-height:510px; } #me-hero-{{ sid }} .me-hero__media, #me-hero-{{ sid }} .me-hero__media picture, #me-hero-{{ sid }} .me-hero__image { height:100%; } #me-hero-{{ sid }} .me-hero__image { object-fit:cover; } #me-hero-{{ sid }} .me-hero__content { align-items:flex-start; padding:44px 18px; } #me-hero-{{ sid }} h1 { font-size:30px; } #me-hero-{{ sid }} p { margin-top:10px; font-size:13px; } }
+</style>
+{% schema %}
+{"name":"Ulike ME KV","settings":[{"type":"image_picker","id":"image","label":"PC 图片"},{"type":"image_picker","id":"image_mobile","label":"移动端图片"},{"type":"html","id":"title","label":"标题"},{"type":"textarea","id":"copy","label":"说明"},{"type":"color","id":"background","label":"背景","default":"#eef7ff"},{"type":"color","id":"text_color","label":"文字颜色","default":"#111111"}],"presets":[{"name":"Ulike ME KV"}]}
+{% endschema %}
