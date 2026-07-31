@@ -163,10 +163,89 @@
             <div class="jp-product-info__block jp-product-info__block--variant-picker" {{ block.shopify_attributes }}>
               <div class="jp-product-variants" data-product-variants>
                 {%- for option in current_product.options_with_values -%}
-                  <fieldset class="jp-product-variants__group">
-                    <legend class="jp-product-variants__legend">{{ option.name }}</legend>
+                  {%- liquid
+                    assign color_swatch_trigger = 'products.general.color_swatch_trigger' | t | downcase
+                    assign option_name_downcase = option.name | downcase
+                    assign is_color_option = false
 
-                    {%- if block.settings.selector_mode == 'dropdown' -%}
+                    if option_name_downcase contains color_swatch_trigger
+                      assign is_color_option = true
+                    elsif color_swatch_trigger == 'color' and option_name_downcase contains 'colour'
+                      assign is_color_option = true
+                    endif
+                  -%}
+                  <fieldset class="jp-product-variants__group{% if is_color_option %} variant-picker product-form__input variant-input-wrapper{% endif %}" data-option-index="option{{ option.position }}" data-option-slug="{{ option.name | handleize }}">
+                    <legend class="jp-product-variants__legend{% if is_color_option %} sr-only{% endif %}">{{ option.name }}</legend>
+
+                    {%- if is_color_option -%}
+                      <div class="form__label flex items-center justify-between gap-2 w-full">
+                        <div class="flex gap-2">
+                          {{ option.name }}:
+                          <span class="font-medium" data-option-selected-value="{{ option.position }}">{{ option.selected_value }}</span>
+                        </div>
+                      </div>
+                      <ul class="swatches swatches--{{ settings.rounded_swatch }} swatches--variant flex items-center flex-wrap gap-4 jp-product-variants__swatches">
+                        {%- for value in option.values -%}
+                          {%- liquid
+                            assign input_id = section.id | append: '-' | append: option.position | append: '-' | append: forloop.index
+                            assign swatch_color = value | split: ' ' | last | handle
+                            assign swatch_image = blank
+                            assign option_idx0 = option.position | minus: 1
+                            assign swatch_media_id = blank
+                            assign value_downcase = value | downcase
+                            assign swatch_config = settings.swatch_config | newline_to_br | split: '<br />'
+
+                            for swatch in swatch_config
+                              assign swatch_parts = swatch | strip | split: ':'
+                              assign swatch_name = swatch_parts.first | downcase | strip
+
+                              if swatch_name == value_downcase
+                                assign configured_swatch = swatch_parts.last | strip
+                                if configured_swatch contains '#'
+                                  assign swatch_color = configured_swatch
+                                else
+                                  assign swatch_file_name = configured_swatch
+                                  if images[swatch_file_name] != blank
+                                    assign swatch_image = images[swatch_file_name] | image_url: width: 72
+                                  elsif swatch_file_name contains '//cdn.shopify.com/'
+                                    assign swatch_image = swatch_file_name
+                                  endif
+                                endif
+                                break
+                              endif
+                            endfor
+
+                            for variant in current_product.variants
+                              if variant.options[option_idx0] == value and variant.image != blank
+                                assign swatch_image = variant.image | image_url: width: 144
+                                assign swatch_media_id = variant.image.id
+                                break
+                              endif
+                            endfor
+                          -%}
+                          <li>
+                            <input
+                              id="{{ input_id }}"
+                              class="sr-only"
+                              type="radio"
+                              name="option{{ option.position }}"
+                              value="{{ value | escape }}"
+                              data-option-position="{{ option.position }}"
+                              {% if swatch_media_id != blank %}data-variant-media-id="{{ swatch_media_id }}"{% endif %}
+                              {% if option.selected_value == value %}checked{% endif %}
+                            >
+                            <label
+                              class="color-swatch relative"
+                              for="{{ input_id }}"
+                              title="{{ value | escape }}"
+                              style="--swatch-background: {{ swatch_color }};{% if swatch_image != blank %} background-image: url({{ swatch_image }});{% endif %}"
+                            >
+                              <span class="tooltip opacity-0 pointer-events-none text-sm rounded-full z-10">{{ value }}</span>
+                            </label>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    {%- elsif block.settings.selector_mode == 'dropdown' -%}
                       <select class="jp-product-variants__select" data-option-position="{{ option.position }}">
                         {%- for value in option.values -%}
                           <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>{{ value }}</option>
@@ -177,6 +256,14 @@
                         {%- for value in option.values -%}
                           {%- liquid
                             assign input_id = section.id | append: '-' | append: option.position | append: '-' | append: forloop.index
+                            assign option_media_id = blank
+                            assign option_idx0 = option.position | minus: 1
+                            for variant in current_product.variants
+                              if variant.options[option_idx0] == value and variant.image != blank
+                                assign option_media_id = variant.image.id
+                                break
+                              endif
+                            endfor
                           -%}
                           <input
                             id="{{ input_id }}"
@@ -185,6 +272,7 @@
                             name="option{{ option.position }}"
                             value="{{ value | escape }}"
                             data-option-position="{{ option.position }}"
+                            {% if option_media_id != blank %}data-variant-media-id="{{ option_media_id }}"{% endif %}
                             {% if option.selected_value == value %}checked{% endif %}
                           >
                           <label class="jp-product-variants__item" for="{{ input_id }}">{{ value }}</label>
@@ -197,6 +285,29 @@
 
               <script type="application/json" data-product-variants-json>
                 {{ current_product.variants | json }}
+              </script>
+              <script type="application/json" data-product-variant-media-map-json>
+                [
+                  {%- for variant in current_product.variants -%}
+                    {%- liquid
+                      assign variant_media_position = variant.featured_media.position
+                      if variant_media_position == blank and variant.image != blank
+                        assign variant_media_position = variant.image.position
+                      endif
+                    -%}
+                    {
+                      "vid": {{ variant.id | json }},
+                      "position": {{ variant_media_position | default: 0 | json }}
+                    }{% unless forloop.last %},{% endunless %}
+                  {%- endfor -%}
+                ]
+              </script>
+              <script type="application/json" data-product-media-json>
+                [
+                  {%- for media in current_product.media -%}
+                    {{ media | json }}{% unless forloop.last %},{% endunless %}
+                  {%- endfor -%}
+                ]
               </script>
             </div>
           {%- endunless -%}

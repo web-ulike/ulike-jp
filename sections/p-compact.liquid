@@ -1,4 +1,5 @@
 {% assign sid = section.id %}
+{% assign body_anchor_id = section.settings.body_anchor_id | default: 'p-compact-body' | remove_first: '#' | handleize %}
 
 <style>
   #p-compact-{{ sid }} { padding: 128px 0; background: var(--p-compact-bg); color: var(--p-compact-text); }
@@ -154,7 +155,7 @@
         </div>
       </div>
     </div>
-    <div class="p-aps-compact__row p-aps-compact__body">
+    <div id="{{ body_anchor_id }}" class="p-aps-compact__row p-aps-compact__body">
       <div class="p-aps-compact__copy">
         {% if section.settings.body_title != blank %}
           <h2 class="p-aps-compact__desktop to-top" style="transition-delay: .4s">{{ section.settings.body_title }}</h2>
@@ -221,6 +222,7 @@
     { "type": "text", "id": "icon_1_label", "label": "特点图标 1 文字", "default": "シンプル操作" },
     { "type": "image_picker", "id": "icon_2", "label": "特点图标 2" },
     { "type": "text", "id": "icon_2_label", "label": "特点图标 2 文字", "default": "細部まで" },
+    { "type": "text", "id": "body_anchor_id", "label": "全身模块锚点 ID", "default": "p-compact-body", "info": "用于页面跳转；填写 p-compact-body 后，可通过 #p-compact-body 跳转到全身模块。" },
     { "type": "html", "id": "body_title", "label": "全身标题", "default": "お顔からVIOまで<br>1台で全身対応" },
     { "type": "html", "id": "body_title_mobile", "label": "全身标题移动端（支持 HTML）" },
     {

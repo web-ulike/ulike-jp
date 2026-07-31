@@ -15,6 +15,7 @@
               type="button"
               class="swiper-slide jp-product-media__thumb"
               data-media-id="{{ media.id }}"
+              data-media-index="{{ forloop.index0 }}"
               aria-label="View media {{ forloop.index }}"
             >
               {%- case media.media_type -%}
@@ -48,7 +49,7 @@
               {%- assign image_loading = 'eager' -%}
             {%- endif -%}
 
-            <div class="swiper-slide jp-product-media__slide" data-media-id="{{ media.id }}">
+            <div class="swiper-slide jp-product-media__slide" data-media-id="{{ media.id }}" data-media-index="{{ forloop.index0 }}">
               {%- liquid
                 assign zoom_src = ''
                 assign zoom_width = ''

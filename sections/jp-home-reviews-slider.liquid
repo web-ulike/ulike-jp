@@ -144,7 +144,7 @@
     {% if section.settings.button_text != blank %}
       <div class="jp-home-reviews__bottom">
         {% if section.settings.button_link != blank %}
-          <a class="jp-home-reviews__all-btn" href="{{ section.settings.button_link }}" target="_blank" rel="noopener noreferrer">{{ section.settings.button_text }}</a>
+          <a class="jp-home-reviews__all-btn" href="{{ section.settings.button_link }}" rel="noopener noreferrer">{{ section.settings.button_text }}</a>
         {% else %}
           <div class="jp-home-reviews__all-btn jp-home-reviews__all-btn--static">{{ section.settings.button_text }}</div>
         {% endif %}

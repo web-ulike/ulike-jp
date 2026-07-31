@@ -99,7 +99,6 @@
   min-width: 0;
   overflow: hidden;
   border-radius: 0;
-  background: #f6f6f6;
 }
 
 .jp-product-media__main {
@@ -436,10 +435,9 @@
   text-decoration: line-through;
   white-space: nowrap;
 }
-.jp-product-info__compare-price span{
+/* .jp-product-info__compare-price span{
   font-size: 19px;
-}
-
+} */
 
 .jp-product-info__compare-price .jp-product-info__tax-label {
   color: inherit;
@@ -697,6 +695,11 @@
   background: #fff;
   color: #190a0a;
   font-size: 14px;
+}
+
+.jp-product-media__slide.is-variant-hidden,
+.jp-product-media__thumb.is-variant-hidden {
+  display: none !important;
 }
 
 .visually-hidden {

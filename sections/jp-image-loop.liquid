@@ -45,7 +45,9 @@
                     {{ bs.mobile_image | image_url: width: 375 }} 375w,
                     {{ bs.mobile_image | image_url: width: 550 }} 550w,
                     {{ bs.mobile_image | image_url: width: 750 }} 750w,
-                    {{ bs.mobile_image | image_url: width: 900 }} 900w
+                    {{ bs.mobile_image | image_url: width: 900 }} 900w,
+                    {{ bs.mobile_image | image_url: width: 1200 }} 1200w,
+                    {{ bs.mobile_image | image_url: width: 1600 }} 1600w
                   "
                 >
               {% elsif bs.pc_image != blank %}
@@ -55,7 +57,9 @@
                     {{ bs.pc_image | image_url: width: 375 }} 375w,
                     {{ bs.pc_image | image_url: width: 550 }} 550w,
                     {{ bs.pc_image | image_url: width: 750 }} 750w,
-                    {{ bs.pc_image | image_url: width: 900 }} 900w
+                    {{ bs.pc_image | image_url: width: 900 }} 900w,
+                    {{ bs.pc_image | image_url: width: 1200 }} 1200w,
+                    {{ bs.pc_image | image_url: width: 1600 }} 1600w
                   "
                 >
               {% endif %}
@@ -63,9 +67,19 @@
               {% if bs.pc_image != blank %}
                 <img
                   class="jp-image-loop__image"
-                  src="{{ bs.pc_image | image_url: width: 1920 }}"
-                  srcset="{{ bs.pc_image | image_url: width: 1920 }} 1920w"
-                  sizes="(min-width: 1921px) 1920px, 100vw"
+                  src="{{ bs.pc_image | image_url: width: bs.pc_image.width }}"
+                  srcset="
+                    {{ bs.pc_image | image_url: width: 750 }} 750w,
+                    {{ bs.pc_image | image_url: width: 1100 }} 1100w,
+                    {{ bs.pc_image | image_url: width: 1500 }} 1500w,
+                    {{ bs.pc_image | image_url: width: 1920 }} 1920w,
+                    {{ bs.pc_image | image_url: width: 2560 }} 2560w,
+                    {{ bs.pc_image | image_url: width: 3200 }} 3200w,
+                    {{ bs.pc_image | image_url: width: 3840 }} 3840w,
+                    {{ bs.pc_image | image_url: width: 5120 }} 5120w{% if bs.pc_image.width > 5120 %},
+                    {{ bs.pc_image | image_url: width: bs.pc_image.width }} {{ bs.pc_image.width }}w{% endif %}
+                  "
+                  sizes="100vw"
                   alt="{{ bs.pc_image.alt | default: bs.alt_text | escape }}"
                   loading="lazy"
                 >
@@ -77,7 +91,9 @@
                     {{ bs.mobile_image | image_url: width: 375 }} 375w,
                     {{ bs.mobile_image | image_url: width: 550 }} 550w,
                     {{ bs.mobile_image | image_url: width: 750 }} 750w,
-                    {{ bs.mobile_image | image_url: width: 900 }} 900w
+                    {{ bs.mobile_image | image_url: width: 900 }} 900w,
+                    {{ bs.mobile_image | image_url: width: 1200 }} 1200w,
+                    {{ bs.mobile_image | image_url: width: 1600 }} 1600w
                   "
                   sizes="100vw"
                   alt="{{ bs.mobile_image.alt | default: bs.alt_text | escape }}"

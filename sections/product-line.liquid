@@ -64,6 +64,12 @@
     width: 100%;
   }
   .product__content-wrapper {
+    align-self: stretch;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
     padding: 20px 140px 20px 116px;
   }
   .product__content-wrapper .tag-img{
@@ -449,7 +455,7 @@ font-size: 15px;
       {%- for block in section.blocks -%}
         <div class="product__slide-list">
           <div class="product__slide">
-            <div class="product__slide-inner {% if block.settings.image_position == 'right' %}product__slide-inner_reverse{% endif %}">
+            <div class="product__slide-inner {% if block.settings.image_position == 'right' %}product__slide-inner_reverse{% endif %}" style="background: {{ block.settings.content_background }};">
               <div class="product__image-wrapper slide-to-right">
                 <picture>
                   {%- if block.settings.mb_product_image -%}
@@ -471,7 +477,7 @@ font-size: 15px;
                 </div>
                   {%- endif -%}
               </div>
-              <div class="product__content-wrapper  to-top">
+              <div class="product__content-wrapper" style="background: {{ block.settings.content_background }};">
                 {%- if block.settings.tag_image -%}
                   <div class="tag-img">
                     <img src="{{ block.settings.tag_image | image_url }}" alt="">
@@ -502,24 +508,32 @@ font-size: 15px;
                   <div class="price-notice">{{ block.settings.price_notice_text }}</div>
                 {% endif %}
                 <div class="price-wrapper">
-                  {% comment %}
-                    <div class="price">{{ block.settings.price }}</div>
-                    <div class="oriprice">{{ block.settings.ori_price }}</div>
-                  {% endcomment %}
-                    {% if block.settings.discount_txt != blank %}
-                  <div class="discount-pri-txt">{{ block.settings.discount_txt  }}</div>
-                {% endif %}
+                  {% if block.settings.discount_txt != blank %}
+                    <div class="discount-pri-txt">{{ block.settings.discount_txt }}</div>
+                  {% endif %}
                   {%- liquid
                     assign product = block.settings.product
                     assign compare_price_label = block.settings.compare_price_label | default: '定価'
                   -%}
                   <div class="price">
-                    {{ product.price | money }}
+                    {%- if block.settings.price != blank -%}
+                      {{- block.settings.price -}}
+                    {%- else -%}
+                      {{- product.price | money -}}
+                    {%- endif -%}
                     {%- if block.settings.price_suffix != blank -%}
                       <span class="price-suffix">{{ block.settings.price_suffix }}</span>
                     {%- endif -%}
                   </div>
-                  <div class="oriprice">{{ compare_price_label }} {{ product.compare_at_price | money }}{{ block.settings.compare_price_suffix }}</div>
+                  <div class="oriprice">
+                    {{ compare_price_label }}
+                    {%- if block.settings.ori_price != blank -%}
+                      {{- block.settings.ori_price -}}
+                    {%- else -%}
+                      {{- product.compare_at_price | money -}}
+                    {%- endif -%}
+                    {{ block.settings.compare_price_suffix }}
+                  </div>
                 </div>
                 {% if block.settings.discount != blank %}
                   </div>
@@ -759,6 +773,12 @@ font-size: 15px;
             }
           ],
           "default": "left"
+        },
+        {
+          "type": "color_background",
+          "id": "content_background",
+          "label": "Content Background",
+          "default": "#F4F9FF"
         },
         {
           "type": "image_picker",

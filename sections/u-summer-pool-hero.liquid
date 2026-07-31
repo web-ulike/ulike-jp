@@ -43,13 +43,24 @@
   #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__image { display: block; width: 100%; height: auto; user-select: none; pointer-events: none; -webkit-user-drag: none; }
   #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__placeholder { aspect-ratio: 1920 / 780; background: linear-gradient(115deg, #08142e 0%, #123b70 42%, #fa5cba 72%, #63d9ff 100%); }
   #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__inner { position: absolute; z-index: 1; inset: 0; height: 100%; pointer-events: none; }
-  #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__content { position: absolute; top: {{ st.content_top }}%; left: {{ st.content_left }}%; width: min(29vw, 390px); transform: translateY(-50%); text-align: left; text-shadow: 0 2px 12px rgba(0, 0, 0, .35); }
+  #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__content { 
+    position: absolute;
+    top: 50%; 
+    left: 3%; 
+    width: 390px; 
+    transform: translateY(-50%);
+     text-align: left;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, .35); }
   #u-summer-pool-hero-{{ sid }} p, #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__heading { margin: 0; color: inherit; }
   #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__eyebrow { color: #FFF; text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25); font-size: 20px; font-weight: 500; line-height: 1.4; text-transform: capitalize; }
   #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__heading { margin-top: 6px; font-size: 64px; font-weight: 500; line-height: 1.05; letter-spacing: -.04em; }
   #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__description { margin-top: 14px; font-size: 20px; line-height: 1.5; }
   #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__description p { margin: 0; }
-  #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__period { display: inline-flex; align-items: center; justify-content: center; width: 145px; height: 36px; margin-top: 22px; padding: 0; background: #000; color: inherit; font-size: clamp(11px, 1vw, 16px); line-height: 1; pointer-events: auto; text-decoration: none; }
+  #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__period { 
+    display: inline-flex; align-items: center; justify-content: center; width: 145px; height: 36px; 
+    margin-top: 30px; padding: 0; background: #000; color: inherit; 
+    font-size: clamp(11px, 1vw, 16px);
+     line-height: 1; pointer-events: auto; text-decoration: none; }
   #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__eyebrow p, #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__heading p, #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__period p { margin: 0; }
   @media screen and (max-width: 767px) {
     #u-summer-pool-hero-{{ sid }} .u-summer-pool-hero__placeholder { aspect-ratio: 750 / 1125; }

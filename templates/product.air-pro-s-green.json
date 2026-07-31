@@ -15,6 +15,13 @@
           "type": "product_description",
           "settings": {}
         },
+        "variant_picker_Tzxf9e": {
+          "type": "variant_picker",
+          "settings": {
+            "hide_sold_out_variants": false,
+            "selector_mode": "block"
+          }
+        },
         "price_7bXhg3": {
           "type": "price",
           "settings": {
@@ -65,6 +72,7 @@
         "title_er6k9w",
         "review_badge_fbeWdm",
         "product_description_ciTQEm",
+        "variant_picker_Tzxf9e",
         "price_7bXhg3",
         "discount_code_qC8wzH",
         "quantity_selector_BWHXQ3",
@@ -74,6 +82,49 @@
       "name": "JP Main Product New",
       "settings": {
         "product": "air10-pro-ipl-hair-removal"
+      }
+    },
+    "jp_anchor_tabs_6j68RH": {
+      "type": "jp-anchor-tabs",
+      "blocks": {
+        "tab_zdJbeM": {
+          "type": "tab",
+          "settings": {
+            "title": "機能詳細",
+            "target_ids": "#shopify-section-template--19583633031216__p_airpro_s_hero,\n#shopify-section-template--19583633031216__p_airpro_s_highlights,\n#shopify-section-template--19583633031216__p_airpro_s_result,\n#shopify-section-template--19583633031216__p_airpro_s_technology,\np-ushr-template--19583633031216__p_airpro_s_ushr_showcase,shopify-section-template--19583633031216__p_airpro_s_speed_care,#shopify-section-template--19583633031216__p_airpro_s_salon,#shopify-section-template--19583633031216__p_airpro_s_compact_body,#shopify-section-template--19583633031216__jp_triple_guarantee_wXKvQe,#shopify-section-template--19583633031216__p_airpro_s_trust,\nshopify-section-template--19583633031216__jp_triple_guarantee_WXkVQe"
+          }
+        },
+        "tab_cj6JFx": {
+          "type": "tab",
+          "settings": {
+            "title": "使用ステップ",
+            "target_ids": "#shopify-section-template--19583633031216__p_airpro_s_use"
+          }
+        },
+        "tab_kFeTr8": {
+          "type": "tab",
+          "settings": {
+            "title": "よくある質問",
+            "target_ids": "#shopify-section-template--19583633031216__faq_XLh3Cr,\nshopify-section-template--19583633031216__rich_text_hG7Lex"
+          }
+        }
+      },
+      "block_order": [
+        "tab_zdJbeM",
+        "tab_cj6JFx",
+        "tab_kFeTr8"
+      ],
+      "name": "JP Anchor Tabs",
+      "settings": {
+        "enable_sticky": true,
+        "bg_color": "#ffffff",
+        "text_color": "#190a0a",
+        "active_color": "#190a0a",
+        "border_color": "#e5e5e5",
+        "sticky_top_pc": 0,
+        "sticky_top_mb": 0,
+        "scroll_offset_pc": 64,
+        "scroll_offset_mb": 64
       }
     },
     "p_airpro_s_hero": {
@@ -102,7 +153,8 @@
             "title_pc": "<span style=\"font-size:32px;\">コスパよく<\/span>",
             "title_mobile": "<span style=\"font-size:16px;\">コスパよく<\/span>",
             "text_pc": "<span style=\"font-size:48px;\">2週間<\/span><span style=\"font-size:32px;\">で効果実感<\/span>",
-            "text_mobile": "<span style=\"font-size:24px;\">2週間<\/span><span style=\"font-size:16px;\">で効果実感<\/span>"
+            "text_mobile": "<span style=\"font-size:24px;\">2週間<\/span><span style=\"font-size:16px;\">で効果実感<\/span>",
+            "anchor_target": "shopify-section-template--19583633031216__p_airpro_s_result"
           }
         },
         "cooling": {
@@ -113,7 +165,8 @@
             "title_pc": "<span style=\"font-size:48px;\">痛みレス<\/span>",
             "title_mobile": "<span style=\"font-size:24px;\">痛みレス<\/span>",
             "text_pc": "<span style=\"font-size:64px;\">&lt;18°C<\/span>",
-            "text_mobile": ""
+            "text_mobile": "",
+            "anchor_target": "shopify-section-template--19583633031216__p_airpro_s_technology"
           }
         },
         "ushr": {
@@ -124,7 +177,8 @@
             "title_pc": "<span style=\"font-size:48px;\">USHR<\/span>\n<p style=\"font-size:12px;\">(Strong Hair Removal)<\/p>",
             "title_mobile": "",
             "text_pc": "<span style=\"font-size:32px;\">モードを新搭載<\/span>",
-            "text_mobile": "<span style=\"font-size:20px;\">USHRモード<\/span>"
+            "text_mobile": "<span style=\"font-size:20px;\">USHRモード<\/span>",
+            "anchor_target": "shopify-section-template--19583633031216__p_airpro_s_ushr_showcase"
           }
         },
         "speed": {
@@ -135,7 +189,8 @@
             "title_pc": "<span style=\"font-size:48px;\">時短<\/span>",
             "title_mobile": "<span style=\"font-size:20px;\">時短、 全身ケアがより早<\/span>",
             "text_pc": "<span style=\"font-size:20px;\">全身ケアがより早く<\/span>",
-            "text_mobile": ""
+            "text_mobile": "",
+            "anchor_target": "shopify-section-template--19583633031216__p_airpro_s_speed_care"
           }
         },
         "compact": {
@@ -146,7 +201,8 @@
             "title_pc": "<span style=\"font-size:40px;\">コンパクト<\/span>",
             "title_mobile": "<span style=\"font-size:20px;\">コンパクト<\/span>",
             "text_pc": "",
-            "text_mobile": ""
+            "text_mobile": "",
+            "anchor_target": "shopify-section-template--19583633031216__p_airpro_s_salon"
           }
         },
         "body": {
@@ -157,7 +213,8 @@
             "title_pc": "<span style=\"font-size:48px;\">全身<\/span><span style=\"font-size:24px;\">対応<\/span>",
             "title_mobile": "<span style=\"font-size:20px;\">全身対応<\/span>",
             "text_pc": "",
-            "text_mobile": ""
+            "text_mobile": "",
+            "anchor_target": "#p-compact-body"
           }
         }
       },
@@ -170,7 +227,7 @@
         "body"
       ],
       "settings": {
-        "heading": "まずは、ハイライトから。",
+        "heading": "Ulike AirPro Sの製品特徴",
         "background": "#ffffff",
         "text_color": "#000000",
         "padding_top": 80,
@@ -211,7 +268,7 @@
         "feature_1_text_mobile": "<span style=\"font-size:12px;\">により、<\/span><span style=\"font-size:20px;\">痛みレス*1ケア<\/span><span style=\"font-size:12px;\">を実現。<\/span>",
         "feature_1_note": "※1 痛みの感じ方には個人差と部位差があります。\n※2 特許第3226132号。",
         "feature_2_number": "02",
-        "feature_2_title": "照射面と冷却面を一体化させたデザインだから、照射ヘッドを\n当てるだけでお肌をひんやり冷却しながらそのまま照射可能。\nやけどや赤みを防ぐためにジェルを塗った<span style=\"background-color:#dcebe6;\">り保冷剤で冷やした<\/span>\n<span style=\"background-color:#dcebe6;\">りする手間は不要です。<\/span>",
+        "feature_2_title": "照射面と冷却面を一体化させたデザインだから、照射ヘッドを\n当てるだけでお肌をひんやり冷却しながらそのまま照射可能。\nやけどや赤みを防ぐためにジェルを塗った<span style=\"background-color:#dcebe6;\">り保冷剤で冷やしたりする手間は不要です。<\/span>",
         "feature_2_text": "",
         "feature_2_image": "shopify:\/\/shop_images\/02-pic.png",
         "feature_2_image_mobile": "shopify:\/\/shop_images\/02-pic_e4654d7f-8240-4087-a466-b26527797001.png",
@@ -350,10 +407,11 @@
         "compact_image_mobile": "shopify:\/\/shop_images\/788f3f991cb11bc005dd27f50b7c2b2e.png",
         "compact_title": "コンパクトな軽量デザイン",
         "compact_text": "直感的な操作性と人間工学に基づいたデザインで、初めてでもスムーズに使えるシンプル操作。長時間の使用でも腕や手首に負担をかけず、細部までしっかりケアできます。",
-        "icon_1": "shopify:\/\/shop_images\/7337a36fbba723a3ed16d66e3d5bb732.png",
+        "icon_1": "shopify:\/\/shop_images\/1_c94e7bfd-ed33-4d85-9b77-9cc495d9f74c.png",
         "icon_1_label": "シンプル操作",
-        "icon_2": "shopify:\/\/shop_images\/icon_1_71f02a77-c8eb-49d0-95b8-1fe0d681afa0.png",
+        "icon_2": "shopify:\/\/shop_images\/b09134c21a34f57ae9782cfc2c9077a2.png",
         "icon_2_label": "細部まで",
+        "body_anchor_id": "p-compact-body",
         "body_title": "<span>お顔からVIOまで<\/span><br><span style=\"font-size:48px;font-weight: 700;\">1台で全身対応<\/span>",
         "body_title_mobile": "<span style=\"font-size:28px;\">お顔からVIOまで<\/span><span style=\"font-size:40px;font-weight: 700;\">1台で全身対応<\/span>",
         "body_text": "お顔、ヒゲ、脇、腕、脚、VIOなど、アタッチメント付け替えの手間なしで、",
@@ -447,7 +505,7 @@
       "settings": {
         "heading_pc": "日本一だから、安心して選べる。",
         "heading_mobile": "日本一だから、<br>安心して選べる。",
-        "award_image": "shopify:\/\/shop_images\/Vector_3_8de6d772-40d4-46e7-bea1-6d917980320c.svg",
+        "award_image": "shopify:\/\/shop_images\/logo_10b05c6a-c1f6-4e25-af7a-32a4ffa1b383.png",
         "note": "*1.株式会社富士経済発行『美肌・美髪ケア家電トレンドデータ 2026』に基づく。光美容器とは、レーザーやIPLなどの技術を用いてムダ毛を処理する美容機器を指します。*2.当社調べ。2025年12月の自社統計情報に基づく。*3.社内集計。2026年7月時点、全販売チャネルにおける光美容器の累計販売台数。",
         "background": "#ffffff",
         "text_color": "#111111"
@@ -459,7 +517,7 @@
         "shaving": {
           "type": "step",
           "settings": {
-            "image": "shopify:\/\/shop_images\/20250428_ulike0944_1.png",
+            "image": "shopify:\/\/shop_images\/pic-step01_725e2062-3a94-4514-839e-700ceb527783.jpg",
             "title": "シェービング",
             "text": "ケアする前日の夜にまずシェービングをします。乾いた状態で剃らないでください。"
           }
@@ -467,7 +525,7 @@
         "test": {
           "type": "step",
           "settings": {
-            "image": "shopify:\/\/shop_images\/33_020.jpg_1.png",
+            "image": "shopify:\/\/shop_images\/pic-step02_1d2e73f8-223d-4a08-9002-f9ac1ff062ed.jpg",
             "title": "テスト",
             "text": "照射する前に、付属のゴーグルを着用してください。まず腕やすねでテストすることをおすすめします。"
           }
@@ -475,7 +533,7 @@
         "care": {
           "type": "step",
           "settings": {
-            "image": "shopify:\/\/shop_images\/2_84aa66ea-7fdc-4740-b7d8-273e552a9341.png",
+            "image": "shopify:\/\/shop_images\/pic-step03.jpg",
             "title": "ムダ毛ケア",
             "text": "照射口が肌に密着するように押し当てて、照射ボタンを押します。短く押すと1 回照射、2秒長押しすると連続照射を開始します。"
           }
@@ -483,7 +541,7 @@
         "moisturize": {
           "type": "step",
           "settings": {
-            "image": "shopify:\/\/shop_images\/20250428_ulike1004_2.png",
+            "image": "shopify:\/\/shop_images\/pic-step04_df920834-c112-4f36-9dae-aab9d16779e7.jpg",
             "title": "潤す & 紫外線対策",
             "text": "ケアした後、ボディクリームを塗り、お肌のうるおいを保ちましょう。照射後 48 時間は、照射部位に紫外線をあてないでください。"
           }
@@ -501,10 +559,170 @@
         "background": "#f7f7f7",
         "text_color": "#111111"
       }
+    },
+    "faq_XLh3Cr": {
+      "type": "faq",
+      "blocks": {
+        "question_tz4gEE": {
+          "type": "question",
+          "settings": {
+            "title": "子供にも使用可能ですか?中学生、高校生にも使っててよいてしょうか?",
+            "text": "<p>本製品は18歳以上の方のご使用をおすすめしております。<\/p><p>中学生・高校生などの未成年（お子様）が使用される場合は、思春期の肌はデリケートなため、必ず保護者の方の監督のもとで取扱説明書に従って正しくご使用ください。最初は必ず一番低い照射レベル（レベル1）から試し、肌の様子を観察しながらご使用いただくことを推奨いたします。<\/p><p>なお、8歳未満のお子様はご使用いただけませんのでご注意ください。<\/p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "question_mrwkk8": {
+          "type": "question",
+          "settings": {
+            "title": "Ulike IPLは体のどの部位にも使えますか？",
+            "text": "<p>はい、Ulike IPLデバイスは体の中のさまざまな部位のムダ毛ケアにご使用いただけます。<\/p><p>毛包に作用し、効果的に減毛できるよう設計されています。ただし、敏感な部位、粘膜、器官の表面や近くへのご使用はお控えください。具体的には、目元、性器、肛門、眉毛、乳頭、睾丸、口腔内への使用は避けてください。<\/p><p>安全かつ効果的なケアのため、必ず<a href=\"https:\/\/jp.ulike.com\/pages\/download-using-guide\" target=\"_blank\" title=\"取扱説明書\">取扱説明書<\/a>をよくお読みの上でご使用ください。)<\/p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "question_i4pg8H": {
+          "type": "question",
+          "settings": {
+            "title": "照射回数は何回ありますか？",
+            "text": "<p>Ulike AirPro S IPLは約90万回の照射が可能です。<\/p><p>ご家族3人でシェアしてご使用いただいても十分すぎる回数を備えています。カートリッジの交換や追加リフィルの買い替えは一切不要ですので、長期間安心してご使用いただけます。<\/p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "question_NjfB7K": {
+          "type": "question",
+          "settings": {
+            "title": "Ulike IPL光美容器の使用電圧（対応電圧）はいくらですか？",
+            "text": "<p>当社の光美容器はデュアル電圧（100V〜240V）に対応しているため、世界中どこでもご使用いただけます。<\/p><p>ただし、渡航先のコンセント形状に合わせて、市販の変換プラグをご用意いただく必要な場合がございます。<\/p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "question_bE4hmj": {
+          "type": "question",
+          "settings": {
+            "title": "Ulike IPL光美容器はコードレス（無線）ですか？",
+            "text": "<p>いいえ、コードレス（無線）ではありません。<\/p><p>パルス光（IPL）の照射には強力な電力が必要であり、現在の技術ではコードレス（充電式）での十分な供給が難しいため、電源コードをコンセントに接続してご使用いただく仕様となっております。<\/p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "question_dqJ7Fa": {
+          "type": "question",
+          "settings": {
+            "title": "専用のスマホアプリに対応（連携）していますか？",
+            "text": "<p>Ulike Meはアプリ連携非対応となっております。<\/p><p>面倒な初期設定やBluetooth接続の手間がなく、コンセントに挿して電源を入れるだけで、どなたでも直感的にすぐお使いいただけます。<\/p><p>なお、お手入れのスケジュール管理やスマートなケア体験をお求めの方には、専用アプリに対応した上位モデル「<a href=\"https:\/\/jp.ulike.com\/products\/air10-max-ipl-hair-removal\" target=\"_blank\" title=\"Ulike Air 10 Max IPL光美容器\">Ulike Air 10 Max IPL光美容器<\/a>」または「<a href=\"https:\/\/jp.ulike.com\/products\/ulike-x-max-ipl-hair-removal\" target=\"_blank\" title=\"Ulike X Max IPL光美容器 アタッチメントキット\">Ulike X Max IPL光美容器 アタッチメントキット<\/a>」がおすすめです。<\/p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "question_cWP34Q": {
+          "type": "question",
+          "settings": {
+            "title": "付属品（同梱品）には何が含まれていますか？",
+            "text": "<p>パッケージには以下のアイテムが含まれています。<\/p><ul><li>光美容器本体<\/li><li>電源コード・ACアダプター<\/li><li>専用保護メガネ<\/li><li>カミソリ<\/li><li>商品説明ブック<\/li><li><a href=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0553\/7392\/2352\/files\/ProS_7200000193-Ulike-UI04S_20260526-V1.pdf?v=1785478249\" target=\"_blank\" title=\"取扱説明書\">取扱説明書<\/a><\/li><li>キャンバス収納ポーチ <\/li><\/ul>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "question_iTLcQd": {
+          "type": "question",
+          "settings": {
+            "title": "Ulike IPLは安全に使用できますか？",
+            "text": "<p>はい、安全にご使用いただけます。<\/p><p>IPLは、自宅で safe（安全）かつ効果的に長期的ムダ毛ケアを行える方法として広く知られ、研究が進んでいる技術です。<\/p><p>Ulikeの光美容器はご家庭で安全にお使いいただけるようFDA（米国食品医薬品局）の認可を受けているほか、FCC、CE、RoHSといった国際的な安全認証も取得しています。<\/p><p>また、すべての紫外線（UV）はカット・ろ過されているため、お肌を保護しながら安心してご使用いただけます。<\/p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        }
+      },
+      "block_order": [
+        "question_tz4gEE",
+        "question_mrwkk8",
+        "question_i4pg8H",
+        "question_NjfB7K",
+        "question_bE4hmj",
+        "question_dqJ7Fa",
+        "question_cWP34Q",
+        "question_iTLcQd"
+      ],
+      "name": "t:sections.faq.presets.name",
+      "settings": {
+        "style": "with-border",
+        "heading": "FAQs",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "button_label": "",
+        "button_link": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "divider": false,
+        "narrow": true,
+        "rounded": false
+      }
+    },
+    "rich_text_hG7Lex": {
+      "type": "rich-text",
+      "blocks": {
+        "button_3YgmDm": {
+          "type": "button",
+          "settings": {
+            "button_label": "もっとFAQを見る",
+            "button_link": "https:\/\/jp.ulike.com\/pages\/faq",
+            "button_size": "md",
+            "button_secondary_style": false
+          }
+        }
+      },
+      "block_order": [
+        "button_3YgmDm"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "text_alignment": "left",
+        "text_alignment_mobile": "left",
+        "heading": "",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "button_label": "",
+        "button_link": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 72,
+        "padding_bottom": 100,
+        "divider": false,
+        "narrow": true,
+        "rounded": false
+      }
     }
   },
   "order": [
     "jp_main_product_FDBCTP",
+    "jp_anchor_tabs_6j68RH",
     "p_airpro_s_hero",
     "p_airpro_s_highlights",
     "p_airpro_s_result",
@@ -515,6 +733,8 @@
     "p_airpro_s_compact_body",
     "jp_triple_guarantee_WXkVQe",
     "p_airpro_s_trust",
-    "p_airpro_s_use"
+    "p_airpro_s_use",
+    "faq_XLh3Cr",
+    "rich_text_hG7Lex"
   ]
 }

@@ -216,7 +216,6 @@
       return getCurrentControlledSelectors()
         .map((selector) => {
           const target = getTargetBySelector(selector);
-          console.log('[JP Anchor Tabs] find controlled target:', selector, target);
           return target;
         })
         .filter(Boolean);
@@ -265,8 +264,6 @@
 
     const showTargets = (activeBtn) => {
       const activeSelectors = getButtonSelectors(activeBtn);
-      console.log('[JP Anchor Tabs] clicked tab:', activeBtn);
-      console.log('[JP Anchor Tabs] active selectors:', activeSelectors);
 
       const activeTargets = [];
 
@@ -276,13 +273,11 @@
           activeTargets.push(target);
         }
         else {
-          console.warn('[JP Anchor Tabs] target not found:', selector);
         }
       });
 
       getControlledTargets().forEach((target) => {
         const shouldShow = activeTargets.includes(target);
-        console.log(shouldShow ? '[JP Anchor Tabs] keep/show target:' : '[JP Anchor Tabs] hide target:', target.id, target);
 
         target.classList.toggle('is-active', shouldShow);
         target.style.display = shouldShow ? '' : 'none';
@@ -291,7 +286,6 @@
 
     buttons.forEach((btn) => {
       btn.addEventListener('click', () => {
-        console.log('[JP Anchor Tabs] tab click raw targets:', btn.dataset.anchorTargets);
         setActive(btn);
         showTargets(btn);
         scrollToTabs();
