@@ -1,26 +1,279 @@
-{% assign sid = section.id %}
-<section id="me-cooling-performance-{{ sid }}" class="me-cooling-performance" style="--me-cooling-bg:{{ section.settings.background }};--me-cooling-color:{{ section.settings.text_color }};">
-  {% if section.settings.background_image != blank or section.settings.background_image_mobile != blank %}
-    {% assign background_fallback = section.settings.background_image | default: section.settings.background_image_mobile %}
-    <picture class="me-cooling-performance__background">
-      {% if section.settings.background_image_mobile != blank %}<source media="(max-width:749px)" srcset="{{ section.settings.background_image_mobile | image_url: width:1000 }}">{% endif %}
-      {{ background_fallback | image_url: width:2400 | image_tag: class: 'me-cooling-performance__background-image', loading: 'lazy', widths: '750, 1200, 1600, 1920, 2400' }}
-    </picture>
-  {% endif %}
-  <div class="me-cooling-performance__content">
-    <div class="me-cooling-performance__desktop">{{ section.settings.title_html }}{{ section.settings.description_html }}</div>
-    <div class="me-cooling-performance__mobile">{{ section.settings.title_html_mobile }}{{ section.settings.description_html_mobile }}</div>
-    {% if section.settings.badge_image != blank or section.settings.badge_image_mobile != blank %}
-      {% assign badge_fallback = section.settings.badge_image | default: section.settings.badge_image_mobile %}
-      <picture class="me-cooling-performance__badge">{% if section.settings.badge_image_mobile != blank %}<source media="(max-width:749px)" srcset="{{ section.settings.badge_image_mobile | image_url: width:700 }}">{% endif %}{{ badge_fallback | image_url: width:800 | image_tag: loading: 'lazy', widths: '240, 360, 560, 800' }}</picture>
+{%- liquid
+  assign sid = section.id
+  assign st = section.settings
+  assign desktop_visual = st.background_image | default: st.background_image_mobile
+
+  capture default_title
+    echo '<p>最後までひんやり、<br>熱に負けない<span style="color:#75B5ED;">冷感</span>の持続力。</p>'
+  endcapture
+  capture default_intro
+    echo '<p>大切なのは、ケアの最初から最後まで<br>「冷たさが続く」こと。</p><p>Ulike Me は、</p>'
+  endcapture
+  capture default_body
+    echo '<p>「使い始めは冷たいのに、だんだん熱くなって痛い…」そんな経験ありませんか？</p><p>Ulike Meは、最初から最後まで冷たさをキープし続ける設計。マイペースで全身をケアしても、最後の1ショットまでずっとひんやり。</p><p>痛みレスな快適さが、揺るぎない「継続」を叶えます。</p>'
+  endcapture
+  capture default_note
+    echo '<p>*3：Ulike社内レポートによる試験結果：結果はテスト条件により異なる可能性もあります　*4：日本国内サファイア冷感特許：特許第3226132号、特許第3242510号</p>'
+  endcapture
+-%}
+
+<section id="me-cooling-performance-{{ sid }}" class="me-cooling-performance" style="--me-cooling-bg: {{ st.background }}; --me-cooling-color: {{ st.text_color }};">
+  <div class="me-cooling-performance__inner">
+    {% if desktop_visual != blank %}
+      <picture class="me-cooling-performance__visual to-top" style="transition-delay: 0.1s">
+        {% if st.background_image_mobile != blank %}
+          <source media="(max-width: 749px)" srcset="{{ st.background_image_mobile | image_url: width: 1200 }}">
+        {% endif %}
+        {{ desktop_visual | image_url: width: 2400 | image_tag: class: 'me-cooling-performance__visual-image', loading: 'lazy', widths: '375, 750, 1200, 1600, 2000, 2400', sizes: '100vw' }}
+      </picture>
     {% endif %}
-    {% if section.settings.note_html != blank %}<div class="me-cooling-performance__note">{{ section.settings.note_html }}</div>{% endif %}
+
+    <div class="me-cooling-performance__content">
+      <div class="me-cooling-performance__desktop-copy">
+        {{ st.title_html | default: default_title | replace_first: '<p', '<p class="me-cooling-performance__title to-top"' }}
+        <div class="me-cooling-performance__intro to-top" style="transition-delay: 0.1s">{{ st.description_html | default: default_intro }}</div>
+      </div>
+
+      <div class="me-cooling-performance__mobile-copy">
+        {{ st.title_html_mobile | default: st.title_html | default: default_title | replace_first: '<p', '<p class="me-cooling-performance__title to-top"' }}
+        <div class="me-cooling-performance__intro to-top" style="transition-delay: 0.1s">{{ st.description_html_mobile | default: st.description_html | default: default_intro }}</div>
+      </div>
+
+      {% if st.badge_image != blank or st.badge_image_mobile != blank %}
+        {%- assign desktop_badge = st.badge_image | default: st.badge_image_mobile -%}
+        <picture class="me-cooling-performance__badge to-top" style="transition-delay: 0.2s">
+          {% if st.badge_image_mobile != blank %}
+            <source media="(max-width: 749px)" srcset="{{ st.badge_image_mobile | image_url: width: 800 }}">
+          {% endif %}
+          {{ desktop_badge | image_url: width: 900 | image_tag: loading: 'lazy', widths: '272, 340, 680, 900', sizes: '(max-width: 749px) 72.4vw, 340px' }}
+        </picture>
+      {% endif %}
+
+      <div class="me-cooling-performance__body to-top" style="transition-delay: 0.3s">{{ st.body_html | default: default_body }}</div>
+      <div class="me-cooling-performance__footnote">{{ st.note_html | default: default_note }}</div>
+    </div>
   </div>
 </section>
+
 <style>
- #me-cooling-performance-{{ sid }}{position:relative;min-height:720px;overflow:hidden;background:var(--me-cooling-bg);color:var(--me-cooling-color)}#me-cooling-performance-{{ sid }} .me-cooling-performance__background{position:absolute;inset:0;display:block}#me-cooling-performance-{{ sid }} .me-cooling-performance__background-image{display:block;width:100%;height:100%;object-fit:cover}#me-cooling-performance-{{ sid }} .me-cooling-performance__content{position:relative;z-index:1;width:min(430px,31vw);padding-top:176px;margin-left:calc(50% + 42px)}#me-cooling-performance-{{ sid }} h2,#me-cooling-performance-{{ sid }} h3{margin:0;font-size:38px;line-height:1.28;letter-spacing:-.03em}#me-cooling-performance-{{ sid }} p{margin:28px 0 0;font-size:14px;line-height:1.8}#me-cooling-performance-{{ sid }} .me-cooling-performance__badge{display:block;width:235px;max-width:100%;margin-top:18px}#me-cooling-performance-{{ sid }} .me-cooling-performance__badge img{display:block;width:100%;height:auto}#me-cooling-performance-{{ sid }} .me-cooling-performance__note{margin-top:35px;font-size:10px;line-height:1.75}#me-cooling-performance-{{ sid }} .me-cooling-performance__note p{margin:0;font-size:inherit;line-height:inherit}#me-cooling-performance-{{ sid }} .me-cooling-performance__mobile{display:none}@media(max-width:749px){#me-cooling-performance-{{ sid }}{display:flex;min-height:0;flex-direction:column}#me-cooling-performance-{{ sid }} .me-cooling-performance__background{position:relative;inset:auto;flex:0 0 auto;width:100%;height:min(88vw,340px);order:1}#me-cooling-performance-{{ sid }} .me-cooling-performance__background-image{object-fit:cover;object-position:center top}#me-cooling-performance-{{ sid }} .me-cooling-performance__content{width:auto;padding:0 17px 43px;margin:0;order:2;background:var(--me-cooling-bg)}#me-cooling-performance-{{ sid }} .me-cooling-performance__desktop{display:none}#me-cooling-performance-{{ sid }} .me-cooling-performance__mobile{display:block}#me-cooling-performance-{{ sid }} h2,#me-cooling-performance-{{ sid }} h3{font-size:23px;line-height:1.35}#me-cooling-performance-{{ sid }} p{margin-top:15px;font-size:11px;line-height:1.72}#me-cooling-performance-{{ sid }} .me-cooling-performance__badge{width:190px;margin-top:11px}#me-cooling-performance-{{ sid }} .me-cooling-performance__note{margin-top:23px;font-size:9px;line-height:1.65}}
-  #me-cooling-performance-{{ sid }} .me-cooling-performance__desktop > :first-child{margin:0;font-size:48px;font-weight:500;line-height:1.4;letter-spacing:-.035em}#me-cooling-performance-{{ sid }} .me-cooling-performance__desktop > :not(:first-child){margin:28px 0 0;font-size:14px;line-height:1.65}#me-cooling-performance-{{ sid }} .me-cooling-performance__note,#me-cooling-performance-{{ sid }} .me-cooling-performance__note p{font-size:12px;line-height:1.7}@media(max-width:749px){#me-cooling-performance-{{ sid }} .me-cooling-performance__mobile > :first-child{margin:0;font-size:26px;font-weight:600;line-height:1.4}#me-cooling-performance-{{ sid }} .me-cooling-performance__mobile > :not(:first-child){margin:14px 0 0;font-size:12px;line-height:1.65}}
+  #me-cooling-performance-{{ sid }} {
+    overflow: hidden;
+    background: var(--me-cooling-bg);
+    color: var(--me-cooling-color);
+  }
+
+  #me-cooling-performance-{{ sid }} .me-cooling-performance__inner {
+    position: relative;
+    min-height: 977px;
+    max-width: 1920px;
+    margin: 0 auto;
+  }
+
+  #me-cooling-performance-{{ sid }} .me-cooling-performance__visual {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+  }
+
+  #me-cooling-performance-{{ sid }} .me-cooling-performance__visual-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  #me-cooling-performance-{{ sid }} .me-cooling-performance__content {
+    position: relative;
+    width: calc(50% - 4px);
+    min-height: 977px;
+    margin-left: calc(50% + 4px);
+    padding-top: 132px;
+  }
+
+  #me-cooling-performance-{{ sid }} .me-cooling-performance__mobile-copy {
+    display: none;
+  }
+
+  #me-cooling-performance-{{ sid }} .me-cooling-performance__title {
+    margin: 0;
+    color: #000;
+    font-size: 48px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -.02em;
+    white-space: nowrap;
+  }
+
+  #me-cooling-performance-{{ sid }} .me-cooling-performance__title span {
+    font-size: 64px;
+    font-weight: 700;
+  }
+
+  #me-cooling-performance-{{ sid }} .me-cooling-performance__intro {
+    margin-top: 70px;
+  }
+
+  #me-cooling-performance-{{ sid }} .me-cooling-performance__intro p {
+    margin: 0;
+    font-size: 24px;
+    line-height: 1.4;
+  }
+
+  #me-cooling-performance-{{ sid }} .me-cooling-performance__intro p + p {
+    margin-top: 18px;
+    font-size: 30px;
+  }
+
+  #me-cooling-performance-{{ sid }} .me-cooling-performance__badge {
+    display: block;
+    width: 340px;
+    max-width: 100%;
+    margin-top: 12px;
+    overflow: hidden;
+    border-radius: 5px;
+  }
+
+  #me-cooling-performance-{{ sid }} .me-cooling-performance__badge img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  #me-cooling-performance-{{ sid }} .me-cooling-performance__body {
+    width: min(618px, 100%);
+    margin-top: 72px;
+    color: #000;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  #me-cooling-performance-{{ sid }} .me-cooling-performance__body p,
+  #me-cooling-performance-{{ sid }} .me-cooling-performance__footnote p {
+    margin: 0;
+  }
+
+  #me-cooling-performance-{{ sid }} .me-cooling-performance__body p + p {
+    margin-top: 10px;
+  }
+
+  #me-cooling-performance-{{ sid }} .me-cooling-performance__footnote {
+    width: min(630px, 100%);
+    margin-top: 124px;
+    color: rgba(0, 0, 0, .7);
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  @media screen and (max-width: 749px) {
+    #me-cooling-performance-{{ sid }} .me-cooling-performance__inner {
+      display: block;
+      min-height: 0;
+      aspect-ratio: 375 / 871;
+    }
+
+    #me-cooling-performance-{{ sid }} .me-cooling-performance__visual {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    #me-cooling-performance-{{ sid }} .me-cooling-performance__visual-image {
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    #me-cooling-performance-{{ sid }} .me-cooling-performance__content {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      width: auto;
+      min-height: 0;
+      margin: 0;
+      box-sizing: border-box;
+      padding: 88.035vw 16px 0;
+    }
+
+    #me-cooling-performance-{{ sid }} .me-cooling-performance__desktop-copy {
+      display: none;
+    }
+
+    #me-cooling-performance-{{ sid }} .me-cooling-performance__mobile-copy {
+      display: block;
+    }
+
+    #me-cooling-performance-{{ sid }} .me-cooling-performance__title {
+      font-size: 26px;
+      line-height: 1.2;
+      letter-spacing: -.04em;
+      white-space: nowrap;
+    }
+
+    #me-cooling-performance-{{ sid }} .me-cooling-performance__title span {
+      font-size: 32px;
+    }
+
+    #me-cooling-performance-{{ sid }} .me-cooling-performance__intro {
+      margin-top: 25.5px;
+    }
+
+    #me-cooling-performance-{{ sid }} .me-cooling-performance__intro p {
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    #me-cooling-performance-{{ sid }} .me-cooling-performance__intro p + p {
+      margin-top: 3.5px;
+      font-size: 20px;
+    }
+
+    #me-cooling-performance-{{ sid }} .me-cooling-performance__badge {
+      width: 271.5px;
+      margin-top: 10.5px;
+      border-radius: 4px;
+    }
+
+    #me-cooling-performance-{{ sid }} .me-cooling-performance__body {
+      width: 100%;
+      margin-top: 33px;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    #me-cooling-performance-{{ sid }} .me-cooling-performance__body p + p {
+      margin-top: 6px;
+    }
+
+    #me-cooling-performance-{{ sid }} .me-cooling-performance__footnote {
+      width: 100%;
+      margin-top: 31px;
+      font-size: 10px;
+      line-height: 1.5;
+    }
+  }
 </style>
+
 {% schema %}
-{"name":"Ulike ME 冷感持久力模块","settings":[{"type":"image_picker","id":"background_image","label":"PC 背景图"},{"type":"image_picker","id":"background_image_mobile","label":"移动端背景图"},{"type":"html","id":"title_html","label":"PC 右侧标题（HTML）"},{"type":"html","id":"description_html","label":"PC 右侧描述（HTML）"},{"type":"html","id":"title_html_mobile","label":"移动端标题（HTML）"},{"type":"html","id":"description_html_mobile","label":"移动端描述（HTML）"},{"type":"image_picker","id":"badge_image","label":"PC 强调图片"},{"type":"image_picker","id":"badge_image_mobile","label":"移动端强调图片"},{"type":"richtext","id":"note_html","label":"底部注释"},{"type":"color","id":"background","label":"背景底色","default":"#eef7ff"},{"type":"color","id":"text_color","label":"文字颜色","default":"#111111"}],"presets":[{"name":"Ulike ME 冷感持久力模块"}]}
+{
+  "name": "Ulike 冷感持久力模块",
+  "settings": [
+    { "type": "image_picker", "id": "background_image", "label": "PC 左侧视觉图片" },
+    { "type": "image_picker", "id": "background_image_mobile", "label": "移动端顶部视觉图片" },
+    { "type": "html", "id": "title_html", "label": "PC 标题（HTML）", "default": "<p>最後までひんやり、<br>熱に負けない<span style=\"color:#75B5ED;\">冷感</span>の持続力。</p>" },
+    { "type": "html", "id": "description_html", "label": "PC 说明（HTML）", "default": "<p>大切なのは、ケアの最初から最後まで<br>「冷たさが続く」こと。</p><p>Ulike Me は、</p>" },
+    { "type": "html", "id": "body_html", "label": "正文（HTML）", "default": "<p>「使い始めは冷たいのに、だんだん熱くなって痛い…」そんな経験ありませんか？</p><p>Ulike Meは、最初から最後まで冷たさをキープし続ける設計。マイペースで全身をケアしても、最後の1ショットまでずっとひんやり。</p><p>痛みレスな快適さが、揺るぎない「継続」を叶えます。</p>" },
+    { "type": "html", "id": "title_html_mobile", "label": "移动端标题（HTML）", "default": "<p>最後までひんやり、<br>熱に負けない<span style=\"color:#75B5ED;\">冷感</span>の持続力。</p>" },
+    { "type": "html", "id": "description_html_mobile", "label": "移动端说明（HTML）", "default": "<p>大切なのは、ケアの最初から最後まで<br>「冷たさが続く」こと。</p><p>Ulike Me は、</p>" },
+    { "type": "image_picker", "id": "badge_image", "label": "PC 冷感强调图片" },
+    { "type": "image_picker", "id": "badge_image_mobile", "label": "移动端冷感强调图片" },
+    { "type": "richtext", "id": "note_html", "label": "底部注释", "default": "<p>*3：Ulike社内レポートによる試験結果：結果はテスト条件により異なる可能性もあります　*4：日本国内サファイア冷感特許：特許第3226132号、特許第3242510号</p>" },
+    { "type": "color", "id": "background", "label": "背景底色", "default": "#f8fbff" },
+    { "type": "color", "id": "text_color", "label": "文字颜色", "default": "#000000" }
+  ],
+  "presets": [
+    { "name": "Ulike 冷感持久力模块" }
+  ]
+}
 {% endschema %}

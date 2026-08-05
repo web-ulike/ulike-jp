@@ -1,4 +1,115 @@
-{% assign sid = section.id %}<section id="me-speed-care-{{ sid }}" class="me-speed-care" style="--bg:{{ section.settings.background }}"><div class="me-speed-care__pc-bg">{% if section.settings.image != blank %}{{ section.settings.image | image_url: width:2400 | image_tag: loading: 'lazy', widths: '750, 1200, 1600, 1920, 2400' }}{% endif %}</div><div class="me-speed-care__content"><div class="me-speed-care__pc">{{ section.settings.title_html }}{{ section.settings.copy_html }}</div><div class="me-speed-care__mobile">{{ section.settings.title_html_mobile }}{{ section.settings.copy_html_mobile }}</div></div><div class="me-speed-care__mobile-media">{% if section.settings.image_mobile != blank %}{{ section.settings.image_mobile | image_url: width:1000 | image_tag: loading: 'lazy', widths: '400, 700, 1000' }}{% endif %}</div><div class="me-speed-care__mobile me-speed-care__mobile-bottom">{{ section.settings.copy_html_mobile_bottom }}</div></section><style>#me-speed-care-{{ sid }}{position:relative;min-height:720px;overflow:hidden;background:var(--bg)}#me-speed-care-{{ sid }} .me-speed-care__pc-bg{position:absolute;inset:0}#me-speed-care-{{ sid }} .me-speed-care__pc-bg img{display:block;width:100%;height:100%;object-fit:cover}#me-speed-care-{{ sid }} .me-speed-care__content{position:relative;z-index:1;width:min(490px,33vw);padding-top:190px;margin-left:max(24px,calc((100% - 1280px)/2));color:#111}#me-speed-care-{{ sid }} h2,#me-speed-care-{{ sid }} h3{margin:0;font-size:44px;line-height:1.28;letter-spacing:-.035em}#me-speed-care-{{ sid }} p{margin:28px 0 0;font-size:14px;line-height:1.85}#me-speed-care-{{ sid }} .me-speed-care__mobile,#me-speed-care-{{ sid }} .me-speed-care__mobile-media{display:none}@media(max-width:749px){#me-speed-care-{{ sid }}{min-height:0}#me-speed-care-{{ sid }} .me-speed-care__pc-bg,#me-speed-care-{{ sid }} .me-speed-care__pc{display:none}#me-speed-care-{{ sid }} .me-speed-care__content{width:auto;padding:45px 16px 28px;margin:0}#me-speed-care-{{ sid }} .me-speed-care__mobile{display:block}#me-speed-care-{{ sid }} h2,#me-speed-care-{{ sid }} h3{font-size:23px}#me-speed-care-{{ sid }} p{margin-top:14px;font-size:11px;line-height:1.7}#me-speed-care-{{ sid }} .me-speed-care__mobile-media{display:block}#me-speed-care-{{ sid }} .me-speed-care__mobile-media img{display:block;width:100%;height:auto}#me-speed-care-{{ sid }} .me-speed-care__mobile-bottom{padding:25px 16px 38px;color:#111}}
-  #me-speed-care-{{ sid }} .me-speed-care__pc > :first-child{margin:0;font-size:48px;font-weight:500;line-height:1.4;letter-spacing:-.035em}#me-speed-care-{{ sid }} .me-speed-care__pc > :not(:first-child){margin:28px 0 0;font-size:14px;line-height:1.65}@media(max-width:749px){#me-speed-care-{{ sid }} .me-speed-care__mobile:not(.me-speed-care__mobile-bottom) > :first-child{margin:0;font-size:30px;font-weight:600;line-height:1.4}#me-speed-care-{{ sid }} .me-speed-care__mobile:not(.me-speed-care__mobile-bottom) > :not(:first-child){margin:14px 0 0;font-size:13px;line-height:1.65}#me-speed-care-{{ sid }} .me-speed-care__mobile-bottom,#me-speed-care-{{ sid }} .me-speed-care__mobile-bottom p{font-size:12px;line-height:1.7}}
+{%- liquid
+  assign sid = section.id
+  assign st = section.settings
+  assign desktop_image = st.image | default: st.image_mobile
+
+  capture default_title
+    echo '<p>「面倒で続かない…」を<br><span style="color:#75b5ed;">スピードで変える</span></p>'
+  endcapture
+  capture default_mobile_title
+    echo '<p>「面倒で続かない…」を<br><span style="color:#75b5ed;">スピードで変える</span></p>'
+  endcapture
+  capture default_copy
+    echo '<p><span style="color:#75b5ed;font-weight:700;">最速0.5秒</span>の高速フラッシュ。両脇ケアがわずか2分<sup>※6</sup>、<br>スキマ時間でサクッと全身ケア。</p>'
+  endcapture
+  capture default_mobile_copy
+    echo '<p><span style="color:#75b5ed;font-weight:700;">最速0.5秒</span>の高速フラッシュ。両脇ケアがわずか2分<sup>※6</sup>、 スキマ時間でサクッと全身ケア。</p>'
+  endcapture
+  capture default_body
+    echo '<p>「剃ってもすぐ生えてくる」「全身のお手入れは時間がかかって面倒」――そんなイメージを、Ulike Meが驚きのスピードで変えていきます。</p><p><span style="background:#75b5ed;color:#fff;font-weight:700;">最短0.5秒の高速フラッシュ</span>を採用し、両脇は約2分、両腕は約4分、両脚でも約11分という圧倒的な早さを実現。主要部位をまとめてケアしても、<span style="background:#75b5ed;color:#fff;font-weight:700;">わずか約17分<sup>※6</sup>でスムーズに完了。</span></p><p>お風呂上がりのリラックスタイムや、ちょっとしたスキマ時間で、いつでも気軽にサロン並みのムダ毛ケアを叶えます。</p>'
+  endcapture
+  capture default_note
+    echo '<p>※6：国際認証機関CVCによる試験結果：WTS2024-29439、160cmの男女3名を対象とした試験結果。お手入れにかかる時間には個人差があります。</p>'
+  endcapture
+-%}
+
+<section id="me-speed-care-{{ sid }}" class="me-speed-care" style="--me-speed-care-bg: {{ st.background }};">
+  <div class="me-speed-care__desktop">
+    {% if desktop_image != blank %}
+      <picture class="me-speed-care__desktop-media">
+        {{ desktop_image | image_url: width: 2400 | image_tag: class: 'me-speed-care__image', loading: 'lazy', widths: '750, 1200, 1600, 1920, 2400', sizes: '100vw' }}
+      </picture>
+    {% endif %}
+    <div class="me-speed-care__desktop-content">
+      {{ st.title_html | default: default_title | replace_first: '<p', '<p class="to-top"' }}
+      {{ st.copy_html | default: default_copy | replace_first: '<p', '<p class="to-top" style="transition-delay: 0.1s"' }}
+      <div class="me-speed-care__desktop-body to-top" style="transition-delay: 0.2s">{{ st.body_html | default: default_body }}</div>
+    </div>
+    <div class="me-speed-care__desktop-note">{{ st.note_html | default: default_note }}</div>
+  </div>
+
+  <div class="me-speed-care__mobile">
+    <header class="me-speed-care__mobile-heading">
+      {{ st.title_html_mobile | default: st.title_html | default: default_mobile_title | replace_first: '<p', '<p class="to-top"' }}
+      {{ st.copy_html_mobile | default: st.copy_html | default: default_mobile_copy | replace_first: '<p', '<p class="to-top" style="transition-delay: 0.1s"' }}
+    </header>
+    {% if desktop_image != blank %}
+      <picture class="me-speed-care__mobile-media">
+        {% if st.image_mobile != blank %}
+          <source media="(max-width: 749px)" srcset="{{ st.image_mobile | image_url: width: 1000 }}">
+        {% endif %}
+        {{ desktop_image | image_url: width: 1200 | image_tag: class: 'me-speed-care__image', loading: 'lazy', widths: '500, 750, 1000, 1200', sizes: '100vw' }}
+      </picture>
+    {% endif %}
+    <div class="me-speed-care__mobile-details to-top" style="transition-delay: 0.2s">
+      <div class="me-speed-care__mobile-body">{{ st.copy_html_mobile_bottom | default: st.body_html_mobile | default: st.body_html | default: default_body }}</div>
+      <div class="me-speed-care__mobile-note">{{ st.note_html_mobile | default: st.note_html | default: default_note }}</div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #me-speed-care-{{ sid }} { overflow: hidden; background: var(--me-speed-care-bg); color: #000; }
+  #me-speed-care-{{ sid }} .me-speed-care__mobile { display: none; }
+  #me-speed-care-{{ sid }} .me-speed-care__desktop { position: relative; min-height: 720px; aspect-ratio: 1920 / 940; }
+  #me-speed-care-{{ sid }} .me-speed-care__desktop-media,
+  #me-speed-care-{{ sid }} .me-speed-care__desktop-media img { display: block; width: 100%; height: 100%; }
+  #me-speed-care-{{ sid }} .me-speed-care__desktop-media { position: absolute; inset: 0; }
+  #me-speed-care-{{ sid }} .me-speed-care__desktop-media img { object-fit: cover; }
+  #me-speed-care-{{ sid }} .me-speed-care__desktop-content { 
+    position: relative; z-index: 1; box-sizing: border-box; width: min(29.3vw, 600px); padding-top: clamp(150px, 12.5vw, 258px); margin-left: 17vw; }
+  #me-speed-care-{{ sid }} .me-speed-care__desktop-content > :first-child { margin: 0; font-size: clamp(36px, 2.5vw, 52px); font-weight: 500; line-height: 1.35; letter-spacing: -.04em; }
+  #me-speed-care-{{ sid }} .me-speed-care__desktop-content > :nth-child(2) { margin: clamp(34px, 3.5vw, 70px) 0 0; font-size: clamp(18px, 1.15vw, 24px); line-height: 1.5; letter-spacing: -.03em; }
+  #me-speed-care-{{ sid }} sup { font-size: .55em; vertical-align: super; inset-block-start:0px; }
+  #me-speed-care-{{ sid }} .me-speed-care__desktop-body { margin-top: clamp(54px, 3.9vw, 80px); font-size: clamp(12px, .73vw, 15px); line-height: 1.58; letter-spacing: -.03em; }
+  #me-speed-care-{{ sid }} .me-speed-care__desktop-body p { margin: 0; }
+  #me-speed-care-{{ sid }} .me-speed-care__desktop-body p + p { margin-top: 20px; }
+  #me-speed-care-{{ sid }} .me-speed-care__desktop-note { position: absolute; z-index: 1; bottom: 22px; left: 17vw; width: min(29.3vw, 600px); color: #777; font-size: 10px; line-height: 1.45; }
+  #me-speed-care-{{ sid }} .me-speed-care__desktop-note p { margin: 0; }
+
+  @media screen and (max-width: 749px) {
+    #me-speed-care-{{ sid }} .me-speed-care__desktop { display: none; }
+    #me-speed-care-{{ sid }} .me-speed-care__mobile { display: block; }
+    #me-speed-care-{{ sid }} .me-speed-care__mobile-heading { padding: 58px 16px 28px; }
+    #me-speed-care-{{ sid }} .me-speed-care__mobile-heading > :first-child { margin: 0; font-size: 28px; font-weight: 600; line-height: 1.35; letter-spacing: -.055em; }
+    #me-speed-care-{{ sid }} .me-speed-care__mobile-heading > :nth-child(2) { margin: 27px 0 0; font-size: 16px; line-height: 1.5; letter-spacing: -.045em; }
+    #me-speed-care-{{ sid }} .me-speed-care__mobile-media,
+    #me-speed-care-{{ sid }} .me-speed-care__mobile-media img { display: block; width: 100%; height: auto; }
+    #me-speed-care-{{ sid }} .me-speed-care__mobile-details { padding: 36px 16px 27px; }
+    #me-speed-care-{{ sid }} .me-speed-care__mobile-body { font-size: 14px; line-height: 1.58; letter-spacing: -.045em; }
+    #me-speed-care-{{ sid }} .me-speed-care__mobile-body p { margin: 0; }
+    #me-speed-care-{{ sid }} .me-speed-care__mobile-body p + p { margin-top: 14px; }
+    #me-speed-care-{{ sid }} .me-speed-care__mobile-note { margin-top: 28px; color: #777; font-size: 10px; line-height: 1.55; letter-spacing: -.03em; }
+    #me-speed-care-{{ sid }} .me-speed-care__mobile-note p { margin: 0; }
+  }
 </style>
-{% schema %}{"name":"Ulike ME 高速护理模块","settings":[{"type":"image_picker","id":"image","label":"PC 背景图"},{"type":"image_picker","id":"image_mobile","label":"移动端中间图片"},{"type":"html","id":"title_html","label":"PC 左侧标题（HTML）"},{"type":"html","id":"copy_html","label":"PC 左侧描述（HTML）"},{"type":"html","id":"title_html_mobile","label":"移动端标题（HTML）"},{"type":"html","id":"copy_html_mobile","label":"移动端顶部描述（HTML）"},{"type":"html","id":"copy_html_mobile_bottom","label":"移动端图片下描述（HTML）"},{"type":"color","id":"background","label":"背景","default":"#f5faff"}],"presets":[{"name":"Ulike ME 高速护理模块"}]}{% endschema %}
+
+{% schema %}
+{
+  "name": "Ulike 高速护理模块",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "PC 背景图" },
+    { "type": "image_picker", "id": "image_mobile", "label": "移动端中间图片" },
+    { "type": "html", "id": "title_html", "label": "PC 左侧标题（HTML）", "default": "<p>「面倒で続かない…」を<br><span style=\"color:#75b5ed;\">スピードで変える</span></p>" },
+    { "type": "html", "id": "copy_html", "label": "PC 左侧描述（HTML）", "default": "<p><span style=\"color:#75b5ed;font-weight:700;\">最速0.5秒</span>の高速フラッシュ。両脇ケアがわずか2分<sup>※6</sup>、<br>スキマ時間でサクッと全身ケア。</p>" },
+    { "type": "html", "id": "body_html", "label": "PC 正文（HTML）", "default": "<p>「剃ってもすぐ生えてくる」「全身のお手入れは時間がかかって面倒」――そんなイメージを、Ulike Meが驚きのスピードで変えていきます。</p><p><span style=\"background:#75b5ed;color:#fff;font-weight:700;\">最短0.5秒の高速フラッシュ</span>を採用し、両脇は約2分、両腕は約4分、両脚でも約11分という圧倒的な早さを実現。主要部位をまとめてケアしても、<span style=\"background:#75b5ed;color:#fff;font-weight:700;\">わずか約17分<sup>※6</sup>でスムーズに完了。</span></p><p>お風呂上がりのリラックスタイムや、ちょっとしたスキマ時間で、いつでも気軽にサロン並みのムダ毛ケアを叶えます。</p>" },
+    { "type": "html", "id": "title_html_mobile", "label": "移动端标题（HTML）", "default": "<p>「面倒で続かない…」を<br><span style=\"color:#75b5ed;\">スピードで変える</span></p>" },
+    { "type": "html", "id": "copy_html_mobile", "label": "移动端顶部描述（HTML）", "default": "<p><span style=\"color:#75b5ed;font-weight:700;\">最速0.5秒</span>の高速フラッシュ。両脇ケアがわずか2分<sup>※6</sup>、 スキマ時間でサクッと全身ケア。</p>" },
+    { "type": "html", "id": "copy_html_mobile_bottom", "label": "移动端图片下描述（HTML）", "default": "<p>「剃ってもすぐ生えてくる」「全身のお手入れは時間がかかって面倒」――そんなイメージを、Ulike Meが驚きのスピードで変えていきます。</p><p><span style=\"background:#75b5ed;color:#fff;font-weight:700;\">最短0.5秒の高速フラッシュ</span>を採用し、両脇は約2分、両腕は約4分、両脚でも約11分という圧倒的な早さを実現。主要部位をまとめてケアしても、<span style=\"background:#75b5ed;color:#fff;font-weight:700;\">わずか約17分<sup>※6</sup>でスムーズに完了。</span></p><p>お風呂上がりのリラックスタイムや、ちょっとしたスキマ時間で、いつでも気軽にサロン並みのムダ毛ケアを叶えます。</p>" },
+    { "type": "html", "id": "note_html", "label": "PC 脚注（HTML）", "default": "<p>※6：国際認証機関CVCによる試験結果：WTS2024-29439、160cmの男女3名を対象とした試験結果。お手入れにかかる時間には個人差があります。</p>" },
+    { "type": "html", "id": "note_html_mobile", "label": "移动端脚注（HTML）", "default": "<p>※6：国際認証機関CVCによる試験結果：WTS2024-29439、160cmの男女3名を対象とした試験結果。お手入れにかかる時間には個人差があります。</p>" },
+    { "type": "color", "id": "background", "label": "背景", "default": "#f7faff" }
+  ],
+  "presets": [{ "name": "Ulike 高速护理模块" }]
+}
+{% endschema %}

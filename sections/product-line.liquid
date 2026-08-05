@@ -110,6 +110,72 @@ font-family: var(--font-heading-family);
   margin-bottom: 30px;
 
   }
+  .product-line .product-line-coupon {
+    margin: 0 0 20px;
+  }
+  .product-line .product-line-coupon__message {
+    margin: 0 0 10px;
+    color: #190A0A;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  .product-line .product-line-coupon__card {
+    display: flex;
+    position: relative;
+    width: 100%;
+    max-width: 390px;
+    min-height: 48px;
+    overflow: hidden;
+    border-radius: 4px;
+    background: #E0004D;
+    color: #fff;
+  }
+  .product-line .product-line-coupon__card::before,
+  .product-line .product-line-coupon__card::after {
+    position: absolute;
+    left: 50%;
+    z-index: 1;
+    width: 8px;
+    height: 8px;
+    content: '';
+    border-radius: 50%;
+    background: var(--product-content-background, #F4F9FF);
+    transform: translateX(-50%);
+  }
+  .product-line .product-line-coupon__card::before { top: -4px; }
+  .product-line .product-line-coupon__card::after { bottom: -4px; }
+  .product-line .product-line-coupon__offer,
+  .product-line .product-line-coupon__copy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+  }
+  .product-line .product-line-coupon__offer {
+    flex: 1;
+    padding: 8px 12px;
+    border-right: 2px dashed rgba(255, 255, 255, .75);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.1;
+    text-align: center;
+  }
+  .product-line .product-line-coupon__copy {
+    flex: 1.35;
+    gap: 9px;
+    padding: 8px 12px;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    font-size: 14px;
+  }
+  .product-line .product-line-coupon__code { white-space: nowrap; }
+  .product-line .product-line-coupon__copy-label {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
   .product__content-wrapper .price-notice{
     margin-bottom: 4px;
     color: #3F3636;
@@ -367,6 +433,15 @@ font-weight:400;
     gap: 8px;
     margin-bottom: 13px;
   }
+  .product-line .product-line-coupon {
+    margin-bottom: 13px;
+  }
+  .product-line .product-line-coupon__message {
+    margin-bottom: 7px;
+    font-size: 12px;
+  }
+  .product-line .product-line-coupon__offer { font-size: 17px; }
+  .product-line .product-line-coupon__copy { font-size: 12px; }
   .product__content-wrapper .price-notice{
     font-size: 14px;
   }
@@ -494,6 +569,17 @@ font-size: 15px;
                 <div class="des">
                   {{ block.settings.des }}
                 </div>
+                {%- liquid
+                  assign product = block.settings.product
+                  assign selected_variant = product.selected_or_first_available_variant
+                  for variant in product.variants
+                    assign variant_id_string = variant.id | append: ''
+                    if variant_id_string == block.settings.variant_id
+                      assign selected_variant = variant
+                      break
+                    endif
+                  endfor
+                -%}
                 {% if block.settings.discount != blank %}
                   <div class="discount-pri-inner">
                 {% endif %}
@@ -506,6 +592,28 @@ font-size: 15px;
                 {% if block.settings.price_notice_text != blank %}
                   <div class="price-notice">{{ block.settings.price_notice_text }}</div>
                 {% endif %}
+                {%- if block.settings.show_coupon -%}
+                  <div class="product-line-coupon">
+                    {%- if block.settings.coupon_message != blank -%}
+                      <div class="product-line-coupon__message">{{ block.settings.coupon_message | newline_to_br }}</div>
+                    {%- endif -%}
+                    <div class="product-line-coupon__card">
+                      <div class="product-line-coupon__offer">
+                        {{- block.settings.coupon_offer | default: 'SPECIAL OFFER' -}}
+                      </div>
+                      <button
+                        class="product-line-coupon__copy"
+                        type="button"
+                        data-coupon-code="{{ block.settings.coupon_code | escape }}"
+                        data-copy-label="{{ block.settings.coupon_copy_label | default: 'Copy' | escape }}"
+                        data-copied-label="{{ block.settings.coupon_copied_label | default: 'Copied' | escape }}"
+                      >
+                        <span class="product-line-coupon__code">Code: {{ block.settings.coupon_code }}</span>
+                        <span class="product-line-coupon__copy-label">{{ block.settings.coupon_copy_label | default: 'Copy' }}</span>
+                      </button>
+                    </div>
+                  </div>
+                {%- endif -%}
                 <div class="price-wrapper">
                   {% comment %}
                     <div class="price">{{ block.settings.price }}</div>
@@ -515,16 +623,15 @@ font-size: 15px;
                   <div class="discount-pri-txt">{{ block.settings.discount_txt  }}</div>
                 {% endif %}
                   {%- liquid
-                    assign product = block.settings.product
                     assign compare_price_label = block.settings.compare_price_label | default: '定価'
                   -%}
                   <div class="price">
-                    {{ product.price | money }}
+                    {{ selected_variant.price | money }}
                     {%- if block.settings.price_suffix != blank -%}
                       <span class="price-suffix">{{ block.settings.price_suffix }}</span>
                     {%- endif -%}
                   </div>
-                  <div class="oriprice">{{ compare_price_label }} {{ product.compare_at_price | money }}{{ block.settings.compare_price_suffix }}</div>
+                  <div class="oriprice" {% unless selected_variant.compare_at_price > selected_variant.price %}hidden{% endunless %}>{{ compare_price_label }} {{ selected_variant.compare_at_price | money }}{{ block.settings.compare_price_suffix }}</div>
                 </div>
                 {% if block.settings.discount != blank %}
                   </div>
@@ -554,8 +661,8 @@ font-size: 15px;
                         <input
                           type="hidden"
                           name="id"
-                          value="{{ product.selected_or_first_available_variant.id }}"
-                          disabled
+                          value="{{ selected_variant.id }}"
+                          data-product-line-variant-id
                         >
 
                         {%- liquid
@@ -564,10 +671,10 @@ font-size: 15px;
                           endif
 
                           assign check_against_inventory = true
-                          if product.selected_or_first_available_variant.inventory_management != 'shopify' or product.selected_or_first_available_variant.inventory_policy == 'continue'
+                          if selected_variant.inventory_management != 'shopify' or selected_variant.inventory_policy == 'continue'
                             assign check_against_inventory = false
                           endif
-                          if product.selected_or_first_available_variant.quantity_rule.min > product.selected_or_first_available_variant.inventory_quantity and check_against_inventory
+                          if selected_variant.quantity_rule.min > selected_variant.inventory_quantity and check_against_inventory
                             assign quantity_rule_soldout = true
                           endif
                         -%}
@@ -585,7 +692,7 @@ font-size: 15px;
                               form="{{ product_form_id }}"
                               class="product-form__submit button button--secondary button--fixed w-full mt-2"
                               is="hover-button"
-                              {%- if product.selected_or_first_available_variant.available == false
+                              {%- if selected_variant.available == false
                                 or quantity_rule_soldout
                               %}
                                 disabled
@@ -597,7 +704,7 @@ font-size: 15px;
                               <span class="btn-fill" data-fill></span>
                               <span class="btn-text">
                                 {%- liquid
-                                  if product.selected_or_first_available_variant.available == false or quantity_rule_soldout
+                                  if selected_variant.available == false or quantity_rule_soldout
                                     echo 'products.product.sold_out' | t
                                   elsif product.template_suffix != 'pre-order'
                                     echo 'products.product.add_to_cart' | t
@@ -618,10 +725,10 @@ font-size: 15px;
                   <a href="{{ block.settings.buy_link_url }}" class="btn-link btn-buy-now">
                     {{- block.settings.buy_txt -}}
                   </a>
-                  {% else if %}
+                  {% else %}
                   <shopify-buy-now 
                     product-id="{{ product.id }}" 
-                    variant-id="{{ product.selected_or_first_available_variant.id }}" 
+                    variant-id="{{ selected_variant.id }}"
                     button-text="{{ block.settings.buy_txt }}">
                     <button class="custom-buy-btn btn-link btn-buy-now"> {{ block.settings.buy_txt }}</button>
                   </shopify-buy-now>
@@ -638,7 +745,32 @@ font-size: 15px;
     </div>
   </div>
 </section>
-<script></script>
+<script>
+  (() => {
+    document.querySelectorAll('#shopify-section-{{ section.id }} .product-line-coupon__copy').forEach((button) => {
+      button.addEventListener('click', async () => {
+        const copyLabel = button.dataset.copyLabel;
+        try {
+          await navigator.clipboard.writeText(button.dataset.couponCode);
+        } catch (error) {
+          const textarea = document.createElement('textarea');
+          textarea.value = button.dataset.couponCode;
+          textarea.setAttribute('readonly', '');
+          textarea.style.position = 'fixed';
+          textarea.style.opacity = '0';
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand('copy');
+          textarea.remove();
+        }
+        button.querySelector('.product-line-coupon__copy-label').textContent = button.dataset.copiedLabel;
+        window.setTimeout(() => {
+          button.querySelector('.product-line-coupon__copy-label').textContent = copyLabel;
+        }, 2000);
+      });
+    });
+  })();
+</script>
 {% schema %}
 {
   "name": "product line",
@@ -721,6 +853,12 @@ font-size: 15px;
           "type": "product",
           "id": "product",
           "label": "Product"
+        },
+        {
+          "type": "text",
+          "id": "variant_id",
+          "label": "Variant ID",
+          "info": "Optional. The configured variant is used for the price and add-to-cart. Leave blank to use the product's first available variant."
         },
         {
           "type": "richtext",
@@ -811,15 +949,58 @@ font-size: 15px;
           "id": "des",
           "label": "Descripte"
         },
-          {
+        {
+          "type": "header",
+          "content": "Coupon (optional)"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_coupon",
+          "label": "Show coupon",
+          "default": false,
+          "info": "Enable to display the coupon module."
+        },
+        {
+          "type": "textarea",
+          "id": "coupon_message",
+          "label": "Coupon message",
+          "info": "Displayed above the coupon card."
+        },
+        {
+          "type": "text",
+          "id": "coupon_offer",
+          "label": "Coupon offer text",
+          "info": "For example: 40% OFF"
+        },
+        {
+          "type": "text",
+          "id": "coupon_code",
+          "label": "Coupon code",
+          "info": "Displayed when Show coupon is enabled."
+        },
+        {
+          "type": "text",
+          "id": "coupon_copy_label",
+          "label": "Copy button label",
+          "default": "Copy"
+        },
+        {
+          "type": "text",
+          "id": "coupon_copied_label",
+          "label": "Copied message",
+          "default": "Copied"
+        },
+        {
           "type": "text",
           "id": "discount",
-          "label": "Discount"
+          "label": "Discount",
+          "info": "旧版折扣圆形标识：填写数字（例如 40）将显示为 40% OFF。与 Coupon 优惠券无关，可留空。"
         },
         {
           "type": "text",
           "id": "discount_txt",
-          "label": "Discount Text"
+          "label": "Discount Text",
+          "info": "旧版价格旁补充文案（例如 LIMITED OFFER）。与 Coupon 优惠券无关，可留空。"
         },
         {
           "type": "text",

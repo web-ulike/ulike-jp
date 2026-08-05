@@ -1,0 +1,227 @@
+{%- liquid
+  assign sid = section.id
+  assign st = section.settings
+  assign desktop_image = st.image | default: st.image_mobile
+-%}
+
+<section
+  id="me-guarantee-overlay-{{ sid }}"
+  class="me-guarantee-overlay"
+  style="
+    --me-guarantee-bg: {{ st.background }};
+    --me-guarantee-copy-color: {{ st.text_color }};
+    --me-guarantee-desktop-x: {{ st.desktop_content_left }}%;
+    --me-guarantee-desktop-y: {{ st.desktop_content_top }}%;
+    --me-guarantee-mobile-x: {{ st.mobile_content_left }}%;
+    --me-guarantee-mobile-y: {{ st.mobile_content_top }}%;
+  "
+>
+  <div class="me-guarantee-overlay__media">
+    {% if desktop_image != blank %}
+      <picture>
+        {% if st.image_mobile != blank %}
+          <source media="(max-width: 749px)" srcset="{{ st.image_mobile | image_url: width: 1000 }}">
+        {% endif %}
+        {{
+          desktop_image
+          | image_url: width: 2400
+          | image_tag:
+            class: 'me-guarantee-overlay__image',
+            loading: 'lazy',
+            widths: '750, 1000, 1440, 1920, 2400',
+            sizes: '100vw'
+        }}
+      </picture>
+    {% else %}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'me-guarantee-overlay__placeholder' }}
+    {% endif %}
+  </div>
+
+  <div class="me-guarantee-overlay__content">
+    <div class="me-guarantee-overlay__desktop-copy">
+      {{ st.title_html | replace_first: '<p', '<p class="to-top"' }}
+      {{ st.copy_html | replace_first: '<p', '<p class="to-top" style="transition-delay: 0.1s"' }}
+      {{ st.body_html | replace: '<p', '<p class="to-top" style="transition-delay: 0.2s"' }}
+      {% if st.badge_image != blank %}
+        {{
+          st.badge_image
+          | image_url: width: 800
+          | image_tag: class: 'me-guarantee-overlay__badges', loading: 'lazy', widths: '300, 500, 800'
+        }}
+      {% endif %}
+    </div>
+    <div class="me-guarantee-overlay__mobile-copy">
+      {{ st.title_html_mobile | default: st.title_html | replace_first: '<p', '<p class="to-top"' }}
+      {{ st.copy_html_mobile | default: st.copy_html | replace_first: '<p', '<p class="to-top" style="transition-delay: 0.1s"' }}
+      {% if st.badge_image != blank %}
+        {{
+          st.badge_image
+          | image_url: width: 800
+          | image_tag: class: 'me-guarantee-overlay__badges', loading: 'lazy', widths: '300, 500, 800'
+        }}
+      {% endif %}
+      {{ st.body_html_mobile | default: st.body_html }}
+    </div>
+  </div>
+</section>
+
+<style>
+  #me-guarantee-overlay-{{ sid }} { position: relative; overflow: hidden;
+     background: var(--me-guarantee-bg); }
+  #me-guarantee-overlay-{{ sid }} .me-guarantee-overlay__media,
+  #me-guarantee-overlay-{{ sid }} .me-guarantee-overlay__media picture { display: block; }
+  #me-guarantee-overlay-{{ sid }} .me-guarantee-overlay__image,
+  #me-guarantee-overlay-{{ sid }} .me-guarantee-overlay__placeholder { display: block; width: 100%; height: auto; }
+  #me-guarantee-overlay-{{ sid }} .me-guarantee-overlay__placeholder { min-height: 720px; fill: #d8e7f8; }
+  #me-guarantee-overlay-{{ sid }} .me-guarantee-overlay__content { 
+    position: absolute; z-index: 0; 
+    top: var(--me-guarantee-desktop-y);
+    left: var(--me-guarantee-desktop-x);
+    width: 450px;
+    color: #000; 
+  }
+  #me-guarantee-overlay-{{ sid }} .me-guarantee-overlay__mobile-copy { display: none; }
+  #me-guarantee-overlay-{{ sid }} .me-guarantee-overlay__desktop-copy > :first-child,
+  #me-guarantee-overlay-{{ sid }} .me-guarantee-overlay__mobile-copy > :first-child { 
+    margin: 0; font-size: 48px;
+    font-weight: 500; line-height: 1.4; 
+  }
+  #me-guarantee-overlay-{{ sid }} .me-guarantee-overlay__desktop-copy > :not(:first-child):not(.me-guarantee-overlay__badges),
+  #me-guarantee-overlay-{{ sid }} .me-guarantee-overlay__mobile-copy > :not(:first-child):not(.me-guarantee-overlay__badges) { 
+    margin: 44px 0 56px; 
+    font-size: 22px; 
+    line-height: 1.4;
+  }
+  #me-guarantee-overlay-{{ sid }} .me-guarantee-overlay__desktop-copy > :nth-child(n + 3):not(.me-guarantee-overlay__badges) { 
+    margin: 15px 0px 0px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  #me-guarantee-overlay-{{ sid }} .me-guarantee-overlay__badges {
+     display: block; 
+     width: min(100%, 430px);
+     margin-top: 120px;
+  }
+  @media screen and (max-width: 749px) {
+    #me-guarantee-overlay-{{ sid }} .me-guarantee-overlay__placeholder { min-height: 1000px; }
+    #me-guarantee-overlay-{{ sid }} .me-guarantee-overlay__content { 
+      top: 43%; 
+      left: 0px;
+      width: 100%;
+      padding: 0px 30px;
+
+    }
+    #me-guarantee-overlay-{{ sid }} .me-guarantee-overlay__desktop-copy { display: none; }
+    #me-guarantee-overlay-{{ sid }} .me-guarantee-overlay__mobile-copy { display: block; }
+    #me-guarantee-overlay-{{ sid }} .me-guarantee-overlay__mobile-copy > :first-child { 
+      font-size: 32px;
+      line-height: 1.4; 
+    }
+    #me-guarantee-overlay-{{ sid }} .me-guarantee-overlay__mobile-copy > :not(:first-child):not(.me-guarantee-overlay__badges) { 
+      margin: 24px 0px 0px; 
+      font-size: clamp(16px, calc(5vw - 3.5px), 18px);
+    }
+    #me-guarantee-overlay-{{ sid }} .me-guarantee-overlay__mobile-copy > :nth-child(n + 3):not(.me-guarantee-overlay__badges) {
+       margin: 20px 0px 0px; 
+       font-size: clamp(14px, calc(5vw - 5.5px), 16px);
+    }
+    #me-guarantee-overlay-{{ sid }} .me-guarantee-overlay__badges { 
+      width: 100%; 
+      margin: 32px 0px; 
+    }
+    #me-guarantee-overlay-{{ sid }} .me-guarantee-overlay__badges + :not(.me-guarantee-overlay__badges) {
+       margin: 30px 0px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Ulike ME 保证图文叠加",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "PC 底图" },
+    { "type": "image_picker", "id": "image_mobile", "label": "移动端底图" },
+    {
+      "type": "html",
+      "id": "title_html",
+      "label": "PC 标题（HTML）",
+      "default": "<p>長く安心して使える<br><span style=\"color:#69b9f5;\">「トリプル保証」</span></p>"
+    },
+    {
+      "type": "html",
+      "id": "copy_html",
+      "label": "PC 副标题（HTML）",
+      "default": "<p>90日トライアル・2年保証・30万回寿命で、<br>長く使える一台へ。</p>"
+    },
+    {
+      "type": "html",
+      "id": "body_html",
+      "label": "PC 正文（HTML）",
+      "default": "<p>初めてのムダ毛ケアだからこそ、「もし効果がなかったら」「すぐ壊れたら」という不安は尽きないもの。</p><p>Ulike Meは、リスクなくじっくり試せる「90日間の全額返金保証」と、万が一の時も安心な「2年間のメーカー保証」をご用意。さらに、最大30万回の長寿命ランプを採用し、これ一台で全身のケアを回数を気にせず好きなだけ続けられる耐久性を叶えました。</p><p>先まで見据えた安心感で、あなたの「初めて」に寄り添います。</p>"
+    },
+    {
+      "type": "html",
+      "id": "title_html_mobile",
+      "label": "移动端标题（HTML）",
+      "default": "<p>長く安心して使える<br><span style=\"color:#69b9f5;\">「トリプル保証」</span></p>"
+    },
+    {
+      "type": "html",
+      "id": "copy_html_mobile",
+      "label": "移动端副标题（HTML）",
+      "default": "<p>90日トライアル・2年保証・30万回寿命で、<br>長く使える一台へ。</p>"
+    },
+    {
+      "type": "html",
+      "id": "body_html_mobile",
+      "label": "移动端正文（HTML）",
+      "default": "<p>初めてのムダ毛ケアだからこそ、「もし効果がなかったら」「すぐ壊れたら」という不安は尽きないもの。</p><p>Ulike Meは、リスクなくじっくり試せる「90日間の全額返金保証」と、万が一の時も安心な「2年間のメーカー保証」をご用意。さらに、最大30万回の長寿命ランプを採用し、これ一台で全身のケアを回数を気にせず好きなだけ続けられる耐久性を叶えました。</p><p>先まで見据えた安心感で、あなたの「初めて」に寄り添います。</p>"
+    },
+    { "type": "image_picker", "id": "badge_image", "label": "保证图标" },
+    {
+      "type": "range",
+      "id": "desktop_content_left",
+      "label": "PC 文案左侧位置",
+      "min": 0,
+      "max": 90,
+      "step": 1,
+      "unit": "%",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "desktop_content_top",
+      "label": "PC 文案顶部位置",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "mobile_content_left",
+      "label": "移动端文案左侧位置",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "%",
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "mobile_content_top",
+      "label": "移动端文案顶部位置",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 49
+    },
+    { "type": "color", "id": "text_color", "label": "文案颜色", "default": "#111111" },
+    { "type": "color", "id": "background", "label": "背景颜色", "default": "#edf4fc" }
+  ],
+  "presets": [{ "name": "Ulike 保证图文叠加" }]
+}
+{% endschema %}

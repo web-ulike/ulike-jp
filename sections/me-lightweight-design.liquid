@@ -1,4 +1,168 @@
-{% assign sid = section.id %}<section id="me-lightweight-{{ sid }}" class="me-lightweight" style="--bg:{{ section.settings.background }}">{% if section.settings.image != blank %}<div class="me-lightweight__pc-image">{{ section.settings.image | image_url: width:2400 | image_tag: loading: 'lazy', widths: '750, 1200, 1600, 1920, 2400' }}</div>{% endif %}<div class="me-lightweight__copy"><div class="me-lightweight__pc">{{ section.settings.title_html }}{{ section.settings.copy_html }}</div><div class="me-lightweight__mobile">{{ section.settings.title_html_mobile }}{{ section.settings.copy_html_mobile }}</div></div><div class="me-lightweight__mobile-media">{% if section.settings.mobile_balance_image != blank %}{{ section.settings.mobile_balance_image | image_url: width:800 | image_tag: loading: 'lazy', widths: '360, 560, 800' }}{% endif %}{% if section.settings.mobile_product_image != blank %}{{ section.settings.mobile_product_image | image_url: width:800 | image_tag: loading: 'lazy', widths: '360, 560, 800' }}{% endif %}</div></section><style>#me-lightweight-{{ sid }}{position:relative;min-height:720px;overflow:hidden;background:var(--bg)}#me-lightweight-{{ sid }} .me-lightweight__pc-image{position:absolute;inset:0}#me-lightweight-{{ sid }} .me-lightweight__pc-image img{display:block;width:100%;height:100%;object-fit:cover}#me-lightweight-{{ sid }} .me-lightweight__copy{position:relative;z-index:1;width:min(500px,35vw);padding-top:140px;margin:auto;color:#111}#me-lightweight-{{ sid }} h2,#me-lightweight-{{ sid }} h3{margin:0;font-size:40px;line-height:1.28}#me-lightweight-{{ sid }} p{margin:24px 0 0;font-size:12px;line-height:1.8}#me-lightweight-{{ sid }} .me-lightweight__mobile,#me-lightweight-{{ sid }} .me-lightweight__mobile-media{display:none}@media(max-width:749px){#me-lightweight-{{ sid }}{min-height:0}#me-lightweight-{{ sid }} .me-lightweight__pc-image,#me-lightweight-{{ sid }} .me-lightweight__pc{display:none}#me-lightweight-{{ sid }} .me-lightweight__copy{width:auto;padding:38px 16px 22px;margin:0}#me-lightweight-{{ sid }} .me-lightweight__mobile{display:block}#me-lightweight-{{ sid }} h2,#me-lightweight-{{ sid }} h3{font-size:23px}#me-lightweight-{{ sid }} p{margin-top:14px;font-size:12px;line-height:1.7}#me-lightweight-{{ sid }} .me-lightweight__mobile-media{display:block}#me-lightweight-{{ sid }} .me-lightweight__mobile-media img{display:block;width:100%;height:auto}}
-  #me-lightweight-{{ sid }} .me-lightweight__pc > :first-child{margin:0;font-size:48px;font-weight:500;line-height:1.4;letter-spacing:-.035em}#me-lightweight-{{ sid }} .me-lightweight__pc > :not(:first-child){margin:24px 0 0;font-size:14px;line-height:1.65}@media(max-width:749px){#me-lightweight-{{ sid }} .me-lightweight__mobile > :first-child{margin:0;font-size:30px;font-weight:600;line-height:1.4}#me-lightweight-{{ sid }} .me-lightweight__mobile > :not(:first-child){margin:14px 0 0;font-size:13px;line-height:1.65}}
+{%- liquid
+  assign sid = section.id
+  assign st = section.settings
+  assign mobile_image = st.image_mobile | default: st.mobile_balance_image | default: st.mobile_product_image
+
+  capture default_desktop_title
+    echo '<p>「重くて使いにくい…」を、この軽さが<br><span style="color:#75B5ED;">変える</span></p>'
+  endcapture
+  capture default_mobile_title
+    echo '<p>「重くて使いにくい…」を、<br>この軽さが<span style="color:#75B5ED;">変える</span></p>'
+  endcapture
+  capture default_body
+    echo '<p>「重くて腕が疲れてしまう」「ずっしり重くて続かない」――そんなおうちケアの負担をなくすために、Ulike Meは軽量化を追求。</p><p>実測わずか287gという軽さは、リンゴ1個よりも軽量。<span style="background:#75B5ED;color:#fff;">片手で使えて</span>、長時間のケアでも手首への負担になりません。</p><p>さらに、コンパクトなボディは、バッグにもスッキリ収納可能。<span style="background:#75B5ED;color:#fff;">旅行や帰省先にも気軽に持ち運べます。</span>この軽さだからこそ、毎日のルーティンをもっと楽に、気軽に実現。</p>'
+  endcapture
+  capture default_weight_title
+    echo '<p>リンゴ1個よりも軽い</p>'
+  endcapture
+-%}
+
+<section id="me-lightweight-{{ sid }}" class="me-lightweight" style="--me-lightweight-bg: {{ st.background }};">
+  {% if st.image != blank %}
+    <div class="me-lightweight__desktop-image">
+      {{ st.image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '750, 1200, 1600, 1920, 2400', sizes: '100vw' }}
+    </div>
+  {% endif %}
+
+  <div class="me-lightweight__desktop-copy">
+    {{ st.title_html | default: default_desktop_title | replace_first: '<p', '<p class="to-top"' }}
+    <div class="me-lightweight__body to-top" style="transition-delay: 0.2s">{{ st.body_html | default: default_body }}</div>
+  </div>
+
+  <div class="me-lightweight__mobile-content">
+    {% if mobile_image != blank %}
+      <picture class="me-lightweight__mobile-image">
+        {{ mobile_image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '500, 750, 1000, 1200', sizes: '100vw' }}
+      </picture>
+    {% endif %}
+
+    <div class="me-lightweight__mobile-copy">
+      {{ st.title_html_mobile | default: st.title_html | default: default_mobile_title | replace_first: '<p', '<p class="to-top"' }}
+      <div class="me-lightweight__body to-top" style="transition-delay: 0.2s">{{ st.body_html_mobile | default: st.body_html | default: default_body }}</div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #me-lightweight-{{ sid }} {
+    position: relative;
+    min-height: 1000px;
+    overflow: hidden;
+    background: var(--me-lightweight-bg);
+    color: #000;
+  }
+
+  #me-lightweight-{{ sid }} .me-lightweight__desktop-image {
+    position: absolute;
+    inset: 0;
+  }
+
+  #me-lightweight-{{ sid }} .me-lightweight__desktop-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #me-lightweight-{{ sid }} .me-lightweight__desktop-copy {
+    position: relative;
+    z-index: 1;
+    width: 928px;
+    margin-left: clamp(38%, 39.3vw, 41%);
+    padding-top: 6.5vw;
+  }
+
+  #me-lightweight-{{ sid }} .me-lightweight__desktop-copy > :first-child,
+  #me-lightweight-{{ sid }} .me-lightweight__mobile-copy > :first-child {
+    margin: 0;
+    font-size: 48px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  #me-lightweight-{{ sid }} .me-lightweight__body {
+    margin-top: 70px;
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 450px;
+  }
+
+  #me-lightweight-{{ sid }} .me-lightweight__body p + p {
+    margin-top: 20px;
+  }
+
+  #me-lightweight-{{ sid }} .me-lightweight__mobile-content {
+    display: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    #me-lightweight-{{ sid }} {
+      min-height: 0;
+    }
+
+    #me-lightweight-{{ sid }} .me-lightweight__desktop-image,
+    #me-lightweight-{{ sid }} .me-lightweight__desktop-copy {
+      display: none;
+    }
+
+    #me-lightweight-{{ sid }} .me-lightweight__mobile-content {
+      display: block;
+      position: relative;
+      min-height: 1000px;
+    }
+
+    #me-lightweight-{{ sid }} .me-lightweight__mobile-copy {
+      position: absolute;
+      z-index: 1;
+      top: 55px;
+      left: 0;
+      width: 100%;
+      padding: 0px 20px;
+    }
+
+    #me-lightweight-{{ sid }} .me-lightweight__mobile-copy > :first-child {
+      font-size: clamp(26px, calc(5vw + 8px), 30px);
+      line-height: 1.4;
+    }
+
+    #me-lightweight-{{ sid }} .me-lightweight__mobile-copy .me-lightweight__body {
+      margin-top: 25px;
+      font-size: 14px;
+    }
+
+    #me-lightweight-{{ sid }} .me-lightweight__mobile-copy .me-lightweight__body p + p {
+      margin-top: 20px;
+    }
+
+    #me-lightweight-{{ sid }} .me-lightweight__mobile-image,
+    #me-lightweight-{{ sid }} .me-lightweight__mobile-image img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    #me-lightweight-{{ sid }} .me-lightweight__mobile-image + .me-lightweight__mobile-copy {
+      min-height: 0;
+    }
+  }
 </style>
-{% schema %}{"name":"Ulike ME 轻量设计模块","settings":[{"type":"image_picker","id":"image","label":"PC 背景图"},{"type":"html","id":"title_html","label":"PC 标题（HTML）"},{"type":"html","id":"copy_html","label":"PC 描述（HTML）"},{"type":"html","id":"title_html_mobile","label":"移动端标题（HTML）"},{"type":"html","id":"copy_html_mobile","label":"移动端描述（HTML）"},{"type":"image_picker","id":"mobile_balance_image","label":"移动端天平图片"},{"type":"image_picker","id":"mobile_product_image","label":"移动端产品图片"},{"type":"color","id":"background","label":"背景","default":"#eef6ff"}],"presets":[{"name":"Ulike ME 轻量设计模块"}]}{% endschema %}
+
+{% schema %}
+{
+  "name": "Ulike 轻量设计模块",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "PC 背景图" },
+    { "type": "image_picker", "id": "image_mobile", "label": "移动端底图（含天平、重量与产品画面）" },
+    { "type": "html", "id": "title_html", "label": "PC 标题（HTML）", "default": "<p>「重くて使いにくい…」を、この軽さが<br><span style=\"color:#75B5ED;\">変える</span></p>" },
+    { "type": "html", "id": "body_html", "label": "PC 正文（HTML）", "default": "<p>「重くて腕が疲れてしまう」「ずっしり重くて続かない」――そんなおうちケアの負担をなくすために、Ulike Meは軽量化を追求。</p><p>実測わずか287gという軽さは、リンゴ1個よりも軽量。<span style=\"background:#75B5ED;color:#fff;\">片手で使えて</span>、長時間のケアでも手首への負担になりません。</p><p>さらに、コンパクトなボディは、バッグにもスッキリ収納可能。<span style=\"background:#75B5ED;color:#fff;\">旅行や帰省先にも気軽に持ち運べます。</span>この軽さだからこそ、毎日のルーティンをもっと楽に、気軽に実現。</p>" },
+    { "type": "html", "id": "title_html_mobile", "label": "移动端标题（HTML）", "default": "<p>「重くて使いにくい…」を、<br>この軽さが<span style=\"color:#75B5ED;\">変える</span></p>" },
+    { "type": "html", "id": "body_html_mobile", "label": "移动端正文（HTML）", "default": "<p>「重くて腕が疲れてしまう」「ずっしり重くて続かない」――そんなおうちケアの負担をなくすために、Ulike Meは軽量化を追求。</p><p>実測わずか287gという軽さは、リンゴ1個よりも軽量。<span style=\"background:#75B5ED;color:#fff;\">片手で使えて</span>、長時間のケアでも手首への負担になりません。</p><p>さらに、コンパクトなボディは、バッグにもスッキリ収納可能。<span style=\"background:#75B5ED;color:#fff;\">旅行や帰省先にも気軽に持ち運べます。</span>この軽さだからこそ、毎日のルーティンをもっと楽に、気軽に実現。</p>" },
+    { "type": "image_picker", "id": "mobile_balance_image", "label": "移动端天平图片" },
+    { "type": "html", "id": "weight_html", "label": "重量说明（HTML）", "default": "<p>リンゴ1個よりも軽い</p>" },
+    { "type": "image_picker", "id": "weight_image", "label": "重量圆形标识图片" },
+    { "type": "image_picker", "id": "mobile_product_image", "label": "移动端产品图片" },
+    { "type": "color", "id": "background", "label": "背景", "default": "#e9f2fc" }
+  ],
+  "presets": [{ "name": "Ulike 轻量设计模块" }]
+}
+{% endschema %}

@@ -1,26 +1,244 @@
-{% assign sid = section.id %}
-<section id="me-painless-care-{{ sid }}" class="me-painless-care" style="--me-bg:{{ section.settings.background }};--me-color:{{ section.settings.text_color }};">
+{%- liquid
+  assign sid = section.id
+  assign st = section.settings
+  assign desktop_main_image = st.image | default: st.image_mobile
+  assign desktop_cooling_image = st.bottom_image | default: st.bottom_image_mobile
+
+  capture default_title
+    echo '<p>ケアの「痛み」も「面倒臭さ」も、<br><span style="color:#75B5ED;">これ1台で解決。</span></p>'
+  endcapture
+  capture default_copy
+    echo '<p>電源オンしてすぐ照射面を5°C以下に冷却*²。<br>保冷剤いらずの、ひんやり快適ケア。</p>'
+  endcapture
+  capture default_body
+    echo '<p>「痛いのは嫌」「準備も面倒」――そんな不安で、第一歩を踏み出せずにムダ毛ケアを諦めていませんか？</p><p>Ulike Meは、ブランド独自の<span style="background:#75B5ED;color:#fff;">特許取得済みサファイア冷感技術</span>を搭載。電源オンしてすぐに<span style="background:#75B5ED;color:#fff;">照射面が5°C以下</span>*²へ到達し、フラッシュの瞬間もしっかりと肌表面を冷却。</p><p>面倒な保冷剤やジェルを準備する手間は一切不要。初めてのムダ毛ケアへの不安から解放される、新しいホームケア習慣をあなたに。</p>'
+  endcapture
+  capture default_footnote
+    echo '<p>*2：電源投入後、未照射の状態で照射面が5°C以下に達するまでの時間は約2分（当社試験データによる）。温度の感じ方には個人差があります。また、本製品は家庭用美容機器であり、医療機器ではありません。</p>'
+  endcapture
+-%}
+
+<section id="me-painless-care-{{ sid }}" class="me-painless-care" style="--me-painless-bg: {{ st.background }}; --me-painless-color: {{ st.text_color }};">
   <div class="me-painless-care__inner">
-    <div class="me-painless-care__left">
-      <div class="me-painless-care__desktop">{{ section.settings.title_html }}{{ section.settings.description_html }}</div>
-      <div class="me-painless-care__mobile">{{ section.settings.title_html_mobile }}{{ section.settings.description_html_mobile }}</div>
-      {% if section.settings.bottom_image != blank or section.settings.bottom_image_mobile != blank %}
-        {% assign bottom = section.settings.bottom_image | default: section.settings.bottom_image_mobile %}
-        <picture class="me-painless-care__bottom">{% if section.settings.bottom_image_mobile != blank %}<source media="(max-width:749px)" srcset="{{ section.settings.bottom_image_mobile | image_url: width:720 }}">{% endif %}{{ bottom | image_url: width:900 | image_tag: loading: 'lazy', widths: '320, 480, 720, 900' }}</picture>
-      {% endif %}
+    <div class="me-painless-care__heading me-painless-care__desktop-heading">
+      {{ st.title_html | default: default_title | replace_first: '<p', '<p class="to-top"' }}
+      {{ st.description_html | default: default_copy | replace_first: '<p', '<p class="me-painless-care__copy to-top" style="transition-delay: 0.1s"' }}
     </div>
-    <div class="me-painless-care__right">
-      {% if section.settings.image != blank or section.settings.image_mobile != blank %}
-        {% assign main = section.settings.image | default: section.settings.image_mobile %}
-        <picture>{% if section.settings.image_mobile != blank %}<source media="(max-width:749px)" srcset="{{ section.settings.image_mobile | image_url: width:1000 }}">{% endif %}{{ main | image_url: width:1400 | image_tag: class: 'me-painless-care__image', loading: 'lazy', widths: '500, 750, 1000, 1400' }}</picture>
-      {% endif %}
+
+    <div class="me-painless-care__heading me-painless-care__mobile-heading">
+      {{ st.title_html_mobile | default: st.title_html | default: default_title | replace_first: '<p', '<p class="to-top"' }}
+      {{ st.description_html_mobile | default: st.description_html | default: default_copy | replace_first: '<p', '<p class="me-painless-care__copy to-top" style="transition-delay: 0.1s"' }}
     </div>
+
+    {% if desktop_main_image != blank %}
+      <picture class="me-painless-care__main-image to-top" style="transition-delay: 0.2s">
+        {% if st.image_mobile != blank %}
+          <source media="(max-width: 749px)" srcset="{{ st.image_mobile | image_url: width: 1200 }}">
+        {% endif %}
+        {{ desktop_main_image | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '500, 750, 1000, 1400, 1600', sizes: '(max-width: 749px) 100vw, 50vw' }}
+      </picture>
+    {% endif %}
+
+    {% if desktop_cooling_image != blank %}
+      <picture class="me-painless-care__cooling-image to-top" style="transition-delay: 0.3s">
+        {% if st.bottom_image_mobile != blank %}
+          <source media="(max-width: 749px)" srcset="{{ st.bottom_image_mobile | image_url: width: 1200 }}">
+        {% endif %}
+        {{ desktop_cooling_image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '500, 750, 1000', sizes: '(max-width: 749px) 100vw, 24vw' }}
+      </picture>
+    {% endif %}
+
+    <div class="me-painless-care__body me-painless-care__desktop-body to-top" style="transition-delay: 0.2s">{{ st.body_html | default: default_body }}</div>
+    <div class="me-painless-care__body me-painless-care__mobile-body to-top" style="transition-delay: 0.4s">{{ st.body_html_mobile | default: st.body_html | default: default_body }}</div>
+    <div class="me-painless-care__footnote to-top" style="transition-delay: 0.5s">{{ st.footnote_html | default: default_footnote }}</div>
   </div>
 </section>
+
 <style>
- #me-painless-care-{{ sid }}{padding:136px 24px 128px;background:var(--me-bg);color:var(--me-color)}#me-painless-care-{{ sid }} .me-painless-care__inner{display:grid;grid-template-columns:360px minmax(0,570px);align-items:center;gap:92px;width:min(1100px,100%);margin:auto}#me-painless-care-{{ sid }} .me-painless-care__left{align-self:start;padding-top:4px}#me-painless-care-{{ sid }} h2,#me-painless-care-{{ sid }} h3{margin:0;font-size:32px;line-height:1.3;letter-spacing:-.035em;font-weight:600}#me-painless-care-{{ sid }} p{margin:22px 0 0;font-size:12px;line-height:1.75;letter-spacing:-.01em}#me-painless-care-{{ sid }} .me-painless-care__bottom{display:block;width:270px;max-width:100%;margin-top:38px}#me-painless-care-{{ sid }} .me-painless-care__bottom img{display:block;width:100%;height:auto}#me-painless-care-{{ sid }} .me-painless-care__right{width:100%}#me-painless-care-{{ sid }} .me-painless-care__image{display:block;width:100%;aspect-ratio:1.29;object-fit:cover}#me-painless-care-{{ sid }} .me-painless-care__mobile{display:none}@media(max-width:749px){#me-painless-care-{{ sid }}{padding:48px 16px 0}#me-painless-care-{{ sid }} .me-painless-care__inner{display:flex;flex-direction:column;gap:28px;width:100%}#me-painless-care-{{ sid }} .me-painless-care__left{padding-top:0}#me-painless-care-{{ sid }} .me-painless-care__desktop{display:none}#me-painless-care-{{ sid }} .me-painless-care__mobile{display:block}#me-painless-care-{{ sid }} h2,#me-painless-care-{{ sid }} h3{font-size:23px}#me-painless-care-{{ sid }} p{margin-top:13px;font-size:11px;line-height:1.7}#me-painless-care-{{ sid }} .me-painless-care__bottom{width:240px;margin:26px auto 0}#me-painless-care-{{ sid }} .me-painless-care__image{aspect-ratio:auto}}
-  #me-painless-care-{{ sid }} .me-painless-care__desktop > :first-child{margin:0;font-size:48px;font-weight:500;line-height:1.4;letter-spacing:-.035em}#me-painless-care-{{ sid }} .me-painless-care__desktop > :not(:first-child){margin:24px 0 0;font-size:14px;line-height:1.5;letter-spacing:0}@media(max-width:749px){#me-painless-care-{{ sid }} .me-painless-care__mobile > :first-child{margin:0;font-size:25px;font-weight:600;line-height:1.4}#me-painless-care-{{ sid }} .me-painless-care__mobile > :not(:first-child){margin:14px 0 0;font-size:13px;line-height:1.65}}
+  #me-painless-care-{{ sid }} {
+    padding: 126px 24px 136px;
+    background: var(--me-painless-bg);
+    color: var(--me-painless-color);
+  }
+
+  #me-painless-care-{{ sid }} .me-painless-care__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 435px) minmax(0, 1fr);
+    grid-template-rows: auto auto auto auto;
+    column-gap: clamp(72px, 7vw, 134px);
+    row-gap: 0;
+    width: min(1268px, 100%);
+    margin: 0 auto;
+  }
+
+  #me-painless-care-{{ sid }} .me-painless-care__heading {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  #me-painless-care-{{ sid }} .me-painless-care__desktop-heading > :first-child,
+  #me-painless-care-{{ sid }} .me-painless-care__mobile-heading > :first-child {
+    margin: 0;
+    font-size: 48px;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 0;
+  }
+
+  #me-painless-care-{{ sid }} .me-painless-care__copy {
+    margin: 40px 0 0;
+    max-width: 520px;
+    font-size: 22px;
+    line-height: 1.4;
+  }
+
+  #me-painless-care-{{ sid }} .me-painless-care__main-image {
+    display: block;
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    align-self: end;
+    width: 100%;
+  }
+
+  #me-painless-care-{{ sid }} .me-painless-care__main-image img,
+  #me-painless-care-{{ sid }} .me-painless-care__cooling-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  #me-painless-care-{{ sid }} .me-painless-care__desktop-body {
+    display: block;
+    grid-column: 1;
+    grid-row: 2;
+    margin-top: 76px;
+  }
+
+  #me-painless-care-{{ sid }} .me-painless-care__body {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  #me-painless-care-{{ sid }} .me-painless-care__body p,
+  #me-painless-care-{{ sid }} .me-painless-care__footnote p {
+    margin: 0;
+  }
+
+  #me-painless-care-{{ sid }} .me-painless-care__body p + p {
+    margin-top: 10px;
+  }
+
+  #me-painless-care-{{ sid }} .me-painless-care__cooling-image {
+    display: block;
+    grid-column: 1;
+    grid-row: 3;
+    width: min(100%, 430px);
+    margin-top: 40px;
+  }
+
+  #me-painless-care-{{ sid }} .me-painless-care__mobile-heading,
+  #me-painless-care-{{ sid }} .me-painless-care__mobile-body {
+    display: none;
+  }
+
+  #me-painless-care-{{ sid }} .me-painless-care__footnote {
+    grid-column: 2;
+    grid-row: 4;
+    margin-top: 40px;
+    color: rgba(0, 0, 0, .45);
+    font-size: 10px;
+    line-height: 1.5;
+  }
+
+  @media screen and (max-width: 749px) {
+    #me-painless-care-{{ sid }} {
+      padding: 36px 16px 56px;
+    }
+
+    #me-painless-care-{{ sid }} .me-painless-care__inner {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    #me-painless-care-{{ sid }} .me-painless-care__desktop-heading,
+    #me-painless-care-{{ sid }} .me-painless-care__desktop-body {
+      display: none;
+    }
+
+    #me-painless-care-{{ sid }} .me-painless-care__mobile-heading,
+    #me-painless-care-{{ sid }} .me-painless-care__mobile-body {
+      display: block;
+    }
+
+    #me-painless-care-{{ sid }} .me-painless-care__mobile-heading {
+      order: 1;
+    }
+
+    #me-painless-care-{{ sid }} .me-painless-care__mobile-heading > :first-child {
+      font-size: 25px;
+      line-height: 1.5;
+      letter-spacing: -.12em;
+      white-space: nowrap;
+    }
+
+    #me-painless-care-{{ sid }} .me-painless-care__copy {
+      margin-top: 20px;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    #me-painless-care-{{ sid }} .me-painless-care__main-image {
+      order: 2;
+      width: 100%;
+      margin-top: 32px;
+    }
+
+    #me-painless-care-{{ sid }} .me-painless-care__cooling-image {
+      order: 3;
+      width: 100%;
+      margin-top: 30px;
+    }
+
+    #me-painless-care-{{ sid }} .me-painless-care__mobile-body {
+      order: 4;
+      margin-top: 40px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    #me-painless-care-{{ sid }} .me-painless-care__body p + p {
+      margin-top: 10px;
+    }
+
+    #me-painless-care-{{ sid }} .me-painless-care__footnote {
+      order: 5;
+      margin-top: 30px;
+      color: rgba(0, 0, 0, .45);
+      font-size: 10px;
+      line-height: 1.5;
+    }
+  }
 </style>
+
 {% schema %}
-{"name":"Ulike ME 痛み解決模块","settings":[{"type":"html","id":"title_html","label":"PC 左侧标题（HTML）"},{"type":"html","id":"description_html","label":"PC 左侧描述（HTML）"},{"type":"html","id":"title_html_mobile","label":"移动端标题（HTML）"},{"type":"html","id":"description_html_mobile","label":"移动端描述（HTML）"},{"type":"image_picker","id":"bottom_image","label":"PC 左下图片"},{"type":"image_picker","id":"bottom_image_mobile","label":"移动端底部图片"},{"type":"image_picker","id":"image","label":"PC 右侧图片"},{"type":"image_picker","id":"image_mobile","label":"移动端右侧图片"},{"type":"color","id":"background","label":"背景","default":"#ffffff"},{"type":"color","id":"text_color","label":"文字颜色","default":"#111111"}],"presets":[{"name":"Ulike ME 痛み解決模块"}]}
+{
+  "name": "Ulike 痛み解決模块",
+  "settings": [
+    { "type": "html", "id": "title_html", "label": "PC 标题（HTML）", "default": "<p>ケアの「痛み」も「面倒臭さ」も、<br><span style=\"color:#75B5ED;\">これ1台で解決。</span></p>" },
+    { "type": "html", "id": "description_html", "label": "PC 副标题（HTML）", "default": "<p>電源オンしてすぐ照射面を5°C以下に冷却*²。<br>保冷剤いらずの、ひんやり快適ケア。</p>" },
+    { "type": "html", "id": "body_html", "label": "PC 正文（HTML）", "default": "<p>「痛いのは嫌」「準備も面倒」――そんな不安で、第一歩を踏み出せずにムダ毛ケアを諦めていませんか？</p><p>Ulike Meは、ブランド独自の<span style=\"background:#75B5ED;color:#fff;\">特許取得済みサファイア冷感技術</span>を搭載。電源オンしてすぐに<span style=\"background:#75B5ED;color:#fff;\">照射面が5°C以下</span>*²へ到達し、フラッシュの瞬間もしっかりと肌表面を冷却。</p><p>面倒な保冷剤やジェルを準備する手間は一切不要。初めてのムダ毛ケアへの不安から解放される、新しいホームケア習慣をあなたに。</p>" },
+    { "type": "html", "id": "title_html_mobile", "label": "移动端标题（HTML）", "default": "<p>ケアの「痛み」も「面倒臭さ」も、<br><span style=\"color:#75B5ED;\">これ1台で解決。</span></p>" },
+    { "type": "html", "id": "description_html_mobile", "label": "移动端副标题（HTML）", "default": "<p>電源オンしてすぐ照射面を5°C以下に冷却*²。<br>保冷剤いらずの、ひんやり快適ケア。</p>" },
+    { "type": "html", "id": "body_html_mobile", "label": "移动端正文（HTML）", "default": "<p>「痛いのは嫌」「準備も面倒」――そんな不安で、第一歩を踏み出せずにムダ毛ケアを諦めていませんか？</p><p>Ulike Meは、ブランド独自の<span style=\"background:#75B5ED;color:#fff;\">特許取得済みサファイア冷感技術</span>を搭載。電源オンしてすぐに<span style=\"background:#75B5ED;color:#fff;\">照射面が5°C以下</span>*²へ到達し、フラッシュの瞬間もしっかりと肌表面を冷却。</p><p>面倒な保冷剤やジェルを準備する手間は一切不要。初めてのムダ毛ケアへの不安から解放される、新しいホームケア習慣をあなたに。</p>" },
+    { "type": "image_picker", "id": "image", "label": "PC 右侧主图" },
+    { "type": "image_picker", "id": "image_mobile", "label": "移动端主图" },
+    { "type": "image_picker", "id": "bottom_image", "label": "PC 冷却效果图" },
+    { "type": "image_picker", "id": "bottom_image_mobile", "label": "移动端冷却效果图" },
+    { "type": "html", "id": "footnote_html", "label": "脚注（HTML）", "default": "<p>*2：電源投入後、未照射の状態で照射面が5°C以下に達するまでの時間は約2分（当社試験データによる）。温度の感じ方には個人差があります。また、本製品は家庭用美容機器であり、医療機器ではありません。</p>" },
+    { "type": "color", "id": "background", "label": "背景", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "文字颜色", "default": "#000000" }
+  ],
+  "presets": [{ "name": "Ulike 痛み解決模块" }]
+}
 {% endschema %}
