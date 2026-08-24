@@ -1,0 +1,547 @@
+{%- assign timeline_id = 'about-timeline-' | append: section.id -%}
+<section id="{{ timeline_id }}" class="about-timeline-2026 section-{{ section.id }}-padding" data-about-timeline>
+  <div class="about-timeline-2026__stage">
+      <div class="about-timeline-2026__viewport" data-timeline-viewport>
+        <div class="about-timeline-2026__track">
+          <span class="about-timeline-2026__axis" aria-hidden="true">
+            <svg
+              class="about-timeline-2026__axis-desktop"
+              xmlns="http://www.w3.org/2000/svg"
+              width="12"
+              height="13"
+              viewBox="0 0 12 13"
+              fill="none"
+            >
+              <path d="M8.86091e-08 6.43512L11.1459 2.87431e-05L11.1459 12.8702L8.86091e-08 6.43512Z" fill="#B3B3B3"/>
+            </svg>
+            <svg
+              class="about-timeline-2026__axis-mobile"
+              xmlns="http://www.w3.org/2000/svg"
+              width="10.888"
+              height="10"
+              viewBox="0 0 10.8883 9.42957"
+              fill="none"
+            >
+              <path d="M5.44416 0L10.8883 9.42957H0L5.44416 0Z" fill="#B3B3B3"/>
+            </svg>
+          </span>
+          {%- for block in section.blocks -%}
+            <article
+              class="about-timeline-2026__item about-timeline-2026__item--{% if block.type == 'itemtop' %}top{% else %}bottom{% endif %}"
+              style="grid-column: {{ forloop.index }};"
+              data-timeline-item
+              {% if forloop.index > 6 %}data-timeline-collapsed{% endif %}
+              {{ block.shopify_attributes }}
+            >
+              <div class="about-timeline-2026__branch" aria-hidden="true"></div>
+              <div class="about-timeline-2026__content">
+                <p class="about-timeline-2026__date">{{ block.settings.timeline_time }}</p>
+                <div class="about-timeline-2026__copy">
+                  {%- if block.settings.tle != blank -%}
+                    <div class="about-timeline-2026__title">{{ block.settings.tle }}</div>
+                  {%- endif -%}
+                  {%- if block.settings.des != blank -%}
+                    <div class="about-timeline-2026__description">{{ block.settings.des }}</div>
+                  {%- endif -%}
+                </div>
+                {%- if block.settings.image != blank or block.settings.image_mobile != blank -%}
+                  <picture class="about-timeline-2026__media">
+                    {%- if block.settings.image_mobile != blank -%}
+                      <source
+                        media="(max-width: 749px)"
+                        srcset="{{ block.settings.image_mobile | image_url: width: 420 }}"
+                      >
+                    {%- endif -%}
+                    {%- if block.settings.image != blank -%}
+                      {{
+                        block.settings.image
+                        | image_url: width: 500
+                        | image_tag: loading: 'lazy', widths: '160, 250, 350, 500', class: 'about-timeline-2026__image'
+                      }}
+                    {%- else -%}
+                      {{
+                        block.settings.image_mobile
+                        | image_url: width: 420
+                        | image_tag: loading: 'lazy', widths: '160, 250, 350, 420', class: 'about-timeline-2026__image'
+                      }}
+                    {%- endif -%}
+                  </picture>
+                {%- endif -%}
+              </div>
+            </article>
+          {%- endfor -%}
+        </div>
+      </div>
+      <div class="about-timeline-2026__fade" aria-hidden="true"></div>
+      <div class="about-timeline-2026__mobile-fade" aria-hidden="true"></div>
+    </div>
+    <div class="about-timeline-2026__controls">
+      <input
+        id="{{ timeline_id }}-range"
+        class="about-timeline-2026__range"
+        type="range"
+        min="0"
+        max="100"
+        value="0"
+        step="1"
+        aria-label="{{ section.settings.slider_label }}"
+        data-timeline-range
+      >
+      <div class="about-timeline-2026__buttons">
+        <button
+          type="button"
+          class="about-timeline-2026__button"
+          aria-label="{{ section.settings.previous_label }}"
+          data-timeline-prev
+        >
+          <img src="{{ 'about-timeline-2026-prev.svg' | asset_url }}" alt="">
+        </button>
+        <button
+          type="button"
+          class="about-timeline-2026__button"
+          aria-label="{{ section.settings.next_label }}"
+          data-timeline-next
+        >
+          <img src="{{ 'about-timeline-2026-next.svg' | asset_url }}" alt="">
+        </button>
+      </div>
+    </div>
+  <div class="about-timeline-2026__mobile-toggle-wrap">
+      <button type="button" class="about-timeline-2026__mobile-toggle" aria-expanded="false" data-timeline-toggle>
+        <span data-timeline-toggle-label>{{ section.settings.expand_label }}</span>
+        <svg
+          class="about-timeline-2026__toggle-icon about-timeline-2026__toggle-icon--expand"
+          xmlns="http://www.w3.org/2000/svg"
+          width="17"
+          height="16"
+          viewBox="0 0 17 16"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path d="M1.92106 0.20743L8.35882 5.8773L14.7971 0.20743C15.327 -0.259288 16.7168 0.20743 16.7168 0.20743L8.35781 7.56912L0.000347128 0.20743C0.000347128 0.20743 1.39016 -0.259289 1.92106 0.20743Z" fill="currentColor"/>
+          <path d="M1.92106 8.41057L8.35882 14.0813L14.7971 8.41057C15.327 7.94385 16.7168 8.41057 16.7168 8.41057L8.35781 15.7741L0.00034677 8.41057C0.00034677 8.41057 1.39016 7.94385 1.92106 8.41057Z" fill="currentColor"/>
+        </svg>
+        <svg
+          class="about-timeline-2026__toggle-icon about-timeline-2026__toggle-icon--collapse"
+          xmlns="http://www.w3.org/2000/svg"
+          width="17"
+          height="16"
+          viewBox="0 0 17 16"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path d="M14.7957 15.5665L8.35797 9.89662L1.91971 15.5665C1.38984 16.0332 2.47358e-09 15.5665 2.47358e-09 15.5665L8.35898 8.20481L16.7164 15.5665C16.7164 15.5665 15.3266 16.0332 14.7957 15.5665Z" fill="currentColor"/>
+          <path d="M14.7957 7.36335L8.35797 1.69259L1.91971 7.36335C1.38984 7.83007 1.00295e-07 7.36335 1.00295e-07 7.36335L8.35898 -0.00022306L16.7164 7.36335C16.7164 7.36335 15.3266 7.83007 14.7957 7.36335Z" fill="currentColor"/>
+        </svg>
+      </button>
+  </div>
+</section>
+
+<style>
+  #shopify-section-{{ section.id }} { --timeline-bg: {{ section.settings.background }}; --timeline-card-width: 210px; --timeline-left-gutter: clamp(120px, 11.25vw, 216px); --timeline-leading-space: clamp(60px, 5.625vw, 108px); --timeline-step: clamp(135px, calc(15.3846vw - 56.615px), 250px); background: var(--timeline-bg); }
+  .section-{{ section.id }}-padding { padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px; }
+  .about-timeline-2026 { background: var(--timeline-bg); box-sizing: border-box; color: #000; overflow: hidden; padding-left: var(--timeline-left-gutter); }
+  .about-timeline-2026__stage { overflow: hidden; position: relative; }
+  .about-timeline-2026__stage::after { background: linear-gradient(270deg, #fff 24%, rgba(255,255,255,0) 100%); bottom: 0; content: ''; pointer-events: none; position: absolute; right: 0; top: 0; width: min(286px, 22vw); z-index: 5; }
+  .about-timeline-2026__viewport { cursor: grab; overflow-x: auto; overflow-y: hidden; padding: 0; scroll-behavior: smooth; scrollbar-width: none; }
+  .about-timeline-2026__viewport::-webkit-scrollbar { display: none; }
+  .about-timeline-2026__viewport.is-dragging { cursor: grabbing; scroll-behavior: auto; user-select: none; }
+  .about-timeline-2026__track { display: grid; grid-template-columns: repeat({{ section.blocks.size }}, var(--timeline-step)); grid-template-rows: 270px 285px; min-width: max-content; padding: 0 min(286px, 22vw) 18px var(--timeline-leading-space); position: relative; }
+  .about-timeline-2026__track::before { border-top: 1px dashed rgba(0, 0, 0, .3); content: ''; height: 0; left: 12px; position: absolute; right: 0; top: 270px; z-index: 0; }
+  .about-timeline-2026__axis { display: block; height: 13px; left: 0; position: absolute; top: calc(270px - 6.5px); width: 12px; z-index: 1; }
+  .about-timeline-2026__axis svg { display: block; height: 13px; width: 12px; }
+  .about-timeline-2026__axis-mobile { display: none !important; }
+  .about-timeline-2026__item { background-image: repeating-linear-gradient(to bottom, #b3b3b3 0 4px, transparent 4px 8px); background-position: left top; background-repeat: no-repeat; background-size: 1px 100%; display: flex; min-height: 0; position: relative; width: var(--timeline-card-width); z-index: 1; }
+  .about-timeline-2026__item--top { align-items: flex-start; grid-row: 1; }
+  .about-timeline-2026__item--bottom { align-items: flex-end; grid-row: 2; }
+  .about-timeline-2026__item::after { background: #b3b3b3; border-radius: 50%; content: ''; height: 7px; left: -3.5px; position: absolute; width: 7px; z-index: 2; }
+  .about-timeline-2026__item--top::after { bottom: -3.5px; }
+  .about-timeline-2026__item--bottom::after { top: -3.5px; }
+  .about-timeline-2026__branch { display: none; }
+  .about-timeline-2026__content { box-sizing: border-box; display: flex; flex: 0 0 auto; flex-direction: column; gap: 20px; margin-left: 22px; max-width: none; padding-left: 0; width: auto; }
+  .about-timeline-2026__item--top .about-timeline-2026__content { box-sizing: border-box; height: 100%; padding-bottom: 6px; }
+  .about-timeline-2026__item--top .about-timeline-2026__date { margin-top: auto; }
+  .about-timeline-2026__item--bottom .about-timeline-2026__content { align-self: flex-start; box-sizing: border-box; padding-top: 40px; }
+  .about-timeline-2026__item--bottom .about-timeline-2026__date { order: 0; }
+  .about-timeline-2026__item--bottom .about-timeline-2026__copy { order: 3; }
+  .about-timeline-2026__item--bottom .about-timeline-2026__media { order: 2; }
+  .about-timeline-2026__date { color: #e0004d; font-family: "Saans", "Noto Sans JP", sans-serif; font-size: clamp(17px, 1.25vw, 18px); font-weight: 500; line-height: 1.5; margin: 0; order: 3; }
+  .about-timeline-2026__copy { display: grid; gap: 10px; max-width: none; }
+  .about-timeline-2026__title, .about-timeline-2026__title p { font-family: "Noto Sans JP", sans-serif; font-size: 16px; font-weight: 500; line-height: 1.3; margin: 0; }
+  .about-timeline-2026__description, .about-timeline-2026__description p { color: rgba(0,0,0,.7); font-family: "Noto Sans JP", sans-serif; font-size: 12px; font-weight: 400; line-height: 1.3; margin: 0; }
+  .about-timeline-2026__media { display: block; height: clamp(64px, 4.86vw, 70px); order: 2; width: clamp(146px, 11.81vw, 170px); }
+  .about-timeline-2026__image { display: block; height: 100%; max-width: 100%; object-fit: contain; object-position: left center; width: auto; }
+  .about-timeline-2026__fade { display: none; }
+  .about-timeline-2026__mobile-fade { display: none; }
+  .about-timeline-2026__controls { align-items: center; display: flex; gap: 96px; margin: 56px 20px 0 0; max-width: none; padding: 0; width: auto; }
+  .about-timeline-2026__range { appearance: none; background: linear-gradient(to right, rgba(0,0,0,.3) 0 var(--progress,0%), rgba(0,0,0,.15) var(--progress,0%) 100%); border: 0; border-radius: 0; flex: 1 1 1280px; height: 4px; margin: 0; max-width: 1280px; outline: none; width: 100%; }
+  .about-timeline-2026__range::-webkit-slider-thumb { appearance: none; background: transparent; border: 0; cursor: pointer; height: 18px; width: 18px; }
+  .about-timeline-2026__range::-moz-range-thumb { background: transparent; border: 0; cursor: pointer; height: 18px; width: 18px; }
+  .about-timeline-2026__range::-moz-range-track { background: transparent; border: 0; height: 4px; }
+  .about-timeline-2026__buttons { display: flex; flex: none; gap: 40px; }
+  .about-timeline-2026__button { align-items: center; background: transparent; border: 0; cursor: pointer; display: inline-flex; height: 60px; justify-content: center; padding: 0; width: 60px; }
+  .about-timeline-2026__button img { display: block; height: 61px; max-width: none; width: 61px; }
+  .about-timeline-2026__button img.is-mirrored { transform: scaleX(-1); }
+  .about-timeline-2026__button:disabled { cursor: default; }
+  .about-timeline-2026__mobile-toggle-wrap { display: none; }
+  @media screen and (min-width: 750px) and (max-width: 1520px) {
+    .about-timeline-2026__date { font-size: 17px; }
+    .about-timeline-2026__title, .about-timeline-2026__title p { font-size: 14px; }
+    .about-timeline-2026__description, .about-timeline-2026__description p { font-size: 10px; }
+  }
+  @media screen and (max-width: 749px) {
+    .about-timeline-2026 { padding-left: 0; position: relative; }
+    .section-{{ section.id }}-padding { padding: {{ section.settings.mobile_padding_top }}px 0 {{ section.settings.mobile_padding_bottom }}px; }
+    .about-timeline-2026__stage { overflow: visible; }
+    .about-timeline-2026__stage::after { display: none; }
+    .about-timeline-2026__viewport { cursor: default; overflow: visible; padding: 0; }
+    .about-timeline-2026__fade { display: none; }
+    .about-timeline-2026__mobile-fade { display: none; }
+    .about-timeline-2026__track { --timeline-mobile-axis-x: calc(50% + 2.58px); display: block; margin: 0 auto; max-width: 376px; min-width: 0; padding: 53px 0 0; width: 100%; }
+    .about-timeline-2026.is-expanded .about-timeline-2026__track { padding-bottom: 56px; }
+    .about-timeline-2026__track::before { background: none; border: 0; border-left: 1px dashed #b3b3b3; bottom: 0; content: ''; display: block; height: auto; left: var(--timeline-mobile-axis-x); position: absolute; right: auto; top: 0; transform: translateX(-50%); width: 0; }
+    .about-timeline-2026__axis { display: block; height: 10px; left: var(--timeline-mobile-axis-x); top: -3px; transform: translateX(-50%); width: 11px; z-index: 2; }
+    .about-timeline-2026__axis-desktop { display: none !important; }
+    .about-timeline-2026__axis-mobile { display: block !important; height: 10px !important; width: 11px !important; }
+    .about-timeline-2026__item { background-image: none; border: 0; box-sizing: border-box; display: flex; height: 145px; min-height: 145px; padding: 0 10px 0 calc(50% + 24px); width: 100%; }
+    .about-timeline-2026__item:nth-of-type(1) { height: 149px; min-height: 149px; }
+    .about-timeline-2026__item:nth-of-type(3) { height: 144px; min-height: 144px; }
+    .about-timeline-2026__item:nth-of-type(4) { height: 134px; min-height: 134px; }
+    .about-timeline-2026__item:nth-last-of-type(-n + 3) { height: 90px; min-height: 90px; }
+    .about-timeline-2026__item[data-timeline-collapsed] { display: none; }
+    .about-timeline-2026.is-expanded .about-timeline-2026__item[data-timeline-collapsed] { display: flex; }
+    .about-timeline-2026.is-expanded.is-revealing .about-timeline-2026__item[data-timeline-collapsed] { animation: about-timeline-2026-reveal .32s ease both; }
+    .about-timeline-2026.is-collapsing .about-timeline-2026__item[data-timeline-collapsed] { animation: about-timeline-2026-hide .22s ease both; display: flex; }
+    .about-timeline-2026__item--bottom { align-items: flex-start; padding: 0 calc(50% + 16px) 0 10px; }
+    .about-timeline-2026__item::after { height: 6px; left: calc(var(--timeline-mobile-axis-x) - 3px); top: 13px; width: 6px; }
+    .about-timeline-2026__content, .about-timeline-2026__item--top .about-timeline-2026__content, .about-timeline-2026__item--bottom .about-timeline-2026__content { align-self: auto; box-sizing: border-box; flex: 0 1 auto; flex-direction: column; gap: 10px; height: auto; margin-left: 0; max-width: none; min-width: 0; padding: 0; width: 100%; }
+    .about-timeline-2026__item--top .about-timeline-2026__content { align-items: flex-start; flex: 0 0 153.937px; text-align: left; width: 153.937px; }
+    .about-timeline-2026__item--bottom .about-timeline-2026__content { align-items: flex-end; flex: 0 0 161.79px; text-align: right; width: 161.79px; }
+    .about-timeline-2026__date { font-family: "Saans", "Noto Sans JP", sans-serif; font-size: 21.142px; font-weight: 300; line-height: 1.5; order: 0; }
+    .about-timeline-2026__item--top .about-timeline-2026__date { margin-top: 0; }
+    .about-timeline-2026__copy { gap: 5px; max-width: none; min-width: 0; order: 1; width: 100%; }
+    .about-timeline-2026__item--bottom .about-timeline-2026__copy { order: 1; }
+    .about-timeline-2026__title, .about-timeline-2026__title p { font-size: 11px; line-height: 1.5; margin: 0; min-width: 0; overflow-wrap: break-word; white-space: normal; width: 100%; }
+    .about-timeline-2026__description, .about-timeline-2026__description p { font-size: 9px; line-height: 1.3; margin: 0; min-width: 0; overflow-wrap: break-word; white-space: normal; width: 100%; }
+    .about-timeline-2026__item--top .about-timeline-2026__copy, .about-timeline-2026__item--top .about-timeline-2026__title, .about-timeline-2026__item--top .about-timeline-2026__description { text-align: left; }
+    .about-timeline-2026__item--bottom .about-timeline-2026__copy, .about-timeline-2026__item--bottom .about-timeline-2026__title, .about-timeline-2026__item--bottom .about-timeline-2026__description { text-align: right; }
+    .about-timeline-2026__media { height: 65px; order: 2; width: 147px; }
+    .about-timeline-2026__item--bottom .about-timeline-2026__media { align-self: flex-end; }
+    .about-timeline-2026__item--bottom .about-timeline-2026__image { margin-left: auto; object-position: right center; }
+    .about-timeline-2026__controls { display: none; }
+    .about-timeline-2026__mobile-toggle-wrap { align-items: flex-end; background: linear-gradient(180deg, rgba(255, 255, 255, 0.00) 22.7%, #FFF 63.24%); bottom: 0; display: flex; height: 184px; justify-content: center; left: 0; margin-top: 0; padding: 0 0 10px; position: absolute; right: 0; transition: height .25s ease, margin-top .25s ease, padding .25s ease; z-index: 4; }
+    .about-timeline-2026.is-expanded .about-timeline-2026__mobile-toggle-wrap { align-items: center; background: #fff; height: 66px; margin-top: 0; padding: 10px 0; }
+    .about-timeline-2026__mobile-toggle { align-items: center; background: #fff; border: 0; color: #000;
+      cursor: pointer; display: inline-flex; font-size: 0; gap: 0px; padding: 10px; }
+    .about-timeline-2026__toggle-icon { display: block; height: 16px; width: 17px; }
+    .about-timeline-2026__toggle-icon--collapse { display: none; }
+    .about-timeline-2026.is-expanded .about-timeline-2026__toggle-icon--expand { display: none; }
+    .about-timeline-2026.is-expanded .about-timeline-2026__toggle-icon--collapse { display: block; }
+    @keyframes about-timeline-2026-reveal { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes about-timeline-2026-hide { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(12px); } }
+  }
+</style>
+<script>
+  (() => {
+    const root = document.getElementById('{{ timeline_id }}');
+    if (!root || root.dataset.timelineReady === 'true') return;
+    root.dataset.timelineReady = 'true';
+    const viewport = root.querySelector('[data-timeline-viewport]');
+    const range = root.querySelector('[data-timeline-range]');
+    const prev = root.querySelector('[data-timeline-prev]');
+    const next = root.querySelector('[data-timeline-next]');
+    const prevIcon = prev.querySelector('img');
+    const nextIcon = next.querySelector('img');
+    const toggle = root.querySelector('[data-timeline-toggle]');
+    const toggleLabel = root.querySelector('[data-timeline-toggle-label]');
+    const mobile = window.matchMedia('(max-width: 749px)');
+    let startX = 0,
+      startScroll = 0,
+      dragging = false;
+    const maxScroll = () => Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+    const updateControls = () => {
+      const max = maxScroll(),
+        progress = max ? Math.round((viewport.scrollLeft / max) * 100) : 0;
+      range.value = progress;
+      range.style.setProperty('--progress', `${progress}%`);
+      prev.disabled = viewport.scrollLeft <= 1;
+      next.disabled = viewport.scrollLeft >= max - 1;
+      prevIcon.src = prev.disabled
+        ? '{{ 'about-timeline-2026-prev.svg' | asset_url }}'
+        : '{{ 'about-timeline-2026-next.svg' | asset_url }}';
+      prevIcon.classList.toggle('is-mirrored', !prev.disabled);
+      nextIcon.src = next.disabled
+        ? '{{ 'about-timeline-2026-prev.svg' | asset_url }}'
+        : '{{ 'about-timeline-2026-next.svg' | asset_url }}';
+      nextIcon.classList.toggle('is-mirrored', next.disabled);
+    };
+    const page = () => Math.max(280, Math.min(viewport.clientWidth * 0.82, 760));
+    range.addEventListener('input', () => {
+      viewport.scrollLeft = (maxScroll() * Number(range.value)) / 100;
+    });
+    prev.addEventListener('click', () => viewport.scrollBy({ left: -page(), behavior: 'smooth' }));
+    next.addEventListener('click', () => viewport.scrollBy({ left: page(), behavior: 'smooth' }));
+    viewport.addEventListener('scroll', updateControls, { passive: true });
+    window.addEventListener('resize', updateControls);
+    viewport.addEventListener('pointerdown', (event) => {
+      if (mobile.matches || (event.pointerType === 'mouse' && event.button !== 0)) return;
+      dragging = true;
+      startX = event.clientX;
+      startScroll = viewport.scrollLeft;
+      viewport.setPointerCapture(event.pointerId);
+      viewport.classList.add('is-dragging');
+    });
+    viewport.addEventListener('pointermove', (event) => {
+      if (dragging) viewport.scrollLeft = startScroll - (event.clientX - startX);
+    });
+    ['pointerup', 'pointercancel'].forEach((name) =>
+      viewport.addEventListener(name, () => {
+        dragging = false;
+        viewport.classList.remove('is-dragging');
+      })
+    );
+    toggle.addEventListener('click', () => {
+      if (root.classList.contains('is-collapsing')) return;
+      if (root.classList.contains('is-expanded')) {
+        root.classList.remove('is-revealing');
+        root.classList.add('is-collapsing');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggleLabel.textContent = '{{ section.settings.expand_label | escape }}';
+        window.setTimeout(() => {
+          root.classList.remove('is-expanded', 'is-collapsing');
+          toggle.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        }, 220);
+        return;
+      }
+      root.classList.add('is-expanded');
+      window.requestAnimationFrame(() => root.classList.add('is-revealing'));
+      toggle.setAttribute('aria-expanded', 'true');
+      toggleLabel.textContent = '{{ section.settings.collapse_label | escape }}';
+    });
+    updateControls();
+  })();
+</script>
+{% schema %}
+{
+  "name": "about-timeline-2026",
+  "settings": [
+    { "type": "text", "id": "tle", "label": "Title" },
+    { "type": "richtext", "id": "des", "label": "Descripte" },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#000000" },
+    { "type": "text", "id": "button_txt", "label": "Button Text" },
+    { "type": "text", "id": "button_tle", "label": "Button Title" },
+    { "type": "url", "id": "link_url", "label": "Button Link" },
+    { "type": "color_background", "id": "background", "label": "Background", "default": "#fff" },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_top.label",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_bottom.label",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Top",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Bottom",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "mobile_visible_items",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "label": "Mobile initially visible items",
+      "default": 6
+    },
+    { "type": "text", "id": "expand_label", "label": "Mobile expand label", "default": "もっと見る" },
+    { "type": "text", "id": "collapse_label", "label": "Mobile collapse label", "default": "閉じる" },
+    { "type": "text", "id": "slider_label", "label": "Slider accessibility label", "default": "Timeline position" },
+    {
+      "type": "text",
+      "id": "previous_label",
+      "label": "Previous button accessibility label",
+      "default": "Previous timeline items"
+    },
+    { "type": "text", "id": "next_label", "label": "Next button accessibility label", "default": "Next timeline items" }
+  ],
+  "blocks": [
+    {
+      "type": "itemtop",
+      "name": "itemtop",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Images" },
+        { "type": "image_picker", "id": "image_mobile", "label": "Mobile Images" },
+        { "type": "richtext", "id": "tle", "label": "Title" },
+        { "type": "richtext", "id": "des", "label": "Descripte" },
+        { "type": "text", "id": "timeline_time", "label": "Timeline Time" }
+      ]
+    },
+    {
+      "type": "itembottom",
+      "name": "itembottom",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Images" },
+        { "type": "image_picker", "id": "image_mobile", "label": "Mobile Images" },
+        { "type": "richtext", "id": "tle", "label": "Title" },
+        { "type": "richtext", "id": "des", "label": "Descripte" },
+        { "type": "text", "id": "timeline_time", "label": "Timeline Time" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "about-timeline-2026",
+      "settings": {
+        "background": "#fff",
+        "padding_top": 108,
+        "padding_bottom": 72,
+        "mobile_padding_top": 60,
+        "mobile_padding_bottom": 36,
+        "mobile_visible_items": 6
+      },
+      "blocks": [
+        {
+          "type": "itemtop",
+          "settings": {
+            "timeline_time": "08.2026",
+            "tle": "<p>日本市場No.1を獲得! 富士経済調査にて<br>販売台数・売上高シェアNo.1※</p>",
+            "des": "<p>※株式会社富士経済発行『美肌・美髪ケア家電<br>トレンドデータ2026』に基づく。</p>"
+          }
+        },
+        {
+          "type": "itembottom",
+          "settings": {
+            "timeline_time": "07.2026",
+            "tle": "<p>ラインアップをさらに拡充<br>「Ulike Me」発売・「Air Pro S」新カラー登場</p>",
+            "des": "<p>より幅広いユーザーに最適なホームケア体験を提供。</p>"
+          }
+        },
+        {
+          "type": "itemtop",
+          "settings": {
+            "timeline_time": "05.2026",
+            "tle": "<p>スマートケアの新時代へ<br>「A10 Max」「X Max」を発売</p>",
+            "des": "<p>スマートAPP連携機能を搭載し、<br>一人ひとりに寄り添うスマートケアを実現。</p>"
+          }
+        },
+        {
+          "type": "itembottom",
+          "settings": {
+            "timeline_time": "2025",
+            "tle": "<p>進化を遂げた「Air Pro S」と<br>メンズモデル「Xシリーズ」を発売</p>",
+            "des": "<p>効果実感スピードがアップ、サロンクオリティのケアを自宅で手軽に。</p>"
+          }
+        },
+        {
+          "type": "itemtop",
+          "settings": {
+            "timeline_time": "2024",
+            "tle": "<p>Ulikeハイパワーの<br>最新モデルAir 10が登場</p>",
+            "des": "<p>痛みレス&amp;サロンクオリティケアが<br>さらに進化</p>"
+          }
+        },
+        {
+          "type": "itembottom",
+          "settings": {
+            "timeline_time": "2023",
+            "tle": "<p>男性に特化したハイパワー<br>かつ痛みレスの男性専用光美容器</p>",
+            "des": "<p>ムダ毛ケアの時間を短縮し、効果を向上させる。男性のヒゲ、脇、VIOなど</p>"
+          }
+        },
+        {
+          "type": "itemtop",
+          "settings": {
+            "timeline_time": "2022",
+            "tle": "<p>第7世代のIPL光美容器<br>「Air3」を発売</p>",
+            "des": "<p>ブランドの成長は破竹の勢いで、現在も規模拡大中</p>"
+          }
+        },
+        {
+          "type": "itembottom",
+          "settings": {
+            "timeline_time": "2021",
+            "tle": "<p>6年連続中国国内売上No.1</p>",
+            "des": "<p>韓国脱毛器ブランド大賞1位。</p>"
+          }
+        },
+        {
+          "type": "itemtop",
+          "settings": {
+            "timeline_time": "2020",
+            "tle": "<p>脱毛＋美肌を同時に実現する<br>初の製品「Rose」を発売</p>",
+            "des": "<p>革新的な研究開発により、業界に新たな指標を確立</p>"
+          }
+        },
+        {
+          "type": "itembottom",
+          "settings": {
+            "timeline_time": "2019",
+            "tle": "<p>技術的な壁を打ち破り<br>新製品「Air」を発売</p>",
+            "des": "<p>サファイア冷却技術を搭載した初めてのIPL光美容器。</p>"
+          }
+        },
+        {
+          "type": "itemtop",
+          "settings": {
+            "timeline_time": "2017-2018",
+            "tle": "<p>全販売ルートでの運営が始まり</p>",
+            "des": "<p>業界を席巻3年連続売上No.1</p>"
+          }
+        },
+        {
+          "type": "itembottom",
+          "settings": {
+            "timeline_time": "2016",
+            "tle": "<p>年間売上高が20億円を突破</p>",
+            "des": "<p>Ulike初代脱毛器が誕生。</p>"
+          }
+        },
+        {
+          "type": "itemtop",
+          "settings": {
+            "timeline_time": "2014-2015",
+            "tle": "<p>年間売上高が2億円を突破</p>",
+            "des": "<p>企業は急速な発展を遂げる</p>"
+          }
+        },
+        {
+          "type": "itembottom",
+          "settings": {
+            "timeline_time": "2013",
+            "tle": "<p>会社設立</p>",
+            "des": "<p>「おうちサロン」時代の幕開け</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

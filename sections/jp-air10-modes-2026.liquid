@@ -1,0 +1,81 @@
+{%- liquid
+  assign section_id = 'jp-air10-modes-2026-' | append: section.id
+-%}
+<section id="{{ section_id }}" class="jp-modes-2026">
+  <div class="jp-modes-2026__inner">
+    <h2 class="jp-modes-2026__title to-top">
+      <b>{{ section.settings.number | default: '4' | escape }}</b>
+      {{- section.settings.title | default: 'つのモードで\nサロン仕様の満足感' | escape | newline_to_br }}
+    </h2>
+    <div class="jp-modes-2026__scale" aria-hidden="true">
+      <span
+        >弱<br>
+        出力</span
+      ><i></i
+      ><span
+        >強<br>
+        出力</span
+      >
+    </div>
+    <div class="jp-modes-2026__list">
+      {% for block in section.blocks %}
+        <article
+          class="jp-modes-2026__item to-top"
+          style="transition-delay: {{ forloop.index0 | times: 0.1 }}s"
+          {{ block.shopify_attributes }}
+        >
+          <div class="jp-modes-2026__icon">
+            {% if block.settings.icon != blank -%}
+              {{-
+                block.settings.icon
+                | image_url: width: 400
+                | image_tag: loading: 'lazy', widths: '100, 200, 300, 400', alt: block.settings.icon.alt
+              -}}
+            {%- else -%}
+              <span>{{ forloop.index }}</span>
+            {%- endif %}
+          </div>
+          <div class="jp-modes-2026__copy">
+            <h3>{{ block.settings.name }}</h3>
+            <p>{{ block.settings.description }}</p>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<style>
+  #{{ section_id }}{background:{{ section.settings.background_color | default:'#fbf9f3' }};color:#000;overflow:hidden}#{{ section_id }} *{box-sizing:border-box}#{{ section_id }} .jp-modes-2026__inner{height:915px;margin:0 auto;max-width:1280px;position:relative}#{{ section_id }} .jp-modes-2026__title{font-family:"Noto Sans JP",sans-serif;font-size:48px;font-weight:500;left:50%;line-height:1.5;margin:0;position:absolute;text-align:center;top:109px;transform:translateX(-50%);white-space:nowrap}#{{ section_id }} .jp-modes-2026__title b{font-family:Saans,sans-serif;font-size:80px;font-weight:500;margin-right:10px}#{{ section_id }} .jp-modes-2026__list{display:grid;grid-template-columns:repeat(4,1fr);left:0;position:absolute;top:300px;width:100%}#{{ section_id }} .jp-modes-2026__item{align-items:center;display:flex;flex-direction:column;min-height:331px;padding:0 15px;position:relative;text-align:center}#{{ section_id }} .jp-modes-2026__item:not(:last-child)::after{color:#8e8780;content:'→';font-size:52px;position:absolute;right:-26px;top:82px}#{{ section_id }} .jp-modes-2026__icon{align-items:center;border:2px solid #dfd3c2;border-radius:50%;display:flex;height:173px;justify-content:center;overflow:hidden;width:173px}#{{ section_id }} .jp-modes-2026__icon img{display:block;height:100%;object-fit:contain;width:100%}#{{ section_id }} .jp-modes-2026__icon span{color:#e0004d;font-family:Saans,sans-serif;font-size:52px}#{{ section_id }} .jp-modes-2026__copy{margin-top:33px}#{{ section_id }} .jp-modes-2026__copy h3{background:#f0e9de;font-family:Saans,"Noto Sans JP",sans-serif;font-size:26px;font-weight:500;line-height:1.5;margin:0 auto 12px;padding:4px 10px;width:223px}#{{ section_id }} .jp-modes-2026__copy p{color:#3f3636;font-family:"Noto Sans JP",sans-serif;font-size:15px;line-height:1.5;margin:0}#{{ section_id }} .jp-modes-2026__scale{display:none}@media screen and (max-width:749px){#{{ section_id }} .jp-modes-2026__inner{height:auto;min-height:889px;padding:42px 19px 55px;width:100%}#{{ section_id }} .jp-modes-2026__title{font-size:30px;left:50%;position:relative;top:auto;transform:translateX(-50%);white-space:normal;width:340px}#{{ section_id }} .jp-modes-2026__title b{font-size:50px;margin-right:6px}#{{ section_id }} .jp-modes-2026__list{display:grid;gap:25px;left:auto;margin:65px 0 0 58px;position:relative;top:auto;width:calc(100% - 58px)}#{{ section_id }} .jp-modes-2026__item{align-items:flex-start;display:flex;flex-direction:row;gap:24px;min-height:65px;padding:0;text-align:left}#{{ section_id }} .jp-modes-2026__item:not(:last-child)::after{display:none}#{{ section_id }} .jp-modes-2026__icon{flex:0 0 auto;height:65px;width:65px}#{{ section_id }} .jp-modes-2026__icon span{font-size:24px}#{{ section_id }} .jp-modes-2026__copy{margin:0}#{{ section_id }} .jp-modes-2026__copy h3{background:#dfd3c2;font-size:18px;margin:0 0 10px;padding:0 18px;width:auto}#{{ section_id }} .jp-modes-2026__copy p{font-size:13px;line-height:1.5;max-width:210px}#{{ section_id }} .jp-modes-2026__scale{align-items:center;display:flex;flex-direction:column;gap:12px;left:20px;position:absolute;top:185px}#{{ section_id }} .jp-modes-2026__scale span{font-family:"Noto Sans JP",sans-serif;font-size:13px;line-height:1.3;text-align:center}#{{ section_id }} .jp-modes-2026__scale span:last-child{background:#76514c;border-radius:50%;color:#fff;padding:10px 7px}#{{ section_id }} .jp-modes-2026__scale i{background:linear-gradient(#b9aaa1,#76514c);height:420px;width:2px}}
+</style>
+{% schema %}
+{
+  "name": "jp-air10-modes-2026",
+  "settings": [
+    { "type": "color", "id": "background_color", "label": "背景颜色", "default": "#FBF9F3" },
+    { "type": "text", "id": "number", "label": "模式数量", "default": "4" },
+    { "type": "textarea", "id": "title", "label": "标题", "default": "つのモードで\nサロン仕様の満足感" }
+  ],
+  "blocks": [
+    {
+      "type": "mode",
+      "name": "模式",
+      "settings": [
+        { "type": "image_picker", "id": "icon", "label": "模式图标" },
+        { "type": "text", "id": "name", "label": "模式名称", "default": "Fastモード" },
+        { "type": "textarea", "id": "description", "label": "模式说明", "default": "細くて柔らかいムダ毛ケア" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "jp-air10-modes-2026",
+      "blocks": [
+        { "type": "mode", "settings": { "name": "Fastモード" } },
+        { "type": "mode", "settings": { "name": "Nomalモード" } },
+        { "type": "mode", "settings": { "name": "Highモード" } },
+        { "type": "mode", "settings": { "name": "USHRモード" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

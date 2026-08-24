@@ -949,17 +949,11 @@
    * 初始化 Judge.me 评分点击跳转评论区。
    */
   function initJudgeMeReviewScroll() {
-    if (document.documentElement.dataset.judgeMeReviewScrollInitialized === 'true') return;
-
     document.addEventListener('click', function (event) {
       var badge = event.target.closest('.jdgm-prev-badge');
-
       if (!badge) return;
-
       event.preventDefault();
-
-      var target = document.querySelector('#judgeme_product_reviews');
-
+      var target = document.querySelector('.jdgm-widget');
       if (target) {
         target.scrollIntoView({
           behavior: 'smooth',
@@ -967,8 +961,6 @@
         });
       }
     });
-
-    document.documentElement.dataset.judgeMeReviewScrollInitialized = 'true';
   }
 
   /**

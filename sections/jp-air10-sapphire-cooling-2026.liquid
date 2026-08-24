@@ -1,0 +1,92 @@
+{%- liquid
+  assign section_id = 'jp-air10-sapphire-cooling-2026-' | append: section.id
+  assign default_description = '特許取得済みのサファイア冷感技術*1を搭載。28Jのハイパワーが肌に届く前に、肌表面を-5℃まで冷却できるため、保冷剤など手間がかかる準備も不要。'
+  assign default_cooling_text = '電源オンからわずか3分で-5°Cに冷却*2'
+  assign default_note = '*1.日本国内サファイア冷感特許：特許第3226132号、特許第3242510号。\n*2.電源投入後、未照射状態の冷却面の温度を指す。国際認証機関CVCによる試験結果：NO: GJW2024-1748、結果はテスト条件により異なる可能性もあります。'
+-%}
+
+<section id="{{ section_id }}" class="jp-sapphire-cooling-2026">
+  <div class="jp-sapphire-cooling-2026__upper">
+    <div class="jp-sapphire-cooling-2026__background" aria-hidden="true">
+      <picture>
+        {%- if section.settings.background_image_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ section.settings.background_image_mobile | image_url: width: 1200 }}">{%- endif -%}
+        {%- if section.settings.background_image != blank -%}
+          {{ section.settings.background_image | image_url: width: 3000 | image_tag: loading: 'lazy', widths: '750, 1200, 1600, 2200, 3000', class: 'jp-sapphire-cooling-2026__background-image', alt: '' }}
+        {%- elsif section.settings.background_image_mobile != blank -%}
+          {{ section.settings.background_image_mobile | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '375, 750, 1200', class: 'jp-sapphire-cooling-2026__background-image', alt: '' }}
+        {%- endif -%}
+      </picture>
+    </div>
+    <div class="jp-sapphire-cooling-2026__upper-inner">
+      <div class="jp-sapphire-cooling-2026__title to-top">
+        <span>{{ section.settings.power_title | default: 'ハイパワー' | escape }}</span>
+        <i aria-hidden="true">×</i>
+        <span class="jp-sapphire-cooling-2026__sapphire">{{ section.settings.sapphire_title | default: 'サファイア' | escape }}</span>
+        <span>{{ section.settings.cooling_title | default: '冷感技術' | escape }}</span>
+      </div>
+      <p class="jp-sapphire-cooling-2026__description to-top" style="transition-delay: .1s">{{ section.settings.description | default: default_description | escape }}</p>
+    </div>
+  </div>
+
+  <div class="jp-sapphire-cooling-2026__lower">
+    <div class="jp-sapphire-cooling-2026__lower-inner">
+      <p class="jp-sapphire-cooling-2026__cooling-text to-top">{{ section.settings.cooling_text | default: default_cooling_text | escape }}</p>
+      <div class="jp-sapphire-cooling-2026__visual to-top" style="transition-delay: .1s">
+        {%- if section.settings.cooling_image != blank -%}
+          {{ section.settings.cooling_image | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '375, 670, 1000, 1600', class: 'jp-sapphire-cooling-2026__visual-image', alt: section.settings.cooling_image.alt }}
+        {%- endif -%}
+      </div>
+      <p class="jp-sapphire-cooling-2026__note">{{ section.settings.note | default: default_note | escape | newline_to_br }}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  #{{ section_id }} { background: linear-gradient(254.5deg, #d0d6e2 14.667%, #fff 32.895%, #dde1ea 103.31%); color: #000; overflow: hidden; }
+  #{{ section_id }} * { box-sizing: border-box; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__upper { height: 924px; overflow: hidden; position: relative; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__background, #{{ section_id }} .jp-sapphire-cooling-2026__background picture { inset: 0; overflow: hidden; pointer-events: none; position: absolute; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__background-image { display: block; height: 1594px; left: calc(50% + 428px); max-width: none; object-fit: cover; position: absolute; top: -101px; transform: translateX(-50%); width: 2125px; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__upper-inner, #{{ section_id }} .jp-sapphire-cooling-2026__lower-inner { height: 100%; margin: 0 auto; max-width: 1280px; position: relative; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__title { align-items: center; display: flex; font-family: "Noto Sans JP", sans-serif; font-size: 55px; font-weight: 500; left: 7px; letter-spacing: .1em; line-height: 1.3; position: absolute; top: 196px; white-space: nowrap; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__title i { font-family: Arial, sans-serif; font-size: 38px; font-style: normal; letter-spacing: 0; margin: 0 28px; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__sapphire { background: linear-gradient(135deg, #4184b3, #dff5ff 40%, #6dbbed 65%, #2c769f); border-radius: 4px; color: transparent; font-size: 46px; letter-spacing: -.05em; margin-right: 10px; padding: 3px 7px; text-shadow: 2px 1px 9px #5bc3f5; -webkit-background-clip: text; background-clip: text; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__description { font-family: "Noto Sans JP", sans-serif; font-size: 24px; left: 6px; line-height: 1.5; margin: 0; position: absolute; top: 355px; width: 581px; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__lower { background: transparent; height: 189px; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__cooling-text { font-family: "Noto Sans JP", sans-serif; font-size: 21px; font-weight: 500; left: 10px; line-height: 1.5; margin: 0; position: absolute; top: -62px; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__cooling-text::first-letter { color: inherit; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__visual { background: linear-gradient(#6a8fa9, #c0d8e8); border-radius: 15px; height: 311px; left: 7px; overflow: hidden; position: absolute; top: -387px; width: 588px; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__visual-image { display: block; height: 100%; object-fit: cover; width: 100%; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__note { bottom: 14px; color: rgba(0,0,0,.5); font-family: Saans, "Noto Sans JP", sans-serif; font-size: 10px; left: 7px; line-height: 1.5; margin: 0; position: absolute; width: 582px; }
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} .jp-sapphire-cooling-2026__upper { height: 656px; }
+    #{{ section_id }} .jp-sapphire-cooling-2026__background-image { height: 432px; left: 50%; top: 261px; width: 345px; }
+    #{{ section_id }} .jp-sapphire-cooling-2026__upper-inner, #{{ section_id }} .jp-sapphire-cooling-2026__lower-inner { max-width: none; width: 100%; }
+    #{{ section_id }} .jp-sapphire-cooling-2026__title { font-size: 30px; left: 21px; letter-spacing: .1em; top: 53px; }
+    #{{ section_id }} .jp-sapphire-cooling-2026__title i { font-size: 22px; margin: 0 15px; }
+    #{{ section_id }} .jp-sapphire-cooling-2026__sapphire { border-radius: 2px; font-size: 25px; margin-right: 5px; padding: 2px 4px; }
+    #{{ section_id }} .jp-sapphire-cooling-2026__description { font-size: 18px; left: 19px; top: 143px; width: calc(100% - 38px); }
+    #{{ section_id }} .jp-sapphire-cooling-2026__lower { background: #fff; height: 355px; }
+    #{{ section_id }} .jp-sapphire-cooling-2026__cooling-text { font-size: 14px; left: 50%; top: 39px; transform: translateX(-50%); white-space: nowrap; }
+    #{{ section_id }} .jp-sapphire-cooling-2026__visual { border-radius: 0; height: 175px; left: 20px; top: 89px; width: calc(100% - 40px); }
+    #{{ section_id }} .jp-sapphire-cooling-2026__note { bottom: 15px; font-family: "Noto Sans JP", sans-serif; font-size: 8px; left: 20px; width: calc(100% - 40px); }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "jp-air10-sapphire-cooling",
+  "settings": [
+    { "type": "image_picker", "id": "background_image", "label": "PC 背景图片" },
+    { "type": "image_picker", "id": "background_image_mobile", "label": "M 背景图片" },
+    { "type": "image_picker", "id": "cooling_image", "label": "冷却视觉图片" },
+    { "type": "text", "id": "power_title", "label": "标题 1", "default": "ハイパワー" },
+    { "type": "text", "id": "sapphire_title", "label": "标题 2", "default": "サファイア" },
+    { "type": "text", "id": "cooling_title", "label": "标题 3", "default": "冷感技術" },
+    { "type": "textarea", "id": "description", "label": "说明文案", "default": "特許取得済みのサファイア冷感技術*1を搭載。28Jのハイパワーが肌に届く前に、肌表面を-5℃まで冷却できるため、保冷剤など手間がかかる準備も不要。" },
+    { "type": "text", "id": "cooling_text", "label": "冷却文案", "default": "電源オンからわずか3分で-5°Cに冷却*2" },
+    { "type": "textarea", "id": "note", "label": "脚注文案", "default": "*1.日本国内サファイア冷感特許：特許第3226132号、特許第3242510号。\n*2.電源投入後、未照射状態の冷却面の温度を指す。国際認証機関CVCによる試験結果：NO: GJW2024-1748、結果はテスト条件により異なる可能性もあります。" }
+  ],
+  "presets": [{ "name": "jp-air10-sapphire-cooling" }]
+}
+{% endschema %}

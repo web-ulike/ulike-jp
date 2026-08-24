@@ -12,6 +12,7 @@
             assign pc_image = block.settings.image_pc
             assign mobile_image = block.settings.image_mobile
             assign title = block.settings.title
+            assign title_mobile = block.settings.title_mobile | default: title
             assign subheading_logo = block.settings.subheading_logo
             assign feature_image = block.settings.feature_image
             assign desc = block.settings.desc
@@ -98,8 +99,11 @@
                         >
                       {% endif %}
 
-                      {% if title != blank %}
-                        <div class="jp-home-hero__title rte">{{ title }}</div>
+                      {% if title != blank or block.settings.title_mobile != blank %}
+                        <div class="jp-home-hero__title rte">
+                          <div class="jp-home-hero__title-pc">{{ title }}</div>
+                          <div class="jp-home-hero__title-mobile">{{ title_mobile }}</div>
+                        </div>
                       {% endif %}
 
                       {% if desc != blank %}
@@ -282,6 +286,10 @@
     font-size: inherit;
     line-height: inherit;
     font-weight: inherit;
+  }
+
+  .jp-home-hero--{{ sid }} .jp-home-hero__title-mobile {
+    display: none;
   }
 
   .jp-home-hero--{{ sid }} .jp-home-hero__desc {
@@ -511,6 +519,14 @@
       margin: 0 auto;
     }
 
+    .jp-home-hero--{{ sid }} .jp-home-hero__title-pc {
+      display: none;
+    }
+
+    .jp-home-hero--{{ sid }} .jp-home-hero__title-mobile {
+      display: block;
+    }
+
     .jp-home-hero--{{ sid }} .jp-home-hero__desc {
       margin-top: 10px;
       font-size: 14px;
@@ -584,6 +600,40 @@
 
 
   }
+
+  {% for block in section.blocks %}
+    {% if block.settings.title_font_size_pc > 0 %}
+      .jp-home-hero--{{ sid }} .jp-home-hero__item{{ forloop.index }} .jp-home-hero__title {
+        font-size: {{ block.settings.title_font_size_pc }}px;
+      }
+
+      @media screen and (max-width: 989px) {
+        .jp-home-hero--{{ sid }} .jp-home-hero__item{{ forloop.index }} .jp-home-hero__title {
+          font-size: {% if block.settings.title_font_size_mobile > 0 %}{{ block.settings.title_font_size_mobile }}{% else %}{{ block.settings.title_font_size_pc }}{% endif %}px;
+        }
+      }
+    {% elsif block.settings.title_font_size_mobile > 0 %}
+      @media screen and (max-width: 989px) {
+        .jp-home-hero--{{ sid }} .jp-home-hero__item{{ forloop.index }} .jp-home-hero__title {
+          font-size: {{ block.settings.title_font_size_mobile }}px;
+        }
+      }
+    {% endif %}
+
+    {% if block.settings.subheading_logo_height_pc > 0 %}
+      .jp-home-hero--{{ sid }} .jp-home-hero__item{{ forloop.index }} .jp-home-hero__subheading-logo {
+        height: {{ block.settings.subheading_logo_height_pc }}px;
+      }
+    {% endif %}
+
+    {% if block.settings.subheading_logo_height_mobile > 0 %}
+      @media screen and (max-width: 989px) {
+        .jp-home-hero--{{ sid }} .jp-home-hero__item{{ forloop.index }} .jp-home-hero__subheading-logo {
+          height: {{ block.settings.subheading_logo_height_mobile }}px;
+        }
+      }
+    {% endif %}
+  {% endfor %}
 </style>
 
 <script>
@@ -742,6 +792,26 @@
           "label": "Subheading logo"
         },
         {
+          "type": "range",
+          "id": "subheading_logo_height_pc",
+          "label": "Subheading logo height (PC, 0 = default)",
+          "min": 0,
+          "max": 200,
+          "step": 2,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "subheading_logo_height_mobile",
+          "label": "Subheading logo height (Mobile, 0 = default)",
+          "min": 0,
+          "max": 120,
+          "step": 2,
+          "unit": "px",
+          "default": 0
+        },
+        {
           "type": "image_picker",
           "id": "feature_image",
           "label": "Feature image"
@@ -749,8 +819,33 @@
         {
           "type": "html",
           "id": "title",
-          "label": "Title",
+          "label": "Title (PC)",
           "default": "<p>我が家の光美容器<br>効果も、やさしさも</p>"
+        },
+        {
+          "type": "html",
+          "id": "title_mobile",
+          "label": "Title (Mobile, leave blank to use PC title)"
+        },
+        {
+          "type": "range",
+          "id": "title_font_size_pc",
+          "label": "Title font size (PC, 0 = default)",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "title_font_size_mobile",
+          "label": "Title font size (Mobile, 0 = use PC size)",
+          "min": 0,
+          "max": 60,
+          "step": 1,
+          "unit": "px",
+          "default": 0
         },
         {
           "type": "textarea",
@@ -771,7 +866,7 @@
         {
           "type": "textarea",
           "id": "info_text",
-          "label": "Info text",
+          "label": "Info text"
         }
       ]
     }

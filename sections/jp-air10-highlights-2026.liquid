@@ -1,0 +1,159 @@
+{%- liquid
+  assign section_id = 'jp-air10-highlights-2026-' | append: section.id
+  assign default_title = 'まずは、ハイライトから。'
+-%}
+
+<section id="{{ section_id }}" class="jp-highlights-2026" data-jp-highlights-2026>
+  <div class="jp-highlights-2026__inner">
+    <h2 class="jp-highlights-2026__title to-top">
+      {{ section.settings.title | default: default_title | escape }}
+    </h2>
+
+    <div class="jp-highlights-2026__carousel swiper" data-highlights-swiper>
+      <div class="jp-highlights-2026__track swiper-wrapper">
+        {%- for block in section.blocks -%}
+          <article class="jp-highlights-2026__slide swiper-slide" {{ block.shopify_attributes }}>
+            <div class="jp-highlights-2026__media">
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '375, 560, 700, 1000, 1400', class: 'jp-highlights-2026__image', alt: block.settings.image.alt }}
+              {%- else -%}
+                {{ 'image' | placeholder_svg_tag: 'jp-highlights-2026__placeholder' }}
+              {%- endif -%}
+            </div>
+
+            <div class="jp-highlights-2026__caption">
+              {%- if block.settings.icon != blank -%}
+                {{ block.settings.icon | image_url: width: 180 | image_tag: loading: 'lazy', widths: '70, 100, 140, 180', class: 'jp-highlights-2026__icon', alt: block.settings.icon.alt }}
+              {%- endif -%}
+              <span class="jp-highlights-2026__caption-rule" aria-hidden="true"></span>
+              <div class="jp-highlights-2026__caption-text">{{ block.settings.text | escape | newline_to_br }}</div>
+            </div>
+          </article>
+        {%- else -%}
+          <article class="jp-highlights-2026__slide swiper-slide">
+            <div class="jp-highlights-2026__media">{{ 'image' | placeholder_svg_tag: 'jp-highlights-2026__placeholder' }}</div>
+          </article>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    {%- if section.blocks.size > 1 -%}
+      <div class="jp-highlights-2026__nav">
+        <button class="jp-highlights-2026__nav-button" type="button" aria-label="Previous highlights" data-highlights-prev>
+          <svg aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 35.0221 35.0221" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.5111 34.7351C27.0236 34.7351 34.7351 27.0236 34.7351 17.5111C34.7351 7.99851 27.0236 0.287067 17.5111 0.287067C7.99851 0.287067 0.287067 7.99851 0.287067 17.5111C0.287067 27.0236 7.99851 34.7351 17.5111 34.7351Z" stroke="black" stroke-width="0.574133"/>
+            <path d="M15.7863 18.2885L15.7674 18.3074L14.9716 17.5117L19.2156 13.267L20.0114 14.0629L16.5827 17.4921L20.0498 20.9593L19.2541 21.7551L15.7863 18.2885Z" fill="black"/>
+          </svg>
+        </button>
+        <button class="jp-highlights-2026__nav-button" type="button" aria-label="Next highlights" data-highlights-next>
+          <svg aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 35.0221 35.0221" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.5111 34.7351C27.0236 34.7351 34.7351 27.0236 34.7351 17.5111C34.7351 7.99851 27.0236 0.287067 17.5111 0.287067C7.99851 0.287067 0.287067 7.99851 0.287067 17.5111C0.287067 27.0236 7.99851 34.7351 17.5111 34.7351Z" fill="white" stroke="black" stroke-width="0.574133"/>
+            <path d="M14.9686 20.9605L18.4392 17.4916L15.0064 14.06L15.8034 13.2637L20.052 17.5123L19.255 18.3086L19.2361 18.2896L15.7654 21.7586L14.9686 20.9605Z" fill="black"/>
+          </svg>
+        </button>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  #{{ section_id }} { background: {{ section.settings.background | default: '#fff' }}; color: {{ section.settings.text_color | default: '#000' }}; overflow: hidden; }
+  #{{ section_id }} * { box-sizing: border-box; }
+  #{{ section_id }} .jp-highlights-2026__inner { margin: 0 auto; max-width: 1280px; padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px; position: relative; }
+  #{{ section_id }} .jp-highlights-2026__title { font-family: "Noto Sans JP", sans-serif; font-size: 40px; font-weight: 400; line-height: 1.4; margin: 0 0 42px; }
+  #{{ section_id }} .jp-highlights-2026__carousel { margin-left: 15px; overflow: visible; touch-action: pan-y; }
+  #{{ section_id }} .jp-highlights-2026__track { display: flex; }
+  #{{ section_id }} .jp-highlights-2026__slide { flex: 0 0 620px; min-width: 0; }
+  #{{ section_id }} .jp-highlights-2026__slide:not(:first-child) { flex-basis: 720px; }
+  #{{ section_id }} .jp-highlights-2026__media { background: #e2e5eb; border-radius: 28px; height: 515px; overflow: hidden; position: relative; }
+  #{{ section_id }} .jp-highlights-2026__image, #{{ section_id }} .jp-highlights-2026__placeholder { display: block; height: 100%; object-fit: cover; width: 100%; }
+  #{{ section_id }} .jp-highlights-2026__placeholder { fill: #c1c4c9; }
+  #{{ section_id }} .jp-highlights-2026__caption { align-items: center; display: flex; gap: 40px; min-height: 105px; padding: 25px 23px 0; }
+  #{{ section_id }} .jp-highlights-2026__icon { display: block; flex: 0 0 auto; height: 63px; object-fit: contain; width: 71px; }
+  #{{ section_id }} .jp-highlights-2026__caption-rule { background: #000; display: block; flex: 0 0 auto; height: 65px; opacity: .85; width: 1px; }
+  #{{ section_id }} .jp-highlights-2026__caption-text { font-family: "Noto Sans JP", sans-serif; font-size: 28px; font-weight: 500; line-height: 1.5; }
+  #{{ section_id }} .jp-highlights-2026__nav { display: flex; gap: 23px; justify-content: flex-end; margin-top: 35px; padding-right: 30px; }
+  #{{ section_id }} .jp-highlights-2026__nav-button { align-items: center; background: transparent; border: 0; cursor: pointer; display: inline-flex; height: 34.45px; justify-content: center; padding: 0; width: 34.45px; }
+  #{{ section_id }} .jp-highlights-2026__nav-button svg { display: block; height: 100%; width: 100%; }
+  #{{ section_id }} .jp-highlights-2026__nav-button:disabled, #{{ section_id }} .jp-highlights-2026__nav-button.swiper-button-disabled { cursor: default; opacity: .5; }
+  @media screen and (max-width: 1430px) and (min-width: 750px) { #{{ section_id }} .jp-highlights-2026__inner { max-width: calc(100% - 160px); } }
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} .jp-highlights-2026__inner { padding: {{ section.settings.mobile_padding_top }}px 0 {{ section.settings.mobile_padding_bottom }}px; }
+    #{{ section_id }} .jp-highlights-2026__title { font-size: 28px; margin: 0 14px 42px; }
+    #{{ section_id }} .jp-highlights-2026__carousel { margin-left: 20px; overflow: visible; padding: 0; }
+    #{{ section_id }} .jp-highlights-2026__slide, #{{ section_id }} .jp-highlights-2026__slide:not(:first-child) { flex-basis: 280px; }
+    #{{ section_id }} .jp-highlights-2026__media { border-radius: 14px; height: 358px; }
+    #{{ section_id }} .jp-highlights-2026__caption { gap: 22px; min-height: 71px; padding: 24px 6px 0; }
+    #{{ section_id }} .jp-highlights-2026__icon { height: 46px; width: 46px; }
+    #{{ section_id }} .jp-highlights-2026__caption-rule { height: 36px; }
+    #{{ section_id }} .jp-highlights-2026__caption-text { font-size: 15px; }
+    #{{ section_id }} .jp-highlights-2026__nav { display: none; }
+  }
+</style>
+
+<script>
+  (() => {
+    const root = document.getElementById('{{ section_id }}');
+    if (!root) return;
+
+    const initHighlightsSwiper = () => {
+      if (root.dataset.initialized || typeof window.Swiper !== 'function') return false;
+
+      root.dataset.initialized = 'true';
+      new window.Swiper(root.querySelector('[data-highlights-swiper]'), {
+        slidesPerView: 'auto',
+        spaceBetween: 36,
+        speed: 500,
+        grabCursor: true,
+        navigation: {
+          prevEl: root.querySelector('[data-highlights-prev]'),
+          nextEl: root.querySelector('[data-highlights-next]'),
+        },
+        breakpoints: {
+          0: { spaceBetween: 20 },
+          750: { spaceBetween: 36 },
+        },
+      });
+      return true;
+    };
+
+    if (!initHighlightsSwiper()) {
+      document.addEventListener('DOMContentLoaded', initHighlightsSwiper, { once: true });
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "jp-air10-highlights-2026",
+  "settings": [
+    { "type": "text", "id": "title", "label": "标题", "default": "まずは、ハイライトから。" },
+    { "type": "color", "id": "background", "label": "背景颜色", "default": "#FFFFFF" },
+    { "type": "color", "id": "text_color", "label": "文字颜色", "default": "#000000" },
+    { "type": "range", "id": "padding_top", "label": "PC 上边距", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 140 },
+    { "type": "range", "id": "padding_bottom", "label": "PC 下边距", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 120 },
+    { "type": "range", "id": "mobile_padding_top", "label": "M 上边距", "min": 0, "max": 100, "step": 2, "unit": "px", "default": 54 },
+    { "type": "range", "id": "mobile_padding_bottom", "label": "M 下边距", "min": 0, "max": 100, "step": 2, "unit": "px", "default": 54 }
+  ],
+  "blocks": [
+    {
+      "type": "highlight",
+      "name": "卖点卡片",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "卖点图片（含 Before/After 对比图）" },
+        { "type": "image_picker", "id": "icon", "label": "卖点图标" },
+        { "type": "textarea", "id": "text", "label": "卖点文案", "default": "28Jハイパワー。\nわずか3回で減毛効果を実感" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "jp-air10-highlights-2026",
+      "blocks": [
+        { "type": "highlight", "settings": { "text": "28Jハイパワー。\nわずか3回で減毛効果を実感" } },
+        { "type": "highlight", "settings": { "text": "ダブルランプ搭載。\nムラなく均一にケア" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

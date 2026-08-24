@@ -70,7 +70,6 @@
         },
         "quantity_selector_fYRKL7": {
           "type": "quantity_selector",
-          "disabled": true,
           "settings": {}
         },
         "buy_buttons_3dVbLh": {
@@ -110,7 +109,7 @@
         "aftermarket_hkV7qc"
       ],
       "custom_css": [
-        ".jp-product-info__block--price {border-bottom: 0px; padding-bottom: 0px;}"
+        ".jp-product-info__block--price {border-bottom: 0px; padding-bottom: 0px; margin-top: 0px;}"
       ],
       "name": "JP Main Product New",
       "settings": {
@@ -649,6 +648,40 @@
         "narrow": true,
         "rounded": false
       }
+    },
+    "17859207556cc4bb4b": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_all_reviews_page_8CUzjt": {
+          "type": "shopify:\/\/apps\/judge-me-reviews\/blocks\/all_reviews_page\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "max_width": 1200,
+            "review_source": "product",
+            "show_all_reviews_in_same_tab": false,
+            "show_first": "product",
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_all_reviews_page_8CUzjt"
+      ],
+      "settings": {
+        "enable_reviews_integration": true,
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "divider": false,
+        "full_width": false,
+        "rounded": false
+      }
     }
   },
   "order": [
@@ -669,6 +702,7 @@
     "p_airpro_s_trust",
     "p_airpro_s_use",
     "faq_XLh3Cr",
-    "rich_text_hG7Lex"
+    "rich_text_hG7Lex",
+    "17859207556cc4bb4b"
   ]
 }

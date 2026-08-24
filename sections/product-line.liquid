@@ -62,6 +62,36 @@
   .product__slide-inner .product__image-wrapper .product-img{
     display: block;
     width: 100%;
+    -webkit-user-drag: none;
+    user-drag: none;
+  }
+  .product__image-wrapper .product-image-carousel {
+    position: relative;
+    overflow: hidden;
+  }
+  .product__image-wrapper .product-image-carousel:not(.product-image-carousel--single) {
+    cursor: grab;
+    touch-action: pan-y;
+    user-select: none;
+  }
+  .product__image-wrapper .product-image-carousel.is-dragging {
+    cursor: grabbing;
+  }
+  .product__image-wrapper .product-image-slide {
+    grid-area: 1 / 1;
+    display: block;
+    opacity: 0;
+    transition: opacity .45s ease;
+  }
+  .product__image-wrapper .product-image-slide.is-active {
+    opacity: 1;
+  }
+  .product__image-wrapper .product-image-carousel:not(.product-image-carousel--single) {
+    display: grid;
+  }
+  .product__image-wrapper .product-image-carousel:not(.product-image-carousel--single) .product-image-slide:not(:first-child) {
+    position: absolute;
+    inset: 0;
   }
   .product__content-wrapper {
     padding: 20px 140px 20px 116px;
@@ -531,17 +561,41 @@ font-size: 15px;
           <div class="product__slide">
             <div class="product__slide-inner {% if block.settings.image_position == 'right' %}product__slide-inner_reverse{% endif %}">
               <div class="product__image-wrapper slide-to-right">
-                <picture>
-                  {%- if block.settings.mb_product_image -%}
-                    <source media="(max-width: 767px)" srcset="{{ block.settings.mb_product_image | image_url }}">
+                {%- assign has_second_product_image = false -%}
+                {%- if block.settings.product_image_2 != blank or block.settings.mb_product_image_2 != blank -%}
+                  {%- assign has_second_product_image = true -%}
+                {%- endif -%}
+                {%- assign second_product_image = block.settings.product_image_2 | default: block.settings.product_image -%}
+                <div class="product-image-carousel{% unless has_second_product_image %} product-image-carousel--single{% endunless %}"{% if has_second_product_image %} data-product-image-carousel{% endif %}>
+                  <picture class="product-image-slide is-active">
+                    {%- if block.settings.mb_product_image -%}
+                      <source media="(max-width: 767px)" srcset="{{ block.settings.mb_product_image | image_url }}">
+                    {%- endif -%}
+                    {%- if block.settings.product_image -%}
+                      <img
+                        class="product-img"
+                        src="{{ block.settings.product_image | image_url }}"
+                        alt="{{ block.settings.product_image.alt }}"
+                        draggable="false"
+                      >
+                    {%- endif -%}
+                  </picture>
+                  {%- if has_second_product_image -%}
+                    <picture class="product-image-slide">
+                      {%- if block.settings.mb_product_image_2 -%}
+                        <source media="(max-width: 767px)" srcset="{{ block.settings.mb_product_image_2 | image_url }}">
+                      {%- endif -%}
+                      {%- if second_product_image -%}
+                        <img
+                          class="product-img"
+                          src="{{ second_product_image | image_url }}"
+                          alt="{{ second_product_image.alt }}"
+                          draggable="false"
+                        >
+                      {%- endif -%}
+                    </picture>
                   {%- endif -%}
-                  {%- if block.settings.product_image -%}
-                    <img
-                      src="{{ block.settings.product_image | image_url }}"
-                      alt="{{ block.settings.product_image.alt }}"
-                    >
-                  {%- endif -%}
-                </picture>
+                </div>
                 {% if block.settings.active_txt != blank or block.settings.active_image  %}
                 <div class="tag-box">
                   <div class="tag-txt">{{ block.settings.active_txt }}</div>
@@ -769,6 +823,51 @@ font-size: 15px;
         }, 2000);
       });
     });
+
+    document.querySelectorAll('#shopify-section-{{ section.id }} [data-product-image-carousel]').forEach((carousel) => {
+      const slides = carousel.querySelectorAll('.product-image-slide');
+      let activeIndex = 0;
+      let startX = null;
+      let pointerId = null;
+      let autoplayTimer;
+
+      const showSlide = (index) => {
+        slides[activeIndex].classList.remove('is-active');
+        activeIndex = (index + slides.length) % slides.length;
+        slides[activeIndex].classList.add('is-active');
+      };
+
+      const startAutoplay = () => {
+        window.clearInterval(autoplayTimer);
+        autoplayTimer = window.setInterval(() => showSlide(activeIndex + 1), 5000);
+      };
+
+      carousel.addEventListener('pointerdown', (event) => {
+        startX = event.clientX;
+        pointerId = event.pointerId;
+        carousel.classList.add('is-dragging');
+        carousel.setPointerCapture(pointerId);
+        window.clearInterval(autoplayTimer);
+      });
+
+      const finishSwipe = (event) => {
+        if (pointerId !== event.pointerId) return;
+
+        const distance = event.clientX - startX;
+        if (Math.abs(distance) >= 40) {
+          showSlide(distance < 0 ? activeIndex + 1 : activeIndex - 1);
+        }
+
+        carousel.classList.remove('is-dragging');
+        startX = null;
+        pointerId = null;
+        startAutoplay();
+      };
+
+      carousel.addEventListener('pointerup', finishSwipe);
+      carousel.addEventListener('pointercancel', finishSwipe);
+      startAutoplay();
+    });
   })();
 </script>
 {% schema %}
@@ -918,6 +1017,16 @@ font-size: 15px;
           "type": "image_picker",
           "id": "mb_product_image",
           "label": "Mobile Product Images"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_image_2",
+          "label": "Product Image 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "mb_product_image_2",
+          "label": "Mobile Product Image 2"
         },
         {
           "type": "image_picker",
