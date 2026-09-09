@@ -35,7 +35,6 @@
 
 <style>
   #{{ section_id }} { 
-    
     color: {{ section.settings.text_color | default: '#000000' }}; 
     margin-top: {{ section.settings.margin_top | default: 0 }}px; 
     margin-bottom: {{ section.settings.margin_bottom | default: 0 }}px; overflow: hidden; 
@@ -58,14 +57,17 @@
   #{{ section_id }} .jp-men-shr-2026__note { color: {{ section.settings.note_color | default: '#000000' }}; font-family: inherit; font-size: 13px; line-height: 1.3; margin: 1.7vw 0 0; opacity: .5; }
 
   @media screen and (max-width: 749px) {
-    #{{ section_id }} { margin-top: {{ section.settings.mobile_margin_top | default: 0 }}px; margin-bottom: {{ section.settings.mobile_margin_bottom | default: 0 }}px; }
-    #{{ section_id }} .jp-men-shr-2026__desktop-content { display: block; padding: 10.854vw 0 5.889vw; }
+    #{{ section_id }} .jp-men-shr-2026__inner { padding: 0; }
+    #{{ section_id }} { margin-top: {{ section.settings.mobile_margin_top | default: 0 }}px; 
+      margin-bottom: {{ section.settings.mobile_margin_bottom | default: 0 }}px;
+    }
+    #{{ section_id }} .jp-men-shr-2026__desktop-content { display: block; padding: 10.854vw 20px 5.889vw; }
     #{{ section_id }} .jp-men-shr-2026__title { font-size: 5.543vw; line-height: 1.2; }
     #{{ section_id }} .jp-men-shr-2026__body { font-size: 3.464vw; line-height: 1.4; margin-top: 3.233vw; }
     #{{ section_id }} .jp-men-shr-2026__gallery { display: block; height: 75.115vw; margin-top: 12.702vw; position: relative; }
-    #{{ section_id }} .jp-men-shr-2026__card { aspect-ratio: 866 / 971; position: absolute; }
+    #{{ section_id }} .jp-men-shr-2026__card { aspect-ratio: 866 / 971; border: 5px solid #fff; box-sizing: border-box; overflow: hidden; position: absolute; }
     #{{ section_id }} .jp-men-shr-2026__card:nth-child(1) { right: 0; top: 0; width: 56.527%; }
-    #{{ section_id }} .jp-men-shr-2026__card:nth-child(2) { left: 0; top: 21.833%; width: 59.465%; }
+    #{{ section_id }} .jp-men-shr-2026__card:nth-child(2) { left: 0; top: 21.833%; width: 59.465%; z-index: 1; }
     #{{ section_id }} .jp-men-shr-2026__card:nth-child(3) { display: none; }
     #{{ section_id }} .jp-men-shr-2026__image { height: 100%; object-fit: cover; width: 100%; }
     #{{ section_id }} .jp-men-shr-2026__note { display: none; }

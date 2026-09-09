@@ -64,16 +64,15 @@
   #{{ section_id }} .jp-long-life-2026__title--mobile { display: none; }
   #{{ section_id }} .jp-long-life-2026__description { color: #3f3636; font-size: 20px; font-weight: 400; line-height: 1.5; }
   #{{ section_id }} .jp-long-life-2026__description p { margin: 0; }
-  #{{ section_id }} .jp-long-life-2026__metrics { align-items: center; display: flex; gap: 57px; margin: 60px auto 80px; width: 440px; }
+  #{{ section_id }} .jp-long-life-2026__metrics { align-items: center; display: flex; gap: 0; margin: 60px auto 80px; width: fit-content; }
   #{{ section_id }} .jp-long-life-2026__metric { min-width: 0; text-align: center; }
-  #{{ section_id }} .jp-long-life-2026__metric:first-child { width: 145px; }
-  #{{ section_id }} .jp-long-life-2026__metric:last-child { width: 171px; }
+  #{{ section_id }} .jp-long-life-2026__metric:first-child, #{{ section_id }} .jp-long-life-2026__metric:last-child { width: max-content; }
   #{{ section_id }} .jp-long-life-2026__metric-value, #{{ section_id }} .jp-long-life-2026__metric-label { margin: 0; }
   #{{ section_id }} .jp-long-life-2026__metric-value { color: #e0004d; font-family: Roboto, sans-serif; font-size: 79.698px; font-weight: 600; line-height: 1.2; white-space: nowrap; }
   #{{ section_id }} .jp-long-life-2026__metric-value small { color: #000; font-family: "Noto Sans JP", sans-serif; font-size: 29.887px; font-weight: 500; margin-left: 3px; }
   #{{ section_id }} .jp-long-life-2026__metric-value sup { font-family: Saans, "Noto Sans JP", sans-serif; font-size: 19.277px; font-weight: 500; line-height: 1.2; vertical-align: baseline; }
   #{{ section_id }} .jp-long-life-2026__metric-label { color: #000; font-family: "Noto Sans JP", sans-serif; font-size: 19.925px; line-height: 1.5; margin-top: 0; }
-  #{{ section_id }} .jp-long-life-2026__divider { align-self: center; background: #b3b3b3; display: block; flex: 0 0 1px; height: 90.622px; margin: 0; width: 1px; }
+  #{{ section_id }} .jp-long-life-2026__divider { align-self: center; background: #b3b3b3; display: block; flex: 0 0 1px; height: 90.622px; margin: 0 57px; width: 1px; }
   #{{ section_id }} .jp-long-life-2026__image-wrap { border-radius: 12px; margin: 0 auto; max-width: 1110px; overflow: hidden; width: 100%; }
   #{{ section_id }} .jp-long-life-2026__image-wrap picture, #{{ section_id }} .jp-long-life-2026__image, #{{ section_id }} .jp-long-life-2026__placeholder { display: block; width: 100%; }
   #{{ section_id }} .jp-long-life-2026__image { height: auto; }
@@ -88,7 +87,7 @@
     #{{ section_id }} .jp-long-life-2026__title--desktop { display: none; }
     #{{ section_id }} .jp-long-life-2026__title--mobile { display: block; }
     #{{ section_id }} .jp-long-life-2026__description { color: #000; font-family: Saans, "Noto Sans JP", sans-serif; font-size: 19px; line-height: 1.5; }
-    #{{ section_id }} .jp-long-life-2026__metrics { gap: 0; margin: 31px 0 40px; width: fit-content; }
+    #{{ section_id }} .jp-long-life-2026__metrics { gap: 0; margin: 31px 0 40px; width: 235px; }
     #{{ section_id }} .jp-long-life-2026__metric { min-width: 0; }
     #{{ section_id }} .jp-long-life-2026__metric:first-child { width: 77px; }
     #{{ section_id }} .jp-long-life-2026__metric:last-child { width: 108px; }
@@ -96,9 +95,9 @@
     #{{ section_id }} .jp-long-life-2026__metric-value small { font-family: "Noto Sans JP", sans-serif; font-size: 15px; margin-left: 1px; }
     #{{ section_id }} .jp-long-life-2026__metric-value sup { font-size: 10px; }
     #{{ section_id }} .jp-long-life-2026__metric-label { font-family: "Noto Sans JP", sans-serif; font-size: 12px; line-height: 1.5; margin-top: 0; white-space: nowrap; }
-    #{{ section_id }} .jp-long-life-2026__divider { height: 46.8px; margin: 0 22px; }
-    #{{ section_id }} .jp-long-life-2026__image-wrap { aspect-ratio: 336 / 298; border-radius: 0; margin: 0; max-width: 100%; width: 336px; }
-    #{{ section_id }} .jp-long-life-2026__image { height: 100%; object-fit: cover; }
+    #{{ section_id }} .jp-long-life-2026__divider { height: 46.8px; margin: 0 21px 0 28px; }
+    #{{ section_id }} .jp-long-life-2026__image-wrap { aspect-ratio: auto; border-radius: 0; margin: 0; max-width: none; width: 100%; }
+    #{{ section_id }} .jp-long-life-2026__image { height: auto; object-fit: contain; }
     #{{ section_id }} .jp-long-life-2026__note { font-family: "Noto Sans JP", sans-serif; font-size: 10px; line-height: 1.5; margin: 16px 0 0; max-width: 335px; }
   }
 {% endstyle %}

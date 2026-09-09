@@ -46,6 +46,9 @@
     font-style: normal;
     font-weight: 300;
   }
+  .p-aps-hero__title--mobile {
+    display: none;
+  }
   .p-aps-hero__subtitle {
     margin: 14px 0 0;
     font-size: clamp(17px, 1.28vw, 25px);
@@ -81,6 +84,9 @@
     padding-left: 10%;
     text-align: center;
   }
+  .p-aps-hero__note-inner--mobile {
+    display: none;
+  }
   @media screen and (max-width: 749px) {
     .p-aps-hero__inner {
       background: var(--p-hero-bg);
@@ -111,6 +117,12 @@
       font-size: 20px;
       text-align: center;
     }
+    .p-aps-hero__title--desktop {
+      display: none;
+    }
+    .p-aps-hero__title--mobile {
+      display: block;
+    }
     .p-aps-hero__subtitle {
       margin-top: 8px;
       font-size: clamp(14px, 4.2vw, 17px);
@@ -137,6 +149,12 @@
       padding: 0;
       text-align: left;
     }
+    .p-aps-hero__note-inner--desktop {
+      display: none;
+    }
+    .p-aps-hero__note-inner--mobile {
+      display: block;
+    }
   }
 </style>
 
@@ -161,14 +179,16 @@
       </picture>
     </div>
     {% if section.settings.title != blank
+      or section.settings.title_mobile != blank
       or section.settings.subtitle != blank
       or section.settings.copy != blank
       or section.settings.content_image != blank
     %}
       <div class="p-aps-hero__content jp-container">
         <div class="p-aps-hero__content-inner">
-          {% if section.settings.title != blank %}
-            <h2 class="p-aps-hero__title to-top">{{ section.settings.title }}</h2>
+          {% if section.settings.title != blank or section.settings.title_mobile != blank %}
+            <h2 class="p-aps-hero__title p-aps-hero__title--desktop to-top">{{ section.settings.title }}</h2>
+            <h2 class="p-aps-hero__title p-aps-hero__title--mobile to-top">{{ section.settings.title_mobile | default: section.settings.title }}</h2>
           {% endif %}
           {% if section.settings.subtitle != blank %}
             <p class="p-aps-hero__subtitle to-top" style="transition-delay: .1s">{{ section.settings.subtitle }}</p>
@@ -194,9 +214,12 @@
         </div>
       </div>
     {% endif %}
-    {% if section.settings.note != blank %}
+    {% if section.settings.note != blank or section.settings.note_mobile != blank %}
       <div class="p-aps-hero__note jp-container">
-        <p class="p-aps-hero__note-inner">{{ section.settings.note | escape | newline_to_br }}</p>
+        {% if section.settings.note != blank %}
+          <p class="p-aps-hero__note-inner p-aps-hero__note-inner--desktop">{{ section.settings.note | escape | newline_to_br }}</p>
+        {% endif %}
+        <p class="p-aps-hero__note-inner p-aps-hero__note-inner--mobile">{{ section.settings.note_mobile | default: section.settings.note | escape | newline_to_br }}</p>
       </div>
     {% endif %}
   </div>
@@ -209,11 +232,13 @@
     { "type": "image_picker", "id": "image", "label": "PC 主视觉图片（1920）" },
     { "type": "image_picker", "id": "image_mobile", "label": "移动端图片" },
     { "type": "html", "id": "title", "label": "标题", "default": "Ulike <em>Air Pro S</em>" },
+    { "type": "html", "id": "title_mobile", "label": "移动端标题（留空则沿用标题）" },
     { "type": "text", "id": "subtitle", "label": "副标题", "default": "IPL光美容器" },
     { "type": "richtext", "id": "copy", "label": "说明", "default": "<p>キレイもコスパも、欲張っていい。</p>" },
     { "type": "image_picker", "id": "content_image", "label": "文案区 PC 图片（奖项图）" },
     { "type": "image_picker", "id": "content_image_mobile", "label": "文案区移动端图片（奖项图）" },
     { "type": "textarea", "id": "note", "label": "底部注释" },
+    { "type": "textarea", "id": "note_mobile", "label": "移动端底部注释（留空则沿用底部注释）" },
     { "type": "color", "id": "background", "label": "背景色", "default": "#f3f6f7" },
     { "type": "color", "id": "text_color", "label": "文字色", "default": "#101010" }
   ],

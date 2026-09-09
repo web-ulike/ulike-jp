@@ -35,7 +35,7 @@
             "label": "期間限定",
             "price_text": "",
             "original_price_label": "希望小売価格",
-            "original_price": "¥69,800",
+            "original_price": "",
             "discount_information": ""
           }
         },
@@ -353,6 +353,7 @@
         "wavelength_text": "の広帯域波長",
         "mode": "USHR",
         "mode_text": "蓄熱モード*",
+        "chips_background_color_mobile": "#c9ecff",
         "body": "硬いヒゲの毛根へ深くアプローチ。ヒゲの成長を根元から抑え込み、カミソリ負けの連鎖を断ち切ります。毎日のシェービングによるダメージから肌を解き放ち、清潔感あふれる健やかな素肌へ。",
         "note": "*USHRモード：UlikeのUSHRモードとは、IPL蓄熱式照射技術を指す。"
       }
@@ -406,15 +407,9 @@
       "settings": {
         "image": "shopify:\/\/shop_images\/11_1.png",
         "image_mobile": "shopify:\/\/shop_images\/1522.png",
-        "title_gradient": "スキンセンサー",
-        "title_connector": "で、",
-        "title_line_2": "日焼け後の肌",
-        "title_note": "*¹",
-        "title_line_2_after": "にも安心",
+        "heading_html": "<p><span class=\"jp-x-skin-sensor-2026__heading-gradient\">スキンセンサー<\/span>で、<\/p><p>日焼け後の肌<sup>*<span class=\"jp-x-skin-sensor-2026__scan-note-number\">1<\/span><\/sup>にも安心<\/p>",
         "intro": "進化したスキンセンサーは、",
-        "scan_number": "1分間",
-        "scan_text": "あたり6,000回",
-        "scan_note": "*²",
+        "scan_highlight_html": "<span class=\"jp-x-skin-sensor-2026__scan-time\">1&nbsp;<\/span><span class=\"jp-x-skin-sensor-2026__scan-unit\">分間<\/span><span class=\"jp-x-skin-sensor-2026__scan-label\">あたり<\/span><span class=\"jp-x-skin-sensor-2026__scan-count\">6,000<\/span><span class=\"jp-x-skin-sensor-2026__scan-unit\">回<\/span><sup>*<span class=\"jp-x-skin-sensor-2026__scan-note-number\">2<\/span><\/sup>",
         "scan_end": "の高速スキャンを実現。",
         "note": "*1.肌色の認識は人により違いますので、ダークブラウンの方は、取扱説明書の指示に沿って事前テストしてください。\n*2.国際認証機関CVCによる試験結果：WTS2024-15489"
       }
@@ -431,7 +426,8 @@
         "image": "shopify:\/\/shop_images\/1_94340b17-7db2-4376-bfcd-f5710a97550c.png",
         "image_mobile": "shopify:\/\/shop_images\/Frame_2085663650_c5ce13f1-4a6c-40c1-ac14-d29ab1a6a0ad.png",
         "title": "肌の色を自動で感知し、\n最適な出力パワーを適宜に判別。",
-        "description": "日焼けなどによるわずかな肌色の変化も見逃さず、使用中に自動でエネルギーシステムへ反映します。 最大10段階*の出力範囲内でミリ秒レベルの調整を行うため、その日の肌状態に合わせて、常にやさしく、そして効率的なケアが続けられます。",
+        "description_pc_html": "日焼けなどによるわずかな肌色の変化も見逃さず、使用中に自動でエネルギーシステムへ反映します。 <span class=\"jp-fast-flash-2026__description-highlight\">最大10段階<\/span><sup>*3<\/sup>の出力範囲内でミリ秒レベルの調整を行うため、その日の肌状態に合わせて、常にやさしく、そして効率的なケアが続けられます。",
+        "description_mobile_html": "日焼けなどによるわずかな肌色の変化も見逃さず、使用中に自動でエネルギーシステムへ反映します。 最大10段階<sup>*3<\/sup>の出力範囲内でミリ秒レベルの調整を行うため、その日の肌状態に合わせて、常にやさしく、そして効率的なケアが続けられます。",
         "flash_number": "",
         "flash_unit": "",
         "flash_label": "",
@@ -571,6 +567,7 @@
         "shaving": {
           "type": "step",
           "settings": {
+            "step_label": "",
             "image": "shopify:\/\/shop_images\/pic-step01_e4ca648c-d913-45fa-af72-c3634556bbde.png",
             "title": "シェービング",
             "text": "ケアする前日の夜にまずシェービングをします。乾いた状態で剃らないでください。"
@@ -579,6 +576,7 @@
         "test": {
           "type": "step",
           "settings": {
+            "step_label": "",
             "image": "shopify:\/\/shop_images\/pic-step02_b152a5a6-0d4b-4068-ab76-3e819f8d3ba7.jpg",
             "title": "テスト",
             "text": "照射する前に、付属のゴーグルを着用してください。まず腕やすねでテストすることをおすすめします。"
@@ -587,6 +585,7 @@
         "care": {
           "type": "step",
           "settings": {
+            "step_label": "",
             "image": "shopify:\/\/shop_images\/pic-step02_1_8859177f-22d6-44ed-bcb2-4353fbd4f227.jpg",
             "title": "ムダ毛ケア",
             "text": "照射口が肌に密着するように押し当てて、照射ボタンを押します。短く押すと1 回照射、2秒長押しすると連続照射を開始します。"
@@ -595,6 +594,7 @@
         "moisturize": {
           "type": "step",
           "settings": {
+            "step_label": "",
             "image": "shopify:\/\/shop_images\/pic-step04_280354c1-53fb-4922-a072-78d9288148ce.jpg",
             "title": "潤す & 紫外線対策",
             "text": "ケアした後、ボディクリームを塗り、お肌のうるおいを保ちましょう。照射後 48 時間は、照射部位に紫外線をあてないでください。"

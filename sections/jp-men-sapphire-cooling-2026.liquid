@@ -20,9 +20,6 @@
         {{ 'product-1' | placeholder_svg_tag: 'jp-men-sapphire-cooling-2026__placeholder' }}
       {%- endif -%}
     </picture>
-    {%- if section.settings.temperature != blank -%}
-      <span class="jp-men-sapphire-cooling-2026__temperature">{{ section.settings.temperature }}</span>
-    {%- endif -%}
     <p class="jp-men-sapphire-cooling-2026__note jp-men-sapphire-cooling-2026__note--mobile">{{ section.settings.note | default: default_note | escape }}</p>
   </div>
 
@@ -43,7 +40,6 @@
   #{{ section_id }} .jp-men-sapphire-cooling-2026__media picture { display: block; }
   #{{ section_id }} .jp-men-sapphire-cooling-2026__image, #{{ section_id }} .jp-men-sapphire-cooling-2026__placeholder { display: block; height: auto; width: 100%; }
   #{{ section_id }} .jp-men-sapphire-cooling-2026__placeholder {  fill: #d0d3d7; }
-  #{{ section_id }} .jp-men-sapphire-cooling-2026__temperature { color: {{ section.settings.temperature_color | default: '#ffffff' }}; font-family: inherit; font-size: min(1.367188vw, 18.59375px); font-weight: 400; left: 58.11%; line-height: 1.4; position: absolute; top: 56.03%; white-space: nowrap; }
   #{{ section_id }} .jp-men-sapphire-cooling-2026__copy { align-self: stretch; grid-column: 2; grid-row: 1; padding: 14.63% 16.47% 10% 10.07%; }
   #{{ section_id }} .jp-men-sapphire-cooling-2026__title {
      color: inherit; font-family: inherit; font-size: 45px; font-weight: 500; line-height: 1.2; margin: 0; 
@@ -65,7 +61,6 @@
     #{{ section_id }} .jp-men-sapphire-cooling-2026__body { font-size: 3.579677vw; line-height: 1.4; margin-top: 3.64%; text-align: justify; }
     #{{ section_id }} .jp-men-sapphire-cooling-2026__media { order: 2; width: 100%; }
     #{{ section_id }} .jp-men-sapphire-cooling-2026__placeholder { aspect-ratio: 1732 / 1434; }
-    #{{ section_id }} .jp-men-sapphire-cooling-2026__temperature { font-size: 4.293014vw; left: 58.25%; top: 57.65%; }
     #{{ section_id }} .jp-men-sapphire-cooling-2026__note--desktop { display: none; }
     #{{ section_id }} .jp-men-sapphire-cooling-2026__note--mobile { bottom: 2.67%; color: {{ section.settings.mobile_note_color | default: '#ffffff' }}; display: block; font-size: 1.540473vw; left: 5.543%; opacity: .5; position: absolute; white-space: nowrap; }
   }
