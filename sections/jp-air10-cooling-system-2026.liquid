@@ -5,7 +5,7 @@
 -%}
 
 <section id="{{ section_id }}" class="jp-cooling-system-2026">
-  <div class="jp-cooling-system-2026__inner">
+  <div class="jp-cooling-system-2026__inner jp-container">
     <div class="jp-cooling-system-2026__content">
       <h2 class="jp-cooling-system-2026__title to-top">{{ section.settings.title | default: '冷感、長時間キープ' | escape }}</h2>
       <p class="jp-cooling-system-2026__description to-top" style="transition-delay: .1s">{{ section.settings.description | default: default_description | escape }}</p>
@@ -32,24 +32,22 @@
 
 <style>
   #{{ section_id }} { background: {{ section.settings.background_color | default: '#f4f4f2' }}; color: #000; overflow: hidden; }
-  #{{ section_id }} * { box-sizing: border-box; }
-  #{{ section_id }} .jp-cooling-system-2026__inner { height: 1793px; margin: 0 auto; max-width: 1920px; position: relative; }
-  #{{ section_id }} .jp-cooling-system-2026__content { left: max(30px, calc((100% - 1280px) / 2)); position: absolute; top: 143px; width: 584px; z-index: 2; }
+  #{{ section_id }} .jp-cooling-system-2026__inner { position: relative; }
+  #{{ section_id }} .jp-cooling-system-2026__content { left: 0; position: absolute; top: 143px; width: 584px; z-index: 2; }
   #{{ section_id }} .jp-cooling-system-2026__title { font-family: "Noto Sans JP", sans-serif; font-size: 48px; font-weight: 500; line-height: 1.5; margin: 0 0 25px; }
   #{{ section_id }} .jp-cooling-system-2026__description { font-family: "Noto Sans JP", sans-serif; font-size: 24px; font-weight: 400; line-height: 1.5; margin: 0; }
-  #{{ section_id }} .jp-cooling-system-2026__media { height: 1488px; position: absolute; right: 0; top: 24px; width: min(89.06vw, 1710px); }
-  #{{ section_id }} .jp-cooling-system-2026__media picture, #{{ section_id }} .jp-cooling-system-2026__image, #{{ section_id }} .jp-cooling-system-2026__placeholder { display: block; height: 100%; width: 100%; }
-  #{{ section_id }} .jp-cooling-system-2026__image { object-fit: contain; object-position: right top; }
+  #{{ section_id }} .jp-cooling-system-2026__media { left: 50%;
+    position: relative; transform: translateX(-50%); width: 100vw; }
+  #{{ section_id }} .jp-cooling-system-2026__media picture, #{{ section_id }} .jp-cooling-system-2026__image, #{{ section_id }} .jp-cooling-system-2026__placeholder { display: block; width: 100%; }
   #{{ section_id }} .jp-cooling-system-2026__placeholder { fill: #e4e4e2; }
   #{{ section_id }} .jp-cooling-system-2026__note { bottom: 78px; color: rgba(0,0,0,.5); font-family: Saans, "Noto Sans JP", sans-serif; font-size: 12px; left: max(30px, calc((100% - 1280px) / 2)); line-height: 1.5; margin: 0; position: absolute; }
   @media screen and (max-width: 749px) {
-    #{{ section_id }} .jp-cooling-system-2026__inner { height: 824px; max-width: none; width: 100%; }
-    #{{ section_id }} .jp-cooling-system-2026__content { left: 19px; top: 56px; width: calc(100% - 38px); }
-    #{{ section_id }} .jp-cooling-system-2026__title { font-size: 30px; margin-bottom: 13px; }
-    #{{ section_id }} .jp-cooling-system-2026__description { font-size: 18px; }
-    #{{ section_id }} .jp-cooling-system-2026__media { height: 371px; left: 0; right: auto; top: 253px; width: 100%; }
-    #{{ section_id }} .jp-cooling-system-2026__image { object-fit: contain; object-position: center top; }
-    #{{ section_id }} .jp-cooling-system-2026__note { bottom: 62px; font-family: "Noto Sans JP", sans-serif; font-size: 10px; left: 20px; width: calc(100% - 40px); }
+    #{{ section_id }} .jp-cooling-system-2026__inner { padding-left: 0; padding-right: 0; width: 100%; }
+    #{{ section_id }} .jp-cooling-system-2026__content { left: 18.758px; top: 55.707px; width: 335.434px; }
+    #{{ section_id }} .jp-cooling-system-2026__title { font-size: 30px; font-weight: 500; line-height: 1.5; margin-bottom: 14.737px; }
+    #{{ section_id }} .jp-cooling-system-2026__description { font-size: 18px; font-weight: 400; line-height: 1.5; }
+    #{{ section_id }} .jp-cooling-system-2026__media { left: 0; margin-top: 0; position: relative; transform: none; width: 100%; }
+    #{{ section_id }} .jp-cooling-system-2026__note { bottom: auto; display: block; font-family: "Noto Sans JP", sans-serif; font-size: 10px; font-weight: 400; left: 19.602px; line-height: 1.3; top: 750.218px; width: 343.023px; z-index: 3; }
   }
 </style>
 

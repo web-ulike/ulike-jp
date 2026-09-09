@@ -1,0 +1,102 @@
+{%- liquid
+  assign section_id = 'jp-men-safety-certifications-2026-' | append: section.id
+  assign desktop_background = section.settings.background_image | default: section.settings.background_image_mobile
+  assign mobile_background = section.settings.background_image_mobile | default: desktop_background
+-%}
+
+<section id="{{ section_id }}" class="jp-men-safety-certifications-2026">
+  <div class="jp-men-safety-certifications-2026__container jp-container">
+    {%- if desktop_background != blank -%}
+      <picture class="jp-men-safety-certifications-2026__background">
+        {%- if mobile_background != blank -%}<source media="(max-width: 749px)" srcset="{{ mobile_background | image_url: width: 1800 }}">{%- endif -%}
+        {{ desktop_background | image_url: width: 3000 | image_tag: class: 'jp-men-safety-certifications-2026__background-image', loading: 'lazy', widths: '1200, 1800, 2400, 3000', alt: '' }}
+      </picture>
+    {%- endif -%}
+    <div class="jp-men-safety-certifications-2026__inner">
+      <h2 class="jp-men-safety-certifications-2026__title to-top">{{ section.settings.title | default: '国際安全基準認証取得済み' }}</h2>
+      <div class="jp-men-safety-certifications-2026__grid">
+        {%- for block in section.blocks limit: 6 -%}
+          <div class="jp-men-safety-certifications-2026__card to-top"{% unless forloop.first %} style="transition-delay: {{ forloop.index0 | times: 0.1 }}s"{% endunless %} {{ block.shopify_attributes }}>
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 800 | image_tag: class: 'jp-men-safety-certifications-2026__logo', loading: 'lazy', widths: '180, 260, 360, 520, 800', alt: block.settings.image.alt | default: block.settings.name }}
+            {%- else -%}
+              <span class="jp-men-safety-certifications-2026__fallback">{{ block.settings.name }}</span>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #{{ section_id }} {  color: {{ section.settings.text_color | default: '#190a0a' }}; margin-top: {{ section.settings.margin_top | default: 0 }}px; margin-bottom: {{ section.settings.margin_bottom | default: 0 }}px; overflow: hidden; position: relative; }
+
+  #{{ section_id }} .jp-men-safety-certifications-2026__background { display: block; inset: 0; opacity: {{ section.settings.background_opacity | divided_by: 100.0 }}; position: absolute; }
+  #{{ section_id }} .jp-men-safety-certifications-2026__background-image { display: block; height: 100%; object-fit: cover; width: 100%; }
+  #{{ section_id }} .jp-men-safety-certifications-2026__container { background: {{ section.settings.background | default: '#fafafd' }}; position: relative; z-index: 1; }
+  #{{ section_id }} .jp-men-safety-certifications-2026__inner { padding-top: min(6.87vw, 93.5px); padding-bottom: min(6.8vw, 92.5px); }
+  #{{ section_id }} .jp-men-safety-certifications-2026__title { 
+    color: inherit;
+    font-size: 45px; 
+    font-weight: 500; 
+    line-height: 1.2; margin: 0; 
+    text-align: center;
+    white-space: nowrap; 
+  }
+  #{{ section_id }} .jp-men-safety-certifications-2026__grid { display: grid; gap: min(1.823vw, 24.8px); grid-template-columns: repeat(6, minmax(0, 188.5105px)); justify-content: center; margin-top: min(5.548vw, 75.5px); }
+  #{{ section_id }} .jp-men-safety-certifications-2026__card { min-width: 0; width: 100%; }
+  #{{ section_id }} .jp-men-safety-certifications-2026__logo { display: block; height: auto; width: 100%; }
+  #{{ section_id }} .jp-men-safety-certifications-2026__fallback { color: #000; font-size: min(1.1vw, 15px); font-weight: 600; line-height: 1; text-align: center; }
+
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} { margin-top: {{ section.settings.mobile_margin_top | default: 0 }}px; margin-bottom: {{ section.settings.mobile_margin_bottom | default: 0 }}px; }
+    #{{ section_id }} .jp-men-safety-certifications-2026__inner { padding-top: 14.84vw; padding-bottom: 10.1vw; }
+    #{{ section_id }} .jp-men-safety-certifications-2026__title { font-size: 5.774vw; line-height: 1.3; }
+    #{{ section_id }} .jp-men-safety-certifications-2026__grid { column-gap: 4.388vw; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 8.14vw; row-gap: 4.619vw; }
+    #{{ section_id }} .jp-men-safety-certifications-2026__fallback { font-size: 5vw; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Men Safety Certs",
+  "settings": [
+    { "type": "header", "content": "外边距" },
+    { "type": "range", "id": "margin_top", "label": "PC 上边距", "min": 0, "max": 200, "step": 5, "unit": "px", "default": 0 },
+    { "type": "range", "id": "margin_bottom", "label": "PC 下边距", "min": 0, "max": 200, "step": 2, "unit": "px", "default": 0 },
+    { "type": "range", "id": "mobile_margin_top", "label": "M 上边距", "min": 0, "max": 200, "step": 2, "unit": "px", "default": 0 },
+    { "type": "range", "id": "mobile_margin_bottom", "label": "M 下边距", "min": 0, "max": 200, "step": 2, "unit": "px", "default": 0 },
+    { "type": "text", "id": "title", "label": "标题", "default": "国際安全基準認証取得済み" },
+    { "type": "image_picker", "id": "background_image", "label": "PC 背景图片（建议 2720 × 1156，2倍图）" },
+    { "type": "image_picker", "id": "background_image_mobile", "label": "M 背景图片（建议 1732 × 1513）" },
+    { "type": "color", "id": "background", "label": "背景颜色", "default": "#FAFAFD" },
+    { "type": "color", "id": "text_color", "label": "标题颜色", "default": "#190A0A" },
+    { "type": "range", "id": "background_opacity", "label": "背景图片透明度", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 40 }
+  ],
+  "blocks": [
+    {
+      "type": "certification",
+      "name": "认证标志",
+      "limit": 6,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "认证图片（建议 377 × 299，2倍图）" },
+        { "type": "text", "id": "name", "label": "无图片时显示文字", "default": "ROHS" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "jp-men-safety-certifications-2026",
+      "blocks": [
+        { "type": "certification", "settings": { "name": "ROHS" } },
+        { "type": "certification", "settings": { "name": "CE" } },
+        { "type": "certification", "settings": { "name": "UKCA" } },
+        { "type": "certification", "settings": { "name": "✓" } },
+        { "type": "certification", "settings": { "name": "CQC" } },
+        { "type": "certification", "settings": { "name": "SGS" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

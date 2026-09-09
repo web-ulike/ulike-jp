@@ -38,6 +38,7 @@
             type="button"
             class="jp-anchor-tabs__item{% if forloop.first %} is-active{% endif %}"
             data-anchor-targets="{{ target_ids | escape }}"
+            data-anchor-hidden-targets="{{ bs.hide_target_ids | escape }}"
             {{ block.shopify_attributes }}
           >
             {{ bs.title }}
@@ -180,6 +181,8 @@
 
     const buttons = Array.from(section.querySelectorAll('[data-anchor-targets]'));
     if (!buttons.length) return;
+    const mainContent = document.querySelector('#MainContent');
+    const ownSectionContainer = section.closest('[id^="shopify-section-template"]');
     const normalizeSelector = (value) => {
       const selector = (value || '').trim();
       if (!selector) return '';
@@ -193,32 +196,53 @@
         .filter(Boolean);
     };
 
-    const getTargetBySelector = (selector) => {
-      const target = document.querySelector(selector);
-      return target;
+    const getButtonHiddenSelectors = (btn) => {
+      return (btn.dataset.anchorHiddenTargets || '')
+        .split(',')
+        .map((item) => normalizeSelector(item))
+        .filter(Boolean);
     };
 
-    const getCurrentControlledSelectors = () => {
-      const selectors = [];
+    const getTargetBySelector = (selector, scopeToMainContent = false) => {
+      const scope = scopeToMainContent && mainContent ? mainContent : document;
+
+      try {
+        return scope.querySelector(selector);
+      } catch (error) {
+        return null;
+      }
+    };
+
+    const getFollowingMainContentSections = () => {
+      if (!mainContent) return [];
+
+      const sections = Array.from(mainContent.querySelectorAll('[id^="shopify-section-template"]'));
+      const ownSectionIndex = sections.indexOf(ownSectionContainer);
+
+      return ownSectionIndex >= 0 ? sections.slice(ownSectionIndex + 1) : [];
+    };
+
+    const getCurrentControlledTargets = () => {
+      const visibleTargets = [];
+      const hiddenTargets = [];
 
       buttons.forEach((btn) => {
         getButtonSelectors(btn).forEach((selector) => {
-          if (!selectors.includes(selector)) {
-            selectors.push(selector);
+          const target = getTargetBySelector(selector);
+          if (target && !visibleTargets.includes(target)) {
+            visibleTargets.push(target);
+          }
+        });
+
+        getButtonHiddenSelectors(btn).forEach((selector) => {
+          const target = getTargetBySelector(selector, true);
+          if (target && !hiddenTargets.includes(target)) {
+            hiddenTargets.push(target);
           }
         });
       });
 
-      return selectors;
-    };
-
-    const getControlledTargets = () => {
-      return getCurrentControlledSelectors()
-        .map((selector) => {
-          const target = getTargetBySelector(selector);
-          return target;
-        })
-        .filter(Boolean);
+      return { visibleTargets, hiddenTargets };
     };
 
     const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
@@ -264,23 +288,46 @@
 
     const showTargets = (activeBtn) => {
       const activeSelectors = getButtonSelectors(activeBtn);
+      const activeHiddenTargets = getButtonHiddenSelectors(activeBtn)
+        .map((selector) => getTargetBySelector(selector, true))
+        .filter(Boolean);
+
+      if (!activeSelectors.length && !activeHiddenTargets.length) return;
 
       const activeTargets = [];
-
       activeSelectors.forEach((selector) => {
         const target = getTargetBySelector(selector);
         if (target) {
           activeTargets.push(target);
         }
-        else {
-        }
       });
 
-      getControlledTargets().forEach((target) => {
-        const shouldShow = activeTargets.includes(target);
+      const { visibleTargets, hiddenTargets } = getCurrentControlledTargets();
+      const controlledSections = getFollowingMainContentSections();
 
-        target.classList.toggle('is-active', shouldShow);
-        target.style.display = shouldShow ? '' : 'none';
+      if (activeSelectors.length) {
+        const targetsToToggle = controlledSections.length ? controlledSections : visibleTargets;
+
+        targetsToToggle.forEach((target) => {
+          const shouldShow = activeTargets.some((activeTarget) => {
+            return activeTarget === target || target.contains(activeTarget);
+          });
+          target.classList.toggle('is-active', shouldShow);
+          target.style.display = shouldShow ? '' : 'none';
+        });
+      } else if (activeHiddenTargets.length) {
+        controlledSections.forEach((target) => {
+          target.classList.remove('is-active');
+          target.style.display = '';
+        });
+      }
+
+      hiddenTargets.forEach((target) => {
+        if (activeHiddenTargets.includes(target)) {
+          target.style.display = 'none';
+        } else if (!visibleTargets.includes(target) && !getFollowingMainContentSections().includes(target)) {
+          target.style.display = '';
+        }
       });
     };
 
@@ -459,14 +506,20 @@
         {
           "type": "text",
           "id": "title",
-          "label": "Tab title",
+          "label": "标签标题",
           "default": "機能詳細"
         },
         {
           "type": "textarea",
           "id": "target_ids",
-          "label": "Target element IDs",
-          "info": "product-features,product-reviews or #product-features,#product-reviews"
+          "label": "显示的目标元素 ID",
+          "info": "点击当前标签时显示这些元素，并隐藏当前 Anchor Tabs 下方其余 ID 以 shopify-section-template 开头的区块。填写元素 ID，多个 ID 用英文逗号或换行分隔；可带或不带 #。留空则不处理显示/隐藏。"
+        },
+        {
+          "type": "textarea",
+          "id": "hide_target_ids",
+          "label": "需要隐藏的 Section ID",
+          "info": "点击当前标签时，隐藏当前 Anchor Tabs 下方指定的 shopify-section-template… 区块。若未填写“显示的目标元素 ID”，会先恢复下方全部 Section 显示，再隐藏这里填写的 ID。多个 ID 用英文逗号或换行分隔；可带或不带 #。留空则不处理。若同一 ID 同时填写在显示和隐藏项中，隐藏优先。"
         }
       ]
     }

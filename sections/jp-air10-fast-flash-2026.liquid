@@ -1,7 +1,6 @@
 {%- liquid
   assign section_id = 'jp-air10-fast-flash-2026-' | append: section.id
   assign default_title = '人目を気にせず、\nリラックスした状態で理想の自分へ。'
-  assign default_description = '家庭用ケアの常識を覆すスピードを実現。入浴後のスキマ時間や深夜のひとときが、脚からVIOまでの全身トータルケアタイムに変わります。スピーディーかつ楽に終わるから、無理なく続けられる。'
 -%}
 
 <section id="{{ section_id }}" class="jp-fast-flash-2026">
@@ -9,29 +8,13 @@
     <h2 class="jp-fast-flash-2026__title to-top">
       {{ section.settings.title | default: default_title | escape | newline_to_br }}
     </h2>
-    <p class="jp-fast-flash-2026__description to-top" style="transition-delay: .1s">
-      {{ section.settings.description | default: default_description | escape }}
-    </p>
-    <div class="jp-fast-flash-2026__metrics to-top" style="transition-delay: .2s">
-      <div class="jp-fast-flash-2026__metric">
-        <span class="jp-fast-flash-2026__metric-number">
-          {{- section.settings.flash_number | default: '0.25' | escape -}}</span
-        ><span class="jp-fast-flash-2026__metric-unit">
-          {{- section.settings.flash_unit | default: '秒間隔の' | escape -}}</span
-        ><strong>{{ section.settings.flash_label | default: '高速' | escape }}</strong
-        ><em>{{ section.settings.flash_subtitle | default: 'フラッシュ' | escape }}</em>
-      </div>
-      <span class="jp-fast-flash-2026__times">×</span>
-      <div class="jp-fast-flash-2026__metric">
-        <span class="jp-fast-flash-2026__metric-prefix">約</span
-        ><span class="jp-fast-flash-2026__metric-number">
-          {{- section.settings.time_number | default: '8' | escape -}}</span
-        ><span class="jp-fast-flash-2026__metric-unit">
-          {{- section.settings.time_unit | default: '分で*' | escape -}}</span
-        ><strong>{{ section.settings.time_label | default: '全身ケア' | escape }}</strong
-        ><em>{{ section.settings.time_subtitle | default: '完了' | escape }}</em>
-      </div>
+    <div class="jp-fast-flash-2026__description jp-fast-flash-2026__description--desktop to-top" style="transition-delay: .1s">
+      {{ section.settings.description_pc_html }}
     </div>
+    <div class="jp-fast-flash-2026__description jp-fast-flash-2026__description--mobile to-top" style="transition-delay: .1s">
+      {{ section.settings.description_mobile_html }}
+    </div>
+
     <div class="jp-fast-flash-2026__media to-top" style="transition-delay: .3s">
       <picture>
         {%- if section.settings.image_mobile != blank %}
@@ -73,24 +56,63 @@
 </section>
 
 <style>
-  #{{ section_id }} { background: #fff; color: #000; overflow: hidden; } #{{ section_id }} * { box-sizing: border-box; }
+  #{{ section_id }} { background: {{ section.settings.background_color | default: '#FFFFFF' }};
+   color: {{ section.settings.text_color | default: '#000000' }}; overflow: hidden; } #{{ section_id }} * { box-sizing: border-box; }
   #{{ section_id }} .jp-fast-flash-2026__inner { height: 1371px; margin: 0 auto; max-width: 1280px; position: relative; }
-  #{{ section_id }} .jp-fast-flash-2026__title { font-family: "Noto Sans JP", sans-serif; font-size: 48px; font-weight: 500; left: 50%; line-height: 1.5; margin: 0; position: absolute; text-align: center; top: 117px; transform: translateX(-50%); width: 896px; }
-  #{{ section_id }} .jp-fast-flash-2026__description { color: #3f3636; font-family: "Noto Sans JP", sans-serif; font-size: 24px; left: 50%; line-height: 1.5; margin: 0; position: absolute; text-align: center; top: 291px; transform: translateX(-50%); width: 928px; }
+  #{{ section_id }} .jp-fast-flash-2026__title { 
+    font-size: 48px; font-weight: 500; left: 50%; 
+    line-height: 1.5; margin: 0; 
+    position: absolute; 
+    text-align: center; top: 117px;
+    color: {{ section.settings.text_color | default: '#000000' }};
+    transform: translateX(-50%); 
+    width: 896px;
+  }
+  #{{ section_id }} .jp-fast-flash-2026__description { color: {{ section.settings.text_color | default: '#000000' }}; font-family: Saans, "Noto Sans JP", sans-serif; font-size: 24px; left: 50%; line-height: 1.5; margin: 0; position: absolute; text-align: center; top: 291px; transform: translateX(-50%); width: 1014px; }
+  #{{ section_id }} .jp-fast-flash-2026__description p { margin: 0; }
+  #{{ section_id }} .jp-fast-flash-2026__description-highlight { background: linear-gradient(180deg, #fff 0%, #b9e7ff 100%); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 600; }
+  #{{ section_id }} .jp-fast-flash-2026__description sup { font-family: Saans, "Noto Sans JP", sans-serif; font-size: 15.48px; line-height: 1; }
+  #{{ section_id }} .jp-fast-flash-2026__description--mobile { display: none; }
   #{{ section_id }} .jp-fast-flash-2026__media { background: #faf9f7; border-radius: 15px; height: 723px; left: 50%; overflow: hidden; position: absolute; top: 481px; transform: translateX(-50%); width: 1249px; }
   #{{ section_id }} .jp-fast-flash-2026__image, #{{ section_id }} .jp-fast-flash-2026__placeholder { display: block; height: 100%; object-fit: cover; width: 100%; } #{{ section_id }} .jp-fast-flash-2026__placeholder { fill: #faf9f7; }
   #{{ section_id }} .jp-fast-flash-2026__metrics { display: flex; gap: 35px; left: 50%; position: absolute; top: 647px; transform: translateX(-50%); z-index: 2; }
   #{{ section_id }} .jp-fast-flash-2026__metric { align-items: center; background: rgba(255,255,255,.9); border: 2px solid #e0004d; border-radius: 50%; display: flex; flex: 0 0 auto; flex-wrap: wrap; height: 241px; justify-content: center; padding: 40px 30px 25px; position: relative; text-align: center; width: 241px; }
-  #{{ section_id }} .jp-fast-flash-2026__metric-number { color: #e0004d; font-family: Roboto, Saans, sans-serif; font-size: 63px; font-weight: 600; line-height: 1; } #{{ section_id }} .jp-fast-flash-2026__metric-prefix, #{{ section_id }} .jp-fast-flash-2026__metric-unit { font-family: "Noto Sans JP", sans-serif; font-size: 18px; font-weight: 500; } #{{ section_id }} .jp-fast-flash-2026__metric strong { display: block; font-family: "Noto Sans JP", sans-serif; font-size: 28px; line-height: 1.2; width: 100%; } #{{ section_id }} .jp-fast-flash-2026__metric em { display: block; font-family: "Noto Sans JP", sans-serif; font-size: 17px; font-style: normal; width: 100%; }
+  #{{ section_id }} .jp-fast-flash-2026__metric-number { color: #e0004d; font-family: Roboto, Saans, sans-serif; font-size: 63px; font-weight: 600; line-height: 1; }
+  #{{ section_id }} .jp-fast-flash-2026__metric-prefix, #{{ section_id }} .jp-fast-flash-2026__metric-unit { font-family: "Noto Sans JP", sans-serif; font-size: 18px; font-weight: 500; }
+  #{{ section_id }} .jp-fast-flash-2026__metric strong { display: block; font-family: "Noto Sans JP", sans-serif; font-size: 28px; line-height: 1.2; width: 100%; }
+  #{{ section_id }} .jp-fast-flash-2026__metric em { display: block; font-family: "Noto Sans JP", sans-serif; font-size: 17px; font-style: normal; width: 100%; }
   #{{ section_id }} .jp-fast-flash-2026__times { align-self: center; font-size: 44px; }
   #{{ section_id }} .jp-fast-flash-2026__note { bottom: 88px; color: rgba(0,0,0,.5); font-family: Saans, "Noto Sans JP", sans-serif; font-size: 10px; left: 16px; line-height: 1.5; margin: 0; position: absolute; }
-  @media screen and (max-width: 749px) { #{{ section_id }} .jp-fast-flash-2026__inner { height: 868px; max-width: none; width: 100%; } #{{ section_id }} .jp-fast-flash-2026__title { font-size: 30px; left: 20px; text-align: left; top: 83px; transform: none; width: calc(100% - 40px); } #{{ section_id }} .jp-fast-flash-2026__description { color: #000; font-size: 18px; left: 16px; text-align: left; top: 216px; transform: none; width: calc(100% - 32px); } #{{ section_id }} .jp-fast-flash-2026__media { border-radius: 7px; height: 216px; top: 562px; width: 335px; } #{{ section_id }} .jp-fast-flash-2026__metrics { gap: 18px; top: 393px; } #{{ section_id }} .jp-fast-flash-2026__metric { height: 132px; padding: 20px 13px 14px; width: 132px; } #{{ section_id }} .jp-fast-flash-2026__metric-number { font-size: 40px; } #{{ section_id }} .jp-fast-flash-2026__metric-prefix, #{{ section_id }} .jp-fast-flash-2026__metric-unit { font-size: 12px; } #{{ section_id }} .jp-fast-flash-2026__metric strong { font-size: 20px; } #{{ section_id }} .jp-fast-flash-2026__metric em { font-size: 12px; } #{{ section_id }} .jp-fast-flash-2026__times { font-size: 24px; } #{{ section_id }} .jp-fast-flash-2026__note { bottom: 22px; font-family: "Noto Sans JP", sans-serif; font-size: 10px; left: 20px; width: calc(100% - 40px); } }
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} .jp-fast-flash-2026__inner { height: auto; max-width: none; padding: 83px 20px 22px; width: 100%; }
+    #{{ section_id }} .jp-fast-flash-2026__title { font-size: 30px; left: auto; line-height: 1.3; position: static; text-align: left; top: auto; transform: none; width: auto; }
+    #{{ section_id }} .jp-fast-flash-2026__description--desktop { display: none; }
+    #{{ section_id }} .jp-fast-flash-2026__description--mobile { color: {{ section.settings.text_color | default: '#000000' }}; display: block; font-family: "Noto Sans JP", sans-serif; font-size: 18px; left: auto; line-height: 1.5; margin-top: 18px; position: static; text-align: left; top: auto; transform: none; width: auto; }
+    #{{ section_id }} .jp-fast-flash-2026__description--mobile .jp-fast-flash-2026__description-highlight { background: none; color: inherit; font-weight: inherit; }
+    #{{ section_id }} .jp-fast-flash-2026__description--mobile sup { font-size: 11.61px; }
+    #{{ section_id }} .jp-fast-flash-2026__metrics { display: none; }
+    #{{ section_id }} .jp-fast-flash-2026__metric { background: transparent; border: 1px solid #737373; height: 132px; padding: 20px 13px 14px; width: 132px; }
+    #{{ section_id }} .jp-fast-flash-2026__metric-number { font-size: 40px; }
+    #{{ section_id }} .jp-fast-flash-2026__metric-prefix, #{{ section_id }} .jp-fast-flash-2026__metric-unit { font-size: 12px; }
+    #{{ section_id }} .jp-fast-flash-2026__metric strong { font-size: 20px; }
+    #{{ section_id }} .jp-fast-flash-2026__metric em { font-size: 12px; }
+    #{{ section_id }} .jp-fast-flash-2026__metric:nth-of-type(2) .jp-fast-flash-2026__metric-number { font-size: 52px; font-weight: 400; }
+    #{{ section_id }} .jp-fast-flash-2026__metric:nth-of-type(2) .jp-fast-flash-2026__metric-prefix, #{{ section_id }} .jp-fast-flash-2026__metric:nth-of-type(2) .jp-fast-flash-2026__metric-unit { font-size: 17px; }
+    #{{ section_id }} .jp-fast-flash-2026__metric:nth-of-type(2) .jp-fast-flash-2026__metric-unit { font-size: 14px; }
+    #{{ section_id }} .jp-fast-flash-2026__metric:nth-of-type(2) em { font-size: 14px; }
+    #{{ section_id }} .jp-fast-flash-2026__times { align-self: center; color: #737373; font-size: 24px; }
+    #{{ section_id }} .jp-fast-flash-2026__media { border-radius: 6.954px; height: auto; left: auto; margin: 40px 0 0; position: static; top: auto; transform: none; width: 100%; }
+    #{{ section_id }} .jp-fast-flash-2026__image { height: auto; object-fit: contain; object-position: center; }
+    #{{ section_id }} .jp-fast-flash-2026__note { bottom: auto; font-family: "Noto Sans JP", sans-serif; font-size: 9.735px; left: auto; line-height: 1.3; margin-top: 20px; position: static; top: auto; width: auto; }
+  }
 </style>
 
 {% schema %}
 {
   "name": "jp-air10-fast-flash-2026",
   "settings": [
+    { "type": "color", "id": "background_color", "label": "背景颜色", "default": "#FFFFFF" },
+    { "type": "color", "id": "text_color", "label": "字体颜色", "default": "#000000" },
     { "type": "image_picker", "id": "image", "label": "PC 连续闪光图片" },
     { "type": "image_picker", "id": "image_mobile", "label": "M 连续闪光图片" },
     {
@@ -99,12 +121,8 @@
       "label": "标题",
       "default": "人目を気にせず、\nリラックスした状態で理想の自分へ。"
     },
-    {
-      "type": "textarea",
-      "id": "description",
-      "label": "说明文案",
-      "default": "家庭用ケアの常識を覆すスピードを実現。入浴後のスキマ時間や深夜のひとときが、脚からVIOまでの全身トータルケアタイムに変わります。スピーディーかつ楽に終わるから、無理なく続けられる。"
-    },
+    { "type": "liquid", "id": "description_pc_html", "label": "PC 说明文案（HTML）", "default": "日焼けなどによるわずかな肌色の変化も見逃さず、使用中に自動でエネルギーシステムへ反映します。 <span class=\"jp-fast-flash-2026__description-highlight\">最大10段階</span><sup>*3</sup>の出力範囲内でミリ秒レベルの調整を行うため、その日の肌状態に合わせて、常にやさしく、そして効率的なケアが続けられます。" },
+    { "type": "liquid", "id": "description_mobile_html", "label": "M 说明文案（HTML）", "default": "日焼けなどによるわずかな肌色の変化も見逃さず、使用中に自動でエネルギーシステムへ反映します。 最大10段階<sup>*3</sup>の出力範囲内でミリ秒レベルの調整を行うため、その日の肌状態に合わせて、常にやさしく、そして効率的なケアが続けられます。" },
     { "type": "text", "id": "flash_number", "label": "闪光数值", "default": "0.25" },
     { "type": "text", "id": "flash_unit", "label": "闪光单位", "default": "秒間隔の" },
     { "type": "text", "id": "flash_label", "label": "闪光标题", "default": "高速" },

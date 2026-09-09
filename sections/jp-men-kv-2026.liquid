@@ -1,0 +1,90 @@
+{%- liquid
+  assign section_id = 'jp-men-kv-2026-' | append: section.id
+  assign default_title_first = '男性の剛毛も'
+  assign default_title_second = '1週間で効果実感'
+  assign default_note = '*国際認証機関SGSによる報告：GZCPCH24001573-01_CN。トリートメントスケジュールに従って週3回使用した場合。効果には個人差及び部位差があります。'
+-%}
+
+<section id="{{ section_id }}" class="jp-men-kv-2026" aria-label="{{ section.settings.title_first | default: default_title_first | escape }}">
+  <div class="jp-men-kv-2026__inner jp-container">
+    <div class="jp-men-kv-2026__media">
+      <picture>
+        {%- if section.settings.image_mobile != blank -%}
+          <source media="(max-width: 749px)" srcset="{{ section.settings.image_mobile | image_url: width: 1800 }}">
+        {%- endif -%}
+        {%- if section.settings.image != blank -%}
+          {{ section.settings.image | image_url: width: 2880 | image_tag: class: 'jp-men-kv-2026__image', loading: 'eager', fetchpriority: 'high', widths: '750, 1100, 1500, 1920, 2400, 2880', alt: section.settings.image.alt | default: section.settings.title_first }}
+        {%- elsif section.settings.image_mobile != blank -%}
+          {{ section.settings.image_mobile | image_url: width: 1800 | image_tag: class: 'jp-men-kv-2026__image', loading: 'eager', fetchpriority: 'high', widths: '750, 1100, 1500, 1800', alt: section.settings.image_mobile.alt | default: section.settings.title_first }}
+        {%- else -%}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'jp-men-kv-2026__placeholder' }}
+        {%- endif -%}
+      </picture>
+    </div>
+
+    <div class="jp-men-kv-2026__content">
+      <h2 class="jp-men-kv-2026__title to-top">
+        <span>{{ section.settings.title_first | default: default_title_first }}</span>
+        <span>{{ section.settings.title_second | default: default_title_second }}<sup>{{ section.settings.mark | default: '*' }}</sup></span>
+      </h2>
+    </div>
+
+    <p class="jp-men-kv-2026__note">{{ section.settings.note | default: default_note | escape }}</p>
+  </div>
+</section>
+
+<style>
+  #{{ section_id }} { margin-top: {{ section.settings.margin_top | default: 0 }}px; margin-bottom: {{ section.settings.margin_bottom | default: 0 }}px; overflow: hidden; }
+  #{{ section_id }} *, #{{ section_id }} *::before, #{{ section_id }} *::after { box-sizing: border-box; }
+  #{{ section_id }} .jp-men-kv-2026__inner { position: relative; }
+  #{{ section_id }} .jp-men-kv-2026__media picture { display: block; }
+  #{{ section_id }} .jp-men-kv-2026__image, #{{ section_id }} .jp-men-kv-2026__placeholder { display: block; height: auto; width: 100%; }
+  #{{ section_id }} .jp-men-kv-2026__placeholder { background: #d6d9dc; fill: #b8bdc2; }
+  #{{ section_id }} .jp-men-kv-2026__content { left: 9.154412%; position: absolute; top: 34.052111%; width: 32.977941%; }
+  #{{ section_id }} .jp-men-kv-2026__title { color: {{ section.settings.title_color | default: '#000000' }}; 
+  font-size: 55px; 
+  font-weight: 500; letter-spacing: 0; line-height: 1.2; margin: 0; }
+  #{{ section_id }} .jp-men-kv-2026__title span { display: block; white-space: nowrap; }
+  #{{ section_id }} .jp-men-kv-2026__title sup { font-size: .32em; font-weight: 300; line-height: 1; vertical-align: super; }
+  #{{ section_id }} .jp-men-kv-2026__note { color: {{ section.settings.note_color | default: '#000000' }};
+    font-size: 10px; 
+    font-weight: 400; 
+    left: 9.338235%; 
+    line-height: 1.3;
+    margin: 0; opacity: .5;
+    position: absolute; top: 64.600180%; width: 32.463235%; 
+  }
+
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} { margin-top: {{ section.settings.mobile_margin_top | default: 0 }}px; margin-bottom: {{ section.settings.mobile_margin_bottom | default: 0 }}px; }
+    #{{ section_id }} .jp-men-kv-2026__content { left: 0; top: 8.739%; width: 100%; }
+    #{{ section_id }} .jp-men-kv-2026__title { font-size: 28px; line-height: 1.2; text-align: center; }
+    #{{ section_id }} .jp-men-kv-2026__note { color: {{ section.settings.mobile_note_color | default: '#ffffff' }}; font-size: 1.223557vw; left: 5.542725%; line-height: 1.3; top: 97.114%; width: 93.821%; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "jp-men-kv-2026",
+  "settings": [
+    { "type": "header", "content": "外边距" },
+    { "type": "range", "id": "margin_top", "label": "PC 上边距", "min": 0, "max": 200, "step": 5, "unit": "px", "default": 0 },
+    { "type": "range", "id": "margin_bottom", "label": "PC 下边距", "min": 0, "max": 200, "step": 2, "unit": "px", "default": 0 },
+    { "type": "range", "id": "mobile_margin_top", "label": "M 上边距", "min": 0, "max": 200, "step": 2, "unit": "px", "default": 0 },
+    { "type": "range", "id": "mobile_margin_bottom", "label": "M 下边距", "min": 0, "max": 200, "step": 2, "unit": "px", "default": 0 },
+    { "type": "image_picker", "id": "image", "label": "PC 背景图（建议 2720 × 1113）" },
+    { "type": "image_picker", "id": "image_mobile", "label": "M 背景图（建议 1732 × 2712）" },
+    { "type": "text", "id": "title_first", "label": "标题第一行", "default": "男性の剛毛も" },
+    { "type": "text", "id": "title_second", "label": "标题第二行", "default": "1週間で効果実感" },
+    { "type": "text", "id": "mark", "label": "标题上标", "default": "*" },
+    { "type": "textarea", "id": "note", "label": "脚注", "default": "*国際認証機関SGSによる報告：GZCPCH24001573-01_CN。トリートメントスケジュールに従って週3回使用した場合。効果には個人差及び部位差があります。" },
+    { "type": "color", "id": "background", "label": "背景色", "default": "#D6D9DC" },
+    { "type": "color", "id": "title_color", "label": "标题颜色", "default": "#000000" },
+    { "type": "color", "id": "note_color", "label": "PC 脚注颜色", "default": "#000000" },
+    { "type": "color", "id": "mobile_note_color", "label": "M 脚注颜色", "default": "#FFFFFF" }
+  ],
+  "presets": [
+    { "name": "jp-men-kv-2026" }
+  ]
+}
+{% endschema %}

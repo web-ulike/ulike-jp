@@ -1,0 +1,133 @@
+{%- liquid
+  assign section_id = 'u-x-highlights-2026-' | append: section.id
+  assign default_heading = 'まずは、ハイライトから。'
+-%}
+
+<section id="{{ section_id }}" class="x-2-0-json" data-x-highlights>
+  <div class="x-2-0-json__inner">
+    <h2 class="x-2-0-json__heading to-top">{{ section.settings.heading | default: default_heading | escape }}</h2>
+
+    <div class="x-2-0-json__scroller" data-x-highlights-scroller tabindex="0">
+      <div class="x-2-0-json__track">
+        {%- for block in section.blocks -%}
+          {%- assign desktop_image = block.settings.image | default: block.settings.image_mobile -%}
+          {%- assign mobile_image = block.settings.image_mobile | default: desktop_image -%}
+          <article class="x-2-0-json__card" {{ block.shopify_attributes }}>
+            <div class="x-2-0-json__media">
+              {%- if desktop_image != blank -%}
+                <picture>
+                  {%- if mobile_image != blank -%}
+                    <source media="(max-width: 749px)" srcset="{{ mobile_image | image_url: width: 800 }}">
+                  {%- endif -%}
+                  {{ desktop_image | image_url: width: 1400 | image_tag: class: 'x-2-0-json__image', loading: 'lazy', widths: '400, 560, 800, 1100, 1400', alt: block.settings.title }}
+                </picture>
+              {%- else -%}
+                {{ 'image' | placeholder_svg_tag: 'x-2-0-json__placeholder' }}
+              {%- endif -%}
+            </div>
+            <div class="x-2-0-json__caption">
+              <h3>{{ block.settings.title | escape }}</h3>
+              {%- if block.settings.subtitle != blank -%}<p>{{ block.settings.subtitle | escape | newline_to_br }}</p>{%- endif -%}
+            </div>
+          </article>
+        {%- else -%}
+          <article class="x-2-0-json__card">
+            <div class="x-2-0-json__media">{{ 'image' | placeholder_svg_tag: 'x-2-0-json__placeholder' }}</div>
+            <div class="x-2-0-json__caption"><h3>Ulike史上最高となる30J</h3><p>1 回2分、たった3回で効果を実感</p></div>
+          </article>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    {%- if section.blocks.size > 1 -%}
+      <div class="x-2-0-json__controls" aria-label="Highlights navigation">
+        <button type="button" class="x-2-0-json__button" data-x-highlights-prev aria-label="Previous highlight">‹</button>
+        <button type="button" class="x-2-0-json__button" data-x-highlights-next aria-label="Next highlight">›</button>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  #{{ section_id }} { background: {{ section.settings.background | default: '#000000' }}; color: {{ section.settings.text_color | default: '#ffffff' }}; overflow: hidden; }
+  #{{ section_id }} * { box-sizing: border-box; }
+  #{{ section_id }} .x-2-0-json__inner { margin: 0 auto; max-width: 1600px; padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px; position: relative; }
+  #{{ section_id }} .x-2-0-json__heading { color: inherit; font-family: "Noto Sans JP", sans-serif; font-size: 40px; font-weight: 400; line-height: 1.4; margin: 0 0 42px; }
+  #{{ section_id }} .x-2-0-json__scroller { overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; }
+  #{{ section_id }} .x-2-0-json__scroller::-webkit-scrollbar { display: none; }
+  #{{ section_id }} .x-2-0-json__track { display: flex; gap: 30px; }
+  #{{ section_id }} .x-2-0-json__card { flex: 0 0 calc((100% - 60px) / 3); min-width: 0; scroll-snap-align: start; }
+  #{{ section_id }} .x-2-0-json__media { aspect-ratio: 512.723 / 285.675; background: linear-gradient(180deg, #2a2a2a, #434345); border-radius: 4px 4px 0 0; overflow: hidden; }
+  #{{ section_id }} .x-2-0-json__image, #{{ section_id }} .x-2-0-json__placeholder { display: block; height: 100%; object-fit: cover; width: 100%; }
+  #{{ section_id }} .x-2-0-json__placeholder { fill: #3f3f41; }
+  #{{ section_id }} .x-2-0-json__caption { background: #f7f7f9; border-radius: 0 0 4px 4px; color: #000; min-height: 110px; padding: 22px 22px 18px; }
+  #{{ section_id }} .x-2-0-json__caption h3 { font-family: "Noto Sans JP", sans-serif; font-size: 26px; font-weight: 500; line-height: 1.25; margin: 0; }
+  #{{ section_id }} .x-2-0-json__caption p { color: #3f3636; font-family: "Noto Sans JP", sans-serif; font-size: 16px; line-height: 1.5; margin: 8px 0 0; }
+  #{{ section_id }} .x-2-0-json__controls { display: flex; gap: 23px; justify-content: flex-end; margin-top: 54px; }
+  #{{ section_id }} .x-2-0-json__button { align-items: center; background: #2a2a2a; border: 0; border-radius: 50%; color: #fff; cursor: pointer; display: inline-flex; font-family: Arial, sans-serif; font-size: 28px; height: 34px; justify-content: center; line-height: 1; padding: 0 0 3px; width: 34px; }
+  #{{ section_id }} .x-2-0-json__button:hover { background: #4a4a4a; }
+  @media screen and (max-width: 1679px) and (min-width: 750px) { #{{ section_id }} .x-2-0-json__inner { max-width: calc(100% - 160px); } }
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} .x-2-0-json__inner { padding: {{ section.settings.mobile_padding_top }}px 0 {{ section.settings.mobile_padding_bottom }}px; }
+    #{{ section_id }} .x-2-0-json__heading { font-size: 28px; margin: 0 20px 30px; }
+    #{{ section_id }} .x-2-0-json__scroller { padding: 0 20px; scroll-snap-type: x mandatory; }
+    #{{ section_id }} .x-2-0-json__track { gap: 20px; }
+    #{{ section_id }} .x-2-0-json__card { flex-basis: 280px; }
+    #{{ section_id }} .x-2-0-json__media { aspect-ratio: 280 / 357; border-radius: 14px; }
+    #{{ section_id }} .x-2-0-json__caption { background: transparent; border-radius: 0; color: #fff; min-height: 0; padding: 28px 7px 0; }
+    #{{ section_id }} .x-2-0-json__caption h3 { font-size: 20px; font-weight: 500; line-height: 1.4; }
+    #{{ section_id }} .x-2-0-json__caption p { color: #fff; font-size: 13px; line-height: 1.5; margin-top: 1px; }
+    #{{ section_id }} .x-2-0-json__controls { display: none; }
+  }
+</style>
+
+<script>
+  (() => {
+    const root = document.getElementById('{{ section_id }}');
+    if (!root || root.dataset.xHighlightsReady) return;
+    root.dataset.xHighlightsReady = 'true';
+    const scroller = root.querySelector('[data-x-highlights-scroller]');
+    const previous = root.querySelector('[data-x-highlights-prev]');
+    const next = root.querySelector('[data-x-highlights-next]');
+    const move = (direction) => scroller.scrollBy({ left: direction * (scroller.clientWidth + 30), behavior: 'smooth' });
+    if (previous) previous.addEventListener('click', () => move(-1));
+    if (next) next.addEventListener('click', () => move(1));
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Ulike X 亮点模块 2026",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "标题", "default": "まずは、ハイライトから。" },
+    { "type": "color", "id": "background", "label": "背景颜色", "default": "#000000" },
+    { "type": "color", "id": "text_color", "label": "标题文字颜色", "default": "#FFFFFF" },
+    { "type": "range", "id": "padding_top", "label": "PC 上边距", "min": 0, "max": 240, "step": 4, "unit": "px", "default": 110 },
+    { "type": "range", "id": "padding_bottom", "label": "PC 下边距", "min": 0, "max": 240, "step": 4, "unit": "px", "default": 74 },
+    { "type": "range", "id": "mobile_padding_top", "label": "M 上边距", "min": 0, "max": 160, "step": 2, "unit": "px", "default": 80 },
+    { "type": "range", "id": "mobile_padding_bottom", "label": "M 下边距", "min": 0, "max": 160, "step": 2, "unit": "px", "default": 30 }
+  ],
+  "blocks": [
+    {
+      "type": "highlight",
+      "name": "卖点卡片",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "PC 图片" },
+        { "type": "image_picker", "id": "image_mobile", "label": "M 图片" },
+        { "type": "text", "id": "title", "label": "标题", "default": "Ulike史上最高となる30J" },
+        { "type": "textarea", "id": "subtitle", "label": "副标题", "default": "1 回2分、たった3回で効果を実感" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ulike X 亮点模块 2026",
+      "blocks": [
+        { "type": "highlight", "settings": { "title": "Ulike史上最高となる30J", "subtitle": "1 回2分、たった3回で効果を実感" } },
+        { "type": "highlight", "settings": { "title": "サファイア冷感技術", "subtitle": "痛みレスな体験を" } },
+        { "type": "highlight", "settings": { "title": "男性のヒゲに特化", "subtitle": "根元からアプローチ" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

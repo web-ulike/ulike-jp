@@ -1,0 +1,282 @@
+{%- liquid
+  assign section_id = 'jp-air10-voice-2026-' | append: section.id
+-%}
+{%- capture default_quote -%}
+  <div>医療脱毛は昔やってるんだけど、やっぱり何年か経つとチョコチョコ気になるところは出てくる...</div><div class="jp-air10-voice-2026__copy-gap"></div><div>だから最近はおうちケア派。</div><div class="jp-air10-voice-2026__copy-gap"></div><div>Ulikeの光美容器はジェルが不要なのに、ひんやりしながら照射できるので「熱っ!」ってなりにくくて、かなり快適に使えています。サファイア冷感技術、本当にすごい!</div>
+{%- endcapture -%}
+{%- capture default_quote_mobile -%}
+  <div>医療脱毛は昔やってるんだけど、やっぱり何年か経つとチョコチョコ気になるところは出てくる...</div><div class="jp-air10-voice-2026__copy-gap"></div><div>だから最近はおうちケア派。</div><div class="jp-air10-voice-2026__copy-gap"></div><div>Ulikeの光美容器はジェルが不要なのに、ひんやりしながら照射できるので「熱っ!」ってなりにくくて、かなり快適に使えています。サファイア冷感技術、本当にすごい!</div>
+{%- endcapture -%}
+
+<section id="{{ section_id }}" class="jp-air10-voice-2026" data-jp-air10-kol-recommendation>
+  <div class="jp-air10-voice-2026__inner">
+    <div class="jp-air10-voice-2026__swiper swiper" data-kol-swiper>
+      <div class="swiper-wrapper">
+        {%- for block in section.blocks -%}
+          <article class="jp-air10-voice-2026__slide swiper-slide" {{ block.shopify_attributes }}>
+            <header class="jp-air10-voice-2026__heading">
+              <span class="jp-air10-voice-2026__number">
+                {{- block.settings.voice_number | default: 'VOICE01' | escape -}}
+              </span>
+              <span class="jp-air10-voice-2026__rule" aria-hidden="true"></span>
+              <h2>{{ block.settings.title | default: '本当にすごいサファイア冷感技術' | escape }}</h2>
+            </header>
+
+            <div class="jp-air10-voice-2026__content">
+              <div class="jp-air10-voice-2026__quote">
+                {%- if section.settings.quote_background != blank or block.settings.quote_background_mobile != blank -%}
+                  <picture class="jp-air10-voice-2026__quote-background">
+                    {%- if block.settings.quote_background_mobile != blank -%}
+                      <source media="(max-width: 749px)" srcset="{{ block.settings.quote_background_mobile | image_url: width: 800 }}">
+                    {%- endif -%}
+                    {%- assign quote_background = section.settings.quote_background | default: block.settings.quote_background_mobile -%}
+                    {{ quote_background | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '375, 668, 1000, 1600', class: 'jp-air10-voice-2026__quote-background-image', alt: '' }}
+                  </picture>
+                {%- endif -%}
+                <div class="jp-air10-voice-2026__copy jp-air10-voice-2026__copy--desktop">
+                  {{ block.settings.quote | default: default_quote }}
+                </div>
+                <div class="jp-air10-voice-2026__copy jp-air10-voice-2026__copy--mobile">
+                  {{ block.settings.quote_mobile | default: block.settings.quote | default: default_quote_mobile }}
+                </div>
+              </div>
+
+              <div class="jp-air10-voice-2026__profile">
+                <div class="jp-air10-voice-2026__avatar">
+                  {%- if block.settings.avatar != blank -%}
+                    {{
+                      block.settings.avatar
+                      | image_url: width: 700
+                      | image_tag:
+                        loading: 'lazy',
+                        widths: '150, 300, 500, 700',
+                        class: 'jp-air10-voice-2026__avatar-image',
+                        alt: block.settings.avatar.alt
+                    }}
+                  {%- else -%}
+                    {{ 'image' | placeholder_svg_tag: 'jp-air10-voice-2026__avatar-placeholder' }}
+                  {%- endif -%}
+                </div>
+                <div class="jp-air10-voice-2026__profile-copy">
+                  <p class="jp-air10-voice-2026__name">{{ block.settings.name | default: '@march16mさん' | escape }}</p>
+                  <p class="jp-air10-voice-2026__pr">{{ block.settings.pr_note | default: '' | escape }}</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        {%- else -%}
+          <article class="jp-air10-voice-2026__slide swiper-slide">
+            <header class="jp-air10-voice-2026__heading">
+              <span class="jp-air10-voice-2026__number">VOICE01</span
+              ><span class="jp-air10-voice-2026__rule" aria-hidden="true"></span>
+              <h2>本当にすごいサファイア冷感技術</h2>
+            </header>
+            <div class="jp-air10-voice-2026__content">
+              <div class="jp-air10-voice-2026__quote">
+                <div class="jp-air10-voice-2026__copy">KOLの推薦文を追加してください。</div>
+              </div>
+            </div>
+          </article>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    {%- if section.blocks.size > 1 -%}
+      <div class="jp-air10-voice-2026__nav">
+        <button class="jp-air10-voice-2026__nav-button jp-air10-voice-2026__nav-button--prev" type="button" aria-label="Previous voice" data-kol-prev>
+          <img src="{{ 'jp-air10-voice-prev-2026.svg' | asset_url }}" width="18" height="30" alt="" loading="lazy">
+        </button>
+        <button class="jp-air10-voice-2026__nav-button" type="button" aria-label="Next voice" data-kol-next>
+          <img src="{{ 'jp-air10-voice-next-2026.svg' | asset_url }}" width="18" height="30" alt="" loading="lazy">
+        </button>
+      </div>
+      <div class="jp-air10-voice-2026__pagination" data-kol-pagination aria-label="Voice pagination"></div>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  #{{ section_id }} { background: {{ section.settings.background | default: '#ffffff' }}; color: #000; overflow: hidden; }
+  #{{ section_id }} * { box-sizing: border-box; }
+  #{{ section_id }} .jp-air10-voice-2026__inner { margin: 0 auto; max-width: 1080px; padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px; position: relative; }
+  #{{ section_id }} .jp-air10-voice-2026__slide { flex: 0 0 100%; min-width: 0; }
+  #{{ section_id }} .jp-air10-voice-2026__heading { align-items: center; display: flex; height: 72px; margin: 0 0 0 52px; }
+  #{{ section_id }} .jp-air10-voice-2026__number { font-family: Saans, "Noto Sans JP", sans-serif; font-size: 30px; font-weight: 600; line-height: 1; }
+  #{{ section_id }} .jp-air10-voice-2026__rule { background: #000; display: block; height: 21.546px; margin: 0 30px; width: 1px; }
+  #{{ section_id }} .jp-air10-voice-2026__heading h2 { font-family: "Noto Sans JP", sans-serif; font-size: 30px; font-weight: 500; line-height: 1.5; margin: 0; }
+  #{{ section_id }} .jp-air10-voice-2026__content { align-items: flex-start; display: flex; gap: 131px; }
+  #{{ section_id }} .jp-air10-voice-2026__quote { border-radius: 15px; flex: 0 0 668px; height: 401.171px; overflow: hidden; padding: 40px 50px; position: relative; }
+  #{{ section_id }} .jp-air10-voice-2026__quote-background { display: block; height: 100%; inset: 0; position: absolute; width: 100%; }
+  #{{ section_id }} .jp-air10-voice-2026__quote-background-image { display: block; height: 100%; object-fit: fill; width: 100%; }
+  #{{ section_id }} .jp-air10-voice-2026__copy { font-family: "Noto Sans JP", sans-serif; font-size: 24px; font-weight: 400; letter-spacing: {{ section.settings.copy_letter_spacing }}px; line-height: 1.3; position: relative; text-align: justify; z-index: 1; }
+  #{{ section_id }} .jp-air10-voice-2026__copy--mobile { display: none; }
+  #{{ section_id }} .jp-air10-voice-2026__copy p { margin: 0; }
+  #{{ section_id }} .jp-air10-voice-2026__copy-gap { display: block; margin-top: 16px; }
+  #{{ section_id }} .jp-air10-voice-2026__profile { flex: 0 0 281px; padding-top: 0; }
+  #{{ section_id }} .jp-air10-voice-2026__avatar { background: #e9e9e9; border-radius: 50%; height: 281px; overflow: hidden; width: 281px; }
+  #{{ section_id }} .jp-air10-voice-2026__avatar-image, #{{ section_id }} .jp-air10-voice-2026__avatar-placeholder { display: block; height: 100%; object-fit: cover; width: 100%; }
+  #{{ section_id }} .jp-air10-voice-2026__avatar-placeholder { fill: #d8d8d8; }
+  #{{ section_id }} .jp-air10-voice-2026__profile-copy { padding-left: 38px; }
+  #{{ section_id }} .jp-air10-voice-2026__name { font-family: Saans, "Noto Sans JP", sans-serif; font-size: 26px; font-weight: 500; line-height: 1.4; margin: 27px 0 8px; white-space: nowrap; }
+  #{{ section_id }} .jp-air10-voice-2026__pr { color: rgba(0, 0, 0, .8); font-family: Saans, "Noto Sans JP", sans-serif; font-size: 22px; line-height: 1.4; margin: 0; }
+  #{{ section_id }} .jp-air10-voice-2026__nav { display: flex; justify-content: space-between; left: 50%; margin: 0; position: absolute; top: calc({{ section.settings.padding_top }}px + 258px); transform: translateX(-50%); width: 1266px; z-index: 3; }
+  #{{ section_id }} .jp-air10-voice-2026__nav-button { align-items: center; background: transparent; border: 0; cursor: pointer; display: inline-flex; height: 30.08px; justify-content: center; padding: 0; width: 18px; }
+  #{{ section_id }} .jp-air10-voice-2026__nav-button img { display: block; height: 30.08px; width: 18px; }
+  #{{ section_id }} .jp-air10-voice-2026__nav-button--prev img { transform: scaleX(-1); }
+  #{{ section_id }} .jp-air10-voice-2026__nav-button:disabled, #{{ section_id }} .jp-air10-voice-2026__nav-button.swiper-button-disabled { cursor: default; opacity: .5; }
+  #{{ section_id }} .jp-air10-voice-2026__pagination { display: none; }
+  @media screen and (max-width: 1430px) and (min-width: 750px) { #{{ section_id }} .jp-air10-voice-2026__inner { max-width: calc(100% - 160px); } #{{ section_id }} .jp-air10-voice-2026__content { gap: 6vw; } #{{ section_id }} .jp-air10-voice-2026__quote { flex-basis: calc(100% - 281px - 6vw); } #{{ section_id }} .jp-air10-voice-2026__nav { width: calc(100% + 80px); } }
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} .jp-air10-voice-2026__inner { padding: {{ section.settings.mobile_padding_top }}px 0 {{ section.settings.mobile_padding_bottom }}px; width: 100%; }
+    #{{ section_id }} .jp-air10-voice-2026__swiper { margin-left: 20.68px; overflow: hidden; width: 330.331px; }
+    #{{ section_id }} .jp-air10-voice-2026__slide { flex: 0 0 100%; width: 100%; }
+    #{{ section_id }} .jp-air10-voice-2026__heading { height: 38.25px; margin: 0; }
+    #{{ section_id }} .jp-air10-voice-2026__number { font-size: 15px; }
+    #{{ section_id }} .jp-air10-voice-2026__rule { height: 11.102px; margin: 0 9.375px; }
+    #{{ section_id }} .jp-air10-voice-2026__heading h2 { font-size: 16px; line-height: 1.5; white-space: nowrap; }
+    #{{ section_id }} .jp-air10-voice-2026__content { display: block; }
+    #{{ section_id }} .jp-air10-voice-2026__quote { border-radius: 9.375px; height: 220.379px; padding: 20.65px 7.709px 20px 139.52px; width: 330.331px; }
+    #{{ section_id }} .jp-air10-voice-2026__copy { font-size: 10px; letter-spacing: {{ section.settings.mobile_copy_letter_spacing }}px; line-height: 1.3; }
+    #{{ section_id }} .jp-air10-voice-2026__copy-gap { margin-top: 6.25px; }
+    #{{ section_id }} .jp-air10-voice-2026__copy--desktop { display: none; }
+    #{{ section_id }} .jp-air10-voice-2026__copy--mobile { display: block; }
+    #{{ section_id }} .jp-air10-voice-2026__profile { left: 16.57px; padding: 0; position: absolute; top: 60.9px; width: 100px; z-index: 2; }
+    #{{ section_id }} .jp-air10-voice-2026__avatar { height: 96.86px; width: 96.86px; }
+    #{{ section_id }} .jp-air10-voice-2026__profile-copy { padding-left: 9.43px; }
+    #{{ section_id }} .jp-air10-voice-2026__name { font-size: 10px; line-height: 1.4; margin: 10.77px 0 4.5px; }
+    #{{ section_id }} .jp-air10-voice-2026__pr { font-size: 10px; line-height: 1.4; }
+    #{{ section_id }} .jp-air10-voice-2026__nav { display: none; }
+    #{{ section_id }} .jp-air10-voice-2026__pagination { align-items: center; display: flex; gap: 8px;
+       height: 52px; justify-content: center; margin: 0px auto 0; width: 78px; }
+    #{{ section_id }} .jp-air10-voice-2026__pagination .swiper-pagination-bullet { background: #d0d0d0; border-radius: 50%; flex: 0 0 8px; height: 8px; margin: 0 !important; opacity: 1; transition: background-color .25s ease; width: 8px; }
+    #{{ section_id }} .jp-air10-voice-2026__pagination .swiper-pagination-bullet-active { background: #383838; }
+  }
+</style>
+
+<script>
+  (() => {
+    const root = document.getElementById('{{ section_id }}');
+    if (!root) return;
+    const initKolSwiper = () => {
+      if (root.dataset.initialized || typeof window.Swiper !== 'function') return false;
+      root.dataset.initialized = 'true';
+      new window.Swiper(root.querySelector('[data-kol-swiper]'), {
+        slidesPerView: 1,
+        spaceBetween: 24,
+        speed: 500,
+        grabCursor: true,
+        navigation: { prevEl: root.querySelector('[data-kol-prev]'), nextEl: root.querySelector('[data-kol-next]') },
+        pagination: { el: root.querySelector('[data-kol-pagination]'), clickable: true },
+        breakpoints: { 0: { slidesPerView: 1, spaceBetween: 0 }, 750: { slidesPerView: 1, spaceBetween: 24 } },
+      });
+      return true;
+    };
+    if (!initKolSwiper()) document.addEventListener('DOMContentLoaded', initKolSwiper, { once: true });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "jp-air10-voice-2026",
+  "settings": [
+    { "type": "color", "id": "background", "label": "背景颜色", "default": "#FFFFFF" },
+    { "type": "image_picker", "id": "quote_background", "label": "PC 推荐卡片背景图" },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "PC 上边距",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 124
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "PC 下边距",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 88
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "M 上边距",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "M 下边距",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 54
+    },
+    {
+      "type": "range",
+      "id": "copy_letter_spacing",
+      "label": "PC 推荐文案字间距",
+      "min": 0,
+      "max": 5,
+      "step": 0.1,
+      "unit": "px",
+      "default": 0.5
+    },
+    {
+      "type": "range",
+      "id": "mobile_copy_letter_spacing",
+      "label": "M 推荐文案字间距",
+      "min": 0,
+      "max": 5,
+      "step": 0.1,
+      "unit": "px",
+      "default": 0.2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "voice",
+      "name": "KOL 推荐",
+      "settings": [
+        { "type": "text", "id": "voice_number", "label": "编号", "default": "VOICE01" },
+        { "type": "text", "id": "title", "label": "标题", "default": "本当にすごいサファイア冷感技術" },
+        { "type": "image_picker", "id": "quote_background_mobile", "label": "M 推荐卡片背景图" },
+        {
+          "type": "html",
+          "id": "quote",
+          "label": "推荐文案（HTML）",
+          "default": "<div>医療脱毛は昔やってるんだけど、やっぱり何年か経つとチョコチョコ気になるところは出てくる...</div><div class=\"jp-air10-voice-2026__copy-gap\"></div><div>だから最近はおうちケア派。</div><div class=\"jp-air10-voice-2026__copy-gap\"></div><div>Ulikeの光美容器はジェルが不要なのに、ひんやりしながら照射できるので「熱っ!」ってなりにくくて、かなり快適に使えています。サファイア冷感技術、本当にすごい!</div>"
+        },
+        {
+          "type": "html",
+          "id": "quote_mobile",
+          "label": "M 推荐文案（HTML）",
+          "default": "<div>医療脱毛は昔やってるんだけど、やっぱり何年か経つとチョコチョコ気になるところは出てくる...</div><div class=\"jp-air10-voice-2026__copy-gap\"></div><div>だから最近はおうちケア派。</div><div class=\"jp-air10-voice-2026__copy-gap\"></div><div>Ulikeの光美容器はジェルが不要なのに、ひんやりしながら照射できるので「熱っ!」ってなりにくくて、かなり快適に使えています。サファイア冷感技術、本当にすごい!</div>"
+        },
+        { "type": "image_picker", "id": "avatar", "label": "KOL 头像" },
+        { "type": "text", "id": "name", "label": "账号名称", "default": "@march16mさん" },
+        { "type": "text", "id": "pr_note", "label": "PR 注记", "default": "※ PR" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "jp-air10-voice-2026",
+      "blocks": [
+        { "type": "voice" },
+        { "type": "voice", "settings": { "voice_number": "VOICE02", "title": "おうちケアをもっと快適に" } },
+        { "type": "voice", "settings": { "voice_number": "VOICE03", "title": "サファイア冷感技術で快適ケア" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

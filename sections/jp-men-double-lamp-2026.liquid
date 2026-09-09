@@ -1,0 +1,85 @@
+{%- liquid
+  assign section_id = 'jp-men-double-lamp-2026-' | append: section.id
+  assign default_title_first = '照射口には、照射用の'
+  assign default_title_second = 'ランプを 2 本搭載'
+  assign default_body = 'このダブルランプによりパワフルな光の照射を実現しました。さらに、シングルランプに比べてより均一にムラなく照射することが可能に。ケア漏れを最小限に抑えます。'
+  assign default_mobile_title_first = '照射口には、'
+  assign default_mobile_title_second = '照射用のランプを2本搭載。'
+  assign default_mobile_body = '独自の放熱システムとの掛け合わせにより、30分連続使用でも照射面を（お肌の表面を）ひんやりキープするから、熱や刺激を抑えて快適痛みレスなムダ毛ケアを実現。'
+-%}
+
+<section id="{{ section_id }}" class="jp-men-double-lamp-2026">
+  <div class="jp-men-double-lamp-2026__inner jp-container">
+  <div class="jp-men-double-lamp-2026__copy jp-men-double-lamp-2026__copy--desktop">
+    <h2 class="jp-men-double-lamp-2026__title to-top"><span>{{ section.settings.title_first | default: default_title_first }}</span><span>{{ section.settings.title_second | default: default_title_second }}</span></h2>
+    <p class="jp-men-double-lamp-2026__body to-top" style="transition-delay: .1s">{{ section.settings.body | default: default_body }}</p>
+  </div>
+  <div class="jp-men-double-lamp-2026__copy jp-men-double-lamp-2026__copy--mobile">
+    <h2 class="jp-men-double-lamp-2026__title"><span>{{ section.settings.mobile_title_first | default: default_mobile_title_first }}</span><span>{{ section.settings.mobile_title_second | default: default_mobile_title_second }}</span></h2>
+    <p class="jp-men-double-lamp-2026__body">{{ section.settings.mobile_body | default: default_mobile_body }}</p>
+  </div>
+  <div class="jp-men-double-lamp-2026__media">
+    <picture>
+      {%- if section.settings.image_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ section.settings.image_mobile | image_url: width: 1800 }}">{%- endif -%}
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 1600 | image_tag: class: 'jp-men-double-lamp-2026__image', loading: 'lazy', widths: '750, 1000, 1360, 1600', alt: section.settings.image.alt | default: section.settings.title_second }}
+      {%- elsif section.settings.image_mobile != blank -%}
+        {{ section.settings.image_mobile | image_url: width: 1800 | image_tag: class: 'jp-men-double-lamp-2026__image', loading: 'lazy', widths: '750, 1100, 1500, 1800', alt: section.settings.image_mobile.alt | default: section.settings.mobile_title_second }}
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'jp-men-double-lamp-2026__placeholder' }}
+      {%- endif -%}
+    </picture>
+  </div>
+  </div>
+</section>
+
+<style>
+  #{{ section_id }} { background: {{ section.settings.background | default: '#f7f8fa' }}; color: {{ section.settings.text_color | default: '#000000' }}; margin-top: {{ section.settings.margin_top | default: 0 }}px; margin-bottom: {{ section.settings.margin_bottom | default: 0 }}px; overflow: hidden; }
+  #{{ section_id }} *, #{{ section_id }} *::before, #{{ section_id }} *::after { box-sizing: border-box; }
+  #{{ section_id }} .jp-men-double-lamp-2026__inner { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #{{ section_id }} .jp-men-double-lamp-2026__copy { align-self: start; grid-column: 1; grid-row: 1; padding: 18.94% 9.2% 12%; }
+  #{{ section_id }} .jp-men-double-lamp-2026__copy--mobile { display: none; }
+  #{{ section_id }} .jp-men-double-lamp-2026__title { color: inherit; font-family: inherit; font-size: min(1.654412vw, 45px); font-weight: 500; line-height: 1.2; margin: 0; }
+  #{{ section_id }} .jp-men-double-lamp-2026__title span { display: block; }
+  #{{ section_id }} .jp-men-double-lamp-2026__body { color: inherit; font-family: inherit; font-size: min(.84921vw, 23.0985px); font-weight: 400; line-height: 1.4; margin: 9.18% 0 0; }
+  #{{ section_id }} .jp-men-double-lamp-2026__media { background: {{ section.settings.media_background | default: '#eaebec' }}; grid-column: 2; grid-row: 1; }
+  #{{ section_id }} .jp-men-double-lamp-2026__media picture { display: block; }
+  #{{ section_id }} .jp-men-double-lamp-2026__image, #{{ section_id }} .jp-men-double-lamp-2026__placeholder { display: block; height: auto; width: 100%; }
+  #{{ section_id }} .jp-men-double-lamp-2026__placeholder { aspect-ratio: 1360 / 1023; fill: #cfd2d5; }
+
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} { margin-top: {{ section.settings.mobile_margin_top | default: 0 }}px; margin-bottom: {{ section.settings.mobile_margin_bottom | default: 0 }}px; }
+    #{{ section_id }} .jp-men-double-lamp-2026__inner { display: flex; flex-direction: column; }
+    #{{ section_id }} .jp-men-double-lamp-2026__copy--desktop { display: none; }
+    #{{ section_id }} .jp-men-double-lamp-2026__copy--mobile { display: block; order: 1; padding: 9.815% 5.831% 9.1%; width: 100%; }
+    #{{ section_id }} .jp-men-double-lamp-2026__title { font-size: 5.773672vw; line-height: 1.2; }
+    #{{ section_id }} .jp-men-double-lamp-2026__body { font-size: 3.579677vw; line-height: 1.4; margin-top: 6.865%; text-align: justify; }
+    #{{ section_id }} .jp-men-double-lamp-2026__media { order: 2; width: 100%; }
+    #{{ section_id }} .jp-men-double-lamp-2026__placeholder { aspect-ratio: 1732 / 1185; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "jp-men-double-lamp-2026",
+  "settings": [
+    { "type": "header", "content": "外边距" },
+    { "type": "range", "id": "margin_top", "label": "PC 上边距", "min": 0, "max": 200, "step": 5, "unit": "px", "default": 0 },
+    { "type": "range", "id": "margin_bottom", "label": "PC 下边距", "min": 0, "max": 200, "step": 2, "unit": "px", "default": 0 },
+    { "type": "range", "id": "mobile_margin_top", "label": "M 上边距", "min": 0, "max": 200, "step": 2, "unit": "px", "default": 0 },
+    { "type": "range", "id": "mobile_margin_bottom", "label": "M 下边距", "min": 0, "max": 200, "step": 2, "unit": "px", "default": 0 },
+    { "type": "image_picker", "id": "image", "label": "PC 产品图片（建议 1360 × 1023）" },
+    { "type": "image_picker", "id": "image_mobile", "label": "M 产品图片（建议 1732 × 1185）" },
+    { "type": "text", "id": "title_first", "label": "PC 标题第一行", "default": "照射口には、照射用の" },
+    { "type": "text", "id": "title_second", "label": "PC 标题第二行", "default": "ランプを 2 本搭載" },
+    { "type": "textarea", "id": "body", "label": "PC 说明文案", "default": "このダブルランプによりパワフルな光の照射を実現しました。さらに、シングルランプに比べてより均一にムラなく照射することが可能に。ケア漏れを最小限に抑えます。" },
+    { "type": "text", "id": "mobile_title_first", "label": "M 标题第一行", "default": "照射口には、" },
+    { "type": "text", "id": "mobile_title_second", "label": "M 标题第二行", "default": "照射用のランプを2本搭載。" },
+    { "type": "textarea", "id": "mobile_body", "label": "M 说明文案", "default": "独自の放熱システムとの掛け合わせにより、30分連続使用でも照射面を（お肌の表面を）ひんやりキープするから、熱や刺激を抑えて快適痛みレスなムダ毛ケアを実現。" },
+    { "type": "color", "id": "background", "label": "文案区背景色", "default": "#F7F8FA" },
+    { "type": "color", "id": "media_background", "label": "图片区背景色", "default": "#EAEBEC" },
+    { "type": "color", "id": "text_color", "label": "文字颜色", "default": "#000000" }
+  ],
+  "presets": [{ "name": "jp-men-double-lamp-2026" }]
+}
+{% endschema %}

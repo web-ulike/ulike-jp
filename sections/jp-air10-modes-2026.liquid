@@ -3,19 +3,18 @@
 -%}
 <section id="{{ section_id }}" class="jp-modes-2026">
   <div class="jp-modes-2026__inner">
-    <h2 class="jp-modes-2026__title to-top">
+    <h2 class="jp-modes-2026__title jp-modes-2026__title--pc to-top">
       <b>{{ section.settings.number | default: '4' | escape }}</b>
-      {{- section.settings.title | default: 'つのモードで\nサロン仕様の満足感' | escape | newline_to_br }}
+      {{- section.settings.title | default: 'つのモードで サロン仕様の満足感' | escape }}
+    </h2>
+    <h2 class="jp-modes-2026__title jp-modes-2026__title--mobile to-top">
+      <b>{{ section.settings.number | default: '4' | escape }}</b>
+      {{- section.settings.mobile_title | default: section.settings.title | default: 'つのモードで\nサロン仕様の満足感' | escape | newline_to_br }}
     </h2>
     <div class="jp-modes-2026__scale" aria-hidden="true">
-      <span
-        >弱<br>
-        出力</span
-      ><i></i
-      ><span
-        >強<br>
-        出力</span
-      >
+      <span><b>弱</b><em>出力</em></span>
+      <svg class="jp-modes-2026__scale-arrow" xmlns="http://www.w3.org/2000/svg" width="854" height="30" viewBox="0 0 854 30" fill="none" aria-hidden="true" focusable="false"><path d="M0.585786 13.3133C-0.195262 14.0944 -0.195262 15.3607 0.585787 16.1418L13.3137 28.8697C14.0948 29.6507 15.3611 29.6507 16.1421 28.8697C16.9232 28.0886 16.9232 26.8223 16.1421 26.0412L4.82843 14.7275L16.1421 3.41383C16.9232 2.63278 16.9232 1.36645 16.1421 0.585402C15.3611 -0.195647 14.0948 -0.195646 13.3137 0.585402L0.585786 13.3133ZM852.469 16.1417C853.25 15.3606 853.25 14.0943 852.469 13.3133L839.741 0.58533C838.96 -0.195719 837.694 -0.195718 836.913 0.58533C836.132 1.36638 836.132 2.63271 836.913 3.41376L848.226 14.7275L836.913 26.0412C836.132 26.8222 836.132 28.0886 836.913 28.8696C837.694 29.6507 838.96 29.6507 839.741 28.8696L852.469 16.1417ZM2 14.7275L2 16.7275L851.055 16.7275L851.055 14.7275L851.055 12.7275L2 12.7275L2 14.7275Z" fill="#D0C0A7"/></svg>
+      <span><b>強</b><em>出力</em></span>
     </div>
     <div class="jp-modes-2026__list">
       {% for block in section.blocks %}
@@ -37,7 +36,7 @@
           </div>
           <div class="jp-modes-2026__copy">
             <h3>{{ block.settings.name }}</h3>
-            <p>{{ block.settings.description }}</p>
+            <p>{{ block.settings.description | escape }}</p>
           </div>
         </article>
       {% endfor %}
@@ -45,7 +44,54 @@
   </div>
 </section>
 <style>
-  #{{ section_id }}{background:{{ section.settings.background_color | default:'#fbf9f3' }};color:#000;overflow:hidden}#{{ section_id }} *{box-sizing:border-box}#{{ section_id }} .jp-modes-2026__inner{height:915px;margin:0 auto;max-width:1280px;position:relative}#{{ section_id }} .jp-modes-2026__title{font-family:"Noto Sans JP",sans-serif;font-size:48px;font-weight:500;left:50%;line-height:1.5;margin:0;position:absolute;text-align:center;top:109px;transform:translateX(-50%);white-space:nowrap}#{{ section_id }} .jp-modes-2026__title b{font-family:Saans,sans-serif;font-size:80px;font-weight:500;margin-right:10px}#{{ section_id }} .jp-modes-2026__list{display:grid;grid-template-columns:repeat(4,1fr);left:0;position:absolute;top:300px;width:100%}#{{ section_id }} .jp-modes-2026__item{align-items:center;display:flex;flex-direction:column;min-height:331px;padding:0 15px;position:relative;text-align:center}#{{ section_id }} .jp-modes-2026__item:not(:last-child)::after{color:#8e8780;content:'→';font-size:52px;position:absolute;right:-26px;top:82px}#{{ section_id }} .jp-modes-2026__icon{align-items:center;border:2px solid #dfd3c2;border-radius:50%;display:flex;height:173px;justify-content:center;overflow:hidden;width:173px}#{{ section_id }} .jp-modes-2026__icon img{display:block;height:100%;object-fit:contain;width:100%}#{{ section_id }} .jp-modes-2026__icon span{color:#e0004d;font-family:Saans,sans-serif;font-size:52px}#{{ section_id }} .jp-modes-2026__copy{margin-top:33px}#{{ section_id }} .jp-modes-2026__copy h3{background:#f0e9de;font-family:Saans,"Noto Sans JP",sans-serif;font-size:26px;font-weight:500;line-height:1.5;margin:0 auto 12px;padding:4px 10px;width:223px}#{{ section_id }} .jp-modes-2026__copy p{color:#3f3636;font-family:"Noto Sans JP",sans-serif;font-size:15px;line-height:1.5;margin:0}#{{ section_id }} .jp-modes-2026__scale{display:none}@media screen and (max-width:749px){#{{ section_id }} .jp-modes-2026__inner{height:auto;min-height:889px;padding:42px 19px 55px;width:100%}#{{ section_id }} .jp-modes-2026__title{font-size:30px;left:50%;position:relative;top:auto;transform:translateX(-50%);white-space:normal;width:340px}#{{ section_id }} .jp-modes-2026__title b{font-size:50px;margin-right:6px}#{{ section_id }} .jp-modes-2026__list{display:grid;gap:25px;left:auto;margin:65px 0 0 58px;position:relative;top:auto;width:calc(100% - 58px)}#{{ section_id }} .jp-modes-2026__item{align-items:flex-start;display:flex;flex-direction:row;gap:24px;min-height:65px;padding:0;text-align:left}#{{ section_id }} .jp-modes-2026__item:not(:last-child)::after{display:none}#{{ section_id }} .jp-modes-2026__icon{flex:0 0 auto;height:65px;width:65px}#{{ section_id }} .jp-modes-2026__icon span{font-size:24px}#{{ section_id }} .jp-modes-2026__copy{margin:0}#{{ section_id }} .jp-modes-2026__copy h3{background:#dfd3c2;font-size:18px;margin:0 0 10px;padding:0 18px;width:auto}#{{ section_id }} .jp-modes-2026__copy p{font-size:13px;line-height:1.5;max-width:210px}#{{ section_id }} .jp-modes-2026__scale{align-items:center;display:flex;flex-direction:column;gap:12px;left:20px;position:absolute;top:185px}#{{ section_id }} .jp-modes-2026__scale span{font-family:"Noto Sans JP",sans-serif;font-size:13px;line-height:1.3;text-align:center}#{{ section_id }} .jp-modes-2026__scale span:last-child{background:#76514c;border-radius:50%;color:#fff;padding:10px 7px}#{{ section_id }} .jp-modes-2026__scale i{background:linear-gradient(#b9aaa1,#76514c);height:420px;width:2px}}
+  #{{ section_id }}{background:{{ section.settings.background_color | default:'#fbf9f3' }};color:#000;overflow:hidden}
+
+  #{{ section_id }} .jp-modes-2026__inner{height:915px;margin:0 auto;max-width:1919px;position:relative}
+  #{{ section_id }} .jp-modes-2026__title{
+    font-size:48px;font-weight:500;left:50%;line-height:1.3;margin:0;position:absolute;text-align:center;top:121px;transform:translateX(-50%);white-space:nowrap}
+  #{{ section_id }} .jp-modes-2026__title--mobile{display:none}
+  #{{ section_id }} .jp-modes-2026__title b{font-size:64px;font-weight:500;margin-right:8px}
+  #{{ section_id }} .jp-modes-2026__list{display:grid;grid-template-columns:repeat(4,240px);justify-content:space-between;left:50%;position:absolute;top:300px;transform:translateX(-50%);width:min(1261px,calc(100% - 32px));z-index:1}
+  #{{ section_id }} .jp-modes-2026__item{align-items:center;display:flex;flex-direction:column;min-height:331px;padding:0;position:relative;text-align:center}
+  #{{ section_id }} .jp-modes-2026__item:not(:last-child)::after{color:#8e8780;content:'⟶';font-size:43px;font-weight:300;line-height:1;position:absolute;right:-83px;top:211px}
+  #{{ section_id }} .jp-modes-2026__icon{align-items:center;border:2px solid #dfd3c2;border-radius:50%;display:flex;height:173px;justify-content:center;overflow:hidden;width:173px}
+  #{{ section_id }} .jp-modes-2026__icon img{display:block;height:100%;object-fit:contain;width:100%}
+  #{{ section_id }} .jp-modes-2026__icon span{color:#e0004d;font-size:52px}
+  #{{ section_id }} .jp-modes-2026__copy{margin-top:33px;width:240px}
+  #{{ section_id }} .jp-modes-2026__copy h3{background:#f0e9de;font-size:26px;font-weight:500;line-height:1.5;margin:0 auto 8px;padding:4px 10px;width:223px}
+  #{{ section_id }} .jp-modes-2026__item:nth-child(2) .jp-modes-2026__copy h3{background:#e8e0d3}
+  #{{ section_id }} .jp-modes-2026__item:nth-child(3) .jp-modes-2026__copy h3{background:#dfd3c2}
+  #{{ section_id }} .jp-modes-2026__item:nth-child(4) .jp-modes-2026__copy h3{background:#d4c5b8}
+  #{{ section_id }} .jp-modes-2026__copy p{color:#3f3636;font-size:15px;line-height:1.5;margin:0}
+  #{{ section_id }} .jp-modes-2026__scale{height:105px;left:50%;position:absolute;top:671px;transform:translateX(-50%);width:min(1126px,calc(100% - 64px))}
+  #{{ section_id }} .jp-modes-2026__scale span{align-items:center;border-radius:50%;display:flex;flex-direction:column;font-size:24px;font-weight:400;height:105px;justify-content:center;line-height:1.3;position:absolute;text-align:center;width:105px}
+  #{{ section_id }} .jp-modes-2026__scale span b{font-size:40px;font-weight:700;line-height:1.3}
+  #{{ section_id }} .jp-modes-2026__scale span em{font-size:24px;font-style:normal;font-weight:400;line-height:1.3}
+  #{{ section_id }} .jp-modes-2026__scale span:first-child{background:#f0e9de;color:#645c5c;left:0}
+  #{{ section_id }} .jp-modes-2026__scale span:last-child{background:#76514c;color:#fff;right:0}
+  #{{ section_id }} .jp-modes-2026__scale-arrow{display:block;height:30px;left:136px;position:absolute;top:37px;width:854px}
+  @media screen and (max-width:749px){
+    #{{ section_id }} .jp-modes-2026__inner{height:889px;min-height:889px;padding:35px 0 0;width:100%}
+    #{{ section_id }} .jp-modes-2026__title--pc{display:none}
+    #{{ section_id }} .jp-modes-2026__title--mobile{display:block;font-size:30px;left:50%;line-height:1.5;position:relative;top:auto;transform:translateX(-50%);white-space:normal;width:340px}
+    #{{ section_id }} .jp-modes-2026__title b{font-size:50px;margin-right:6px}
+    #{{ section_id }} .jp-modes-2026__list{display:grid;gap:50px;grid-template-columns:1fr;left:50%;margin:0;position:absolute;top:289.46px;transform:translateX(-50%);width:291.414px}
+    #{{ section_id }} .jp-modes-2026__item{align-items:flex-start;display:flex;flex-direction:row;gap:24px;min-height:76px;padding:0;text-align:left}
+    #{{ section_id }} .jp-modes-2026__item:not(:last-child)::after{color:#d0c0a7;content:'↓';display:block;font-size:21px;font-weight:400;left:140px;line-height:1;right:auto;top:91px}
+    #{{ section_id }} .jp-modes-2026__icon{flex:0 0 auto;height:65px;width:65px}
+    #{{ section_id }} .jp-modes-2026__icon span{font-size:24px}
+    #{{ section_id }} .jp-modes-2026__copy{margin:0;width:207px}
+    #{{ section_id }} .jp-modes-2026__copy h3{font-size:18px;line-height:1.5;margin:0 0 9px;padding:0;width:140px}
+    #{{ section_id }} .jp-modes-2026__copy p{font-size:13px;line-height:1.5;max-width:207px;white-space:pre-line}
+    #{{ section_id }} .jp-modes-2026__scale{display:block;height:659.916px;left:151.44px;top:180.65px;transform:none;width:71.296px;z-index:0}
+    #{{ section_id }} .jp-modes-2026__scale span{font-size:17.213px;height:71.296px;line-height:1.3;width:71.296px}
+    #{{ section_id }} .jp-modes-2026__scale span b{font-size:28.688px}
+    #{{ section_id }} .jp-modes-2026__scale span em{font-size:17.213px}
+    #{{ section_id }} .jp-modes-2026__scale span:first-child{left:0;top:0}
+    #{{ section_id }} .jp-modes-2026__scale span:last-child{bottom:0;right:auto}
+    #{{ section_id }} .jp-modes-2026__scale-arrow{display:none}
+    #{{ section_id }} .jp-modes-2026__scale::before{display:none}
+  }
 </style>
 {% schema %}
 {
@@ -53,7 +99,8 @@
   "settings": [
     { "type": "color", "id": "background_color", "label": "背景颜色", "default": "#FBF9F3" },
     { "type": "text", "id": "number", "label": "模式数量", "default": "4" },
-    { "type": "textarea", "id": "title", "label": "标题", "default": "つのモードで\nサロン仕様の満足感" }
+    { "type": "textarea", "id": "title", "label": "PC标题", "default": "つのモードで\nサロン仕様の満足感" },
+    { "type": "textarea", "id": "mobile_title", "label": "移动端标题", "default": "つのモードで\nサロン仕様の満足感" }
   ],
   "blocks": [
     {

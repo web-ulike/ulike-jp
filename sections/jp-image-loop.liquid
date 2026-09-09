@@ -34,7 +34,7 @@
         {% if bs.pc_image != blank or bs.mobile_image != blank %}
           <div
             {% if bs.item_id != blank %}id="{{ bs.item_id | handleize }}"{% endif %}
-            class="jp-image-loop__item{% if bs.hide_on_pc %} jp-image-loop__item--hide-pc{% endif %}"
+            class="jp-image-loop__item{% if bs.hide_on_pc %} jp-image-loop__item--hide-pc{% endif %}{% if bs.pc_max_width_1920 %} jp-image-loop__item--max-width-1920{% endif %}"
             {{ block.shopify_attributes }}
           >
             <picture>
@@ -127,6 +127,11 @@
     .jp-image-loop__item--hide-pc {
       display: none;
     }
+
+    .jp-image-loop__item--max-width-1920 {
+      max-width: 1920px;
+      margin-inline: auto;
+    }
   }
 
   .jp-image-loop__image {
@@ -158,6 +163,13 @@
       "type": "image_item",
       "name": "图片",
       "settings": [
+        {
+          "type": "checkbox",
+          "id": "pc_max_width_1920",
+          "label": "PC 端最大宽度 1920px",
+          "info": "开启后，这张图片在 PC 端最大宽度为 1920px 并居中显示；移动端不受影响。",
+          "default": false
+        },
         {
           "type": "image_picker",
           "id": "pc_image",

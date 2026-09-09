@@ -3,6 +3,8 @@
   assign default_description = '特許取得済みのサファイア冷感技術*1を搭載。28Jのハイパワーが肌に届く前に、肌表面を-5℃まで冷却できるため、保冷剤など手間がかかる準備も不要。'
   assign default_cooling_text = '電源オンからわずか3分で-5°Cに冷却*2'
   assign default_note = '*1.日本国内サファイア冷感特許：特許第3226132号、特許第3242510号。\n*2.電源投入後、未照射状態の冷却面の温度を指す。国際認証機関CVCによる試験結果：NO: GJW2024-1748、結果はテスト条件により異なる可能性もあります。'
+  assign description = section.settings.description | default: default_description | escape | replace: '*1', '<sup>*1</sup>'
+  assign cooling_text = section.settings.cooling_text | default: default_cooling_text | escape | replace: '3分', '<strong>3分</strong>' | replace: '-5°Cに冷却', '<strong>-5°Cに冷却</strong>' | replace: '*2', '<sup>*2</sup>'
 -%}
 
 <section id="{{ section_id }}" class="jp-sapphire-cooling-2026">
@@ -17,24 +19,51 @@
         {%- endif -%}
       </picture>
     </div>
-    <div class="jp-sapphire-cooling-2026__upper-inner">
+    <div class="jp-sapphire-cooling-2026__upper-inner jp-container">
       <div class="jp-sapphire-cooling-2026__title to-top">
-        <span>{{ section.settings.power_title | default: 'ハイパワー' | escape }}</span>
-        <i aria-hidden="true">×</i>
-        <span class="jp-sapphire-cooling-2026__sapphire">{{ section.settings.sapphire_title | default: 'サファイア' | escape }}</span>
-        <span>{{ section.settings.cooling_title | default: '冷感技術' | escape }}</span>
+        <span class="jp-sapphire-cooling-2026__power">{{ section.settings.power_title | default: 'ハイパワー' | escape }}</span>
+        <svg class="jp-sapphire-cooling-2026__title-x" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="33" height="32" viewBox="0 0 33 32" fill="none">
+          <line y1="-1.22299" x2="40.9583" y2="-1.22299" transform="matrix(0.708402 0.705809 0.705809 -0.708402 1.72656 0.680176)" stroke="black" stroke-width="2.44599"/>
+          <path d="M17.3809 16.3047L2.98633 30.4805L1.26953 28.7373L15.6484 14.5781L17.3809 16.3047ZM32.1699 1.74219L19.124 14.5879L17.3916 12.8613L30.4541 0L32.1699 1.74219Z" fill="black"/>
+        </svg>
+        <span class="jp-sapphire-cooling-2026__cooling-title">
+          <span class="jp-sapphire-cooling-2026__sapphire">
+            {%- if section.settings.sapphire_title_image != blank -%}
+              {{ section.settings.sapphire_title_image | image_url: width: 500 | image_tag: loading: 'lazy', widths: '128, 236, 500', alt: section.settings.sapphire_title_image.alt }}
+            {%- else -%}
+              <span class="jp-sapphire-cooling-2026__sapphire-text">{{ section.settings.sapphire_title | default: 'サファイア' | escape }}</span>
+            {%- endif -%}
+          </span>
+          <span class="jp-sapphire-cooling-2026__cooling">{{ section.settings.cooling_title | default: '冷感技術' | escape }}</span>
+        </span>
       </div>
-      <p class="jp-sapphire-cooling-2026__description to-top" style="transition-delay: .1s">{{ section.settings.description | default: default_description | escape }}</p>
+      <p class="jp-sapphire-cooling-2026__description to-top" style="transition-delay: .1s">{{ description }}</p>
+      <div class="jp-sapphire-cooling-2026__desktop-details">
+        <div class="jp-sapphire-cooling-2026__visual to-top" style="transition-delay: .2s">
+          {%- if section.settings.cooling_image != blank -%}
+            {{ section.settings.cooling_image | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '375, 670, 1000, 1600', class: 'jp-sapphire-cooling-2026__visual-image', alt: section.settings.cooling_image.alt }}
+          {%- endif -%}
+        </div>
+        <p class="jp-sapphire-cooling-2026__cooling-text to-top" style="transition-delay: .3s">{{ cooling_text }}</p>
+        <p class="jp-sapphire-cooling-2026__note">{{ section.settings.note | default: default_note | escape | newline_to_br }}</p>
+      </div>
     </div>
   </div>
 
   <div class="jp-sapphire-cooling-2026__lower">
     <div class="jp-sapphire-cooling-2026__lower-inner">
-      <p class="jp-sapphire-cooling-2026__cooling-text to-top">{{ section.settings.cooling_text | default: default_cooling_text | escape }}</p>
+      <p class="jp-sapphire-cooling-2026__cooling-text to-top">{{ cooling_text }}</p>
       <div class="jp-sapphire-cooling-2026__visual to-top" style="transition-delay: .1s">
-        {%- if section.settings.cooling_image != blank -%}
-          {{ section.settings.cooling_image | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '375, 670, 1000, 1600', class: 'jp-sapphire-cooling-2026__visual-image', alt: section.settings.cooling_image.alt }}
-        {%- endif -%}
+        <picture>
+          {%- if section.settings.cooling_image_mobile != blank -%}
+            <source media="(max-width: 749px)" srcset="{{ section.settings.cooling_image_mobile | image_url: width: 1000 }}">
+          {%- endif -%}
+          {%- if section.settings.cooling_image != blank -%}
+            {{ section.settings.cooling_image | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '375, 670, 1000, 1600', class: 'jp-sapphire-cooling-2026__visual-image', alt: section.settings.cooling_image.alt }}
+          {%- elsif section.settings.cooling_image_mobile != blank -%}
+            {{ section.settings.cooling_image_mobile | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '375, 670, 1000', class: 'jp-sapphire-cooling-2026__visual-image', alt: section.settings.cooling_image_mobile.alt }}
+          {%- endif -%}
+        </picture>
       </div>
       <p class="jp-sapphire-cooling-2026__note">{{ section.settings.note | default: default_note | escape | newline_to_br }}</p>
     </div>
@@ -44,32 +73,64 @@
 <style>
   #{{ section_id }} { background: linear-gradient(254.5deg, #d0d6e2 14.667%, #fff 32.895%, #dde1ea 103.31%); color: #000; overflow: hidden; }
   #{{ section_id }} * { box-sizing: border-box; }
-  #{{ section_id }} .jp-sapphire-cooling-2026__upper { height: 924px; overflow: hidden; position: relative; }
-  #{{ section_id }} .jp-sapphire-cooling-2026__background, #{{ section_id }} .jp-sapphire-cooling-2026__background picture { inset: 0; overflow: hidden; pointer-events: none; position: absolute; }
-  #{{ section_id }} .jp-sapphire-cooling-2026__background-image { display: block; height: 1594px; left: calc(50% + 428px); max-width: none; object-fit: cover; position: absolute; top: -101px; transform: translateX(-50%); width: 2125px; }
-  #{{ section_id }} .jp-sapphire-cooling-2026__upper-inner, #{{ section_id }} .jp-sapphire-cooling-2026__lower-inner { height: 100%; margin: 0 auto; max-width: 1280px; position: relative; }
-  #{{ section_id }} .jp-sapphire-cooling-2026__title { align-items: center; display: flex; font-family: "Noto Sans JP", sans-serif; font-size: 55px; font-weight: 500; left: 7px; letter-spacing: .1em; line-height: 1.3; position: absolute; top: 196px; white-space: nowrap; }
-  #{{ section_id }} .jp-sapphire-cooling-2026__title i { font-family: Arial, sans-serif; font-size: 38px; font-style: normal; letter-spacing: 0; margin: 0 28px; }
-  #{{ section_id }} .jp-sapphire-cooling-2026__sapphire { background: linear-gradient(135deg, #4184b3, #dff5ff 40%, #6dbbed 65%, #2c769f); border-radius: 4px; color: transparent; font-size: 46px; letter-spacing: -.05em; margin-right: 10px; padding: 3px 7px; text-shadow: 2px 1px 9px #5bc3f5; -webkit-background-clip: text; background-clip: text; }
-  #{{ section_id }} .jp-sapphire-cooling-2026__description { font-family: "Noto Sans JP", sans-serif; font-size: 24px; left: 6px; line-height: 1.5; margin: 0; position: absolute; top: 355px; width: 581px; }
-  #{{ section_id }} .jp-sapphire-cooling-2026__lower { background: transparent; height: 189px; }
-  #{{ section_id }} .jp-sapphire-cooling-2026__cooling-text { font-family: "Noto Sans JP", sans-serif; font-size: 21px; font-weight: 500; left: 10px; line-height: 1.5; margin: 0; position: absolute; top: -62px; }
-  #{{ section_id }} .jp-sapphire-cooling-2026__cooling-text::first-letter { color: inherit; }
-  #{{ section_id }} .jp-sapphire-cooling-2026__visual { background: linear-gradient(#6a8fa9, #c0d8e8); border-radius: 15px; height: 311px; left: 7px; overflow: hidden; position: absolute; top: -387px; width: 588px; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__upper { display: grid; overflow: hidden; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__background { grid-area: 1 / 1; pointer-events: none; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__background picture { display: block; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__background-image { display: block; height: auto; max-width: 100%; width: 100%; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__upper-inner {
+    grid-area: 1 / 1;
+    margin: 0 auto;
+    max-width: 1280px;
+    padding: 196px 0 26px;
+    position: relative;
+    width: 100%;
+    z-index: 1;
+  }
+  #{{ section_id }} .jp-sapphire-cooling-2026__lower-inner { height: 100%; margin: 0 auto; max-width: 1280px; position: relative; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__title { font-family: "Noto Sans JP", sans-serif; font-size: 55px; font-weight: 500; height: 110px; left: 7px; letter-spacing: .1em; line-height: 1.3; margin: 0; position: relative; white-space: nowrap; width: 600px; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__power { left: 0; position: absolute; top: 49px; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__title-x { display: block; height: 32px; left: 296px; position: absolute; top: 75px; width: 33px; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__cooling-title { left: 353px; position: absolute; top: 0; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__sapphire { display: block; height: 52px; width: 236px; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__sapphire img { display: block; height: 100%; width: 100%; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__sapphire-text { align-items: center; background: linear-gradient(135deg, #4184b3, #dff5ff 40%, #6dbbed 65%, #2c769f); border-radius: 4px; color: #fff; display: flex; font-size: 46px; height: 100%; justify-content: center; letter-spacing: -.05em; padding: 0 7px; text-shadow: 2px 1px 9px #5bc3f5; width: 100%; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__cooling { left: 0; position: absolute; top: 49px; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__description { font-family: "Noto Sans JP", sans-serif; font-size: 24px; line-height: 1.5; margin: 49px 0 0 6px; position: relative; width: 581px; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__description sup { 
+    font-size: .6em; line-height: 1; margin-left: 1px; 
+    position: relative; top: -.6em; vertical-align: baseline; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__desktop-details { margin: 74px 0 0 7px; width: 588px; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__lower { display: none; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__cooling-text { font-size: 21px; font-weight: 500; line-height: 1.5; margin: 14px 0 0 56px; position: relative; white-space: nowrap; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__cooling-text strong { color: #55baf0; font-family: Saans, "Noto Sans JP", sans-serif; font-size: 36px; font-weight: 500; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__cooling-text sup { color: #55baf0; font-family: Saans, "Noto Sans JP", sans-serif; font-size: 23.22px; vertical-align: baseline; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__visual { background: linear-gradient(#6a8fa9, #c0d8e8); border-radius: 15px; height: 311px; overflow: hidden; position: relative; width: 588px; }
   #{{ section_id }} .jp-sapphire-cooling-2026__visual-image { display: block; height: 100%; object-fit: cover; width: 100%; }
-  #{{ section_id }} .jp-sapphire-cooling-2026__note { bottom: 14px; color: rgba(0,0,0,.5); font-family: Saans, "Noto Sans JP", sans-serif; font-size: 10px; left: 7px; line-height: 1.5; margin: 0; position: absolute; width: 582px; }
+  #{{ section_id }} .jp-sapphire-cooling-2026__note { color: rgba(0,0,0,.5); font-family: Saans, "Noto Sans JP", sans-serif; font-size: 10px; line-height: 1.5; margin: 91px 0 0; position: relative; width: 582px; }
   @media screen and (max-width: 749px) {
-    #{{ section_id }} .jp-sapphire-cooling-2026__upper { height: 656px; }
-    #{{ section_id }} .jp-sapphire-cooling-2026__background-image { height: 432px; left: 50%; top: 261px; width: 345px; }
-    #{{ section_id }} .jp-sapphire-cooling-2026__upper-inner, #{{ section_id }} .jp-sapphire-cooling-2026__lower-inner { max-width: none; width: 100%; }
-    #{{ section_id }} .jp-sapphire-cooling-2026__title { font-size: 30px; left: 21px; letter-spacing: .1em; top: 53px; }
-    #{{ section_id }} .jp-sapphire-cooling-2026__title i { font-size: 22px; margin: 0 15px; }
-    #{{ section_id }} .jp-sapphire-cooling-2026__sapphire { border-radius: 2px; font-size: 25px; margin-right: 5px; padding: 2px 4px; }
-    #{{ section_id }} .jp-sapphire-cooling-2026__description { font-size: 18px; left: 19px; top: 143px; width: calc(100% - 38px); }
-    #{{ section_id }} .jp-sapphire-cooling-2026__lower { background: #fff; height: 355px; }
-    #{{ section_id }} .jp-sapphire-cooling-2026__cooling-text { font-size: 14px; left: 50%; top: 39px; transform: translateX(-50%); white-space: nowrap; }
-    #{{ section_id }} .jp-sapphire-cooling-2026__visual { border-radius: 0; height: 175px; left: 20px; top: 89px; width: calc(100% - 40px); }
-    #{{ section_id }} .jp-sapphire-cooling-2026__note { bottom: 15px; font-family: "Noto Sans JP", sans-serif; font-size: 8px; left: 20px; width: calc(100% - 40px); }
+    #{{ section_id }} .jp-sapphire-cooling-2026__upper { height: 656.3px; min-height: 0; }
+    #{{ section_id }} .jp-sapphire-cooling-2026__background { position: relative; }
+    #{{ section_id }} .jp-sapphire-cooling-2026__background picture { inset: 0; overflow: hidden; position: absolute; }
+    #{{ section_id }} .jp-sapphire-cooling-2026__background-image { height: 432px; left: 50%; max-width: none; object-fit: cover; position: absolute; top: 261px; transform: translateX(-50%); width: 345px; }
+    #{{ section_id }} .jp-sapphire-cooling-2026__upper-inner { padding: 0; width: 100%; }
+    #{{ section_id }} .jp-sapphire-cooling-2026__lower-inner { max-width: none; width: 100%; }
+    #{{ section_id }} .jp-sapphire-cooling-2026__title { font-size: 30px; height: 80px; left: 21px; letter-spacing: .1em; margin: 0; position: absolute; top: 53px; width: 340px; }
+    #{{ section_id }} .jp-sapphire-cooling-2026__power { top: 39px; }
+    #{{ section_id }} .jp-sapphire-cooling-2026__title-x { height: 22px; left: 166px; top: 43px; width: 23px; }
+    #{{ section_id }} .jp-sapphire-cooling-2026__cooling-title { left: 198px; }
+    #{{ section_id }} .jp-sapphire-cooling-2026__sapphire { height: 28px; width: 128px; }
+    #{{ section_id }} .jp-sapphire-cooling-2026__sapphire-text { border-radius: 2px; font-size: 25px; padding: 0 4px; }
+    #{{ section_id }} .jp-sapphire-cooling-2026__cooling { top: 39px; }
+    #{{ section_id }} .jp-sapphire-cooling-2026__description { font-size: 18px; left: 18.91px; margin: 0; position: absolute; top: 142.92px; width: 342.9px; }
+    #{{ section_id }} .jp-sapphire-cooling-2026__desktop-details { display: none; }
+    #{{ section_id }} .jp-sapphire-cooling-2026__lower { background: #fff; display: block; height: 355px; }
+    #{{ section_id }} .jp-sapphire-cooling-2026__cooling-text { font-size: 14px; left: 50%; line-height: 1.2; margin: 0; position: absolute; top: 39px; transform: translateX(-50%); white-space: nowrap; }
+    #{{ section_id }} .jp-sapphire-cooling-2026__cooling-text strong { font-size: 24px; }
+    #{{ section_id }} .jp-sapphire-cooling-2026__cooling-text sup { font-size: 15px; }
+    #{{ section_id }} .jp-sapphire-cooling-2026__visual { border-radius: 0; height: 175px; left: 20px; position: absolute; top: 89px; width: 335px; }
+    #{{ section_id }} .jp-sapphire-cooling-2026__visual picture { display: block; height: 100%; width: 100%; }
+    #{{ section_id }} .jp-sapphire-cooling-2026__visual-image { height: 100%; object-fit: cover; width: 100%; }
+    #{{ section_id }} .jp-sapphire-cooling-2026__note { bottom: auto; font-family: "Noto Sans JP", sans-serif; font-size: 8px; left: 19.91px; margin: 0; position: absolute; top: 294.73px; width: 334.35px; }
   }
 </style>
 
@@ -80,6 +141,8 @@
     { "type": "image_picker", "id": "background_image", "label": "PC 背景图片" },
     { "type": "image_picker", "id": "background_image_mobile", "label": "M 背景图片" },
     { "type": "image_picker", "id": "cooling_image", "label": "冷却视觉图片" },
+    { "type": "image_picker", "id": "cooling_image_mobile", "label": "M 冷却视觉图片" },
+    { "type": "image_picker", "id": "sapphire_title_image", "label": "サファイア标题 PNG" },
     { "type": "text", "id": "power_title", "label": "标题 1", "default": "ハイパワー" },
     { "type": "text", "id": "sapphire_title", "label": "标题 2", "default": "サファイア" },
     { "type": "text", "id": "cooling_title", "label": "标题 3", "default": "冷感技術" },

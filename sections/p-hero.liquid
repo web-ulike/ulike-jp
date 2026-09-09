@@ -30,6 +30,7 @@
     width: auto;
     transform: translateY(-50%);
     color: var(--p-hero-text);
+    padding: 0;
   }
   .p-aps-hero__content-inner {
     width: 800px;
@@ -39,7 +40,6 @@
     font-size: 46px;
     line-height: 1.25;
     text-align: center;
-    font-family: "Noto Serif JP";
     font-weight: 600;
   }
   .p-aps-hero__title em {
@@ -83,22 +83,18 @@
   }
   @media screen and (max-width: 749px) {
     .p-aps-hero__inner {
-      min-height: max(720px, 192vw);
       background: var(--p-hero-bg);
     }
     .p-aps-hero__media {
-      position: absolute;
-      inset: 0;
-      min-height: 0;
+      position: relative;
     }
     .p-aps-hero__media picture,
     .p-aps-hero__image {
       width: 100%;
-      height: 100%;
+      height: auto;
     }
     .p-aps-hero__image {
-      object-fit: cover;
-      object-position: 62% center;
+      object-fit: initial;
     }
     .p-aps-hero__content {
       top: 50px;

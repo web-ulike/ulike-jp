@@ -1,0 +1,104 @@
+{%- liquid
+  assign section_id = 'jp-men-after-sales-2026-' | append: section.id
+-%}
+
+<section id="{{ section_id }}" class="jp-men-after-sales-2026">
+  <div class="jp-men-after-sales-2026__inner jp-container">
+    <div class="jp-men-after-sales-2026__list">
+      {%- for block in section.blocks -%}
+        <article class="jp-men-after-sales-2026__item to-top" {% unless forloop.first %}style="transition-delay: .1s"{% endunless %} {{ block.shopify_attributes }}>
+          <div class="jp-men-after-sales-2026__icon-wrap">
+            {%- if block.settings.icon != blank -%}
+              {{ block.settings.icon | image_url: width: 400 | image_tag: class: 'jp-men-after-sales-2026__icon', loading: 'lazy', widths: '120, 180, 260, 400', alt: block.settings.title }}
+            {%- else -%}
+              <span class="jp-men-after-sales-2026__icon-placeholder" aria-hidden="true"></span>
+            {%- endif -%}
+          </div>
+          <div class="jp-men-after-sales-2026__copy">
+            <h2 class="jp-men-after-sales-2026__title">{{ block.settings.title }}</h2>
+            <p class="jp-men-after-sales-2026__body">{{ block.settings.body | escape | newline_to_br }}</p>
+          </div>
+        </article>
+        {%- unless forloop.last -%}<span class="jp-men-after-sales-2026__divider" aria-hidden="true"></span>{%- endunless -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  #{{ section_id }} {
+    color: {{ section.settings.text_color | default: '#000000' }};
+    margin-bottom: {{ section.settings.margin_bottom | default: 20 }}px;
+    margin-top: {{ section.settings.margin_top | default: 0 }}px;
+    overflow: hidden;
+  }
+  #{{ section_id }} .jp-men-after-sales-2026__inner { 
+    padding: 40px 60px 30px;
+    max-width: 1360px;
+    background: {{ section.settings.background | default: '#f7f8fa' }};
+  }
+  #{{ section_id }} .jp-men-after-sales-2026__list { align-items: start; column-gap: min(7.353vw, 200px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); position: relative; }
+  #{{ section_id }} .jp-men-after-sales-2026__item { align-items: start; display: grid; grid-template-columns: 89px minmax(0, 1fr); min-width: 0; width: min(100%, 490px); }
+  #{{ section_id }} .jp-men-after-sales-2026__item:first-child { column-gap: 32.5px; justify-self: start; }
+  #{{ section_id }} .jp-men-after-sales-2026__item:nth-child(3) { column-gap: 31.5px; justify-self: end; }
+  #{{ section_id }} .jp-men-after-sales-2026__icon-wrap { align-items: center; display: flex; height: 77px; justify-content: center; margin-top: 11px; }
+  #{{ section_id }} .jp-men-after-sales-2026__icon { display: block; height: auto; max-height: 77px; max-width: 89px; width: auto; }
+  #{{ section_id }} .jp-men-after-sales-2026__icon-placeholder { background: #d9dcdf; display: block; height: 77px; width: 77px; }
+  #{{ section_id }} .jp-men-after-sales-2026__title { color: inherit; font-family: inherit; font-size: 35px; font-weight: 500; line-height: normal; margin: 0; white-space: nowrap; }
+  #{{ section_id }} .jp-men-after-sales-2026__body { color: {{ section.settings.body_color | default: '#313131' }}; font-family: inherit; font-size: 13.5px; font-weight: 500; line-height: 1.3; margin: 10px 0 0; max-width: 369px; }
+  #{{ section_id }} .jp-men-after-sales-2026__divider { background: {{ section.settings.divider_color | default: '#000000' }}; height: 74.5px; left: 50%; opacity: {{ section.settings.divider_opacity | divided_by: 100.0 }}; position: absolute; top: 12.5px; transform: translateX(-50%); width: 1px; }
+
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} { margin-bottom: {{ section.settings.mobile_margin_bottom | default: 0 }}px; margin-top: {{ section.settings.mobile_margin_top | default: 0 }}px; }
+    #{{ section_id }} .jp-men-after-sales-2026__inner { max-width: none; padding: 8.604vw 5.774vw 6.784vw; }
+    #{{ section_id }} .jp-men-after-sales-2026__list { column-gap: 7.692vw; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    #{{ section_id }} .jp-men-after-sales-2026__item, #{{ section_id }} .jp-men-after-sales-2026__item:first-child, #{{ section_id }} .jp-men-after-sales-2026__item:nth-child(3) { column-gap: 0; display: flex; flex-direction: column; justify-self: stretch; width: 100%; }
+    #{{ section_id }} .jp-men-after-sales-2026__icon-wrap { height: 8.903vw; justify-content: center; margin: 0 0 1.56vw; width: 100%; }
+    #{{ section_id }} .jp-men-after-sales-2026__icon { max-height: 8.903vw; max-width: 10.277vw; }
+    #{{ section_id }} .jp-men-after-sales-2026__icon-placeholder { height: 8.903vw; width: 8.903vw; }
+    #{{ section_id }} .jp-men-after-sales-2026__title { font-size: 4.042vw; line-height: normal; text-align: center; white-space: nowrap; }
+    #{{ section_id }} .jp-men-after-sales-2026__body { font-size: 1.559vw; line-height: 1.3; margin-top: 1.499vw; max-width: none; text-align: left; }
+    #{{ section_id }} .jp-men-after-sales-2026__item:first-child .jp-men-after-sales-2026__body { text-align: center; }
+    #{{ section_id }} .jp-men-after-sales-2026__divider { height: 24.018vw; top: 1.097vw; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "jp-men-after-sales-2026",
+  "settings": [
+    { "type": "header", "content": "外边距" },
+    { "type": "range", "id": "margin_top", "label": "PC 上边距", "min": 0, "max": 200, "step": 5, "unit": "px", "default": 0 },
+    { "type": "range", "id": "margin_bottom", "label": "PC 下边距", "min": 0, "max": 200, "step": 5, "unit": "px", "default": 0 },
+    { "type": "range", "id": "mobile_margin_top", "label": "M 上边距", "min": 0, "max": 200, "step": 5, "unit": "px", "default": 0 },
+    { "type": "range", "id": "mobile_margin_bottom", "label": "M 下边距", "min": 0, "max": 200, "step": 5, "unit": "px", "default": 0 },
+    { "type": "header", "content": "颜色" },
+    { "type": "color", "id": "background", "label": "背景色", "default": "#F7F8FA" },
+    { "type": "color", "id": "text_color", "label": "标题颜色", "default": "#000000" },
+    { "type": "color", "id": "body_color", "label": "说明文字颜色", "default": "#313131" },
+    { "type": "color", "id": "divider_color", "label": "分隔线颜色", "default": "#000000" },
+    { "type": "range", "id": "divider_opacity", "label": "分隔线透明度", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 100 }
+  ],
+  "blocks": [
+    {
+      "type": "service",
+      "name": "售后保障",
+      "limit": 2,
+      "settings": [
+        { "type": "image_picker", "id": "icon", "label": "保障图标（请上传 Figma 导出的 SVG）" },
+        { "type": "text", "id": "title", "label": "标题", "default": "90日返金返品保証" },
+        { "type": "textarea", "id": "body", "label": "说明文案", "default": "Ulike製品をご使用になり、ご満足いただけない場合に限り、製品到着日から90日であれば全額返金いたします!" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "jp-men-after-sales-2026",
+      "blocks": [
+        { "type": "service", "settings": { "title": "90日返金返品保証", "body": "Ulike製品をご使用になり、ご満足いただけない場合に限り、製品到着日から90日であれば全額返金いたします!" } },
+        { "type": "service", "settings": { "title": "2年メーカー保証", "body": "商品到着後30日以内でレビュー投稿いただければ、メーカー交換保証対応は2年半まで延長します。" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

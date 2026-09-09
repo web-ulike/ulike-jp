@@ -1,0 +1,94 @@
+{%- liquid
+  assign section_id = 'jp-men-wavelength-2026-' | append: section.id
+  assign default_title = '全身の頑固な毛やヒゲにも対応'
+  assign default_body = '従来の家庭用IPL光美容器では対応が難しかったメンズの太く濃い毛にも効果的にアプローチする範囲の波長（550-1200nm）を採用。\n広範囲の波長スペクトルが光エネルギーを届け、肌の色や毛の状態が異なる部位にも柔軟に対応。顔のヒゲ・腕・すね毛・VIOなど、全身のお手入れを1台でカバーします。'
+-%}
+
+<section id="{{ section_id }}" class="jp-men-wavelength-2026 jp-container">
+  <div class="jp-men-wavelength-2026__intro">
+    <h2 class="jp-men-wavelength-2026__title to-top">{{ section.settings.title | default: default_title }}</h2>
+    <div class="jp-men-wavelength-2026__body to-top" style="transition-delay: .1s">{{ section.settings.body | default: default_body | escape | newline_to_br }}</div>
+  </div>
+
+  <div class="jp-men-wavelength-2026__visuals">
+    <div class="jp-men-wavelength-2026__spectrum">
+      <picture>
+        {%- if section.settings.spectrum_image_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ section.settings.spectrum_image_mobile | image_url: width: 1800 }}">{%- endif -%}
+        {%- if section.settings.spectrum_image != blank -%}
+          {{ section.settings.spectrum_image | image_url: width: 1600 | image_tag: class: 'jp-men-wavelength-2026__spectrum-image', loading: 'lazy', widths: '600, 900, 1200, 1600', alt: section.settings.spectrum_image.alt | default: section.settings.title }}
+        {%- elsif section.settings.spectrum_image_mobile != blank -%}
+          {{ section.settings.spectrum_image_mobile | image_url: width: 1800 | image_tag: class: 'jp-men-wavelength-2026__spectrum-image', loading: 'lazy', widths: '750, 1100, 1500, 1800', alt: section.settings.spectrum_image_mobile.alt | default: section.settings.title }}
+        {%- else -%}
+          {{ 'image' | placeholder_svg_tag: 'jp-men-wavelength-2026__spectrum-placeholder' }}
+        {%- endif -%}
+      </picture>
+    </div>
+
+    <div class="jp-men-wavelength-2026__media">
+      <picture>
+        {%- if section.settings.image_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ section.settings.image_mobile | image_url: width: 1800 }}">{%- endif -%}
+        {%- if section.settings.image != blank -%}
+          {{ section.settings.image | image_url: width: 1400 | image_tag: class: 'jp-men-wavelength-2026__image', loading: 'lazy', widths: '750, 1000, 1210, 1400', alt: section.settings.image.alt | default: section.settings.title }}
+        {%- elsif section.settings.image_mobile != blank -%}
+          {{ section.settings.image_mobile | image_url: width: 1800 | image_tag: class: 'jp-men-wavelength-2026__image', loading: 'lazy', widths: '750, 1100, 1500, 1800', alt: section.settings.image_mobile.alt | default: section.settings.title }}
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag: 'jp-men-wavelength-2026__placeholder' }}
+        {%- endif -%}
+      </picture>
+    </div>
+  </div>
+</section>
+
+<style>
+  #{{ section_id }} { background: {{ section.settings.background | default: '#f7f8fa' }}; color: {{ section.settings.text_color | default: '#000000' }}; margin-top: {{ section.settings.margin_top | default: 0 }}px; margin-bottom: {{ section.settings.margin_bottom | default: 0 }}px; overflow: hidden; }
+
+  #{{ section_id }} .jp-men-wavelength-2026__intro { padding-top: min(6.68626vw, 182px); padding-bottom: 0; }
+  #{{ section_id }} .jp-men-wavelength-2026__title {
+    color: inherit; font-family: inherit; font-size: 45px; font-weight: 500; line-height: 1.2; margin: 0; }
+  #{{ section_id }} .jp-men-wavelength-2026__body { color: inherit; font-family: inherit; font-size: 23px; font-weight: 400; line-height: 1.4; margin-top: min(2.124541vw, 57.83px); max-width: 100%; text-align: justify; text-justify: inter-character; width: 100%; }
+  #{{ section_id }} .jp-men-wavelength-2026__visuals { align-items: end; display: grid; gap: 3.24vw; grid-template-columns: minmax(0, .98fr) minmax(0, 1fr); padding-top: min(2.975753vw, 81px); padding-bottom: 5.1vw; }
+  #{{ section_id }} .jp-men-wavelength-2026__spectrum { align-self: center; }
+  #{{ section_id }} .jp-men-wavelength-2026__spectrum picture { display: block; }
+  #{{ section_id }} .jp-men-wavelength-2026__spectrum-image, #{{ section_id }} .jp-men-wavelength-2026__spectrum-placeholder { display: block; height: auto; width: 100%; }
+  #{{ section_id }} .jp-men-wavelength-2026__spectrum-placeholder { aspect-ratio: 1050 / 230; fill: #d4d4d4; }
+  #{{ section_id }} .jp-men-wavelength-2026__media { position: relative; } #{{ section_id }} .jp-men-wavelength-2026__media picture { display: block; } #{{ section_id }} .jp-men-wavelength-2026__image, #{{ section_id }} .jp-men-wavelength-2026__placeholder { display: block; height: auto; width: 100%; } #{{ section_id }} .jp-men-wavelength-2026__placeholder { fill: #d4d4d4; }
+  #{{ section_id }} .jp-men-wavelength-2026__ranges { display: flex; gap: 22px; justify-content: center; left: 0; position: absolute; right: 0; top: 35.2%; }
+  #{{ section_id }} .jp-men-wavelength-2026__range { align-items: center; color: #fff; display: flex; flex-direction: column; font-family: inherit; justify-content: space-between; padding: 3.6% 1% 3%; text-align: center; width: 13.1%; } #{{ section_id }} .jp-men-wavelength-2026__range--fine { background: linear-gradient(#58df45, #e5f350); } #{{ section_id }} .jp-men-wavelength-2026__range--coarse { background: linear-gradient(#ffc328 0%, #e11d12 59%, #d53227 100%); }
+  #{{ section_id }} .jp-men-wavelength-2026__range span { font-size: min(.735294vw, 20px); line-height: 1.4; } #{{ section_id }} .jp-men-wavelength-2026__range small { font-size: min(.441177vw, 12px); font-weight: 500; line-height: 1.3; white-space: nowrap; }
+
+  @media screen and (min-width: 750px) {
+    #{{ section_id }}.jp-container { 
+      padding-left: 130px; padding-right: 130px;max-width: 1360px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} { margin-top: {{ section.settings.mobile_margin_top | default: 0 }}px; margin-bottom: {{ section.settings.mobile_margin_bottom | default: 0 }}px; }
+    #{{ section_id }} .jp-men-wavelength-2026__intro { padding-top: 9.238%; padding-bottom: 0; } #{{ section_id }} .jp-men-wavelength-2026__title { font-size: 5.773672vw; line-height: 1.2; } #{{ section_id }} .jp-men-wavelength-2026__body { font-size: 3.704792vw; line-height: 1.4; margin-top: 6.93%; max-width: 100%; text-align: justify; }
+    #{{ section_id }} .jp-men-wavelength-2026__visuals { display: flex; flex-direction: column; gap: 9.4vw; padding-top: 14.3vw; padding-bottom: 0; } #{{ section_id }} .jp-men-wavelength-2026__spectrum { order: 1; width: 86.95%; }
+    #{{ section_id }} .jp-men-wavelength-2026__spectrum-placeholder { aspect-ratio: 1506 / 1008; }
+    #{{ section_id }} .jp-men-wavelength-2026__media { order: 2; width: 100%; } #{{ section_id }} .jp-men-wavelength-2026__ranges { gap: 5.2vw; top: 34.9%; } #{{ section_id }} .jp-men-wavelength-2026__range { padding: 3.7% 1% 3%; width: 13.1%; } #{{ section_id }} .jp-men-wavelength-2026__range span { font-size: 3.5vw; } #{{ section_id }} .jp-men-wavelength-2026__range small { font-size: 2.1vw; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "jp-men-wavelength-2026",
+  "settings": [
+    { "type": "header", "content": "外边距" },
+    { "type": "range", "id": "margin_top", "label": "PC 上边距", "min": 0, "max": 200, "step": 5, "unit": "px", "default": 0 },
+    { "type": "range", "id": "margin_bottom", "label": "PC 下边距", "min": 0, "max": 200, "step": 2, "unit": "px", "default": 0 },
+    { "type": "range", "id": "mobile_margin_top", "label": "M 上边距", "min": 0, "max": 200, "step": 2, "unit": "px", "default": 0 },
+    { "type": "range", "id": "mobile_margin_bottom", "label": "M 下边距", "min": 0, "max": 200, "step": 2, "unit": "px", "default": 0 },
+    { "type": "text", "id": "title", "label": "标题", "default": "全身の頑固な毛やヒゲにも対応" },
+    { "type": "textarea", "id": "body", "label": "说明文案", "default": "従来の家庭用IPL光美容器では対応が難しかったメンズの太く濃い毛にも効果的にアプローチする範囲の波長（550-1200nm）を採用。\n広範囲の波長スペクトルが光エネルギーを届け、肌の色や毛の状態が異なる部位にも柔軟に対応。顔のヒゲ・腕・すね毛・VIOなど、全身のお手入れを1台でカバーします。" },
+    { "type": "image_picker", "id": "image", "label": "PC 细胞示意图（建议 1210 × 748）" },
+    { "type": "image_picker", "id": "image_mobile", "label": "M 细胞示意图（建议 1732 × 1071）" },
+    { "type": "image_picker", "id": "spectrum_image", "label": "PC 波长图" },
+    { "type": "image_picker", "id": "spectrum_image_mobile", "label": "M 波长图" },
+    { "type": "color", "id": "background", "label": "背景色", "default": "#F7F8FA" },
+    { "type": "color", "id": "text_color", "label": "文字颜色", "default": "#000000" }
+  ],
+  "presets": [{ "name": "jp-men-wavelength-2026" }]
+}
+{% endschema %}

@@ -4,6 +4,16 @@
     --section-padding-bottom: {{ section.settings.padding_bottom }}px;
     {%- render 'section-variables', section: section -%}
   }
+
+  #shopify-section-{{ section.id }} .title-wrapper .heading {
+    font-size: 48px;
+  }
+
+  @media screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .title-wrapper .heading {
+      font-size: 30px;
+    }
+  }
 </style>
 
 <div class="section section--padding{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded relative{% endif %}{% if section.settings.style == 'with-background' %} section--plain{% endif %}">
@@ -80,7 +90,7 @@
                   <div class="accordion">
                     <details class="details" is="accordion-details" {{ block.shopify_attributes }}>
                       <summary class="details__summary flex items-center justify-between gap-2 cursor-pointer">
-                        <span class="text-base lg:text-lg xl:text-xl font-medium leading-tight">
+                        <span class="text-base lg:text-lg xl:text-xl font-normal leading-tight">
                           {%- render 'highlighted-text', content: block.settings.title, style: block.settings.highlighted_text, scribble: block.settings.highlighted_scribble, gradient: withGradient -%}
                         </span>
                         {%- render 'icon', icon: 'plus-alt', size: 'xs', class: 'flex-auto' -%}

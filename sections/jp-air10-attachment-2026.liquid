@@ -28,10 +28,13 @@
 
 {% style %}
   #{{ section_id }} {
+    --jp-attachment-background: {{ section.settings.background_color | default: '#FCFCFF' }};
+    --jp-attachment-text: {{ section.settings.text_color | default: '#000000' }};
+    --jp-attachment-body-text: {{ section.settings.body_text_color | default: '#3F3636' }};
     position: relative;
     overflow: hidden;
     min-height: 940px;
-    background: linear-gradient(248deg, #e0e4ee 1%, #fcfcff 100%);
+    background: var(--jp-attachment-background);
   }
 
   #{{ section_id }} .jp-attachment-2026__visual,
@@ -44,6 +47,7 @@
   }
 
   #{{ section_id }} .jp-attachment-2026__visual {
+    background: var(--jp-attachment-background);
     position: absolute;
     inset: 0;
   }
@@ -69,7 +73,7 @@
 
   #{{ section_id }} .jp-attachment-2026__title {
     margin: 0 0 39px;
-    color: #000;
+    color: var(--jp-attachment-text);
     font-size: 48px;
     font-weight: 400;
     line-height: 1.3;
@@ -78,7 +82,7 @@
 
   #{{ section_id }} .jp-attachment-2026__description {
     max-width: 573px;
-    color: #3f3636;
+    color: var(--jp-attachment-body-text);
     font-size: 24px;
     font-weight: 400;
     line-height: 1.5;
@@ -94,23 +98,33 @@
     bottom: 37px;
     left: max(40px, calc((100% - 1260px) / 2));
     margin: 0;
-    color: rgba(0, 0, 0, .5);
+    color: var(--jp-attachment-text);
+    opacity: .5;
     font-size: 14px;
     line-height: 1.5;
   }
 
   @media screen and (max-width: 749px) {
     #{{ section_id }} {
-      min-height: 548px;
+      min-height: unset;
     }
 
     #{{ section_id }} .jp-attachment-2026__visual {
-      position: absolute;
-      inset: 0;
+      position: relative;
+      inset: auto;
+      height: auto;
+    }
+
+    #{{ section_id }} .jp-attachment-2026__visual picture,
+    #{{ section_id }} .jp-attachment-2026__image {
+      height: auto;
     }
 
     #{{ section_id }} .jp-attachment-2026__content {
-      position: relative;
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
       z-index: 1;
       width: auto;
       margin: 0;
@@ -143,6 +157,24 @@
 {
   "name": "jp-air10-attachment-2026",
   "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "背景颜色",
+      "default": "#FCFCFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "标题与脚注颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "body_text_color",
+      "label": "说明文字颜色",
+      "default": "#3F3636"
+    },
     {
       "type": "image_picker",
       "id": "image",

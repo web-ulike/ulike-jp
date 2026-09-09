@@ -1,0 +1,85 @@
+{%- liquid
+  assign section_id = 'jp-x-ushr-2026-' | append: section.id
+  assign desktop_image = section.settings.background_image | default: section.settings.background_image_mobile
+  assign mobile_image = section.settings.background_image_mobile | default: desktop_image
+-%}
+
+<section id="{{ section_id }}" class="jp-x-ushr-2026">
+  <div class="jp-x-ushr-2026__stage">
+    <div class="jp-x-ushr-2026__background" aria-hidden="true">
+      {%- if desktop_image != blank -%}
+        <picture>
+          {%- if mobile_image != blank -%}<source media="(max-width: 749px)" srcset="{{ mobile_image | image_url: width: 900 }}">{%- endif -%}
+          {{ desktop_image | image_url: width: 2880 | image_tag: class: 'jp-x-ushr-2026__background-image', loading: 'lazy', widths: '375, 750, 1200, 1600, 1920, 2400, 2880', alt: '' }}
+        </picture>
+      {%- endif -%}
+    </div>
+    <div class="jp-x-ushr-2026__copy">
+      <div class="jp-x-ushr-2026__heading to-top">
+        <p>{{ section.settings.eyebrow | escape }}</p>
+        <h2>{{ section.settings.title | escape }}</h2>
+      </div>
+      <div class="jp-x-ushr-2026__chips to-top" style="transition-delay: .1s">
+        <div><span><b>{{ section.settings.wavelength | escape }}</b>{{ section.settings.wavelength_text | escape }}</span><span><b>{{ section.settings.mode | escape }}</b>{{ section.settings.mode_text | escape }}</span></div><i aria-hidden="true">×</i>
+      </div>
+      <p class="jp-x-ushr-2026__body to-top" style="transition-delay: .2s">{{ section.settings.body | escape }}</p>
+    </div>
+    {%- if section.settings.note != blank -%}<p class="jp-x-ushr-2026__note">{{ section.settings.note | escape }}</p>{%- endif -%}
+  </div>
+</section>
+
+<style>
+  #{{ section_id }} { --jp-x-ushr-chip-background-mobile: {{ section.settings.chips_background_color_mobile | default: '#C9ECFF' }}; background: linear-gradient(62deg, #0c0c0c 0%, #444448 99.3%); color: #fff; overflow: hidden; }
+  #{{ section_id }} * { box-sizing: border-box; }
+  #{{ section_id }} .jp-x-ushr-2026__stage { aspect-ratio: 1920 / 916; margin: 0 auto; overflow: hidden; position: relative; width: 100%; }
+  #{{ section_id }} .jp-x-ushr-2026__background { inset: 0; position: absolute; }
+  #{{ section_id }} .jp-x-ushr-2026__background picture { display: block; height: 100%; width: 100%; }
+  #{{ section_id }} .jp-x-ushr-2026__background-image { display: block; height: 100%; max-width: 100%; object-fit: contain; width: 100%; }
+  #{{ section_id }} .jp-x-ushr-2026__copy { inset: 0; pointer-events: none; position: absolute; }
+  #{{ section_id }} .jp-x-ushr-2026__heading { color: #fff; left: 17.135%; position: absolute; top: 22.452%; }
+  #{{ section_id }} .jp-x-ushr-2026__heading p { color: #fff; font-size: 32px; font-weight: 500; line-height: 1.5; margin: 0; }
+  #{{ section_id }} .jp-x-ushr-2026__heading h2 { color: #fff; font-size: 48px; font-weight: 500; line-height: 1.5; margin: 11px 0 0; }
+  #{{ section_id }} .jp-x-ushr-2026__chips { align-items: flex-start; display: flex; gap: 20.52px; left: 17.135%; position: absolute; top: 40.066%; }
+  #{{ section_id }} .jp-x-ushr-2026__chips > div { display: flex; flex-direction: column; gap: 19.5px; }
+  #{{ section_id }} .jp-x-ushr-2026__chips span { align-items: center; background: #c9ecff; color: #000; display: flex; font-size: 24px; height: 48px; line-height: 1.5; padding: 0 12px; white-space: nowrap; }
+  #{{ section_id }} .jp-x-ushr-2026__chips b { font-size: 36px; font-weight: 600; }
+  #{{ section_id }} .jp-x-ushr-2026__chips i { font-size: 30.923px; font-style: normal; line-height: 1.5; margin-top: 0; }
+  #{{ section_id }} .jp-x-ushr-2026__body { color: #fff; font-size: 24px; font-weight: 400; left: 17.135%; line-height: 1.5; margin: 0; position: absolute; top: 57.444%; width: 610.125px; }
+  #{{ section_id }} .jp-x-ushr-2026__note { color: rgba(255,255,255,.5); font-size: 12px; left: 17.135%; line-height: 1.5; margin: 0; position: absolute; top: 91.528%; }
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} { background: linear-gradient(188deg, #0c0c0c 39.4%, #444448 80.3%); }
+    #{{ section_id }} .jp-x-ushr-2026__stage { aspect-ratio: auto; height: 780px; max-width: none; }
+    #{{ section_id }} .jp-x-ushr-2026__heading { left: 20px; top: 59px; }
+    #{{ section_id }} .jp-x-ushr-2026__heading p { font-size: 22px; }
+    #{{ section_id }} .jp-x-ushr-2026__heading h2 { font-size: 30px; margin-top: 0; }
+    #{{ section_id }} .jp-x-ushr-2026__chips { gap: 12px; left: 20px; top: 159px; }
+    #{{ section_id }} .jp-x-ushr-2026__chips > div { align-items: flex-start; gap: 11px; }
+    #{{ section_id }} .jp-x-ushr-2026__chips span { background: var(--jp-x-ushr-chip-background-mobile); font-size: 14px; height: 27.875px; padding: 0 7px; }
+    #{{ section_id }} .jp-x-ushr-2026__chips b { font-size: 20px; }
+    #{{ section_id }} .jp-x-ushr-2026__chips i { font-size: 17.958px; margin-top: -1px; }
+    #{{ section_id }} .jp-x-ushr-2026__body { font-size: 18px; left: 20px; top: 252.07px; width: calc(100% - 38px); }
+    #{{ section_id }} .jp-x-ushr-2026__note { color: rgba(0,0,0,.5); font-size: 8px; left: 20px; top: 741px; width: 342px; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "jp-x-ushr-2026",
+  "settings": [
+    { "type": "image_picker", "id": "background_image", "label": "PC 产品背景图（不含文案）" },
+    { "type": "image_picker", "id": "background_image_mobile", "label": "M 产品背景图（不含文案）" },
+    { "type": "text", "id": "eyebrow", "label": "标题第一行", "default": "カミソリ負けによる" },
+    { "type": "text", "id": "title", "label": "标题第二行", "default": "肌ダメージを、徹底ケア。" },
+    { "type": "text", "id": "wavelength", "label": "第一项高亮文案", "default": "550-1200nm" },
+    { "type": "text", "id": "wavelength_text", "label": "第一项其余文案", "default": "の広帯域波長" },
+    { "type": "text", "id": "mode", "label": "第二项高亮文案", "default": "USHR" },
+    { "type": "text", "id": "mode_text", "label": "第二项其余文案", "default": "蓄熱モード*" },
+    { "type": "color", "id": "chips_background_color_mobile", "label": "M 端标签文案背景色", "default": "#C9ECFF" },
+    { "type": "textarea", "id": "body", "label": "说明文案", "default": "硬いヒゲの毛根へ深くアプローチ。ヒゲの成長を根元から抑え込み、カミソリ負けの連鎖を断ち切ります。毎日のシェービングによるダメージから肌を解き放ち、清潔感あふれる健やかな素肌へ。" },
+    { "type": "text", "id": "note", "label": "底部注释", "default": "*USHRモード：UlikeのUSHRモードとは、IPL蓄熱式照射技術を指す。" }
+  ],
+  "presets": [
+    { "name": "jp-x-ushr-2026" }
+  ]
+}
+{% endschema %}
