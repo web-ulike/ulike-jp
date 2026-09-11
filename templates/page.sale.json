@@ -415,8 +415,16 @@
     "image_with_text_NpDc6j": {
       "type": "image-with-text",
       "blocks": {
+        "heading_n9QkUn": {
+          "type": "heading",
+          "settings": {}
+        },
         "text_BmKBWx": {
           "type": "text",
+          "settings": {}
+        },
+        "liquid_L8Ai4G": {
+          "type": "liquid",
           "settings": {}
         },
         "button_RJNHB9": {
@@ -425,7 +433,9 @@
         }
       },
       "block_order": [
+        "heading_n9QkUn",
         "text_BmKBWx",
+        "liquid_L8Ai4G",
         "button_RJNHB9"
       ],
       "disabled": true,
@@ -470,8 +480,31 @@
       "type": "image-with-text-overlay",
       "disabled": true,
       "settings": {
+        "transparent_header": false,
         "image": "shopify:\/\/shop_images\/20240315-140851.jpg",
-        "overlay_opacity": 70
+        "image_height": "adapt",
+        "content_width": "small",
+        "content_position": "md:items-end md:justify-start",
+        "text_alignment": "left",
+        "image_mobile": "shopify:\/\/shop_images\/6_e5790f2d-f08d-4fe2-a2f1-d3f80b5fb637.jpg",
+        "image_height_mobile": "adapt",
+        "content_position_mobile": "items-end justify-start",
+        "text_alignment_mobile": "left",
+        "color_text": "#ffffff",
+        "color_highlight": "#e0a580",
+        "gradient_highlight": "",
+        "color_button_text": "#171717",
+        "color_button_background": "#ffffff",
+        "color_button_gradient": "",
+        "color_overlay": "#fff1f2",
+        "overlay_opacity": 70,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "divider": false,
+        "full_width": true,
+        "rounded": false,
+        "enable_parallax": false,
+        "parallax_direction": "vertical"
       }
     },
     "rich_text_Kp8ert": {
@@ -588,7 +621,13 @@
       "blocks": {
         "heading_ftfPCi": {
           "type": "heading",
-          "settings": {}
+          "settings": {
+            "heading": "SNS Giveaway",
+            "heading_size": "title-sm",
+            "heading_tag": "h2",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
         }
       },
       "block_order": [
@@ -596,7 +635,29 @@
       ],
       "disabled": true,
       "settings": {
-        "overlay_opacity": 70
+        "transparent_header": false,
+        "image_height": "adapt",
+        "content_width": "small",
+        "content_position": "md:items-end md:justify-start",
+        "text_alignment": "left",
+        "image_height_mobile": "auto",
+        "content_position_mobile": "items-end justify-start",
+        "text_alignment_mobile": "left",
+        "color_text": "#171717",
+        "color_highlight": "#e0a580",
+        "gradient_highlight": "",
+        "color_button_text": "#171717",
+        "color_button_background": "#ffffff",
+        "color_button_gradient": "",
+        "color_overlay": "rgba(0,0,0,0)",
+        "overlay_opacity": 70,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "divider": false,
+        "full_width": true,
+        "rounded": false,
+        "enable_parallax": false,
+        "parallax_direction": "vertical"
       }
     },
     "scrolling_text_jnc3Jg": {

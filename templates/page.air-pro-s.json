@@ -240,15 +240,40 @@
     "p_airpro_s_trust": {
       "type": "p-airpro-s-trust-stats",
       "blocks": {
-        "patents": { "type": "stat", "settings": { "icon": "◎", "number": "1000<sup>+</sup>", "label": "取得特許" } },
-        "experience": { "type": "stat", "settings": { "icon": "◷", "number": "10年<sup>+</sup>", "label": "IPL開発経験" } },
-        "sales": { "type": "stat", "settings": { "icon": "◎", "number": "1000万<sup>+</sup>", "label": "販売台数*" } }
+        "patents": {
+          "type": "stat",
+          "settings": {
+            "icon": "◎",
+            "number": "1000<sup>+<\/sup>",
+            "label": "取得特許*2"
+          }
+        },
+        "experience": {
+          "type": "stat",
+          "settings": {
+            "icon": "◷",
+            "number": "10年<sup>+<\/sup>",
+            "label": "IPL開発経験"
+          }
+        },
+        "sales": {
+          "type": "stat",
+          "settings": {
+            "icon": "◎",
+            "number": "1000万<sup>+<\/sup>",
+            "label": "販売台数*3"
+          }
+        }
       },
-      "block_order": ["patents", "experience", "sales"],
+      "block_order": [
+        "patents",
+        "experience",
+        "sales"
+      ],
       "settings": {
-        "heading": "日本一だから、<br>安心して選べる。",
+        "heading": "日本一だから、安心して選べる。",
         "award_image": "shopify:\/\/shop_images\/Vector_3_8de6d772-40d4-46e7-bea1-6d917980320c.svg",
-        "note": "* 販売台数はシリーズ累計。",
+        "note": "*1.株式会社富士経済発行『美肌・美髪ケア家電トレンドデータ 2026』に基づく。光美容器とは、レーザーやIPLなどの技術を用いてムダ毛を処理する美容機器を指します。*2.当社調べ。2025年12月の自社統計情報に基づく。*3.社内集計。2026年7月時点、全販売チャネルにおける光美容器の累計販売台数。",
         "background": "#ffffff",
         "text_color": "#111111"
       }
@@ -256,15 +281,48 @@
     "p_airpro_s_use": {
       "type": "p-airpro-s-use-guide",
       "blocks": {
-        "shaving": { "type": "step", "settings": { "image": "shopify:\/\/shop_images\/1568750bc4e03f32975a35cc8683db83_6e93eff8-f54e-4fa2-803d-c71994a3aa50.png", "title": "シェービング", "text": "ケアする部位の毛をシェービングします。" } },
-        "test": { "type": "step", "settings": { "image": "shopify:\/\/shop_images\/0582eba9fd1d36a07b4603df48163de6.png", "title": "テスト", "text": "腕などで肌のコンディションを確認してください。" } },
-        "care": { "type": "step", "settings": { "image": "shopify:\/\/shop_images\/2_-1.png", "title": "ムダ毛ケア", "text": "照射面を肌に密着させてケアします。" } },
-        "moisturize": { "type": "step", "settings": { "image": "shopify:\/\/shop_images\/1568750bc4e03f32975a35cc8683db83_df648722-7605-474c-857c-259399413654.png", "title": "潤す＆紫外線対策", "text": "ケア後は保湿と紫外線対策を行ってください。" } }
+        "shaving": {
+          "type": "step",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/20250428_ulike0944_1.png",
+            "title": "シェービング",
+            "text": "ケアする前日の夜にまずシェービングをします。乾いた状態で剃らないでください。"
+          }
+        },
+        "test": {
+          "type": "step",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/33_020.jpg_1.png",
+            "title": "テスト",
+            "text": "照射する前に、付属のゴーグルを着用してください。まず腕やすねでテストすることをおすすめします。"
+          }
+        },
+        "care": {
+          "type": "step",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/2_84aa66ea-7fdc-4740-b7d8-273e552a9341.png",
+            "title": "ムダ毛ケア",
+            "text": "照射口が肌に密着するように押し当てて、照射ボタンを押します。短く押すと1 回照射、2秒長押しすると連続照射を開始します。"
+          }
+        },
+        "moisturize": {
+          "type": "step",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/20250428_ulike1004_2.png",
+            "title": "潤す＆紫外線対策",
+            "text": "ケアした後、ボディクリームを塗り、お肌のうるおいを保ちましょう。照射後 48 時間は、照射部位に紫外線をあてないでください。"
+          }
+        }
       },
-      "block_order": ["shaving", "test", "care", "moisturize"],
+      "block_order": [
+        "shaving",
+        "test",
+        "care",
+        "moisturize"
+      ],
       "settings": {
         "heading": "つるすべ肌への正しい使い方",
-        "note": "* 使用前に取扱説明書をご確認ください。",
+        "note": "*注意：\n1. 本体は水洗いできません。アルコールワイプでヘッドを拭いてお手入れしてください。2. 照射する前に、目を保護するため、付属のゴーグルを着用してください。\n3. 本製品はボディクリームは付いておりません。4. 照射部位には、香水やシートマスク、スクラブ配合の化粧品類を使わないでください。",
         "background": "#f7f7f7",
         "text_color": "#111111"
       }

@@ -18,7 +18,7 @@
 </style>
 
 <div class="section section--padding{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded relative{% endif %}">
-  <div class="page-width{% if section.settings.full_width %} page-width--full{% endif %} relative">
+  <div class="{% unless section.settings.full_width %}container{% endunless %} relative">
     <div class="image-with-text with-background flex lg:gap-8 flex-col-reverse{% if section.settings.layout == 'image_first' %} lg:flex-row{% else %} lg:flex-row-reverse{% endif %} overflow-hidden">
       <div class="image-with-text__item grow shrink-0{% if section.settings.image_width == 'small' %} lg:grow-0{% endif %} relative">
         <div class="image-with-text__media h-full">

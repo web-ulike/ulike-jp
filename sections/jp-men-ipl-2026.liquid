@@ -1,0 +1,149 @@
+{%- liquid
+  assign section_id = 'jp-men-ipl-2026-' | append: section.id
+  assign default_title = '痛みやコストを抑えたい、\n安全・効果的なムダ毛ケアをしたい？'
+  assign default_body = 'IPL技術はインテンス・パルス・ライトの略称で、黒い色に反応する強力な光を使用して、ムダ毛にエネルギーを送り、集中ケアする方法です*。'
+  assign default_note = '*IPL脱毛は永久脱毛ではありません。お手入れを中止すると、再び毛が生えてきます。'
+-%}
+
+<section
+  id="{{ section_id }}"
+  class="jp-men-ipl-2026"
+>
+  {%- if section.settings.anchor_id != blank -%}<span id="{{ section.settings.anchor_id | handleize }}" class="jp-men-ipl-2026__anchor"></span>{%- endif -%}
+  <div class="jp-men-ipl-2026__container container">
+    <div class="jp-men-ipl-2026__inner">
+      <div class="jp-men-ipl-2026__copy">
+        <h2 class="jp-men-ipl-2026__title to-top">{{ section.settings.title | default: default_title | escape | newline_to_br }}</h2>
+        <p class="jp-men-ipl-2026__body to-top" style="transition-delay: .1s">{{ section.settings.body | default: default_body | escape }}</p>
+        <p class="jp-men-ipl-2026__note">{{ section.settings.note | default: default_note | escape }}</p>
+      </div>
+
+      <div class="jp-men-ipl-2026__media">
+        <picture>
+          {%- if section.settings.image_mobile != blank -%}
+            <source media="(max-width: 749px)" srcset="{{ section.settings.image_mobile | image_url: width: 2400 }}">
+          {%- endif -%}
+          {%- if section.settings.image != blank -%}
+            {{ section.settings.image | image_url: width: 2600 | image_tag: class: 'jp-men-ipl-2026__image', loading: 'lazy', widths: '900, 1360, 1800, 2230, 2600', alt: section.settings.image.alt | default: section.settings.title }}
+          {%- elsif section.settings.image_mobile != blank -%}
+            {{ section.settings.image_mobile | image_url: width: 2400 | image_tag: class: 'jp-men-ipl-2026__image', loading: 'lazy', widths: '750, 1200, 1732, 2230, 2400', alt: section.settings.image_mobile.alt | default: section.settings.title }}
+          {%- else -%}
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'jp-men-ipl-2026__placeholder' }}
+          {%- endif -%}
+        </picture>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #{{ section_id }} {
+    color: {{ section.settings.text_color | default: '#190a0a' }};
+    padding-bottom: {{ section.settings.margin_bottom | default: 0 }}px;
+    padding-top: {{ section.settings.margin_top | default: 0 }}px;
+  }
+
+  #{{ section_id }} .jp-men-ipl-2026__inner {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    background: {{ section.settings.background | default: '#f7f8fa' }};
+  }
+
+  #{{ section_id }} .jp-men-ipl-2026__copy {
+    display: flex;
+    flex-direction: column;
+    grid-column: 1;
+    grid-row: 1;
+    padding: 130px 0px 99px 50px;
+    max-width: 600px;
+  }
+
+  #{{ section_id }} .jp-men-ipl-2026__title {
+    color: inherit;
+    font-family: inherit;
+    font-size: 45px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  #{{ section_id }} .jp-men-ipl-2026__body {
+    color: {{ section.settings.body_color | default: 'rgba(0, 0, 0, .7)' }};
+    font-family: inherit;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.3;
+    margin: 40px 0 0;
+    opacity: .7;
+  }
+
+  #{{ section_id }} .jp-men-ipl-2026__note {
+    color: {{ section.settings.note_color | default: 'rgba(0, 0, 0, .7)' }};
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.2;
+    margin: auto 0 0;
+    opacity: .7;
+  }
+
+  #{{ section_id }} .jp-men-ipl-2026__anchor { position: absolute; scroll-margin-top: 100px; }
+
+  #{{ section_id }} .jp-men-ipl-2026__media {
+    grid-column: 2;
+    grid-row: 1;
+    max-width: none;
+    width: 100%;
+  }
+
+  #{{ section_id }} .jp-men-ipl-2026__media picture { display: block; max-width: none; width: 100%; }
+  #{{ section_id }} .jp-men-ipl-2026__image {
+    display: block;
+    height: auto;
+    max-width: 100%;
+    width: 100%;
+  }
+  #{{ section_id }} .jp-men-ipl-2026__placeholder { display: block; fill: #d9dcdf; height: auto; width: 100%; }
+
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} {
+      margin-bottom: {{ section.settings.mobile_margin_bottom | default: 0 }}px;
+      margin-top: {{ section.settings.mobile_margin_top | default: 0 }}px;
+    }
+
+    #{{ section_id }} .jp-men-ipl-2026__inner { display: flex; flex-direction: column; min-height: 0; }
+    #{{ section_id }} .jp-men-ipl-2026__copy { display: block; order: 1; padding: 12.933vw 5.543vw 8.026vw; }
+    #{{ section_id }} .jp-men-ipl-2026__title { font-size: 20px; line-height: 1.4; }
+    #{{ section_id }} .jp-men-ipl-2026__body { font-size: 2.357vw; line-height: 1.3; margin-top: 4.105vw; }
+    #{{ section_id }} .jp-men-ipl-2026__note { bottom: 5.14vw; color: {{ section.settings.mobile_note_color | default: '#ffffff' }}; font-size: 1.79vw; left: 5.774vw; line-height: 1.2; margin: 0; position: absolute; z-index: 1; }
+    #{{ section_id }} .jp-men-ipl-2026__media { order: 2; position: relative; width: 100%; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "jp-men-ipl-2026",
+  "settings": [
+    { "type": "header", "content": "锚点与外边距" },
+    { "type": "text", "id": "anchor_id", "label": "锚点 ID" },
+    { "type": "range", "id": "margin_top", "label": "PC 上边距", "min": 0, "max": 200, "step": 5, "unit": "px", "default": 0 },
+    { "type": "range", "id": "margin_bottom", "label": "PC 下边距", "min": 0, "max": 200, "step": 5, "unit": "px", "default": 0 },
+    { "type": "range", "id": "mobile_margin_top", "label": "M 上边距", "min": 0, "max": 200, "step": 5, "unit": "px", "default": 0 },
+    { "type": "range", "id": "mobile_margin_bottom", "label": "M 下边距", "min": 0, "max": 200, "step": 5, "unit": "px", "default": 0 },
+    { "type": "header", "content": "内容" },
+    { "type": "textarea", "id": "title", "label": "标题", "default": "痛みやコストを抑えたい、\n安全・効果的なムダ毛ケアをしたい？" },
+    { "type": "textarea", "id": "body", "label": "说明文案", "default": "IPL技術はインテンス・パルス・ライトの略称で、黒い色に反応する強力な光を使用して、ムダ毛にエネルギーを送り、集中ケアする方法です*。" },
+    { "type": "textarea", "id": "note", "label": "脚注", "default": "*IPL脱毛は永久脱毛ではありません。お手入れを中止すると、再び毛が生えてきます。" },
+    { "type": "image_picker", "id": "image", "label": "PC 图片（建议 2230 × 1487）" },
+    { "type": "image_picker", "id": "image_mobile", "label": "M 图片（建议 2230 × 1487）" },
+    { "type": "header", "content": "颜色" },
+    { "type": "color", "id": "background", "label": "背景色", "default": "#F7F8FA" },
+    { "type": "color", "id": "text_color", "label": "标题颜色", "default": "#190A0A" },
+    { "type": "color", "id": "body_color", "label": "说明文字颜色", "default": "#000000" },
+    { "type": "color", "id": "note_color", "label": "PC 脚注颜色", "default": "#000000" },
+    { "type": "color", "id": "mobile_note_color", "label": "M 脚注颜色", "default": "#FFFFFF" }
+  ],
+  "presets": [{ "name": "jp-men-ipl-2026" }]
+}
+{% endschema %}

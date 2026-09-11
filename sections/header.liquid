@@ -4,6 +4,9 @@ IMPLEMENTATION NOTE: the header in Focal is pretty complex as it allows a lot of
   need to touch this code, make sure to do it with EXTRA CARE as it may have some unwanted side effects
 {%- endcomment -%}
 
+{{- 'header-2026.css' | asset_url | stylesheet_tag -}}
+<script src="{{ 'header-2026.js' | asset_url }}" defer="defer"></script>
+
 <style>
   :root {
     --enable-sticky-header: {% if section.settings.enable_sticky_header %}1{% else %}0{% endif %};
@@ -116,7 +119,7 @@ IMPLEMENTATION NOTE: the header in Focal is pretty complex as it allows a lot of
   {%- endif -%}
 </style>
 
-<store-header {% if section.settings.enable_sticky_header %}sticky{% endif %} {% if request.page_type == 'index' and section.settings.enable_transparent_header %}transparent{% endif %} class="header {% if settings.background == settings.header_background %}header--bordered{% endif %} {% if request.page_type == 'index' and section.settings.enable_transparent_header %}header--transparent{% endif %}" role="banner">
+<store-header {% if section.settings.enable_sticky_header %}sticky{% endif %} {% if request.page_type == 'index' and section.settings.enable_transparent_header %}transparent{% endif %} class="header header-2026 {% if settings.background == settings.header_background %}header--bordered{% endif %} {% if request.page_type == 'index' and section.settings.enable_transparent_header %}header--transparent{% endif %}" role="banner">
   {%- assign menu = section.settings.navigation_menu -%}
 
   <div class="container">
@@ -124,7 +127,7 @@ IMPLEMENTATION NOTE: the header in Focal is pretty complex as it allows a lot of
       <!-- LEFT PART -->
       <nav class="header__inline-navigation" {% unless section.settings.header_layout == 'logo_center_search_open' %}role="navigation"{% endunless %}>
         {%- if menu.links.size > 0 and section.settings.header_layout == 'logo_left_navigation_inline' or section.settings.header_layout == 'logo_left_navigation_center' or section.settings.header_layout == 'logo_center_navigation_inline' -%}
-          {%- render 'desktop-menu', menu: menu -%}
+          {%- render 'header-2026-focal-desktop', menu: menu -%}
         {%- endif -%}
 
         <div class="header__icon-list {% if section.settings.header_layout == 'logo_center_search_open' %}hidden-desk{% endif %}">
@@ -273,19 +276,13 @@ IMPLEMENTATION NOTE: the header in Focal is pretty complex as it allows a lot of
               {%- render 'icon' with 'header-search' -%}
             </a>
           {%- endif -%}
-          
-          <div>
+
           {%- if shop.customer_accounts_enabled -%}
-            <shopify-account menu="{{ section.settings.customer_account_menu }}"{% if section.settings.show_icons %}class="shopify-account--icons"{% endif %}>   
-              <div slot="signed-out-avatar">
-                <span class="header__icon-wrapper tap-area hidden-phone {% unless section.settings.show_icons %}hidden-desk{% endunless %}">
-                {%- render 'icon' with 'header-customer' -%}
-                </span>
-              </div>
-            </shopify-account>
+            <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="header__icon-wrapper tap-area hidden-phone {% unless section.settings.show_icons %}hidden-desk{% endunless %}" aria-label="{% if customer %}{{ 'header.general.account' | t | escape }}{% else %}{{ 'header.general.login' | t | escape }}{% endif %}">
+              {%- render 'icon' with 'header-customer' -%}
+            </a>
           {%- endif -%}
-          </div>
-           
+
           <a href="{{ routes.cart_url }}" {% unless settings.cart_type == 'page' or request.page_type == 'cart' %}is="toggle-link" aria-controls="mini-cart" aria-expanded="false"{% endunless %} class="header__icon-wrapper tap-area {% unless section.settings.show_icons %}hidden-desk{% endunless %}" aria-label="{{ 'header.general.cart' | t | escape }}" data-no-instant>
             {%- case settings.cart_icon -%}
               {%- when 'shopping_bag' -%}
@@ -316,14 +313,16 @@ IMPLEMENTATION NOTE: the header in Focal is pretty complex as it allows a lot of
                 <a href="{{ routes.search_url }}" is="toggle-link" aria-controls="search-drawer" aria-expanded="false">{{ 'search.general.title' | t | escape }}</a>
               </li>
             {%- endif -%}
-            
-            {%- if shop.customer_accounts_enabled -%}              
+
+            {%- if shop.customer_accounts_enabled -%}
               <li class="header__linklist-item">
-                <shopify-account menu="{{ section.settings.customer_account_menu }}">
-                  <div slot="signed-out-avatar">
-                    <span>{{ 'header.general.login' | t }}</span>
-                  </div>
-                </shopify-account>
+                <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}">
+                  {%- if customer -%}
+                    {{ 'header.general.account' | t }}
+                  {%- else -%}
+                    {{ 'header.general.login' | t }}
+                  {%- endif -%}
+                </a>
               </li>
             {%- endif -%}
 
@@ -340,7 +339,7 @@ IMPLEMENTATION NOTE: the header in Focal is pretty complex as it allows a lot of
 
     {%- if menu.links.size > 0 and section.settings.header_layout == 'logo_center_search_open' -%}
       <nav class="header__bottom-navigation hidden-pocket hidden-lap" role="navigation">
-        {% render 'desktop-menu', menu: menu, bottom_navigation: true %}
+        {% render 'header-2026-focal-desktop', menu: menu, bottom_navigation: true %}
       </nav>
     {%- endif -%}
   </div>
@@ -361,7 +360,7 @@ MOBILE MENU DRAWER
 {%- endcomment -%}
 
 {%- assign menu = section.settings.sidebar_navigation_menu | default: section.settings.navigation_menu -%}
-{%- render 'mobile-menu', menu: menu -%}
+{%- render 'header-2026-focal-mobile', menu: menu, section: section -%}
 
 {%- comment -%}
 ------------------------------------------------------------------------------------
@@ -552,12 +551,6 @@ SEARCH DRAWER
       "id": "search_menu",
       "label": "Quick links menu",
       "info": "Display quick links when empty. This menu has limited support for dropdown items."
-    },
-    {
-      "type": "link_list",
-      "id": "customer_account_menu",
-      "label": "Customer account menu",
-      "default": "customer-account-main-menu"
     }
   ],
   "blocks": [
@@ -737,6 +730,32 @@ SEARCH DRAWER
           "type": "url",
           "id": "image_6_link",
           "label": "Link"
+        }
+      ]
+    },
+    {
+      "type": "product_navigation_group",
+      "name": "Product navigation group",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Group heading",
+          "default": "New products"
+        },
+        {
+          "type": "product_list",
+          "id": "products",
+          "label": "Products",
+          "limit": 12
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_carousel",
+          "label": "Enable product switcher",
+          "default": false,
+          "info": "Shows three products per page and navigation arrows when more products are selected."
         }
       ]
     }

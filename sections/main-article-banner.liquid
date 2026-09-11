@@ -29,7 +29,7 @@
 </style>
 
 <div class="section section--padding{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded relative{% endif %}"{% if section.settings.transparent_header and article_image != blank %} allow-transparent-header{% endif %}>
-  <div class="{% unless section.settings.full_width %}page-width {% endunless %}relative">
+  <div class="{% unless section.settings.full_width %}container {% endunless %}relative">
     <article class="article banner relative{% if article_image != blank %} media--{{ section.settings.image_height }} mobile:media--{{ section.settings.image_height_mobile }}{% endif %}" itemscope itemtype="http://schema.org/BlogPosting">
       {%- if article_image != blank -%}
         <media-element class="banner__media block w-full h-full overflow-hidden"{% if section.settings.enable_parallax %} data-parallax="0.3" data-parallax-dir="{{ section.settings.parallax_direction }}"{% endif %}>
@@ -43,7 +43,7 @@
     
       {%- if section.blocks.size > 0 -%}
         <div class="banner__content overflow-hidden{% if article_image != blank %} absolute z-1 top-0 left-0 w-full h-full{% endif %}">
-          <div class="page-width w-full h-full flex {{ section.settings.content_position }} {{ section.settings.content_position_mobile }}">
+          <div class="container w-full h-full flex {{ section.settings.content_position }} {{ section.settings.content_position_mobile }}">
             <div class="banner__box md:text-{{ section.settings.text_alignment }} text-{{ section.settings.text_alignment_mobile }}">
               {%- assign delay = 0 -%}
               {%- for block in section.blocks -%}

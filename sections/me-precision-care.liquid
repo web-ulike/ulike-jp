@@ -1,0 +1,267 @@
+{%- liquid
+  assign sid = section.id
+  assign st = section.settings
+  assign desktop_image = st.image | default: st.image_mobile
+
+  capture default_title
+    echo '<p>見えない部位も、角度調整ゼロへ</p>'
+  endcapture
+  capture default_copy
+    echo '<p>力を入れずにぴたっとフィット、<span style="color:#69b9f5;">直感ワンタッチ操作。</span></p>'
+  endcapture
+  capture default_body
+    echo '<p>VIOや脇など、目視しにくい部位のケアでありがちな「上手く垂直に当てられない」というストレス。</p><p>Ulike Meは、直感的に扱えるストレート型ボディを採用。無理な体勢をとらなくても、肌へ自然にフィット。</p><p>部位や肌状態に合わせた4つのモードも簡単ワンタッチで切り替え可能。初めてでもストレスフリーなムダ毛ケアを叶えます。</p>'
+  endcapture
+  capture default_modes_title
+    echo '<p>4つのモードも簡単ワンタッチ</p>'
+  endcapture
+-%}
+
+<section id="me-precision-care-{{ sid }}" class="me-precision-care" style="--me-precision-bg: {{ st.background }};">
+  <header class="me-precision-care__header">
+    <div class="me-precision-care__desktop-heading">
+      {{ st.title_html | default: default_title | replace_first: '<p', '<p class="to-top"' }}
+      {{ st.copy_html | default: default_copy | replace_first: '<p', '<p class="to-top" style="transition-delay: 0.1s"' }}
+    </div>
+    <div class="me-precision-care__mobile-heading">
+      {{ st.title_html_mobile | default: st.title_html | default: default_title | replace_first: '<p', '<p class="to-top"' }}
+      {{ st.copy_html_mobile | default: st.copy_html | default: default_copy | replace_first: '<p', '<p class="to-top" style="transition-delay: 0.1s"' }}
+    </div>
+  </header>
+
+  <div class="me-precision-care__content">
+    {% if desktop_image != blank %}
+      <picture class="me-precision-care__media">
+        {% if st.image_mobile != blank %}
+          <source media="(max-width: 749px)" srcset="{{ st.image_mobile | image_url: width: 1000 }}">
+        {% endif %}
+        {{ desktop_image | image_url: width: 1800 | image_tag: class: 'me-precision-care__image', loading: 'lazy', widths: '500, 750, 1000, 1400, 1800', sizes: '(max-width: 749px) 100vw, 50vw' }}
+      </picture>
+    {% endif %}
+
+    <div class="me-precision-care__details to-top" style="transition-delay: 0.2s">
+      <div class="me-precision-care__body me-precision-care__body--desktop">{{ st.body_html | default: default_body }}</div>
+      <div class="me-precision-care__body me-precision-care__body--mobile">{{ st.body_html_mobile | default: st.body_html | default: default_body }}</div>
+      <div class="me-precision-care__modes">
+        <div class="me-precision-care__modes-title">{{ st.bottom_html | default: default_modes_title | replace: '4つのモード', '<span class="me-precision-care__modes-emphasis">4つのモード</span>' }}</div>
+        {% if st.modes_image != blank or st.modes_image_mobile != blank %}
+          {%- assign desktop_modes_image = st.modes_image | default: st.modes_image_mobile -%}
+          <picture class="me-precision-care__modes-media">
+            {% if st.modes_image_mobile != blank %}
+              <source media="(max-width: 749px)" srcset="{{ st.modes_image_mobile | image_url: width: 900 }}">
+            {% endif %}
+            {{ desktop_modes_image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '400, 700, 1000', sizes: '(max-width: 749px) 100vw, 33vw' }}
+          </picture>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #me-precision-care-{{ sid }} {
+    position: relative;
+    overflow: hidden;
+    background: var(--me-precision-bg);
+    color: #000;
+  }
+
+  #me-precision-care-{{ sid }} .me-precision-care__header {
+    box-sizing: border-box;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0px;
+    position: absolute;
+    z-index: 1;
+    top: 125px;
+    left: 50%;
+    width: 100%;
+    transform: translateX(-50%);
+    text-align: center;
+  }
+
+  #me-precision-care-{{ sid }} .me-precision-care__mobile-heading {
+    display: none;
+  }
+
+  #me-precision-care-{{ sid }} .me-precision-care__desktop-heading > :first-child,
+  #me-precision-care-{{ sid }} .me-precision-care__mobile-heading > :first-child {
+    margin: 0;
+    font-size: 48px;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  #me-precision-care-{{ sid }} .me-precision-care__desktop-heading > :not(:first-child),
+  #me-precision-care-{{ sid }} .me-precision-care__mobile-heading > :not(:first-child) {
+    margin: 25px 0 0;
+    font-size: 22px;
+    line-height: 1.5;
+  }
+
+  #me-precision-care-{{ sid }} .me-precision-care__content {
+    display: grid;
+    grid-template-columns: minmax(0, 50%) minmax(0, 50%);
+    align-items: center;
+    padding-top: 140px;
+  }
+
+  #me-precision-care-{{ sid }} .me-precision-care__media,
+  #me-precision-care-{{ sid }} .me-precision-care__image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  #me-precision-care-{{ sid }} .me-precision-care__details {
+    max-width: 630px;
+    padding: 20% 0px 0px 80px;
+  }
+
+  #me-precision-care-{{ sid }} .me-precision-care__body {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  #me-precision-care-{{ sid }} .me-precision-care__body p {
+    margin: 0;
+  }
+
+  #me-precision-care-{{ sid }} .me-precision-care__body p + p {
+    margin-top: 14px;
+  }
+
+  #me-precision-care-{{ sid }} .me-precision-care__body--mobile {
+    display: none;
+  }
+
+  #me-precision-care-{{ sid }} .me-precision-care__modes {
+    margin-top: 50px;
+  }
+
+  #me-precision-care-{{ sid }} .me-precision-care__modes-title > :first-child {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1.35;
+    text-align: center;
+  }
+
+  #me-precision-care-{{ sid }} .me-precision-care__modes-emphasis {
+    font-size: 38px;
+  }
+
+  #me-precision-care-{{ sid }} .me-precision-care__modes-media,
+  #me-precision-care-{{ sid }} .me-precision-care__modes-media img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  #me-precision-care-{{ sid }} .me-precision-care__modes-media {
+    margin-top: 42px;
+  }
+
+  @media screen and (max-width: 749px) {
+    #me-precision-care-{{ sid }} .me-precision-care__header {
+      position: static;
+      width: auto;
+      transform: none;
+      padding: 54px 30px 0;
+    }
+
+    #me-precision-care-{{ sid }} .me-precision-care__desktop-heading {
+      display: none;
+    }
+
+    #me-precision-care-{{ sid }} .me-precision-care__mobile-heading {
+      display: block;
+    }
+
+    #me-precision-care-{{ sid }} .me-precision-care__mobile-heading > :first-child {
+      font-size: 30px;
+      line-height: 1.4;
+    }
+
+    #me-precision-care-{{ sid }} .me-precision-care__mobile-heading > :not(:first-child) {
+      margin-top: 10px;
+      font-size: 16px;
+    }
+
+    #me-precision-care-{{ sid }} .me-precision-care__mobile-heading span {
+      color: #75B5ED;
+    }
+
+    #me-precision-care-{{ sid }} .me-precision-care__content {
+      display: flex;
+      flex-direction: column;
+      margin-top: 10px;
+      padding-top: 0;
+    }
+
+    #me-precision-care-{{ sid }} .me-precision-care__media {
+      width: 100%;
+    }
+
+    #me-precision-care-{{ sid }} .me-precision-care__details {
+      width: 100%;
+      max-width: none;
+      padding: 36px 16px 48px;
+    }
+
+    #me-precision-care-{{ sid }} .me-precision-care__body {
+      font-size: 14px;
+    }
+
+    #me-precision-care-{{ sid }} .me-precision-care__body--desktop {
+      display: none;
+    }
+
+    #me-precision-care-{{ sid }} .me-precision-care__body--mobile {
+      display: block;
+    }
+
+    #me-precision-care-{{ sid }} .me-precision-care__body p + p {
+      margin-top: 18px;
+    }
+
+    #me-precision-care-{{ sid }} .me-precision-care__modes {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    #me-precision-care-{{ sid }} .me-precision-care__modes-title > :first-child {
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    #me-precision-care-{{ sid }} .me-precision-care__modes-emphasis {
+      font-size: 24px;
+    }
+
+    #me-precision-care-{{ sid }} .me-precision-care__modes-media {
+      margin-top: 20px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Ulike 精准护理模块",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "PC 左侧图片" },
+    { "type": "image_picker", "id": "image_mobile", "label": "移动端产品图片" },
+    { "type": "html", "id": "title_html", "label": "PC 标题（HTML）", "default": "<p>見えない部位も、角度調整ゼロへ</p>" },
+    { "type": "html", "id": "copy_html", "label": "PC 副标题（HTML）", "default": "<p>力を入れずにぴたっとフィット、<span style=\"color:#69b9f5;\">直感ワンタッチ操作。</span></p>" },
+    { "type": "html", "id": "body_html", "label": "PC 正文（HTML）", "default": "<p>VIOや脇など、目視しにくい部位のケアでありがちな「上手く垂直に当てられない」というストレス。</p><p>Ulike Meは、直感的に扱えるストレート型ボディを採用。無理な体勢をとらなくても、肌へ自然にフィット。</p><p>部位や肌状態に合わせた4つのモードも簡単ワンタッチで切り替え可能。初めてでもストレスフリーなムダ毛ケアを叶えます。</p>" },
+    { "type": "html", "id": "title_html_mobile", "label": "移动端标题（HTML）", "default": "<p>見えない部位も、<br>角度調整ゼロへ</p>" },
+    { "type": "html", "id": "copy_html_mobile", "label": "移动端副标题（HTML）", "default": "<p>力を入れずにぴたっとフィット、<br><span style=\"color:#75B5ED;\">直感ワンタッチ操作。</span></p>" },
+    { "type": "html", "id": "body_html_mobile", "label": "移动端正文（HTML）", "default": "<p>VIOや脇など、目視しにくい部位のケアでありがちな「上手く垂直に当てられない」というストレス。</p><p>Ulike Meは、直感的に扱えるストレート型ボディを採用。無理な体勢をとらなくても、肌へ自然にフィット。</p><p>部位や肌状態に合わせた4つのモードも簡単ワンタッチで切り替え可能。初めてでもストレスフリーなムダ毛ケアを叶えます。</p>" },
+    { "type": "html", "id": "bottom_html", "label": "模式标题（HTML）", "default": "<p>4つのモードも簡単ワンタッチ</p>" },
+    { "type": "image_picker", "id": "modes_image", "label": "PC 模式图标组" },
+    { "type": "image_picker", "id": "modes_image_mobile", "label": "移动端模式图标组" },
+    { "type": "color", "id": "background", "label": "背景", "default": "#ffffff" }
+  ],
+  "presets": [{ "name": "Ulike 精准护理模块" }]
+}
+{% endschema %}

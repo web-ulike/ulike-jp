@@ -1,0 +1,206 @@
+{%- liquid
+  assign section_id = 'jp-men-power-2026-' | append: section.id
+  assign default_title_first = 'Ulikeメンズ特化の'
+  assign default_title_last = 'ハイパワー'
+  assign default_body = 'だからこそ実現した、これまでにない即効性。1週間に3回のケアで違いを実感。最大28J*²のハイパワーな光が、これまで諦めていた太く硬い剛毛にもしっかりアプローチします。'
+  assign body = section.settings.body | default: default_body | escape | replace: '*²', '<sup>*2</sup>'
+-%}
+
+<section id="{{ section_id }}" class="jp-men-power-2026">
+  <div class="jp-men-power-2026__inner container{% if section.settings.reverse_layout %} jp-men-power-2026__inner--reverse{% endif %}">
+    <div class="jp-men-power-2026__copy">
+      <h2 class="jp-men-power-2026__title to-top">
+        <span class="jp-men-power-2026__title-first">
+          {{- section.settings.title_first | default: default_title_first -}}</span
+        ><span class="jp-men-power-2026__title-line">
+          {%- if section.settings.title_second != blank -%}
+            <span class="jp-men-power-2026__title-power">
+              {{- section.settings.title_second }}
+              {%- if section.settings.title_mark != blank -%}
+                <sup>{{ section.settings.title_mark }}</sup>
+              {%- endif -%}
+            </span>
+          {%- endif -%}
+          <span class="jp-men-power-2026__title-last">
+            {{- section.settings.title_last | default: default_title_last -}}
+          </span></span
+        >
+      </h2>
+      <p class="jp-men-power-2026__body to-top" style="transition-delay: .1s">{{ body }}</p>
+    </div>
+
+    <div class="jp-men-power-2026__media">
+      <picture>
+        {%- if section.settings.image_mobile != blank -%}
+          <source media="(max-width: 749px)" srcset="{{ section.settings.image_mobile | image_url: width: 1800 }}">
+        {%- endif -%}
+        {%- if section.settings.image != blank -%}
+          {{
+            section.settings.image
+            | image_url: width: 1600
+            | image_tag:
+              class: 'jp-men-power-2026__image',
+              loading: 'lazy',
+              widths: '750, 1000, 1360, 1600',
+              alt: section.settings.image.alt
+            | default: section.settings.title_second
+          }}
+        {%- elsif section.settings.image_mobile != blank -%}
+          {{
+            section.settings.image_mobile
+            | image_url: width: 1800
+            | image_tag:
+              class: 'jp-men-power-2026__image',
+              loading: 'lazy',
+              widths: '750, 1100, 1500, 1800',
+              alt: section.settings.image_mobile.alt
+            | default: section.settings.title_second
+          }}
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag: 'jp-men-power-2026__placeholder' }}
+        {%- endif -%}
+      </picture>
+      {%- if section.settings.note != blank -%}
+        <p class="jp-men-power-2026__note jp-men-power-2026__note--mobile">
+          {{ section.settings.note | escape | newline_to_br }}
+        </p>
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.note != blank -%}
+      <p class="jp-men-power-2026__note jp-men-power-2026__note--desktop">
+        {{ section.settings.note | escape | newline_to_br }}
+      </p>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  #{{ section_id }} {  color: {{ section.settings.text_color | default: '#000000' }}; margin-top: {{ section.settings.margin_top | default: 0 }}px; margin-bottom: {{ section.settings.margin_bottom | default: 0 }}px; overflow: hidden; }
+  #{{ section_id }} .jp-men-power-2026__inner {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+     position: relative; }
+  #{{ section_id }} .jp-men-power-2026__media { background: {{ section.settings.media_background | default: '#ededed' }}; grid-column: 1; grid-row: 1; position: relative; }
+  #{{ section_id }} .jp-men-power-2026__media picture { display: block; }
+  #{{ section_id }} .jp-men-power-2026__image, #{{ section_id }} .jp-men-power-2026__placeholder { display: block; height: auto; width: 100%; }
+  #{{ section_id }} .jp-men-power-2026__placeholder { fill: #d8dce2; }
+  #{{ section_id }} .jp-men-power-2026__copy { align-self: stretch; background: {{ section.settings.background | default: '#f7f8fa' }}; grid-column: 2; grid-row: 1; padding: min(5.878031vw, 80px) 0 0 min(5.069802vw, 69px); }
+  #{{ section_id }} .jp-men-power-2026__title {
+     color: inherit;
+     font-size: 45px;
+     font-weight: 500;
+     letter-spacing: 0;
+     line-height: 1.2; margin: 0;
+     width: min(30.455547vw, 414.5px);
+  }
+  #{{ section_id }} .jp-men-power-2026__title-first, #{{ section_id }} .jp-men-power-2026__title-line { display: block; white-space: nowrap; }
+  #{{ section_id }} .jp-men-power-2026__title-power { display: inline; }
+  #{{ section_id }} .jp-men-power-2026__title-last { display: inline; }
+  #{{ section_id }} .jp-men-power-2026__title sup { font-size: .645em; font-weight: 300; line-height: 1; position: relative; top: -.42em; vertical-align: baseline; }
+  #{{ section_id }} .jp-men-power-2026__body {
+    color: inherit; font-family: inherit; font-size: 23px;
+     font-weight: 400; line-height: 1.4; margin: min(1.653196vw, 22.5px) 0 0 min(.146951vw, 2px);
+      text-align: justify; width: min(35.525349vw, 483.5px); }
+  #{{ section_id }} .jp-men-power-2026__body sup { font-size: .65em; font-weight: 300; line-height: 1; position: relative; top: -.38em; vertical-align: baseline; }
+  #{{ section_id }} .jp-men-power-2026__note {
+    font-size: 10px;
+    font-weight: 400; line-height: 1.3; margin: 0; }
+  #{{ section_id }} .jp-men-power-2026__note--desktop { color: {{ section.settings.note_color | default: '#000000' }}; left: 55.25349%; opacity: .5; position: absolute; top: 75.733855%; width: 34.533431%; }
+  #{{ section_id }} .jp-men-power-2026__note--mobile { display: none; }
+  #{{ section_id }} .jp-men-power-2026__inner--reverse .jp-men-power-2026__media { grid-column: 2; }
+  #{{ section_id }} .jp-men-power-2026__inner--reverse .jp-men-power-2026__copy { grid-column: 1; }
+  #{{ section_id }} .jp-men-power-2026__inner--reverse .jp-men-power-2026__note--desktop { left: 5.25349%; }
+
+  @media screen and (min-width: 750px) {
+    #{{ section_id }} .jp-men-power-2026__inner--reverse .jp-men-power-2026__copy { padding: 18.970588% 9.044118% 0 18.455882%; }
+    #{{ section_id }} .jp-men-power-2026__inner--reverse .jp-men-power-2026__title,
+    #{{ section_id }} .jp-men-power-2026__inner--reverse .jp-men-power-2026__body { width: 100%; }
+    #{{ section_id }} .jp-men-power-2026__inner--reverse .jp-men-power-2026__body {
+       font-size: 23px;
+       margin: min(1.696547vw, 23.09px) 0 0;
+       text-align: left; }
+  }
+
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} { margin-top: {{ section.settings.mobile_margin_top | default: 0 }}px; margin-bottom: {{ section.settings.mobile_margin_bottom | default: 0 }}px; }
+    #{{ section_id }} .jp-men-power-2026__inner { --container-max-width: 100%; display: flex; flex-direction: column; }
+    #{{ section_id }} .jp-men-power-2026__copy { order: 1; padding: 9.815% 5.831% 6.865%; width: 100%; }
+    #{{ section_id }} .jp-men-power-2026__title { font-size: 5.773672vw; line-height: 1.2; overflow-wrap: anywhere; white-space: normal; width: 100%; }
+    #{{ section_id }} .jp-men-power-2026__title-first, #{{ section_id }} .jp-men-power-2026__title-line, #{{ section_id }} .jp-men-power-2026__title-power, #{{ section_id }} .jp-men-power-2026__title-last { display: inline; }
+    #{{ section_id }} .jp-men-power-2026__title sup { font-size: .645em; }
+    #{{ section_id }} .jp-men-power-2026__body { font-size: 3.579677vw; line-height: 1.4; margin: 2.829% 0 0; text-align: justify; width: 100%; }
+    #{{ section_id }} .jp-men-power-2026__media { order: 2; width: 100%; }
+    #{{ section_id }} .jp-men-power-2026__note--desktop { display: none; }
+    #{{ section_id }} .jp-men-power-2026__note--mobile { bottom: 4.877%; color: {{ section.settings.mobile_note_color | default: '#ffffff' }}; display: block; font-size: 1.501155vw; left: 5.831%; opacity: .9; position: absolute; width: 70%; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "jp-men-power-2026",
+  "settings": [
+    { "type": "header", "content": "外边距" },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "PC 上边距",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "PC 下边距",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_margin_top",
+      "label": "M 上边距",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_margin_bottom",
+      "label": "M 下边距",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    { "type": "checkbox", "id": "reverse_layout", "label": "PC 左右翻转（左文右图）", "default": false },
+    { "type": "image_picker", "id": "image", "label": "PC 产品图片（建议 1360 × 1022）" },
+    { "type": "image_picker", "id": "image_mobile", "label": "M 产品图片（建议 1732 × 1254）" },
+    { "type": "text", "id": "title_first", "label": "标题前半", "default": "Ulikeメンズ特化の" },
+    { "type": "text", "id": "title_second", "label": "功率数值" },
+    { "type": "text", "id": "title_mark", "label": "标题上标" },
+    { "type": "text", "id": "title_last", "label": "标题后半", "default": "ハイパワー" },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "说明文案",
+      "default": "だからこそ実現した、これまでにない即効性。1週間に3回のケアで違いを実感。最大28J*²のハイパワーな光が、これまで諦めていた太く硬い剛毛にもしっかりアプローチします。"
+    },
+    { "type": "textarea", "id": "note", "label": "脚注" },
+    { "type": "color", "id": "background", "label": "文字区背景色", "default": "#F7F8FA" },
+    { "type": "color", "id": "media_background", "label": "图片区背景色", "default": "#EDEDED" },
+    { "type": "color", "id": "text_color", "label": "文字颜色", "default": "#000000" },
+    { "type": "color", "id": "note_color", "label": "PC 脚注颜色", "default": "#000000" },
+    { "type": "color", "id": "mobile_note_color", "label": "M 脚注颜色", "default": "#FFFFFF" }
+  ],
+  "presets": [{ "name": "jp-men-power-2026" }]
+}
+{% endschema %}

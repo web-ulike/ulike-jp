@@ -15,14 +15,14 @@
   <div class="u-ews-benefits__inner">
     {%- if st.top_note != blank -%}
       <div class="u-ews-benefits__top-note to-top">
-        <div class="page-width">
+        <div class="container">
           {{ st.top_note }}
         </div>
       </div>
     {%- endif -%}
 
     {%- if section.blocks.size > 0 -%}
-      <div class="page-width u-ews-benefits__grid to-top">
+      <div class="container u-ews-benefits__grid to-top">
         {%- for block in section.blocks -%}
           <div class="u-ews-benefits__item to-top" {{ block.shopify_attributes }}>
             <div class="u-ews-benefits__icon-wrap">
@@ -81,7 +81,7 @@
     color: #E0004D;
   }
 
-  #u-ews-benefits-{{ sid }} .u-ews-benefits__top-note .page-width {
+  #u-ews-benefits-{{ sid }} .u-ews-benefits__top-note .container {
     width: 100%;
   }
 

@@ -1,0 +1,147 @@
+{% assign sid = section.id %}
+
+<style>
+  #p-speed-{{ sid }} { background: var(--p-speed-bg); color: #000; }
+  #p-speed-{{ sid }} picture { display: block; }
+  #p-speed-{{ sid }} .p-aps-speed__img { display: block; width: 100%; height: auto; }
+  #p-speed-{{ sid }} .p-aps-speed__in { padding-top: 100px; padding-bottom: 100px; }
+  #p-speed-{{ sid }} .p-aps-speed__head { max-width: 920px; margin: 0 auto; text-align: center; }
+  #p-speed-{{ sid }} .p-aps-speed__title { margin: 0; font-size: 48px;
+    font-weight: 500;
+    line-height: 1.35; }
+  #p-speed-{{ sid }} .p-aps-speed__desc {
+     margin-top: 25px;
+     line-height: 1.5;
+     font-size: 24px;
+     font-weight: 500;
+    }
+  #p-speed-{{ sid }} .p-aps-speed__care { 
+    width: 1250px;
+     margin: 70px auto 0; 
+    }
+  #p-speed-{{ sid }} .p-aps-speed__time {
+     margin: 18px 0 0; 
+     text-align: center; 
+     font-size: 40px; 
+     line-height: 1.5;
+      font-weight: 500;
+     }
+  #p-speed-{{ sid }} .p-aps-speed__time strong {
+     display: block; font-size: 80px;
+     line-height: 1;
+     font-weight: 500; 
+    }
+  #p-speed-{{ sid }} .p-aps-speed__mode { width: 1250px; margin: 80px auto 0; display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; background: #f7f7f8; }
+  #p-speed-{{ sid }} .p-aps-speed__mode-copy { align-self: center; padding: 60px; }
+  #p-speed-{{ sid }} .p-aps-speed__mode-copy h3 { 
+    margin: 0; font-size: 36px; line-height: 1.5;
+    font-weight: 500;
+  }
+  #p-speed-{{ sid }} .p-aps-speed__mode-copy div { 
+    margin-top: 20px; font-size: 24px;
+    line-height: 1.5;
+    font-weight: 500;
+   }
+  @media screen and (max-width: 749px) {
+    #p-speed-{{ sid }} .p-aps-speed__in { padding-top: 60px; padding-bottom: 0px; }
+    #p-speed-{{ sid }} .p-aps-speed__head { max-width: 100%; padding: 0 15px; text-align: left; }
+    #p-speed-{{ sid }} .p-aps-speed__title { color: #000; font-size: 32px; font-weight: 500; line-height: 150%; }
+    #p-speed-{{ sid }} .p-aps-speed__desc { margin-top: 15px; font-size: 18px; line-height: 1.5; min-height: 137px; }
+    #p-speed-{{ sid }} .p-aps-speed__care { width: calc(100% - 30px); margin: 20px auto 0; }
+    #p-speed-{{ sid }} .p-aps-speed__time { margin-top: 15px; font-size: 18px; }
+    #p-speed-{{ sid }} .p-aps-speed__time strong { font-size: 36px; }
+    #p-speed-{{ sid }} .p-aps-speed__mode { 
+      width: 100%; margin-top: 36px; grid-template-columns: 1fr; 
+      background: inherit;
+    }
+    #p-speed-{{ sid }} .p-aps-speed__mode-copy { padding: 24px 15px 26px; }
+    #p-speed-{{ sid }} .p-aps-speed__mode-copy h3 { font-size: 24px; }
+    #p-speed-{{ sid }} .p-aps-speed__mode-copy div { margin-top: 10px; font-size: 18px; }
+  }
+</style>
+
+<section
+  id="p-speed-{{ sid }}"
+  class="p-aps-speed"
+  style="--p-speed-bg: {{ section.settings.background }}; --p-speed-text: {{ section.settings.text_color }};"
+>
+  <div class="p-aps-speed__in">
+    <div class="p-aps-speed__head">
+      {% if section.settings.heading != blank %}
+        <div class="p-aps-speed__title to-top">{{ section.settings.heading }}</div>
+      {% endif %}
+      {% if section.settings.description != blank %}
+        <div class="p-aps-speed__desc to-top" style="transition-delay: .1s">{{ section.settings.description }}</div>
+      {% endif %}
+    </div>
+    <div class="p-aps-speed__care to-top" style="transition-delay: .2s">
+      <picture>
+        {%- if section.settings.care_image_mobile != blank %}
+          <source media="(max-width: 749px)" srcset="{{ section.settings.care_image_mobile | image_url: width: 900 }}">
+        {% endif -%}
+        {%- if section.settings.care_image != blank -%}
+          {{-
+            section.settings.care_image
+            | image_url: width: 1600
+            | image_tag: class: 'p-aps-speed__img', loading: 'lazy', widths: '600, 900, 1200, 1600'
+          -}}
+        {%- endif -%}
+      </picture>
+    </div>
+    {% if section.settings.time != blank %}
+      <p class="p-aps-speed__time to-top" style="transition-delay: .3s">{{ section.settings.time }}</p>
+    {% endif %}
+    <div class="p-aps-speed__mode to-top" style="transition-delay: .4s">
+      <div class="p-aps-speed__mode-copy">
+        {% if section.settings.mode_title != blank %}
+          <h3>{{ section.settings.mode_title }}</h3>
+        {% endif -%}
+        {%- if section.settings.mode_text != blank %}
+          <div>{{ section.settings.mode_text }}</div>
+        {% endif %}
+      </div>
+      <picture>
+        {%- if section.settings.mode_image_mobile != blank %}
+          <source media="(max-width: 749px)" srcset="{{ section.settings.mode_image_mobile | image_url: width: 900 }}">
+        {% endif -%}
+        {%- if section.settings.mode_image != blank -%}
+          {{-
+            section.settings.mode_image
+            | image_url: width: 1200
+            | image_tag: class: 'p-aps-speed__img', loading: 'lazy', widths: '500, 800, 1200'
+          -}}
+        {%- endif -%}
+      </picture>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "P Air Pro S 快速护理",
+  "settings": [
+    { "type": "html", "id": "heading", "label": "标题", "default": "時短で、簡単スピーディーなケア" },
+    {
+      "type": "html",
+      "id": "description",
+      "label": "说明",
+      "default": "ケア時間をグッと短縮。忙しい日でもササっと済ませて、なめらかな肌をキープ。"
+    },
+    { "type": "image_picker", "id": "care_image", "label": "部位与时间 PC 图片" },
+    { "type": "image_picker", "id": "care_image_mobile", "label": "部位与时间移动端图片" },
+    { "type": "html", "id": "time", "label": "时间文案", "default": "全身ケア<strong>10分</strong>" },
+    { "type": "html", "id": "mode_title", "label": "模式标题", "default": "連続照射モードなら。" },
+    {
+      "type": "html",
+      "id": "mode_text",
+      "label": "模式说明",
+      "default": "お肌に密着させながら滑らせるだけでOK!<br>広範囲のお手入れもスピーディー。<br><br>指・ワキ・VIOなどの細かい部分のピンポイントケアなら、手動照射モードで。"
+    },
+    { "type": "image_picker", "id": "mode_image", "label": "模式 PC 图片" },
+    { "type": "image_picker", "id": "mode_image_mobile", "label": "模式移动端图片" },
+    { "type": "color", "id": "background", "label": "主背景色", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "文字色", "default": "#111111" }
+  ],
+  "presets": [{ "name": "P Air Pro S 快速护理" }]
+}
+{% endschema %}

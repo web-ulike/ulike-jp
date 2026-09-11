@@ -1,0 +1,113 @@
+{%- liquid
+  assign section_id = 'jp-x-skin-sensor-2026-' | append: section.id
+  assign desktop_image = section.settings.image | default: section.settings.image_mobile
+  assign mobile_image = section.settings.image_mobile | default: desktop_image
+-%}
+
+<section id="{{ section_id }}" class="jp-x-skin-sensor-2026">
+  <div class="jp-x-skin-sensor-2026__stage">
+    <div class="jp-x-skin-sensor-2026__media" aria-hidden="true">
+      {%- if desktop_image != blank -%}
+        <picture>
+          {%- if mobile_image != blank -%}<source media="(max-width: 749px)" srcset="{{ mobile_image | image_url: width: 900 }}">{%- endif -%}
+          {{ desktop_image | image_url: width: 2446 | image_tag: class: 'jp-x-skin-sensor-2026__image', loading: 'lazy', widths: '375, 750, 1223, 1600, 2000, 2446', alt: '' }}
+        </picture>
+      {%- endif -%}
+    </div>
+
+    <div class="jp-x-skin-sensor-2026__content">
+      <div class="jp-x-skin-sensor-2026__heading jp-x-skin-sensor-2026__heading--desktop to-top">
+        {{ section.settings.heading_html }}
+      </div>
+      <div class="jp-x-skin-sensor-2026__heading jp-x-skin-sensor-2026__heading--mobile to-top">
+        {{ section.settings.heading_html }}
+      </div>
+      <div class="jp-x-skin-sensor-2026__scan jp-x-skin-sensor-2026__scan--desktop to-top" style="transition-delay: .1s">
+        <p class="jp-x-skin-sensor-2026__intro">{{ section.settings.intro | escape }}</p>
+        <div class="jp-x-skin-sensor-2026__scan-row">
+          <strong>{{ section.settings.scan_highlight_html }}</strong>
+          <p>{{ section.settings.scan_end | escape }}</p>
+        </div>
+      </div>
+      <div class="jp-x-skin-sensor-2026__scan jp-x-skin-sensor-2026__scan--mobile to-top" style="transition-delay: .1s">
+        <p class="jp-x-skin-sensor-2026__intro">{{ section.settings.intro | escape }}</p>
+        <div class="jp-x-skin-sensor-2026__scan-row">
+          <strong>{{ section.settings.scan_highlight_html }}</strong>
+          <p>{{ section.settings.scan_end | escape }}</p>
+        </div>
+      </div>
+    </div>
+
+    {%- if section.settings.note != blank -%}<p class="jp-x-skin-sensor-2026__note">{{ section.settings.note | escape | newline_to_br }}</p>{%- endif -%}
+  </div>
+</section>
+
+<style>
+  #{{ section_id }} { background: #000; color: #fff; overflow: hidden; }
+  #{{ section_id }} * { box-sizing: border-box; }
+  #{{ section_id }} .jp-x-skin-sensor-2026__stage { height: min(942px, 49.011vw); margin: 0 auto; max-width: 1922px; overflow: hidden; position: relative; width: 100%; }
+  #{{ section_id }} .jp-x-skin-sensor-2026__media { inset: 0; position: absolute; }
+  #{{ section_id }} .jp-x-skin-sensor-2026__media picture { display: block; width: 100%; }
+  #{{ section_id }} .jp-x-skin-sensor-2026__image { display: block; height: auto; max-width: none; width: 100%; }
+  #{{ section_id }} .jp-x-skin-sensor-2026__content { inset: 0; pointer-events: none; position: absolute; }
+  #{{ section_id }} .jp-x-skin-sensor-2026__heading { color: #fff; font-size: 48px; font-weight: 500; left: 17.274%; line-height: 1.3; position: absolute; top: 29.251%; }
+  #{{ section_id }} .jp-x-skin-sensor-2026__heading p { margin: 0; }
+  #{{ section_id }} .jp-x-skin-sensor-2026__heading-gradient { background: linear-gradient(90deg, #b9e7ff 44.048%, #fff 110.47%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  #{{ section_id }} .jp-x-skin-sensor-2026__heading sup { 
+    display: inline-block;
+    font-size: 30px; 
+    line-height: 1;
+  }
+  #{{ section_id }} .jp-x-skin-sensor-2026__dots { background: radial-gradient(circle, #fff 0 4px, transparent 4.5px) 0 0 / 47.5px 8px repeat-x; display: block; height: 8px; left: 15.76px; position: absolute; top: -8px; width: 292.485px; }
+  #{{ section_id }} .jp-x-skin-sensor-2026__scan { left: 17.274%; position: absolute; top: 46.669%; }
+  #{{ section_id }} .jp-x-skin-sensor-2026__intro, #{{ section_id }} .jp-x-skin-sensor-2026__scan-row p { color: #fff; font-size: 24px; line-height: 1.5; margin: 0; }
+  #{{ section_id }} .jp-x-skin-sensor-2026__scan-row { align-items: center; display: flex; margin-top: 13.64px; }
+  #{{ section_id }} .jp-x-skin-sensor-2026__scan-row strong { align-items: center; background: #b9e7ff; color: #000; display: flex; font-size: 24px; font-weight: 400; height: 50.978px; line-height: 1.5; padding: 0 10.32px; white-space: nowrap; }
+  #{{ section_id }} .jp-x-skin-sensor-2026__scan-time, #{{ section_id }} .jp-x-skin-sensor-2026__scan-count, #{{ section_id }} .jp-x-skin-sensor-2026__scan-unit { font-family: Saans, "Noto Sans JP", sans-serif; font-size: 32px; font-weight: 600; }
+  #{{ section_id }} .jp-x-skin-sensor-2026__scan-row strong sup { 
+    font-size: 14px;
+    line-height: 1; 
+  }
+  #{{ section_id }} .jp-x-skin-sensor-2026__heading--mobile, #{{ section_id }} .jp-x-skin-sensor-2026__scan--mobile { display: none; }
+  #{{ section_id }} .jp-x-skin-sensor-2026__scan-row p { margin-left: 6.41px; white-space: nowrap; }
+  #{{ section_id }} .jp-x-skin-sensor-2026__note { color: rgba(255,255,255,.5); font-size: 10px; left: 17.274%; line-height: 1.3; margin: 0; position: absolute; top: 89.772%; }
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} .jp-x-skin-sensor-2026__stage { height: 674px; max-width: none; }
+    #{{ section_id }} .jp-x-skin-sensor-2026__media picture { width: 100%; }
+    #{{ section_id }} .jp-x-skin-sensor-2026__heading--desktop, #{{ section_id }} .jp-x-skin-sensor-2026__scan--desktop { display: none; }
+    #{{ section_id }} .jp-x-skin-sensor-2026__heading--mobile, #{{ section_id }} .jp-x-skin-sensor-2026__scan--mobile { display: block; }
+    #{{ section_id }} .jp-x-skin-sensor-2026__heading { font-family: "Noto Sans JP", sans-serif; font-size: 24px; font-weight: 500; left: 17px; line-height: 1.5; top: 375px; width: 316px; }
+    #{{ section_id }} .jp-x-skin-sensor-2026__heading-gradient { background: linear-gradient(180deg, #b9e7ff 44.048%, #fff 110.47%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    #{{ section_id }} .jp-x-skin-sensor-2026__heading sup { font-size: 15.48px; }
+    #{{ section_id }} .jp-x-skin-sensor-2026__dots { background-size: 24px 3.2px; height: 3.2px; left: 12px; top: 0; width: 143.513px; }
+    #{{ section_id }} .jp-x-skin-sensor-2026__scan { left: 20px; top: 485px; }
+    #{{ section_id }} .jp-x-skin-sensor-2026__intro, #{{ section_id }} .jp-x-skin-sensor-2026__scan-row p { color: #fff; font-family: "Noto Sans JP", sans-serif; font-size: 14px; font-weight: 400; }
+    #{{ section_id }} .jp-x-skin-sensor-2026__scan-row { align-items: flex-start; display: block; margin-top: 6px; }
+    #{{ section_id }} .jp-x-skin-sensor-2026__scan-row strong { background: #c9ecff; font-family: Saans, "Noto Sans JP", sans-serif; font-size: 14px; font-weight: 400; height: 28px; justify-content: center; padding: 0 3px; width: 193px; }
+    #{{ section_id }} .jp-x-skin-sensor-2026__scan-time, #{{ section_id }} .jp-x-skin-sensor-2026__scan-count { font-family: Saans, "Noto Sans JP", sans-serif; font-size: 20px; font-weight: 500; }
+    #{{ section_id }} .jp-x-skin-sensor-2026__scan-unit { font-family: "Noto Sans JP", sans-serif; font-size: 20px; font-weight: 500; }
+    #{{ section_id }} .jp-x-skin-sensor-2026__scan-label { font-family: "Noto Sans JP", sans-serif; font-size: 14px; font-weight: 400; }
+    #{{ section_id }} .jp-x-skin-sensor-2026__scan-row strong sup { font-family: Saans, "Noto Sans JP", sans-serif; font-size: 12.9px; font-weight: 400; }
+    #{{ section_id }} .jp-x-skin-sensor-2026__scan-note-number { font-feature-settings: "frac" 1; }
+    #{{ section_id }} .jp-x-skin-sensor-2026__scan-row p { margin: 8px 0 0; }
+    #{{ section_id }} .jp-x-skin-sensor-2026__note { color: rgba(255,255,255,.7); font-family: "Noto Sans JP", sans-serif; font-size: 8px; height: 36px; left: 20px; line-height: 1.5; top: 614px; white-space: pre-wrap; width: 334.352px; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "jp-x-skin-sensor-2026",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "PC 产品图片（不含文案）" },
+    { "type": "image_picker", "id": "image_mobile", "label": "M 产品图片（不含文案）" },
+    { "type": "liquid", "id": "heading_html", "label": "标题（HTML）", "default": "<p><span class=\"jp-x-skin-sensor-2026__heading-gradient\">スキンセンサー</span>で、</p><p>日焼け後の肌<sup>*<span class=\"jp-x-skin-sensor-2026__scan-note-number\">1</span></sup>にも安心</p>" },
+    { "type": "text", "id": "intro", "label": "说明前半", "default": "進化したスキンセンサーは、" },
+    { "type": "liquid", "id": "scan_highlight_html", "label": "扫描高亮文案（HTML）", "default": "<span class=\"jp-x-skin-sensor-2026__scan-time\">1&nbsp;</span><span class=\"jp-x-skin-sensor-2026__scan-unit\">分間</span><span class=\"jp-x-skin-sensor-2026__scan-label\">あたり</span><span class=\"jp-x-skin-sensor-2026__scan-count\">6,000</span><span class=\"jp-x-skin-sensor-2026__scan-unit\">回</span><sup>*<span class=\"jp-x-skin-sensor-2026__scan-note-number\">2</span></sup>" },
+    { "type": "text", "id": "scan_end", "label": "说明后半", "default": "の高速スキャンを実現。" },
+    { "type": "textarea", "id": "note", "label": "底部注释", "default": "*1.肌色の認識は人により違いますので、ダークブラウンの方は、取扱説明書の指示に沿って事前テストしてください。\n*2.国際認証機関CVCによる試験結果：WTS2024-15489" }
+  ],
+  "presets": [
+    { "name": "jp-x-skin-sensor-2026" }
+  ]
+}
+{% endschema %}

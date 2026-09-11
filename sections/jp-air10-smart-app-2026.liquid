@@ -1,0 +1,287 @@
+{%- liquid
+  assign section_id = 'jp-air10-smart-app-2026-' | append: section.id
+-%}
+
+<section id="{{ section_id }}" class="jp-smart-app-2026" data-jp-smart-app>
+  <div class="jp-smart-app-2026__inner">
+    <header class="jp-smart-app-2026__header">
+      {%- if section.settings.app_icon != blank -%}
+        {{
+          section.settings.app_icon
+          | image_url: width: 300
+          | image_tag:
+            loading: 'lazy',
+            widths: '80, 140, 220, 300',
+            class: 'jp-smart-app-2026__app-mark',
+            alt: section.settings.app_icon.alt
+        }}
+      {%- endif -%}
+      <div>
+        <h2 class="jp-smart-app-2026__title to-top">
+          {{ section.settings.title | default: '美肌習慣を、もっと簡単に。' | escape }}
+        </h2>
+        <p class="jp-smart-app-2026__subtitle to-top" style="transition-delay: .1s">
+          {{
+            section.settings.subtitle
+            | default: '専属トレーナーのようにアプリが、毎日のケアをスマートにサポート。'
+            | escape
+          }}
+        </p>
+      </div>
+    </header>
+
+    <div class="jp-smart-app-2026__swiper swiper" data-smart-app-swiper>
+      <div class="swiper-wrapper">
+        {%- for block in section.blocks -%}
+          <article class="jp-smart-app-2026__slide swiper-slide" {{ block.shopify_attributes }}>
+            <div class="jp-smart-app-2026__media">
+              {%- if block.settings.image != blank -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 1400
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '375, 630, 900, 1200, 1400',
+                    class: 'jp-smart-app-2026__image',
+                    alt: block.settings.image.alt
+                }}
+              {%- else -%}
+                {{ 'image' | placeholder_svg_tag: 'jp-smart-app-2026__placeholder' }}
+              {%- endif -%}
+            </div>
+            <div class="jp-smart-app-2026__card-content">
+              {%- if block.settings.icon != blank -%}
+                {{
+                  block.settings.icon
+                  | image_url: width: 180
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '44, 70, 110, 180',
+                    class: 'jp-smart-app-2026__card-icon',
+                    alt: block.settings.icon.alt
+                }}
+              {%- endif -%}
+              <div class="jp-smart-app-2026__card-copy">
+                <h3>
+                  <span>{{ block.settings.title | escape }}</span>
+                  <button type="button" class="jp-smart-app-2026__expand-button" data-smart-app-expand aria-expanded="false" aria-label="説明文を表示" hidden>
+                    <svg class="jp-smart-app-2026__expand-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="15" viewBox="0 0 26 15" fill="none" aria-hidden="true" focusable="false">
+                      <path d="M2.35464 -9.92763e-07L12.5907 10.241L22.7167 0.111675L25.0664 2.46326L12.5297 15L10.1799 12.6484L10.236 12.5926L-0.00025378 2.35137L2.35464 -9.92763e-07Z" fill="black"/>
+                    </svg>
+                  </button>
+                </h3>
+                <p class="jp-smart-app-2026__card-text">{{ block.settings.text | escape | newline_to_br }}</p>
+                {%- if block.settings.note != blank -%}
+                  <p class="jp-smart-app-2026__card-note" hidden>{{ block.settings.note | escape | newline_to_br }}</p>
+                {%- endif -%}
+              </div>
+            </div>
+          </article>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    {%- if section.blocks.size > 1 -%}
+      <div class="jp-smart-app-2026__controls" aria-label="App feature controls">
+        <button type="button" class="jp-smart-app-2026__button" aria-label="前の売点を表示" data-smart-app-prev>
+          <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true" focusable="false">
+            <path d="M17.5092 34.7351C27.0217 34.7351 34.7332 27.0237 34.7332 17.5111C34.7332 7.99856 27.0217 0.287109 17.5092 0.287109C7.9966 0.287109 0.285156 7.99856 0.285156 17.5111C0.285156 27.0237 7.9966 34.7351 17.5092 34.7351Z" fill="white" stroke="black" stroke-width="0.574133"/>
+            <path d="M14.9648 20.9605L18.4354 17.4916L15.0027 14.06L15.7996 13.2637L20.0482 17.5123L19.2513 18.3086L19.2324 18.2896L15.7617 21.7586L14.9648 20.9605Z" fill="black"/>
+          </svg>
+        </button>
+        <div class="jp-smart-app-2026__pagination" data-smart-app-pagination></div>
+        <button type="button" class="jp-smart-app-2026__button" aria-label="次の売点を表示" data-smart-app-next>
+          <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true" focusable="false">
+            <path d="M17.5092 34.7351C27.0217 34.7351 34.7332 27.0237 34.7332 17.5111C34.7332 7.99856 27.0217 0.287109 17.5092 0.287109C7.9966 0.287109 0.285156 7.99856 0.285156 17.5111C0.285156 27.0237 7.9966 34.7351 17.5092 34.7351Z" fill="white" stroke="black" stroke-width="0.574133"/>
+            <path d="M14.9648 20.9605L18.4354 17.4916L15.0027 14.06L15.7996 13.2637L20.0482 17.5123L19.2513 18.3086L19.2324 18.2896L15.7617 21.7586L14.9648 20.9605Z" fill="black"/>
+          </svg>
+        </button>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  #{{ section_id }} { --jp-smart-app-background: {{ section.settings.background_color | default: '#FFFFFF' }}; --jp-smart-app-text: {{ section.settings.text_color | default: '#000000' }}; background: var(--jp-smart-app-background); color: var(--jp-smart-app-text); overflow: hidden; }
+  #{{ section_id }} * { box-sizing: border-box; }
+  #{{ section_id }} .jp-smart-app-2026__inner { background: var(--jp-smart-app-background); color: var(--jp-smart-app-text); margin: 0 auto; max-width: 1280px; padding: 150px 0 130px; position: relative; }
+  #{{ section_id }} .jp-smart-app-2026__header { align-items: center; display: flex; gap: 28px; margin-bottom: 94px; }
+  #{{ section_id }} .jp-smart-app-2026__app-mark { display: block; flex: 0 0 auto; height: 141px; object-fit: contain; width: 141px; }
+  #{{ section_id }} .jp-smart-app-2026__title { color: var(--jp-smart-app-text); font-family: "Noto Sans JP", sans-serif; font-size: 48px; font-weight: 500; line-height: 1.3; margin: 0 0 23px; }
+  #{{ section_id }} .jp-smart-app-2026__subtitle { color: var(--jp-smart-app-text); font-family: "Noto Sans JP", sans-serif; font-size: 32px; line-height: 1.3; margin: 0; }
+  #{{ section_id }} .jp-smart-app-2026__swiper { overflow: visible; }
+  #{{ section_id }} .jp-smart-app-2026__slide { width: 650px; }
+  #{{ section_id }} .jp-smart-app-2026__media { background: #f9f6ee; border-radius: 10px; height: 450px; overflow: hidden; }
+  #{{ section_id }} .jp-smart-app-2026__image, #{{ section_id }} .jp-smart-app-2026__placeholder { display: block; height: 100%; object-fit: cover; width: 100%; }
+  #{{ section_id }} .jp-smart-app-2026__placeholder { fill: #f9f6ee; }
+  #{{ section_id }} .jp-smart-app-2026__card-content { display: flex; gap: 40px; margin-top: 45px; min-height: 122px; }
+  #{{ section_id }} .jp-smart-app-2026__card-icon { display: block; flex: 0 0 auto; height: 90px; object-fit: contain; width: 90px; }
+  #{{ section_id }} .jp-smart-app-2026__card-copy { flex: 1; min-width: 0; padding: 4px 0 0; position: relative; }
+  #{{ section_id }} .jp-smart-app-2026__card-copy h3 { 
+    align-items: center; color: var(--jp-smart-app-text);
+     display: flex; font-family: "Noto Sans JP", sans-serif;
+     font-size: 22px; font-weight: 500; 
+     line-height: 1.5; margin: 0 0 13px; 
+     padding-right: 37px; white-space: nowrap; }
+  #{{ section_id }} .jp-smart-app-2026__expand-button { appearance: none; background: transparent; border: 0; cursor: pointer; height: 15px; padding: 0; position: absolute; right: 0; top: 18.5px; width: 25.067px; }
+  #{{ section_id }} .jp-smart-app-2026__expand-icon { display: block; height: 100%; transition: transform .25s ease; width: 100%; }
+  #{{ section_id }} .jp-smart-app-2026__card-text { color: var(--Ulike, #3f3636); font-family: Saans, "Noto Sans JP", sans-serif; font-size: 18px; font-weight: 400; letter-spacing: .05em; line-height: 1.3; margin: 0; }
+  #{{ section_id }} .jp-smart-app-2026__expand-icon path { fill: var(--jp-smart-app-text); }
+  #{{ section_id }} .jp-smart-app-2026__card-text { -webkit-box-orient: vertical; -webkit-line-clamp: 2; display: -webkit-box; overflow: hidden; }
+  #{{ section_id }} .jp-smart-app-2026__card-text.is-measuring { -webkit-line-clamp: unset; display: block; height: auto; max-height: none; overflow: visible; position: absolute; visibility: hidden; width: 100%; }
+  #{{ section_id }} .jp-smart-app-2026__card-note { color: var(--Ulike, #3f3636); font-family: Saans, "Noto Sans JP", sans-serif; font-size: 12px; line-height: 1.3; margin: 8px 0 0; }
+  #{{ section_id }} .jp-smart-app-2026__slide.is-expanded .jp-smart-app-2026__card-note { display: block; }
+  #{{ section_id }} .jp-smart-app-2026__slide.is-expanded .jp-smart-app-2026__card-text { display: block; }
+  #{{ section_id }} .jp-smart-app-2026__slide.is-expanded .jp-smart-app-2026__expand-icon { transform: rotate(180deg); }
+  #{{ section_id }} .jp-smart-app-2026__controls { align-items: center; display: flex; gap: 23px; justify-content: flex-end; margin-top: 34px; position: relative; z-index: 3; }
+  #{{ section_id }} .jp-smart-app-2026__button { appearance: none; background: transparent; border: 0; cursor: pointer; display: block; height: 36px; padding: 0; width: 36px; }
+  #{{ section_id }} .jp-smart-app-2026__button svg { display: block; height: 100%; width: 100%; }
+  #{{ section_id }} [data-smart-app-prev] svg { transform: scaleX(-1); }
+  #{{ section_id }} .jp-smart-app-2026__pagination { display: none; }
+  @media screen and (max-width: 1430px) and (min-width: 750px) { #{{ section_id }} .jp-smart-app-2026__inner { max-width: calc(100% - 160px); } }
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} .jp-smart-app-2026__inner { padding: 53px 0 26px; }
+    #{{ section_id }} .jp-smart-app-2026__header { gap: 21px; margin: 0 19px 39px; }
+    #{{ section_id }} .jp-smart-app-2026__app-mark { height: 71px; width: 71px; }
+    #{{ section_id }} .jp-smart-app-2026__title { font-size: 20px; margin-bottom: 9px; }
+    #{{ section_id }} .jp-smart-app-2026__subtitle { font-size: 14px; }
+    #{{ section_id }} .jp-smart-app-2026__swiper { margin: 0 19px; }
+    #{{ section_id }} .jp-smart-app-2026__slide { width: 314px; }
+    #{{ section_id }} .jp-smart-app-2026__media { border-radius: 8px; height: 357px; }
+    #{{ section_id }} .jp-smart-app-2026__card-content { gap: 20px; margin: 23px 0 0; min-height: 110px; }
+    #{{ section_id }} .jp-smart-app-2026__card-icon { height: 42px; width: 42px; }
+    #{{ section_id }} .jp-smart-app-2026__card-copy { padding: 0; position: relative; width: 253px; }
+    #{{ section_id }} .jp-smart-app-2026__card-copy h3 { display: block; font-size: 16px; line-height: 1.5; margin-bottom: 13px; padding-right: 36px; white-space: normal; }
+    #{{ section_id }} .jp-smart-app-2026__expand-button { height: 9px; position: absolute; right: 0; top: 11px; width: 15px; }
+    #{{ section_id }} .jp-smart-app-2026__card-text { font-size: 12px; line-height: 1.3; }
+    #{{ section_id }} .jp-smart-app-2026__card-note { font-size: 10px; margin-top: 6px; }
+    #{{ section_id }} .jp-smart-app-2026__controls { justify-content: center; margin: 22px 0 0; max-width: none; right: auto; }
+    #{{ section_id }} .jp-smart-app-2026__button { display: none; }
+    #{{ section_id }} .jp-smart-app-2026__pagination { align-items: center; background: #eee; border-radius: 999px; display: flex; gap: 12px; height: 52px; justify-content: center; width: 170px; }
+    #{{ section_id }} .jp-smart-app-2026__pagination .swiper-pagination-bullet { background: #7e7e82; border-radius: 99px; flex: 0 0 auto; height: 8px; margin: 0; opacity: 1; width: 8px; }
+    #{{ section_id }} .jp-smart-app-2026__pagination .swiper-pagination-bullet-active { width: 32px; }
+  }
+</style>
+
+<script>
+  (() => {
+    const root = document.getElementById('{{ section_id }}');
+    if (!root) return;
+
+    root.querySelectorAll('[data-smart-app-expand]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const slide = button.closest('.jp-smart-app-2026__slide');
+        const isExpanded = slide.classList.toggle('is-expanded');
+        const note = slide.querySelector('.jp-smart-app-2026__card-note');
+        button.setAttribute('aria-expanded', String(isExpanded));
+        button.setAttribute('aria-label', isExpanded ? '説明文を閉じる' : '説明文を表示');
+        if (note) note.hidden = !isExpanded;
+
+        const swiper = root.querySelector('[data-smart-app-swiper]').swiper;
+        if (swiper) {
+          swiper.update();
+          swiper.updateAutoHeight(250);
+        }
+      });
+    });
+
+    const initSmartAppSwiper = () => {
+      if (root.dataset.initialized || typeof window.Swiper !== 'function') return false;
+
+      root.dataset.initialized = 'true';
+      const swiper = new window.Swiper(root.querySelector('[data-smart-app-swiper]'), {
+        autoHeight: false,
+        slidesPerView: 'auto',
+        spaceBetween: 20,
+        speed: 500,
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: false,
+        },
+        navigation: {
+          prevEl: root.querySelector('[data-smart-app-prev]'),
+          nextEl: root.querySelector('[data-smart-app-next]'),
+        },
+        pagination: { el: root.querySelector('[data-smart-app-pagination]'), clickable: true },
+        breakpoints: {
+          750: { slidesPerView: 'auto', spaceBetween: 40 },
+        },
+      });
+
+      const updateExpandButtons = () => {
+        root.querySelectorAll('.jp-smart-app-2026__slide').forEach((slide) => {
+          const text = slide.querySelector('.jp-smart-app-2026__card-text');
+          const note = slide.querySelector('.jp-smart-app-2026__card-note');
+          const button = slide.querySelector('[data-smart-app-expand]');
+          if (!text || !button) return;
+
+          if (slide.classList.contains('is-expanded')) {
+            button.hidden = false;
+            if (note) note.hidden = false;
+            return;
+          }
+
+          if (note) note.hidden = true;
+
+          text.classList.add('is-measuring');
+          const range = document.createRange();
+          range.selectNodeContents(text);
+          const lineTops = [];
+          Array.from(range.getClientRects()).forEach((rect) => {
+            if (rect.width === 0 || rect.height === 0) return;
+            if (!lineTops.some((top) => Math.abs(top - rect.top) < 1)) lineTops.push(rect.top);
+          });
+          text.classList.remove('is-measuring');
+          button.hidden = lineTops.length <= 2 && !note;
+        });
+      };
+
+      updateExpandButtons();
+      swiper.on('resize update', updateExpandButtons);
+      return true;
+    };
+
+    if (!initSmartAppSwiper()) {
+      document.addEventListener('DOMContentLoaded', initSmartAppSwiper, { once: true });
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "jp-air10-smart-app-2026",
+  "settings": [
+    { "type": "color", "id": "background_color", "label": "背景颜色", "default": "#FFFFFF" },
+    { "type": "color", "id": "text_color", "label": "字体颜色", "default": "#000000" },
+    { "type": "image_picker", "id": "app_icon", "label": "App 标识图片（上传）" },
+    { "type": "text", "id": "title", "label": "标题", "default": "美肌習慣を、もっと簡単に。" },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "副标题",
+      "default": "専属トレーナーのようにアプリが、毎日のケアをスマートにサポート。"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "App 功能卡",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "图片" },
+        { "type": "image_picker", "id": "icon", "label": "图标" },
+        { "type": "text", "id": "title", "label": "标题", "default": "AIがあなただけの美肌プログラムを自動生成" },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "说明",
+          "default": "初回のAI撮影により、部位ごとの肌状態や毛質にあわせて、あなたに最適なケアプランを提案。"
+        },
+        { "type": "textarea", "id": "note", "label": "备注（显示在说明下方）" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "jp-air10-smart-app-2026", "blocks": [{ "type": "feature" }, { "type": "feature" }, { "type": "feature" }] }
+  ]
+}
+{% endschema %}

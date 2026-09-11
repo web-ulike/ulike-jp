@@ -27,7 +27,7 @@
 -%}
 
 <div class="section section--padding{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded relative{% endif %}">
-  <div class="page-width{% if section.settings.narrow %} page-width--narrow{% endif %} relative">
+  <div class="container{% if section.settings.narrow %} container--small{% endif %} relative">
     <div class="contact with-map grid">
       <div class="flex flex-col-reverse lg:grid grid-cols-2">
         {%- form 'contact', id: form_id, class: 'grow grid lg:gap-4' -%}

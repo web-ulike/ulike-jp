@@ -1,0 +1,244 @@
+{% assign sid = section.id %}
+{% assign body_anchor_id = section.settings.body_anchor_id | default: 'p-compact-body' | remove_first: '#' | handleize %}
+
+<style>
+  #p-compact-{{ sid }} { padding: 128px 0; background: var(--p-compact-bg); color: var(--p-compact-text); }
+  #p-compact-{{ sid }} picture { display: block; }
+  #p-compact-{{ sid }} .p-aps-compact__img { display: block; width: 100%; height: auto; }
+  #p-compact-{{ sid }} .p-aps-compact__mobile { display: none; }
+  #p-compact-{{ sid }} .p-aps-compact__row { width: min(1220px, 100%); margin: 0 auto; display: grid; align-items: center; }
+  #p-compact-{{ sid }} .p-aps-compact__top {
+    grid-template-columns: minmax(0, 1fr) minmax(0, .95fr); gap: 60px; }
+  #p-compact-{{ sid }} .p-aps-compact__top > .p-aps-compact__copy { align-self: stretch; display: flex; flex-direction: column; justify-content: center; }
+  #p-compact-{{ sid }} .p-aps-compact__body {
+     margin-top: 120px;
+     grid-template-columns: .78fr 1fr .46fr;
+     gap: 60px;
+  }
+  #p-compact-{{ sid }} .p-aps-compact__body > .p-aps-compact__copy { position: relative; align-self: stretch; display: flex; flex-direction: column; justify-content: center; padding-bottom: 28px; }
+  #p-compact-{{ sid }} .p-aps-compact__body > picture { width: min(516px, 100%); justify-self: center; }
+  #p-compact-{{ sid }} .p-aps-compact__copy h2 {
+     margin: 0;
+     font-size: 40px;
+     font-weight: 500;
+     line-height: 1.3;
+   }
+  #p-compact-{{ sid }} .p-aps-compact__text {
+     margin-top: 30px;
+     font-size: 24px;
+     line-height: 1.5;
+  }
+  #p-compact-{{ sid }} .p-aps-compact__body-copy { margin-top: 30px; }
+  #p-compact-{{ sid }} .p-aps-compact__body-text { font-size: 16px; line-height: 1.5; }
+  #p-compact-{{ sid }} .p-aps-compact__body-text p { margin: 0; }
+  #p-compact-{{ sid }} .p-aps-compact__body-emphasis { 
+    margin-top: 15px; 
+    font-size: 24px; 
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 1px;
+  }
+  #p-compact-{{ sid }} .p-aps-compact__body-emphasis p { margin: 0; }
+  #p-compact-{{ sid }} .p-aps-compact__body-note { position: absolute; right: 0; bottom: 20px; left: 0; margin: 0; color: #000; opacity: .5; font-size: 10px; line-height: 1.5; }
+  #p-compact-{{ sid }} .p-aps-compact__body-note p { margin: 0; }
+  #p-compact-{{ sid }} .p-aps-compact__icons {
+    display: flex; gap: 90px; margin-top: 40px; }
+  #p-compact-{{ sid }}
+   .p-aps-compact__icon { min-width: 130px;
+     text-align: center;
+    font-size: 20px; }
+  #p-compact-{{ sid }} .p-aps-compact__icon img {
+     display: block; width: 130px; height: 130px; margin: 0 auto 8px; object-fit: contain;
+    }
+  #p-compact-{{ sid }} .p-aps-compact__list { display: grid; gap: 13px; }
+  #p-compact-{{ sid }} .p-aps-compact__list span { display: block;
+    padding: 7px 8px;
+    height: 35px;
+    color: #000;
+    background: #EBEBEB;
+    text-align: center; font-size: 16px; line-height: 1.5;
+  }
+
+  @media screen and (max-width: 749px) {
+    #p-compact-{{ sid }} .p-aps-compact__desktop { display: none; }
+    #p-compact-{{ sid }} .p-aps-compact__mobile { display: block; }
+    #p-compact-{{ sid }} { padding: 50px 0 50px; }
+    #p-compact-{{ sid }} .p-aps-compact__row { width: 100%; gap: 18px; }
+    #p-compact-{{ sid }} .p-aps-compact__top { grid-template-columns: 1fr; }
+    #p-compact-{{ sid }} .p-aps-compact__top .p-aps-compact__copy { order: -1; }
+    #p-compact-{{ sid }} .p-aps-compact__top > .p-aps-compact__copy { display: block; }
+    #p-compact-{{ sid }} .p-aps-compact__top > picture { width: 100%; }
+    #p-compact-{{ sid }} .p-aps-compact__body { margin-top: 32px; grid-template-columns: minmax(0, 1fr) 86px; 
+      column-gap: 15px; row-gap: 15px; 
+    }
+    #p-compact-{{ sid }} .p-aps-compact__body .p-aps-compact__copy { grid-column: 1 / -1; order: -1; }
+    #p-compact-{{ sid }} .p-aps-compact__body > .p-aps-compact__copy { display: block; padding-bottom: 0; }
+    #p-compact-{{ sid }} .p-aps-compact__copy { max-width: 100%; }
+    #p-compact-{{ sid }} .p-aps-compact__copy h2 {
+      font-size: 32px; 
+      width: 78%;
+    }
+    #p-compact-{{ sid }} .p-aps-compact__text { 
+      margin-top: 10px;
+      font-size: 17px; 
+    }
+    #p-compact-{{ sid }} .p-aps-compact__body-copy { margin-top: 12px; }
+    #p-compact-{{ sid }} .p-aps-compact__body-text { font-size: 12px; line-height: 1.55; }
+    #p-compact-{{ sid }} .p-aps-compact__body-emphasis { margin-top: 10px; font-size: 16px; line-height: 1.4; }
+    #p-compact-{{ sid }} .p-aps-compact__body-note { 
+      position: static; 
+      margin-top: 10px; 
+      font-size: 10px;
+      line-height: 1.5; 
+    }
+    #p-compact-{{ sid }} .p-aps-compact__copy > .p-aps-compact__icons { 
+      gap: 50px; 
+      margin-top: 20px;
+     }
+    #p-compact-{{ sid }} .p-aps-compact__icon { 
+      min-width: 100px;
+       font-size: 14px; 
+    }
+    #p-compact-{{ sid }} .p-aps-compact__icon img { 
+      width: 100px; height: 100px;
+      margin-bottom: 5px;
+    }
+    #p-compact-{{ sid }} .p-aps-compact__img { width: 100%; margin: 0 auto; }
+    #p-compact-{{ sid }} .p-aps-compact__body > picture { width: 100%; align-self: end; }
+    #p-compact-{{ sid }} .p-aps-compact__list { gap: 4px; width: 86px; padding-right: 0; justify-self: center; align-self: end; }
+    #p-compact-{{ sid }} .p-aps-compact__list span { height: 20px; padding: 2px; font-size: 10px; }
+  }
+</style>
+
+<section
+  id="p-compact-{{ sid }}"
+  class="p-aps-compact"
+  style="--p-compact-bg: {{ section.settings.background }}; --p-compact-text: {{ section.settings.text_color }};"
+>
+  <div class="container">
+    <div class="p-aps-compact__row p-aps-compact__top">
+      <picture class="to-top" style="transition-delay: .3s">
+        {%- if section.settings.compact_image_mobile != blank %}
+          <source
+            media="(max-width: 749px)"
+            srcset="{{ section.settings.compact_image_mobile | image_url: width: 900 }}"
+          >
+        {% endif -%}
+        {%- if section.settings.compact_image != blank -%}
+          {{-
+            section.settings.compact_image
+            | image_url: width: 1200
+            | image_tag: class: 'p-aps-compact__img', loading: 'lazy', widths: '500, 800, 1200'
+          -}}
+        {%- endif -%}
+      </picture>
+      <div class="p-aps-compact__copy">
+        {% if section.settings.compact_title != blank %}
+          <h2 class="to-top">{{ section.settings.compact_title }}</h2>
+        {% endif %}
+        {% if section.settings.compact_text != blank %}
+          <div class="p-aps-compact__text to-top" style="transition-delay: .1s">{{ section.settings.compact_text }}</div>
+        {% endif %}
+        <div class="p-aps-compact__icons to-top" style="transition-delay: .2s">
+          {% if section.settings.icon_1 != blank %}
+            <div class="p-aps-compact__icon">
+              {{ section.settings.icon_1 | image_url: width: 120 | image_tag: loading: 'lazy' -}}
+              <span>{{ section.settings.icon_1_label }}</span>
+            </div>
+          {% endif %}
+          {% if section.settings.icon_2 != blank %}
+            <div class="p-aps-compact__icon">
+              {{ section.settings.icon_2 | image_url: width: 120 | image_tag: loading: 'lazy' -}}
+              <span>{{ section.settings.icon_2_label }}</span>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div id="{{ body_anchor_id }}" class="p-aps-compact__row p-aps-compact__body">
+      <div class="p-aps-compact__copy">
+        {% if section.settings.body_title != blank %}
+          <h2 class="p-aps-compact__desktop to-top" style="transition-delay: .4s">{{ section.settings.body_title }}</h2>
+        {% endif -%}
+        {% if section.settings.body_title_mobile != blank %}
+          <h2 class="p-aps-compact__mobile to-top" style="transition-delay: .4s">{{ section.settings.body_title_mobile }}</h2>
+        {% elsif section.settings.body_title != blank %}
+          <h2 class="p-aps-compact__mobile to-top" style="transition-delay: .4s">{{ section.settings.body_title }}</h2>
+        {% endif -%}
+        <div class="p-aps-compact__body-copy">
+          {%- if section.settings.body_text != blank %}
+            <div class="p-aps-compact__body-text to-top" style="transition-delay: .5s">{{ section.settings.body_text }}</div>
+          {% endif %}
+          {%- if section.settings.body_emphasis != blank %}
+            <div class="p-aps-compact__body-emphasis to-top" style="transition-delay: .55s">{{ section.settings.body_emphasis }}</div>
+          {% endif %}
+          {%- if section.settings.body_note != blank %}
+            <div class="p-aps-compact__body-note to-top" style="transition-delay: .6s">{{ section.settings.body_note }}</div>
+          {% endif %}
+        </div>
+      </div>
+      <picture class="to-top" style="transition-delay: .6s">
+        {%- if section.settings.body_image_mobile != blank %}
+          <source media="(max-width: 749px)" srcset="{{ section.settings.body_image_mobile | image_url: width: 900 }}">
+        {% endif -%}
+        {%- if section.settings.body_image != blank -%}
+          {{-
+            section.settings.body_image
+            | image_url: width: 1200
+            | image_tag: class: 'p-aps-compact__img', loading: 'lazy', widths: '500, 800, 1200'
+          -}}
+        {%- endif -%}
+      </picture>
+      <div class="p-aps-compact__list to-top" style="transition-delay: .7s" aria-label="対応部位">
+        {% if section.settings.body_list != blank %}
+          {% assign body_list = section.settings.body_list | newline_to_br | split: '<br />' %}
+          {% for item in body_list %}
+            {% assign item_text = item | strip %}
+            {% if item_text != blank %}<span>{{ item_text }}</span>{% endif %}
+          {% endfor %}
+        {% else %}
+          <span>顔</span><span>ワキ</span><span>腕</span><span>お腹</span><span>背中</span><span>脚</span>
+          <span>手（指／足の甲）</span><span>VIOゾーン</span><span>足</span><span>ほかの部位</span>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "P Air Pro S 轻量与全身",
+  "settings": [
+    { "type": "image_picker", "id": "compact_image", "label": "轻量设计 PC 图片" },
+    { "type": "image_picker", "id": "compact_image_mobile", "label": "轻量设计移动端图片" },
+    { "type": "html", "id": "compact_title", "label": "轻量设计标题", "default": "コンパクトな軽量デザイン" },
+    {
+      "type": "html",
+      "id": "compact_text",
+      "label": "轻量设计说明",
+      "default": "直感的な操作性と人間工学に基づいたデザインで、初めてでもスムーズに使えるシンプル操作。長時間の使用でも腕や手首に負担がかかりにくい設計で、しっかりケアできます。"
+    },
+    { "type": "image_picker", "id": "icon_1", "label": "特点图标 1" },
+    { "type": "text", "id": "icon_1_label", "label": "特点图标 1 文字", "default": "シンプル操作" },
+    { "type": "image_picker", "id": "icon_2", "label": "特点图标 2" },
+    { "type": "text", "id": "icon_2_label", "label": "特点图标 2 文字", "default": "細部まで" },
+    { "type": "text", "id": "body_anchor_id", "label": "全身模块锚点 ID", "default": "p-compact-body", "info": "用于页面跳转；填写 p-compact-body 后，可通过 #p-compact-body 跳转到全身模块。" },
+    { "type": "html", "id": "body_title", "label": "全身标题", "default": "お顔からVIOまで<br>1台で全身対応" },
+    { "type": "html", "id": "body_title_mobile", "label": "全身标题移动端（支持 HTML）" },
+    {
+      "type": "html",
+      "id": "body_text",
+      "label": "全身说明（上段）",
+      "default": "お顔、ヒゲ、腕、脚、脇、VIOなど、アタッチメント付け替えの手間なしで、"
+    },
+    { "type": "html", "id": "body_emphasis", "label": "全身说明（强调文案）", "default": "全身*トータルケアが1台で完結。" },
+    { "type": "html", "id": "body_note", "label": "全身说明（底部脚注）", "default": "*一部ご使用いただけない部位があります。取り扱い説明書をよくお読みください。" },
+    { "type": "image_picker", "id": "body_image", "label": "全身部位 PC 图片" },
+    { "type": "image_picker", "id": "body_image_mobile", "label": "全身部位移动端图片" },
+    { "type": "textarea", "id": "body_list", "label": "右侧部位列表（每行一项）", "default": "顔\nワキ\n腕\nお腹\n背中\n脚\n手（指／足の甲）\nVIOゾーン\n足\nほかの部位" },
+    { "type": "color", "id": "background", "label": "背景色", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "文字色", "default": "#111111" }
+  ],
+  "presets": [{ "name": "P Air Pro S 轻量与全身" }]
+}
+{% endschema %}

@@ -2,8 +2,40 @@
   'use strict';
 
   const selector = '.scroll-animation, [data-scroll-animation]';
+  const legacySelector = '.to-top';
+
+  const initLegacyToTop = () => {
+    const elements = document.querySelectorAll(legacySelector);
+    if (!elements.length) return;
+
+    const reveal = (element) => {
+      requestAnimationFrame(() => element.classList.add('appear'));
+    };
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !window.IntersectionObserver) {
+      elements.forEach(reveal);
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries, currentObserver) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+
+        reveal(entry.target);
+        currentObserver.unobserve(entry.target);
+      });
+    }, {
+      root: null,
+      rootMargin: '0px 0px 50px 0px',
+      threshold: 0.1
+    });
+
+    elements.forEach((element) => observer.observe(element));
+  };
 
   const init = () => {
+    initLegacyToTop();
+
     if (!window.gsap || !window.ScrollTrigger) return;
 
     window.gsap.registerPlugin(window.ScrollTrigger);

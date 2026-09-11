@@ -1,16 +1,21 @@
-/* 自定义字体与全站样式 */
+/* Ulike Japan custom typeface. Font files are kept in theme assets. */
 @font-face {
-  font-family: 'Saans Regular';
-  src:
-    url('{{ "Saans-Regular1.woff2" | asset_url }}') format('woff2'),
-    url('{{ "Saans-Regular1.woff" | asset_url }}') format('woff'),
-    url('{{ "Saans-Regular1.otf" | asset_url }}') format('opentype');
+  font-family: 'Saans';
+  src: url('{{ "Saans-Regular.woff2" | asset_url }}') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Saans';
+  src: url('{{ "Saans-Medium.woff2" | asset_url }}') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  --text-font-family: 'Saans Regular', sans-serif;
-  --heading-font-family: 'Saans Regular', sans-serif;
+  --text-font-family: 'Saans', sans-serif;
+  --heading-font-family: 'Saans', sans-serif;
 }

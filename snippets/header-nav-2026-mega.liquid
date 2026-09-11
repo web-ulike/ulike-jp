@@ -1,0 +1,137 @@
+{%- liquid
+  assign manual_url = '/pages/download-using-guide'
+  assign reviews_url = '/pages/reviews'
+  assign faq_url = '/pages/faq'
+  assign compare_url = '/pages/product-comparison'
+  assign guide_url = '/pages/buying-guide'
+
+  for childlink in link.links
+    case childlink.title
+      when '取扱説明書'
+        assign manual_url = childlink.url
+      when 'お客様の声'
+        assign reviews_url = childlink.url
+      when 'よくある質問'
+        assign faq_url = childlink.url
+      when '商品比較'
+        assign compare_url = childlink.url
+      when '商品ガイド'
+        assign guide_url = childlink.url
+    endcase
+    for grandchildlink in childlink.links
+      case grandchildlink.title
+        when '商品比較'
+          assign compare_url = grandchildlink.url
+        when '商品ガイド'
+          assign guide_url = grandchildlink.url
+      endcase
+    endfor
+  endfor
+-%}
+
+<div class="mega-menu__container header-2026__mega-container invisible">
+  {%- case kind -%}
+    {%- when 'products' -%}
+      <div class="header-2026__mega-panel header-2026__products-panel">
+        <div class="header-2026__product-grid">
+          {%- for childlink in link.links limit: 4 -%}
+            <section class="header-2026__product-column">
+              <h2>{{ childlink.title | escape }}</h2>
+              <div class="header-2026__product-list">
+                {%- for grandchildlink in childlink.links limit: 3 -%}
+                  {%- render 'header-nav-2026-product-card', menu_link: grandchildlink, category_title: childlink.title, section: section -%}
+                {%- endfor -%}
+              </div>
+            </section>
+          {%- endfor -%}
+        </div>
+        <a class="header-2026__shop-all" href="{{ routes.all_products_collection_url }}">すべての製品を見る <span aria-hidden="true">→</span></a>
+      </div>
+
+    {%- when 'guide' -%}
+      <div class="header-2026__mega-panel header-2026__icon-panel header-2026__guide-panel">
+        <a class="header-2026__icon-tile" href="{{ manual_url }}">
+          <img src="{{ 'header-2026-manual.png' | asset_url }}" width="60" height="60" alt="" loading="lazy">
+          <span>取扱説明書 <b aria-hidden="true">›</b></span>
+        </a>
+        <a class="header-2026__icon-tile" href="{{ reviews_url }}">
+          <img src="{{ 'header-2026-reviews.png' | asset_url }}" width="60" height="60" alt="" loading="lazy">
+          <span>お客様の声 <b aria-hidden="true">›</b></span>
+        </a>
+        <a class="header-2026__icon-tile" href="{{ faq_url }}">
+          <img src="{{ 'header-2026-faq.png' | asset_url }}" width="60" height="60" alt="" loading="lazy">
+          <span>よくある質問 <b aria-hidden="true">›</b></span>
+        </a>
+        <div class="header-2026__guide-pair">
+          <a href="{{ compare_url }}">
+            <img src="{{ 'header-2026-compare.png' | asset_url }}" width="54" height="48" alt="" loading="lazy">
+            <span>商品比較 <b aria-hidden="true">›</b></span>
+          </a>
+          <a href="{{ guide_url }}">
+            <img src="{{ 'header-2026-guide.png' | asset_url }}" width="54" height="48" alt="" loading="lazy">
+            <span>商品ガイド <b aria-hidden="true">›</b></span>
+          </a>
+        </div>
+      </div>
+
+    {%- when 'technology' -%}
+      <div class="header-2026__mega-panel header-2026__icon-panel">
+        <a class="header-2026__icon-tile" href="/pages/how-it-works">
+          <img src="{{ 'header-2026-tech-ipl.png' | asset_url }}" width="60" height="60" alt="" loading="lazy">
+          <span>IPL技術とは <b aria-hidden="true">›</b></span>
+        </a>
+        <a class="header-2026__icon-tile" href="/pages/technology-ice-cooling">
+          <img src="{{ 'header-2026-tech-cooling.png' | asset_url }}" width="60" height="60" alt="" loading="lazy">
+          <span>サファイア冷感技術 <b aria-hidden="true">›</b></span>
+        </a>
+        <a class="header-2026__icon-tile" href="/pages/technology-skinsensor">
+          <img src="{{ 'header-2026-tech-sensor.png' | asset_url }}" width="62" height="60" alt="" loading="lazy">
+          <span>スキンセンサー技術 <b aria-hidden="true">›</b></span>
+        </a>
+        <a class="header-2026__icon-tile" href="/pages/technology-dual-lights">
+          <img src="{{ 'header-2026-tech-lamp.png' | asset_url }}" width="60" height="60" alt="" loading="lazy">
+          <span>ダブルランプ技術 <b aria-hidden="true">›</b></span>
+        </a>
+      </div>
+
+    {%- when 'about' -%}
+      <div class="header-2026__mega-panel header-2026__about-panel">
+        <a class="header-2026__about-item" href="/pages/about">
+          <img src="{{ 'header-2026-about-company.png' | asset_url }}" width="365" height="193" alt="" loading="lazy">
+          <span class="header-2026__about-copy">
+            <strong>会社情報 <b aria-hidden="true">›</b></strong>
+            <span>2013年に誕生したUlikeは、家庭用光美容器のパイオニア。創業から10年間で、アジアの美容機器業界のリーディングカンパニーへと成長しました。</span>
+          </span>
+        </a>
+        <a class="header-2026__about-item" href="/pages/where-to-pruchase">
+          <img src="{{ 'header-2026-about-store.png' | asset_url }}" width="365" height="193" alt="" loading="lazy">
+          <span class="header-2026__about-copy">
+            <strong>販売店一覧 <b aria-hidden="true">›</b></strong>
+            <span>オフライン店舗でUlikeを発見｜あなたの美をより深く体験</span>
+          </span>
+        </a>
+      </div>
+
+    {%- when 'topics' -%}
+      <div class="header-2026__mega-panel header-2026__icon-panel header-2026__topics-panel">
+        <a class="header-2026__icon-tile" href="/blogs/article">
+          <img src="{{ 'header-2026-topic-popular.png' | asset_url }}" width="64" height="64" alt="" loading="lazy">
+          <span>人気記事一覧 <b aria-hidden="true">›</b></span>
+        </a>
+        <a class="header-2026__icon-tile" href="/blogs/news">
+          <img src="{{ 'header-2026-topic-news.png' | asset_url }}" width="60" height="60" alt="" loading="lazy">
+          <span>お知らせ <b aria-hidden="true">›</b></span>
+        </a>
+        <details class="header-2026__topic-details">
+          <summary class="header-2026__icon-tile">
+            <img src="{{ 'header-2026-topic-pickup.png' | asset_url }}" width="60" height="60" alt="" loading="lazy">
+            <span>ピックアップ <b aria-hidden="true">⌄</b></span>
+          </summary>
+          <div class="header-2026__topic-links">
+            <a href="/pages/donki-2025">ドン・キホーテ限定品 <b aria-hidden="true">›</b></a>
+            <a href="/pages/brandambassador">湘南美容 × Ulike <b aria-hidden="true">›</b></a>
+          </div>
+        </details>
+      </div>
+  {%- endcase -%}
+</div>

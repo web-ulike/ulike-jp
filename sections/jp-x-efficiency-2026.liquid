@@ -1,0 +1,101 @@
+{%- liquid
+  assign section_id = 'jp-x-efficiency-2026-' | append: section.id
+  assign desktop_image = section.settings.image | default: section.settings.image_mobile
+  assign mobile_image = section.settings.image_mobile | default: desktop_image
+  assign desktop_metrics_image = section.settings.metrics_image | default: section.settings.metrics_image_mobile
+  assign mobile_metrics_image = section.settings.metrics_image_mobile | default: desktop_metrics_image
+-%}
+
+<section id="{{ section_id }}" class="jp-x-efficiency-2026" data-jp-x-efficiency-2026>
+  <div class="jp-x-efficiency-2026__media">
+    {%- if desktop_image != blank -%}
+      <picture>
+        {%- if mobile_image != blank -%}
+          <source media="(max-width: 749px)" srcset="{{ mobile_image | image_url: width: 900 }}">
+        {%- endif -%}
+        {{ desktop_image | image_url: width: 2880 | image_tag: class: 'jp-x-efficiency-2026__image', loading: 'lazy', widths: '375, 550, 750, 1200, 1600, 1920, 2400, 2880', alt: desktop_image.alt }}
+      </picture>
+    {%- else -%}
+      {{ 'image' | placeholder_svg_tag: 'jp-x-efficiency-2026__placeholder' }}
+    {%- endif -%}
+
+    {%- if section.settings.show_copy -%}
+      <div class="jp-x-efficiency-2026__copy">
+        <div class="jp-x-efficiency-2026__copy-main">
+          <h2 class="jp-x-efficiency-2026__heading to-top">{{ section.settings.heading | escape | newline_to_br }}</h2>
+          <p class="jp-x-efficiency-2026__description to-top" style="transition-delay: 0.1s">{{ section.settings.description | escape | newline_to_br }}</p>
+          {%- if desktop_metrics_image != blank -%}
+            <div class="jp-x-efficiency-2026__metrics to-top" style="transition-delay: 0.2s">
+              <picture>
+                {%- if mobile_metrics_image != blank -%}
+                  <source media="(max-width: 749px)" srcset="{{ mobile_metrics_image | image_url: width: 600 }}">
+                {%- endif -%}
+                {{ desktop_metrics_image | image_url: width: 1200 | image_tag: class: 'jp-x-efficiency-2026__metrics-image', loading: 'lazy', widths: '234, 400, 570, 800, 1200', alt: desktop_metrics_image.alt }}
+              </picture>
+            </div>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.note != blank -%}
+          <div class="jp-x-efficiency-2026__note">{{ section.settings.note | escape | newline_to_br }}</div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  #{{ section_id }} { background: {{ section.settings.background | default: '#000000' }}; overflow: hidden; }
+  #{{ section_id }} * { box-sizing: border-box; }
+  #{{ section_id }} .jp-x-efficiency-2026__media { margin: 0 auto; max-width: {{ section.settings.desktop_max_width }}px; position: relative; }
+  #{{ section_id }} .jp-x-efficiency-2026__image, #{{ section_id }} .jp-x-efficiency-2026__placeholder { display: block; height: auto; width: 100%; }
+  #{{ section_id }} .jp-x-efficiency-2026__placeholder { background: #080808; fill: #1d2634; min-height: 300px; }
+  #{{ section_id }} .jp-x-efficiency-2026__copy { align-items: center; color: #fff; display: flex; inset: 0; pointer-events: none; position: absolute; }
+  #{{ section_id }} .jp-x-efficiency-2026__copy-main { margin-left: 13.58%; width: 570px; }
+  #{{ section_id }} .jp-x-efficiency-2026__heading { background: linear-gradient(180deg, #fff 0%, #b9e7ff 57%); -webkit-background-clip: text; background-clip: text; color: transparent; font-family: "Noto Sans JP", sans-serif; font-size: 110px; font-weight: 700; letter-spacing: 5.5px; line-height: 1.2; margin: 0; }
+  #{{ section_id }} .jp-x-efficiency-2026__description { font-family: "Noto Sans JP", sans-serif; font-size: 24px; font-weight: 500; letter-spacing: 1.2px; line-height: 1.5; margin: 20px 0 0 6.74%; white-space: nowrap; }
+  #{{ section_id }} .jp-x-efficiency-2026__description br { display: none; }
+  #{{ section_id }} .jp-x-efficiency-2026__metrics { margin: 48px 0 0 6.74%; width: 570px; }
+  #{{ section_id }} .jp-x-efficiency-2026__metrics-image { display: block; height: auto; width: 100%; }
+  #{{ section_id }} .jp-x-efficiency-2026__note { bottom: 3.4%; color: rgba(255,255,255,.65); font-size: 10px; left: 17.19%; line-height: 1.45; position: absolute; right: 5%; text-align: left; }
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} .jp-x-efficiency-2026__copy { display: block; transform: translateY(-12px); }
+    #{{ section_id }} .jp-x-efficiency-2026__copy-main { margin: 0; width: auto; }
+    #{{ section_id }} .jp-x-efficiency-2026__media { height: auto; max-width: none; overflow: visible; }
+    #{{ section_id }} .jp-x-efficiency-2026__media > picture { display: block; height: auto; overflow: visible; position: static; width: 100%; }
+    #{{ section_id }} .jp-x-efficiency-2026__image { height: auto; object-fit: contain; width: 100%; }
+    #{{ section_id }} .jp-x-efficiency-2026__placeholder { min-height: 0; position: static; }
+    #{{ section_id }} .jp-x-efficiency-2026__heading { background: linear-gradient(180deg, #fff 0%, #b9e7ff 100%); -webkit-background-clip: text; background-clip: text; color: transparent; font-family: "Noto Sans JP", sans-serif; font-size: min(44px, 11.7333vw); font-weight: 700; left: 0; letter-spacing: .05em; line-height: 2; position: absolute; right: 0; text-align: center; top: min(27px, 7.2vw); }
+    #{{ section_id }} .jp-x-efficiency-2026__description { color: #fff; font-family: "Noto Sans JP", sans-serif; font-size: min(18px, 4.8vw); font-weight: 400; left: min(41px, 10.9333vw); line-height: 1.5; margin: 0; position: absolute; right: min(41px, 10.9333vw); text-align: center; top: min(115px, 30.6667vw); white-space: normal; }
+    #{{ section_id }} .jp-x-efficiency-2026__description br { display: initial; }
+    #{{ section_id }} .jp-x-efficiency-2026__metrics { 
+      left: 0; margin: 0 auto; position: absolute; right: 0; top: 60px; width: 300px;
+    }
+    #{{ section_id }} .jp-x-efficiency-2026__note { 
+      bottom: 30px; color: rgba(255,255,255,.5); 
+      font-size: min(8px, 2.1333vw); left: min(20px, 5.3333vw); line-height: 1.5;
+       right: min(13px, 3.4667vw);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "jp-x-efficiency-2026",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "PC 效率革命整图" },
+    { "type": "image_picker", "id": "image_mobile", "label": "M 效率革命整图" },
+    { "type": "checkbox", "id": "show_copy", "label": "显示叠加文案（上传的图片不含文案时开启）", "default": true },
+    { "type": "textarea", "id": "heading", "label": "标题", "default": "「効率革命」" },
+    { "type": "textarea", "id": "description", "label": "说明", "default": "効果と効率を両立した時短ケアで、\nもっと自由な朝を。" },
+    { "type": "image_picker", "id": "metrics_image", "label": "PC 指标图片" },
+    { "type": "image_picker", "id": "metrics_image_mobile", "label": "M 指标图片" },
+    { "type": "textarea", "id": "note", "label": "底部注释", "default": "*1. 2分：当社調べに基づく。\n*2. 国際認証機関SGSによる報告：GZCPCH24001216-01S1CN。トリートメントスケジュールに従って週3回使用した場合、効果を感じ始めます。効果には個人差及び部位差があります。" },
+    { "type": "color", "id": "heading_color", "label": "标题颜色", "default": "#C9F0FF" },
+    { "type": "color", "id": "background", "label": "背景颜色", "default": "#000000" },
+    { "type": "range", "id": "desktop_max_width", "label": "PC 图片最大宽度", "min": 1200, "max": 2400, "step": 20, "unit": "px", "default": 1920 }
+  ],
+  "presets": [
+    { "name": "jp-x-efficiency-2026" }
+  ]
+}
+{% endschema %}

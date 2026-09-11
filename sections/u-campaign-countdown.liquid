@@ -1,0 +1,100 @@
+<section id="u-campaign-countdown-{{ section.id }}" class="u-campaign-countdown">
+  <div class="u-campaign-countdown__inner container">
+    <div class="u-campaign-countdown__timer">
+      <countdown-timer1
+        end-time="{{ section.settings.end_time }}"
+        label="{{ section.settings.label | escape }}"
+      ></countdown-timer1>
+      <div class="u-campaign-countdown__labels" aria-hidden="true">
+        <span>日</span><span>時間</span><span>分</span><span>秒</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #u-campaign-countdown-{{ section.id }} {
+    min-height: 115px;
+    background: linear-gradient(60deg, #E0F0FF 4.63%, #EFECFF 90.55%);
+     padding: {{ section.settings.padding_top }}px 20px {{ section.settings.padding_bottom }}px;
+     color: {{ section.settings.text_color }};
+  }
+  #u-campaign-countdown-{{ section.id }} .u-campaign-countdown__inner { display: flex; justify-content: center; }
+  #u-campaign-countdown-{{ section.id }} countdown-timer1 {
+    display: grid; grid-template-columns: auto 39px 8px 39px 8px 39px 8px 39px; gap: 5px;
+    align-items: center; font-size: 18px; }
+  #u-campaign-countdown-{{ section.id }} .countdown-label { width: 96px; margin-right: 15px; white-space: nowrap; }
+  #u-campaign-countdown-{{ section.id }} .countdown-box { display: flex; box-sizing: border-box; width: 39px; height: 36px; padding: 6px; flex-direction: column; justify-content: center; align-items: center; gap: 10px; background: {{ section.settings.box_background }}; color: {{ section.settings.box_text_color }}; border-radius: 5px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  #u-campaign-countdown-{{ section.id }} .countdown-separator { text-align: center; font-weight: 600; }
+  #u-campaign-countdown-{{ section.id }} .u-campaign-countdown__labels { 
+    display: grid; 
+    grid-template-columns: repeat(4, 39px); 
+    gap: 18px; 
+    margin-top: 4px; margin-left: 116px; color: #190A0A; text-align: center; 
+    font-size: 18px; font-weight: 500; line-height: 150%;  
+  }
+  @media screen and (max-width: 767px) { #u-campaign-countdown-{{ section.id }} { box-sizing: border-box; display: flex; align-items: center; min-height: 150px; height: 150px; padding-top: {{ section.settings.mobile_padding_top }}px; padding-bottom: {{ section.settings.mobile_padding_bottom }}px; } #u-campaign-countdown-{{ section.id }} .u-campaign-countdown__inner { width: 100%; } #u-campaign-countdown-{{ section.id }} countdown-timer1 { grid-template-columns: auto 39px 8px 39px 8px 39px 8px 39px; gap: 5px; font-size: 11px; } #u-campaign-countdown-{{ section.id }} .countdown-label { font-size: 18px; }
+  #u-campaign-countdown-{{ section.id }} .u-campaign-countdown__labels {
+    grid-template-columns: repeat(4, 39px); gap: 18px; margin-left: 116px; font-size: 14px; } }
+</style>
+
+{% schema %}
+{
+  "name": "u Campaign countdown",
+  "settings": [
+    {
+      "type": "text",
+      "id": "end_time",
+      "label": "End time (JST)",
+      "info": "日本標準時（JST / UTC+09:00）で入力してください。例: 2026-08-03T23:59:59+09:00",
+      "default": "2026-08-03T23:59:59+09:00"
+    },
+    { "type": "text", "id": "label", "label": "Label", "default": "終了まであと" },
+    { "type": "color", "id": "background", "label": "Background", "default": "#edf6ff" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#101010" },
+    { "type": "color", "id": "box_background", "label": "Box background", "default": "#151515" },
+    { "type": "color", "id": "box_text_color", "label": "Box text", "default": "#ffffff" },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Desktop padding top",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Desktop padding bottom",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile padding top",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile padding bottom",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    }
+  ],
+  "presets": [{ "name": "u Campaign countdown" }]
+}
+{% endschema %}

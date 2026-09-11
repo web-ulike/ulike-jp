@@ -59,10 +59,62 @@
             "image_6_text": "",
             "image_6_link": ""
           }
+        },
+        "product_navigation_new": {
+          "type": "product_navigation_group",
+          "settings": {
+            "heading": "新発売",
+            "products": [
+              "ulike-me-ipl-hair-removal",
+              "air10-max-ipl-hair-removal",
+              "ulike-x-max-ipl-hair-removal"
+            ],
+            "enable_carousel": false
+          }
+        },
+        "product_navigation_bestsellers": {
+          "type": "product_navigation_group",
+          "settings": {
+            "heading": "ロングセラー",
+            "products": [
+              "airpro-s-ipl-hair-removal",
+              "air10-ipl-hair-removal",
+              "air10-pro-ipl-hair-removal",
+              "ulike-me-ipl-hair-removal"
+            ],
+            "enable_carousel": true
+          }
+        },
+        "product_navigation_limited": {
+          "type": "product_navigation_group",
+          "settings": {
+            "heading": "販売店限定",
+            "products": [
+              "air10-pro-ipl-hair-removal",
+              "men-air2",
+              "ulike-men-ipl"
+            ],
+            "enable_carousel": false
+          }
+        },
+        "product_navigation_accessories": {
+          "type": "product_navigation_group",
+          "settings": {
+            "heading": "アクセサリー",
+            "products": [
+              "ultrasonic-case",
+              "uv-sterilization-box-2025"
+            ],
+            "enable_carousel": false
+          }
         }
       },
       "block_order": [
-        "mega_menu_CVbrf9"
+        "mega_menu_CVbrf9",
+        "product_navigation_new",
+        "product_navigation_bestsellers",
+        "product_navigation_limited",
+        "product_navigation_accessories"
       ],
       "settings": {
         "enable_sticky_header": true,
@@ -78,8 +130,7 @@
         "show_country_selector": false,
         "enable_transparent_header": false,
         "transparent_header_text_color": "#ffffff",
-        "search_menu": "",
-        "customer_account_menu": "customer-account-main-menu"
+        "search_menu": ""
       }
     }
   },

@@ -1,0 +1,166 @@
+{%- liquid
+  assign sid = section.id
+  assign st = section.settings
+  assign desktop_image = st.image | default: st.image_mobile
+
+  capture default_desktop_title
+    echo '<p>全身まるごと<br><span style="color:#75B5ED;">これ1台</span></p>'
+  endcapture
+  capture default_mobile_title
+    echo '<p>全身まるごと<span style="color:#75B5ED;">これ1台</span></p>'
+  endcapture
+  capture default_copy
+    echo '<p>顔からVIOまで、<br>誰にも邪魔されないプライベートケアを。</p>'
+  endcapture
+  capture default_body
+    echo '<p>「サロンに通う時間やお金がもったいない」「VIOを人に見られるのは恥ずかしい」――そんな悩みを解決してくれるのがUlike Me。<span style="background:#75B5ED;color:#fff;">顔からVIOまで、ほぼ全身のケアがこれ1台で完結。</span></p><p>さらに、計算された10×30mmの最適ヘッドが、指先やアゴ、膝の裏など凹凸のある部位にもぴたっとフィット。当てにくさによるムラをなくし、<span style="background:#75B5ED;color:#fff;">細部までこだわったお手入れをご自宅で。</span></p>'
+  endcapture
+-%}
+
+<section id="me-full-body-{{ sid }}" class="me-full-body" style="--me-full-body-bg: {{ st.background }};">
+  <div class="me-full-body__copy">
+    <div class="me-full-body__desktop-copy">
+      {{ st.title_html | default: default_desktop_title | replace_first: '<p', '<p class="to-top"' }}
+      {{ st.copy_html | default: default_copy | replace_first: '<p', '<p class="to-top" style="transition-delay: 0.1s"' }}
+      <div class="me-full-body__body to-top" style="transition-delay: 0.2s">{{ st.body_html | default: default_body }}</div>
+    </div>
+    <div class="me-full-body__mobile-copy">
+      {{ st.title_html_mobile | default: st.title_html | default: default_mobile_title | replace_first: '<p', '<p class="to-top"' }}
+      {{ st.copy_html_mobile | default: st.copy_html | default: default_copy | replace_first: '<p', '<p class="to-top" style="transition-delay: 0.1s"' }}
+      <div class="me-full-body__body to-top" style="transition-delay: 0.2s">{{ st.body_html_mobile | default: st.body_html | default: default_body }}</div>
+    </div>
+  </div>
+
+  {% if desktop_image != blank %}
+    <picture class="me-full-body__media">
+      {% if st.image_mobile != blank %}
+        <source media="(max-width: 749px)" srcset="{{ st.image_mobile | image_url: width: 1000 }}">
+      {% endif %}
+      {{ desktop_image | image_url: width: 1800 | image_tag: class: 'me-full-body__image', loading: 'lazy', widths: '500, 750, 1000, 1400, 1800', sizes: '(max-width: 749px) 100vw, 57vw' }}
+    </picture>
+  {% endif %}
+</section>
+
+<style>
+  #me-full-body-{{ sid }} {
+    display: grid;
+    grid-template-columns: minmax(0, 48%) minmax(0, 52%);
+    min-height: 737px;
+    align-items: start;
+    overflow: hidden;
+    background: var(--me-full-body-bg);
+  }
+
+  #me-full-body-{{ sid }} .me-full-body__copy {
+    box-sizing: border-box;
+    width: 100%;
+    padding: clamp(90px, 7.66vw, 147px) clamp(36px, 6vw, 120px) 0 clamp(36px, 17vw, 350px);
+    color: #000;
+    align-self: start;
+  }
+
+  #me-full-body-{{ sid }} .me-full-body__mobile-copy {
+    display: none;
+  }
+
+  #me-full-body-{{ sid }} .me-full-body__desktop-copy > :first-child,
+  #me-full-body-{{ sid }} .me-full-body__mobile-copy > :first-child {
+    font-size: 48px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  #me-full-body-{{ sid }} .me-full-body__desktop-copy > :not(:first-child):not(.me-full-body__body),
+  #me-full-body-{{ sid }} .me-full-body__mobile-copy > :not(:first-child):not(.me-full-body__body) {
+    margin: 32px 0 0;
+    font-size: 24px;
+    line-height: 1.4;
+  }
+
+  #me-full-body-{{ sid }} .me-full-body__body {
+    margin-top: 60px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  #me-full-body-{{ sid }} .me-full-body__body p + p {
+    margin-top: 15px;
+  }
+
+  #me-full-body-{{ sid }} .me-full-body__media,
+  #me-full-body-{{ sid }} .me-full-body__image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  #me-full-body-{{ sid }} .me-full-body__media {
+    box-sizing: border-box;
+    padding-top: clamp(90px, 7.66vw, 147px);
+  }
+
+  @media screen and (max-width: 749px) {
+    #me-full-body-{{ sid }} {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    #me-full-body-{{ sid }} .me-full-body__media {
+      order: 1;
+      padding-top: 0;
+    }
+
+    #me-full-body-{{ sid }} .me-full-body__copy {
+      order: 2;
+      padding: 27px 20px 45px;
+    }
+
+    #me-full-body-{{ sid }} .me-full-body__desktop-copy {
+      display: none;
+    }
+
+    #me-full-body-{{ sid }} .me-full-body__mobile-copy {
+      display: block;
+    }
+
+    #me-full-body-{{ sid }} .me-full-body__mobile-copy > :first-child {
+      font-size: 32px;
+      line-height: 1.4;
+    }
+
+    #me-full-body-{{ sid }} .me-full-body__mobile-copy > :not(:first-child):not(.me-full-body__body) {
+      margin-top: 20px;
+      font-size: clamp(16px, calc(5vw - 3.5px), 18px);
+      line-height: 1.55;
+    }
+
+    #me-full-body-{{ sid }} .me-full-body__mobile-copy .me-full-body__body {
+      margin-top: 11px;
+      font-size: clamp(14px, calc(5vw - 5.5px), 16px);
+      line-height: 1.72;
+    }
+
+    #me-full-body-{{ sid }} .me-full-body__mobile-copy .me-full-body__body p + p {
+      margin-top: 11px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Ulike ME 全身护理模块",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "PC 右侧图片" },
+    { "type": "image_picker", "id": "image_mobile", "label": "移动端顶部图片" },
+    { "type": "html", "id": "title_html", "label": "PC 标题（HTML）", "default": "<p>全身まるごと<br><span style=\"color:#75B5ED;\">これ1台</span></p>" },
+    { "type": "html", "id": "copy_html", "label": "PC 副标题（HTML）", "default": "<p>顔からVIOまで、<br>誰にも邪魔されないプライベートケアを。</p>" },
+    { "type": "html", "id": "body_html", "label": "PC 正文（HTML）", "default": "<p>「サロンに通う時間やお金がもったいない」「VIOを人に見られるのは恥ずかしい」――そんな悩みを解決してくれるのがUlike Me。<span style=\"background:#75B5ED;color:#fff;\">顔からVIOまで、ほぼ全身のケアがこれ1台で完結。</span></p><p>さらに、計算された10×30mmの最適ヘッドが、指先やアゴ、膝の裏など凹凸のある部位にもぴたっとフィット。当てにくさによるムラをなくし、<span style=\"background:#75B5ED;color:#fff;\">細部までこだわったお手入れをご自宅で。</span></p>" },
+    { "type": "html", "id": "title_html_mobile", "label": "移动端标题（HTML）", "default": "<p>全身まるごと<span style=\"color:#75B5ED;\">これ1台</span></p>" },
+    { "type": "html", "id": "copy_html_mobile", "label": "移动端副标题（HTML）", "default": "<p>顔からVIOまで、<br>誰にも邪魔されないプライベートケアを。</p>" },
+    { "type": "html", "id": "body_html_mobile", "label": "移动端正文（HTML）", "default": "<p>「サロンに通う時間やお金がもったいない」「VIOを人に見られるのは恥ずかしい」――そんな悩みを解決してくれるのがUlike Me。<span style=\"background:#75B5ED;color:#fff;\">顔からVIOまで、ほぼ全身のケアがこれ1台で完結。</span></p><p>さらに、計算された10×30mmの最適ヘッドが、指先やアゴ、膝の裏など凹凸のある部位にもぴたっとフィット。当てにくさによるムラをなくし、<span style=\"background:#75B5ED;color:#fff;\">細部までこだわったお手入れをご自宅で。</span></p>" },
+    { "type": "color", "id": "background", "label": "背景", "default": "#ffffff" }
+  ],
+  "presets": [{ "name": "Ulike 全身护理模块" }]
+}
+{% endschema %}

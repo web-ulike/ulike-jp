@@ -1,20 +1,16 @@
 {
   "sections": {
-    "main": {
-      "type": "main-customers-order",
-      "blocks": {
-        "order": {
-          "type": "order",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "order"
-      ],
-      "settings": {}
+    "main-order": {
+      "type": "main-order",
+      "settings": {
+        "heading_size": "title-xl tracking-heading",
+        "padding_top": 72,
+        "padding_bottom": 100,
+        "rounded": false
+      }
     }
   },
   "order": [
-    "main"
+    "main-order"
   ]
 }

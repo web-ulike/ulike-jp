@@ -34,7 +34,7 @@
 </style>
 
 <div class="section section--padding{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded relative{% endif %}">
-  <div class="page-width{% if section.settings.full_width %} page-width--full{% endif %} relative">
+  <div class="{% unless section.settings.full_width %}container{% endunless %} relative">
     {%- render 'section-heading', section: section -%}
 
     <image-comparison class="image-comparison media--{{ section.settings.image_height }} mobile:media--{{ section.settings.image_height_mobile }} block relative overflow-hidden" data-layout="{{ section.settings.layout }}">

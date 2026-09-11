@@ -7,7 +7,7 @@
 </style>
 
 <div class="section section--padding{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded relative{% endif %}">
-  <div class="page-width{% if section.settings.full_width %} page-width--full{% endif %} relative">
+  <div class="{% unless section.settings.full_width %}container{% endunless %} relative">
     {%- render 'section-heading', section: section -%}
 
     <carousel-element class="text-with-icons block lg:grid grid--{{ section.settings.columns }} relative z-1" watch-css>

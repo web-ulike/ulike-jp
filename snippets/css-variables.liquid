@@ -170,7 +170,7 @@ other resources, such as CSS or JS
     --grid-gap: 24px;
     --grid-column-width: calc((100vw - var(--container-outer-width) * 2 - var(--grid-gap) * (var(--grid-column-count) - 1)) / var(--grid-column-count));
 
-    --vertical-breather: {% if settings.vertical_spacing == 'small' %}28px{% elsif settings.vertical_spacing == 'medium' %}36px{% else %}48px{% endif %};
+    --vertical-breather: 0px;
     --vertical-breather-tight: {% if settings.vertical_spacing == 'small' %}28px{% elsif settings.vertical_spacing == 'medium' %}36px{% else %}48px{% endif %};
 
     /* Shopify related variables */
@@ -181,7 +181,7 @@ other resources, such as CSS or JS
     :root {
       --container-gutter: 40px;
       --grid-column-count: 20;
-      --vertical-breather: {% if settings.vertical_spacing == 'small' %}40px{% elsif settings.vertical_spacing == 'medium' %}48px{% else %}64px{% endif %};
+      --vertical-breather: 0px;
       --vertical-breather-tight: {% if settings.vertical_spacing == 'small' %}40px{% elsif settings.vertical_spacing == 'medium' %}48px{% else %}64px{% endif %};
 
       /* Typography (font size) */
@@ -207,7 +207,7 @@ other resources, such as CSS or JS
 
   @media screen and (min-width: 1200px) {
     :root {
-      --vertical-breather: {% if settings.vertical_spacing == 'small' %}48px{% elsif settings.vertical_spacing == 'medium' %}64px{% else %}80px{% endif %};
+      --vertical-breather: 0px;
       --vertical-breather-tight: {% if settings.vertical_spacing == 'small' %}48px{% elsif settings.vertical_spacing == 'medium' %}48px{% else %}64px{% endif %};
       --product-list-block-spacing: 48px;
 
@@ -224,7 +224,7 @@ other resources, such as CSS or JS
 
   @media screen and (min-width: 1600px) {
     :root {
-      --vertical-breather: {% if settings.vertical_spacing == 'small' %}48px{% elsif settings.vertical_spacing == 'medium' %}64px{% else %}90px{% endif %};
+      --vertical-breather: 0px;
       --vertical-breather-tight: {% if settings.vertical_spacing == 'small' %}48px{% elsif settings.vertical_spacing == 'medium' %}48px{% else %}64px{% endif %};
     }
   }

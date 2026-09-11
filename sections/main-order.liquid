@@ -8,7 +8,7 @@
 {{ 'customer.css' | asset_url | stylesheet_tag }}
 
 <div class="section section--padding{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded relative{% endif %}">
-  <div class="page-width{% if section.settings.full_width %} page-width--full{% endif %} relative">
+  <div class="{% unless section.settings.full_width %}container{% endunless %} relative">
     <div class="title-wrapper{% if section.settings.heading_size == 'title-xl' %} title-wrapper-lg{% endif %} leading-none grid gap-4 md:flex {{ section.settings.heading_alignment }} md:justify-between">
       <{{ section.settings.heading_tag }} class="heading font-bold {{ section.settings.heading_size }}">
         <split-words class="split-words flex flex-wrap" data-animate="fade-up-large">{{ 'customer.account.title' | t }}</split-words>

@@ -22,7 +22,7 @@
           endfor
         endcapture
       -%}
-      <div class="page-width{% if section.settings.full_width %} page-width--full{% endif %} relative overflow-hidden md:overflow-visible">
+      <div class="{% unless section.settings.full_width %}container{% endunless %} relative overflow-hidden md:overflow-visible">
         {%- capture indicators -%}
           {%- if section.settings.carousel_on_desktop -%}
             <div class="indicators hidden lg:flex gap-2d5">
@@ -51,7 +51,7 @@
 
             {%- if section.settings.heading == blank and section.settings.subheading == blank and section.settings.description == blank -%}
               {%- if section.settings.carousel_on_desktop -%}
-                <div class="indicators hidden lg:flex gap-2d5 items-center absolute top-0 left-0 w-full h-full pointer-events-none opacity-0 page-width">
+                <div class="indicators hidden lg:flex gap-2d5 items-center absolute top-0 left-0 w-full h-full pointer-events-none opacity-0 container">
                   <button class="button button--primary pointer-events-auto" type="button" is="previous-button" aria-controls="Slider-{{ section.id }}" aria-label="{{ 'general.pagination.previous' | t | escape }}" disabled>
                     <span class="btn-fill" data-fill></span>
                     <span class="btn-text">

@@ -1,0 +1,173 @@
+{% assign sid = section.id %}
+
+<style>
+  #p-result-{{ sid }} { overflow: hidden; background: var(--p-result-bg); }
+  #p-result-{{ sid }} .p-aps-result__in { position: relative; width: 100%; max-width: 1920px; margin: 0 auto; }
+  #p-result-{{ sid }} .p-aps-result__media picture { display: block; }
+  #p-result-{{ sid }} .p-aps-result__img { display: block; width: 100%; height: auto; }
+  #p-result-{{ sid }} .p-aps-result__wrap { position: absolute; inset: 0; z-index: 1; width: min(1250px, 100%); height: 100%; padding-inline: 0; pointer-events: none; }
+  #p-result-{{ sid }} .p-aps-result__content { position: absolute; top: 50%; left: 0;
+    width: 630px; transform: translateY(-50%); color: var(--p-result-text); pointer-events: auto; }
+  #p-result-{{ sid }} .p-aps-result__eyebrow { margin: 0; font-size: 48px;
+     line-height: 1.2; font-weight: 600; }
+  #p-result-{{ sid }} .p-aps-result__title {
+    margin: 4px 0 0; font-size: 64px; line-height: 1.3; font-weight: 500;
+   }
+  #p-result-{{ sid }} .p-aps-result__title sup {
+    position: relative;
+    top: -1em;
+    font-size: .48em; 
+    line-height: 0; 
+    vertical-align: baseline;
+  }
+  #p-result-{{ sid }} .p-aps-result__text {
+    display: inline-block;
+    margin: 28px 0 0;
+    padding: 0;
+    background: var(--p-result-text-bg);
+    font-size: 24px;
+    line-height: 1.4;
+    font-weight: 500;
+  }
+  #p-result-{{ sid }} .p-aps-result__text > * { margin: 0; }
+  #p-result-{{ sid }} .p-aps-result__mobile { display: none; }
+  #p-result-{{ sid }} .p-aps-result__compare { display: flex; align-items: center; gap: 14px; margin-top: 38px; }
+  #p-result-{{ sid }} .p-aps-result__item { margin: 0; color: #000; text-align: center; font-size: 20px; font-style: normal; font-weight: 500; line-height: 150%; }
+  #p-result-{{ sid }} .p-aps-result__item:first-child figcaption { opacity: .7; }
+  #p-result-{{ sid }} .p-aps-result__circle { display: block; width: 126px; aspect-ratio: 1; border-radius: 50%; object-fit: cover; }
+  #p-result-{{ sid }} .p-aps-result__arrow { display: block; flex: 0 0 auto; align-self: flex-start; width: 39.264px; height: 33.106px; margin-top: 46.447px; }
+  #p-result-{{ sid }} .p-aps-result__note { position: absolute; z-index: 2; bottom: 60px; left: 0; margin: 0; color: #000; opacity: .5; font-size: 10px; font-style: normal; font-weight: 400; line-height: 150%; }
+  #p-result-{{ sid }} .p-aps-result__note p { margin: 0; }
+  @media screen and (max-width: 749px) {
+    #p-result-{{ sid }} .p-aps-result__desktop { display: none; }
+    #p-result-{{ sid }} .p-aps-result__mobile { display: inline-block; }
+    #p-result-{{ sid }} .p-aps-result__wrap { width: 100%; padding-inline: 0; }
+    #p-result-{{ sid }} .p-aps-result__content { position: absolute; inset: 0;
+       width: auto; padding: 44px 13px 20px;
+       transform: none; color: #000; text-align: left; }
+    #p-result-{{ sid }} .p-aps-result__eyebrow { font-size: 20px; line-height: 1.25; font-weight: 600; }
+    #p-result-{{ sid }} .p-aps-result__title { margin-top: 3px; font-size: clamp(27px, 8vw, 32px); line-height: 1.2; font-weight: 600; letter-spacing: -.04em; }
+    #p-result-{{ sid }} .p-aps-result__text {
+      max-width: 100%;
+      margin: 14px 0 0;
+      font-size: 18px; line-height: 1.5;
+    }
+    #p-result-{{ sid }} .p-aps-result__compare { justify-content: flex-start; gap: 14px; margin-top: 23px; }
+    #p-result-{{ sid }} .p-aps-result__circle { width: 101px; }
+    #p-result-{{ sid }} .p-aps-result__item { font-size: 14px; }
+    #p-result-{{ sid }} .p-aps-result__arrow { margin-top: 24px; }
+    #p-result-{{ sid }} .p-aps-result__note {
+       position: absolute;
+       right: 30px;
+       bottom: 15px;
+       left: 13px; margin: 0; font-size: 10px;
+       line-height: 1.5;
+       text-align: left;
+    }
+  }
+</style>
+
+<section
+  id="p-result-{{ sid }}"
+  class="p-aps-result"
+  style="--p-result-bg: {{ section.settings.background }}; --p-result-text: {{ section.settings.text_color }}; --p-result-text-bg: {% if section.settings.text_background_enabled %}{{ section.settings.text_background }}{% else %}transparent{% endif %};"
+>
+  <div class="p-aps-result__in">
+    <div class="p-aps-result__media">
+      <picture>
+        {% if section.settings.image_mobile != blank %}
+          <source media="(max-width: 749px)" srcset="{{ section.settings.image_mobile | image_url: width: 1000 }}">
+        {% endif %}
+        {% if section.settings.image != blank -%}
+          {{-
+            section.settings.image
+            | image_url: width: 2400
+            | image_tag: class: 'p-aps-result__img', loading: 'lazy', widths: '750, 1200, 1600, 1920, 2400'
+          -}}
+        {%- endif %}
+      </picture>
+    </div>
+    <div class="p-aps-result__wrap container">
+      <div class="p-aps-result__content">
+        {% if section.settings.eyebrow != blank %}
+          <p class="p-aps-result__eyebrow to-top">{{ section.settings.eyebrow }}</p>
+        {% endif %}
+        {% if section.settings.title != blank %}
+          <h2 class="p-aps-result__title to-top" style="transition-delay: .1s">{{ section.settings.title }}</h2>
+        {% endif %}
+        {% if section.settings.text_pc != blank %}<div class="p-aps-result__text p-aps-result__desktop to-top" style="transition-delay: .2s">{{ section.settings.text_pc }}</div>{% endif %}
+        {% if section.settings.text_mobile != blank %}<div class="p-aps-result__text p-aps-result__mobile to-top" style="transition-delay: .2s">{{ section.settings.text_mobile }}</div>{% endif %}
+        {% if section.settings.before_image != blank or section.settings.after_image != blank %}
+          <div class="p-aps-result__compare to-top" style="transition-delay: .3s">
+            {% if section.settings.before_image != blank %}
+              <figure class="p-aps-result__item">
+                {{
+                  section.settings.before_image
+                  | image_url: width: 240
+                  | image_tag: class: 'p-aps-result__circle', loading: 'lazy'
+                }}
+                <figcaption>{{ section.settings.before_label }}</figcaption>
+              </figure>
+            {% endif %}
+            <svg
+              class="p-aps-result__arrow"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 25 34"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path d="M24.8301 17.0019L0.000906297 34.0038L0.000907783 6.75792e-05L24.8301 17.0019Z" fill="black"/>
+            </svg>
+            {% if section.settings.after_image != blank %}
+              <figure class="p-aps-result__item">
+                {{
+                  section.settings.after_image
+                  | image_url: width: 240
+                  | image_tag: class: 'p-aps-result__circle', loading: 'lazy'
+                }}
+                <figcaption>{{ section.settings.after_label }}</figcaption>
+              </figure>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+      {% if section.settings.note != blank %}
+        <div class="p-aps-result__note">{{ section.settings.note }}</div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "P Air Pro S 效果展示",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "PC 主视觉图片（1920）" },
+    { "type": "image_picker", "id": "image_mobile", "label": "移动端主视觉图片" },
+    { "type": "text", "id": "eyebrow", "label": "小标题", "default": "コスパよく" },
+    { "type": "html", "id": "title", "label": "标题（支持 HTML）", "default": "2週間<sup>*1</sup>で効果実感" },
+    {
+      "type": "html",
+      "id": "text_pc",
+      "label": "PC 说明（支持 HTML）",
+      "default": "<p>コンパクトモデルUlike Air Proがさらにアップグレード。<br>最大22J<sup>*2</sup>で、効果実感まで2週間。</p>"
+    },
+    { "type": "html", "id": "text_mobile", "label": "移动端说明（支持 HTML）", "default": "<p>コンパクトモデルUlike Air Proがさらにアップグレード。<br>最大22J<sup>*2</sup>で、効果実感まで2週間。</p>" },
+    { "type": "checkbox", "id": "text_background_enabled", "label": "启用说明背景色", "default": false },
+    { "type": "color", "id": "text_background", "label": "说明背景色", "default": "#ffffff" },
+    { "type": "image_picker", "id": "before_image", "label": "使用前图片" },
+    { "type": "text", "id": "before_label", "label": "使用前文字", "default": "使用前" },
+    { "type": "image_picker", "id": "after_image", "label": "使用后图片" },
+    { "type": "text", "id": "after_label", "label": "使用后文字", "default": "2週間後" },
+    {
+      "type": "richtext",
+      "id": "note",
+      "label": "备注",
+      "default": "<p>*1. トリートメントスケジュールに従って週3回使用した場合。効果には個人差及び部位差があります。<br>*2. 国際認証機関CVCによる試験結果。No: WTS2025-2207。</p>"
+    },
+    { "type": "color", "id": "background", "label": "背景色", "default": "#f3f6f8" },
+    { "type": "color", "id": "text_color", "label": "文字色", "default": "#111111" }
+  ],
+  "presets": [{ "name": "P Air Pro S 效果展示" }]
+}
+{% endschema %}

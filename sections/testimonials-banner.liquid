@@ -45,7 +45,7 @@
       {%- if section.blocks.size > 0 -%}
         <span class="banner__overlay absolute top-0 left-0 w-full h-full pointer-events-none"></span>
         <div class="banner__content overflow-hidden absolute z-1 top-0 left-0 w-full h-full">
-          <div class="page-width page-width--narrow w-full h-full flex {{ section.settings.content_position }} {{ section.settings.content_position_mobile }}">
+          <div class="container container--small w-full h-full flex {{ section.settings.content_position }} {{ section.settings.content_position_mobile }}">
             <div class="banner__box w-full">
               <testimonials-element class="testimonials block rte relative z-1" initial-index="{{ section.blocks.size | minus: 1 }}" watch-css>
                 {%- liquid

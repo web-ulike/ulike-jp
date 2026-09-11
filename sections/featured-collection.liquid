@@ -11,7 +11,7 @@
   assign products = section.settings.products | default: collection.products
 -%}
 <div class="section section--padding{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded relative{% endif %}">
-  <div class="page-width{% if section.settings.full_width %} page-width--full{% endif %} relative">
+  <div class="{% unless section.settings.full_width %}container{% endunless %} relative">
     {%- capture view_all -%}
       {%- if section.settings.show_view_all and collection != blank and section.settings.product_limit < collection.all_products_count -%}
         <a class="button button--secondary icon-with-text" href="{{ collection.url }}" is="hover-link" aria-label="{{ 'sections.featured_collection.view_all_label' | t: collection_name: collection.title }}">
@@ -92,7 +92,7 @@
 
       {%- if section.settings.heading == blank and section.settings.subheading == blank and section.settings.description == blank -%}
         {%- if section.settings.carousel_on_desktop -%}
-          <div class="indicators hidden lg:flex gap-2d5 items-center absolute top-0 left-0 w-full h-full pointer-events-none opacity-0 page-width">
+          <div class="indicators hidden lg:flex gap-2d5 items-center absolute top-0 left-0 w-full h-full pointer-events-none opacity-0 container">
             <button class="button button--primary pointer-events-auto" type="button" is="previous-button" aria-controls="Slider-{{ section.id }}" aria-label="{{ 'general.pagination.previous' | t | escape }}" disabled>
               <span class="btn-fill" data-fill></span>
               <span class="btn-text">

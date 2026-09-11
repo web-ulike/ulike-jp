@@ -1,0 +1,60 @@
+{%- liquid
+  assign card_product = menu_link.object
+  assign display_title = menu_link.title | split: '（' | first | strip
+  assign display_title = display_title | replace: ' IPL光美容器 アタッチメントキット', '' | replace: ' IPL光美容器アタッチメントキット', '' | replace: ' IPL光美容器', '' | replace: 'IPL光美容器', ''
+  assign menu_tag = ''
+  assign fallback_image = ''
+
+  if display_title contains 'Ulike Me'
+    assign fallback_image = 'header-2026-product-me.png'
+  elsif display_title contains 'Air 10'
+    assign fallback_image = 'header-2026-product-air10.png'
+  elsif display_title contains 'X'
+    assign fallback_image = 'header-2026-product-xmax.png'
+  endif
+
+  for menu_block in section.blocks
+    if menu_block.type == 'menu_code'
+      assign tag_key = menu_block.settings.menu_tle | strip | downcase
+      assign link_key = menu_link.title | strip | downcase
+      assign configured_product = menu_block.settings.product
+      if tag_key == menu_link.url or tag_key == link_key or configured_product.handle == card_product.handle
+        assign menu_tag = menu_block.settings.code_txt | escape
+        break
+      endif
+    endif
+  endfor
+
+  if category_title contains '販売店'
+    assign menu_tag = 'NEW'
+  elsif category_title == '新発売' and display_title contains 'Ulike Me'
+    assign menu_tag = 'NEW'
+  elsif category_title contains 'ロングセラー' and display_title contains 'AirPro S'
+    assign menu_tag = '新色登場!'
+  endif
+-%}
+
+<a class="header-2026__product-card{% if mobile %} header-2026__product-card--mobile{% endif %}" href="{{ menu_link.url }}">
+  <span class="header-2026__product-media">
+    {%- if card_product.featured_image != blank -%}
+      {{- card_product.featured_image | image_url: width: 240 | image_tag: loading: 'lazy', widths: '100, 160, 200, 240', sizes: '100px', alt: display_title -}}
+    {%- elsif fallback_image != blank -%}
+      <img src="{{ fallback_image | asset_url }}" width="100" height="98" alt="{{ display_title | escape }}" loading="lazy">
+    {%- endif -%}
+  </span>
+  <span class="header-2026__product-copy">
+    <span class="header-2026__product-heading">
+      <span class="header-2026__product-title">{{ display_title | escape }}</span>
+      {%- if menu_tag != blank -%}
+        <span class="header-2026__product-badge">{{ menu_tag }}</span>
+      {%- endif -%}
+    </span>
+    <span class="header-2026__rating" aria-label="4.9 / 5">
+      <span aria-hidden="true">★★★★★</span><small>4.9/5</small>
+    </span>
+    {%- if card_product != blank -%}
+      <span class="header-2026__product-price">{{ card_product.price | money_without_trailing_zeros }} <small>（税込）</small></span>
+    {%- endif -%}
+    <span class="header-2026__product-more">詳しく見る <span aria-hidden="true">→</span></span>
+  </span>
+</a>

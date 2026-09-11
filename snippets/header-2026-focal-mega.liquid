@@ -1,0 +1,67 @@
+{%- case kind -%}
+  {%- when 'products' -%}
+    <div class="header-2026__mega-panel header-2026__products-panel">
+      {%- assign product_navigation_groups = section.blocks | where: 'type', 'product_navigation_group' -%}
+      <div class="header-2026__product-grid">
+        {%- for group in product_navigation_groups limit: 4 -%}
+          {%- assign products = group.settings.products -%}
+          <section class="header-2026__product-column mega-menu__column{% if group.settings.enable_carousel %} header-2026__product-column--carousel{% endif %}" {{ group.shopify_attributes }}{% if group.settings.enable_carousel %} data-header-2026-product-carousel{% endif %}>
+            <h2>{{ group.settings.heading | escape }}</h2>
+            {%- if group.settings.enable_carousel -%}
+              <div class="header-2026__product-carousel-viewport">
+                <div class="header-2026__product-list" data-header-2026-carousel-track>
+                  {%- for product in products -%}{%- render 'header-2026-focal-product-card', product: product -%}{%- endfor -%}
+                </div>
+              </div>
+              {%- if products.count > 3 -%}
+                <div class="header-2026__product-carousel-controls" aria-label="{{ group.settings.heading | escape }}">
+                  <button type="button" data-header-2026-carousel-prev aria-label="前の3商品" disabled><span class="header-2026__carousel-arrow header-2026__carousel-arrow--prev"><img src="{{ 'header-2026-carousel-arrows.svg' | asset_url }}" width="55" height="17" alt=""></span></button>
+                  <button type="button" data-header-2026-carousel-next aria-label="次の3商品"><span class="header-2026__carousel-arrow header-2026__carousel-arrow--next"><img src="{{ 'header-2026-carousel-arrows.svg' | asset_url }}" width="55" height="17" alt=""></span></button>
+                </div>
+              {%- endif -%}
+            {%- else -%}
+              <div class="header-2026__product-list">
+                {%- for product in products limit: 3 -%}{%- render 'header-2026-focal-product-card', product: product -%}{%- endfor -%}
+              </div>
+            {%- endif -%}
+          </section>
+        {%- endfor -%}
+      </div>
+      <a class="header-2026__shop-all" href="{{ routes.all_products_collection_url }}">すべての製品を見る <span aria-hidden="true">→</span></a>
+    </div>
+
+  {%- when 'guide' -%}
+    <div class="header-2026__mega-panel header-2026__icon-panel">
+      <a class="header-2026__icon-tile mega-menu__column" href="/pages/download-using-guide"><img src="{{ 'header-2026-manual.png' | asset_url }}" width="60" height="60" alt=""><span>取扱説明書 <b>›</b></span></a>
+      <a class="header-2026__icon-tile mega-menu__column" href="/pages/result-review"><img src="{{ 'header-2026-reviews.png' | asset_url }}" width="60" height="60" alt=""><span>お客様の声 <b>›</b></span></a>
+      <a class="header-2026__icon-tile mega-menu__column" href="/pages/faq"><img src="{{ 'header-2026-faq.png' | asset_url }}" width="60" height="60" alt=""><span>よくある質問 <b>›</b></span></a>
+      <div class="header-2026__guide-pair mega-menu__column">
+        <a href="/pages/buying-guide"><img src="{{ 'header-2026-compare.png' | asset_url }}" width="54" height="48" alt=""><span>商品比較 <b>›</b></span></a>
+        <a href="{{ routes.all_products_collection_url }}"><img src="{{ 'header-2026-guide.png' | asset_url }}" width="54" height="48" alt=""><span>商品ガイド <b>›</b></span></a>
+      </div>
+    </div>
+
+  {%- when 'technology' -%}
+    <div class="header-2026__mega-panel header-2026__icon-panel">
+      <a class="header-2026__icon-tile mega-menu__column" href="/pages/how-it-works"><img src="{{ 'header-2026-tech-ipl.png' | asset_url }}" width="60" height="60" alt=""><span>IPL技術とは <b>›</b></span></a>
+      <a class="header-2026__icon-tile mega-menu__column" href="/pages/technology-ice-cooling"><img src="{{ 'header-2026-tech-cooling.png' | asset_url }}" width="60" height="60" alt=""><span>サファイア冷感技術 <b>›</b></span></a>
+      <a class="header-2026__icon-tile mega-menu__column" href="/pages/technology-skinsensor"><img src="{{ 'header-2026-tech-sensor.png' | asset_url }}" width="62" height="60" alt=""><span>スキンセンサー技術 <b>›</b></span></a>
+      <a class="header-2026__icon-tile mega-menu__column" href="/pages/technology-dual-lights"><img src="{{ 'header-2026-tech-lamp.png' | asset_url }}" width="60" height="60" alt=""><span>ダブルランプ技術 <b>›</b></span></a>
+    </div>
+
+  {%- when 'about' -%}
+    <div class="header-2026__mega-panel header-2026__about-panel">
+      <a class="header-2026__about-item mega-menu__column" href="/pages/about"><img src="{{ 'header-2026-about-company.png' | asset_url }}" width="365" height="193" alt=""><span class="header-2026__about-copy"><strong>会社情報 <b>›</b></strong><span>2013年に誕生したUlikeは、家庭用光美容器のパイオニア。創業から10年間で、アジアの美容機器業界のリーディングカンパニーへと成長しました。</span></span></a>
+      <a class="header-2026__about-item mega-menu__column" href="/pages/where-to-pruchase"><img src="{{ 'header-2026-about-store.png' | asset_url }}" width="365" height="193" alt=""><span class="header-2026__about-copy"><strong>販売店一覧 <b>›</b></strong><span>オフライン店舗でUlikeを発見｜あなたの美をより深く体験</span></span></a>
+    </div>
+
+  {%- when 'topics' -%}
+    <div class="header-2026__mega-panel header-2026__icon-panel header-2026__topics-panel">
+      <a class="header-2026__icon-tile mega-menu__column" href="/blogs/article"><img src="{{ 'header-2026-topic-popular.png' | asset_url }}" width="64" height="64" alt=""><span>人気記事一覧 <b>›</b></span></a>
+      <a class="header-2026__icon-tile mega-menu__column" href="/blogs/news"><img src="{{ 'header-2026-topic-news.png' | asset_url }}" width="60" height="60" alt=""><span>お知らせ <b>›</b></span></a>
+      <div class="header-2026__topic-details mega-menu__column">
+        <button class="header-2026__icon-tile" type="button" data-header-2026-topic aria-expanded="false"><img src="{{ 'header-2026-topic-pickup.png' | asset_url }}" width="60" height="60" alt=""><span>ピックアップ <b>⌄</b></span></button>
+        <div class="header-2026__topic-links" hidden><a href="/pages/donki-2025">ドン・キホーテ限定品 <b>›</b></a><a href="/pages/brandambassador">湘南美容 × Ulike <b>›</b></a></div>
+      </div>
+    </div>
+{%- endcase -%}

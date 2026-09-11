@@ -34,8 +34,31 @@
       "type": "image-with-text-overlay",
       "disabled": true,
       "settings": {
+        "transparent_header": false,
         "image": "shopify:\/\/shop_images\/BR003_PC.png",
-        "overlay_opacity": 70
+        "image_height": "adapt",
+        "content_width": "small",
+        "content_position": "md:items-end md:justify-start",
+        "text_alignment": "left",
+        "image_mobile": "shopify:\/\/shop_images\/BR003_M.png",
+        "image_height_mobile": "adapt",
+        "content_position_mobile": "items-end justify-start",
+        "text_alignment_mobile": "left",
+        "color_text": "#ffffff",
+        "color_highlight": "#e0a580",
+        "gradient_highlight": "",
+        "color_button_text": "#171717",
+        "color_button_background": "#ffffff",
+        "color_button_gradient": "",
+        "color_overlay": "rgba(0,0,0,0)",
+        "overlay_opacity": 70,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "divider": false,
+        "full_width": true,
+        "rounded": false,
+        "enable_parallax": false,
+        "parallax_direction": "zoom"
       }
     },
     "rich_text_8GRpcA": {
@@ -179,8 +202,31 @@
     "image_with_text_overlay_F843Lw": {
       "type": "image-with-text-overlay",
       "settings": {
+        "transparent_header": false,
         "image": "shopify:\/\/shop_images\/342_3c086720-22d3-443e-82e2-eb8d685cf668.jpg",
-        "overlay_opacity": 70
+        "image_height": "adapt",
+        "content_width": "small",
+        "content_position": "md:items-end md:justify-start",
+        "text_alignment": "left",
+        "image_mobile": "shopify:\/\/shop_images\/P_IPL_P02B_38be7ac5-a817-4c31-9197-315c56a84018.png",
+        "image_height_mobile": "adapt",
+        "content_position_mobile": "items-end justify-start",
+        "text_alignment_mobile": "left",
+        "color_text": "#ffffff",
+        "color_highlight": "#e0a580",
+        "gradient_highlight": "",
+        "color_button_text": "#171717",
+        "color_button_background": "#ffffff",
+        "color_button_gradient": "",
+        "color_overlay": "rgba(0,0,0,0)",
+        "overlay_opacity": 70,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "divider": false,
+        "full_width": true,
+        "rounded": false,
+        "enable_parallax": false,
+        "parallax_direction": "vertical"
       }
     },
     "multicolumn_WMrYWE": {
@@ -536,7 +582,12 @@
       "blocks": {
         "button_DzPJBn": {
           "type": "button",
-          "settings": {}
+          "settings": {
+            "button_label": "",
+            "button_link": "https:\/\/jp.ulike.com\/search",
+            "button_size": "md",
+            "button_secondary_style": false
+          }
         }
       },
       "block_order": [
@@ -544,8 +595,31 @@
       ],
       "disabled": true,
       "settings": {
+        "transparent_header": false,
         "image": "shopify:\/\/shop_images\/341_8bd1cb8b-e2a7-4249-a584-d7b155caa6d9.jpg",
-        "overlay_opacity": 70
+        "image_height": "adapt",
+        "content_width": "small",
+        "content_position": "md:items-end md:justify-start",
+        "text_alignment": "left",
+        "image_mobile": "shopify:\/\/shop_images\/327_eefbf23a-d0b2-4beb-8391-0a5b918346dd.jpg",
+        "image_height_mobile": "adapt",
+        "content_position_mobile": "items-end justify-start",
+        "text_alignment_mobile": "left",
+        "color_text": "#ffffff",
+        "color_highlight": "#e0a580",
+        "gradient_highlight": "",
+        "color_button_text": "#171717",
+        "color_button_background": "#ffffff",
+        "color_button_gradient": "",
+        "color_overlay": "rgba(0,0,0,0)",
+        "overlay_opacity": 70,
+        "padding_top": 0,
+        "padding_bottom": 40,
+        "divider": false,
+        "full_width": true,
+        "rounded": false,
+        "enable_parallax": false,
+        "parallax_direction": "vertical"
       }
     },
     "ulike_slideshow_RmKhF8": {
@@ -722,8 +796,8 @@
         "collection": "all",
         "products": [
           "air10-ipl-hair-removal",
-          "airpro-s_hair_removal",
-          "ulike-x-plus_hair_removal"
+          "airpro-s-ipl-hair-removal",
+          "ulike-x-plus-ipl-hair-removal"
         ],
         "product_limit": 3,
         "columns": 3,
@@ -760,31 +834,46 @@
         "question_qmtTqj": {
           "type": "question",
           "settings": {
-            "title": "全身に使用可能ですか。"
+            "title": "全身に使用可能ですか。",
+            "text": "<p>全身に使用可能です。また、カートリッジの交換も不要です。<\/p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
           }
         },
         "question_RaAb7y": {
           "type": "question",
           "settings": {
-            "title": "VIOには使用可能ですか。"
+            "title": "VIOには使用可能ですか。",
+            "text": "<p>VIOには使用可能です。平面冷却ヘッドを使用することで、毛包を刺激せず、皮膚を傷めることなく、痛みや赤みの発生も少なくなります。保冷剤も必要ありません。<\/p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
           }
         },
         "question_4agLTq": {
           "type": "question",
           "settings": {
-            "title": "太く硬いヒゲには使用可能ですか。"
+            "title": "太く硬いヒゲには使用可能ですか。",
+            "text": "<p>髭には使用可能です。なお、使用周期は毛の質や毛周期によって個人差があります。<\/p><p>※ご購入者様のレビューによると、体毛がより太く硬い方は4か月以上の長い周期でのご使用が効果的です。<\/p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
           }
         },
         "question_cGR8FP": {
           "type": "question",
           "settings": {
-            "title": "照射回数はどれぐらいですか。"
+            "title": "照射回数はどれぐらいですか。",
+            "text": "<p>各製品ページでご確認ください。<\/p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
           }
         },
         "question_dRchRN": {
           "type": "question",
           "settings": {
-            "title": "本製品を使用してはいけない人はございますか？"
+            "title": "本製品を使用してはいけない人はございますか？",
+            "text": "<p>以下の場合は、本製品は適していません。<br\/>- 既知の皮膚疾患をお持ちの方<br\/>- アレルギー性皮膚炎や湿疹などの皮膚疾患をお持ちの方<br\/>- 光過敏性てんかんまたは光線過敏症をお持ちの方<br\/>- 生理中、妊娠中、または授乳中の方<br\/>- 肌が真っ黒、または日焼けしている方（肌色チャートを参照してください）<br\/>- 皮膚に傷やかさぶたがある、傷が治ったばかりの方、がんや血管腫をお持ちの方<br\/>- 人工的なエステティック、プロテーゼ、プラスティックを使用している方<br\/>- 刺青（タトゥー）のある部分をお持ちの方<\/p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
           }
         }
       },
@@ -795,7 +884,32 @@
         "question_cGR8FP",
         "question_dRchRN"
       ],
-      "settings": {}
+      "settings": {
+        "style": "with-border",
+        "heading": "よくあるご質問",
+        "heading_size": "title-sm",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "button_label": "",
+        "button_link": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "divider": false,
+        "narrow": false,
+        "rounded": false
+      }
     }
   },
   "order": [

@@ -24,7 +24,7 @@
 -%}
 
 <div class="section section--padding{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded relative{% endif %}"{% if section.settings.transparent_header %} allow-transparent-header{% endif %}>
-  <div class="{% unless section.settings.full_width %}page-width {% endunless %}relative">
+  <div class="{% unless section.settings.full_width %}container {% endunless %}relative">
     <div class="banner with-map mobile:banner--{{ section.settings.content_position_mobile }} relative">
       <div class="media--{{ section.settings.image_height }} mobile:media--{{ section.settings.image_height_mobile }} relative">
         <media-element class="banner__media block w-full h-full overflow-hidden pointer-events-none{% if display_map %} opacity-0{% endif %}"{% if section.settings.enable_parallax %} data-parallax="0.3" data-parallax-dir="{{ section.settings.parallax_direction }}"{% endif %}>
@@ -189,7 +189,7 @@
 
       {%- if section.blocks.size > 0 -%}
         <div class="banner__content overflow-hidden absolute z-1 top-0 left-0 w-full h-full">
-          <div class="page-width w-full h-full flex items-center justify-center {{ section.settings.content_position }} relative">
+          <div class="container w-full h-full flex items-center justify-center {{ section.settings.content_position }} relative">
             <div class="banner__box md:text-{{ section.settings.text_alignment }} text-{{ section.settings.text_alignment_mobile }}">
               {%- liquid
                 assign withGradient = false

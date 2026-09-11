@@ -14,7 +14,7 @@
 
 <section id="u-service-policy-tabs-{{ sid }}" class="u-service-policy-tabs">
   <div class="u-service-policy-tabs__nav-wrap">
-    <div class="u-service-policy-tabs__nav page-width" data-policy-tabs-nav>
+    <div class="u-service-policy-tabs__nav container" data-policy-tabs-nav>
       {%- for block in section.blocks -%}
         <button
           type="button"
@@ -28,7 +28,7 @@
     </div>
   </div>
 
-  <div class="u-service-policy-tabs__content page-width">
+  <div class="u-service-policy-tabs__content container">
     {%- for block in section.blocks -%}
       <div
         id="u-policy-panel-{{ sid }}-{{ block.id }}"

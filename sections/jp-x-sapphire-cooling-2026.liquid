@@ -1,0 +1,154 @@
+{%- liquid
+  assign section_id = 'jp-x-sapphire-cooling-2026-' | append: section.id
+  assign card_1_desktop = section.settings.card_1_image | default: section.settings.card_1_image_mobile
+  assign card_1_mobile = section.settings.card_1_image_mobile | default: card_1_desktop
+  assign card_2_desktop = section.settings.card_2_image | default: section.settings.card_2_image_mobile
+  assign card_2_mobile = section.settings.card_2_image_mobile | default: card_2_desktop
+  assign card_3_desktop = section.settings.card_3_image | default: section.settings.card_3_image_mobile
+  assign card_3_mobile = section.settings.card_3_image_mobile | default: card_3_desktop
+  assign eyebrow_desktop = section.settings.eyebrow_image | default: section.settings.eyebrow_image_mobile
+  assign eyebrow_mobile = section.settings.eyebrow_image_mobile | default: eyebrow_desktop
+-%}
+
+<section id="{{ section_id }}" class="jp-x-sapphire-cooling-2026">
+  <div class="jp-x-sapphire-cooling-2026__inner">
+    <header class="jp-x-sapphire-cooling-2026__header">
+      <p class="jp-x-sapphire-cooling-2026__eyebrow{% if eyebrow_desktop != blank %} is-image{% endif %} to-top">
+        {%- if eyebrow_desktop != blank -%}
+          <picture>
+            {%- if eyebrow_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ eyebrow_mobile | image_url: width: 900 }}">{%- endif -%}
+            {{ eyebrow_desktop | image_url: width: 1600 | image_tag: class: 'jp-x-sapphire-cooling-2026__eyebrow-image', loading: 'lazy', widths: '375, 750, 1200, 1600', alt: eyebrow_desktop.alt }}
+          </picture>
+        {%- else -%}
+          {{ section.settings.eyebrow | escape }}
+        {%- endif -%}
+      </p>
+      {%- if eyebrow_desktop == blank -%}
+        <h2 class="jp-x-sapphire-cooling-2026__title to-top" style="transition-delay: .1s"><span>{{ section.settings.title_power | escape }}</span><b>×</b><span>{{ section.settings.title_cooling | escape }}</span></h2>
+      {%- endif -%}
+    </header>
+
+    <div class="jp-x-sapphire-cooling-2026__cards">
+      <article class="jp-x-sapphire-cooling-2026__card to-top" style="transition-delay: .2s">
+        <div class="jp-x-sapphire-cooling-2026__card-copy jp-x-sapphire-cooling-2026__card-copy--one">
+          <p>{{ section.settings.card_1_line_1 | escape }}</p>
+          <p class="jp-x-sapphire-cooling-2026__highlight">{{ section.settings.card_1_highlight | escape }}<sup>*2</sup></p>
+          <p>{{ section.settings.card_1_line_3 | escape }}</p>
+        </div>
+        <div class="jp-x-sapphire-cooling-2026__card-media">
+          {%- if card_1_desktop != blank -%}<picture>{%- if card_1_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ card_1_mobile | image_url: width: 900 }}">{%- endif -%}{{ card_1_desktop | image_url: width: 1200 | image_tag: class: 'jp-x-sapphire-cooling-2026__card-image', loading: 'lazy', widths: '375, 750, 1200', alt: card_1_desktop.alt }}</picture>{%- else -%}{{ 'image' | placeholder_svg_tag: 'jp-x-sapphire-cooling-2026__placeholder' }}{%- endif -%}
+        </div>
+      </article>
+
+      <article class="jp-x-sapphire-cooling-2026__card to-top" style="transition-delay: .3s">
+        <div class="jp-x-sapphire-cooling-2026__card-copy jp-x-sapphire-cooling-2026__card-copy--two">
+          <p>{{ section.settings.card_2_line_1 | escape }}</p>
+          <p>{{ section.settings.card_2_prefix | escape }}<strong>{{ section.settings.card_2_highlight | escape }}</strong><sup>*3</sup></p>
+        </div>
+        <div class="jp-x-sapphire-cooling-2026__card-media">
+          {%- if card_2_desktop != blank -%}<picture>{%- if card_2_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ card_2_mobile | image_url: width: 900 }}">{%- endif -%}{{ card_2_desktop | image_url: width: 1200 | image_tag: class: 'jp-x-sapphire-cooling-2026__card-image', loading: 'lazy', widths: '375, 750, 1200', alt: card_2_desktop.alt }}</picture>{%- else -%}{{ 'image' | placeholder_svg_tag: 'jp-x-sapphire-cooling-2026__placeholder' }}{%- endif -%}
+        </div>
+      </article>
+
+      <article class="jp-x-sapphire-cooling-2026__card to-top" style="transition-delay: .4s">
+        <div class="jp-x-sapphire-cooling-2026__card-copy jp-x-sapphire-cooling-2026__card-copy--three">
+          <p class="jp-x-sapphire-cooling-2026__card-copy-line-one">{{ section.settings.card_3_line_1 | escape | newline_to_br }}</p>
+          <p><strong>{{ section.settings.card_3_highlight | escape }}</strong>{{ section.settings.card_3_suffix | escape }}<sup>*4</sup></p>
+        </div>
+        <div class="jp-x-sapphire-cooling-2026__card-media">
+          {%- if card_3_desktop != blank -%}<picture>{%- if card_3_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ card_3_mobile | image_url: width: 900 }}">{%- endif -%}{{ card_3_desktop | image_url: width: 1200 | image_tag: class: 'jp-x-sapphire-cooling-2026__card-image', loading: 'lazy', widths: '375, 750, 1200', alt: card_3_desktop.alt }}</picture>{%- else -%}{{ 'image' | placeholder_svg_tag: 'jp-x-sapphire-cooling-2026__placeholder' }}{%- endif -%}
+        </div>
+      </article>
+    </div>
+
+    <p class="jp-x-sapphire-cooling-2026__note">{{ section.settings.note | escape | newline_to_br }}</p>
+  </div>
+</section>
+
+<style>
+  #{{ section_id }} { background: #040407; color: #fff; overflow: hidden; }
+  #{{ section_id }} * { box-sizing: border-box; }
+  #{{ section_id }} .jp-x-sapphire-cooling-2026__inner { margin: 0 auto; max-width: 1920px; min-height: 1051px; padding: 132px 20px 82px; }
+  #{{ section_id }} .jp-x-sapphire-cooling-2026__header { position: relative; text-align: center; }
+  #{{ section_id }} .jp-x-sapphire-cooling-2026__eyebrow { font-size: 60px; font-weight: 500; line-height: 1.3; margin: 28px 0 27px; }
+  #{{ section_id }} .jp-x-sapphire-cooling-2026__eyebrow.is-image { line-height: 0; margin: 28px 0 0; }
+  #{{ section_id }} .jp-x-sapphire-cooling-2026__eyebrow picture, #{{ section_id }} .jp-x-sapphire-cooling-2026__eyebrow-image { display: block; height: 167px; margin: 0 auto; max-width: 100%; width: auto; }
+  #{{ section_id }} .jp-x-sapphire-cooling-2026__eyebrow-image { object-fit: contain; }
+  #{{ section_id }} .jp-x-sapphire-cooling-2026__title { align-items: center; background: linear-gradient(180deg, #fff 0%, #b9e7ff 100%); -webkit-background-clip: text; background-clip: text; color: transparent; display: flex; font-size: 48px; font-weight: 700; gap: 62px; justify-content: center; letter-spacing: .05em; line-height: 1.3; margin: 0; }
+  #{{ section_id }} .jp-x-sapphire-cooling-2026__title b { font-weight: 500; }
+  #{{ section_id }} .jp-x-sapphire-cooling-2026__cards { display: grid; gap: 40px; grid-template-columns: repeat(3, minmax(0, 394px)); justify-content: center; margin: 62px auto 0; }
+  #{{ section_id }} .jp-x-sapphire-cooling-2026__card { min-width: 0; }
+  #{{ section_id }} .jp-x-sapphire-cooling-2026__card-copy { align-items: center; display: flex; flex-direction: column; font-family: "Noto Sans JP", sans-serif; font-style: normal; font-weight: 400; height: 182px; justify-content: flex-start; padding-top: 36.4px; text-align: center; }
+  #{{ section_id }} .jp-x-sapphire-cooling-2026__card-copy p { font-size: 24px; line-height: 1.3; margin: 0; white-space: nowrap; }
+  #{{ section_id }} .jp-x-sapphire-cooling-2026__card-copy strong, #{{ section_id }} .jp-x-sapphire-cooling-2026__highlight { background: linear-gradient(180deg, #fff 0%, #b9e7ff 100%); -webkit-background-clip: text; background-clip: text; color: transparent; font-size: 32px; font-weight: 700; }
+  #{{ section_id }} .jp-x-sapphire-cooling-2026__card-copy sup { color: #fff; display: inline-block; font-family: Saans, "Noto Sans JP", sans-serif; font-size: .645em; font-style: normal; font-weight: 400; letter-spacing: 0; line-height: 1.3; margin-left: 0; position: static; vertical-align: top; }
+  #{{ section_id }} .jp-x-sapphire-cooling-2026__card-copy--one sup { font-feature-settings: "frac" 1; font-size: 20.64px; }
+  #{{ section_id }} .jp-x-sapphire-cooling-2026__card-copy--two sup { font-feature-settings: "kern" 0, "lnum" 1, "tnum" 1, "frac" 1; font-size: 20.64px; }
+  #{{ section_id }} .jp-x-sapphire-cooling-2026__card-copy--three sup { font-feature-settings: "frac" 1; font-size: 15.48px; }
+  #{{ section_id }} .jp-x-sapphire-cooling-2026__card-copy--two, #{{ section_id }} .jp-x-sapphire-cooling-2026__card-copy--three { font-family: Saans, "Noto Sans JP", sans-serif; }
+  #{{ section_id }} .jp-x-sapphire-cooling-2026__card-copy--two strong { font-family: Saans, "Noto Sans JP", sans-serif; font-weight: 500; }
+  #{{ section_id }} .jp-x-sapphire-cooling-2026__card-copy--three strong { font-family: Saans, "Noto Sans JP", sans-serif; font-weight: 600; }
+  #{{ section_id }} .jp-x-sapphire-cooling-2026__card-copy--two { display: block; padding-top: 0; position: relative; }
+  #{{ section_id }} .jp-x-sapphire-cooling-2026__card-copy--two p { left: 50%; position: absolute; transform: translateX(-50%); width: max-content; }
+  #{{ section_id }} .jp-x-sapphire-cooling-2026__card-copy--two p:first-child { top: 36.4px; }
+  #{{ section_id }} .jp-x-sapphire-cooling-2026__card-copy--two p + p { margin: 0; top: 69px; }
+  #{{ section_id }} .jp-x-sapphire-cooling-2026__card-media { background: #393838; border-radius: 10px; height: 278px; overflow: hidden; width: 100%; }
+  #{{ section_id }} .jp-x-sapphire-cooling-2026__card-media picture, #{{ section_id }} .jp-x-sapphire-cooling-2026__card-image, #{{ section_id }} .jp-x-sapphire-cooling-2026__placeholder { display: block; height: 100%; width: 100%; }
+  #{{ section_id }} .jp-x-sapphire-cooling-2026__card-image { object-fit: cover; }
+  #{{ section_id }} .jp-x-sapphire-cooling-2026__placeholder { background: #222328; fill: #3a3c43; }
+  #{{ section_id }} .jp-x-sapphire-cooling-2026__note { color: rgba(255, 255, 255, .7); font-size: 10px; line-height: 1.5; margin: 90px auto 0; max-width: 1262px; }
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} .jp-x-sapphire-cooling-2026__inner { min-height: 1083px; padding: 54px 20px 27px; }
+    #{{ section_id }} .jp-x-sapphire-cooling-2026__eyebrow { font-size: 30px; line-height: 1.3; margin: 13px 0 13px; }
+    #{{ section_id }} .jp-x-sapphire-cooling-2026__eyebrow.is-image { margin: 13px 0 0; }
+    #{{ section_id }} .jp-x-sapphire-cooling-2026__eyebrow picture, #{{ section_id }} .jp-x-sapphire-cooling-2026__eyebrow-image { height: 75px; }
+    #{{ section_id }} .jp-x-sapphire-cooling-2026__title { font-size: 18px; gap: 20px; letter-spacing: .05em; }
+    #{{ section_id }} .jp-x-sapphire-cooling-2026__title b { font-size: 18.525px; }
+    #{{ section_id }} .jp-x-sapphire-cooling-2026__header::after { border-bottom: 1px solid rgba(255, 255, 255, .45); bottom: -21px; content: ''; left: 0; position: absolute; right: 0; }
+    #{{ section_id }} .jp-x-sapphire-cooling-2026__cards { display: flex; flex-direction: column; gap: 0; margin-top: 36px; }
+    #{{ section_id }} .jp-x-sapphire-cooling-2026__card { align-self: center; width: 334px; }
+    #{{ section_id }} .jp-x-sapphire-cooling-2026__card-copy { height: auto; padding: 0 0 13px; }
+    #{{ section_id }} .jp-x-sapphire-cooling-2026__card-copy p { font-size: 14px; line-height: 1.3; white-space: normal; }
+    #{{ section_id }} .jp-x-sapphire-cooling-2026__card-copy strong, #{{ section_id }} .jp-x-sapphire-cooling-2026__highlight { font-size: 24px; }
+    #{{ section_id }} .jp-x-sapphire-cooling-2026__card-copy--one sup, #{{ section_id }} .jp-x-sapphire-cooling-2026__card-copy--two sup, #{{ section_id }} .jp-x-sapphire-cooling-2026__card-copy--three sup { font-size: .645em; }
+    #{{ section_id }} .jp-x-sapphire-cooling-2026__card-copy--one { padding-bottom: 5px; padding-top: 0; }
+    #{{ section_id }} .jp-x-sapphire-cooling-2026__card-copy--two { display: flex; padding-bottom: 21px; padding-top: 36px; }
+    #{{ section_id }} .jp-x-sapphire-cooling-2026__card-copy--two p { left: auto; position: static; transform: none; width: auto; }
+    #{{ section_id }} .jp-x-sapphire-cooling-2026__card-copy--two p:first-child, #{{ section_id }} .jp-x-sapphire-cooling-2026__card-copy--two p + p { top: auto; }
+    #{{ section_id }} .jp-x-sapphire-cooling-2026__card-copy--three { padding-bottom: 18px; padding-top: 35px; }
+    #{{ section_id }} .jp-x-sapphire-cooling-2026__card-copy--three .jp-x-sapphire-cooling-2026__card-copy-line-one { white-space: nowrap; }
+    #{{ section_id }} .jp-x-sapphire-cooling-2026__card-copy--three .jp-x-sapphire-cooling-2026__card-copy-line-one br { display: none; }
+    #{{ section_id }} .jp-x-sapphire-cooling-2026__card-media { border-radius: 7.355px; height: auto; aspect-ratio: 334 / 170; }
+    #{{ section_id }} .jp-x-sapphire-cooling-2026__note { font-size: 8px; line-height: 1.5; margin-top: 31px; max-width: 334px; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "X Sapphire Cooling",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "主标题", "default": "痛みレス*1な体験を" },
+    { "type": "image_picker", "id": "eyebrow_image", "label": "PC 合并标题图片" },
+    { "type": "image_picker", "id": "eyebrow_image_mobile", "label": "M 合并标题图片" },
+    { "type": "text", "id": "title_power", "label": "副标题左侧", "default": "ハイパワー" },
+    { "type": "text", "id": "title_cooling", "label": "副标题右侧", "default": "サファイア冷感技術" },
+    { "type": "text", "id": "card_1_line_1", "label": "卡片 1 第一行", "default": "特許取得済み" },
+    { "type": "text", "id": "card_1_highlight", "label": "卡片 1 高亮", "default": "サファイア冷感技術" },
+    { "type": "text", "id": "card_1_line_3", "label": "卡片 1 第三行", "default": "を搭載。" },
+    { "type": "image_picker", "id": "card_1_image", "label": "卡片 1 PC 图片" },
+    { "type": "image_picker", "id": "card_1_image_mobile", "label": "卡片 1 M 图片" },
+    { "type": "text", "id": "card_2_line_1", "label": "卡片 2 第一行", "default": "電源オンから" },
+    { "type": "text", "id": "card_2_prefix", "label": "卡片 2 高亮前文案", "default": "わずか" },
+    { "type": "text", "id": "card_2_highlight", "label": "卡片 2 高亮", "default": "3分で-5°Cに冷却" },
+    { "type": "image_picker", "id": "card_2_image", "label": "卡片 2 PC 图片" },
+    { "type": "image_picker", "id": "card_2_image_mobile", "label": "卡片 2 M 图片" },
+    { "type": "textarea", "id": "card_3_line_1", "label": "卡片 3 第一行", "default": "30分間連続使用でも\n照射時の肌の表面温度を" },
+    { "type": "text", "id": "card_3_highlight", "label": "卡片 3 高亮", "default": "14°C以下" },
+    { "type": "text", "id": "card_3_suffix", "label": "卡片 3 高亮后文案", "default": "にキープ" },
+    { "type": "image_picker", "id": "card_3_image", "label": "卡片 3 PC 图片" },
+    { "type": "image_picker", "id": "card_3_image_mobile", "label": "卡片 3 M 图片" },
+    { "type": "textarea", "id": "note", "label": "底部注释", "default": "*1. 痛みの感じ方には個人差と部位差があります。\n*2. 日本国内サファイア冷感特許:特許第3226132号、特许第3242510号\n*3. 電源投入後、未照射状態の冷却面の温度を指す。国際認証機関CVCによる試験結果:NO:GJW2024-1748結果はテスト条件により異なる可能性もあります。\n*4. 国際認証機関CVCによる試験結果:WTS2026-4975、結果はテスト条件により異なる可能性もあります。" }
+  ],
+  "presets": [{ "name": "jp-x-sapphire-cooling-2026" }]
+}
+{% endschema %}

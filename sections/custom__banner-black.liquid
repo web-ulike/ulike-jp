@@ -28,7 +28,7 @@
        --mobile-tle-size: calc({{ section.settings.mobile_tle_size}}px);
       --txt-left: calc({{ section.settings.sub_tle_left}}px);
       --mobile-txt-left: calc({{ section.settings.mobile_sub_tle_left}}px);
-      
+
       --content-bottom: calc({{ section.settings.content_bottom}}px);
       --mobile-content-bottom: calc({{ section.settings.mobile_content_bottom}}px);
   }
@@ -139,8 +139,8 @@
     width: 520px;
   }
 }
-  
-   
+
+
   .vertical-breather {
     padding-block: var(--vertical-breather);
 }
@@ -487,7 +487,7 @@
         transform: scale(0.8) rotate(-45deg) translate(-5px, -5px);
       }
     }
- 
+
 
   /* kv css end*/
 </style>
@@ -507,7 +507,7 @@
       {%- endif -%}
     </picture>
     <div class="kv_content">
-      <div class="{% if section.settings.full_width %}kv_container{% endif %}{% unless section.settings.full_width %} page-width w100{% endunless %}">
+      <div class="{% if section.settings.full_width %}kv_container{% endif %}{% unless section.settings.full_width %} container w100{% endunless %}">
 
 
         {%- capture section_content -%}
@@ -527,7 +527,7 @@
                             {%- endif -%}
                        </picture>
               {%- endif -%}
-            
+
             {%- if section.settings.tle != blank -%}
               <h1 class="to-top" style="transition-delay: 0.1s;">{{ section.settings.tle }}</h1>
             {%- endif -%}
@@ -560,7 +560,7 @@
                {%- endif -%}
             </div>
              {%- endif -%}
-          
+
           </div>
           <picture>
             {%- if section.settings.logo_image -%}
@@ -637,7 +637,7 @@
             </picture>
           </div>
           {%- if section.settings.note != blank -%}
-            
+
             {%- if section.settings.note_full_width -%}
             <div class="kv_note" style="transition-delay: 0.4s;">
               {{ section.settings.note }}
@@ -648,13 +648,13 @@
                 <div class="kv_container">
                   <div class="kv_note-txt">{{ section.settings.note }}</div>
                 </div>
-              
+
               </div>
-                
+
               {%- endif -%}
 
 
-                
+
           {%- endif -%}
         </div>
     </div>
@@ -752,7 +752,7 @@ function initStarSky(options = {}) {
       // 启动循环
       startRandomShooting();
     }
- 
+
         // 调用
         initStarSky({
         starCount: 1000,
@@ -855,7 +855,7 @@ function initStarSky(options = {}) {
       "label": "Content Bottom",
       "default": 0
     },
-    
+
    {
       "type": "range",
       "id": "mobile_content_bottom",
@@ -867,8 +867,8 @@ function initStarSky(options = {}) {
       "default": 0
     },
 
-    
-    
+
+
      {
       "type": "richtext",
       "id": "sub_tle1",
@@ -897,7 +897,7 @@ function initStarSky(options = {}) {
           "id": "mobile_logo_image2",
           "label": "Mobile logo image2"
         },
-    
+
 
 
       {
@@ -1010,7 +1010,7 @@ function initStarSky(options = {}) {
           ],
           "default": "middle_center"
         },
-    
+
       {
           "type": "header",
           "content": "Colors"

@@ -7,7 +7,7 @@
 </style>
 
 <div class="section section--padding{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded relative{% endif %}"{% if section.settings.transparent_header %} allow-transparent-header{% endif %}>
-  <div class="{% unless section.settings.full_width %}page-width {% endunless %}relative">
+  <div class="{% unless section.settings.full_width %}container {% endunless %}relative">
     <div class="banner media--{{ section.settings.image_height }} mobile:media--{{ section.settings.image_height_mobile }} relative">
       <span class="banner__overlay absolute top-0 left-0 w-full h-full pointer-events-none"></span>
       {%- if section.settings.image_1 != blank or section.settings.image_2 != blank or section.settings.image_3 != blank or section.settings.image_4 != blank or section.settings.image_5 != blank -%}
@@ -46,7 +46,7 @@
       
       {%- if section.blocks.size > 0 -%}
         <div class="banner__content overflow-hidden absolute z-1 top-0 left-0 w-full h-full">
-          <div class="page-width w-full h-full flex {{ section.settings.content_position }} {{ section.settings.content_position_mobile }}">
+          <div class="container w-full h-full flex {{ section.settings.content_position }} {{ section.settings.content_position_mobile }}">
             <div class="banner__box banner__box--{{ section.settings.content_width }} md:text-{{ section.settings.text_alignment }} text-{{ section.settings.text_alignment_mobile }}">
               {%- liquid
                 assign withGradient = false

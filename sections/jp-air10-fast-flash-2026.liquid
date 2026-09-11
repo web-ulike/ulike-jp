@@ -1,0 +1,143 @@
+{%- liquid
+  assign section_id = 'jp-air10-fast-flash-2026-' | append: section.id
+  assign default_title = '人目を気にせず、\nリラックスした状態で理想の自分へ。'
+-%}
+
+<section id="{{ section_id }}" class="jp-fast-flash-2026">
+  <div class="jp-fast-flash-2026__inner">
+    <h2 class="jp-fast-flash-2026__title to-top">
+      {{ section.settings.title | default: default_title | escape | newline_to_br }}
+    </h2>
+    <div class="jp-fast-flash-2026__description jp-fast-flash-2026__description--desktop to-top" style="transition-delay: .1s">
+      {{ section.settings.description_pc_html }}
+    </div>
+    <div class="jp-fast-flash-2026__description jp-fast-flash-2026__description--mobile to-top" style="transition-delay: .1s">
+      {{ section.settings.description_mobile_html }}
+    </div>
+
+    <div class="jp-fast-flash-2026__media to-top" style="transition-delay: .3s">
+      <picture>
+        {%- if section.settings.image_mobile != blank %}
+          <source media="(max-width: 749px)" srcset="{{ section.settings.image_mobile | image_url: width: 1200 }}">
+        {% endif -%}
+        {%- if section.settings.image != blank -%}
+          {{-
+            section.settings.image
+            | image_url: width: 2400
+            | image_tag:
+              loading: 'lazy',
+              widths: '375, 750, 1200, 1800, 2400',
+              class: 'jp-fast-flash-2026__image',
+              alt: section.settings.image.alt
+          -}}
+        {%- elsif section.settings.image_mobile != blank -%}
+          {{-
+            section.settings.image_mobile
+            | image_url: width: 1200
+            | image_tag:
+              loading: 'lazy',
+              widths: '375, 750, 1200',
+              class: 'jp-fast-flash-2026__image',
+              alt: section.settings.image_mobile.alt
+          -}}
+        {%- else -%}
+          {{- 'image' | placeholder_svg_tag: 'jp-fast-flash-2026__placeholder' -}}
+        {%- endif -%}
+      </picture>
+    </div>
+    <p class="jp-fast-flash-2026__note">
+      {{
+        section.settings.note
+        | default: '*国際認証機関CVC：WTS2024-15491;160㎝の男女3名を対象とした試験結果。お手入れにかかる時間には個人差があります。'
+        | escape
+      }}
+    </p>
+  </div>
+</section>
+
+<style>
+  #{{ section_id }} { background: {{ section.settings.background_color | default: '#FFFFFF' }};
+   color: {{ section.settings.text_color | default: '#000000' }}; overflow: hidden; } #{{ section_id }} * { box-sizing: border-box; }
+  #{{ section_id }} .jp-fast-flash-2026__inner { height: 1371px; margin: 0 auto; max-width: 1280px; position: relative; }
+  #{{ section_id }} .jp-fast-flash-2026__title { 
+    font-size: 48px; font-weight: 500; left: 50%; 
+    line-height: 1.5; margin: 0; 
+    position: absolute; 
+    text-align: center; top: 117px;
+    color: {{ section.settings.text_color | default: '#000000' }};
+    transform: translateX(-50%); 
+    width: 896px;
+  }
+  #{{ section_id }} .jp-fast-flash-2026__description { color: {{ section.settings.text_color | default: '#000000' }}; font-family: Saans, "Noto Sans JP", sans-serif; font-size: 24px; left: 50%; line-height: 1.5; margin: 0; position: absolute; text-align: center; top: 291px; transform: translateX(-50%); width: 1014px; }
+  #{{ section_id }} .jp-fast-flash-2026__description p { margin: 0; }
+  #{{ section_id }} .jp-fast-flash-2026__description-highlight { background: linear-gradient(180deg, #fff 0%, #b9e7ff 100%); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 600; }
+  #{{ section_id }} .jp-fast-flash-2026__description sup { font-family: Saans, "Noto Sans JP", sans-serif; font-size: 15.48px; line-height: 1; }
+  #{{ section_id }} .jp-fast-flash-2026__description--mobile { display: none; }
+  #{{ section_id }} .jp-fast-flash-2026__media { border-radius: 15px; height: 723px; left: 50%; overflow: hidden; position: absolute; top: 481px; transform: translateX(-50%); width: 1249px; }
+  #{{ section_id }} .jp-fast-flash-2026__image, #{{ section_id }} .jp-fast-flash-2026__placeholder { display: block; height: 100%; object-fit: cover; width: 100%; } #{{ section_id }} .jp-fast-flash-2026__placeholder { fill: #faf9f7; }
+  #{{ section_id }} .jp-fast-flash-2026__metrics { display: flex; gap: 35px; left: 50%; position: absolute; top: 647px; transform: translateX(-50%); z-index: 2; }
+  #{{ section_id }} .jp-fast-flash-2026__metric { align-items: center; background: rgba(255,255,255,.9); border: 2px solid #e0004d; border-radius: 50%; display: flex; flex: 0 0 auto; flex-wrap: wrap; height: 241px; justify-content: center; padding: 40px 30px 25px; position: relative; text-align: center; width: 241px; }
+  #{{ section_id }} .jp-fast-flash-2026__metric-number { color: #e0004d; font-family: Roboto, Saans, sans-serif; font-size: 63px; font-weight: 600; line-height: 1; }
+  #{{ section_id }} .jp-fast-flash-2026__metric-prefix, #{{ section_id }} .jp-fast-flash-2026__metric-unit { font-family: "Noto Sans JP", sans-serif; font-size: 18px; font-weight: 500; }
+  #{{ section_id }} .jp-fast-flash-2026__metric strong { display: block; font-family: "Noto Sans JP", sans-serif; font-size: 28px; line-height: 1.2; width: 100%; }
+  #{{ section_id }} .jp-fast-flash-2026__metric em { display: block; font-family: "Noto Sans JP", sans-serif; font-size: 17px; font-style: normal; width: 100%; }
+  #{{ section_id }} .jp-fast-flash-2026__times { align-self: center; font-size: 44px; }
+  #{{ section_id }} .jp-fast-flash-2026__note { bottom: 88px; color: rgba(0,0,0,.5); font-family: Saans, "Noto Sans JP", sans-serif; font-size: 10px; left: 16px; line-height: 1.5; margin: 0; position: absolute; }
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} .jp-fast-flash-2026__inner { height: auto; max-width: none; padding: 83px 5% 22px; width: 100%; }
+    #{{ section_id }} .jp-fast-flash-2026__title { font-size: 30px; left: auto; line-height: 1.3; position: static; text-align: left; top: auto; transform: none; width: auto; }
+    #{{ section_id }} .jp-fast-flash-2026__description--desktop { display: none; }
+    #{{ section_id }} .jp-fast-flash-2026__description--mobile { color: {{ section.settings.text_color | default: '#000000' }}; display: block; font-family: "Noto Sans JP", sans-serif; font-size: 18px; left: auto; line-height: 1.5; margin-top: 18px; position: static; text-align: left; top: auto; transform: none; width: auto; }
+    #{{ section_id }} .jp-fast-flash-2026__description--mobile .jp-fast-flash-2026__description-highlight { background: none; color: inherit; font-weight: inherit; }
+    #{{ section_id }} .jp-fast-flash-2026__description--mobile sup { font-size: 11.61px; }
+    #{{ section_id }} .jp-fast-flash-2026__metrics { display: none; }
+    #{{ section_id }} .jp-fast-flash-2026__metric { background: transparent; border: 1px solid #737373; height: 132px; padding: 20px 13px 14px; width: 132px; }
+    #{{ section_id }} .jp-fast-flash-2026__metric-number { font-size: 40px; }
+    #{{ section_id }} .jp-fast-flash-2026__metric-prefix, #{{ section_id }} .jp-fast-flash-2026__metric-unit { font-size: 12px; }
+    #{{ section_id }} .jp-fast-flash-2026__metric strong { font-size: 20px; }
+    #{{ section_id }} .jp-fast-flash-2026__metric em { font-size: 12px; }
+    #{{ section_id }} .jp-fast-flash-2026__metric:nth-of-type(2) .jp-fast-flash-2026__metric-number { font-size: 52px; font-weight: 400; }
+    #{{ section_id }} .jp-fast-flash-2026__metric:nth-of-type(2) .jp-fast-flash-2026__metric-prefix, #{{ section_id }} .jp-fast-flash-2026__metric:nth-of-type(2) .jp-fast-flash-2026__metric-unit { font-size: 17px; }
+    #{{ section_id }} .jp-fast-flash-2026__metric:nth-of-type(2) .jp-fast-flash-2026__metric-unit { font-size: 14px; }
+    #{{ section_id }} .jp-fast-flash-2026__metric:nth-of-type(2) em { font-size: 14px; }
+    #{{ section_id }} .jp-fast-flash-2026__times { align-self: center; color: #737373; font-size: 24px; }
+    #{{ section_id }} .jp-fast-flash-2026__media { border-radius: 6.954px; height: auto; left: auto; margin: 40px 0 0; position: static; top: auto; transform: none; width: 100%; }
+    #{{ section_id }} .jp-fast-flash-2026__image { height: auto; object-fit: contain; object-position: center; }
+    #{{ section_id }} .jp-fast-flash-2026__note { bottom: auto; font-family: "Noto Sans JP", sans-serif; font-size: 9.735px; left: auto; line-height: 1.3; margin-top: 20px; position: static; top: auto; width: auto; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "jp-air10-fast-flash-2026",
+  "settings": [
+    { "type": "color", "id": "background_color", "label": "背景颜色", "default": "#FFFFFF" },
+    { "type": "color", "id": "text_color", "label": "字体颜色", "default": "#000000" },
+    { "type": "image_picker", "id": "image", "label": "PC 连续闪光图片" },
+    { "type": "image_picker", "id": "image_mobile", "label": "M 连续闪光图片" },
+    {
+      "type": "textarea",
+      "id": "title",
+      "label": "标题",
+      "default": "人目を気にせず、\nリラックスした状態で理想の自分へ。"
+    },
+    { "type": "liquid", "id": "description_pc_html", "label": "PC 说明文案（HTML）", "default": "日焼けなどによるわずかな肌色の変化も見逃さず、使用中に自動でエネルギーシステムへ反映します。 <span class=\"jp-fast-flash-2026__description-highlight\">最大10段階</span><sup>*3</sup>の出力範囲内でミリ秒レベルの調整を行うため、その日の肌状態に合わせて、常にやさしく、そして効率的なケアが続けられます。" },
+    { "type": "liquid", "id": "description_mobile_html", "label": "M 说明文案（HTML）", "default": "日焼けなどによるわずかな肌色の変化も見逃さず、使用中に自動でエネルギーシステムへ反映します。 最大10段階<sup>*3</sup>の出力範囲内でミリ秒レベルの調整を行うため、その日の肌状態に合わせて、常にやさしく、そして効率的なケアが続けられます。" },
+    { "type": "text", "id": "flash_number", "label": "闪光数值", "default": "0.25" },
+    { "type": "text", "id": "flash_unit", "label": "闪光单位", "default": "秒間隔の" },
+    { "type": "text", "id": "flash_label", "label": "闪光标题", "default": "高速" },
+    { "type": "text", "id": "flash_subtitle", "label": "闪光副标题", "default": "フラッシュ" },
+    { "type": "text", "id": "time_number", "label": "时间数值", "default": "8" },
+    { "type": "text", "id": "time_unit", "label": "时间单位", "default": "分で*" },
+    { "type": "text", "id": "time_label", "label": "时间标题", "default": "全身ケア" },
+    { "type": "text", "id": "time_subtitle", "label": "时间副标题", "default": "完了" },
+    {
+      "type": "textarea",
+      "id": "note",
+      "label": "脚注文案",
+      "default": "*国際認証機関CVC：WTS2024-15491;160㎝の男女3名を対象とした試験結果。お手入れにかかる時間には個人差があります。"
+    }
+  ],
+  "presets": [{ "name": "jp-air10-fast-flash-2026" }]
+}
+{% endschema %}

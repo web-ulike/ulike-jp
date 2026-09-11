@@ -6,7 +6,7 @@
 </style>
 
 <div class="section section--padding{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded relative{% endif %}">
-  <div class="page-width{% if section.settings.narrow %} page-width--narrow{% endif %} relative">
+  <div class="container{% if section.settings.narrow %} container--small{% endif %} relative">
     <div class="title-wrapper text-center leading-none">
       <{{ section.settings.heading_tag }} class="heading font-bold {{ section.settings.heading_size }}">
         <split-words class="split-words flex flex-wrap" data-animate="fade-up-large">{{ 'general.404.title' | t }}</split-words>

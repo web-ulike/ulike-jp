@@ -13,7 +13,7 @@
 </style>
 
 <div class="section section--padding{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded relative{% endif %}">
-  <div class="page-width{% if section.settings.full_width %} page-width--full{% endif %} relative">
+  <div class="{% unless section.settings.full_width %}container{% endunless %} relative">
     {%- capture title_wrapper -%}
       {%- if section.settings.heading != blank or section.settings.description != blank or section.settings.subheading != blank -%}
         <div class="title-wrapper leading-none {{ section.settings.heading_alignment }} grid gap-4{% if section.settings.layout == 'grid' %} xl:hidden{% endif %} relative z-1">
@@ -54,7 +54,7 @@
                 assign subtext_size = 'subtext-lg'
               endif
             -%}
-            <div class="page-width--narrow rte leading-normal {{ subtext_size }}">
+            <div class="container container--small rte leading-normal {{ subtext_size }}">
               {%- if section.settings.subheading != blank -%}<p class="spacing-section"></p>{%- endif -%}
               {{- section.settings.description -}}
             </div>

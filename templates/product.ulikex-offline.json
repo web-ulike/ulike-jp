@@ -20,6 +20,7 @@
         },
         "ulike_button_PzxnfD": {
           "type": "ulike_button",
+          "disabled": true,
           "settings": {}
         },
         "ulike_giveaway_LiGj9z": {
@@ -41,7 +42,6 @@
         },
         "buy_buttons": {
           "type": "buy_buttons",
-          "disabled": true,
           "settings": {
             "show_gift_card_recipient": false
           }
@@ -413,12 +413,16 @@
           "type": "shopify:\/\/apps\/ryviu-product-reviews\/blocks\/ryviu-widget\/807ad6ed-1a6a-4559-abea-ed062858d9da",
           "disabled": true,
           "settings": {
+            "layout": "",
+            "layout_tablet": "",
+            "layout_mobile": "",
             "r_wapper_class": "",
             "r_max_width": 1440,
             "r_padding_block": 0,
             "hide_when_no_reviews": false,
             "one_col_on_mobile": false,
-            "hide_title_image_form": false
+            "hide_title_image_form": false,
+            "enable_schema": false
           }
         }
       },
@@ -427,6 +431,24 @@
         "ryviu_reviews_qa_ryviu_widget_yigzrd"
       ],
       "settings": {}
+    },
+    "rich_text_yGp7Gz": {
+      "type": "rich-text",
+      "blocks": {
+        "button_e9Qwi8": {
+          "type": "button",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "button_e9Qwi8"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "subheading": "",
+        "button_link": "",
+        "text_alignment": "left"
+      }
     }
   },
   "order": [
@@ -438,6 +460,7 @@
     "pagefly_section_4Bcet7",
     "rich_text_xgrkrP",
     "product-recommendations",
-    "17098718307bcd2722"
+    "17098718307bcd2722",
+    "rich_text_yGp7Gz"
   ]
 }

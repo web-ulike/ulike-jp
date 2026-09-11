@@ -1,0 +1,72 @@
+<mobile-navigation append-body id="mobile-menu-drawer" class="drawer drawer--from-left header-2026__mobile-drawer">
+  <span class="drawer__overlay"></span>
+  <div class="drawer__header drawer__header--shadowed">
+    <button type="button" class="drawer__close-button drawer__close-button--block tap-area" data-action="close" title="{{ 'general.accessibility.close' | t | escape }}">
+      {%- render 'icon' with 'close' -%}
+    </button>
+  </div>
+  <div class="drawer__content header-2026__mobile-content">
+    <nav class="header-2026__mobile-root" aria-label="{{ menu.title | default: 'メインメニュー' | escape }}">
+      {%- for link in menu.links -%}
+        {%- if forloop.first -%}
+          <button type="button" data-header-2026-open-products><span class="header-2026__mobile-root-label">{{ link.title }}</span>{% render 'header-2026-arrow' %}</button>
+        {%- else -%}
+          <a href="{{ link.url }}"><span class="header-2026__mobile-root-label">{{ link.title }}</span>{% render 'header-2026-arrow' %}</a>
+        {%- endif -%}
+      {%- endfor -%}
+    </nav>
+    <section class="header-2026__mobile-products-panel" data-header-2026-products hidden>
+      <button type="button" class="header-2026__mobile-back" data-header-2026-back>
+        <span>‹&nbsp; 戻る</span><strong>{{ menu.links.first.title | default: '製品一覧' }}</strong>
+      </button>
+      <div class="header-2026__mobile-products-scroll">
+        <div class="header-2026__mobile-categories">
+          {%- assign product_navigation_groups = section.blocks | where: 'type', 'product_navigation_group' -%}
+          {%- if product_navigation_groups.size > 0 -%}
+            {%- for group in product_navigation_groups limit: 4 -%}
+              <details class="header-2026__mobile-category"{% if forloop.first %} open{% endif %} {{ group.shopify_attributes }}>
+                <summary>{{ group.settings.heading | escape }}</summary>
+                <div class="header-2026__mobile-product-list">
+                  {%- for product in group.settings.products -%}{%- render 'header-2026-focal-product-card', product: product -%}{%- endfor -%}
+                </div>
+              </details>
+            {%- endfor -%}
+          {%- else -%}
+          <details class="header-2026__mobile-category" open>
+            <summary>新発売</summary>
+            <div class="header-2026__mobile-product-list">
+              {%- render 'header-2026-focal-product-card', product_handle: 'ulike-me-ipl-hair-removal', title: 'Ulike Me', badge: 'NEW', fallback_image: 'header-2026-product-me.png' -%}
+              {%- render 'header-2026-focal-product-card', product_handle: 'air10-max-ipl-hair-removal', title: 'Ulike Air 10 Max', badge: 'NEW', fallback_image: 'header-2026-product-air10.png' -%}
+              {%- render 'header-2026-focal-product-card', product_handle: 'ulike-x-max-ipl-hair-removal', title: 'Ulike X Max', badge: 'NEW', fallback_image: 'header-2026-product-xmax.png' -%}
+            </div>
+          </details>
+          <details class="header-2026__mobile-category">
+            <summary>ロングセラー</summary>
+            <div class="header-2026__mobile-product-list">
+              {%- render 'header-2026-focal-product-card', product_handle: 'airpro-s-ipl-hair-removal', title: 'Ulike AirPro S', badge: '新色登場!' -%}
+              {%- render 'header-2026-focal-product-card', product_handle: 'air10-ipl-hair-removal', title: 'Ulike Air 10' -%}
+              {%- render 'header-2026-focal-product-card', product_handle: 'ulike-men-ipl', title: 'Ulike X+' -%}
+            </div>
+          </details>
+          <details class="header-2026__mobile-category">
+            <summary>販売店限定</summary>
+            <div class="header-2026__mobile-product-list">
+              {%- render 'header-2026-focal-product-card', product_handle: 'air10-pro-ipl-hair-removal', title: 'Ulike Air 10 Pro', badge: 'NEW' -%}
+              {%- render 'header-2026-focal-product-card', product_handle: 'men-air2', title: 'Ulike Air 2', badge: 'NEW' -%}
+              {%- render 'header-2026-focal-product-card', product_handle: 'ulike-men-ipl', title: 'Ulike X', badge: 'NEW' -%}
+            </div>
+          </details>
+          <details class="header-2026__mobile-category">
+            <summary>アクセサリー</summary>
+            <div class="header-2026__mobile-product-list">
+              {%- render 'header-2026-focal-product-card', product_handle: 'ultrasonic-case', title: '超音波洗浄ケース' -%}
+              {%- render 'header-2026-focal-product-card', product_handle: 'uv-sterilization-box-2025', title: 'UV除菌ケース' -%}
+            </div>
+          </details>
+          {%- endif -%}
+        </div>
+        <a class="header-2026__shop-all" href="{{ routes.all_products_collection_url }}">すべての製品を見る <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+  </div>
+</mobile-navigation>

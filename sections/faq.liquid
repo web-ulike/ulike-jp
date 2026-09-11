@@ -1,213 +1,936 @@
-{%- if section.settings.background != settings.background and section.settings.background != 'rgba(0,0,0,0)' -%}
-  {%- assign blends_with_background = false -%}
-{%- else -%}
-  {%- assign blends_with_background = true -%}
-{%- endif -%}
-
 <style>
   #shopify-section-{{ section.id }} {
-    {%- if section.settings.text_color == 'rgba(0,0,0,0)' -%}
-      {%- assign heading_color = settings.heading_color -%}
-      {%- assign text_color = settings.text_color -%}
-    {%- else -%}
-      {%- assign heading_color = section.settings.text_color -%}
-      {%- assign text_color = section.settings.text_color -%}
-    {%- endif -%}
+    --section-padding-top: {{ section.settings.padding_top }}px;
+    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    {%- render 'section-variables', section: section -%}
+  }
 
-    {%- if section.settings.background == 'rgba(0,0,0,0)' -%}
-      {%- assign section_background = settings.background -%}
-      {%- assign secondary_background = settings.secondary_background -%}
-    {%- else -%}
-      {%- assign section_background = section.settings.background -%}
-      {%- assign secondary_background = section.settings.background | color_mix: text_color, 85 -%}
-    {%- endif -%}
+  #shopify-section-{{ section.id }} .faq-reference {
+    color: #111;
+    padding: clamp(48px, 4.5vw, 80px) 0 clamp(56px, 5vw, 96px);
+  }
 
-    --secondary-background: {{ secondary_background.red }}, {{ secondary_background.green }}, {{ secondary_background.blue }};
-    --heading-color: {{ heading_color.red }}, {{ heading_color.green }}, {{ heading_color.blue }};
-    --text-color: {{ text_color.red }}, {{ text_color.green }}, {{ text_color.blue }};
+  #shopify-section-{{ section.id }} .faq-reference__header {
+    margin-bottom: clamp(28px, 2.5vw, 40px);
+  }
 
-    --section-background: {{ section_background.red }}, {{ section_background.green }}, {{ section_background.blue }};
+  #shopify-section-{{ section.id }} .faq-reference__title {
+    margin: 0;
+    color: #111;
+    font-size: clamp(32px, 2.6vw, 48px);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.25;
+  }
+
+  #shopify-section-{{ section.id }} .faq-reference__description {
+    max-width: 680px;
+    margin-top: 14px;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  #shopify-section-{{ section.id }} .faq-reference__list {
+    overflow: hidden;
+    border: 1px solid #e7e7e7;
+    border-radius: 20px;
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .faq-reference__item + .faq-reference__item {
+    border-top: 1px solid #e7e7e7;
+  }
+
+  #shopify-section-{{ section.id }} .faq-reference__summary {
+    display: flex;
+    min-height: 104px;
+    padding: 24px clamp(24px, 3vw, 48px);
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    color: #111;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  #shopify-section-{{ section.id }} .faq-reference__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .faq-reference__question {
+    font-size: clamp(18px, 1.2vw, 22px);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.5;
+  }
+
+  #shopify-section-{{ section.id }} .faq-reference__icon {
+    position: relative;
+    display: block;
+    width: 22px;
+    height: 22px;
+    flex: 0 0 22px;
+  }
+
+  #shopify-section-{{ section.id }} .faq-reference__icon::before,
+  #shopify-section-{{ section.id }} .faq-reference__icon::after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 22px;
+    height: 1.5px;
+    background: currentColor;
+    content: '';
+    transform: translate(-50%, -50%);
+    transition: transform 180ms ease;
+  }
+
+  #shopify-section-{{ section.id }} .faq-reference__icon::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  #shopify-section-{{ section.id }} details[open] .faq-reference__icon::after {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  #shopify-section-{{ section.id }} .faq-reference__answer {
+    padding: 0 clamp(24px, 3vw, 48px) 32px;
+    color: #333;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  #shopify-section-{{ section.id }} .faq-reference__item--text {
+    padding: 28px clamp(24px, 3vw, 48px);
+  }
+
+  @media screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .faq-reference {
+      padding: 56px 0 72px;
+    }
+
+    #shopify-section-{{ section.id }} .faq-reference__header {
+      margin-bottom: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .faq-reference__title {
+      font-size: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .faq-reference__list {
+      border-radius: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .faq-reference__summary {
+      min-height: 88px;
+      padding: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .faq-reference__question {
+      font-size: 16px;
+      line-height: 1.45;
+    }
+
+    #shopify-section-{{ section.id }} .faq-reference__answer {
+      padding: 0 20px 24px;
+      font-size: 15px;
+    }
   }
 </style>
 
-{%- assign categories = section.blocks | where: 'type', 'category' -%}
+{%- assign faq_heading = section.settings.heading | default: 'よくあるご質問' -%}
+{%- if faq_heading == 'FAQ' -%}
+  {%- assign faq_heading = 'よくあるご質問' -%}
+{%- endif -%}
 
-<section class="section {% if template.name == 'page' and template.suffix contains 'faq' %}section--tight{% endif %} {% unless blends_with_background %}section--flush{% endunless %}">
-  <div class="section__color-wrapper">
-    <div class="container">
-      <div class="{% unless blends_with_background %}vertical-breather{% endunless %}">
-        {%- if section.settings.title != blank or section.settings.content != blank -%}
-          <header class="section__header {% if section.settings.content != blank %}section__header--tight{% endif %} text-container">
-            {%- if section.settings.title != blank -%}
-              <h1 class="heading h2">{{ section.settings.title | escape }}</h1>
-            {%- endif -%}
+<section class="faq-reference">
+  <div class="container{% if section.settings.narrow %} container--small{% endif %} relative">
+    <header class="faq-reference__header">
+      <{{ section.settings.heading_tag | default: 'h2' }} class="faq-reference__title">{{ faq_heading }}</{{ section.settings.heading_tag | default: 'h2' }}>
+      {%- if section.settings.description != blank -%}
+        <div class="faq-reference__description rte">{{ section.settings.description }}</div>
+      {%- endif -%}
+    </header>
 
-            {%- if section.settings.content -%}
-              {{- section.settings.content -}}
-            {%- endif -%}
-          </header>
-        {%- endif -%}
+    {%- if section.blocks.size > 0 -%}
+      {%- liquid
+        assign withGradient = false
+        if section.settings.gradient_highlight != blank and section.settings.gradient_highlight != 'rgba(0,0,0,0)'
+          assign withGradient = true
+        endif
 
-        <div class="faq">
-          {%- if section.settings.show_navigation and categories.size > 0 -%}
-            <div class="faq-navigation hidden-pocket">
-              <scroll-spy class="scroll-spy">
-                <ul class="scroll-spy__list list--unstyled">
-                  {%- for category in categories -%}
-                    <li class="scroll-spy__item">
-                      <a class="scroll-spy__anchor heading heading--small" href="#category-{{ section.id }}-{{ category.id }}" data-smooth-scroll>{{ category.settings.title | escape }}</a>
-                    </li>
-                  {%- endfor -%}
-                </ul>
-              </scroll-spy>
-            </div>
-          {%- endif -%}
-
-          <div class="faq__wrapper" itemscope itemtype="https://schema.org/FAQPage">
+        assign contact = section.blocks | where: "type", "contact" | first
+      -%}
+      <div class="faq-reference__list">
             {%- for block in section.blocks -%}
               {%- case block.type -%}
-                {%- when 'category' -%}
-                  <h2 id="category-{{ section.id }}-{{ block.id }}" class="faq__category heading h6 anchor" {{ block.shopify_attributes }}>
-                    {{- block.settings.title |  escape -}}
-                  </h2>
+                {%- when 'rich-text' -%}
+                  <div class="faq-reference__item faq-reference__item--text" {{ block.shopify_attributes }}>
+                    <div class="grid gap-2d5">
+                      <p class="heading lg:text-3xl text-2xl font-bold leading-none tracking-tight">
+                        {%- render 'highlighted-text', content: block.settings.heading, style: block.settings.highlighted_text, scribble: block.settings.highlighted_scribble, gradient: withGradient -%}
+                      </p>
+                      <div class="text-opacity text-base rte">
+                        {{- block.settings.text -}}
+                      </div>
+                    </div>
+                  </div>
 
                 {%- when 'question' -%}
-                  <div class="faq__item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-                    <button is="toggle-button" class="collapsible-toggle text--strong" aria-controls="block-{{ section.id }}-{{ block.id }}" aria-expanded="false" itemprop="name">
-                      {{- block.settings.title -}}
-                      <span class="animated-plus"></span>
-                    </button>
-
-                    <collapsible-content id="block-{{ section.id }}-{{ block.id }}" class="collapsible anchor" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" {{ block.shopify_attributes }}>
-                      <div class="collapsible__content text-container" itemprop="text">
-                        {{ block.settings.answer }}
+                  <div class="faq-reference__item">
+                    <details class="details" is="accordion-details" {{ block.shopify_attributes }}>
+                      <summary class="faq-reference__summary">
+                        <span class="faq-reference__question">{{ block.settings.title }}</span>
+                        <span class="faq-reference__icon" aria-hidden="true"></span>
+                      </summary>
+                      <div class="faq-reference__answer rte">
+                        {{- block.settings.text -}}
                       </div>
-                    </collapsible-content>
+                    </details>
                   </div>
               {%- endcase -%}
             {%- endfor -%}
-          </div>
-        </div>
       </div>
-    </div>
+
+      {%- if contact != blank -%}
+          {%- assign form_id = 'ContactForm-' | append: section.id -%}
+          {%- form 'contact', id: form_id, class: 'grow-0' -%}
+            <sticky-element class="contact__sidebar grid gap-7d5 md:gap-10 sticky top-0">
+              <div class="flex justify-between gap-6">
+                <div class="grid gap-2d5">
+                  <p class="heading lg:text-3xl text-2xl font-bold leading-none tracking-tight">
+                    {%- render 'highlighted-text', content: contact.settings.heading, style: contact.settings.highlighted_text, scribble: contact.settings.highlighted_scribble, gradient: withGradient -%}
+                  </p>
+                  <div class="text-opacity text-base rte">
+                    {{- contact.settings.text -}}
+                  </div>
+                </div>
+
+                {%- if contact.settings.avatar != blank -%}
+                  {%- capture sizes -%}{{ contact.settings.avatar_height | times: contact.settings.avatar.aspect_ratio }}px{%- endcapture -%}
+                  {%- capture widths -%}{{ contact.settings.avatar_height | times: contact.settings.avatar.aspect_ratio }}, {{ contact.settings.avatar_height | times: contact.settings.avatar.aspect_ratio | times: 2 | at_most: contact.settings.avatar.width }}{%- endcapture -%}
+                  {%- capture style -%}--image-width: {{ contact.settings.avatar_height | times: contact.settings.avatar.aspect_ratio }}px; --image-height: {{ contact.settings.avatar_height }}px;{%- endcapture -%}
+
+                  <div class="media media--transparent relative">
+                    {{- contact.settings.avatar | image_url: width: contact.settings.avatar.width | image_tag: loading: 'lazy', sizes: sizes, widths: widths, style: style, is: 'lazy-image' -}}
+                  </div>
+                {%- endif -%}
+              </div>
+              <div class="grid gap-4d5 md:gap-6">
+                {%- if form.errors -%}
+                  <div class="field">
+                    {%- liquid
+                      assign form_errors = form.errors | default_errors
+                      render 'alert', status: 'error', content: form_errors
+                    -%}
+                  </div>
+                {%- endif -%}
+
+                {%- if form.posted_successfully? -%}
+                  <div class="field">
+                    {%- liquid
+                      assign success_message = 'contact.form.post_success' | t
+                      render 'alert', status: 'success', content: success_message
+                    -%}
+                  </div>
+                {%- endif -%}
+
+                <div class="field">
+                  <input
+                    class="input is-floating"
+                    autocomplete="name"
+                    type="text"
+                    id="ContactFormName-{{ section.id }}"
+                    name="contact[{{ 'contact.form.name' | t }}]"
+                    value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+                    placeholder="{{ 'contact.form.name' | t | escape }}"
+                  />
+                  <label class="label is-floating" for="ContactFormName-{{ section.id }}">{{ 'contact.form.name' | t }}</label>
+                </div>
+                <div class="field">
+                  <input
+                    class="input is-floating{% if form.errors contains 'email' %} invalid{% endif %}"
+                    autocomplete="email"
+                    type="email"
+                    id="ContactFormEmail-{{ section.id }}"
+                    name="contact[email]"
+                    spellcheck="false"
+                    autocapitalize="off"
+                    value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                    placeholder="{{ 'contact.form.email' | t | escape }}"
+                    required
+                  >
+                  <label class="label is-floating" for="ContactFormEmail-{{ section.id }}">{{- 'contact.form.email' | t }}</label>
+                </div>
+
+                {%- if contact.settings.show_phone -%}
+                  <div class="field">
+                    <input
+                      class="input is-floating"
+                      autocomplete="phone"
+                      type="tel"
+                      id="ContactFormPhone-{{ section.id }}"
+                      name="contact[{{ 'contact.form.phone' | t }}]"
+                      value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+                      placeholder="{{ 'contact.form.phone' | t | escape }}"
+                      pattern="[0-9\-]*"
+                    />
+                    <label class="label is-floating" for="ContactFormPhone-{{ section.id }}">{{ 'contact.form.phone' | t }}</label>
+                  </div>
+                {%- endif -%}
+
+                <div class="field">
+                  <textarea
+                    class="textarea is-floating"
+                    rows="4"
+                    id="ContactFormMessage-{{ section.id }}"
+                    name="contact[{{ 'contact.form.message' | t }}]"
+                    placeholder=" "
+                  >
+                    {{- form.body -}}
+                  </textarea>
+                  <label class="label is-floating" for="ContactFormMessage-{{ section.id }}">{{ 'contact.form.message' | t }}</label>
+                </div>
+                <div class="field">
+                  <label for="ContactSubmit-{{ section.id }}" class="sr-only">{{ 'contact.form.send' | t }}</label>
+                  <button type="submit" id="ContactSubmit-{{ section.id }}" class="button button--primary button--fixed" is="hover-button">
+                    <span class="btn-fill" data-fill></span>
+                    <span class="btn-text">{{ 'contact.form.send' | t }}</span>
+                  </button>
+                </div>
+              </div>
+            </sticky-element>
+          {%- endform -%}
+      {%- endif -%}
+    {%- endif -%}
   </div>
 </section>
 
+{%- if section.blocks.size > 0 -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {%- for block in section.blocks -%}
+          {%- case block.type %}
+            {%- when 'question' %}
+              {
+                "@type": "Question",
+                "name": {{ block.settings.title | json }},
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": {{ block.settings.text | json }}
+                }
+              }{% unless forloop.last %},{% endunless %}
+          {% endcase -%}
+        {%- endfor -%}
+      ]
+    }
+  </script>
+{%- endif -%}
+
 {% schema %}
 {
-  "name": "FAQ",
-  "class": "shopify-section--faq",
-  "disabled_on": {
-    "templates": ["password"],
-    "groups": ["header", "custom.overlay"]
-  },
+  "name": "t:sections.faq.name",
   "settings": [
     {
-      "type": "checkbox",
-      "id": "show_navigation",
-      "label": "Show navigation",
-      "default": false
-    },
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Heading",
-      "default": "FAQ"
-    },
-    {
-      "type": "richtext",
-      "id": "content",
-      "label": "Content"
+      "type": "select",
+      "id": "style",
+      "label": "t:sections.faq.settings.style.label",
+      "options": [
+        {
+          "value": "with-border",
+          "label": "t:sections.faq.settings.style.options__1.label"
+        },
+        {
+          "value": "with-background",
+          "label": "t:sections.faq.settings.style.options__2.label"
+        }
+      ],
+      "default": "with-border"
     },
     {
       "type": "header",
-      "content": "Colors"
+      "content": "t:sections.global.settings.header__heading.content"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "t:sections.global.settings.heading.label",
+      "default": "FAQs"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "title-sm",
+          "label": "t:sections.global.settings.heading_size.options__1.label"
+        },
+        {
+          "value": "title-md",
+          "label": "t:sections.global.settings.heading_size.options__2.label"
+        },
+        {
+          "value": "title-lg tracking-heading",
+          "label": "t:sections.global.settings.heading_size.options__3.label"
+        },
+        {
+          "value": "title-xl tracking-heading",
+          "label": "t:sections.global.settings.heading_size.options__4.label"
+        }
+      ],
+      "default": "title-md",
+      "label": "t:sections.global.settings.heading_size.label"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "t:sections.global.settings.heading_alignment.label",
+      "options": [
+        {
+          "value": "text-left md:items-end md:flex-row",
+          "label": "t:sections.global.settings.heading_alignment.options__1.label"
+        },
+        {
+          "value": "text-center md:items-center",
+          "label": "t:sections.global.settings.heading_alignment.options__2.label"
+        },
+        {
+          "value": "text-right md:items-end md:flex-row-reverse",
+          "label": "t:sections.global.settings.heading_alignment.options__3.label"
+        }
+      ],
+      "default": "text-left md:items-end md:flex-row"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "options": [
+        {
+          "value": "h1",
+          "label": "t:sections.global.settings.heading_tag.options__1.label"
+        },
+        {
+          "value": "h2",
+          "label": "t:sections.global.settings.heading_tag.options__2.label"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.global.settings.heading_tag.options__3.label"
+        },
+        {
+          "value": "h4",
+          "label": "t:sections.global.settings.heading_tag.options__4.label"
+        },
+        {
+          "value": "h5",
+          "label": "t:sections.global.settings.heading_tag.options__5.label"
+        },
+        {
+          "value": "h6",
+          "label": "t:sections.global.settings.heading_tag.options__6.label"
+        },
+        {
+          "value": "div",
+          "label": "t:sections.global.settings.heading_tag.options__7.label"
+        },
+        {
+          "value": "span",
+          "label": "t:sections.global.settings.heading_tag.options__8.label"
+        },
+        {
+          "value": "p",
+          "label": "t:sections.global.settings.heading_tag.options__9.label"
+        }
+      ],
+      "default": "h2",
+      "label": "t:sections.global.settings.heading_tag.label",
+      "info": "t:sections.global.settings.heading_tag.info"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "t:sections.global.settings.subheading.label"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "t:sections.global.settings.description.label"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "t:sections.global.settings.button_label.label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "t:sections.global.settings.button_link.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.global.settings.header__highlight.content",
+      "info": "t:sections.global.settings.header__highlight.info"
+    },
+    {
+      "type": "select",
+      "id": "highlighted_text",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:sections.global.settings.highlighted_text.options__1.label"
+        },
+        {
+          "value": "text",
+          "label": "t:sections.global.settings.highlighted_text.options__2.label"
+        },
+        {
+          "value": "full_text",
+          "label": "t:sections.global.settings.highlighted_text.options__3.label"
+        },
+        {
+          "value": "half_text",
+          "label": "t:sections.global.settings.highlighted_text.options__4.label"
+        },
+        {
+          "value": "underline",
+          "label": "t:sections.global.settings.highlighted_text.options__5.label"
+        },
+        {
+          "value": "stencil",
+          "label": "t:sections.global.settings.highlighted_text.options__6.label"
+        },
+        {
+          "value": "scribble",
+          "label": "t:sections.global.settings.highlighted_text.options__7.label"
+        }
+      ],
+      "default": "none",
+      "label": "t:sections.global.settings.highlighted_text.label"
+    },
+    {
+      "type": "select",
+      "id": "highlighted_scribble",
+      "options": [
+        {
+          "value": "circle",
+          "label": "t:sections.global.settings.highlighted_scribble.options__1.label"
+        },
+        {
+          "value": "basic-underline",
+          "label": "t:sections.global.settings.highlighted_scribble.options__2.label"
+        },
+        {
+          "value": "sketch-underline",
+          "label": "t:sections.global.settings.highlighted_scribble.options__3.label"
+        },
+        {
+          "value": "squiggle-underline",
+          "label": "t:sections.global.settings.highlighted_scribble.options__4.label"
+        },
+        {
+          "value": "squiggle-underline-2",
+          "label": "t:sections.global.settings.highlighted_scribble.options__5.label"
+        }
+      ],
+      "default": "circle",
+      "label": "t:sections.global.settings.highlighted_scribble.label",
+      "info": "t:sections.global.settings.highlighted_scribble.info"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.global.settings.header__colors.content",
+      "info": "t:sections.global.settings.header__colors.info"
     },
     {
       "type": "color",
-      "id": "background",
-      "label": "Background",
-      "default": "rgba(0,0,0,0)"
+      "id": "color_text",
+      "label": "t:sections.global.settings.color_text.label"
     },
     {
       "type": "color",
-      "id": "text_color",
-      "label": "Text color",
-      "default": "rgba(0,0,0,0)"
+      "id": "color_background",
+      "label": "t:sections.global.settings.color_background.label"
+    },
+    {
+      "type": "color_background",
+      "id": "gradient_background",
+      "label": "t:sections.global.settings.gradient_background.label"
+    },
+    {
+      "type": "color",
+      "id": "color_highlight",
+      "label": "t:sections.global.settings.color_highlight.label"
+    },
+    {
+      "type": "color_background",
+      "id": "gradient_highlight",
+      "label": "t:sections.global.settings.gradient_highlight.label"
+    },
+    {
+      "type": "color",
+      "id": "color_button_text",
+      "label": "t:sections.global.settings.color_button_text.label"
+    },
+    {
+      "type": "color",
+      "id": "color_button_background",
+      "label": "t:sections.global.settings.color_button_background.label"
+    },
+    {
+      "type": "color_background",
+      "id": "color_button_gradient",
+      "label": "t:sections.global.settings.color_button_gradient.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.global.settings.header__section.content"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_top.label",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_bottom.label",
+      "default": 72
+    },
+    {
+      "type": "checkbox",
+      "id": "divider",
+      "label": "t:sections.global.settings.divider.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "narrow",
+      "label": "t:sections.global.settings.narrow.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "rounded",
+      "default": false,
+      "label": "t:sections.global.settings.rounded.label"
     }
   ],
   "blocks": [
     {
-      "type": "category",
-      "name": "Category",
+      "type": "rich-text",
+      "name": "t:sections.faq.blocks.rich_text.name",
       "settings": [
         {
-          "type": "text",
-          "id": "title",
-          "label": "Heading",
-          "default": "Category"
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "t:sections.global.settings.heading.label",
+          "default": "Rich text"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "t:sections.global.settings.text.label",
+          "default": "<p>Use this section for any descriptive text you need to fill out your pages or to add introductory headings between other blocks.</p>"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.global.settings.header__highlight.content",
+          "info": "t:sections.global.settings.header__highlight.info"
+        },
+        {
+          "type": "select",
+          "id": "highlighted_text",
+          "options": [
+            {
+              "value": "none",
+              "label": "t:sections.global.settings.highlighted_text.options__1.label"
+            },
+            {
+              "value": "text",
+              "label": "t:sections.global.settings.highlighted_text.options__2.label"
+            },
+            {
+              "value": "full_text",
+              "label": "t:sections.global.settings.highlighted_text.options__3.label"
+            },
+            {
+              "value": "half_text",
+              "label": "t:sections.global.settings.highlighted_text.options__4.label"
+            },
+            {
+              "value": "underline",
+              "label": "t:sections.global.settings.highlighted_text.options__5.label"
+            },
+            {
+              "value": "stencil",
+              "label": "t:sections.global.settings.highlighted_text.options__6.label"
+            },
+            {
+              "value": "scribble",
+              "label": "t:sections.global.settings.highlighted_text.options__7.label"
+            }
+          ],
+          "default": "none",
+          "label": "t:sections.global.settings.highlighted_text.label"
+        },
+        {
+          "type": "select",
+          "id": "highlighted_scribble",
+          "options": [
+            {
+              "value": "circle",
+              "label": "t:sections.global.settings.highlighted_scribble.options__1.label"
+            },
+            {
+              "value": "basic-underline",
+              "label": "t:sections.global.settings.highlighted_scribble.options__2.label"
+            },
+            {
+              "value": "sketch-underline",
+              "label": "t:sections.global.settings.highlighted_scribble.options__3.label"
+            },
+            {
+              "value": "squiggle-underline",
+              "label": "t:sections.global.settings.highlighted_scribble.options__4.label"
+            },
+            {
+              "value": "squiggle-underline-2",
+              "label": "t:sections.global.settings.highlighted_scribble.options__5.label"
+            }
+          ],
+          "default": "circle",
+          "label": "t:sections.global.settings.highlighted_scribble.label",
+          "info": "t:sections.global.settings.highlighted_scribble.info"
         }
       ]
     },
     {
       "type": "question",
-      "name": "Question",
+      "name": "t:sections.faq.blocks.question.name",
       "settings": [
         {
-          "type": "text",
+          "type": "inline_richtext",
           "id": "title",
-          "label": "Question",
-          "default": "About your shop"
+          "label": "t:sections.faq.blocks.question.settings.title.label",
+          "default": "Frequently asked question"
         },
         {
           "type": "richtext",
-          "id": "answer",
-          "label": "Answer",
-          "default": "<p>Write content to help your customers to better understand your products or policies.</p>"
+          "id": "text",
+          "label": "t:sections.faq.blocks.question.settings.text.label",
+          "default": "<p>Use this text to answer questions in as much detail as possible for your customers.</p>"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.global.settings.header__highlight.content",
+          "info": "t:sections.global.settings.header__highlight.info"
+        },
+        {
+          "type": "select",
+          "id": "highlighted_text",
+          "options": [
+            {
+              "value": "none",
+              "label": "t:sections.global.settings.highlighted_text.options__1.label"
+            },
+            {
+              "value": "text",
+              "label": "t:sections.global.settings.highlighted_text.options__2.label"
+            },
+            {
+              "value": "full_text",
+              "label": "t:sections.global.settings.highlighted_text.options__3.label"
+            },
+            {
+              "value": "half_text",
+              "label": "t:sections.global.settings.highlighted_text.options__4.label"
+            },
+            {
+              "value": "underline",
+              "label": "t:sections.global.settings.highlighted_text.options__5.label"
+            },
+            {
+              "value": "stencil",
+              "label": "t:sections.global.settings.highlighted_text.options__6.label"
+            },
+            {
+              "value": "scribble",
+              "label": "t:sections.global.settings.highlighted_text.options__7.label"
+            }
+          ],
+          "default": "none",
+          "label": "t:sections.global.settings.highlighted_text.label"
+        },
+        {
+          "type": "select",
+          "id": "highlighted_scribble",
+          "options": [
+            {
+              "value": "circle",
+              "label": "t:sections.global.settings.highlighted_scribble.options__1.label"
+            },
+            {
+              "value": "basic-underline",
+              "label": "t:sections.global.settings.highlighted_scribble.options__2.label"
+            },
+            {
+              "value": "sketch-underline",
+              "label": "t:sections.global.settings.highlighted_scribble.options__3.label"
+            },
+            {
+              "value": "squiggle-underline",
+              "label": "t:sections.global.settings.highlighted_scribble.options__4.label"
+            },
+            {
+              "value": "squiggle-underline-2",
+              "label": "t:sections.global.settings.highlighted_scribble.options__5.label"
+            }
+          ],
+          "default": "circle",
+          "label": "t:sections.global.settings.highlighted_scribble.label",
+          "info": "t:sections.global.settings.highlighted_scribble.info"
+        }
+      ]
+    },
+    {
+      "type": "contact",
+      "name": "t:sections.faq.blocks.contact.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "t:sections.global.settings.heading.label",
+          "default": "Didn’t find your answer?"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "t:sections.global.settings.text.label",
+          "default": "<p>Don't hestitate to contact us</p>"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_phone",
+          "label": "t:sections.faq.blocks.contact.settings.show_phone.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "avatar",
+          "label": "t:sections.faq.blocks.contact.settings.avatar.label"
+        },
+        {
+          "type": "range",
+          "id": "avatar_height",
+          "min": 20,
+          "max": 100,
+          "unit": "px",
+          "label": "t:sections.faq.blocks.contact.settings.avatar_height.label",
+          "default": 60
+        },
+        {
+          "type": "header",
+          "content": "t:sections.global.settings.header__highlight.content",
+          "info": "t:sections.global.settings.header__highlight.info"
+        },
+        {
+          "type": "select",
+          "id": "highlighted_text",
+          "options": [
+            {
+              "value": "none",
+              "label": "t:sections.global.settings.highlighted_text.options__1.label"
+            },
+            {
+              "value": "text",
+              "label": "t:sections.global.settings.highlighted_text.options__2.label"
+            },
+            {
+              "value": "full_text",
+              "label": "t:sections.global.settings.highlighted_text.options__3.label"
+            },
+            {
+              "value": "half_text",
+              "label": "t:sections.global.settings.highlighted_text.options__4.label"
+            },
+            {
+              "value": "underline",
+              "label": "t:sections.global.settings.highlighted_text.options__5.label"
+            },
+            {
+              "value": "stencil",
+              "label": "t:sections.global.settings.highlighted_text.options__6.label"
+            },
+            {
+              "value": "scribble",
+              "label": "t:sections.global.settings.highlighted_text.options__7.label"
+            }
+          ],
+          "default": "none",
+          "label": "t:sections.global.settings.highlighted_text.label"
+        },
+        {
+          "type": "select",
+          "id": "highlighted_scribble",
+          "options": [
+            {
+              "value": "circle",
+              "label": "t:sections.global.settings.highlighted_scribble.options__1.label"
+            },
+            {
+              "value": "basic-underline",
+              "label": "t:sections.global.settings.highlighted_scribble.options__2.label"
+            },
+            {
+              "value": "sketch-underline",
+              "label": "t:sections.global.settings.highlighted_scribble.options__3.label"
+            },
+            {
+              "value": "squiggle-underline",
+              "label": "t:sections.global.settings.highlighted_scribble.options__4.label"
+            },
+            {
+              "value": "squiggle-underline-2",
+              "label": "t:sections.global.settings.highlighted_scribble.options__5.label"
+            }
+          ],
+          "default": "circle",
+          "label": "t:sections.global.settings.highlighted_scribble.label",
+          "info": "t:sections.global.settings.highlighted_scribble.info"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "FAQ",
-      "category": "Trust & social proof",
+      "name": "t:sections.faq.presets.name",
       "blocks": [
         {
-          "type": "category",
-          "settings": {
-            "title": "Shipping"
-          }
+          "type": "question"
         },
         {
-          "type": "question",
-          "settings": {
-            "title": "Do you ship overseas?",
-            "answer": "<p>Yes, we ship all over the world. Shipping costs will apply, and will be added at checkout. We run discounts and promotions all year, so stay tuned for exclusive deals.</p>"
-          }
+          "type": "question"
         },
         {
-          "type": "question",
-          "settings": {
-            "title": "How long will it take to get my order?",
-            "answer": "<p>It depends on where you are. Orders processed here will take 5-7 business days to arrive. Overseas deliveries can take anywhere from 7-16 days. Delivery details will be provided in your confirmation email.</p>"
-          }
-        },
-        {
-          "type": "category",
-          "settings": {
-            "title": "Other"
-          }
-        },
-        {
-          "type": "question",
-          "settings": {
-            "title": "Any question?",
-            "answer": "<p>You can contact us through our contact page! We will be happy to assist you.</p>"
-          }
+          "type": "question"
         }
       ]
     }
-  ]
+  ],
+  "disabled_on": {
+    "groups": ["footer", "header", "custom.overlay"]
+  }
 }
 {% endschema %}

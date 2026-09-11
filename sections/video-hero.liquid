@@ -16,7 +16,7 @@
 </noscript>
 
 <div class="section section--padding{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded relative{% endif %}"{% if section.settings.transparent_header %} allow-transparent-header{% endif %}>
-  <div class="{% unless section.settings.full_width %}page-width {% endunless %}relative">
+  <div class="{% unless section.settings.full_width %}container {% endunless %}relative">
     <div class="video-hero banner sticky left-0 top-0 w-full h-screen">
       {%- capture sizes -%}{% if section.settings.full_width %}100vw{% else %}min({{ settings.page_width }}px, 100vw){% endif %}{%- endcapture -%}
       {%- if section.settings.video_mobile or section.settings.video_url_mobile -%}
@@ -50,7 +50,7 @@
       <parallax-overlay class="banner__overlay block absolute left-0 top-0 w-full h-full pointer-events-none" data-target="opacity" data-start="1" data-stop="{{ section.settings.overlay_opacity | divided_by: 100.0 }}"></parallax-overlay>
     </div>
     {%- if section.blocks.size > 0 -%}
-      <div class="video-hero__content{% if section.settings.full_width %} page-width{% endif %} text-center relative pointer-events-none">
+      <div class="video-hero__content{% if section.settings.full_width %} container{% endif %} text-center relative pointer-events-none">
         <text-scrolling class="banner__box banner__box--{{ section.settings.content_width }} inline-block">
           {%- liquid
             assign withGradient = false

@@ -19,7 +19,7 @@
 </style>
 
 <div class="section section--padding{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded relative{% endif %}">
-  <div class="{% unless section.settings.full_width %}page-width {% endunless %}relative">
+  <div class="{% unless section.settings.full_width %}container {% endunless %}relative">
     {%- if section.blocks.size > 0 -%}
       <div class="relative">
         {%- if section.blocks.size > 1 and section.settings.autoplay -%}
@@ -128,7 +128,7 @@
             {%- endcase -%}
           {%- endfor -%}
         </slideshow-element>
-        <div class="page-width absolute bottom-0 left-0 w-full pointer-events-none">
+        <div class="container absolute bottom-0 left-0 w-full pointer-events-none">
           <div class="slideshow-content">
             <slideshow-words class="slideshow-words grid items-center" aria-controls="Slider-{{ section.id }}">
               {%- for block in section.blocks -%}

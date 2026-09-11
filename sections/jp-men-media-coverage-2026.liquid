@@ -1,0 +1,111 @@
+{%- liquid
+  assign section_id = 'jp-men-media-coverage-2026-' | append: section.id
+-%}
+
+<section id="{{ section_id }}" class="jp-men-media-coverage-2026">
+  <div class="jp-men-media-coverage-2026__inner container">
+    <h2 class="jp-men-media-coverage-2026__title to-top">{{ section.settings.title | default: '雑誌・メディア掲載実績' }}</h2>
+
+    <div class="jp-men-media-coverage-2026__grid">
+      {%- for block in section.blocks limit: 5 -%}
+        <article class="jp-men-media-coverage-2026__item to-top"{% unless forloop.first %} style="transition-delay: {{ forloop.index0 | times: 0.1 }}s"{% endunless %} {{ block.shopify_attributes }}>
+          <div class="jp-men-media-coverage-2026__media">
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: height: 1300 | image_tag: class: 'jp-men-media-coverage-2026__image', loading: 'lazy', widths: '240, 360, 480, 640, 800', alt: block.settings.image.alt | default: block.settings.name }}
+            {%- else -%}
+              {{ 'image' | placeholder_svg_tag: 'jp-men-media-coverage-2026__placeholder' }}
+            {%- endif -%}
+          </div>
+          <h3 class="jp-men-media-coverage-2026__name">{{ block.settings.name }}</h3>
+          <p class="jp-men-media-coverage-2026__date">{{ block.settings.date }}</p>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  #{{ section_id }} {  color: {{ section.settings.text_color | default: '#000000' }}; margin-top: {{ section.settings.margin_top | default: 0 }}px; margin-bottom: {{ section.settings.margin_bottom | default: 0 }}px; overflow: hidden; }
+  #{{ section_id }} .jp-men-media-coverage-2026__inner { 
+    background: {{ section.settings.background | default: '#f7f8fa' }};
+    padding-top: min(4.629vw, 126px); padding-bottom: min(4.813vw, 131px); 
+  }
+  #{{ section_id }} .jp-men-media-coverage-2026__title {
+     color: inherit; font-family: inherit; 
+     font-size: 45px;
+     font-weight: 500; 
+     line-height: 1.2; 
+     margin: 0;
+     text-align: center; 
+   }
+  #{{ section_id }} .jp-men-media-coverage-2026__grid { display: grid; gap: 0 min(4.555vw, 124px); grid-template-columns: repeat(5, minmax(0, 1fr)); margin-top: min(2.792vw, 76px); }
+  #{{ section_id }} .jp-men-media-coverage-2026__item { min-width: 0; text-align: center; }
+  #{{ section_id }} .jp-men-media-coverage-2026__media { align-items: center; aspect-ratio: 3 / 4; display: flex;
+     justify-content: center; }
+  #{{ section_id }} .jp-men-media-coverage-2026__image { 
+    display: block; height: 100%; max-width: 100%; object-fit: contain; width: auto;
+  }
+  #{{ section_id }} .jp-men-media-coverage-2026__placeholder { display: block; fill: #d9dadd; 
+    height: 100%; max-width: 100%; width: auto; }
+  #{{ section_id }} .jp-men-media-coverage-2026__name {
+     color: {{ section.settings.accent_color | default: '#e0004d' }};
+      font-size: 20px;
+      font-weight: 400; line-height: 1.3; 
+      margin: 15px 0 0; white-space: nowrap;
+   }
+  #{{ section_id }} .jp-men-media-coverage-2026__date { color: {{ section.settings.secondary_color | default: '#878787' }}; font-size: 12px;
+   font-weight: 400; line-height: 1.35; margin: min(.26vw, 7px) 0 0; white-space: nowrap; }
+
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} { margin-top: {{ section.settings.mobile_margin_top | default: 0 }}px; margin-bottom: {{ section.settings.mobile_margin_bottom | default: 0 }}px; }
+    #{{ section_id }} .jp-men-media-coverage-2026__inner { padding-top: 9.411vw; padding-bottom: 8.95vw; }
+    #{{ section_id }} .jp-men-media-coverage-2026__title { font-size: 5.774vw; line-height: 1.3; white-space: nowrap; }
+    #{{ section_id }} .jp-men-media-coverage-2026__grid { column-gap: 3.637vw; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 7.736vw; row-gap: 7.91vw; }
+    #{{ section_id }} .jp-men-media-coverage-2026__media { height: auto; }
+    #{{ section_id }} .jp-men-media-coverage-2026__image { filter: drop-shadow(7px 4px 30px rgba(0, 0, 0, .15)); }
+    #{{ section_id }} .jp-men-media-coverage-2026__name { font-size: 2.762vw; line-height: 1.35; margin-top: 5.17vw; }
+    #{{ section_id }} .jp-men-media-coverage-2026__date { font-size: 1.658vw; line-height: 1.35; margin-top: .35vw; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Men Media Coverage",
+  "settings": [
+    { "type": "header", "content": "外边距" },
+    { "type": "range", "id": "margin_top", "label": "PC 上边距", "min": 0, "max": 200, "step": 5, "unit": "px", "default": 0 },
+    { "type": "range", "id": "margin_bottom", "label": "PC 下边距", "min": 0, "max": 200, "step": 2, "unit": "px", "default": 0 },
+    { "type": "range", "id": "mobile_margin_top", "label": "M 上边距", "min": 0, "max": 200, "step": 2, "unit": "px", "default": 0 },
+    { "type": "range", "id": "mobile_margin_bottom", "label": "M 下边距", "min": 0, "max": 200, "step": 2, "unit": "px", "default": 0 },
+    { "type": "text", "id": "title", "label": "标题", "default": "雑誌・メディア掲載実績" },
+    { "type": "color", "id": "background", "label": "背景颜色", "default": "#F7F8FA" },
+    { "type": "color", "id": "text_color", "label": "标题颜色", "default": "#000000" },
+    { "type": "color", "id": "accent_color", "label": "杂志名称颜色", "default": "#E0004D" },
+    { "type": "color", "id": "secondary_color", "label": "日期颜色", "default": "#878787" }
+  ],
+  "blocks": [
+    {
+      "type": "media",
+      "name": "杂志",
+      "limit": 5,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "杂志封面图片" },
+        { "type": "text", "id": "name", "label": "杂志名称", "default": "「FINEBOYS+plus」" },
+        { "type": "text", "id": "date", "label": "刊登日期", "default": "2024年度9月号に掲載" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "jp-men-media-coverage-2026",
+      "blocks": [
+        { "type": "media", "settings": { "name": "「FINEBOYS+plus」", "date": "2024年度9月号に掲載" } },
+        { "type": "media", "settings": { "name": "「DIME」", "date": "2024年度8月号に掲載" } },
+        { "type": "media", "settings": { "name": "「美人百花」", "date": "2024年度12月号に掲載" } },
+        { "type": "media", "settings": { "name": "「ESSE」", "date": "2025年度4月号に掲載" } },
+        { "type": "media", "settings": { "name": "「MAQUIA」", "date": "2025年度9月号に掲載" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

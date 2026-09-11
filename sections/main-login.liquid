@@ -8,7 +8,7 @@
 {{ 'customer.css' | asset_url | stylesheet_tag }}
 
 <div class="section section--padding{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded relative{% endif %}">
-  <div class="page-width relative">
+  <div class="container relative">
     <div id="Recover" class="title-wrapper{% if section.settings.heading_size == 'title-xl' %} title-wrapper-lg{% endif %} text-center leading-none grid gap-4">
       <{{ section.settings.heading_tag }} class="heading font-bold {{ section.settings.heading_size }}" tabindex="-1">
         <split-words class="split-words flex flex-wrap" data-animate="fade-up-large">{{ 'customer.recover_password.title' | t }}</split-words>

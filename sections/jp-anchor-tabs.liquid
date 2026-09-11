@@ -23,6 +23,7 @@
     --jp-anchor-sticky-top-mb: {{ st.sticky_top_mb }}px;
     --jp-anchor-scroll-offset-pc: {{ st.scroll_offset_pc }}px;
     --jp-anchor-scroll-offset-mb: {{ st.scroll_offset_mb }}px;
+    --jp-anchor-tab-count: {{ section.blocks.size }};
   "
 >
   <div class="container">
@@ -54,7 +55,7 @@
     border-bottom: 1px solid var(--jp-anchor-border);
     position: relative;
     z-index: 20;
-    margin: 60px 0px;
+    margin: 36px 0 76px;
   }
 
   #jp-anchor-tabs-{{ sid }}.is-sticky {
@@ -83,18 +84,20 @@
   }
 
   #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__list {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(var(--jp-anchor-tab-count), minmax(0, 280px));
     align-items: center;
     justify-content: center;
-    gap: 0;
-    width: 80%;
+    column-gap: min(7.29vw, 140px);
+    width: fit-content;
+    max-width: 100%;
     margin: 0 auto;
-    height: 48px;
+    height: 52px;
   }
 
   #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__item {
     position: relative;
-    flex: 1 1 0;
+    width: 100%;
     height: 100%;
     padding: 0 24px;
     border: 0;
@@ -103,7 +106,7 @@
     font-size: 16px;
     line-height: 1.4;
     font-weight: 400;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.1em;
     cursor: pointer;
     white-space: nowrap;
     transition: color 0.25s ease, transform 0.25s ease;
@@ -112,13 +115,15 @@
   #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__item::after {
     content: '';
     position: absolute;
-    left: 50%;
+    right: 0;
     bottom: 0;
-    width: 0;
+    left: 0;
+    width: 100%;
     height: 1px;
     background: var(--jp-anchor-active);
-    transform: translateX(-50%);
-    transition: width 0.28s ease;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.28s ease;
   }
 
   #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__item:hover {
@@ -130,19 +135,19 @@
   }
 
   #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__item.is-active::after {
-    width: 280px;
-    max-width: 80%;
+    transform: scaleX(1);
   }
 
   @media screen and (max-width: 768px) {
     #jp-anchor-tabs-{{ sid }}{
-      margin: 20px 0px;
+      margin: 20px 0 32px;
     }
     #jp-anchor-tabs-{{ sid }}.is-fixed {
       top: var(--jp-anchor-sticky-top-mb);
     }
 
     #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__list {
+      display: flex;
       justify-content: flex-start;
       height: 49px;
       overflow-x: auto;
@@ -160,15 +165,13 @@
 
     #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__item {
       flex: 0 0 auto;
+      width: auto;
       padding: 0 24px;
       font-size: 14px;
       line-height: 1.4;
+      letter-spacing: 0.08em;
     }
 
-    #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__item.is-active::after {
-      width: 100%;
-      max-width: 120px;
-    }
   }
 </style>
 
