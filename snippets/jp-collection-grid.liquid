@@ -1,0 +1,25 @@
+<jp-collection-grid class="jp-collection {{ module_class }}" style="--collection-top: {{ section.settings.padding_top }}px; --collection-bottom: {{ section.settings.padding_bottom }}px; --collection-top-mobile: {{ section.settings.padding_top_mobile }}px; --collection-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;">
+  <div class="jp-collection__inner">
+    <header class="jp-collection__heading">
+      <h2>{{ section.settings.heading | escape }}</h2>
+      {% if section.settings.subheading != blank %}<p>{{ section.settings.subheading | escape }}</p>{% endif %}
+    </header>
+    <div class="jp-collection__grid" id="CollectionGrid-{{ section.id }}">
+      {% for block in section.blocks %}
+        {% liquid
+          assign extra_mobile = false
+          if mobile_limit > 0 and forloop.index > mobile_limit
+            assign extra_mobile = true
+          endif
+        %}
+        {% render 'jp-collection-card', block: block, extra_mobile: extra_mobile %}
+      {% endfor %}
+    </div>
+    {% if mobile_limit > 0 and section.blocks.size > mobile_limit %}
+      <button type="button" class="jp-collection__more" data-collection-more aria-expanded="false" aria-controls="CollectionGrid-{{ section.id }}" hidden>
+        {{ section.settings.more_label | escape }}
+        <span class="jp-collection__more-icon" aria-hidden="true">{% render 'icon', icon: 'plus', width: 8, height: 8 %}</span>
+      </button>
+    {% endif %}
+  </div>
+</jp-collection-grid>
