@@ -149,7 +149,7 @@
         {%- endif -%}
         <div class="drawer__footer-bottom flex items-center justify-between gap-6">
           {%- if shop.customer_accounts_enabled -%}
-            <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="button button--primary icon-with-text" is="hover-link">
+            <a href="{%- if customer -%}https://account.ulike.com/account?site=jp{%- else -%}https://account.ulike.com/login?site=jp{%- endif -%}" class="button button--primary icon-with-text" is="hover-link" data-no-instant>
               <span class="btn-fill" data-fill></span>
               <span class="btn-text">
                 {%- liquid

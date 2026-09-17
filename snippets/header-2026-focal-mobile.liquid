@@ -8,23 +8,37 @@
   <div class="drawer__content header-2026__mobile-content">
     <nav class="header-2026__mobile-root" aria-label="{{ menu.title | default: 'メインメニュー' | escape }}">
       {%- for link in menu.links -%}
-        {%- if forloop.first -%}
-          <button type="button" data-header-2026-open-products><span class="header-2026__mobile-root-label">{{ link.title }}</span>{% render 'header-2026-arrow' %}</button>
+        {%- assign panel = blank -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'header_navigation_panel' and block.settings.menu_item == link.title -%}
+            {%- assign panel = block -%}
+            {%- break -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- assign panel_name = panel.settings.panel_type -%}
+        {%- if panel != blank -%}
+          <button type="button" data-header-2026-open-panel="{{ panel_name }}" aria-controls="header-2026-mobile-{{ panel_name }}" aria-expanded="false"><span class="header-2026__mobile-root-label">{{ link.title }}</span>{% render 'header-2026-arrow' %}</button>
         {%- else -%}
           <a href="{{ link.url }}"><span class="header-2026__mobile-root-label">{{ link.title }}</span>{% render 'header-2026-arrow' %}</a>
         {%- endif -%}
       {%- endfor -%}
+      {%- if shop.customer_accounts_enabled -%}
+        <a class="header-2026__mobile-account" href="{% if customer %}https://account.ulike.com/account?site=jp{% else %}https://account.ulike.com/login?site=jp{% endif %}" data-no-instant>
+          {%- render 'icon' with 'header-customer' -%}
+          <span>{% if customer %}{{ 'header.general.account' | t }}{% else %}{{ 'header.general.login' | t }}{% endif %}</span>
+        </a>
+      {%- endif -%}
     </nav>
-    <section class="header-2026__mobile-products-panel" data-header-2026-products hidden>
-      <button type="button" class="header-2026__mobile-back" data-header-2026-back>
-        <span>‹&nbsp; 戻る</span><strong>{{ menu.links.first.title | default: '製品一覧' }}</strong>
+    <section id="header-2026-mobile-products" class="header-2026__mobile-panel header-2026__mobile-products-panel" data-header-2026-panel="products" hidden>
+      <button type="button" class="header-2026__mobile-back" data-header-2026-back="products">
+        <span><svg xmlns="http://www.w3.org/2000/svg" width="6" height="10" viewBox="0 0 6 10" fill="none" aria-hidden="true"><path d="M4.75 8.75L0.75 4.75L4.75 0.75" stroke="#E0004D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>戻る</span><strong>{%- for block in section.blocks -%}{%- if block.type == 'header_navigation_panel' and block.settings.panel_type == 'products' -%}{{ block.settings.menu_item }}{%- break -%}{%- endif -%}{%- endfor -%}</strong>
       </button>
-      <div class="header-2026__mobile-products-scroll">
+      <div class="header-2026__mobile-products-scroll" data-header-2026-panel-scroll>
         <div class="header-2026__mobile-categories">
           {%- assign product_navigation_groups = section.blocks | where: 'type', 'product_navigation_group' -%}
           {%- if product_navigation_groups.size > 0 -%}
-            {%- for group in product_navigation_groups limit: 4 -%}
-              <details class="header-2026__mobile-category"{% if forloop.first %} open{% endif %} {{ group.shopify_attributes }}>
+            {%- for group in product_navigation_groups -%}
+              <details class="header-2026__mobile-category" open {{ group.shopify_attributes }}>
                 <summary>{{ group.settings.heading | escape }}</summary>
                 <div class="header-2026__mobile-product-list">
                   {%- for product in group.settings.products -%}{%- render 'header-2026-focal-product-card', product: product -%}{%- endfor -%}
@@ -35,28 +49,28 @@
           <details class="header-2026__mobile-category" open>
             <summary>新発売</summary>
             <div class="header-2026__mobile-product-list">
-              {%- render 'header-2026-focal-product-card', product_handle: 'ulike-me-ipl-hair-removal', title: 'Ulike Me', badge: 'NEW', fallback_image: 'header-2026-product-me.png' -%}
-              {%- render 'header-2026-focal-product-card', product_handle: 'air10-max-ipl-hair-removal', title: 'Ulike Air 10 Max', badge: 'NEW', fallback_image: 'header-2026-product-air10.png' -%}
-              {%- render 'header-2026-focal-product-card', product_handle: 'ulike-x-max-ipl-hair-removal', title: 'Ulike X Max', badge: 'NEW', fallback_image: 'header-2026-product-xmax.png' -%}
+              {%- render 'header-2026-focal-product-card', product_handle: 'ulike-me-ipl-hair-removal', title: 'Ulike Me', fallback_image: 'header-2026-product-me.png' -%}
+              {%- render 'header-2026-focal-product-card', product_handle: 'air10-max-ipl-hair-removal', title: 'Ulike Air 10 Max', fallback_image: 'header-2026-product-air10.png' -%}
+              {%- render 'header-2026-focal-product-card', product_handle: 'ulike-x-max-ipl-hair-removal', title: 'Ulike X Max', fallback_image: 'header-2026-product-xmax.png' -%}
             </div>
           </details>
-          <details class="header-2026__mobile-category">
+          <details class="header-2026__mobile-category" open>
             <summary>ロングセラー</summary>
             <div class="header-2026__mobile-product-list">
-              {%- render 'header-2026-focal-product-card', product_handle: 'airpro-s-ipl-hair-removal', title: 'Ulike AirPro S', badge: '新色登場!' -%}
+              {%- render 'header-2026-focal-product-card', product_handle: 'airpro-s-ipl-hair-removal', title: 'Ulike AirPro S' -%}
               {%- render 'header-2026-focal-product-card', product_handle: 'air10-ipl-hair-removal', title: 'Ulike Air 10' -%}
               {%- render 'header-2026-focal-product-card', product_handle: 'ulike-men-ipl', title: 'Ulike X+' -%}
             </div>
           </details>
-          <details class="header-2026__mobile-category">
+          <details class="header-2026__mobile-category" open>
             <summary>販売店限定</summary>
             <div class="header-2026__mobile-product-list">
-              {%- render 'header-2026-focal-product-card', product_handle: 'air10-pro-ipl-hair-removal', title: 'Ulike Air 10 Pro', badge: 'NEW' -%}
-              {%- render 'header-2026-focal-product-card', product_handle: 'men-air2', title: 'Ulike Air 2', badge: 'NEW' -%}
-              {%- render 'header-2026-focal-product-card', product_handle: 'ulike-men-ipl', title: 'Ulike X', badge: 'NEW' -%}
+              {%- render 'header-2026-focal-product-card', product_handle: 'air10-pro-ipl-hair-removal', title: 'Ulike Air 10 Pro' -%}
+              {%- render 'header-2026-focal-product-card', product_handle: 'men-air2', title: 'Ulike Air 2' -%}
+              {%- render 'header-2026-focal-product-card', product_handle: 'ulike-men-ipl', title: 'Ulike X' -%}
             </div>
           </details>
-          <details class="header-2026__mobile-category">
+          <details class="header-2026__mobile-category" open>
             <summary>アクセサリー</summary>
             <div class="header-2026__mobile-product-list">
               {%- render 'header-2026-focal-product-card', product_handle: 'ultrasonic-case', title: '超音波洗浄ケース' -%}
@@ -68,5 +82,46 @@
         <a class="header-2026__shop-all" href="{{ routes.all_products_collection_url }}">すべての製品を見る <span aria-hidden="true">→</span></a>
       </div>
     </section>
+    {%- for panel in section.blocks -%}
+      {%- assign panel_name = panel.settings.panel_type -%}
+      {%- if panel.type == 'header_navigation_panel' and panel_name != blank and panel_name != 'products' -%}
+        <section id="header-2026-mobile-{{ panel_name }}" class="header-2026__mobile-panel header-2026__mobile-links-panel" data-header-2026-panel="{{ panel_name }}" hidden>
+          <button type="button" class="header-2026__mobile-back" data-header-2026-back="{{ panel_name }}"><span><svg xmlns="http://www.w3.org/2000/svg" width="6" height="10" viewBox="0 0 6 10" fill="none" aria-hidden="true"><path d="M4.75 8.75L0.75 4.75L4.75 0.75" stroke="#E0004D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>戻る</span><strong>{{ panel.settings.menu_item | escape }}</strong></button>
+          {%- if panel_name == 'about' -%}
+            <div class="header-2026__mobile-about-list" data-header-2026-panel-scroll>
+              {%- assign about_link_count = 0 -%}
+              {%- for block in section.blocks -%}{%- if block.type == 'nav_link' and block.settings.menu_item == panel.settings.menu_item -%}
+                {%- assign about_link_count = about_link_count | plus: 1 -%}
+                <a href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}><strong>{{ block.settings.title | escape }} {% render 'header-2026-arrow' %}</strong>{% if block.settings.description != blank %}<span>{{ block.settings.description | escape }}</span>{% endif %}{% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 620 | image_tag: loading: 'lazy', alt: block.settings.title }}{% elsif block.settings.asset_image != blank %}<img src="{{ block.settings.asset_image | asset_url }}" width="310" height="156" loading="lazy" alt="{{ block.settings.title | escape }}">{% endif %}</a>
+              {%- endif -%}{%- endfor -%}
+              {%- if about_link_count < 2 -%}<a href="/pages/where-to-pruchase"><strong>販売店一覧 {% render 'header-2026-arrow' %}</strong><span>オフライン店舗でUlikeを発見｜あなたの美をより深く体験</span><img src="{{ 'header-2026-about-store.png' | asset_url }}" width="310" height="156" loading="lazy" alt="販売店一覧"></a>{%- endif -%}
+            </div>
+          {%- elsif panel_name == 'guide' -%}
+            <div class="header-2026__mobile-links" data-header-2026-panel-scroll>
+              {%- assign guide_assets = 'header-2026-manual.png|header-2026-reviews.png|header-2026-faq.png|header-2026-compare.png|header-2026-guide.png' | split: '|' -%}
+              {%- assign guide_index = 0 -%}
+              {%- for block in section.blocks -%}{%- if block.type == 'guide_card' or block.type == 'guide_pair' -%}<a href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>{% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 80 | image_tag: width: 40, height: 40, loading: 'lazy', alt: block.settings.title }}{% else %}<img src="{{ guide_assets[guide_index] | asset_url }}" width="40" height="40" loading="lazy" alt="{{ block.settings.title | escape }}">{% endif %}<span>{{ block.settings.title | escape }}</span>{% render 'header-2026-arrow' %}</a>{%- assign guide_index = guide_index | plus: 1 -%}{%- endif -%}{%- endfor -%}
+            </div>
+          {%- elsif panel_name == 'topics' -%}
+            <div class="header-2026__mobile-links header-2026__mobile-topic-links" data-header-2026-panel-scroll>
+              {%- assign topic_assets = 'header-2026-topic-popular.png|header-2026-topic-news.png' | split: '|' -%}
+              {%- assign topic_index = 0 -%}
+              {%- for block in section.blocks -%}{%- if block.type == 'topic_link' -%}<a href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>{% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 80 | image_tag: width: 40, height: 40, loading: 'lazy', alt: block.settings.title }}{% else %}<img src="{{ topic_assets[topic_index] | asset_url }}" width="40" height="40" loading="lazy" alt="{{ block.settings.title | escape }}">{% endif %}<span>{{ block.settings.title | escape }}</span>{% render 'header-2026-arrow' %}</a>{%- assign topic_index = topic_index | plus: 1 -%}{%- endif -%}{%- endfor -%}
+              {%- for block in section.blocks -%}{%- if block.type == 'topic_toggle' -%}<details open {{ block.shopify_attributes }}><summary><img src="{{ 'header-2026-topic-pickup.png' | asset_url }}" width="40" height="40" loading="lazy" alt="{{ block.settings.title | escape }}"><span>{{ block.settings.title | escape }}</span><img class="header-2026__mobile-chevron" src="{{ 'header-2026-arrow-up.svg' | asset_url }}" width="15" height="15" alt=""></summary><div>{%- for detail in section.blocks -%}{%- if detail.type == 'topic_detail' -%}<a href="{{ detail.settings.link | default: '#' }}" {{ detail.shopify_attributes }}>{{ detail.settings.title | escape }} {% render 'header-2026-arrow' %}</a>{%- endif -%}{%- endfor -%}</div></details>{%- endif -%}{%- endfor -%}
+            </div>
+          {%- else -%}
+            <div class="header-2026__mobile-links" data-header-2026-panel-scroll>
+              {%- assign has_configured_links = false -%}
+              {%- for block in section.blocks -%}{%- if block.type == 'nav_link' and block.settings.menu_item == panel.settings.menu_item -%}{%- assign has_configured_links = true -%}{%- break -%}{%- endif -%}{%- endfor -%}
+              {%- if has_configured_links -%}
+                {%- for block in section.blocks -%}{%- if block.type == 'nav_link' and block.settings.menu_item == panel.settings.menu_item -%}<a href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>{% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 80 | image_tag: width: 40, height: 40, loading: 'lazy', alt: block.settings.title }}{% elsif block.settings.asset_image != blank %}<img src="{{ block.settings.asset_image | asset_url }}" width="40" height="40" alt="{{ block.settings.title | escape }}">{% endif %}<span>{{ block.settings.title | escape }}</span>{% render 'header-2026-arrow' %}</a>{%- endif -%}{%- endfor -%}
+              {%- else -%}
+                {%- for link in menu.links -%}{%- if link.title == panel.settings.menu_item -%}{%- for childlink in link.links -%}<a href="{{ childlink.url }}"><span>{{ childlink.title | escape }}</span>{% render 'header-2026-arrow' %}</a>{%- endfor -%}{%- endif -%}{%- endfor -%}
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </section>
+      {%- endif -%}
+    {%- endfor -%}
   </div>
 </mobile-navigation>

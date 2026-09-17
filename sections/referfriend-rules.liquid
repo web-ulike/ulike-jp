@@ -1,0 +1,126 @@
+<style>
+  .activity-rules {
+    margin: 50px auto;
+    font-size: 20px;
+  }
+  .activity-rules p {
+    margin-bottom: 20px;
+  }
+  .activity-rules .rules-title {
+    font-size: 32px;
+    color: #000;
+    font-family: var(--heading-font-family);
+    text-align: left;
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 991px) {
+    .activity-rules {
+      margin: 20px auto;
+      font-size: 14px;
+    }
+    .activity-rules p {
+      margin-bottom: 15px;
+    }
+    .activity-rules .rules-title {
+      font-size: 22px;
+      color: #000;
+      font-family: var(--heading-font-family);
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+  }
+</style>
+
+<div class="container activity-rules">
+  <h1 class="rules-title">User Reward Program Agreement</h1>
+  <div class="desc">
+    <p>
+      1. Acceptance of the Agreement<br>
+      By participating in this Reward Program ("Program"), you agree to be bound by this Agreement. Please read it
+      carefully before joining. Participation in the Program is deemed as full acceptance of the terms.
+    </p>
+    <p>
+      2. Program Overview<br>
+      After registering an account on the Ulike official website, you can participate in this Program. Full
+      participation rules are available on the activity page.
+    </p>
+    <p>
+      3. Reward Calculation and Payment<br>
+      Reward: Earn $50 for each friend you invite who places an order. The reward is cumulative and settled in USD. Orders that are refunded or returned within 15 days of receiving the package by the referred friend are not eligible for the reward.<br>
+      Payment method: PayPal.<br>
+      Ulike reserves the right to verify eligibility for reward payment. If conditions are not met, rewards may not be
+      issued.<br>
+      Ulike may fulfill tax reporting obligations and withhold taxes as required. Any penalties or compensation arising
+      from non-compliance by the referrer will be their responsibility.
+    </p>
+    <p>
+      4. User Obligations<br>
+      Honest Participation: You agree to participate honestly and follow the rules, without engaging in fraudulent or
+      inappropriate methods (e.g., cheating, fake registrations).<br>
+      Ulike reserves the right to monitor participation and take action against cheating (e.g., falsifying links,
+      manipulating user behavior, disrupting data processes).<br>
+      If rewards reach taxable amounts, you must fulfill tax obligations; failure to do so may result in reward
+      suspension.
+    </p>
+    <p>
+      5. Data Collection<br>
+      Ulike collects only necessary information for the Program, including but not limited to: name, email, contact
+      info, account ID, referral code usage, order data, and tax identification number.
+      <a href="https://www.ulike.com/pages/privacy-policy">[Privacy Policy]</a>.<br>
+      Ulike will not share your personal data without consent, except as required by law. You may request deletion of
+      your data at any time.
+    </p>
+    <p>
+      6. Disclaimer<br>
+      Ulike does not guarantee the continuation of rewards.<br>
+      Ulike is not responsible for losses caused by third parties or changes in law that might end the Program early.[+1
+      833-206-6933].<br>
+      Participation carries risks, including but not limited to cybersecurity and data privacy risks.
+    </p>
+    <p>
+      7. Liability<br>
+      If your actions cause harm to Ulike or third parties, you are fully liable, including compensating for damages and
+      legal fees.<br>
+      This Agreement is governed by Hong Kong law. Disputes should be resolved through negotiation or submitted to the
+      Hong Kong International Arbitration Centre for final arbitration.
+    </p>
+  </div>
+</div>
+<script>
+  window.addEventListener('load', function() { 
+    window.UlikeCommon.commonGtmEvent(`老带新，活动规则页`, '', '');
+  });
+</script>
+
+{% schema %}
+{
+  "name": "referfriend-rules",
+  "blocks": [],
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Custom Class"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "rgba(255,255,255,0)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "referfriend-rules",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

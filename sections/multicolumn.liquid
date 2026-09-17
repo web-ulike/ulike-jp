@@ -2,7 +2,85 @@
   #shopify-section-{{ section.id }} {
     --section-padding-top: {{ section.settings.padding_top }}px;
     --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --multicolumn-reference-columns: {{ section.settings.columns }};
     {%- render 'section-variables', section: section -%}
+  }
+
+  /* Reference layout: a quiet, image-led three-column effect gallery. */
+  #shopify-section-{{ section.id }} .multicolumn-reference__slider {
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .multicolumn-reference__track {
+    display: grid;
+    grid-template-columns: repeat(var(--multicolumn-reference-columns), minmax(0, 1fr));
+    gap: clamp(20px, 4vw, 80px);
+  }
+
+  #shopify-section-{{ section.id }} .multicolumn-reference__card {
+    display: block;
+    min-width: 0;
+  }
+
+  #shopify-section-{{ section.id }} .multicolumn-reference__card > .grid {
+    gap: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .multicolumn-reference__media {
+    border-radius: 24px;
+    isolation: isolate;
+  }
+
+  #shopify-section-{{ section.id }} .multicolumn-reference__media > img,
+  #shopify-section-{{ section.id }} .multicolumn-reference__media video,
+  #shopify-section-{{ section.id }} .multicolumn-reference__media video-media {
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .title-wrapper {
+    margin-bottom: clamp(36px, 4.8vw, 76px);
+  }
+
+  #shopify-section-{{ section.id }} .title-wrapper .heading {
+    font-size: clamp(30px, 3vw, 52px);
+    font-weight: 500;
+    letter-spacing: .02em;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .multicolumn-reference__track {
+      grid-auto-columns: minmax(78vw, 340px);
+      grid-auto-flow: column;
+      grid-template-columns: none;
+      gap: 16px;
+      overflow-x: auto;
+      overscroll-behavior-inline: contain;
+      padding: 0 18px 12px 0;
+      scroll-padding-inline: 0;
+      scroll-snap-type: inline mandatory;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    #shopify-section-{{ section.id }} .multicolumn-reference__track::-webkit-scrollbar {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .multicolumn-reference__card {
+      scroll-snap-align: start;
+    }
+
+    #shopify-section-{{ section.id }} .multicolumn-reference__media {
+      border-radius: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .title-wrapper {
+      margin-bottom: 32px;
+    }
+
+    #shopify-section-{{ section.id }} .title-wrapper .heading {
+      font-size: 28px;
+    }
   }
 </style>
 
@@ -10,8 +88,8 @@
   <div class="{% unless section.settings.full_width %}container{% endunless %} relative">
     {%- render 'section-heading', section: section -%}
 
-    <slider-element id="Slider-{{ section.id }}" class="grid slider{% if section.settings.swipe_on_mobile %} slider--tablet{% endif %}" selector=".card-grid>.card">
-      <div class="multicolumn card-grid card-grid--{{ section.settings.columns }} mobile:card-grid--{{ section.settings.columns_mobile }} grid relative z-1">
+    <slider-element id="Slider-{{ section.id }}" class="multicolumn-reference__slider grid slider{% if section.settings.swipe_on_mobile %} slider--tablet{% endif %}" selector=".card-grid>.card">
+      <div class="multicolumn multicolumn-reference__track card-grid card-grid--{{ section.settings.columns }} mobile:card-grid--{{ section.settings.columns_mobile }} grid relative z-1">
         {%- liquid
           assign withGradient = false
           if section.settings.gradient_highlight != blank and section.settings.gradient_highlight != 'rgba(0,0,0,0)'
@@ -19,11 +97,11 @@
           endif
         -%}
         {%- for block in section.blocks -%}
-          <div class="multicolumn-card{% if block.settings.show_border %} with-border{% endif %} card flex gap-5 w-full flex-col items-start xl:flex-row md:text-{{ block.settings.text_alignment }} text-{{ block.settings.text_alignment_mobile }}" {{ block.shopify_attributes }}>
+          <div class="multicolumn-card multicolumn-reference__card{% if block.settings.show_border %} with-border{% endif %} card flex gap-5 w-full flex-col items-start xl:flex-row md:text-{{ block.settings.text_alignment }} text-{{ block.settings.text_alignment_mobile }}" {{ block.shopify_attributes }}>
             <div class="grid gap-4 lg:gap-6">
               {%- if block.settings.video != blank -%}
                 {%- capture sizes -%}(max-width: 639px) 100vw, (max-width: 1023px) calc(100vw / 2 - 40px), (max-width: 1535px) calc(min(100vw, {{ settings.page_width }}px) / 3 - 40px) , calc(min(100vw, {{ settings.page_width }}px) / 3 - 80px) {%- endcapture -%}
-                <a class="block media media--{{ block.settings.image_ratio }} media--transparent relative overflow-hidden"{% if block.settings.button_link != blank %} href="{{ block.settings.button_link }}"{% else %} role="link" aria-disabled="true"{% endif %}>
+                <a class="multicolumn-reference__media block media media--{{ block.settings.image_ratio }} media--transparent relative overflow-hidden"{% if block.settings.button_link != blank %} href="{{ block.settings.button_link }}"{% else %} role="link" aria-disabled="true"{% endif %}>
                   {%- liquid
                     assign video_alt = block.settings.video.alt | default: block.settings.image.alt
                     assign alt = 'general.accessibility.load_video' | t: description: video_alt | escape
@@ -46,7 +124,7 @@
                 </a>
               {%- elsif block.settings.image != blank -%}
                 {%- capture sizes -%}(max-width: 639px) 100vw, (max-width: 1023px) calc(100vw / 2 - 40px), (max-width: 1535px) calc(min(100vw, {{ settings.page_width }}px) / 3 - 40px) , calc(min(100vw, {{ settings.page_width }}px) / 3 - 80px) {%- endcapture -%}
-                <a class="block media media--{{ block.settings.image_ratio }} media--transparent relative overflow-hidden"{% if block.settings.button_link != blank %} href="{{ block.settings.button_link }}"{% else %} role="link" aria-disabled="true"{% endif %}>
+                <a class="multicolumn-reference__media block media media--{{ block.settings.image_ratio }} media--transparent relative overflow-hidden"{% if block.settings.button_link != blank %} href="{{ block.settings.button_link }}"{% else %} role="link" aria-disabled="true"{% endif %}>
                   {{- block.settings.image | image_url: width: block.settings.image.width | image_tag: loading: 'lazy', widths: '180,360,540,720,900,1080,1600', sizes: sizes, is: 'lazy-image', class: 'inline-block' -}}
                 </a>
               {%- endif -%}

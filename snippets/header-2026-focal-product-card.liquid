@@ -1,9 +1,13 @@
 {%- liquid
   assign card_product = product | default: all_products[product_handle]
   assign card_title = title | default: card_product.title
+  assign card_badge = badge
   assign card_url = fallback_url | default: routes.all_products_collection_url
   if card_product != blank
     assign card_url = card_product.url
+    if card_product.metafields.custom.badges != blank
+      assign card_badge = card_product.metafields.custom.badges.value | first
+    endif
   endif
 -%}
 <a class="header-2026__product-card" href="{{ card_url }}">
@@ -17,7 +21,7 @@
   <span class="header-2026__product-copy">
     <span class="header-2026__product-heading">
       <span class="header-2026__product-title">{{ card_title | escape }}</span>
-      {%- if badge != blank -%}<span class="header-2026__product-badge">{{ badge | escape }}</span>{%- endif -%}
+      {%- if card_badge != blank -%}<span class="header-2026__product-badge">{{ card_badge | escape }}</span>{%- endif -%}
     </span>
     <span class="header-2026__rating" aria-label="4.9 / 5"><span aria-hidden="true">★★★★★</span><small>4.9/5</small></span>
     {%- if card_product != blank -%}<span class="header-2026__product-price">{{ card_product.price | money_without_trailing_zeros }} <small>（税込）</small></span>{%- endif -%}

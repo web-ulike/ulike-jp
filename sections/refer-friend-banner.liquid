@@ -1,0 +1,199 @@
+{%- liquid
+  assign se_id = section.id
+  assign se_bks = section.blocks
+  assign se_stts = section.settings
+-%}
+
+<section class="refer-friend-banner_{{ se_id }}" id="refer-friend-banner">
+  <div class="refer-friend-content">
+    <div class="container">
+      <h1>
+        <span class="hidden-phone hidden-tablet">{{ section.settings.title }}</span>
+        <span class="hidden-lap hidden-desk">{{ section.settings.m_title }}</span>
+      </h1>
+      <p>{{ section.settings.description }}</p>
+      {% comment %} <a href="{{ section.settings.button_link }}" class="btn tracked-button">
+        {{ section.settings.button_text }}
+      </a> {% endcomment %}
+    </div>
+  </div>
+  {% if section.settings.image_desktop != blank or section.settings.image_mobile != blank %}
+    <div class="refer-friend-image">
+      <picture>
+        <source media="(max-width: 768px)" srcset="{{ section.settings.image_mobile | img_url: '750x' }}">
+        <img
+          class="image"
+          alt="{{ section.settings.alt_text | escape }}"
+          src="{{ section.settings.image_desktop | img_url: '1920x' }}"
+        >
+      </picture>
+    </div>
+  {% endif %}
+</section>
+<script>
+    window.addEventListener('load', function() { 
+      $('.refer-friend-banner_{{ se_id }} .tracked-button').on('click', function() {
+        // 点击埋点代码
+        window.UlikeCommon.commonGtmEvent('老带新-头图点击加入', '', '');
+      });
+    });
+ </script>
+
+{% schema %}
+{
+  "name": "Refer Friend Banner",
+  "settings": [
+    {
+      "type": "html",
+      "id": "title",
+      "label": "Title",
+      "default": "Share the Love, Reap the Rewards."
+    },
+    {
+      "type": "html",
+      "id": "m_title",
+      "label": "Title",
+      "default": "Share the Love, Reap the Rewards."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Send a friend $70 off their first order and earn a 10% commission after they make a purchase."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "JOIN NOW"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "Desktop Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Mobile Image"
+    },
+    {
+      "type": "text",
+      "id": "alt_text",
+      "label": "Image Alt Text",
+      "default": "Refer a Friend"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Refer Friend Banner",
+      "category": "Marketing"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .refer-friend-banner_{{ se_id }} {
+    width: 100%;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .refer-friend-banner_{{ se_id }} .refer-friend-content {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    text-align: left;
+    z-index: 2;
+    width: 100%;
+    margin: 0 auto;
+    color: #000;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .refer-friend-banner_{{ se_id }} .refer-friend-content h1 {
+    font-size: 50px;
+    font-weight: 500;
+    color: #000;
+    line-height: 52px;
+  }
+
+  .refer-friend-banner_{{ se_id }} .refer-friend-content p {
+    font-size: 20px;
+    margin: 10px 0;
+    width: 36%;
+    line-height: 1.3;
+  }
+
+  .refer-friend-banner_{{ se_id }} .refer-friend-content .btn {
+    display: inline-block;
+    padding: 8px 30px;
+    background: #000;
+    color: #FFF;
+    text-decoration: none;
+    transition: background 0.3s;
+    margin-top: 20px;
+    font-family: var(--heading-font-family);
+    border-radius: 2px;
+    font-size: 18px;
+    width: 180px;
+    text-align: center;
+  }
+
+  .refer-friend-banner_{{ se_id }} .refer-friend-content .btn:hover {
+    background: #3f3636;
+  }
+
+  .refer-friend-banner_{{ se_id }} .refer-friend-image {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .refer-friend-banner_{{ se_id }} .refer-friend-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 保持图片比例同时填充整个屏幕 */
+  }
+
+  @media (max-width: 768px) {
+    .refer-friend-banner_{{ se_id }} .refer-friend-content {
+      top: 5%;
+      transform: none;
+      left: 0;
+    }
+    .refer-friend-banner_{{ se_id }} .refer-friend-content h1 {
+      font-size: 2em;
+      line-height: 1.2;
+    }
+
+    .refer-friend-banner_{{ se_id }} .refer-friend-content p {
+      font-size: 1em;
+      line-height: 1.2;
+      width: 90%;
+    }
+
+    .refer-friend-banner_{{ se_id }} .refer-friend-content .btn {
+      padding: 8px 20px;
+      margin-top: 10px;
+      font-size: 18px;
+      width: 160px;
+      text-align: center;
+    }
+
+    .refer-friend-banner_{{ se_id }} .refer-friend-image {
+        width: 100%;
+        height: inherit; /* 让图片全屏 */
+        overflow: inherit;
+    }
+  }
+</style>

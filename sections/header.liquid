@@ -30,8 +30,19 @@ IMPLEMENTATION NOTE: the header in Focal is pretty complex as it allows a lot of
       position: relative;
     {%- endif -%}
 
-    z-index: 4;
+    z-index: 30;
+
+    {%- if section.settings.hide_header_on_scroll and section.settings.enable_sticky_header -%}
+      transition: transform 220ms ease;
+      will-change: transform;
+    {%- endif -%}
   }
+
+  {%- if section.settings.hide_header_on_scroll and section.settings.enable_sticky_header -%}
+    #shopify-section-{{ section.id }}.header-2026--scroll-hidden {
+      transform: translateY(calc(-100% - 1px));
+    }
+  {%- endif -%}
 
   {%- if section.settings.enable_sticky_header -%}
     .shopify-section--announcement-bar ~ #shopify-section-{{ section.id }} {
@@ -59,13 +70,8 @@ IMPLEMENTATION NOTE: the header in Focal is pretty complex as it allows a lot of
   {%- endif -%}
 
   #shopify-section-{{ section.id }} .header__logo-image {
-    max-width: {{ section.settings.mobile_logo_max_width }}px;
-  }
-
-  @media screen and (min-width: 741px) {
-    #shopify-section-{{ section.id }} .header__logo-image {
-      max-width: {{ section.settings.logo_max_width }}px;
-    }
+    width: 120px;
+    max-width: 120px;
   }
 
   @media screen and (min-width: 1200px) {
@@ -119,7 +125,7 @@ IMPLEMENTATION NOTE: the header in Focal is pretty complex as it allows a lot of
   {%- endif -%}
 </style>
 
-<store-header {% if section.settings.enable_sticky_header %}sticky{% endif %} {% if request.page_type == 'index' and section.settings.enable_transparent_header %}transparent{% endif %} class="header header-2026 {% if settings.background == settings.header_background %}header--bordered{% endif %} {% if request.page_type == 'index' and section.settings.enable_transparent_header %}header--transparent{% endif %}" role="banner">
+<store-header {% if section.settings.enable_sticky_header %}sticky{% endif %} {% if section.settings.hide_header_on_scroll and section.settings.enable_sticky_header %}data-header-2026-scroll-reveal{% endif %} {% if request.page_type == 'index' and section.settings.enable_transparent_header %}transparent{% endif %} class="header header-2026 {% if settings.background == settings.header_background %}header--bordered{% endif %} {% if request.page_type == 'index' and section.settings.enable_transparent_header %}header--transparent{% endif %}" role="banner">
   {%- assign menu = section.settings.navigation_menu -%}
 
   <div class="container">
@@ -278,7 +284,7 @@ IMPLEMENTATION NOTE: the header in Focal is pretty complex as it allows a lot of
           {%- endif -%}
 
           {%- if shop.customer_accounts_enabled -%}
-            <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="header__icon-wrapper tap-area hidden-phone {% unless section.settings.show_icons %}hidden-desk{% endunless %}" aria-label="{% if customer %}{{ 'header.general.account' | t | escape }}{% else %}{{ 'header.general.login' | t | escape }}{% endif %}">
+            <a href="{% if customer %}https://account.ulike.com/account?site=jp{% else %}https://account.ulike.com/login?site=jp{% endif %}" class="header__icon-wrapper tap-area hidden-phone {% unless section.settings.show_icons %}hidden-desk{% endunless %}" aria-label="{% if customer %}{{ 'header.general.account' | t | escape }}{% else %}{{ 'header.general.login' | t | escape }}{% endif %}" data-no-instant>
               {%- render 'icon' with 'header-customer' -%}
             </a>
           {%- endif -%}
@@ -316,7 +322,7 @@ IMPLEMENTATION NOTE: the header in Focal is pretty complex as it allows a lot of
 
             {%- if shop.customer_accounts_enabled -%}
               <li class="header__linklist-item">
-                <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}">
+                <a href="{% if customer %}https://account.ulike.com/account?site=jp{% else %}https://account.ulike.com/login?site=jp{% endif %}" data-no-instant>
                   {%- if customer -%}
                     {{ 'header.general.account' | t }}
                   {%- else -%}
@@ -402,6 +408,13 @@ SEARCH DRAWER
       "type": "checkbox",
       "id": "enable_sticky_header",
       "label": "Enable sticky header",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_header_on_scroll",
+      "label": "Hide header while scrolling down",
+      "info": "The header reappears when the customer scrolls up.",
       "default": true
     },
     {
@@ -555,188 +568,34 @@ SEARCH DRAWER
   ],
   "blocks": [
     {
-      "type": "mega_menu",
-      "name": "Mega menu",
+      "type": "header_navigation_panel",
+      "name": "Nav menu",
       "settings": [
         {
           "type": "text",
           "id": "menu_item",
-          "label": "Menu item",
-          "info": "Enter menu item to apply a mega menu dropdown. [Learn more](https://support.maestrooo.com/article/709-mega-menu)."
+          "label": "Menu item name",
+          "info": "Must exactly match an item in the Navigation menu."
         },
         {
           "type": "select",
-          "id": "images_position",
-          "label": "Images position",
-          "info": "When featuring 4 images or more, we recommend to not use any dropdown links to keep the navigation easy to use.",
+          "id": "panel_type",
+          "label": "Type",
           "options": [
-            {
-              "value": "left",
-              "label": "Left"
-            },
-            {
-              "value": "right",
-              "label": "Right"
-            }
+            { "value": "products", "label": "Products" },
+            { "value": "guide", "label": "Guide" },
+            { "value": "technology", "label": "Technology" },
+            { "value": "about", "label": "About" },
+            { "value": "support", "label": "Support" },
+            { "value": "topics", "label": "Topics" }
           ],
-          "default": "right"
-        },
-        {
-          "type": "header",
-          "content": "Image 1"
-        },
-        {
-          "type": "image_picker",
-          "id": "image_1",
-          "label": "Image",
-          "info": "560 x 420px .jpg recommended"
-        },
-        {
-          "type": "text",
-          "id": "image_1_heading",
-          "label": "Heading"
-        },
-        {
-          "type": "text",
-          "id": "image_1_text",
-          "label": "Text"
-        },
-        {
-          "type": "url",
-          "id": "image_1_link",
-          "label": "Link"
-        },
-        {
-          "type": "header",
-          "content": "Image 2"
-        },
-        {
-          "type": "image_picker",
-          "id": "image_2",
-          "label": "Image",
-          "info": "560 x 420px .jpg recommended"
-        },
-        {
-          "type": "text",
-          "id": "image_2_heading",
-          "label": "Heading"
-        },
-        {
-          "type": "text",
-          "id": "image_2_text",
-          "label": "Text"
-        },
-        {
-          "type": "url",
-          "id": "image_2_link",
-          "label": "Link"
-        },
-        {
-          "type": "header",
-          "content": "Image 3"
-        },
-        {
-          "type": "image_picker",
-          "id": "image_3",
-          "label": "Image",
-          "info": "560 x 420px .jpg recommended"
-        },
-        {
-          "type": "text",
-          "id": "image_3_heading",
-          "label": "Heading"
-        },
-        {
-          "type": "text",
-          "id": "image_3_text",
-          "label": "Text"
-        },
-        {
-          "type": "url",
-          "id": "image_3_link",
-          "label": "Link"
-        },
-        {
-          "type": "header",
-          "content": "Image 4"
-        },
-        {
-          "type": "image_picker",
-          "id": "image_4",
-          "label": "Image",
-          "info": "560 x 420px .jpg recommended"
-        },
-        {
-          "type": "text",
-          "id": "image_4_heading",
-          "label": "Heading"
-        },
-        {
-          "type": "text",
-          "id": "image_4_text",
-          "label": "Text"
-        },
-        {
-          "type": "url",
-          "id": "image_4_link",
-          "label": "Link"
-        },
-        {
-          "type": "header",
-          "content": "Image 5"
-        },
-        {
-          "type": "image_picker",
-          "id": "image_5",
-          "label": "Image",
-          "info": "560 x 420px .jpg recommended"
-        },
-        {
-          "type": "text",
-          "id": "image_5_heading",
-          "label": "Heading"
-        },
-        {
-          "type": "text",
-          "id": "image_5_text",
-          "label": "Text"
-        },
-        {
-          "type": "url",
-          "id": "image_5_link",
-          "label": "Link"
-        },
-        {
-          "type": "header",
-          "content": "Image 6"
-        },
-        {
-          "type": "image_picker",
-          "id": "image_6",
-          "label": "Image",
-          "info": "560 x 420px .jpg recommended"
-        },
-        {
-          "type": "text",
-          "id": "image_6_heading",
-          "label": "Heading"
-        },
-        {
-          "type": "text",
-          "id": "image_6_text",
-          "label": "Text"
-        },
-        {
-          "type": "url",
-          "id": "image_6_link",
-          "label": "Link"
+          "default": "guide"
         }
       ]
     },
     {
       "type": "product_navigation_group",
-      "name": "Product navigation group",
-      "limit": 4,
+      "name": "Products",
       "settings": [
         {
           "type": "text",
@@ -757,6 +616,85 @@ SEARCH DRAWER
           "default": false,
           "info": "Shows three products per page and navigation arrows when more products are selected."
         }
+      ]
+    },
+    {
+      "type": "nav_link",
+      "name": "Link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "menu_item",
+          "label": "Menu name",
+          "info": "Must match the Menu item name in Nav menu."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Text"
+        }
+      ]
+    },
+    {
+      "type": "guide_card",
+      "name": "Guide card",
+      "limit": 3,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "image_picker", "id": "image", "label": "Image" }
+      ]
+    },
+    {
+      "type": "guide_pair",
+      "name": "Guide pair",
+      "limit": 2,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "image_picker", "id": "image", "label": "Image" }
+      ]
+    },
+    {
+      "type": "topic_link",
+      "name": "Topic link",
+      "limit": 2,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "image_picker", "id": "image", "label": "Image" }
+      ]
+    },
+    {
+      "type": "topic_toggle",
+      "name": "Topic toggle",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "ピックアップ" },
+        { "type": "image_picker", "id": "image", "label": "Image" }
+      ]
+    },
+    {
+      "type": "topic_detail",
+      "name": "Topic detail",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "url", "id": "link", "label": "Link" }
       ]
     }
   ]

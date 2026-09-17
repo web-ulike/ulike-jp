@@ -15,8 +15,18 @@
               </div>
               {%- if products.count > 3 -%}
                 <div class="header-2026__product-carousel-controls" aria-label="{{ group.settings.heading | escape }}">
-                  <button type="button" data-header-2026-carousel-prev aria-label="前の3商品" disabled><span class="header-2026__carousel-arrow header-2026__carousel-arrow--prev"><img src="{{ 'header-2026-carousel-arrows.svg' | asset_url }}" width="55" height="17" alt=""></span></button>
-                  <button type="button" data-header-2026-carousel-next aria-label="次の3商品"><span class="header-2026__carousel-arrow header-2026__carousel-arrow--next"><img src="{{ 'header-2026-carousel-arrows.svg' | asset_url }}" width="55" height="17" alt=""></span></button>
+                  <button type="button" data-header-2026-carousel-prev aria-label="前の3商品" disabled>
+                    <span class="header-2026__carousel-arrow" aria-hidden="true">
+                      <svg class="header-2026__carousel-arrow-icon header-2026__carousel-arrow-icon--active" xmlns="http://www.w3.org/2000/svg" width="22" height="17" viewBox="0 0 22 17" fill="none"><path d="M0.552735 8.85742C0.353089 8.85731 0.158549 8.75635 0.0634773 8.5791C0.0202434 8.49953 7.21581e-07 8.41209 7.29092e-07 8.32617C0.000103737 8.19479 0.0489052 8.06451 0.141602 7.96484L7.54004 -1.23502e-06L8.3125 0.724608L1.74414 7.7959L21.667 7.7959C21.6669 8.38185 21.1935 8.85725 20.6104 8.85742L0.552735 8.85742ZM1.10742 10.1885L1.10645 10.1885C1.51971 9.77441 2.18842 9.77436 2.60059 10.1885L8.30176 15.915L7.55469 16.666L1.10742 10.1885Z" fill="black"/></svg>
+                      <svg class="header-2026__carousel-arrow-icon header-2026__carousel-arrow-icon--disabled" xmlns="http://www.w3.org/2000/svg" width="22" height="17" viewBox="0 0 22 17" fill="none"><path d="M0.552735 8.85742C0.353089 8.85731 0.158549 8.75635 0.0634773 8.5791C0.0202434 8.49953 7.21581e-07 8.41209 7.29092e-07 8.32617C0.000103737 8.19479 0.0489052 8.06451 0.141602 7.96484L7.54004 -1.23502e-06L8.3125 0.724608L1.74414 7.7959L21.667 7.7959C21.6669 8.38185 21.1935 8.85725 20.6104 8.85742L0.552735 8.85742ZM1.10742 10.1885L1.10645 10.1885C1.51971 9.77441 2.18842 9.77436 2.60059 10.1885L8.30176 15.915L7.55469 16.666L1.10742 10.1885Z" fill="#C4C4C4"/></svg>
+                    </span>
+                  </button>
+                  <button type="button" data-header-2026-carousel-next aria-label="次の3商品">
+                    <span class="header-2026__carousel-arrow" aria-hidden="true">
+                      <svg class="header-2026__carousel-arrow-icon header-2026__carousel-arrow-icon--active" xmlns="http://www.w3.org/2000/svg" width="22" height="17" viewBox="0 0 22 17" fill="none"><path d="M21.1143 7.80859C21.3139 7.8087 21.5084 7.90967 21.6035 8.08691C21.6467 8.16648 21.667 8.25392 21.667 8.33984C21.6669 8.47122 21.6181 8.6015 21.5254 8.70117L14.127 16.666L13.3545 15.9414L19.9229 8.87012H0C0.00014201 8.28417 0.473456 7.80876 1.05664 7.80859H21.1143ZM20.5596 6.47754H20.5605C20.1473 6.8916 19.4786 6.89166 19.0664 6.47754L13.3652 0.750977L14.1123 0L20.5596 6.47754Z" fill="black"/></svg>
+                      <svg class="header-2026__carousel-arrow-icon header-2026__carousel-arrow-icon--disabled" xmlns="http://www.w3.org/2000/svg" width="22" height="17" viewBox="0 0 22 17" fill="none"><path d="M21.1143 7.80859C21.3139 7.8087 21.5084 7.90967 21.6035 8.08691C21.6467 8.16648 21.667 8.25392 21.667 8.33984C21.6669 8.47122 21.6181 8.6015 21.5254 8.70117L14.127 16.666L13.3545 15.9414L19.9229 8.87012H0C0.00014201 8.28417 0.473456 7.80876 1.05664 7.80859H21.1143ZM20.5596 6.47754H20.5605C20.1473 6.8916 19.4786 6.89166 19.0664 6.47754L13.3652 0.750977L14.1123 0L20.5596 6.47754Z" fill="#C4C4C4"/></svg>
+                    </span>
+                  </button>
                 </div>
               {%- endif -%}
             {%- else -%}
@@ -27,41 +37,72 @@
           </section>
         {%- endfor -%}
       </div>
-      <a class="header-2026__shop-all" href="{{ routes.all_products_collection_url }}">すべての製品を見る <span aria-hidden="true">→</span></a>
-    </div>
-
-  {%- when 'guide' -%}
-    <div class="header-2026__mega-panel header-2026__icon-panel">
-      <a class="header-2026__icon-tile mega-menu__column" href="/pages/download-using-guide"><img src="{{ 'header-2026-manual.png' | asset_url }}" width="60" height="60" alt=""><span>取扱説明書 <b>›</b></span></a>
-      <a class="header-2026__icon-tile mega-menu__column" href="/pages/result-review"><img src="{{ 'header-2026-reviews.png' | asset_url }}" width="60" height="60" alt=""><span>お客様の声 <b>›</b></span></a>
-      <a class="header-2026__icon-tile mega-menu__column" href="/pages/faq"><img src="{{ 'header-2026-faq.png' | asset_url }}" width="60" height="60" alt=""><span>よくある質問 <b>›</b></span></a>
-      <div class="header-2026__guide-pair mega-menu__column">
-        <a href="/pages/buying-guide"><img src="{{ 'header-2026-compare.png' | asset_url }}" width="54" height="48" alt=""><span>商品比較 <b>›</b></span></a>
-        <a href="{{ routes.all_products_collection_url }}"><img src="{{ 'header-2026-guide.png' | asset_url }}" width="54" height="48" alt=""><span>商品ガイド <b>›</b></span></a>
+      <div class="container header-2026__shop-all-container">
+        <a class="header-2026__shop-all" href="{{ routes.all_products_collection_url }}">すべての製品を見る <span aria-hidden="true">→</span></a>
       </div>
-    </div>
-
-  {%- when 'technology' -%}
-    <div class="header-2026__mega-panel header-2026__icon-panel">
-      <a class="header-2026__icon-tile mega-menu__column" href="/pages/how-it-works"><img src="{{ 'header-2026-tech-ipl.png' | asset_url }}" width="60" height="60" alt=""><span>IPL技術とは <b>›</b></span></a>
-      <a class="header-2026__icon-tile mega-menu__column" href="/pages/technology-ice-cooling"><img src="{{ 'header-2026-tech-cooling.png' | asset_url }}" width="60" height="60" alt=""><span>サファイア冷感技術 <b>›</b></span></a>
-      <a class="header-2026__icon-tile mega-menu__column" href="/pages/technology-skinsensor"><img src="{{ 'header-2026-tech-sensor.png' | asset_url }}" width="62" height="60" alt=""><span>スキンセンサー技術 <b>›</b></span></a>
-      <a class="header-2026__icon-tile mega-menu__column" href="/pages/technology-dual-lights"><img src="{{ 'header-2026-tech-lamp.png' | asset_url }}" width="60" height="60" alt=""><span>ダブルランプ技術 <b>›</b></span></a>
     </div>
 
   {%- when 'about' -%}
+    {%- assign has_configured_links = false -%}
+    {%- for block in section.blocks -%}{%- if block.type == 'nav_link' and block.settings.menu_item == menu_item -%}{%- assign has_configured_links = true -%}{%- break -%}{%- endif -%}{%- endfor -%}
+    {%- assign widget_titles = '会社情報|販売店一覧' | split: '|' -%}
+    {%- assign widget_links = '/pages/about|/pages/where-to-pruchase' | split: '|' -%}
+    {%- assign widget_images = 'header-2026-about-company.png|header-2026-about-store.png' | split: '|' -%}
+    {%- assign widget_descriptions = '2013年に誕生したUlikeは、家庭用光美容器のパイオニア。創業から10年間で、アジアの美容機器業界のリーディングカンパニーへと成長しました。|オフライン店舗でUlikeを発見｜あなたの美をより深く体験' | split: '|' -%}
     <div class="header-2026__mega-panel header-2026__about-panel">
-      <a class="header-2026__about-item mega-menu__column" href="/pages/about"><img src="{{ 'header-2026-about-company.png' | asset_url }}" width="365" height="193" alt=""><span class="header-2026__about-copy"><strong>会社情報 <b>›</b></strong><span>2013年に誕生したUlikeは、家庭用光美容器のパイオニア。創業から10年間で、アジアの美容機器業界のリーディングカンパニーへと成長しました。</span></span></a>
-      <a class="header-2026__about-item mega-menu__column" href="/pages/where-to-pruchase"><img src="{{ 'header-2026-about-store.png' | asset_url }}" width="365" height="193" alt=""><span class="header-2026__about-copy"><strong>販売店一覧 <b>›</b></strong><span>オフライン店舗でUlikeを発見｜あなたの美をより深く体験</span></span></a>
+      {%- if has_configured_links -%}
+        {%- for block in section.blocks -%}{%- if block.type == 'nav_link' and block.settings.menu_item == menu_item -%}<a class="header-2026__about-item mega-menu__column" href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>{% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 730 | image_tag: width: 365, height: 193, loading: 'lazy', alt: block.settings.title }}{% elsif block.settings.asset_image != blank %}<img src="{{ block.settings.asset_image | asset_url }}" width="365" height="193" alt="{{ block.settings.title | escape }}">{% endif %}<span class="header-2026__about-copy"><strong>{{ block.settings.title | escape }} {% render 'header-2026-arrow-right' %}</strong>{% if block.settings.description != blank %}<span>{{ block.settings.description | escape }}</span>{% endif %}</span></a>{%- endif -%}{%- endfor -%}
+      {%- else -%}{%- for title in widget_titles -%}
+        <a class="header-2026__about-item mega-menu__column" href="{{ widget_links[forloop.index0] }}"><img src="{{ widget_images[forloop.index0] | asset_url }}" width="365" height="193" alt="{{ title | escape }}"><span class="header-2026__about-copy"><strong>{{ title | escape }} {% render 'header-2026-arrow-right' %}</strong><span>{{ widget_descriptions[forloop.index0] }}</span></span></a>
+      {%- endfor -%}{%- endif -%}
+    </div>
+
+  {%- when 'guide' -%}
+    {%- assign guide_cards = section.blocks | where: 'type', 'guide_card' -%}
+    {%- assign guide_pairs = section.blocks | where: 'type', 'guide_pair' -%}
+    <div class="header-2026__mega-panel header-2026__icon-panel">
+      {%- assign guide_card_assets = 'header-2026-manual.png|header-2026-reviews.png|header-2026-faq.png' | split: '|' -%}
+      {%- assign guide_pair_assets = 'header-2026-compare.png|header-2026-guide.png' | split: '|' -%}
+      {%- for block in guide_cards -%}
+        <a class="header-2026__icon-tile mega-menu__column" href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>{% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 120 | image_tag: width: 60, height: 60, loading: 'lazy', alt: block.settings.title }}{% else %}<img src="{{ guide_card_assets[forloop.index0] | asset_url }}" width="60" height="60" alt="{{ block.settings.title | escape }}">{% endif %}<span>{{ block.settings.title | escape }} {% render 'header-2026-arrow-right' %}</span></a>
+      {%- endfor -%}
+      {%- if guide_pairs.size > 0 -%}<div class="header-2026__guide-pair mega-menu__column">{%- for block in guide_pairs -%}<a href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>{% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 108 | image_tag: width: 54, height: 48, loading: 'lazy', alt: block.settings.title }}{% else %}<img src="{{ guide_pair_assets[forloop.index0] | asset_url }}" width="54" height="48" alt="{{ block.settings.title | escape }}">{% endif %}<span>{{ block.settings.title | escape }} {% render 'header-2026-arrow-right' %}</span></a>{%- endfor -%}</div>{%- endif -%}
     </div>
 
   {%- when 'topics' -%}
+    {%- assign topic_links = section.blocks | where: 'type', 'topic_link' -%}
+    {%- assign topic_toggles = section.blocks | where: 'type', 'topic_toggle' -%}
+    {%- assign topic_details = section.blocks | where: 'type', 'topic_detail' -%}
+    {%- assign topic_assets = 'header-2026-topic-popular.png|header-2026-topic-news.png' | split: '|' -%}
     <div class="header-2026__mega-panel header-2026__icon-panel header-2026__topics-panel">
-      <a class="header-2026__icon-tile mega-menu__column" href="/blogs/article"><img src="{{ 'header-2026-topic-popular.png' | asset_url }}" width="64" height="64" alt=""><span>人気記事一覧 <b>›</b></span></a>
-      <a class="header-2026__icon-tile mega-menu__column" href="/blogs/news"><img src="{{ 'header-2026-topic-news.png' | asset_url }}" width="60" height="60" alt=""><span>お知らせ <b>›</b></span></a>
-      <div class="header-2026__topic-details mega-menu__column">
-        <button class="header-2026__icon-tile" type="button" data-header-2026-topic aria-expanded="false"><img src="{{ 'header-2026-topic-pickup.png' | asset_url }}" width="60" height="60" alt=""><span>ピックアップ <b>⌄</b></span></button>
-        <div class="header-2026__topic-links" hidden><a href="/pages/donki-2025">ドン・キホーテ限定品 <b>›</b></a><a href="/pages/brandambassador">湘南美容 × Ulike <b>›</b></a></div>
-      </div>
+      {%- for block in topic_links -%}<a class="header-2026__icon-tile mega-menu__column" href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>{% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 120 | image_tag: width: 60, height: 60, loading: 'lazy', alt: block.settings.title }}{% else %}<img src="{{ topic_assets[forloop.index0] | asset_url }}" width="60" height="60" alt="{{ block.settings.title | escape }}">{% endif %}<span>{{ block.settings.title | escape }} {% render 'header-2026-arrow-right' %}</span></a>{%- endfor -%}
+      {%- for block in topic_toggles -%}<div class="header-2026__topic-details mega-menu__column" {{ block.shopify_attributes }}><button class="header-2026__icon-tile" type="button" data-header-2026-topic aria-expanded="false">{% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 120 | image_tag: width: 60, height: 60, loading: 'lazy', alt: block.settings.title }}{% else %}<img src="{{ 'header-2026-topic-pickup.png' | asset_url }}" width="60" height="60" alt="{{ block.settings.title | escape }}">{% endif %}<span>{{ block.settings.title | escape }} <svg class="header-2026__topic-toggle-arrow" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true"><path d="M1.38477 10.5435L7.87032 4.97903L14.1916 10.5435" stroke="#E0004D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="header-2026__topic-links" hidden>{%- for detail in topic_details -%}<a href="{{ detail.settings.link | default: '#' }}" {{ detail.shopify_attributes }}>{{ detail.settings.title | escape }} <img src="{{ 'header-2026-arrow-right.svg' | asset_url }}" width="15" height="15" alt=""></a>{%- endfor -%}</div></div>{%- endfor -%}
+    </div>
+
+  {%- when 'technology', 'support' -%}
+    {%- assign has_configured_links = false -%}
+    {%- for block in section.blocks -%}{%- if block.type == 'nav_link' and block.settings.menu_item == menu_item -%}{%- assign has_configured_links = true -%}{%- break -%}{%- endif -%}{%- endfor -%}
+    {%- liquid
+      case kind
+        when 'technology'
+          assign widget_titles = 'IPL技術とは|サファイア冷感技術|スキンセンサー技術|ダブルランプ技術' | split: '|'
+          assign widget_links = '/pages/how-it-works|/pages/technology-ice-cooling|/pages/technology-skinsensor|/pages/technology-dual-lights' | split: '|'
+          assign widget_images = 'header-2026-tech-ipl.png|header-2026-tech-cooling.png|header-2026-tech-sensor.png|header-2026-tech-lamp.png' | split: '|'
+        when 'support'
+          assign widget_titles = 'お支払い方法|注文の追跡方法|保証サービス|お問い合わせ' | split: '|'
+          assign widget_links = '/pages/payment|/pages/order-tracking|/pages/warranty|/pages/contact' | split: '|'
+          assign widget_images = 'header-2026-support-payment.svg|header-2026-support-tracking.svg|header-2026-support-warranty.svg|header-2026-support-contact.svg' | split: '|'
+        when 'topics'
+          assign widget_titles = '人気記事一覧|お知らせ|ドン・キホーテ限定品|湘南美容 × Ulike' | split: '|'
+          assign widget_links = '/blogs/article|/blogs/news|/pages/donki-2025|/pages/brandambassador' | split: '|'
+          assign widget_images = 'header-2026-topic-popular.png|header-2026-topic-news.png|header-2026-topic-pickup.png|header-2026-topic-pickup.png' | split: '|'
+      endcase
+    -%}
+    <div class="header-2026__mega-panel header-2026__icon-panel">
+      {%- if has_configured_links -%}
+        {%- for block in section.blocks -%}{%- if block.type == 'nav_link' and block.settings.menu_item == menu_item -%}<a class="header-2026__icon-tile mega-menu__column" href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>{% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 120 | image_tag: width: 60, height: 60, loading: 'lazy', alt: block.settings.title }}{% elsif block.settings.asset_image != blank %}<img src="{{ block.settings.asset_image | asset_url }}" width="60" height="60" alt="{{ block.settings.title | escape }}">{% endif %}<span>{{ block.settings.title | escape }} {% render 'header-2026-arrow-right' %}</span></a>{%- endif -%}{%- endfor -%}
+      {%- else -%}{%- for title in widget_titles -%}
+        <a class="header-2026__icon-tile mega-menu__column" href="{{ widget_links[forloop.index0] }}"><img src="{{ widget_images[forloop.index0] | asset_url }}" width="60" height="60" alt="{{ title | escape }}"><span>{{ title | escape }} {% render 'header-2026-arrow-right' %}</span></a>
+      {%- endfor -%}{%- endif -%}
     </div>
 {%- endcase -%}

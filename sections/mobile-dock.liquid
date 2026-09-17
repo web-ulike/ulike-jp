@@ -15,7 +15,7 @@
     {%- for block in section.blocks -%}
       {%- case block.type -%}
         {%- when 'account' -%}
-          <a class="dock__item flex flex-col items-center justify-center gap-1d5 grow shrink-0 cursor-pointer" href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" {{ block.shopify_attributes }}>
+          <a class="dock__item flex flex-col items-center justify-center gap-1d5 grow shrink-0 cursor-pointer" href="{% if customer %}https://account.ulike.com/account?site=jp{% else %}https://account.ulike.com/login?site=jp{% endif %}" data-no-instant {{ block.shopify_attributes }}>
             {%- liquid
               if block.settings.custom_icon != blank
                 echo block.settings.custom_icon

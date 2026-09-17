@@ -1,0 +1,29 @@
+{%- liquid
+  assign share_url = share_permalink
+  unless share_url contains '://'
+    assign share_url = request.origin | append: share_permalink
+  endunless
+  assign encoded_url = share_url | url_param_escape
+  assign encoded_title = share_title | strip_html | url_param_escape
+-%}
+
+<div class="social-sharing flex flex-wrap items-center gap-3">
+  <p class="leading-none">{{ share_label | default: 'Share' | escape }}:</p>
+  <ul class="flex flex-wrap items-center gap-3" role="list">
+    <li>
+      <a target="_blank" rel="noopener noreferrer" class="social-sharing__link block" is="magnet-link" href="https://www.facebook.com/sharer/sharer.php?u={{ encoded_url }}" aria-label="{{ 'general.social.facebook_share' | t | escape }}">
+        {%- render 'icon', icon: 'facebook', size: 'sm' -%}
+      </a>
+    </li>
+    <li>
+      <a target="_blank" rel="noopener noreferrer" class="social-sharing__link block" is="magnet-link" href="https://twitter.com/intent/tweet?text={{ encoded_title }}%20{{ encoded_url }}" aria-label="{{ 'general.social.twitter_tweet' | t | escape }}">
+        {%- render 'icon', icon: 'twitter', size: 'sm' -%}
+      </a>
+    </li>
+    <li>
+      <a class="social-sharing__link block text-sm" href="mailto:?subject={{ encoded_title }}&amp;body={{ encoded_url }}" aria-label="{{ 'general.social.email_share' | t | escape }}">
+        {{- 'general.social.email_label' | t -}}
+      </a>
+    </li>
+  </ul>
+</div>

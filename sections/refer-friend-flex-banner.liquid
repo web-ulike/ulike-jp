@@ -1,0 +1,207 @@
+
+{%- liquid
+    assign se_id = section.id
+    assign se_bks = section.blocks
+    assign se_stts = section.settings
+  -%}
+
+<section class="container refer-friend-side-banner_{{ se_id }}">
+  <div class="refer-friend-container {% if section.settings.image_position == 'right' %}reverse{% endif %}">
+    {% if section.settings.image_desktop != blank or section.settings.image_mobile != blank %}
+      <div class="refer-friend-image">
+        <picture>
+          <source media="(max-width: 768px)" srcset="{{ section.settings.image_mobile | img_url: '750x' }}">
+          <img
+            loading="lazy"
+            class="image"
+            alt="{{ section.settings.alt_text | escape }}"
+            src="{{ section.settings.image_desktop | img_url: '1200x' }}"
+          >
+        </picture>
+      </div>
+    {% endif %}
+
+    <div class="refer-friend-content">
+      {% comment %} <h2>{{ section.settings.title }}</h2> {% endcomment %}
+      <p>{{ section.settings.description }}</p>
+      <a href="{{ section.settings.button_link }}" class="btn join-button">
+        {{ section.settings.button_text }}
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  window.addEventListener('load', function() { 
+    $('.refer-friend-side-banner_{{ se_id }} .join-button').on('click', function() {
+      // 点击埋点代码
+      window.UlikeCommon.commonGtmEvent('老带新-入驻点击加入', '', '');
+    });
+  });
+  </script>
+
+{% schema %}
+{
+  "name": "Refer Friend Side Banner",
+  "settings": [
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image Position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Send your friends a link for $70 off their first order and earn a 10% commission in return."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "There's no limit to what you can earn!"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "JOIN NOW"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "Desktop Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Mobile Image"
+    },
+    {
+      "type": "text",
+      "id": "alt_text",
+      "label": "Image Alt Text",
+      "default": "Refer a Friend"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Refer Friend Side Banner"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .refer-friend-side-banner_{{ se_id }} {
+    width: 100%;
+    margin: 60px auto;
+    background: #fff;
+  }
+
+  .refer-friend-side-banner_{{ se_id }} .refer-friend-container {
+    display: flex;
+    align-items: center;
+    gap: 0px;
+    margin: 0 auto;
+    flex-direction: row;
+    background: #F9F9F9;
+  }
+
+  .refer-friend-side-banner_{{ se_id }} .refer-friend-container.reverse {
+    flex-direction: row-reverse; /* 右图左文 */
+  }
+
+  .refer-friend-side-banner_{{ se_id }} .refer-friend-image {
+    flex: 1;
+  }
+
+  .refer-friend-side-banner_{{ se_id }} .refer-friend-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .refer-friend-side-banner_{{ se_id }} .refer-friend-content {
+    flex: 1;
+    text-align: left;
+    padding: 0px 6%;
+  }
+
+  .refer-friend-side-banner_{{ se_id }} .refer-friend-content h2 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #000;
+  }
+
+  .refer-friend-side-banner_{{ se_id }} .refer-friend-content p {
+    color: #000;
+    font-size: 38px;
+    margin: 10px 0 40px;
+    line-height: 1.3;
+  }
+
+  .refer-friend-side-banner_{{ se_id }} .refer-friend-content .btn {
+    display: inline-block;
+    padding: 8px 30px;
+    background: #000;
+    color: #fff;
+    font-family: var(--heading-font-family);
+    border-radius: 2px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.3s;
+    width: 180px;
+    text-align: center;
+  }
+
+  .refer-friend-side-banner_{{ se_id }} .refer-friend-content .btn:hover {
+    background: #3f3636;
+  }
+
+  /* 移动端适配 */
+  @media (max-width: 768px) {
+    .refer-friend-side-banner_{{ se_id }} {
+      margin: 30px auto;
+    }
+    .refer-friend-side-banner_{{ se_id }} .refer-friend-container {
+      flex-direction: column !important;
+      text-align: center;
+    }
+
+    .refer-friend-side-banner_{{ se_id }} .refer-friend-content {
+        padding: 20px 6% 40px;
+    }
+
+    .refer-friend-side-banner_{{ se_id }} .refer-friend-content h2 {
+      font-size: 24px;
+    }
+
+    .refer-friend-side-banner_{{ se_id }} .refer-friend-content p {
+      font-size: 16px;
+      margin: 10px 0 20px;
+    }
+
+    .refer-friend-side-banner_{{ se_id }} .refer-friend-content .btn {
+      padding: 12px 20px;
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

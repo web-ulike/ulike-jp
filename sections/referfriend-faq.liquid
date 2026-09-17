@@ -1,0 +1,299 @@
+<style>
+    .referfriend-faq .title-diy {
+      font-size: 50px;
+      color: #000;
+      font-family: var(--heading-font-family);
+      text-align: left;
+      line-height: 1.2;
+      position: relative;
+      max-width: 1070px;
+      margin: 0 auto;
+    }
+    .referfriend-faq .title-diy .act-rules {
+      position: absolute;
+      font-size: 28px;
+      color: #000;
+      font-family: var(--heading-font-family);
+      text-align: center;
+      line-height: 1.2;
+      top: 50%;
+      right: 0px;
+      display: flex;
+      cursor: pointer;
+      align-items: center;
+    }
+    
+    @media (max-width: 991px) {
+      .referfriend-faq .title-diy {
+        font-size: 28px;
+      }
+    }
+    .faq-box{
+        padding: 80px 0;
+        background: {{ section.settings.background }};
+        position: relative;
+        z-index: 1;
+    }
+    
+    .faq-box .faq-cont{
+        margin: 0 auto;
+        margin-top: 60px;
+        max-width: 1070px;
+    }
+    
+    .faq-box .faq-item{
+        padding: 0 0px;
+        border-bottom: 2px solid #f0f0f0;
+    }
+    
+    .faq-box .faq-item-title{
+        font-size: 18px;
+        color: #000;
+        font-family: var(--heading-font-family);
+        line-height: 1.2;
+        min-height: 58px;
+        position: relative;
+        padding-right: 40px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+    .faq-box .faq-item-title .span{
+        position: absolute;
+        display: block;
+        width: 30px;
+        height: 30px;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: all .4s ease;
+    }
+    .faq-box .faq-item-title .span::before,.faq-box .faq-item-title .span::after{
+        position: absolute;
+        content: '';
+        display: block;
+        background: #000;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        transition: all .4s ease;
+    }
+    
+    .faq-box .faq-item-title .span::before{
+        width: 10px;
+        height: 2px;
+    }
+    
+    .faq-box .faq-item-title .span::after{
+        width: 2px;
+        height: 10px;
+    }
+    
+    .faq-box .active .faq-item-title .span{
+        transform: translateY(-50%) rotate(180deg);
+    }
+    
+    .faq-box .active .faq-item-title .span::after{
+        transform: translate(-50%,-50%) rotate(90deg);
+    }
+    
+    .faq-box .faq-item-cont{
+        font-size: 16px;
+        color: #000;
+        line-height: 1.4;
+        padding-bottom: 30px;
+        display: none;
+    }
+    
+    .faq-box .faq-item-cont p{
+      margin-bottom: 0;
+    }
+      
+    .faq-box .faq-item-cont img{
+        display: block;
+        margin: 0;
+        width: 100%;
+    }
+    .faq-box .faq-item-cont .mb-box{
+        display: none;
+    }
+    
+    @media (min-width:992px) {
+        .open-active.faq-box .faq-cont{
+            align-items: flex-start;
+        }
+    }
+    
+    @media (max-width:991px) {
+        .faq-box{
+            padding: 50px 0;
+            overflow: hidden;
+        }
+        .faq-box .faq-cont{
+            display: block;
+            margin-top: 20px;
+        }
+        .faq-box .faq-item-title{
+            font-size: 14px;
+        }
+        .faq-box .faq-item{
+            padding-right: 0;
+            position: relative;
+        }
+        .faq-box .faq-item::before{
+            position: absolute;
+            content: '';
+            display: block;
+            height: 2px;
+            width: 150%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #f0f0f0;
+            bottom: -2px;
+        }
+    
+        .faq-box .faq-item-cont .mb-box{
+            display: block;
+        }
+        .faq-box .faq-item-cont .pc-box{
+            display: none;
+        }
+        .faq-box .faq-item-cont{
+          font-size: 12px;
+          padding:  10px 0px;
+        }
+        .referfriend-faq .title-diy .act-rules {
+          font-size: 16px;
+          top: 10px;
+        }
+        .referfriend-faq .title-diy .act-rules img{
+          width: 18px;
+        }
+    }
+    
+    </style>
+    <section class="section-box referfriend-faq">
+      <div class="faq-box {{section.settings.text}}">
+        <div class="container">
+           <div class="title-diy ">
+              {{section.settings.title}}
+              <a href="https://www.ulike.com/pages/referfriend-rules" target="_blank" class="act-rules">
+                Activity Rules
+                <img src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/chevron-right.svg?v=1746599015" alt="chevron-right" class="chevron-right">
+              </a>
+           </div>
+
+           <div class="faq-cont">
+            <div class="faq-list to-top">
+              {%- for block in section.blocks -%}
+                <div class="faq-item">
+                  <div class="faq-item-title">
+                    <div>
+                      {{ block.settings.title }}
+                    </div>
+                    <div class="span"></div>
+                  </div>
+                  <div class="faq-item-cont">
+                      {{ block.settings.cont }}
+                      <br/>
+                      {%- if block.settings.image != blank -%}
+                         <img loading="lazy" class="pc-box" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" {% render 'image-attributes', image: block.settings.image %} alt="{{ block.settings.image.alt | escape }}" >
+                      {%- endif -%}
+                      {%- if block.settings.image1 != blank -%}
+                         <img loading="lazy" class="mb-box" width="{{ block.settings.image1.width }}" height="{{ block.settings.image1.height }}" {% render 'image-attributes', image: block.settings.image1 %} alt="{{ block.settings.image1.alt | escape }}" >
+                      {%- endif -%}
+                  </div>
+                </div>
+              {%- endfor -%}
+            </div>
+           </div>
+        </div>
+      </div>
+      <script>
+        window.addEventListener('load',function(){
+          $('.faq-box .faq-item-title').click(function(){
+            $(this).siblings('.faq-item-cont').slideToggle()
+            var $item = $(this).parents('.faq-item');
+            if (!$item.hasClass('active')) {
+              $item.addClass('active').find('.faq-item-cont').slideDown();
+            } else {
+              $item.removeClass('active').find('.faq-item-cont').slideUp();
+            }
+
+            if($('.faq-box .faq-item.active').length>0){
+              $('.faq-box').addClass('open-active')
+              // 如果是xx 页面就添加事件
+              {% if page.url == '/pages/referfriend' %}
+                window.UlikeCommon.commonGtmEvent('老带新，点击FAQ', '', '');
+              {% endif %}
+            }else{
+              setTimeout(()=>{
+                $('.faq-box').removeClass('open-active')
+              },500)
+            }
+          })
+          $('.referfriend-faq .act-rules').click(function(){
+            window.UlikeCommon.commonGtmEvent('老带新，点击活动规则', '', '');
+          });
+        })
+      </script>
+    </section>
+
+    {% schema %}
+    {
+      "name": "referfriend-faq",
+      "blocks": [
+        {
+          "name": "item",
+          "type": "item",
+          "settings": [
+            {
+              "type": "text",
+              "id": "title",
+              "label": "Title"
+            },
+            {
+              "type": "richtext",
+              "id": "cont",
+              "label": "Content"
+            },
+            {
+              "type": "image_picker",
+              "id": "image",
+              "label": "Image"
+            },
+            {
+              "type": "image_picker",
+              "id": "image1",
+              "label": "Mobile Image"
+            }
+          ]
+        }
+      ],
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Custom Class"
+        },
+        {
+          "type": "color",
+          "id": "background",
+          "label": "Background",
+          "default": "rgba(255,255,255,0)"
+        }
+      ],
+      "presets": [
+        {
+          "name": "referfriend-faq",
+          "blocks": []
+        }
+      ]
+    }
+    {% endschema %}
+    
