@@ -230,11 +230,16 @@ other resources, such as CSS or JS
   }
 
   @font-face {
-    font-family: "Saans Regular";
-    src:  url('{{ "Saans-Regular1.woff2" | asset_url }}') format('woff2'),
-    url('{{ "Saans-Regular1.woff" | asset_url }}' format('woff'),
-     url('{{ "Saans-Regular1.otf" | asset_url }}' format('opentype');
+    font-family: "Saans";
+    src: url('{{ "Saans-Regular.otf" | asset_url }}') format('opentype');
     font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Saans";
+    src: url('{{ "Saans-Medium.otf" | asset_url }}') format('opentype');
+    font-weight: 500;
     font-style: normal;
     font-display: swap;
   }

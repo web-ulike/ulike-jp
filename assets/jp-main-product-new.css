@@ -629,7 +629,7 @@
    变体选择器
 ================================ */
 .jp-product-variants__group {
-  margin: 0 0 18px;
+  margin: 0 0 20px;
   padding: 0;
   border: 0;
 }
@@ -651,7 +651,19 @@
 .jp-product-variants__list {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
+}
+
+.jp-product-variants__group .form__label {
+  margin: 0 0 12px;
+  color: #190a0a;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.jp-product-variants__group .form__label .font-medium {
+  font-weight: 500;
 }
 
 /* The active theme does not include the legacy `.color-swatch` rules used by
@@ -660,7 +672,7 @@
 .jp-product-variants__swatches {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 12px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -669,8 +681,8 @@
 .jp-product-variants__swatches .color-swatch {
   display: block;
   position: relative;
-  width: 64px;
-  height: 64px;
+  width: 60px;
+  height: 60px;
   border-radius: 5px;
   background-color: var(--swatch-background, #f4f4f4);
   background-position: center;
@@ -1117,6 +1129,18 @@
 }
 
 @media screen and (max-width: 767px) {
+  .jp-product-variants__group {
+    margin-bottom: 16px;
+  }
+
+  .jp-product-variants__group .form__label {
+    margin-bottom: 10px;
+  }
+
+  .jp-product-variants__swatches {
+    gap: 10px;
+  }
+
   .jp-product-variants__swatches .color-swatch {
     width: 48px;
     height: 48px;
@@ -1335,7 +1359,7 @@
   }
 
   .jp-product-variants__item {
-    min-width: calc(50% - 5px);
+    min-width: calc(50% - 4px);
   }
 
   .jp-product-purchase {

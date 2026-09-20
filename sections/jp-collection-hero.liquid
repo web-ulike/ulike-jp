@@ -2,16 +2,29 @@
 {%- liquid
   assign hero_image = section.settings.image | default: section.settings.image_mobile
   assign mobile_image = section.settings.image_mobile | default: hero_image
+  assign hero_title_top = section.settings.title_top
+  if hero_title_top == 13
+    assign hero_title_top = 39
+  endif
 -%}
-<section class="jp-collection-hero{% if hero_image == blank %} jp-collection-hero--empty{% endif %}" style="--hero-title-top: {{ section.settings.title_top }}%; --hero-title-top-mobile: {{ section.settings.title_top_mobile }}%; --hero-text: {{ section.settings.text_color }};">
+<section class="jp-collection-hero{% if hero_image == blank %} jp-collection-hero--empty{% endif %}" style="--hero-title-top: {{ hero_title_top }}%; --hero-title-left: {{ section.settings.title_left }}%; --hero-title-top-mobile: {{ section.settings.title_top_mobile }}%; --hero-text: {{ section.settings.text_color }};">
   {% if hero_image != blank %}
     <picture class="jp-collection-hero__media">
       <source media="(max-width: 749px)" srcset="{{ mobile_image | image_url: width: 900 }}">
       {{ hero_image | image_url: width: 2560 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '750,1100,1520,1920,2560', sizes: '100vw' }}
     </picture>
   {% endif %}
-  {% assign hero_title = section.settings.title | default: section.settings.tle %}
-  {% if hero_title != blank %}<h1 class="jp-collection-hero__title">{{ hero_title | escape | newline_to_br }}</h1>{% endif %}
+  {% assign legacy_hero_title = section.settings.title | default: section.settings.tle %}
+  {% if section.settings.title_html != blank %}
+    {% assign hero_title_html = section.settings.title_html %}
+  {% elsif legacy_hero_title != blank %}
+    {% capture hero_title_html %}{{ legacy_hero_title | escape | newline_to_br }}{% endcapture %}
+  {% endif %}
+  {% assign hero_title_mobile_html = section.settings.title_html_mobile | default: hero_title_html %}
+  {% if hero_title_html != blank %}
+    <h1 class="jp-collection-hero__title jp-collection-hero__title--desktop">{{ hero_title_html }}</h1>
+    <h1 class="jp-collection-hero__title jp-collection-hero__title--mobile">{{ hero_title_mobile_html }}</h1>
+  {% endif %}
 </section>
 {% schema %}
 {
@@ -28,9 +41,21 @@
       "label": "モバイル画像（文字なし・推奨375×488）"
     },
     {
+      "type": "html",
+      "id": "title_html",
+      "label": "PCタイトル（HTML）",
+      "default": "Ulike脱毛器・IPL光美容器の<br>製品一覧"
+    },
+    {
+      "type": "html",
+      "id": "title_html_mobile",
+      "label": "Mタイトル（HTML）",
+      "default": "Ulike脱毛器・IPL光美容器の<br>製品一覧"
+    },
+    {
       "type": "text",
       "id": "title",
-      "label": "タイトル",
+      "label": "旧タイトル（既存コンテンツ互換用）",
       "default": "Ulike脱毛器・IPL光美容器の\n製品一覧"
     },
     {
@@ -41,7 +66,17 @@
       "max": 80,
       "step": 1,
       "unit": "%",
-      "default": 13
+      "default": 39
+    },
+    {
+      "type": "range",
+      "id": "title_left",
+      "label": "PCタイトル位置（左から）",
+      "min": 0,
+      "max": 30,
+      "step": 0.5,
+      "unit": "%",
+      "default": 11.5
     },
     {
       "type": "range",

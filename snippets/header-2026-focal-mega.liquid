@@ -5,15 +5,15 @@
       <div class="header-2026__product-grid">
         {%- for group in product_navigation_groups limit: 4 -%}
           {%- assign products = group.settings.products -%}
-          <section class="header-2026__product-column mega-menu__column{% if group.settings.enable_carousel %} header-2026__product-column--carousel{% endif %}" {{ group.shopify_attributes }}{% if group.settings.enable_carousel %} data-header-2026-product-carousel{% endif %}>
+          <section class="header-2026__product-column mega-menu__column{% if products.size > 0 %} header-2026__product-column--carousel{% endif %}" {{ group.shopify_attributes }}{% if products.size > 0 %} data-header-2026-product-carousel{% endif %}>
             <h2>{{ group.settings.heading | escape }}</h2>
-            {%- if group.settings.enable_carousel -%}
+            {%- if products.size > 0 -%}
               <div class="header-2026__product-carousel-viewport">
                 <div class="header-2026__product-list" data-header-2026-carousel-track>
                   {%- for product in products -%}{%- render 'header-2026-focal-product-card', product: product -%}{%- endfor -%}
                 </div>
               </div>
-              {%- if products.count > 3 -%}
+              {%- if products.size > 3 -%}
                 <div class="header-2026__product-carousel-controls" aria-label="{{ group.settings.heading | escape }}">
                   <button type="button" data-header-2026-carousel-prev aria-label="前の3商品" disabled>
                     <span class="header-2026__carousel-arrow" aria-hidden="true">
@@ -31,7 +31,7 @@
               {%- endif -%}
             {%- else -%}
               <div class="header-2026__product-list">
-                {%- for product in products limit: 3 -%}{%- render 'header-2026-focal-product-card', product: product -%}{%- endfor -%}
+                {%- for product in products -%}{%- render 'header-2026-focal-product-card', product: product -%}{%- endfor -%}
               </div>
             {%- endif -%}
           </section>
@@ -76,7 +76,7 @@
     {%- assign topic_assets = 'header-2026-topic-popular.png|header-2026-topic-news.png' | split: '|' -%}
     <div class="header-2026__mega-panel header-2026__icon-panel header-2026__topics-panel">
       {%- for block in topic_links -%}<a class="header-2026__icon-tile mega-menu__column" href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>{% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 120 | image_tag: width: 60, height: 60, loading: 'lazy', alt: block.settings.title }}{% else %}<img src="{{ topic_assets[forloop.index0] | asset_url }}" width="60" height="60" alt="{{ block.settings.title | escape }}">{% endif %}<span>{{ block.settings.title | escape }} {% render 'header-2026-arrow-right' %}</span></a>{%- endfor -%}
-      {%- for block in topic_toggles -%}<div class="header-2026__topic-details mega-menu__column" {{ block.shopify_attributes }}><button class="header-2026__icon-tile" type="button" data-header-2026-topic aria-expanded="false">{% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 120 | image_tag: width: 60, height: 60, loading: 'lazy', alt: block.settings.title }}{% else %}<img src="{{ 'header-2026-topic-pickup.png' | asset_url }}" width="60" height="60" alt="{{ block.settings.title | escape }}">{% endif %}<span>{{ block.settings.title | escape }} <svg class="header-2026__topic-toggle-arrow" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true"><path d="M1.38477 10.5435L7.87032 4.97903L14.1916 10.5435" stroke="#E0004D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="header-2026__topic-links" hidden>{%- for detail in topic_details -%}<a href="{{ detail.settings.link | default: '#' }}" {{ detail.shopify_attributes }}>{{ detail.settings.title | escape }} <img src="{{ 'header-2026-arrow-right.svg' | asset_url }}" width="15" height="15" alt=""></a>{%- endfor -%}</div></div>{%- endfor -%}
+      {%- for block in topic_toggles -%}<div class="header-2026__topic-details mega-menu__column" {{ block.shopify_attributes }}><button class="header-2026__icon-tile" type="button" data-header-2026-topic aria-expanded="true">{% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 120 | image_tag: width: 60, height: 60, loading: 'lazy', alt: block.settings.title }}{% else %}<img src="{{ 'header-2026-topic-pickup.png' | asset_url }}" width="60" height="60" alt="{{ block.settings.title | escape }}">{% endif %}<span>{{ block.settings.title | escape }} <svg class="header-2026__topic-toggle-arrow" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true"><path d="M1.38477 10.5435L7.87032 4.97903L14.1916 10.5435" stroke="#E0004D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button><div class="header-2026__topic-links">{%- for detail in topic_details -%}<a href="{{ detail.settings.link | default: '#' }}" {{ detail.shopify_attributes }}>{{ detail.settings.title | escape }} <img src="{{ 'header-2026-arrow-right.svg' | asset_url }}" width="15" height="15" alt=""></a>{%- endfor -%}</div></div>{%- endfor -%}
     </div>
 
   {%- when 'technology', 'support' -%}

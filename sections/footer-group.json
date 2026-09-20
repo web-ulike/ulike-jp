@@ -1,54 +1,220 @@
 {
   "type": "footer",
-  "name": "Footer group",
+  "name": "t:sections.footer-group.name",
   "sections": {
-    "footer": {
-      "type": "footer",
+    "multicolumn-with-icons": {
+      "type": "multicolumn-with-icons",
       "blocks": {
-        "text": {
-          "type": "text",
+        "column-1": {
+          "type": "column",
           "settings": {
-            "title": "About our store",
-            "content": "<p>Use this text area to tell your customers about your brand and vision. You can change it in the theme editor.<\/p>"
+            "icon": "support",
+            "heading": "Customer service",
+            "text": "<p>It’s not actually free we just price it into the products.<\/p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
           }
         },
-        "links": {
-          "type": "links",
+        "column-2": {
+          "type": "column",
           "settings": {
-            "menu": "footer"
+            "icon": "box",
+            "heading": "Fast Free Shipping",
+            "text": "<p>Get free shipping on orders of $150 or more<\/p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
           }
         },
-        "newsletter": {
-          "type": "newsletter",
+        "column-3": {
+          "type": "column",
           "settings": {
-            "title": "Newsletter",
-            "content": "<p>A short sentence describing what someone will receive by subscribing<\/p>"
+            "icon": "users",
+            "heading": "Refer a friend",
+            "text": "<p>Refer a friend and get 15% off each other.<\/p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
           }
         },
-        "social_media": {
-          "type": "social_media",
+        "column-4": {
+          "type": "column",
           "settings": {
-            "title": "Follow us",
-            "content": "<p>To configure social media, go to your social media settings. Change this text in the theme editor.<\/p>"
+            "icon": "shield",
+            "heading": "Secure payment",
+            "text": "<p>Your payment information is processed securely<\/p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
           }
         }
       },
       "block_order": [
-        "text",
-        "links",
-        "newsletter",
-        "social_media"
+        "column-1",
+        "column-2",
+        "column-3",
+        "column-4"
       ],
+      "disabled": true,
       "settings": {
+        "columns": 4,
+        "text_alignment": "left",
+        "heading": "",
+        "heading_size": "title-md",
+        "heading_alignment": "text-center md:items-center",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "button_label": "",
+        "button_link": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "divider": true,
+        "full_width": false,
+        "rounded": false
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "logo_social": {
+          "type": "logo_social",
+          "disabled": true,
+          "settings": {
+            "logo_height": 50,
+            "show_social": false,
+            "enable_follow_on_shop": false
+          }
+        },
+        "link_list-1": {
+          "type": "link_list",
+          "settings": {
+            "heading": "製品",
+            "menu": "footer-menu-shop",
+            "container_width": 18
+          }
+        },
+        "link_list-2": {
+          "type": "link_list",
+          "settings": {
+            "heading": "もっと知る",
+            "menu": "footer-menu-learn",
+            "container_width": 18
+          }
+        },
+        "link_list_D77HKK": {
+          "type": "link_list",
+          "settings": {
+            "heading": "サポート",
+            "menu": "footer-menu-support",
+            "container_width": 18
+          }
+        },
+        "link_list_xKqQcD": {
+          "type": "link_list",
+          "disabled": true,
+          "settings": {
+            "heading": "お問い合わせ",
+            "menu": "footer-menu-contact",
+            "container_width": 40
+          }
+        },
+        "text_3kcLiG": {
+          "type": "text",
+          "settings": {
+            "heading": "お問い合わせ",
+            "text": "<p>電話番号：050-3161-3100<\/p><p>メールアドレス：<a href=\"mailto:jpsupport@ulikeglobal.com\" target=\"_blank\">jpsupport@ulikeglobal.com<\/a><\/p><p>受付時間：平日 10:00～18:00（土・日・祝祭日・年末年始を除く）<\/p><p>住所：〒107-0061 東京都港区北青山 2-14-4 the ARGYLE aoyama 6F<\/p>",
+            "container_width": 46
+          }
+        },
+        "link_list_Jpnz3X": {
+          "type": "link_list",
+          "disabled": true,
+          "settings": {
+            "heading": "Heading",
+            "menu": "footer",
+            "container_width": 50
+          }
+        },
+        "brand_information": {
+          "type": "brand_information",
+          "disabled": true,
+          "settings": {
+            "heading": "",
+            "button_label_1": "+21 (0) 987654321",
+            "button_link_1": "tel:+21(0)987654321",
+            "button_label_2": "hello@domain.com",
+            "button_link_2": "mailto:hello@domain.com",
+            "button_label_3": "",
+            "button_link_3": "",
+            "button_label_4": "",
+            "button_link_4": "",
+            "container_width": 95
+          }
+        }
+      },
+      "block_order": [
+        "logo_social",
+        "link_list-1",
+        "link_list-2",
+        "link_list_D77HKK",
+        "link_list_xKqQcD",
+        "text_3kcLiG",
+        "link_list_Jpnz3X",
+        "brand_information"
+      ],
+      "custom_css": [],
+      "settings": {
+        "enable_newsletter": true,
+        "newsletter_heading": "メルマガ登録",
+        "newsletter_text": "<p><strong>メールアドレスを入力することで、Ulikeの<\/strong><a href=\"https:\/\/jp.ulike.com\/policies\/terms-of-service\" target=\"_blank\"><strong>利用規約<\/strong><\/a><strong>および<\/strong><a href=\"https:\/\/jp.ulike.com\/policies\/privacy-policy\" target=\"_blank\"><strong>プライバシーポリシー<\/strong><\/a><strong>に同意し、当社の製品プロモーションの受信に同意したものとします。<\/strong><\/p>",
+        "show_social": true,
+        "enable_follow_on_shop": false,
+        "color_text": "#000000",
+        "color_background": "#1f1f1f",
+        "gradient_background": "",
+        "color_button_text": "#000000",
+        "color_button_background": "#e0004d",
+        "color_button_gradient": "",
+        "padding_top": 52,
+        "padding_bottom": 44,
+        "divider": false,
+        "full_width": false,
+        "rounded": false,
+        "enable_parallax": false
+      }
+    },
+    "footer-copyright": {
+      "type": "footer-copyright",
+      "settings": {
+        "enable_language_selector": true,
+        "enable_country_selector": false,
+        "show_policy": true,
         "show_payment_icons": true,
-        "show_powered_by_shopify": true,
-        "enable_follow_on_shop": true,
-        "show_country_selector": true,
-        "show_locale_selector": true
+        "monochrome_payment_icons": false,
+        "show_copyright": true,
+        "copyright_text": "",
+        "color_text": "#ffffff",
+        "color_background": "#171717",
+        "gradient_background": "",
+        "divider": false,
+        "full_width": true,
+        "rounded": false,
+        "enable_parallax": true,
+        "pay_image": "shopify:\/\/shop_images\/2_ccd949e1-53eb-400b-b5ab-84198f7ad09e.png"
       }
     }
   },
   "order": [
-    "footer"
+    "multicolumn-with-icons",
+    "footer",
+    "footer-copyright"
   ]
 }

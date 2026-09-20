@@ -1,155 +1,72 @@
+{%- liquid
+  assign title = section.settings.title | default: 'ページが見つかりません'
+  assign description = section.settings.description | default: 'お探しのページはもう存在しないようです。 前のページまたは以下のページに戻ってみてください。'
+  assign primary_label = section.settings.primary_label | default: 'ホームページに戻る'
+  assign secondary_label = section.settings.secondary_label | default: 'ショッピングを開始する'
+  assign primary_url = section.settings.primary_url | default: routes.root_url
+  assign secondary_url = section.settings.secondary_url | default: routes.all_products_collection_url
+-%}
+
 <style>
-  #shopify-section-{{ section.id }} {
-    --section-padding-top: {{ section.settings.padding_top }}px;
-    --section-padding-bottom: {{ section.settings.padding_bottom }}px;
+  #shopify-section-{{ section.id }} .page-404 { align-items: center; background: #fff; box-sizing: border-box; color: #000; display: flex; flex-direction: column; padding: 150px 32px 200px; text-align: center; }
+  #shopify-section-{{ section.id }} .page-404 *, #shopify-section-{{ section.id }} .page-404 *::before, #shopify-section-{{ section.id }} .page-404 *::after { box-sizing: border-box; }
+  #shopify-section-{{ section.id }} .page-404__content { align-items: center; display: flex; flex-direction: column; gap: 25px; width: 311px; }
+  #shopify-section-{{ section.id }} .page-404__illustration { display: block; height: 99px; width: 113px; }
+  #shopify-section-{{ section.id }} .page-404__copy { display: flex; flex-direction: column; gap: 20px; width: 100%; }
+  #shopify-section-{{ section.id }} .page-404__title { font-family: "Noto Sans JP", sans-serif; font-size: 28px; font-weight: 500; line-height: 1.2; margin: 0; }
+  #shopify-section-{{ section.id }} .page-404__description { font-family: "Noto Sans JP", sans-serif; font-size: 12px; font-weight: 400; line-height: 1.5; margin: 0; }
+  #shopify-section-{{ section.id }} .page-404__actions { display: flex; gap: 24px; margin-top: 39px; }
+  #shopify-section-{{ section.id }} .page-404__button { align-items: center; border: 1px solid #e0004d; color: #e0004d; display: inline-flex; font-family: "Noto Sans JP", sans-serif; font-size: 12px; font-weight: 500; gap: 12px; justify-content: center; line-height: 1.5; min-height: 48px; padding: 14px 23px; text-decoration: none; transition: background-color .2s ease, color .2s ease; }
+  #shopify-section-{{ section.id }} .page-404__button--primary { background: #e0004d; color: #fff; }
+  #shopify-section-{{ section.id }} .page-404__button:hover { background: #e0004d; color: #fff; }
+  #shopify-section-{{ section.id }} .page-404__button--primary:hover { background: #bd0041; border-color: #bd0041; }
+  #shopify-section-{{ section.id }} .page-404__button-icon { display: block; flex: 0 0 auto; height: 9px; width: 10px; }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .page-404 { gap: 40px; padding: 59px 32px; }
+    #shopify-section-{{ section.id }} .page-404__content { width: 100%; }
+    #shopify-section-{{ section.id }} .page-404__illustration { height: 80px; width: 91px; }
+    #shopify-section-{{ section.id }} .page-404__title { font-size: 24px; line-height: 1.2; }
+    #shopify-section-{{ section.id }} .page-404__description { max-width: 287px; }
+    #shopify-section-{{ section.id }} .page-404__actions { align-items: stretch; flex-direction: column; gap: 20px; margin-top: 0; width: 199px; }
+    #shopify-section-{{ section.id }} .page-404__button { min-width: 199px; }
   }
 </style>
 
-<div class="section section--padding{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded relative{% endif %}">
-  <div class="container{% if section.settings.narrow %} container--small{% endif %} relative">
-    <div class="title-wrapper text-center leading-none">
-      <{{ section.settings.heading_tag }} class="heading font-bold {{ section.settings.heading_size }}">
-        <split-words class="split-words flex flex-wrap" data-animate="fade-up-large">{{ 'general.404.title' | t }}</split-words>
-      </{{ section.settings.heading_tag }}>
-    </div>
-
-    <div class="page-404 grid">
-      <div class="text-lg md:text-2xl text-center">{{ 'general.404.subtext_html' | t }}</div>
-      <div class="flex justify-center">
-        <div class="button-group grid md:grid-cols-2 gap-5">
-          <a class="button button--primary" href="{{ routes.root_url }}" is="hover-link">
-            <span class="btn-fill" data-fill></span>
-            <span class="btn-text">{{ 'general.404.back_to_home' | t }}</span>
-          </a>
-          <a class="button button--secondary" href="{{ routes.all_products_collection_url }}" is="hover-link">
-            <span class="btn-fill" data-fill></span>
-            <span class="btn-text">{{ 'general.404.continue_shopping' | t }}</span>
-          </a>
-        </div>
-      </div>
+<section class="page-404">
+  <div class="page-404__content">
+    <img class="page-404__illustration" src="{{ '404-illustration.svg' | asset_url }}" alt="" width="113" height="99" loading="eager">
+    <div class="page-404__copy">
+      <h1 class="page-404__title">{{ title | escape }}</h1>
+      <p class="page-404__description">{{ description | escape | newline_to_br }}</p>
     </div>
   </div>
-</div>
+
+  <div class="page-404__actions">
+    <a class="page-404__button page-404__button--primary" href="{{ primary_url }}">
+      <span>{{ primary_label | escape }}</span>
+      <img class="page-404__button-icon" src="{{ '404-arrow-light.svg' | asset_url }}" alt="" width="10" height="9">
+    </a>
+    <a class="page-404__button" href="{{ secondary_url }}">
+      <span>{{ secondary_label | escape }}</span>
+      <img class="page-404__button-icon" src="{{ '404-arrow-pink.svg' | asset_url }}" alt="" width="10" height="9">
+    </a>
+  </div>
+</section>
 
 {% schema %}
 {
-  "name": "t:sections.main-404.name",
+  "name": "404",
+  "class": "shopify-section--404",
   "settings": [
-    {
-      "type": "header",
-      "content": "t:sections.global.settings.header__heading.content"
-    },
-    {
-      "type": "select",
-      "id": "heading_size",
-      "options": [
-        {
-          "value": "title-sm",
-          "label": "t:sections.global.settings.heading_size.options__1.label"
-        },
-        {
-          "value": "title-md",
-          "label": "t:sections.global.settings.heading_size.options__2.label"
-        },
-        {
-          "value": "title-lg tracking-heading",
-          "label": "t:sections.global.settings.heading_size.options__3.label"
-        },
-        {
-          "value": "title-xl tracking-heading",
-          "label": "t:sections.global.settings.heading_size.options__4.label"
-        }
-      ],
-      "default": "title-xl tracking-heading",
-      "label": "t:sections.global.settings.heading_size.label"
-    },
-    {
-      "type": "select",
-      "id": "heading_tag",
-      "options": [
-        {
-          "value": "h1",
-          "label": "t:sections.global.settings.heading_tag.options__1.label"
-        },
-        {
-          "value": "h2",
-          "label": "t:sections.global.settings.heading_tag.options__2.label"
-        },
-        {
-          "value": "h3",
-          "label": "t:sections.global.settings.heading_tag.options__3.label"
-        },
-        {
-          "value": "h4",
-          "label": "t:sections.global.settings.heading_tag.options__4.label"
-        },
-        {
-          "value": "h5",
-          "label": "t:sections.global.settings.heading_tag.options__5.label"
-        },
-        {
-          "value": "h6",
-          "label": "t:sections.global.settings.heading_tag.options__6.label"
-        },
-        {
-          "value": "div",
-          "label": "t:sections.global.settings.heading_tag.options__7.label"
-        },
-        {
-          "value": "span",
-          "label": "t:sections.global.settings.heading_tag.options__8.label"
-        },
-        {
-          "value": "p",
-          "label": "t:sections.global.settings.heading_tag.options__9.label"
-        }
-      ],
-      "default": "h1",
-      "label": "t:sections.global.settings.heading_tag.label",
-      "info": "t:sections.global.settings.heading_tag.info"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.global.settings.header__section.content"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 120,
-      "step": 4,
-      "unit": "px",
-      "label": "t:sections.global.settings.padding_top.label",
-      "default": 72
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 120,
-      "step": 4,
-      "unit": "px",
-      "label": "t:sections.global.settings.padding_bottom.label",
-      "default": 100
-    },
-    {
-      "type": "checkbox",
-      "id": "divider",
-      "label": "t:sections.global.settings.divider.label",
-      "default": false
-    },
-    {
-      "type": "checkbox",
-      "id": "narrow",
-      "label": "t:sections.global.settings.narrow.label",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "rounded",
-      "default": false,
-      "label": "t:sections.global.settings.rounded.label"
-    }
+    { "type": "text", "id": "title", "label": "标题", "default": "ページが見つかりません" },
+    { "type": "textarea", "id": "description", "label": "说明文案", "default": "お探しのページはもう存在しないようです。 前のページまたは以下のページに戻ってみてください。" },
+    { "type": "header", "content": "主按钮" },
+    { "type": "text", "id": "primary_label", "label": "按钮文案", "default": "ホームページに戻る" },
+    { "type": "url", "id": "primary_url", "label": "按钮链接" },
+    { "type": "header", "content": "次按钮" },
+    { "type": "text", "id": "secondary_label", "label": "按钮文案", "default": "ショッピングを開始する" },
+    { "type": "url", "id": "secondary_url", "label": "按钮链接" }
   ]
 }
 {% endschema %}

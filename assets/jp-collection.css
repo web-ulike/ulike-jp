@@ -29,9 +29,13 @@
 .jp-collection-card__details[open] .jp-collection-card__plus { display: none; }
 .jp-collection-card__details[open] .jp-collection-card__minus { display: flex; }
 .jp-collection-card__description { padding: 14px 60px 14px 18px; color: #4d4d4d; font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; }
-.jp-collection-card__description p { margin: 0; }
-.jp-collection-card__description strong { font-weight: inherit; }
-.jp-collection-card__link { display: inline-flex; align-items: center; gap: 8px; margin-top: 30px; border-bottom: 1px solid currentColor; color: #e0004d; font-size: 12px; line-height: 21px; text-decoration: none; }
+.jp-collection-card__description :is(ul, ol) { margin: 0; padding-left: 21px; }
+.jp-collection-card__description > p { display: list-item; margin: 0 0 0 21px; list-style-type: disc; }
+.jp-collection-card__description li { margin: 0; }
+.jp-collection-card__description strong { font-weight: 700; }
+.jp-collection-card__link { display: inline-flex; align-items: center; gap: 8px; margin-top: 30px; 
+  border-bottom: 1px solid currentColor; color: var(--Ulike-, #e0004d);  font-size: 12px; 
+  font-weight: 700; line-height: 21px; text-decoration: none; text-transform: uppercase; }
 .jp-collection-card__link svg { display: block; width: 14px; height: 11px; }
 .jp-collection :is(a, summary, button):focus-visible { outline: 2px solid #e0004d; outline-offset: 4px; }
 .jp-collection__more { display: none; }
@@ -44,10 +48,11 @@
 .jp-collection-hero { position: relative; }
 .jp-collection-hero__media, .jp-collection-hero__media img { display: block; width: 100%; }
 .jp-collection-hero__media img { height: auto; }
-.jp-collection-hero__title { position: absolute; inset: var(--hero-title-top, 13.4%) 20px auto; margin: 0; text-align: center; font: inherit; font-size: 40px; line-height: 1.3; color: var(--hero-text, #000); }
+.jp-collection-hero__title { position: absolute; inset: var(--hero-title-top, 39%) auto auto var(--hero-title-left, 11.5%); margin: 0; text-align: left; font: inherit; font-size: 40px; font-weight: 400; line-height: 1.3; color: var(--hero-text, #000); }
 .jp-collection-hero__title p { margin: 0; }
+.jp-collection-hero__title--mobile { display: none; }
 .jp-collection-hero--empty { padding-block: 110px; }
-.jp-collection-hero--empty .jp-collection-hero__title { position: static; }
+.jp-collection-hero--empty .jp-collection-hero__title { position: static; text-align: center; }
 @media (min-width: 1101px) and (max-width: 1679px) {
   .jp-collection__inner { width: calc(100% - 120px); }
   .jp-collection-card__heading h3 { font-size: 20px; }
@@ -88,6 +93,8 @@
   .jp-collection--accessories .jp-collection-card__content { margin-top: 25px; }
   .jp-collection--accessories .jp-collection-card__heading h3 { font-size: 13px; line-height: 1.5; }
   .jp-collection--accessories .jp-collection-card__link { margin-top: 10px; }
-  .jp-collection-hero__title { inset-block-start: var(--hero-title-top-mobile, 7%); font-size: 24px; }
+  .jp-collection-hero__title { inset: var(--hero-title-top-mobile, 7%) 20px auto; text-align: center; font-size: 24px; }
+  .jp-collection-hero__title--desktop { display: none; }
+  .jp-collection-hero__title--mobile { display: block; }
   .jp-collection-hero--empty { padding: 60px 21px; }
 }

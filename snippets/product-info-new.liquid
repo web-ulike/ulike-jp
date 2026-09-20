@@ -172,10 +172,12 @@
                       assign is_color_option = true
                     elsif color_swatch_trigger == 'color' and option_name_downcase contains 'colour'
                       assign is_color_option = true
+                    elsif option_name_downcase contains 'カラー' or option_name_downcase contains '色' or option_name_downcase contains 'color' or option_name_downcase contains 'colour'
+                      assign is_color_option = true
                     endif
                   -%}
                   <fieldset class="jp-product-variants__group{% if is_color_option %} variant-picker product-form__input variant-input-wrapper{% endif %}" data-option-index="option{{ option.position }}" data-option-slug="{{ option.name | handleize }}">
-                    <legend class="jp-product-variants__legend{% if is_color_option %} sr-only{% endif %}">{{ option.name }}</legend>
+                    <legend class="jp-product-variants__legend{% if is_color_option %} visually-hidden{% endif %}">{{ option.name }}</legend>
 
                     {%- if is_color_option -%}
                       <div class="form__label flex items-center justify-between gap-2 w-full">
@@ -230,7 +232,7 @@
                           <li>
                             <input
                               id="{{ input_id }}"
-                              class="sr-only"
+                              class="jp-product-variants__input visually-hidden"
                               type="radio"
                               name="option{{ option.position }}"
                               value="{{ value | escape }}"
@@ -374,7 +376,15 @@
           </div>
 
         {%- when 'aftermarket' -%}
-          <div class="jp-product-info__block jp-product-info__block--aftermarket" {{ block.shopify_attributes }}>
+          {%- liquid
+            assign service_has_items = false
+            if block.settings.image != blank or block.settings.text != blank or block.settings.image1 != blank or block.settings.text1 != blank or block.settings.image2 != blank or block.settings.text2 != blank or block.settings.image3 != blank or block.settings.text3 != blank or block.settings.image4 != blank or block.settings.text4 != blank
+              assign service_has_items = true
+            endif
+          -%}
+          {%- if service_has_items or block.settings.note_text != blank -%}
+            <div class="jp-product-info__block jp-product-info__block--aftermarket" {{ block.shopify_attributes }}>
+            {%- if service_has_items -%}
             <div class="jp-product-service">
               {%- for i in (0..4) -%}
                 {%- liquid
@@ -408,12 +418,14 @@
                 {%- endif -%}
               {%- endfor -%}
             </div>
+            {%- endif -%}
             {%- if block.settings.note_text != blank -%}
               <div class="jp-product-service-note">
                 {{ block.settings.note_text }}
               </div>
             {%- endif -%}
-          </div>
+            </div>
+          {%- endif -%}
 
         {%- when 'link_button' -%}
           {%- if block.settings.text != blank -%}

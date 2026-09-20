@@ -84,20 +84,19 @@
   }
 
   #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__list {
-    display: grid;
-    grid-template-columns: repeat(var(--jp-anchor-tab-count), minmax(0, 280px));
+    display: flex;
     align-items: center;
     justify-content: center;
-    column-gap: min(7.29vw, 140px);
-    width: fit-content;
-    max-width: 100%;
+    gap: 0;
+    width: min(100%, 948px);
     margin: 0 auto;
-    height: 52px;
+    height: 48px;
   }
 
   #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__item {
     position: relative;
-    width: 100%;
+    flex: 1 1 0;
+    width: auto;
     height: 100%;
     padding: 0 24px;
     border: 0;
@@ -106,7 +105,7 @@
     font-size: 16px;
     line-height: 1.4;
     font-weight: 400;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.04em;
     cursor: pointer;
     white-space: nowrap;
     transition: color 0.25s ease, transform 0.25s ease;

@@ -59,7 +59,7 @@
           assign items_in_cart = cart.item_count | minus: gift_wraps_in_cart
         endif
       -%}
-      <main-cart id="MainCart-{{ section.id }}" class="cart__content flex flex-col lg:flex-row">
+      <main-cart id="MainCart-{{ section.id }}" class="cart__content flex flex-col lg:flex-row" data-section-id="{{ section.id }}">
         <div class="grow flex flex-col gap-8 md:gap-12">
           <form class="cart__form" action="{{ routes.cart_url }}" method="POST" id="cart">
             <cart-items class="cart__items block">
@@ -93,12 +93,12 @@
                     -%}
 
                     {%- capture cart_item -%}
-                      <tr class="cart-item" id="CartItem-{{ item.index | plus: 1 }}">
+                      <tr class="cart-item{% if item.image %} cart-item--with-media{% endif %}" id="CartItem-{{ item.index | plus: 1 }}">
                         <td>
                           <div class="flex items-center gap-4d5 md:gap-10">
                             {%- if item.image -%}
                               <a class="cart-item__media media relative overflow-hidden flex-auto" href="{{ item.url }}" tabindex="-1">
-                                {{- item.image | image_url: width: item.image.width | image_tag: loading: 'lazy', widths: '180,360,540', is: 'lazy-image' -}}
+                                {{- item.image | image_url: width: item.image.width | image_tag: loading: 'lazy', widths: '180,360,540', sizes: '(min-width: 768px) 160px, 104px', alt: item.product.title, is: 'lazy-image' -}}
                               </a>
                             {%- endif -%}
                             
@@ -215,11 +215,14 @@
                                 <label class="sr-only" for="Quantity-{{ section.id }}-{{ item.index | plus: 1 }}">
                                   {{- 'products.quantity.label' | t -}}
                                 </label>
+                                <button type="button" name="minus" class="quantity__button flex justify-center items-center cursor-pointer" aria-label="{{ 'products.quantity.decrease' | t: product: item.product.title | escape }}">
+                                  {%- render 'icon', icon: 'decrease', size: 'sm', class: 'stroke-1' -%}
+                                </button>
                                 <input class="quantity__input input text-center w-full h-full"
-                                  type="text"
+                                  type="number"
                                   name="updates[]"
                                   value="{{ item.quantity }}"
-                                  min="0"
+                                  min="1"
                                   {% if item_max_quantity %}max="{{ item_max_quantity }}"{% endif %}
                                   aria-label="{{ 'products.quantity.input_label' | t: product: item.product.title | escape }}"
                                   id="Quantity-{{ section.id }}-{{ item.index | plus: 1 }}"
@@ -227,20 +230,14 @@
                                   size="2"
                                   inputmode="numeric"
                                   autocomplete="off"
-                                  is="quantity-input"
                                 />
-                                <div class="quantity__buttons absolute right-0 hidden lg:flex flex-col items-center justify-center h-full">
-                                  <button type="button" name="plus" class="quantity__button flex justify-center w-full items-end cursor-pointer" aria-label="{{ 'products.quantity.increase' | t: product: item.product.title | escape }}">
-                                    {%- render 'icon', icon: 'increase', size: 'sm', class: 'stroke-1' -%}
-                                  </button>
-                                  <button type="button" name="minus" class="quantity__button flex justify-center w-full items-start cursor-pointer" aria-label="{{ 'products.quantity.decrease' | t: product: item.product.title | escape }}">
-                                    {%- render 'icon', icon: 'decrease', size: 'sm', class: 'stroke-1' -%}
-                                  </button>
-                                </div>
+                                <button type="button" name="plus" class="quantity__button flex justify-center items-center cursor-pointer" aria-label="{{ 'products.quantity.increase' | t: product: item.product.title | escape }}">
+                                  {%- render 'icon', icon: 'increase', size: 'sm', class: 'stroke-1' -%}
+                                </button>
                               </cart-quantity>
                             {%- else -%}
                               <gift-quantity
-                                class="cart-quantity flex items-center relative"
+                                class="cart-quantity cart-quantity--readonly flex items-center relative"
                                 cart-items-size="{{ cart.items.size }}"
                                 gift-wraps-in-cart="{{ gift_wraps_in_cart }}"
                                 items-in-cart="{{ items_in_cart }}"
@@ -259,21 +256,13 @@
                                   data-index="{{ item.index | plus: 1 }}"
                                   disabled
                                 />
-                                <div class="quantity__buttons absolute right-0 hidden lg:flex flex-col items-center justify-center h-full sr-only">
-                                  <button type="button" name="plus" class="quantity__button flex justify-center w-full items-end cursor-pointer" aria-label="{{ 'products.quantity.increase' | t: product: item.product.title | escape }}" disabled>
-                                    {%- render 'icon', icon: 'increase', size: 'sm', class: 'stroke-1' -%}
-                                  </button>
-                                  <button type="button" name="minus" class="quantity__button flex justify-center w-full items-start cursor-pointer" aria-label="{{ 'products.quantity.decrease' | t: product: item.product.title | escape }}" disabled>
-                                    {%- render 'icon', icon: 'decrease', size: 'sm', class: 'stroke-1' -%}
-                                  </button>
-                                </div>
                               </gift-quantity>
                             {%- endunless -%}
                             <div class="text-xs relative">
-                              <div id="Loader-{{ section.id }}-{{ item.index | plus: 1 }}" class="loader absolute right-0 md:left-0" hidden>
+                              <div id="Loader-{{ section.id }}-{{ item.index | plus: 1 }}" class="loader absolute right-0 md:left-0" role="status" aria-label="更新中" hidden>
                                 {%- render 'icon', icon: 'rotator', size: 'xs', class: 'animate-rotator' -%}
                               </div>
-                              <a class="link" href="{{ item.url_to_remove }}"{% unless is_gift_wrap_item %} is="cart-remove-button"{% else %} is="remove-gift-wrap"{% endunless %} data-index="{{ item.index | plus: 1 }}" data-no-instant>{{ 'cart.general.remove' | t }}</a>
+                              <a class="link cart-item__remove" href="{{ item.url_to_remove }}"{% unless is_gift_wrap_item %} data-cart-remove{% else %} is="remove-gift-wrap"{% endunless %} data-index="{{ item.index | plus: 1 }}" data-no-instant>{{ 'cart.general.remove' | t }}</a>
                             </div>
                           </div>
                         </td>
@@ -387,6 +376,7 @@
         <div class="grow-0">
           <sticky-element class="flex flex-col gap-7d5 sticky top-0">
             <div class="cart__sidebar flex flex-col gap-7d5 md:gap-10">
+              <h2 class="cart__summary-title">ご注文内容</h2>
               {%- for block in section.blocks -%}
                 {%- case block.type -%}
                   {%- when '@app' -%}
@@ -426,20 +416,25 @@
                     </div>
 
                   {%- when 'cart_note' -%}
-                    <cart-note class="grid gap-3 cart-note" {{ block.shopify_attributes }}>
-                      <p class="font-medium leading-tight">{{ block.settings.heading | escape }}</p>
-                      <div class="field">
-                        <textarea
-                          class="textarea is-floating"
-                          rows="4"
-                          id="CartNotForm-{{ block.id }}"
-                          name="note"
-                          form="cart"
-                          placeholder=" "
-                        >{{ cart.note }}</textarea>
-                        <label class="label is-floating" for="CartNotForm-{{ block.id }}">{{ 'cart.general.note' | t }}</label>
-                      </div>
-                    </cart-note>
+                    <cart-page-note class="cart-note" {{ block.shopify_attributes }}>
+                      <details>
+                        <summary class="cart-note__summary">
+                          <span>{{ block.settings.heading | escape }}</span>
+                          {%- render 'icon', icon: 'chevron-down', size: 'sm' -%}
+                        </summary>
+                        <div class="field cart-note__field">
+                          <textarea
+                            class="textarea is-floating"
+                            rows="4"
+                            id="CartNotForm-{{ block.id }}"
+                            name="note"
+                            form="cart"
+                            placeholder=" "
+                          >{{ cart.note }}</textarea>
+                          <label class="label is-floating" for="CartNotForm-{{ block.id }}">{{ 'cart.general.note' | t }}</label>
+                        </div>
+                      </details>
+                    </cart-page-note>
 
                   {%- when 'buttons' -%}
                     <div class="grid gap-3" {{ block.shopify_attributes }}>

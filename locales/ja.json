@@ -34,11 +34,20 @@
       "twitter_tweet": "Tweetでつぶやく",
       "email_share": "メールで共有する",
       "email_label": "Eメール",
-      "follow_label": "フォローはこちら {{ social_media }}"
+      "follow_label": "フォローはこちら {{ social_media }}",
+      "social_platform": "{{ name }}の{{ platform }}",
+      "links": {
+        "twitter": "X",
+        "instagram": "Instagram",
+        "facebook": "Facebook",
+        "youtube": "YouTube"
+      }
     },
     "newsletter": {
+      "label": "メール",
       "email": "あなたのメールアドレス",
       "subscribe": "サブスクライブする",
+      "submit": "登録",
       "success": "あなたはメールマガジンにサブスクライブしました"
     },
     "faq": {
@@ -54,6 +63,12 @@
       "product_title": "製品",
       "product_description": "商品の説明",
       "collection_title": "コレクション"
+    },
+    "404": {
+      "title": "お探しのページが見つかりません",
+      "subtext_html": "お探しのページは見つかりませんでした。<br>URLをご確認いただくか、以下よりお探しください。",
+      "back_to_home": "ホームに戻る",
+      "continue_shopping": "ショッピングを続ける"
     }
   },
   "header": {
@@ -111,11 +126,24 @@
       "item_added": "アイテムがカートに追加されました！",
       "item_added_short": "カートに追加されました！",
       "view_cart": "カートを見る",
+      "continue_shopping": "ショッピングを続ける",
+      "note": "注文メモ",
+      "subtotal": "小計",
+      "taxes_and_shipping_at_checkout": "税金・送料はチェックアウト時に計算されます。",
+      "taxes_and_shipping_policy_at_checkout_html": "税金・<a href=\"{{ link }}\">送料<\/a>はチェックアウト時に計算されます。",
+      "taxes_included_and_shipping_policy_html": "税込み価格です。<a href=\"{{ link }}\">送料<\/a>はチェックアウト時に計算されます。",
+      "taxes_included_but_shipping_at_checkout": "税込み価格です。送料はチェックアウト時に計算されます。",
+      "update": "カートを更新",
       "item_count": {
         "zero": "{{ count }} アイテム",
         "one": "{{ count }} アイテム",
         "other": "{{ count }} アイテム"
       }
+    },
+    "headings": {
+      "product": "商品",
+      "quantity": "数量",
+      "total": "合計"
     },
     "shipping_estimator": {
       "estimate_shipping": "送料のお見積もり",
@@ -405,7 +433,10 @@
       "email": "メールアドレス",
       "message": "メッセージ",
       "submit": "提出",
-      "successfully_sent": "あなたのメールは送信されました"
+      "successfully_sent": "あなたのメールは送信されました",
+      "phone": "電話番号",
+      "post_success": "お問い合わせありがとうございます。できるだけ早くご連絡いたします。",
+      "send": "送信"
     }
   },
   "gift_card": {
@@ -475,6 +506,89 @@
       "title": "ページが見つかりませんでした",
       "description": "申し訳ありませんが、このページは存在しません",
       "back_to_home": "ホームに戻る"
+    }
+  },
+  "localization": {
+    "country_label": "国／地域",
+    "language_label": "言語",
+    "text_direction_trigger": "LTR",
+    "update_country": "国／地域を更新",
+    "update_language": "言語を更新"
+  },
+  "onboarding": {
+    "no_content": "このセクションにはコンテンツがありません。サイドバーからコンテンツを追加してください。"
+  },
+  "products": {
+    "general": {
+      "color_swatch_trigger": "カラー",
+      "regular_price": "通常価格",
+      "sale_price": "セール価格",
+      "unit_price": "単価"
+    },
+    "pickup_availability": {
+      "check_other_stores": "他店の在庫を確認する",
+      "pick_up_available": "店舗受取が可能です",
+      "pick_up_available_at_html": "<span class=\"color-foreground\">{{ location_name }}<\/span>で店舗受取が可能です",
+      "pick_up_unavailable": "現在、店舗受取はご利用いただけません",
+      "pick_up_unavailable_at_html": "現在、<span class=\"color-foreground\">{{ location_name }}<\/span>では店舗受取をご利用いただけません",
+      "title": "店舗受取",
+      "view_store_info": "店舗情報を見る"
+    },
+    "product": {
+      "add_to_cart": "カートに追加",
+      "add_to_cart_custom": "カートに追加",
+      "choose_product_options": "{{ product_name }}のオプションを選択",
+      "include_taxes": "税込み",
+      "pre_order": "予約注文",
+      "read_more": "詳細を見る",
+      "shipping_policy_html": "<a href='{{ link }}'>送料<\/a>はチェックアウト時に計算されます。",
+      "sold_out": "売り切れ"
+    },
+    "quantity": {
+      "decrease": "{{ product }}の数量を減らす",
+      "increase": "{{ product }}の数量を増やす",
+      "input_label": "{{ product }}の数量",
+      "label": "数量"
+    }
+  },
+  "sections": {
+    "blog_posts": {
+      "view_all": "すべて見る"
+    },
+    "featured_collection": {
+      "view_all": "すべて見る",
+      "view_all_label": "{{ collection_name }}のすべての商品を見る"
+    },
+    "map": {
+      "address_error": "住所の検索中にエラーが発生しました",
+      "address_no_results": "この住所の検索結果はありません",
+      "address_query_limit_html": "Google API の利用上限を超えました。<a href=\"https:\/\/developers.google.com\/maps\/premium\/usage-limits\">プレミアムプラン<\/a>へのアップグレードをご検討ください。",
+      "auth_error_html": "Google Maps アカウントの認証中に問題が発生しました。アプリケーションの<a href=\"https:\/\/developers.google.com\/maps\/documentation\/javascript\/get-api-key\">JavaScript API<\/a>と<a href=\"https:\/\/developers.google.com\/maps\/documentation\/geocoding\/get-api-key\">Geocoding API<\/a>を作成・有効化してください。"
+    },
+    "slideshow": {
+      "pause_slideshow": "スライドショーを一時停止",
+      "play_slideshow": "スライドショーを再生"
+    }
+  },
+  "gift_cards": {
+    "issued": {
+      "add_to_apple_wallet": "Apple Walletに追加",
+      "copy": "コピー",
+      "copy_code_success": "コードをコピーしました",
+      "expired": "有効期限が切れています",
+      "print": "印刷",
+      "redeem": "チェックアウト時にこのコードを入力してギフトカードをご利用ください。",
+      "scan": "または、このQRコードをスキャンしてください",
+      "shop_link": "オンラインストアへ",
+      "subtext": "あなたのギフトカード",
+      "title_html": "{{ shop }}でご利用いただける{{ value }}のギフトカード残高です"
+    }
+  },
+  "shopify": {
+    "online_store": {
+      "spam_detection": {
+        "disclaimer_html": "このサイトはreCAPTCHAによって保護されています。Googleの<a href=\"https:\/\/policies.google.com\/privacy\">プライバシーポリシー<\/a>と<a href=\"https:\/\/policies.google.com\/terms\">利用規約<\/a>が適用されます。"
+      }
     }
   }
 }

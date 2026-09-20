@@ -7,6 +7,76 @@
   font-display: swap;
 }
 
+/* Product vendor is intentionally hidden across product detail/featured product blocks. */
+.product-meta__vendor {
+  display: none;
+}
+
+/* Align the legacy product detail typography with the live storefront. */
+@media screen and (min-width: 1000px) {
+  .product.product--thumbnails-bottom .product-meta__title {
+    font-size: 23px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    text-transform: none;
+  }
+
+  .product.product--thumbnails-bottom .price--large {
+    font-size: 21px;
+    font-weight: 500;
+  }
+
+  .product.product--thumbnails-bottom .price--compare {
+    font-size: 15px;
+    font-weight: 400;
+  }
+
+  .product.product--thumbnails-bottom .product-form__description {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .product.product--thumbnails-bottom .product-form__description :where(div, p, span, li, strong, b) {
+    font-size: inherit !important;
+    line-height: inherit;
+  }
+
+  .product.product--thumbnails-bottom .product-form__description h5 {
+    margin: 0;
+    font-size: 14px !important;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: -0.04em;
+    text-transform: none;
+  }
+
+  .product.product--thumbnails-bottom .product-form__description h6 {
+    font-size: 14px !important;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: -0.03em;
+    text-transform: none;
+  }
+
+  .product.product--thumbnails-bottom .product-form__option-info {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .product.product--thumbnails-bottom .product-form__option-value {
+    font-weight: 500;
+  }
+
+  .product.product--thumbnails-bottom .product-form__add-button {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: normal;
+    text-transform: none;
+  }
+}
+
 @font-face {
   font-family: 'Saans';
   src: url('{{ "Saans-Medium.woff2" | asset_url }}') format('woff2');
@@ -16,6 +86,282 @@
 }
 
 :root {
-  --text-font-family: 'Noto Sans JP', 'Saans', sans-serif;
-  --heading-font-family: 'Noto Sans JP', 'Saans', sans-serif;
+  --text-font-family: 'Saans', 'Noto Sans JP', sans-serif;
+  --heading-font-family: 'Saans', 'Noto Sans JP', sans-serif;
+}
+
+/* Footer markup is shared with the production theme. Keep its layout scoped
+ * here because this theme uses a different global footer CSS system. */
+.footer-group .section {
+  background: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+}
+
+.footer-group .container {
+  width: min(100% - 40px, 1856px);
+  margin-inline: auto;
+}
+
+.footer-group .footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  color: rgb(var(--color-foreground));
+}
+
+.footer-group .footer__left {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.footer-group .footer__accordions {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-group .footer__accordions .details {
+  padding-inline: 20px;
+  border: solid rgb(var(--color-foreground) / 0.15);
+  border-width: 1px 1px 0;
+}
+
+.footer-group .footer__accordions .details:last-of-type {
+  border-bottom-width: 1px;
+}
+
+.footer-group .footer__accordions .details__summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-block: 20px;
+  cursor: pointer;
+}
+
+.footer-group .footer__accordions .details__summary svg {
+  width: 16px;
+  transition: transform 0.2s ease;
+}
+
+.footer-group .footer__accordions details[open] .details__summary svg {
+  transform: rotate(180deg);
+}
+
+.footer-group .footer__accordions .details__content {
+  padding: 0 0 20px;
+}
+
+.footer-group .footer__accordions .details__content ul {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer-group .footer__accordions a,
+.footer-group .footer__accordions .rte {
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.footer-group .footer__right {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  margin-top: 40px;
+  padding-top: 40px;
+  border-top: 1px solid rgb(var(--color-foreground) / 0.15);
+}
+
+.footer-group .footer__newsletter .h3 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.footer-group .footer__newsletter .private-text {
+  max-width: 400px;
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.footer-group .newsletter-form {
+  display: grid;
+  gap: 20px;
+  max-width: 546px;
+}
+
+.footer-group .newsletter-form .field {
+  position: relative;
+}
+
+.footer-group .newsletter-form .input {
+  width: 100%;
+  min-height: 98px;
+  padding: 24px 104px 24px 40px;
+  color: rgb(var(--color-foreground));
+  background: rgb(var(--color-foreground) / 0.04);
+  border: 0;
+  border-radius: 20px;
+}
+
+.footer-group .newsletter-form .self-submit-button {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+.footer-group .newsletter-form .self-button {
+  display: grid;
+  width: 64px;
+  height: 64px;
+  place-items: center;
+  color: rgb(var(--color-background));
+  background: #e0004d;
+  border: 0;
+  border-radius: 50%;
+}
+
+.footer-group .footer__socials {
+  align-self: end;
+}
+
+.footer-group .footer-copyright {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding-block: 28px;
+  color: rgb(var(--color-foreground));
+  font-size: 13px;
+}
+
+.footer-group .footer-copyright .credits ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer-group .footer-copyright .payment-icons {
+  justify-content: flex-end;
+}
+
+.footer-group .footer-copyright .payment-icons img {
+  width: min(100%, 1032px);
+  height: auto;
+}
+
+@media screen and (max-width: 767px) {
+  .footer-group .newsletter-form .input {
+    min-height: 64px;
+    padding: 16px 80px 16px 24px;
+    border-radius: 16px;
+  }
+
+  .footer-group .newsletter-form .self-button {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .footer-group .footer__left {
+    flex-direction: row;
+    gap: clamp(64px, 8.421vw, 160px);
+  }
+
+  .footer-group .footer__accordions {
+    flex: 1;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 32px;
+  }
+
+  .footer-group .footer__accordions .details,
+  .footer-group .footer__accordions .no-details {
+    flex: 1 1 calc(25% - 24px);
+    padding: 0;
+    border: 0;
+  }
+
+  .footer-group .footer__accordions .details__summary {
+    padding-top: 0;
+    padding-bottom: 12px;
+    pointer-events: none;
+  }
+
+  .footer-group .footer__accordions .details__summary svg {
+    display: none;
+  }
+
+  .footer-group .footer__accordions .details__content {
+    padding: 0;
+  }
+
+  .footer-group .footer__right {
+    grid-template-columns: 3fr 2fr;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .footer-group .footer {
+    grid-template-columns: minmax(0, 1.78fr) minmax(546px, 1fr);
+    min-height: 518px;
+  }
+
+  .footer-group .footer__left {
+    padding-right: clamp(40px, 4.1vw, 80px);
+    border-right: 1px solid rgb(var(--color-foreground) / 0.15);
+  }
+
+  .footer-group .footer__right {
+    align-content: space-between;
+    margin-top: 0;
+    padding: 0 0 0 clamp(40px, 3.125vw, 64px);
+    border-top: 0;
+  }
+
+  .footer-group .footer__accordions .details__summary {
+    padding-bottom: 36px;
+  }
+
+  .footer-group .footer__accordions .details,
+  .footer-group .footer__accordions .no-details {
+    flex: 0 0 auto;
+  }
+
+  .footer-group .footer__accordions .details__summary span {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .footer-group .footer__accordions a,
+  .footer-group .footer__accordions .rte {
+    font-size: 16px;
+    line-height: 1.45;
+  }
+
+  .footer-group .footer-copyright {
+    flex-direction: row;
+    justify-content: space-between;
+    min-height: 166px;
+    padding-block: 32px;
+  }
+
+  .footer-group .footer-copyright .credits {
+    text-align: left;
+  }
+
+  .footer-group .footer-copyright .credits ul {
+    justify-content: flex-start;
+  }
 }

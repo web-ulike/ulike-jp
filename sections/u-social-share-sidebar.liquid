@@ -1,5 +1,8 @@
 {%- liquid
-  assign share_url = canonical_url | default: shop.url | append: request.path
+  assign share_url = canonical_url
+  if share_url == blank
+    assign share_url = shop.url | append: request.path
+  endif
   assign share_title = page_title | default: shop.name
 
   if product
@@ -18,8 +21,8 @@
 <div
   id="u-social-share-{{ section.id }}"
   class="u-fixed-side-tools u-fixed-side-tools--{{ section.settings.position }}"
-  data-share-url="{{ share_url | url_encode }}"
-  data-share-title="{{ share_title | strip_html | escape | url_encode }}"
+  data-share-url="{{ share_url | escape }}"
+  data-share-title="{{ share_title | strip_html | escape }}"
 >
   <div class="u-fixed-side-tools__inner">
     
@@ -80,6 +83,8 @@
               data-ga-type="share_trigger"
               data-ga-label="{{ block.settings.trigger_label | default: 'Share' | escape }}"
               aria-label="{{ block.settings.trigger_label | default: 'Share' | escape }}"
+              aria-controls="u-social-share-panel-{{ section.id }}"
+              aria-expanded="false"
             >
               {%- if block.settings.trigger_icon != blank -%}
                 <img
@@ -98,7 +103,7 @@
               {%- endif -%}
             </button>
 
-            <div class="u-fixed-side-tools__share-panel">
+            <div id="u-social-share-panel-{{ section.id }}" class="u-fixed-side-tools__share-panel" aria-hidden="true">
               <div class="u-fixed-side-tools__share-list">
                 {%- if block.settings.show_x -%}
                   <a class="u-fixed-side-tools__share-item" data-no-instant data-type="x" href="#" target="_blank" rel="noopener" aria-label="X" title="X">
@@ -301,6 +306,13 @@
 
   #u-social-share-{{ section.id }} scroll-to-top-button {
     position: initial;
+    transition: opacity .2s ease, visibility .2s ease;
+  }
+
+  #u-social-share-{{ section.id }} scroll-to-top-button.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
   }
 
   #u-social-share-{{ section.id }} .u-fixed-side-tools__circle {
@@ -501,7 +513,6 @@
   @media (max-width: 768px) {
     #u-social-share-{{ section.id }} {
       --tool-size: 55px;
-      right: 20px;
     }
 
     #u-social-share-{{ section.id }} .u-fixed-side-tools__share-panel {
@@ -544,8 +555,9 @@
     var copiedTip = root.querySelector('.u-fixed-side-tools__copied');
     var items = root.querySelectorAll('.u-fixed-side-tools__share-item');
     var cartCounts = root.querySelectorAll('.u-fixed-side-tools__cart-badge .count');
-    var shareUrl = decodeURIComponent(root.getAttribute('data-share-url') || window.location.href);
-    var shareTitle = decodeURIComponent(root.getAttribute('data-share-title') || document.title);
+    var scrollTopButtons = root.querySelectorAll('scroll-to-top-button');
+    var shareUrl = root.getAttribute('data-share-url') || window.location.href;
+    var shareTitle = root.getAttribute('data-share-title') || document.title;
 
     var shareImpressionEventName = 'share_view_default';
 
@@ -576,8 +588,14 @@
       });
     }
 
-    function isMobile() {
-      return window.matchMedia('(max-width: 768px)').matches;
+    function setSharePanelOpen(isOpen) {
+      if (!shareWrap || !shareTrigger) return;
+
+      shareWrap.classList.toggle('is-open', isOpen);
+      shareTrigger.setAttribute('aria-expanded', String(isOpen));
+
+      var panel = shareWrap.querySelector('.u-fixed-side-tools__share-panel');
+      if (panel) panel.setAttribute('aria-hidden', String(!isOpen));
     }
 
     function buildLinks() {
@@ -659,9 +677,8 @@
 
     if (shareTrigger) {
       shareTrigger.addEventListener('click', function(e) {
-        if (!isMobile()) return;
         e.preventDefault();
-        shareWrap.classList.toggle('is-open');
+        setSharePanelOpen(!shareWrap.classList.contains('is-open'));
       });
     }
 
@@ -674,9 +691,15 @@
     }
 
     document.addEventListener('click', function(e) {
-      if (!isMobile()) return;
-      if (!shareWrap.contains(e.target)) {
-        shareWrap.classList.remove('is-open');
+      if (shareWrap && !shareWrap.contains(e.target)) {
+        setSharePanelOpen(false);
+      }
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && shareWrap && shareWrap.classList.contains('is-open')) {
+        setSharePanelOpen(false);
+        shareTrigger.focus();
       }
     });
 
@@ -708,6 +731,26 @@
         characterData: true,
         subtree: true
       });
+    });
+
+    scrollTopButtons.forEach(function(wrapper) {
+      var button = wrapper.querySelector('button');
+      var threshold = Number(wrapper.getAttribute('threshold')) || 0;
+      if (!button) return;
+
+      function updateScrollTopVisibility() {
+        wrapper.classList.toggle('is-hidden', window.scrollY < threshold);
+      }
+
+      button.addEventListener('click', function() {
+        window.scrollTo({
+          top: 0,
+          behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+        });
+      });
+
+      updateScrollTopVisibility();
+      window.addEventListener('scroll', updateScrollTopVisibility, { passive: true });
     });
 
   })();

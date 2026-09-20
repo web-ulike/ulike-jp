@@ -1,0 +1,53 @@
+{%- comment -%}
+  Renders the theme gift-wrapping control.
+
+  Accepts:
+  - gift_wrapping: menu link whose object is the gift-wrap product
+  - gift_wrap_id: gift-wrap variant ID
+  - gift_wraps_in_cart: number of gift-wrap items in the cart
+  - items_in_cart: number of non-gift-wrap items in the cart
+  - section_id: section ID to keep input IDs unique
+{%- endcomment -%}
+
+{%- if gift_wrapping != nil and gift_wrap_id != nil -%}
+  <gift-wrapping
+    class="gift-wrapping grid gap-4"
+    data-gift-wrap-id="{{ gift_wrap_id }}"
+    data-gift-wrapping="{{ cart.attributes.gift-wrapping | escape }}"
+    data-section-id="{{ section_id }}"
+    cart-items-size="{{ cart.items.size }}"
+    gift-wraps-in-cart="{{ gift_wraps_in_cart | default: 0 }}"
+    items-in-cart="{{ items_in_cart | default: 0 }}"
+  >
+    <div class="flex gap-2 md:gap-3">
+      <div class="relative">
+        <div class="loader absolute right-0" role="status" aria-label="更新中" hidden>
+          {%- render 'icon', icon: 'rotator', size: 'sm', class: 'animate-rotator' -%}
+        </div>
+        <input
+          type="checkbox"
+          id="GiftWrap-{{ section_id }}"
+          name="attributes[gift-wrapping]"
+          value="yes"
+          {% if cart.attributes.gift-wrapping != blank %}checked{% endif %}
+        >
+      </div>
+      <label for="GiftWrap-{{ section_id }}" class="text-sm md:text-base leading-tight">
+        {{ gift_wrapping.object.price | money }}でギフトラッピングを追加する
+      </label>
+    </div>
+
+    {%- if cart.attributes.gift-wrapping != blank -%}
+      <gift-note class="field">
+        <textarea
+          class="textarea is-floating"
+          rows="4"
+          id="GiftNote-{{ section_id }}"
+          name="attributes[gift-note]"
+          placeholder=" "
+        >{{ cart.attributes.gift-note }}</textarea>
+        <label class="label is-floating" for="GiftNote-{{ section_id }}">ギフトメッセージ（任意）</label>
+      </gift-note>
+    {%- endif -%}
+  </gift-wrapping>
+{%- endif -%}

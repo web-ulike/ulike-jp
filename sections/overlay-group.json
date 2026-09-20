@@ -22,10 +22,86 @@
         "cookie_bar_title": "Cookie policy",
         "cookie_bar_content": "<p>I agree to the processing of my data in accordance with the conditions set out in the policy of Privacy.<\/p>"
       }
+    },
+    "u_social_share_sidebar": {
+      "type": "u-social-share-sidebar",
+      "blocks": {
+        "badge_item": {
+          "type": "badge_item",
+          "settings": {
+            "label": "2500円\nOFF",
+            "custom_class": "g-floating-box",
+            "link": ""
+          }
+        },
+        "review_tab": {
+          "type": "review_tab",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/Star_1.svg",
+            "custom_class": "",
+            "text": "Reviews",
+            "link": "shopify:\/\/pages\/result-review"
+          }
+        },
+        "share_panel": {
+          "type": "share_panel",
+          "settings": {
+            "trigger_icon": "shopify:\/\/shop_images\/Group_457394931.svg",
+            "trigger_label": "Share",
+            "custom_class": "",
+            "show_x": true,
+            "icon_x": "shopify:\/\/shop_images\/X_73e090da-0255-4414-adeb-a1a626a463c6.svg",
+            "show_whatsapp": true,
+            "icon_whatsapp": "shopify:\/\/shop_images\/Whatsapp.svg",
+            "show_facebook": true,
+            "icon_facebook": "shopify:\/\/shop_images\/Facebook.svg",
+            "show_sns": false,
+            "show_line": true,
+            "icon_line": "shopify:\/\/shop_images\/LINE_LOGO.svg",
+            "show_email": true,
+            "show_copy": false
+          }
+        },
+        "cart_action": {
+          "type": "action_item",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/Vector_2.svg",
+            "custom_class": "",
+            "show_cart_count": true,
+            "label": "カート",
+            "link": "\/cart"
+          }
+        },
+        "scroll_top": {
+          "type": "scroll_top_item",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/Group_457394928.svg",
+            "custom_class": "",
+            "label": "Back to top",
+            "threshold": 1000
+          }
+        }
+      },
+      "block_order": [
+        "badge_item",
+        "review_tab",
+        "share_panel",
+        "cart_action",
+        "scroll_top"
+      ],
+      "name": "U Social Share",
+      "settings": {
+        "position": "right",
+        "circle_bg": "#ffffff",
+        "icon_color": "#e0004d",
+        "share_title": "",
+        "copied_text": "Copied"
+      }
     }
   },
   "order": [
     "newsletter-popup",
-    "privacy-banner"
+    "privacy-banner",
+    "u_social_share_sidebar"
   ]
 }

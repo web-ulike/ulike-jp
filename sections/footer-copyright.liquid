@@ -4,11 +4,37 @@
     --color-background: {{ section.settings.color_background.rgb }};
     --color-foreground: {{ section.settings.color_text.rgb }};
   }
-  #shopify-section-{{ section.id }} .payment-icons  img{
-    width: 700px;
+  #shopify-section-{{ section.id }} .section {
+    background: rgb(var(--color-background));
+    color: rgb(var(--color-foreground));
+  }
+  #shopify-section-{{ section.id }} .footer-copyright {
+    max-width: none;
+    min-height: 166px;
+    padding-inline: clamp(40px, 4.6875vw, 96px);
+    padding-block: 32px;
+    color: rgb(var(--color-foreground));
+  }
+  #shopify-section-{{ section.id }} .footer-copyright a {
+    color: inherit;
+  }
+  #shopify-section-{{ section.id }} .footer-copyright .credits ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin: 20px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  #shopify-section-{{ section.id }} .footer-copyright .payment-icons {
+    justify-content: flex-end;
+  }
+  #shopify-section-{{ section.id }} .payment-icons img {
+    width: min(100%, 1032px);
+    height: auto;
   }
   @media (max-width: 768px) {
-    #shopify-section-{{ section.id }} .payment-icons  img{
+    #shopify-section-{{ section.id }} .payment-icons img {
       width: 100%;
     }
   }
@@ -20,7 +46,7 @@
     is="footer-parallax"
   {% endif %}
 >
-  <div class="footer-copyright {% unless section.settings.full_width %}container{% endunless %} w-full flex flex-col items-center justify-between gap-4 lg:gap-0 lg:flex-row relative">
+  <div class="footer-copyright container w-full flex flex-col items-center justify-between gap-4 lg:gap-0 lg:flex-row relative">
     <div class="rte credits text-center">
       {%- liquid
         if section.settings.show_copyright
