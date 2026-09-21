@@ -1132,6 +1132,7 @@
             <span class="hidden-desk">{{ se_stts.text2 }}</span>
             {%- assign pay_image = se_stts.image | default: se_stts.m_image -%}
             {%- if pay_image != blank -%}
+              {%- assign pay_image_alt = pay_image.alt | default: 'ご利用可能なお支払い方法' -%}
               <picture>
                 {%- if se_stts.m_image != blank -%}
                   <source
@@ -1141,7 +1142,7 @@
                     height="{{ se_stts.m_image.height }}"
                   >
                 {%- endif -%}
-                {{ pay_image | image_url: width: 1060 | image_tag: loading: 'lazy', widths: '500,600,1000,1060', sizes: '(max-width: 767px) 100vw, 540px', alt: pay_image.alt }}
+                {{ pay_image | image_url: width: 1060 | image_tag: loading: 'lazy', widths: '500,600,1000,1060', sizes: '(max-width: 767px) 100vw, 540px', alt: pay_image_alt }}
               </picture>
             {%- endif -%}
           </div>
@@ -1151,6 +1152,7 @@
     <!-- 品牌vi -->
     {%- if se_stts.footer_image != blank or se_stts.footer_m_image != blank -%}
       {%- assign brand_image = se_stts.footer_image | default: se_stts.footer_m_image -%}
+      {%- assign brand_image_alt = brand_image.alt | default: shop.name | append: ' ロゴ' -%}
       <div class="footer-brand-image">
         <picture>
           {%- if se_stts.footer_m_image != blank -%}
@@ -1161,7 +1163,7 @@
               height="{{ se_stts.footer_m_image.height }}"
             >
           {%- endif -%}
-          {{ brand_image | image_url: width: 1920 | image_tag: loading: 'lazy', widths: '500,1000,1520,1920', sizes: '(max-width: 1920px) 100vw, 1920px', alt: brand_image.alt }}
+          {{ brand_image | image_url: width: 1920 | image_tag: loading: 'lazy', widths: '500,1000,1520,1920', sizes: '(max-width: 1920px) 100vw, 1920px', alt: brand_image_alt }}
         </picture>
       </div>
     {%- endif -%}
