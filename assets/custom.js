@@ -232,6 +232,10 @@ window.UlikeCommon = window.UlikeCommon || {};
     });
   }
 
+  function isMobile() {
+    return window.matchMedia('(max-width: 768px)').matches;
+  }
+
   /**
    * 验证邮箱格式是否正确
    *
@@ -399,6 +403,7 @@ window.UlikeCommon = window.UlikeCommon || {};
   namespace.generateGUID = generateGUID;
   namespace.sendUlikeApi = sendUlikeApi;
   namespace.commonGtmEvent = commonGtmEvent;
+  namespace.isMobile = isMobile;
   namespace.validateEmail = validateEmail;
   namespace.copyCodeFun = copyCodeFun;
   namespace.addToCartPromise = addToCartPromise;

@@ -13,35 +13,26 @@
             <div class="jp-home-product-showcase-grid__image-wrap">
           {% endif %}
 
-          {% if block.settings.image_pc != blank %}
-            <img
-              class="jp-home-product-showcase-grid__image jp-home-product-showcase-grid__image--pc"
-              src="{{ block.settings.image_pc | image_url: width: 1400 }}"
-              alt="{{ block.settings.image_pc.alt | escape }}"
-              loading="lazy"
-              width="{{ block.settings.image_pc.width }}"
-              height="{{ block.settings.image_pc.height }}"
-            >
-          {% endif %}
-
-          {% if block.settings.image_mobile != blank %}
-            <img
-              class="jp-home-product-showcase-grid__image jp-home-product-showcase-grid__image--mobile"
-              src="{{ block.settings.image_mobile | image_url: width: 900 }}"
-              alt="{{ block.settings.image_mobile.alt | escape }}"
-              loading="lazy"
-              width="{{ block.settings.image_mobile.width }}"
-              height="{{ block.settings.image_mobile.height }}"
-            >
-          {% elsif block.settings.image_pc != blank %}
-            <img
-              class="jp-home-product-showcase-grid__image jp-home-product-showcase-grid__image--mobile"
-              src="{{ block.settings.image_pc | image_url: width: 900 }}"
-              alt="{{ block.settings.image_pc.alt | escape }}"
-              loading="lazy"
-              width="{{ block.settings.image_pc.width }}"
-              height="{{ block.settings.image_pc.height }}"
-            >
+          {% if block.settings.image_pc != blank or block.settings.image_mobile != blank %}
+            {% assign mobile_image = block.settings.image_mobile | default: block.settings.image_pc %}
+            {% assign desktop_image = block.settings.image_pc | default: mobile_image %}
+            <picture>
+              <source
+                media="(max-width: 989px)"
+                srcset="{{ mobile_image | image_url: width: 750 }} 750w, {{ mobile_image | image_url: width: 900 }} 900w"
+                sizes="100vw"
+              >
+              <img
+                class="jp-home-product-showcase-grid__image"
+                src="{{ desktop_image | image_url: width: 1400 }}"
+                srcset="{{ desktop_image | image_url: width: 1000 }} 1000w, {{ desktop_image | image_url: width: 1400 }} 1400w, {{ desktop_image | image_url: width: 2000 }} 2000w"
+                sizes="50vw"
+                alt="{{ desktop_image.alt | escape }}"
+                loading="lazy"
+                width="{{ desktop_image.width }}"
+                height="{{ desktop_image.height }}"
+              >
+            </picture>
           {% endif %}
 
           {% if block.settings.link != blank %}
@@ -147,10 +138,6 @@
     display: block;
   }
 
-  .jp-home-product-showcase-grid--{{ sid }} .jp-home-product-showcase-grid__image--mobile {
-    display: none;
-  }
-
   .jp-home-product-showcase-grid--{{ sid }} .jp-home-product-showcase-grid__content {
     display: flex;
     align-items: flex-end;
@@ -228,14 +215,6 @@
     .jp-home-product-showcase-grid--{{ sid }} .jp-home-product-showcase-grid__list {
       grid-template-columns: 1fr;
       gap: 20px;
-    }
-
-    .jp-home-product-showcase-grid--{{ sid }} .jp-home-product-showcase-grid__image--pc {
-      display: none;
-    }
-
-    .jp-home-product-showcase-grid--{{ sid }} .jp-home-product-showcase-grid__image--mobile {
-      display: block;
     }
 
     .jp-home-product-showcase-grid--{{ sid }} .jp-home-product-showcase-grid__content {
