@@ -102,21 +102,24 @@
           "type": "tab",
           "settings": {
             "title": "機能詳細",
-            "target_ids": "#shopify-section-template--19583633031216__p_airpro_s_hero,\n#shopify-section-template--19583633031216__p_airpro_s_highlights,\n#shopify-section-template--19583633031216__p_airpro_s_result,\n#shopify-section-template--19583633031216__p_airpro_s_technology,\np-ushr-template--19583633031216__p_airpro_s_ushr_showcase,shopify-section-template--19583633031216__p_airpro_s_speed_care,#shopify-section-template--19583633031216__p_airpro_s_salon,#shopify-section-template--19583633031216__p_airpro_s_compact_body,#shopify-section-template--19583633031216__jp_triple_guarantee_wXKvQe,#shopify-section-template--19583633031216__p_airpro_s_trust,\nshopify-section-template--19583633031216__jp_triple_guarantee_WXkVQe"
+            "target_ids": "#shopify-section-template--19583633031216__p_airpro_s_hero,\n#shopify-section-template--19583633031216__p_airpro_s_highlights,\n#shopify-section-template--19583633031216__p_airpro_s_result,\n#shopify-section-template--19583633031216__p_airpro_s_technology,\np-ushr-template--19583633031216__p_airpro_s_ushr_showcase,shopify-section-template--19583633031216__p_airpro_s_speed_care,#shopify-section-template--19583633031216__p_airpro_s_salon,#shopify-section-template--19583633031216__p_airpro_s_compact_body,#shopify-section-template--19583633031216__jp_triple_guarantee_wXKvQe,#shopify-section-template--19583633031216__p_airpro_s_trust,\nshopify-section-template--19583633031216__jp_triple_guarantee_WXkVQe",
+            "hide_target_ids": ""
           }
         },
         "tab_cj6JFx": {
           "type": "tab",
           "settings": {
             "title": "使用ステップ",
-            "target_ids": "#shopify-section-template--19583633031216__p_airpro_s_use"
+            "target_ids": "#shopify-section-template--19583633031216__p_airpro_s_use",
+            "hide_target_ids": ""
           }
         },
         "tab_kFeTr8": {
           "type": "tab",
           "settings": {
             "title": "よくある質問",
-            "target_ids": "#shopify-section-template--19583633031216__faq_XLh3Cr,\nshopify-section-template--19583633031216__rich_text_hG7Lex"
+            "target_ids": "#shopify-section-template--19583633031216__faq_XLh3Cr,\nshopify-section-template--19583633031216__rich_text_hG7Lex",
+            "hide_target_ids": ""
           }
         }
       },
@@ -144,11 +147,13 @@
         "image": "shopify:\/\/shop_images\/KV-pic_2.png",
         "image_mobile": "shopify:\/\/shop_images\/1_2e92aff3-9f21-48b6-add2-bb3011ee736b.jpg",
         "title": "日本一だから、安心して選べる。",
+        "title_mobile": "",
         "subtitle": "",
         "copy": "",
         "content_image": "shopify:\/\/shop_images\/Vector_3_8de6d772-40d4-46e7-bea1-6d917980320c.svg",
         "content_image_mobile": "shopify:\/\/shop_images\/Vector_6.png",
         "note": "※ 株式会社富士経済発行『美肌・美髪ケア家電トレンドデータ 2026』に基づく。光美容器とは、レーザーやIPLなどの技術を用いてムダ毛を処理する美容機器を指します。",
+        "note_mobile": "",
         "background": "#f3f6f7",
         "text_color": "#101010"
       }
@@ -471,6 +476,7 @@
       "name": "JP Triple Guarantee",
       "settings": {
         "bg_color": "#ffffff",
+        "text_color": "#000000",
         "container_width": 1320,
         "heading": "長く安心して使え「トリプル保証」",
         "image": "shopify:\/\/shop_images\/Mask_group_4.jpg",
@@ -528,6 +534,7 @@
         "shaving": {
           "type": "step",
           "settings": {
+            "step_label": "",
             "image": "shopify:\/\/shop_images\/pic-step01_725e2062-3a94-4514-839e-700ceb527783.jpg",
             "title": "シェービング",
             "text": "ケアする前日の夜にまずシェービングをします。乾いた状態で剃らないでください。"
@@ -536,6 +543,7 @@
         "test": {
           "type": "step",
           "settings": {
+            "step_label": "",
             "image": "shopify:\/\/shop_images\/pic-step02_1d2e73f8-223d-4a08-9002-f9ac1ff062ed.jpg",
             "title": "テスト",
             "text": "照射する前に、付属のゴーグルを着用してください。まず腕やすねでテストすることをおすすめします。"
@@ -544,6 +552,7 @@
         "care": {
           "type": "step",
           "settings": {
+            "step_label": "",
             "image": "shopify:\/\/shop_images\/pic-step03.jpg",
             "title": "ムダ毛ケア",
             "text": "照射口が肌に密着するように押し当てて、照射ボタンを押します。短く押すと1 回照射、2秒長押しすると連続照射を開始します。"
@@ -552,6 +561,7 @@
         "moisturize": {
           "type": "step",
           "settings": {
+            "step_label": "",
             "image": "shopify:\/\/shop_images\/pic-step04_df920834-c112-4f36-9dae-aab9d16779e7.jpg",
             "title": "潤す & 紫外線対策",
             "text": "ケアした後、ボディクリームを塗り、お肌のうるおいを保ちましょう。照射後 48 時間は、照射部位に紫外線をあてないでください。"
@@ -733,19 +743,18 @@
     "1785811079fb515fdd": {
       "type": "apps",
       "blocks": {
-        "judge_me_reviews_all_reviews_page_qPEYrJ": {
-          "type": "shopify:\/\/apps\/judge-me-reviews\/blocks\/all_reviews_page\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+        "judge_me_reviews_review_widget_93HEkn": {
+          "type": "shopify:\/\/apps\/judge-me-reviews\/blocks\/review_widget\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
           "settings": {
+            "review_data": "real_data",
             "max_width": 1200,
-            "review_source": "product",
-            "show_all_reviews_in_same_tab": false,
-            "show_first": "product",
-            "empty_state": "empty_widget"
+            "show_shop_reviews": false,
+            "empty_state": "other_products_reviews"
           }
         }
       },
       "block_order": [
-        "judge_me_reviews_all_reviews_page_qPEYrJ"
+        "judge_me_reviews_review_widget_93HEkn"
       ],
       "settings": {
         "enable_reviews_integration": true,
