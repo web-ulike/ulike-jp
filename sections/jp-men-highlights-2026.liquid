@@ -1,0 +1,125 @@
+{%- liquid
+  assign section_id = 'jp-men-highlights-2026-' | append: section.id
+  assign default_notes = '※1. 国際認証機関CVCによる試験結果。No. WTS2024-1748\n※2. 国際認証機関SGSによる報告。\n※3. UlikeのSHR（Strong Hair Removal）モードとは、IPLs方式の強刺激を低下させ、痛みを抑えながらケアするモードです。\n※4. 痛みの感じ方には個人差があります。\n※5. 通常のIPL方式との比較。'
+-%}
+
+<section id="{{ section_id }}" class="jp-men-highlights-2026">
+  <div class="jp-men-highlights-2026__inner container">
+    <div class="jp-men-highlights-2026__grid">
+      {%- for block in section.blocks limit: 5 -%}
+        {%- liquid
+          assign desktop_image = block.settings.image | default: block.settings.image_mobile
+          assign mobile_image = block.settings.image_mobile | default: desktop_image
+          assign card_title = block.settings.title | escape | replace: '*1', '<sup>*1</sup>' | replace: '*2', '<sup>*2</sup>' | replace: '*3', '<sup>*3</sup>' | replace: '*4', '<sup>*4</sup>' | replace: '*5', '<sup>*5</sup>'
+          assign card_title_mobile = block.settings.title_mobile | default: block.settings.title | escape | replace: '*1', '<sup>*1</sup>' | replace: '*2', '<sup>*2</sup>' | replace: '*3', '<sup>*3</sup>' | replace: '*4', '<sup>*4</sup>' | replace: '*5', '<sup>*5</sup>'
+          assign card_description = block.settings.description | escape | newline_to_br | replace: '*1', '<sup>*1</sup>' | replace: '*2', '<sup>*2</sup>' | replace: '*3', '<sup>*3</sup>' | replace: '*4', '<sup>*4</sup>' | replace: '*5', '<sup>*5</sup>'
+        -%}
+        <article class="jp-men-highlights-2026__card{% if forloop.first %} jp-men-highlights-2026__card--featured{% endif %}" {{ block.shopify_attributes }}>
+          <div class="jp-men-highlights-2026__media">
+            {%- if desktop_image != blank -%}
+              <picture>
+                {%- if mobile_image != blank -%}<source media="(max-width: 749px)" srcset="{{ mobile_image | image_url: width: 900 }}">{%- endif -%}
+                {{ desktop_image | image_url: width: 1400 | image_tag: class: 'jp-men-highlights-2026__image', loading: 'lazy', widths: '320, 500, 700, 900, 1200, 1400', alt: block.settings.title }}
+              </picture>
+            {%- else -%}
+              {{ 'image' | placeholder_svg_tag: 'jp-men-highlights-2026__placeholder' }}
+            {%- endif -%}
+          </div>
+          <div class="jp-men-highlights-2026__caption">
+            <h3><span class="jp-men-highlights-2026__title--desktop">{{ card_title }}</span><span class="jp-men-highlights-2026__title--mobile">{{ card_title_mobile }}</span></h3>
+            {%- if block.settings.description != blank -%}<p>{{ card_description }}</p>{%- endif -%}
+          </div>
+        </article>
+      {%- else -%}
+        <article class="jp-men-highlights-2026__card jp-men-highlights-2026__card--featured">
+          <div class="jp-men-highlights-2026__media">{{ 'image' | placeholder_svg_tag: 'jp-men-highlights-2026__placeholder' }}</div>
+          <div class="jp-men-highlights-2026__caption"><h3>Ulike史上最高パワー28J*1</h3><p>Ulike史上最高パワーだからこそ実現した、これまでにない即効性。</p></div>
+        </article>
+      {%- endfor -%}
+    </div>
+    {%- if section.settings.notes != blank -%}<div class="jp-men-highlights-2026__notes">{{ section.settings.notes | default: default_notes | escape | newline_to_br }}</div>{%- endif -%}
+  </div>
+</section>
+
+<style>
+  #{{ section_id }} { background: {{ section.settings.background | default: '#ffffff' }}; color: {{ section.settings.text_color | default: '#ffffff' }}; margin-top: {{ section.settings.margin_top | default: 0 }}px; margin-bottom: {{ section.settings.margin_bottom | default: 0 }}px; overflow: hidden; }
+  #{{ section_id }} * { box-sizing: border-box; }
+  #{{ section_id }} .jp-men-highlights-2026__inner { margin-left: auto; margin-right: auto; max-width: 1360px; padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px; }
+  #{{ section_id }} .jp-men-highlights-2026__grid { column-gap: 30.5px; display: grid; grid-template-columns: repeat(3, 433px); grid-template-rows: repeat(2, 342px); row-gap: 30px; }
+  #{{ section_id }} .jp-men-highlights-2026__card { background: #343638; height: 342px; min-width: 0; width: 433px; }
+  #{{ section_id }} .jp-men-highlights-2026__card--featured { grid-row: span 2; height: 714px; justify-self: start; width: 433px; }
+  #{{ section_id }} .jp-men-highlights-2026__media { background: #d8d9dc; height: 256px; overflow: hidden; }
+  #{{ section_id }} .jp-men-highlights-2026__card--featured .jp-men-highlights-2026__media { height: 628px; }
+  #{{ section_id }} .jp-men-highlights-2026__image, #{{ section_id }} .jp-men-highlights-2026__placeholder {
+    display: block; height: 100%; object-fit: cover; width: 100%; }
+  #{{ section_id }} .jp-men-highlights-2026__placeholder { fill: #c8c9cc; }
+  #{{ section_id }} .jp-men-highlights-2026__caption { align-items: flex-start; background: #35393c; display: flex; flex-direction: column; gap: 1px; height: 86px; justify-content: flex-start; padding: 25px 24px; }
+  #{{ section_id }} .jp-men-highlights-2026__caption h3 { color: inherit;  font-size: min(1.653196vw, 22.5px); font-weight: 500;  line-height: 1.3; margin: 0; }
+  #{{ section_id }} .jp-men-highlights-2026__title--mobile { display: none; }
+  #{{ section_id }} .jp-men-highlights-2026__caption p { color: inherit; font-family: inherit; font-size: min(.808824vw, 11px); font-weight: 400; letter-spacing: .01em; line-height: 1; margin: 0; }
+  #{{ section_id }} .jp-men-highlights-2026__inner sup { font-size: .645em; font-weight: 300; line-height: inherit; vertical-align: baseline; }
+  #{{ section_id }} .jp-men-highlights-2026__notes { color: {{ section.settings.note_color | default: '#777777' }}; font-size: min(.713676vw, 9.706px); line-height: 1.3; margin-top: 24px; }
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} { margin-top: {{ section.settings.mobile_margin_top | default: 0 }}px; margin-bottom: {{ section.settings.mobile_margin_bottom | default: 0 }}px; }
+    #{{ section_id }} .jp-men-highlights-2026__inner { max-width: none; padding: {{ section.settings.mobile_padding_top }}px var(--container-gutter) {{ section.settings.mobile_padding_bottom }}px; }
+    #{{ section_id }} .jp-men-highlights-2026__grid { gap: 18px 11px; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; }
+    #{{ section_id }} .jp-men-highlights-2026__card { height: auto; width: auto; }
+    #{{ section_id }} .jp-men-highlights-2026__card--featured { grid-column: 1 / -1; grid-row: auto; height: auto; width: 100%; }
+    #{{ section_id }} .jp-men-highlights-2026__media, #{{ section_id }} .jp-men-highlights-2026__card--featured .jp-men-highlights-2026__media { height: auto; }
+    #{{ section_id }} .jp-men-highlights-2026__image, #{{ section_id }} .jp-men-highlights-2026__placeholder { height: auto; object-fit: initial; }
+    #{{ section_id }} .jp-men-highlights-2026__caption { align-items: center; gap: 0; height: auto; min-height: 35px; padding: 5px 4px 6px; text-align: center; }
+    #{{ section_id }} .jp-men-highlights-2026__caption h3 { font-size: 11px; line-height: 1.25; }
+    #{{ section_id }} .jp-men-highlights-2026__title--desktop { display: none; }
+    #{{ section_id }} .jp-men-highlights-2026__title--mobile { display: inline; }
+    #{{ section_id }} .jp-men-highlights-2026__caption p { font-size: min(1.616628vw, 7px); line-height: 1.35; margin-top: 2px; }
+    #{{ section_id }} .jp-men-highlights-2026__notes {
+      font-size: 10px; line-height: 1.3; margin-top: 16px; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "jp-men-highlights-2026",
+  "settings": [
+    { "type": "header", "content": "外边距" },
+    { "type": "range", "id": "margin_top", "label": "PC 上边距", "min": 0, "max": 200, "step": 5, "unit": "px", "default": 0 },
+    { "type": "range", "id": "margin_bottom", "label": "PC 下边距", "min": 0, "max": 200, "step": 2, "unit": "px", "default": 0 },
+    { "type": "range", "id": "mobile_margin_top", "label": "M 上边距", "min": 0, "max": 200, "step": 2, "unit": "px", "default": 0 },
+    { "type": "range", "id": "mobile_margin_bottom", "label": "M 下边距", "min": 0, "max": 200, "step": 2, "unit": "px", "default": 0 },
+    { "type": "color", "id": "background", "label": "背景颜色", "default": "#FFFFFF" },
+    { "type": "color", "id": "text_color", "label": "卡片文字颜色", "default": "#FFFFFF" },
+    { "type": "color", "id": "note_color", "label": "脚注文字颜色", "default": "#777777" },
+    { "type": "textarea", "id": "notes", "label": "脚注", "default": "※1. 国際認証機関CVCによる試験結果。No. WTS2024-1748\n※2. 国際認証機関SGSによる報告。\n※3. UlikeのSHR（Strong Hair Removal）モードとは、IPLs方式の強刺激を低下させ、痛みを抑えながらケアするモードです。\n※4. 痛みの感じ方には個人差があります。\n※5. 通常のIPL方式との比較。" },
+    { "type": "range", "id": "padding_top", "label": "PC 上边距", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_bottom", "label": "PC 下边距", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 24 },
+    { "type": "range", "id": "mobile_padding_top", "label": "M 上边距", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 33 },
+    { "type": "range", "id": "mobile_padding_bottom", "label": "M 下边距", "min": 0, "max": 120, "step": 2, "unit": "px", "default": 14 }
+  ],
+  "blocks": [
+    {
+      "type": "highlight",
+      "name": "卖点卡片",
+      "limit": 5,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "PC 图片" },
+        { "type": "image_picker", "id": "image_mobile", "label": "M 图片" },
+        { "type": "text", "id": "title", "label": "标题", "default": "1週間*2で効果実感" },
+        { "type": "text", "id": "title_mobile", "label": "M 标题（留空时使用 PC 标题）" },
+        { "type": "textarea", "id": "description", "label": "说明", "default": "ダブルランプとSHR Strong Hair Removalモード*3搭載で1週間効果実感。" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "jp-men-highlights-2026",
+      "blocks": [
+        { "type": "highlight", "settings": { "title": "Ulike史上最高パワー28J*1", "description": "Ulike史上最高パワーだからこそ実現した、これまでにない即効性。" } },
+        { "type": "highlight", "settings": { "title": "１週間*2で効果実感", "description": "ダブルランプとSHR（Strong Hair Removal）モード*3搭載で1週間効果実感。" } },
+        { "type": "highlight", "settings": { "title": "男性の硬い毛に特化", "description": "メンズのムダ毛にも強い、広波長域テクノロジーを採用。" } },
+        { "type": "highlight", "settings": { "title": "スキンセンサー搭載", "description": "肌の色を認識して、常に最適な照射パワーに自動調節。" } },
+        { "type": "highlight", "settings": { "title": "サファイア冷感技術で痛みレス*4", "description": "特許取得済みのサファイア冷感技術により、痛みレス*5なケアを実現。" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

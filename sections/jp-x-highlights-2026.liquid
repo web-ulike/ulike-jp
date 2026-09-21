@@ -1,0 +1,193 @@
+{%- liquid
+  assign section_id = 'jp-x-highlights-2026-' | append: section.id
+  assign default_heading = 'まずは、ハイライトから。'
+-%}
+
+<section id="{{ section_id }}" class="jp-x-highlights-2026" data-jp-x-highlights>
+  <div class="jp-x-highlights-2026__inner">
+    <h2 class="jp-x-highlights-2026__heading to-top">{{ section.settings.heading | default: default_heading | escape }}</h2>
+
+    <div class="jp-x-highlights-2026__carousel swiper" data-jp-x-highlights-swiper>
+      <div class="jp-x-highlights-2026__track swiper-wrapper">
+        {%- for block in section.blocks -%}
+          {%- assign desktop_image = block.settings.image | default: block.settings.image_mobile -%}
+          {%- assign mobile_image = block.settings.image_mobile | default: desktop_image -%}
+          <article class="jp-x-highlights-2026__card swiper-slide" {{ block.shopify_attributes }}>
+            <div class="jp-x-highlights-2026__media">
+              {%- if desktop_image != blank -%}
+                <picture>
+                  {%- if mobile_image != blank -%}
+                    <source media="(max-width: 749px)" srcset="{{ mobile_image | image_url: width: 800 }}">
+                  {%- endif -%}
+                  {{ desktop_image | image_url: width: 1400 | image_tag: class: 'jp-x-highlights-2026__image', loading: 'lazy', widths: '375, 560, 800, 1100, 1400', alt: desktop_image.alt }}
+                </picture>
+              {%- else -%}
+                {{ 'image' | placeholder_svg_tag: 'jp-x-highlights-2026__placeholder' }}
+              {%- endif -%}
+            </div>
+            <div class="jp-x-highlights-2026__caption">
+              <h3>{{ block.settings.title | escape }}</h3>
+              {%- if block.settings.subtitle != blank -%}
+                <p>{{ block.settings.subtitle | escape | newline_to_br }}</p>
+              {%- endif -%}
+            </div>
+          </article>
+        {%- else -%}
+          <article class="jp-x-highlights-2026__card swiper-slide">
+            <div class="jp-x-highlights-2026__media">{{ 'image' | placeholder_svg_tag: 'jp-x-highlights-2026__placeholder' }}</div>
+            <div class="jp-x-highlights-2026__caption">
+              <h3>Ulike史上最高となる30J</h3>
+              <p>1 回2分、たった3回で効果を実感</p>
+            </div>
+          </article>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    {%- if section.blocks.size > 1 -%}
+      <div class="jp-x-highlights-2026__nav" aria-label="Highlights navigation">
+        <button class="jp-x-highlights-2026__nav-button jp-x-highlights-2026__nav-button--previous" type="button" aria-label="Previous highlight" data-jp-x-highlights-prev>
+          <svg aria-hidden="true" width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.224 34.448C26.7366 34.448 34.448 26.7366 34.448 17.224C34.448 7.71145 26.7366 0 17.224 0C7.71145 0 0 7.71145 0 17.224C0 26.7366 7.71145 34.448 17.224 34.448Z" fill="#464646"/>
+            <path d="M15.4993 18.0014L15.4803 18.0203L14.6846 17.2246L18.9286 12.98L19.7243 13.7758L16.2956 17.205L19.7628 20.6723L18.967 21.468L15.4993 18.0014Z" fill="#D6D6D6"/>
+          </svg>
+        </button>
+        <button class="jp-x-highlights-2026__nav-button jp-x-highlights-2026__nav-button--next" type="button" aria-label="Next highlight" data-jp-x-highlights-next>
+          <svg aria-hidden="true" width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.224 34.448C26.7366 34.448 34.448 26.7365 34.448 17.224C34.448 7.71145 26.7366 0 17.224 0C7.71145 0 0 7.71145 0 17.224C0 26.7365 7.71145 34.448 17.224 34.448Z" fill="#464646"/>
+            <path d="M14.6816 20.6734L18.1522 17.2045L14.7195 13.7729L15.5164 12.9766L19.765 17.2252L18.9681 18.0215L18.9492 18.0025L15.4785 21.4715L14.6816 20.6734Z" fill="#D6D6D6"/>
+          </svg>
+        </button>
+      </div>
+      <div class="jp-x-highlights-2026__pagination" data-jp-x-highlights-pagination aria-label="Highlights pagination"></div>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  #{{ section_id }} { background: {{ section.settings.background | default: '#000000' }}; color: {{ section.settings.text_color | default: '#FFFFFF' }}; overflow: hidden; }
+  #{{ section_id }} * { box-sizing: border-box; }
+  #{{ section_id }} .jp-x-highlights-2026__inner { margin: 0 auto; max-width: 1600px; padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px; position: relative; }
+  #{{ section_id }} .jp-x-highlights-2026__heading { color: #fff; font-family: "Noto Sans JP", sans-serif; font-size: 40px; font-weight: 400; line-height: 1.4; margin: 0 0 42px; }
+  #{{ section_id }} .jp-x-highlights-2026__carousel { overflow: visible; touch-action: pan-y; }
+  #{{ section_id }} .jp-x-highlights-2026__track { display: flex; }
+  #{{ section_id }} .jp-x-highlights-2026__card { flex: 0 0 calc((100% - 60px) / 3); min-width: 0; }
+  #{{ section_id }} .jp-x-highlights-2026__media { aspect-ratio: 512.723 / 285.675; background: linear-gradient(180deg, #2a2a2a 0%, #434345 100%); border-radius: 4px 4px 0 0; overflow: hidden; }
+  #{{ section_id }} .jp-x-highlights-2026__image, #{{ section_id }} .jp-x-highlights-2026__placeholder { display: block; height: 100%; object-fit: cover; width: 100%; }
+  #{{ section_id }} .jp-x-highlights-2026__placeholder { fill: #3f3f41; }
+  #{{ section_id }} .jp-x-highlights-2026__caption { background: #f7f7f9; border-radius: 0 0 4px 4px; color: #000; min-height: 110px; padding: 21px 22px 18px; }
+  #{{ section_id }} .jp-x-highlights-2026__caption h3 { font-family: "Noto Sans JP", sans-serif; font-size: 26px; font-weight: 500; line-height: 1.25; margin: 0; }
+  #{{ section_id }} .jp-x-highlights-2026__caption p { color: #3f3636; font-family: "Noto Sans JP", sans-serif; font-size: 16px; font-weight: 400; line-height: 1.5; margin: 8px 0 0; }
+  #{{ section_id }} .jp-x-highlights-2026__nav { display: flex; gap: 23px; justify-content: flex-end; margin-top: 54px; }
+  #{{ section_id }} .jp-x-highlights-2026__pagination { display: none; }
+  #{{ section_id }} .jp-x-highlights-2026__nav-button { align-items: center; background: transparent; border: 0; cursor: pointer; display: inline-flex; height: 35px; justify-content: center; padding: 0; width: 35px; }
+  #{{ section_id }} .jp-x-highlights-2026__nav-button svg { display: block; height: 35px; width: 35px; }
+  #{{ section_id }} .jp-x-highlights-2026__nav-button:disabled, #{{ section_id }} .jp-x-highlights-2026__nav-button.swiper-button-disabled, #{{ section_id }} .jp-x-highlights-2026__nav-button.is-disabled { cursor: default; opacity: .45; }
+  @media screen and (max-width: 1679px) and (min-width: 750px) { #{{ section_id }} .jp-x-highlights-2026__inner { max-width: calc(100% - 160px); } }
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} .jp-x-highlights-2026__inner { padding: 72px 0 54px; }
+    #{{ section_id }} .jp-x-highlights-2026__heading { color: #fff !important; font-family: "Noto Sans JP", sans-serif !important; font-size: 28px; font-weight: 400; letter-spacing: 0; line-height: 1.4; margin: 0 14.121px 26px; }
+    #{{ section_id }} .jp-x-highlights-2026__carousel { margin-left: 20.359px; }
+    #{{ section_id }} .jp-x-highlights-2026__card { flex-basis: 280px; }
+    #{{ section_id }} .jp-x-highlights-2026__media { aspect-ratio: 280 / 358; border-radius: 14px; }
+    #{{ section_id }} .jp-x-highlights-2026__caption { background: transparent; border-radius: 0; color: #fff; min-height: 0; padding: 22px 6.457px 0; }
+    #{{ section_id }} .jp-x-highlights-2026__caption h3 { color: #fff !important; font-family: "Noto Sans JP", sans-serif !important; font-size: 20px; font-weight: 500; letter-spacing: 0; line-height: 1.5; }
+    #{{ section_id }} .jp-x-highlights-2026__caption p { color: #fff !important; font-family: "Noto Sans JP", sans-serif !important; font-size: 12px; font-weight: 400; letter-spacing: 0; line-height: 1.5; margin: 0; }
+    #{{ section_id }} .jp-x-highlights-2026__nav { display: none; }
+    #{{ section_id }} .jp-x-highlights-2026__pagination { align-items: center; background: #424242; border-radius: 26px; display: flex; gap: 12px; height: 52px; justify-content: flex-start; margin: 32px auto 0; padding: 0 19px; width: 170.348px; }
+    #{{ section_id }} .jp-x-highlights-2026__pagination .swiper-pagination-bullet { background: #6f6f73; border-radius: 4px; flex: 0 0 8px; height: 8px; margin: 0 !important; opacity: 1; transition: flex-basis .25s ease, width .25s ease; width: 8px; }
+    #{{ section_id }} .jp-x-highlights-2026__pagination .swiper-pagination-bullet-active { background: #fff; flex-basis: 32.348px; width: 32.348px; }
+  }
+</style>
+
+<script>
+  (() => {
+    const root = document.getElementById('{{ section_id }}');
+    if (!root || root.dataset.jpXHighlightsInitialized) return;
+
+    const initSwiper = () => {
+      if (root.dataset.jpXHighlightsInitialized || typeof window.Swiper !== 'function') return false;
+      root.dataset.jpXHighlightsInitialized = 'true';
+      const previousButton = root.querySelector('[data-jp-x-highlights-prev]');
+      const nextButton = root.querySelector('[data-jp-x-highlights-next]');
+      const swiper = new window.Swiper(root.querySelector('[data-jp-x-highlights-swiper]'), {
+        slidesPerView: 'auto',
+        spaceBetween: 30,
+        speed: 500,
+        loop: true,
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: false,
+        },
+        grabCursor: true,
+        navigation: {
+          prevEl: previousButton,
+          nextEl: nextButton,
+        },
+        pagination: {
+          el: root.querySelector('[data-jp-x-highlights-pagination]'),
+          clickable: true,
+        },
+        breakpoints: { 0: { spaceBetween: 20 }, 750: { spaceBetween: 30 } },
+      });
+
+      const updateNavigationState = () => {
+        const setButtonState = (button, isAvailable) => {
+          if (!button) return;
+
+          const isDisabled = !isAvailable;
+          button.classList.toggle('is-disabled', isDisabled);
+          button.setAttribute('aria-disabled', String(isDisabled));
+          if (isDisabled) button.setAttribute('disabled', '');
+          else button.removeAttribute('disabled');
+        };
+
+        setButtonState(previousButton, !swiper.isBeginning && !swiper.isLocked);
+        setButtonState(nextButton, !swiper.isEnd && !swiper.isLocked);
+      };
+
+      swiper.on('slideChange transitionEnd resize update reachBeginning reachEnd fromEdge', updateNavigationState);
+      updateNavigationState();
+      return true;
+    };
+
+    if (!initSwiper()) document.addEventListener('DOMContentLoaded', initSwiper, { once: true });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "jp-x-highlights-2026",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "标题", "default": "まずは、ハイライトから。" },
+    { "type": "color", "id": "background", "label": "背景颜色", "default": "#000000" },
+    { "type": "color", "id": "text_color", "label": "标题文字颜色", "default": "#FFFFFF" },
+    { "type": "range", "id": "padding_top", "label": "PC 上边距", "min": 0, "max": 240, "step": 4, "unit": "px", "default": 104 },
+    { "type": "range", "id": "padding_bottom", "label": "PC 下边距", "min": 0, "max": 240, "step": 4, "unit": "px", "default": 72 },
+    { "type": "range", "id": "mobile_padding_top", "label": "M 上边距", "min": 0, "max": 160, "step": 2, "unit": "px", "default": 54 },
+    { "type": "range", "id": "mobile_padding_bottom", "label": "M 下边距", "min": 0, "max": 160, "step": 2, "unit": "px", "default": 30 }
+  ],
+  "blocks": [
+    {
+      "type": "highlight",
+      "name": "卖点卡片",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "PC 图片" },
+        { "type": "image_picker", "id": "image_mobile", "label": "M 图片" },
+        { "type": "text", "id": "title", "label": "标题", "default": "Ulike史上最高となる30J" },
+        { "type": "textarea", "id": "subtitle", "label": "副标题", "default": "1 回2分、たった3回で効果を実感" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "jp-x-highlights-2026",
+      "blocks": [
+        { "type": "highlight", "settings": { "title": "Ulike史上最高となる30J", "subtitle": "1 回2分、たった3回で効果を実感" } },
+        { "type": "highlight", "settings": { "title": "サファイア冷感技術", "subtitle": "痛みレスな体験を" } },
+        { "type": "highlight", "settings": { "title": "男性のヒゲに特化", "subtitle": "根元からアプローチ" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

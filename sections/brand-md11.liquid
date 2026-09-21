@@ -1,0 +1,339 @@
+<style>
+/* sns-inner start*/
+.sns-inner{
+  background: linear-gradient(167deg, #F3EEE4 19.43%, #E7DFCE 98.93%);
+  padding: 9.6vw 5.3vw 7.4vw;
+  text-align: center;
+}
+.sns-txt1{
+  color: #E0004D;
+font-size: 5.86vw;
+font-style: normal;
+font-weight: 500;
+line-height: 130%;
+margin-bottom: 1vw;
+}
+.sns-txt2{
+  color:  #3F3636;
+font-size: 4.26vw;
+font-style: normal;
+font-weight: 400;
+line-height: 130%;
+margin-bottom: 7.46vw;
+}
+.sns_txt-bx{
+  display: flex;
+  justify-content: center;
+  gap: 2.66vw;
+  margin-bottom: 6.93vw;
+  align-items: center;
+}
+.sns_txt-ct{
+  color: #3F3636;
+font-size: 5.33vw;
+font-style: normal;
+font-weight: 400;
+line-height: 130%;
+}
+.sns_txt3{
+  color:  #3F3636;
+font-size: 4.26vw;
+font-style: normal;
+font-weight: 400;
+line-height: 130%
+}
+.sns-box-ul{
+ 
+}
+.sns-li{
+  margin-top: 4.53vw;
+  display: flex;
+  border-radius: 2.66vw;
+background: #FFFCF7;
+padding: 3.73vw 5.33vw;
+align-items: center;
+justify-content: center;
+gap: 9.86vw;
+}
+.sns-li-right{
+  text-align: left;
+}
+.sns_rt-txt1{
+  color: #3F3636;
+font-size: 3.73vw;
+font-style: normal;
+font-weight: 400;
+line-height: 130%;
+padding-bottom: 2.4vw;
+border-bottom: 1px dashed #3F3636;
+}
+.sns_rt-txt2{
+color: #3F3636;
+font-size: 3.2vw;
+font-style: normal;
+font-weight: 400;
+line-height: 130%;
+margin-top: 2.4vw;
+}
+.sns_rt-txt2 a{
+     font-family: var(--font-it-family);
+  color:  #DE004D;
+  text-decoration-line: underline;
+}
+.sns_txt4{
+  color:  #3F3636;
+text-align: center;
+font-size: 3.2vw;
+font-style: normal;
+font-weight: 400;
+line-height: 130%;
+margin-top: 7.46vw;
+}
+.sns_txt5{
+  color: rgba(0, 0, 0, 0.50);
+font-size: 2.66vw;
+font-style: normal;
+font-weight: 400;
+line-height: 130%;
+margin-top: 1.86vw;
+}
+.sns_bt-box{
+  background: #9A8157;
+  padding: 4.26vw 5.33vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11.73vw;
+}
+.sns_bt-txt{
+   font-family: var(--font-it-family);
+  color:  #FFF;
+text-align: center;
+font-size: 4.8vw;
+font-style: normal;
+font-weight: 400;
+line-height: 130%;
+letter-spacing: 0.36px;
+text-transform: uppercase;
+}
+.sns_bt-ico{
+  display: flex;
+  gap: 5.33vw;
+  align-items: center;
+}
+.sns-txt1 strong{
+      font-family: var(--font-it-family);
+      font-style: normal;
+    font-weight: 500;
+}
+.sns-txt2 strong, .sns_txt4 strong, .sns_txt-ct strong, .sns_txt5 strong{
+        font-family: var(--font-it-family);
+      font-style: normal;
+    font-weight: 400;
+}
+  .bt_svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10px;
+}
+@media only screen and (min-width: 768px) {
+  .sns-inner{
+  padding: 36px 20px 28px;
+}
+.sns-txt1{
+font-size: 22px;
+margin-bottom: 4px;
+}
+.sns-txt2{
+font-size: 16px;
+margin-bottom: 28px;
+}
+.sns_txt-bx{
+  gap: 10px;
+  margin-bottom: 26px;
+}
+.sns_txt-ct{
+font-size: 20px;
+}
+.sns_txt3{
+font-size: 16px;
+}
+
+.sns-li{
+  margin-top: 17px;
+  border-radius: 10px;
+padding: 14px 20px;
+gap: 37px;
+}
+
+.sns_rt-txt1{
+font-size: 14px;
+padding-bottom: 9px;
+}
+.sns_rt-txt2{
+font-size: 12px;
+margin-top: 9px;
+}
+
+.sns_txt4{
+font-size: 12px;
+margin-top: 28px;
+}
+.sns_txt5{
+font-size: 10px;
+margin-top: 7px;
+}
+.sns_bt-box{
+  padding: 16px 20px;
+  gap: 44px;
+}
+.sns_bt-txt{
+font-size: 18px;
+}
+.sns_bt-ico{
+  gap: 20px;
+}
+}
+/* sns-inner end*/
+</style>
+  <section>
+    <div class="sns-inner to-top">
+      <div class="sns-inner-box">
+        <div class="sns-txt1">{{ section.settings.tle }}</div>
+        <div class="sns-txt2 ">{{ section.settings.txt1 }}</div>
+        <div class="sns_txt-bx">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="43" viewBox="0 0 32 43" fill="none">
+            <path d="M31.3088 42.3011L1.19043 1.19891" stroke="#3F3636"/>
+          </svg>
+          <div class="sns_txt-ct">
+           {{ section.settings.txt2 }}
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="43" viewBox="0 0 32 43" fill="none">
+            <path d="M1.16878 42.3011L31.2871 1.19891" stroke="#3F3636"/>
+          </svg>
+        </div>
+        <div class="sns_txt3">{{ section.settings.txt3 }}</div>
+        <div class="bt_svg">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="10" viewBox="0 0 15 10" fill="none">
+          <path d="M14 1L7.69984 8.00018L1.39967 0.999999" stroke="#3F3636" stroke-width="1.40004" stroke-linecap="square"/>
+         </svg>
+        </div>
+        <div class="sns-box-ul">
+           {%- for block in section.blocks -%}
+          <div class="sns-li">
+            <div class="sns-li-left">
+            {%- if block.settings.image -%}
+                <img src="{{  block.settings.image | image_url }}" alt="">
+              {%- endif -%}
+            </div>
+            <div class="sns-li-right">
+              <div class="sns_rt-txt1">{{ block.settings.txt1 }}</div>
+              <div class="sns_rt-txt2">
+               {{ block.settings.txt2 }}
+              </div>
+            </div>
+          </div>
+          {%- endfor -%}
+            
+        </div>
+        <div class="sns_txt4">{{ section.settings.txt4 }}</div>
+        <div class="sns_txt5">{{ section.settings.txt5 }}</div>
+      </div>
+    </div>
+    <div class="sns_bt-box">
+      <div class="sns_bt-txt">{{ section.settings.sns_txt }}</div>
+      <div class="sns_bt-ico">
+
+        {%- for block in section.blocks -%}
+       <a href="{{ block.settings.link_url }}" target="_blank">
+        {%- if block.settings.small_image -%}
+                <img src="{{  block.settings.small_image | image_url }}" alt="">
+          {%- endif -%}
+       </a>
+       {%- endfor -%}
+        
+      </div>
+    </div>
+  </section>
+{% schema %}
+{
+  "name": "Brand Md11",
+  "class": "brand-md11", 
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "tle",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "txt1",
+      "label": "Text1"
+    },
+     {
+      "type": "richtext",
+      "id": "txt2",
+      "label": "Text2"
+    },
+     {
+      "type": "richtext",
+      "id": "txt3",
+      "label": "Text3"
+    },
+    {
+      "type": "richtext",
+      "id": "txt4",
+      "label": "Text4"
+    },
+    {
+      "type": "richtext",
+      "id": "txt5",
+      "label": "Text5"
+    },
+    {
+      "type": "text",
+      "id": "sns_txt",
+      "label": "Sns Text"
+    }
+  ],
+  "blocks": [
+            {
+      "type": "item",
+      "name": "item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+         {
+          "type": "image_picker",
+          "id": "small_image",
+          "label": "Small Image"
+        },
+         {
+      "type": "text",
+      "id": "txt1",
+      "label": "Text1"
+    },
+         {
+      "type": "richtext",
+      "id": "txt2",
+      "label": "Text2"
+    },
+           {
+      "type": "url",
+      "id": "link_url",
+      "label": "Button Link"
+    }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Md11"
+    }
+  ]
+}
+{% endschema %}

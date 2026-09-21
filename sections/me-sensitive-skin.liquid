@@ -1,0 +1,110 @@
+{% liquid
+  assign sid = section.id
+  capture default_title
+    echo '<p>デリケートな肌にも<span>安心</span>。</p>'
+  endcapture
+  capture default_copy
+    echo '<p class="me-sensitive-skin__lead">第三者機関による実験では、被実験者の100%が<span>「肌に優しい」「敏感肌に向いている」</span>と回答<sup>*5</sup>。</p><p class="me-sensitive-skin__body">「肌が弱くて、光美容器を使えるか心配…」そんな初めての不安に応えるのが、第三者機関での臨床実験データ<sup>*5</sup>。100%の被実験者が「敏感肌に向いている」「刺激が少なく肌にやさしい」と回答。肌へのやさしさに配慮した設計で、心地よいケアを実現。</p><p class="me-sensitive-skin__closing">刺激感が気になるあなたに、Ulike Meは安心をお届けします。</p>'
+  endcapture
+  capture default_note
+    echo '<p>*5：第三者機関によるヒト試験（報告書番号：GZA01-25071529-JC-01、被験者33名）のデータに基づく。本製品は家庭用の美容機器であり、医療機器ではありません。試験結果は特定条件下のものであり、全ての方に同様の結果を保証するものではありません。肌の状態には個人差があります。</p>'
+  endcapture
+  assign title_pc = section.settings.title_html | default: default_title
+  assign copy_pc = section.settings.copy_html | default: default_copy
+  assign title_mobile = section.settings.title_html_mobile | default: title_pc
+  assign copy_mobile = section.settings.copy_html_mobile | default: copy_pc
+  assign note = section.settings.note_html | default: default_note
+%}
+
+<section id="me-sensitive-skin-{{ sid }}" class="me-sensitive-skin" style="--background: {{ section.settings.background }};">
+  <div class="me-sensitive-skin__desktop">
+    <picture class="me-sensitive-skin__media">
+      {% if section.settings.image_mobile != blank %}
+        <source media="(max-width: 749px)" srcset="{{ section.settings.image_mobile | image_url: width: 1000 }}">
+      {% endif %}
+      {% if section.settings.image != blank %}
+        {{ section.settings.image | image_url: width: 2400 | image_tag: class: 'me-sensitive-skin__image', loading: 'lazy', widths: '750, 1200, 1600, 1920, 2400' }}
+      {% endif %}
+    </picture>
+    <div class="me-sensitive-skin__desktop-copy">
+      <div class="me-sensitive-skin__title to-top">{{ title_pc }}</div>
+      <div class="me-sensitive-skin__copy to-top" style="transition-delay: 0.1s">{{ copy_pc }}</div>
+    </div>
+    <div class="me-sensitive-skin__desktop-note" style="transition-delay: 0.2s">{{ note }}</div>
+  </div>
+
+  <div class="me-sensitive-skin__mobile">
+    <picture class="me-sensitive-skin__mobile-media">
+      {% if section.settings.image_mobile != blank %}
+        {{ section.settings.image_mobile | image_url: width: 1000 | image_tag: class: 'me-sensitive-skin__mobile-image', loading: 'lazy', widths: '375, 500, 750, 1000' }}
+      {% elsif section.settings.image != blank %}
+        {{ section.settings.image | image_url: width: 1000 | image_tag: class: 'me-sensitive-skin__mobile-image', loading: 'lazy', widths: '375, 500, 750, 1000' }}
+      {% endif %}
+    </picture>
+    <div class="me-sensitive-skin__mobile-copy">
+      <div class="me-sensitive-skin__title to-top">{{ title_mobile }}</div>
+      <div class="me-sensitive-skin__copy to-top" style="transition-delay: 0.1s">{{ copy_mobile }}</div>
+      <div class="me-sensitive-skin__note to-top" style="transition-delay: 0.2s">{{ note }}</div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #me-sensitive-skin-{{ sid }} {
+    overflow: hidden;
+    background: var(--background);
+    color: #000;
+  }
+
+  #me-sensitive-skin-{{ sid }} .me-sensitive-skin__mobile { display: none; }
+  #me-sensitive-skin-{{ sid }} .me-sensitive-skin__desktop { position: relative; aspect-ratio: 20 / 11; min-height: 640px; }
+  #me-sensitive-skin-{{ sid }} .me-sensitive-skin__media { position: absolute; inset: 0; display: block; }
+  #me-sensitive-skin-{{ sid }} .me-sensitive-skin__image { display: block; width: 100%; height: 100%; object-fit: cover; }
+  #me-sensitive-skin-{{ sid }} .me-sensitive-skin__desktop-copy { position: absolute; top: 47.44%; left: 49.84%; width: min(33.3vw, 639px); }
+  #me-sensitive-skin-{{ sid }} .me-sensitive-skin__title > :first-child { margin: 0; font-size: 48px; font-weight: 500; line-height: 1.3; letter-spacing: -0.04em; }
+  #me-sensitive-skin-{{ sid }} .me-sensitive-skin__title span,
+  #me-sensitive-skin-{{ sid }} .me-sensitive-skin__copy span { color: #79b8ee; }
+  #me-sensitive-skin-{{ sid }} .me-sensitive-skin__title span { font-weight: 700; }
+  #me-sensitive-skin-{{ sid }} .me-sensitive-skin__copy > :first-child { margin: 64px 0 0; font-size: 22px; font-weight: 400; line-height: 1.5; letter-spacing: -0.035em; }
+  #me-sensitive-skin-{{ sid }} .me-sensitive-skin__copy > :not(:first-child) { margin: 28px 0 0; font-size: 14px; line-height: 1.5; letter-spacing: -0.035em; }
+  #me-sensitive-skin-{{ sid }} .me-sensitive-skin__copy .me-sensitive-skin__closing { margin-top: 21px; }
+  #me-sensitive-skin-{{ sid }} .me-sensitive-skin__copy sup { 
+    font-size: 0.55em; vertical-align: super;inset-block-start:0px;
+  }
+  #me-sensitive-skin-{{ sid }} .me-sensitive-skin__desktop-note { position: absolute; bottom: 4.17%; left: 50%; width: min(35.2vw, 676px); color: #737577; }
+  #me-sensitive-skin-{{ sid }} .me-sensitive-skin__desktop-note p { margin: 0; font-size: 10px; line-height: 1.5; letter-spacing: -0.03em; }
+
+  @media (max-width: 749px) {
+    #me-sensitive-skin-{{ sid }} .me-sensitive-skin__desktop { display: none; }
+    #me-sensitive-skin-{{ sid }} .me-sensitive-skin__mobile { display: block; }
+    #me-sensitive-skin-{{ sid }} .me-sensitive-skin__mobile-media { display: block; height: 71.2vw; min-height: 267px; max-height: 477px; }
+    #me-sensitive-skin-{{ sid }} .me-sensitive-skin__mobile-image { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    #me-sensitive-skin-{{ sid }} .me-sensitive-skin__mobile-copy { padding: 0 14px 50px; }
+    #me-sensitive-skin-{{ sid }} .me-sensitive-skin__title > :first-child { font-size: 26px; font-weight: 700; line-height: 1.3; letter-spacing: -0.06em; }
+    #me-sensitive-skin-{{ sid }} .me-sensitive-skin__title span { font-size: 42px; }
+    #me-sensitive-skin-{{ sid }} .me-sensitive-skin__copy > :first-child { margin-top: 10px; font-size: 22px; font-weight: 400; line-height: 1.5; letter-spacing: -0.055em; }
+    #me-sensitive-skin-{{ sid }} .me-sensitive-skin__copy > :not(:first-child) { margin-top: 23px; font-size: 14px; line-height: 1.5; letter-spacing: -0.055em; }
+    #me-sensitive-skin-{{ sid }} .me-sensitive-skin__copy .me-sensitive-skin__closing { margin-top: 21px; }
+    #me-sensitive-skin-{{ sid }} .me-sensitive-skin__note { position: static; width: auto; margin-top: 23px; color: #737577; }
+    #me-sensitive-skin-{{ sid }} .me-sensitive-skin__note p { font-size: 10px; line-height: 1.5; letter-spacing: -0.045em; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Ulike 敏感肌模块",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "PC 背景图" },
+    { "type": "image_picker", "id": "image_mobile", "label": "移动端顶部图片" },
+    { "type": "html", "id": "title_html", "label": "PC 标题（HTML）", "default": "<p>デリケートな肌にも<span>安心</span>。</p>" },
+    { "type": "html", "id": "copy_html", "label": "PC 描述（HTML）", "default": "<p class=\"me-sensitive-skin__lead\">第三者機関による実験では、被実験者の100%が<span>「肌に優しい」「敏感肌に向いている」</span>と回答<sup>*5</sup>。</p><p class=\"me-sensitive-skin__body\">「肌が弱くて、光美容器を使えるか心配…」そんな初めての不安に応えるのが、第三者機関での臨床実験データ<sup>*5</sup>。100%の被実験者が「敏感肌に向いている」「刺激が少なく肌にやさしい」と回答。肌へのやさしさに配慮した設計で、心地よいケアを実現。</p><p class=\"me-sensitive-skin__closing\">刺激感が気になるあなたに、Ulike Meは安心をお届けします。</p>" },
+    { "type": "html", "id": "title_html_mobile", "label": "移动端标题（HTML）", "default": "<p>デリケートな肌にも<span>安心</span>。</p>" },
+    { "type": "html", "id": "copy_html_mobile", "label": "移动端描述（HTML）", "default": "<p class=\"me-sensitive-skin__lead\">第三者機関による実験では、被実験者の100%が<span>「肌に優しい」「敏感肌に向いている」</span>と回答<sup>*5</sup>。</p><p class=\"me-sensitive-skin__body\">「肌が弱くて、光美容器を使えるか心配…」そんな初めての不安に応えるのが、第三者機関での臨床実験データ<sup>*5</sup>。100%の被実験者が「敏感肌に向いている」「刺激が少なく肌にやさしい」と回答。肌へのやさしさに配慮した設計で、心地よいケアを実現。</p><p class=\"me-sensitive-skin__closing\">刺激感が気になるあなたに、Ulike Meは安心をお届けします。</p>" },
+    { "type": "richtext", "id": "note_html", "label": "注释", "default": "<p>*5：第三者機関によるヒト試験（報告書番号：GZA01-25071529-JC-01、被験者33名）のデータに基づく。本製品は家庭用の美容機器であり、医療機器ではありません。試験結果は特定条件下のものであり、全ての方に同様の結果を保証するものではありません。肌の状態には個人差があります。</p>" },
+    { "type": "color", "id": "background", "label": "背景", "default": "#e7f1ff" }
+  ],
+  "presets": [
+    { "name": "Ulike 敏感肌模块" }
+  ]
+}
+{% endschema %}

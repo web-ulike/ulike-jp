@@ -1,0 +1,126 @@
+<style>
+.help-tips {
+  padding: 50px 0;
+}
+
+.help-tips .help-tips-title {
+  color: #000;
+  font-size: 30px;
+  line-height: 1.5;
+  font-family: var(--heading-font-family);
+  font-weight: normal;
+  margin: 0;
+  margin-bottom: 30px;
+}
+
+.help-tips .help-tips-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px 0;
+  border-top: 1px solid #190a0a;
+  border-bottom: 1px solid #190a0a;
+}
+
+.help-tips .help-tips-item-title {
+  color: #190a0a;
+  font-size: 18px;
+  line-height: 1.3;
+  font-family: var(--heading-font-family);
+  font-weight: normal;
+  margin: 0;
+  margin-bottom: 8px;
+}
+
+.help-tips .help-tips-item-content {
+  color: #190a0a;
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 16px;
+  border-radius: 4px;
+  background: #fce8ec;
+  margin: 0;
+}
+
+@media (max-width: 991px) {
+  .help-tips {
+    padding-bottom: 0;
+  }
+  .help-tips .help-tips-title {
+    font-size: 28px;
+    line-height: 1.25;
+  }
+  .help-tips .help-tips-item-content {
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+}
+</style>
+<section class="section-box">
+  <div class="help-tips margin-left-diy {{ section.settings.text }}">
+    <div class="container">
+      {%- if section.settings.title != blank -%}
+        <h3 class="help-tips-title">{{ section.settings.title }}</h3>
+      {%- endif -%}
+      <div class="help-tips-list">
+        {%- for block in section.blocks -%}
+          <div class="help-tips-item">
+            {%- if block.settings.text != blank -%}
+              <h4 class="help-tips-item-title">{{ block.settings.text }}</h4>
+            {%- endif -%}
+            {%- if block.settings.text1 != blank -%}
+              <p class="help-tips-item-content">
+                {{ block.settings.text1 }}
+              </p>
+            {%- endif -%}
+          </div>
+        {%- endfor -%} 
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "help-tips",
+  "blocks": [
+    {
+      "name": "item",
+      "type": "item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Title",
+          "default":"Perform a patch test"
+        },
+        {
+          "type": "text",
+          "id": "text1",
+          "label": "Text",
+          "default":"On your initial use of a new device, test it on a small area of your skin to check for sensitivity or irritation."
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default":"Make the most of your IPL treatments with these helpful tips:"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "自定义Class"
+    }
+  ],
+  "presets": [
+    {
+      "name": "help-tips",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

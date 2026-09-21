@@ -1,0 +1,176 @@
+<style>
+  .marquee {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    padding: 88px 0;
+    background: #fff;
+    z-index: 1;
+  }
+
+  .marquee .media-home-slider-list {
+    display: flex;
+  }
+
+  .marquee .media-home-slider__img {
+    flex-shrink: 0;
+  }
+
+  .marquee .media-home-slider__img img {
+    display: block;
+    margin: 0;
+  }
+
+   .medium-marquee-new{
+    padding:20px 0 70px 0;
+  }
+
+  .medium-marquee-new .media-home-slider__img img {
+    height:50px;
+    width:auto;
+  }
+
+  .medium-marquee-new .media-home-slider-list {
+    gap:80px;
+  }
+
+  .bf-2024.medium-box-diy{
+    padding:15px 0;
+    border-bottom:1px solid #696969;
+    background:#000;
+  }
+
+  .chr-2024.marquee{
+    padding:35px 0;
+    border-bottom:1px solid #d6d9e1;
+  }
+  .val-2025.marquee{
+    border-bottom:1px solid #000;
+  }
+  @media screen and (max-width: 768px) {
+    .marquee,.chr-2024.marquee {
+      padding: 20px 0;
+    }
+
+    .media-home-slider__img img {
+      width:220px;
+    }
+    .medium-marquee-new .media-home-slider__img img {
+      height: 35px;
+      width:auto;
+    }
+    .medium-marquee-new .media-home-slider-list {
+      gap:40px;
+    }
+  }
+</style>
+<section class="section-box" data-nosnippet>
+  <div class="medium-box-diy marquee {{ section.settings.class_txt }}" style="background:{{ section.settings.background }};">
+    <div class="media-home-slider-list">
+      {%- for block in section.blocks -%}
+      <div class="media-home-slider__img">
+        <img loading="lazy" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" {%
+          render 'image-attributes' , image: block.settings.image %} alt="{{ block.settings.image.alt | escape }}">
+      </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+<script>
+  function marqueeFn(bol){
+    var content = document.querySelector("#shopify-section-{{ section.id }} .marquee")
+    var ul = content.querySelector(".media-home-slider-list")
+    var speed = 1.5;
+    var width = content.clientWidth
+    var swidth = ul.clientWidth
+    var liWidthAll = 0
+    let timer = null
+    let isDouble = true
+    let left =0
+    if(width>swidth) isDouble = true
+    if(bol){
+      ul.innerHTML += isDouble?ul.innerHTML+ul.innerHTML:ul.innerHTML
+    }
+    ul.querySelectorAll(".media-home-slider__img").forEach(item=>{
+      // liWidthAll+=item.offsetWidth
+      item.querySelector('img').onload=function(){
+          liWidthAll+=item.offsetWidth
+      }
+    })
+
+    ul.style.width = liWidthAll + "px"
+    function run() {
+        if (left < -liWidthAll / (isDouble?3:2)) {
+            left = 0
+        }
+        if(left>0){
+          left = -liWidthAll / (isDouble?3:2)
+        }
+        left-=speed
+        ul.style.transform =  'translateX('+left+'px)' 
+      }
+    run()
+    timer = setInterval(run, 20)
+    content.onmouseover = function() {
+        clearInterval(timer)
+    }
+    content.onmouseout = function() {
+        timer = setInterval(run, 20)
+    }
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // <!-- console.log('元素进入视口'); -->
+          clearInterval(timer)
+          timer = setInterval(run, 20)
+        } else {
+          // <!-- console.log('元素离开视口'); -->
+          clearInterval(timer)
+        }
+      });
+    }, { attributes: true });
+    observer.observe(content);
+  }
+  // window.addEventListener('load',function(){
+      marqueeFn(true)
+  // })
+</script>
+{% schema %}
+{
+"name": "medium-marquee-list",
+"class": "medium-marquee-diy",
+"blocks": [
+  {
+    "name": "item",
+    "type": "item",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      }
+    ]
+  }
+],
+  "settings": [
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default":"#fff"
+    },
+    {
+      "type": "text",
+      "id": "class_txt",
+      "label": "自定义class"
+    }
+  ],
+  "presets": [
+  {
+    "name": "medium-marquee-list",
+    "blocks": []
+  }
+]
+}
+{% endschema %}

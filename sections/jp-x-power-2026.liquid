@@ -1,0 +1,95 @@
+{%- liquid
+  assign section_id = 'jp-x-power-2026-' | append: section.id
+  assign desktop_image = section.settings.background_image | default: section.settings.background_image_mobile
+  assign mobile_image = section.settings.background_image_mobile | default: desktop_image
+  assign desktop_badge_image = section.settings.badge_image | default: section.settings.badge_image_mobile
+  assign mobile_badge_image = section.settings.badge_image_mobile | default: desktop_badge_image
+-%}
+
+<section id="{{ section_id }}" class="jp-x-power-2026">
+  <div class="jp-x-power-2026__stage">
+    <div class="jp-x-power-2026__background" aria-hidden="true">
+      {%- if desktop_image != blank -%}
+        <picture>
+          {%- if mobile_image != blank -%}<source media="(max-width: 749px)" srcset="{{ mobile_image | image_url: width: 900 }}">{%- endif -%}
+          {{ desktop_image | image_url: width: 2880 | image_tag: class: 'jp-x-power-2026__background-image', loading: 'lazy', widths: '375, 750, 1200, 1600, 1920, 2400, 2880', alt: '' }}
+        </picture>
+      {%- endif -%}
+    </div>
+    <div class="jp-x-power-2026__fade" aria-hidden="true"></div>
+
+    <div class="jp-x-power-2026__content">
+      <div class="jp-x-power-2026__description to-top">
+        <p>{{ section.settings.intro_prefix | escape }}<span class="jp-x-power-2026__gradient jp-x-power-2026__large">{{ section.settings.power_value | escape }}</span><sup>{{ section.settings.power_note | escape }}</sup>{{ section.settings.intro_middle | escape }}<span class="jp-x-power-2026__gradient jp-x-power-2026__large jp-x-power-2026__large--text">{{ section.settings.power_label | escape }}</span>{{ section.settings.intro_suffix | escape }}</p>
+        <p>{{ section.settings.body_line_2 | escape }}</p>
+        <p>{{ section.settings.body_line_3 | escape }}</p>
+      </div>
+
+      {%- if desktop_badge_image != blank -%}
+        <div class="jp-x-power-2026__badge to-top" style="transition-delay: .1s">
+          <picture>
+            {%- if mobile_badge_image != blank -%}<source media="(max-width: 749px)" srcset="{{ mobile_badge_image | image_url: width: 400 }}">{%- endif -%}
+            {{ desktop_badge_image | image_url: width: 800 | image_tag: class: 'jp-x-power-2026__badge-image', loading: 'lazy', widths: '121, 200, 400, 800', alt: desktop_badge_image.alt }}
+          </picture>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.note != blank -%}<p class="jp-x-power-2026__note">{{ section.settings.note | escape | newline_to_br }}</p>{%- endif -%}
+  </div>
+</section>
+
+<style>
+  #{{ section_id }} { background: #000; color: #fff; overflow: hidden; }
+  #{{ section_id }} * { box-sizing: border-box; }
+  #{{ section_id }} .jp-x-power-2026__stage { height: min(838px, 43.645833vw); margin: 0 auto; max-width: 1920px; overflow: hidden; position: relative; width: 100%; }
+  #{{ section_id }} .jp-x-power-2026__background { display: block; inset: 0; position: absolute; }
+  #{{ section_id }} .jp-x-power-2026__background picture { display: block; height: 100%; width: 100%; }
+  #{{ section_id }} .jp-x-power-2026__background-image { display: block; height: auto; max-width: none; width: 100%; }
+  #{{ section_id }} .jp-x-power-2026__fade { background: linear-gradient(267.535deg, #000 58.273%, rgba(0,0,0,0) 98.129%); bottom: 0; left: 51.661%; pointer-events: none; position: absolute; top: 0; width: 48.339%; }
+  #{{ section_id }} .jp-x-power-2026__content { inset: 0; pointer-events: none; position: absolute; }
+  #{{ section_id }} .jp-x-power-2026__description { left: 50.07%; position: absolute; top: 17.14%; width: 32.84%; }
+  #{{ section_id }} .jp-x-power-2026__description p { font-size: clamp(16px, 1.25vw, 24px); font-weight: 400; line-height: 1.5; margin: 0; white-space: nowrap; }
+  #{{ section_id }} .jp-x-power-2026__description .jp-x-power-2026__large { font-size: clamp(24px, 1.875vw, 36px); font-weight: 600; }
+  #{{ section_id }} .jp-x-power-2026__description .jp-x-power-2026__large--text { font-size: clamp(23px, 1.875vw, 36px); font-weight: 700; }
+  #{{ section_id }} .jp-x-power-2026__gradient { background: linear-gradient(180deg, #fff 0%, #b9e7ff 57%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  #{{ section_id }} .jp-x-power-2026__description sup { font-size: .65em; line-height: 1; vertical-align: super; }
+  #{{ section_id }} .jp-x-power-2026__badge { left: 50.1%; position: absolute; top: 39.18%; width: 200px; }
+  #{{ section_id }} .jp-x-power-2026__badge-image { display: block; height: auto; width: 100%; }
+  #{{ section_id }} .jp-x-power-2026__note { color: rgba(255,255,255,.5); font-size: clamp(8px, .625vw, 12px); left: 50.07%; line-height: 1.5; margin: 0; position: absolute; top: 78.09%; width: 32.84%; }
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} .jp-x-power-2026__stage { aspect-ratio: auto; height: 671px; max-width: none; }
+    #{{ section_id }} .jp-x-power-2026__background picture { height: auto; width: 100%; }
+    #{{ section_id }} .jp-x-power-2026__background-image { height: auto; max-width: none; width: 100%; }
+    #{{ section_id }} .jp-x-power-2026__fade { background: transparent; }
+    #{{ section_id }} .jp-x-power-2026__description { left: 50%; text-align: center; top: 262px; transform: translateX(-50%); width: 250px; }
+    #{{ section_id }} .jp-x-power-2026__description p { color: #fff; font-family: "Noto Sans JP", sans-serif; font-size: 18px; font-weight: 400; line-height: 1.5; white-space: normal; }
+    #{{ section_id }} .jp-x-power-2026__description .jp-x-power-2026__large, #{{ section_id }} .jp-x-power-2026__description .jp-x-power-2026__large--text { font-size: 30px; }
+    #{{ section_id }} .jp-x-power-2026__badge { left: 50%; top: 448px; transform: translateX(-50%); width: 121.027px; }
+    #{{ section_id }} .jp-x-power-2026__note { color: rgba(255,255,255,.7); font-family: "Noto Sans JP", sans-serif; font-size: 8px; left: 20px; top: 590px; width: 342px; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "jp-x-power-2026",
+  "settings": [
+    { "type": "image_picker", "id": "background_image", "label": "PC 产品背景图（不含文案）" },
+    { "type": "image_picker", "id": "background_image_mobile", "label": "M 产品背景图（不含文案）" },
+    { "type": "text", "id": "intro_prefix", "label": "说明第一行前半", "default": "Ulike史上最高となる" },
+    { "type": "text", "id": "power_value", "label": "高亮能量值", "default": "30J" },
+    { "type": "text", "id": "power_note", "label": "能量值注释序号", "default": "3" },
+    { "type": "text", "id": "intro_middle", "label": "说明第一行中段", "default": "の" },
+    { "type": "text", "id": "power_label", "label": "高亮性能文案", "default": "ハイパワー" },
+    { "type": "text", "id": "intro_suffix", "label": "说明第一行结尾", "default": "で" },
+    { "type": "text", "id": "body_line_2", "label": "说明第二行", "default": "週3回*2のケアをするだけで、" },
+    { "type": "text", "id": "body_line_3", "label": "说明第三行", "default": "目に見える体毛の成長速度の変化を実感いただけます。" },
+    { "type": "image_picker", "id": "badge_image", "label": "PC 徽章图片" },
+    { "type": "image_picker", "id": "badge_image_mobile", "label": "M 徽章图片" },
+    { "type": "textarea", "id": "note", "label": "底部注释", "default": "*2.国際認証機関SGSによる報告：GZCPCH24001216-01S1_CN。トリートメントスケジュールに従って週3回使用した場合、効果を実感し始めます。効果には個人差及び部位差があります。\n*3. 国際認証機関CVCによる試験結果：WTS2026-4975、最大出力エネルギーはUSHRモード使用時に限られている、結果はテスト条件により異なる可能性もあります。" }
+  ],
+  "presets": [
+    { "name": "jp-x-power-2026" }
+  ]
+}
+{% endschema %}

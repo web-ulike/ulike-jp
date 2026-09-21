@@ -1,0 +1,1586 @@
+<style>
+    #referfriend-invitation-content {
+      position: relative;
+    }
+    #referfriend-invitation-content .gameplay-box {
+      margin: 0 auto 24px;
+    }
+    #referfriend-invitation-content .gameplay-box-info{
+      margin-bottom: 80px;
+    }
+    #referfriend-invitation-content .gameplay-box-item{
+      padding:24px;
+      background: #F3F0FF;
+    }
+    #referfriend-invitation-content .title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 500;
+      font-size: 48px;
+      color: #000000;
+      text-align: left;
+      font-style: normal;
+      text-transform: none;
+    }
+    #referfriend-invitation-content .gameplay-description {
+      text-align: left;
+      font-weight: 400;
+      font-size: 20px;
+      color: #4d4d4d;
+    }
+    #referfriend-invitation-content .copy-code-top {
+      display: flex;
+      align-items: center;
+      {% comment %} display: inline-block; {% endcomment %}
+      {% comment %} position: relative; {% endcomment %}
+      {% comment %} width: 296px; {% endcomment %}
+      {% comment %} text-align: left; {% endcomment %}
+      {% comment %} margin-bottom: 20px;
+      margin-top: 10px; {% endcomment %}
+    }
+    #referfriend-invitation-content .code-top {
+      {% comment %} display: inline-block;
+      width: 114px; {% endcomment %}
+      {% comment %} height: 32px; {% endcomment %}
+      font-weight: 500;
+      font-size: 28px;
+      color: #000000;
+      text-align: center;
+      font-style: normal;
+      text-transform: none;
+    }
+    #referfriend-invitation-content .code-wrap{
+      display: flex;
+      align-items:center;
+    }
+    #referfriend-invitation-content .code-text {
+      font-size: 28px;
+    }
+    #referfriend-invitation-content .copy-btn-top {
+      font-weight: 400;
+      font-size: 28px;
+      color: #000000;
+      cursor: pointer;
+    }
+    #referfriend-invitation-content .copy-wrap{
+      margin-left: 32px;
+      display: flex;
+      align-items:center;
+    }
+    #referfriend-invitation-content .copy-svg {
+      width: 32px;
+      height: 32px;
+    }
+    #referfriend-invitation-content .copy-input {
+      position: relative;
+      width: 100%;
+      margin-top: 0;
+    }
+    #referfriend-invitation-content .textarea-content {
+       display:inline-block;
+      width: 500px;
+      height: 86px;
+      padding: 10px;
+      resize: none;
+      {% comment %} line-height: 36px; {% endcomment %}
+      background: #ffffff;
+      border-radius: 10px;
+      border: 1px solid #9f9f9f;
+      font-weight: 400;
+      font-size: 16px;
+      box-sizing: border-box;
+      vertical-align: top;
+      pointer-events: none;
+    }
+    #referfriend-invitation-content .copy-btn {
+      {% comment %} position: absolute; {% endcomment %}
+      display:inline-block;
+      margin-left:40px;
+      font-size:24px;
+      width: 220px;
+      height: 60px;
+      background: #000000;
+      border-radius: 60px;
+      right: 0;
+      color: #ffffff;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      text-align: center;
+      vertical-align: top;
+    }
+    #referfriend-invitation-content .rewards-more {
+      font-size: 16px;
+      font-weight: 400;
+      cursor: pointer;
+    }
+    #referfriend-invitation-content .price-area {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+    #referfriend-invitation-content .pending,
+    #referfriend-invitation-content .withdraw {
+      flex: 1;
+      min-height: 230px;
+      background: #f9f9f9;
+      border-radius: 4px 4px 4px 4px;
+      text-align: center;
+      {% comment %} padding: 20px 0px; {% endcomment %}
+    }
+    #referfriend-invitation-content .ped-price-total {
+      margin:0;
+      font-weight: 500;
+      font-size: 40px;
+      color: #000000;
+      padding:10px 0 0 0;
+    }
+    #referfriend-invitation-content .ped-price-des {
+      margin: 0;
+      font-weight: 300;
+      font-size: 24px;
+      color: #838383;
+    }
+    #referfriend-invitation-content .withdraw-btn {
+      margin-top: 10px;
+      box-sizing: border-box;
+      width: 50%;
+      height: 60px;
+      background: #000000;
+      border-radius: 90px 90px 90px 90px;
+      color: #ffffff;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      font-size:24px;
+    }
+    #referfriend-invitation-content .invitation-record-batch .title {
+      margin-bottom: 20px;
+    }
+    #referfriend-invitation-content .invitation-detail {
+      min-height: 230px;
+    }
+    #referfriend-invitation-content .render-area {
+      width: 100%;
+      height: 312px;
+      display: flex;
+      /* justify-content: center; */
+      align-items: center;
+      /* 垂直+水平都居中 */
+      /* height: 200px; */
+      border-radius: 8px;
+      border: 1px solid #eaeaea;
+      margin-bottom: 50px;
+    }
+    #referfriend-invitation-content .invitation-detail .description-text {
+      display: inline-block;
+      margin-top: 20px;
+      gap: 16px;
+    }
+    #referfriend-invitation-content .description-product {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-left: 100px;
+    }
+    #referfriend-invitation-content .description-product .description-data {
+      margin-left: 32px;
+    }
+    #referfriend-invitation-content .description-title p,
+    #referfriend-invitation-content .description-data p {
+      color: #000000;
+      line-height: 18px;
+    }
+    #referfriend-invitation-content .description-title img{
+      width:260px;
+    }
+    #referfriend-invitation-content .invitation-detail .description-text .description-title {
+      display: inline-block;
+      margin-left: 30px;
+      font-weight: 500;
+      font-size: 16px;
+    }
+
+    #referfriend-invitation-content .invitation-detail .description-text p{
+      margin: 15px 0;
+    }
+
+    #referfriend-invitation-content .invitation-detail .description-text .description-data {
+      display: inline-block;
+      margin-left: 40px;
+      font-weight: 400;
+      font-size: 16px;
+    }
+
+
+    #referfriend-invitation-content  .invitation-detail .order-num {
+      font-weight: 500;
+      font-size: 28px;
+      line-height: 1.3;
+      margin-bottom: 30px;
+    }
+    #referfriend-invitation-content .order-status-red {
+      color: #e0004d;
+    }
+    #referfriend-invitation-content .price-detail {
+      display: inline-block;
+      /* padding: 10px 20px; */
+      text-align: left;
+    }
+    #referfriend-invitation-content .show-symbol {
+      display: none;
+    }
+    #referfriend-invitation-content .order-amount,
+    #referfriend-invitation-content .order-commission {
+      display: inline-block;
+      margin-right: 20px;
+    }
+    #referfriend-invitation-content .order-amount {
+      padding-right: 20px;
+      border-right: 1px solid #eaeaea;
+    }
+    #referfriend-invitation-content .order-amount span:nth-child(1),
+    #referfriend-invitation-content .order-commission span:nth-child(1) {
+      font-size: 12px;
+    }
+    #referfriend-invitation-content .order-amount span:nth-child(2),
+    #referfriend-invitation-content .order-commission span:nth-child(2) {
+      font-weight: 500;
+      font-size: 20px;
+    }
+    #referfriend-invitation-content .modal-copysuccess,#referfriend-invitation-content .dlio-error {
+      z-index:999;
+      display: none;
+      position: fixed;
+      padding:20px 20px;
+      background-color: #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      border-radius: 6px;
+      color: #000;
+      font-size: 12px;
+      line-height: 16px;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align:center;
+      /* bottom:80px;
+              font-size: 12px; */
+    }
+    #referfriend-invitation-content .dlio-error{
+      color:red;
+    }
+    #referfriend-invitation-content .circle-check {
+      margin-right: 4px;
+      width: 18px;
+      height: 18px;
+      background-color: #28a745;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    #referfriend-invitation-content .modal-mask {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      z-index: 9;
+    }
+    #referfriend-invitation-content .modal-container {
+      position: fixed;
+      width: 640px;
+      height: 460px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #ffffff;
+      border-radius: 4px;
+      z-index: 10;
+      display: none;
+      padding: 48px;
+    }
+    #referfriend-invitation-content .modal-header,
+    #referfriend-invitation-content .modal-body {
+      padding: 0 24px;
+    }
+
+    #referfriend-invitation-content .modal-header p {
+      margin: 10px 0px;
+    }
+
+    #referfriend-invitation-content .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      cursor: pointer;
+      font-size: 36px;
+      color: #000;
+      width: 32px;
+      height: 32px;
+      text-align: center;
+      line-height: 28px;
+      transition: color 0.3s;
+    }
+    #referfriend-invitation-content .modal-body {
+      display: none;
+      position: relative;
+      margin-bottom: 26px;
+      text-align: center;
+    }
+    #referfriend-invitation-content .modal-title {
+      /* margin: 20px 0; */
+      font-weight: 500;
+      font-size: 26px;
+      color: #000000;
+      text-align: left;
+      font-style: normal;
+      text-transform: none;
+    }
+    #referfriend-invitation-content .modal-price {
+      line-height: 1;
+      font-weight: 500;
+      font-size: 26px;
+      color: #e0004d;
+    }
+    #referfriend-invitation-content .iput-email-title,
+    #referfriend-invitation-content .iput-code-title {
+      font-weight: 500;
+      font-size: 30px;
+      color: #000000;
+    }
+    #referfriend-invitation-content .withdrawal-email,
+    #referfriend-invitation-content .withdrawal-code {
+      width: 99%;
+      margin-top: -6px;
+      padding-left: 10px;
+      padding-right: 0;
+      height: 40px;
+      background: #ffffff;
+      border-radius: 4px 4px 4px 4px;
+      border: 1px solid #d0d0d0;
+    }
+    #referfriend-invitation-content .code-wrapper {
+      position: relative;
+    }
+
+    #referfriend-invitation-content .asterisk {
+      margin-right: 4px;
+    }
+    #referfriend-invitation-content .email-default,#referfriend-invitation-content .email-error,#referfriend-invitation-content .code-error {
+      font-weight: 400;
+      font-size: 14px;
+      color: #9c9c9c;
+      text-align: left;
+      font-style: normal;
+      text-transform: none;
+    }
+
+    #referfriend-invitation-content .submit-btn,
+    #referfriend-invitation-content .success-btn {
+      margin-top: 26px;
+      width: 100%;
+      height: 46px;
+      background: #000000;
+      border-radius: 90px 90px 90px 90px;
+      left: 0;
+      bottom: 0;
+      border: none;
+      outline: none;
+      font-weight: 400;
+      font-size: 21px;
+      color: #ffffff;
+      cursor: pointer;
+      text-align: center;
+    }
+    #referfriend-invitation-content .getcode {
+      position: absolute;
+      display: block;
+      bottom: 5px;
+      right: 20px;
+      cursor: pointer;
+    }
+    #referfriend-invitation-content .valid {
+      border: 1px solid #52c41a;
+    }
+    #referfriend-invitation-content .invalid {
+      border: 1px solid #ff4d4f;
+    }
+    #referfriend-invitation-content .success-des {
+      font-weight: 500;
+      font-size: 23px;
+      color: #000000;
+    }
+    {% comment %} #referfriend-invitation-content .success-img {
+      margin-top: 40px;
+    } {% endcomment %}
+    #referfriend-invitation-content .success-btn {
+      margin-top: 0;
+    }
+    #referfriend-invitation-content .tabs-title {
+      display: none;
+    }
+    #referfriend-invitation-content .tabs {
+      display: none;
+      cursor: pointer;
+      margin: 20px 0;
+      font-size: 26px;
+    }
+    #referfriend-invitation-content .tabs div {
+      display: inline-block;
+      padding: 10px 32px;
+      transition: background-color 0.3s ease;
+    }
+    #referfriend-invitation-content .tabs .active {
+      border: 1px solid #000000;
+      border-radius: 36px;
+      padding: 4px 12px;
+    }
+    #referfriend-invitation-content .tab-content {
+      display: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+      margin-top: 40px;
+    }
+    #referfriend-invitation-content .tab-content.active {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+    }
+    #referfriend-invitation-content .table-header {
+      display: flex;
+      padding: 14px 0;
+      justify-content: space-between;
+      background: #f9f9f9;
+      line-height: 1.2;
+      font-weight: 400;
+      font-size: 32px;
+      margin: 50px 0px 0px;
+      padding: 14px 32px;
+    }
+
+    #referfriend-invitation-content .table-content {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 1px solid #f0f0f0;
+      padding: 20px 32px;
+    }
+
+    #referfriend-invitation-content .base-price {
+      text-align: right;
+    }
+    #referfriend-invitation-content .base-information p:nth-child(1) {
+      font-weight: 500;
+      font-size: 24px;
+    }
+    #referfriend-invitation-content .no-record{
+      text-align:center;
+      color: #A6A6A6;
+      font-size:32px;
+      padding:20px 0;
+
+    }
+    #referfriend-invitation-content .base-price p:nth-child(1) {
+      font-weight: 500;
+      font-size: 32px;
+      color: #000000;
+    }
+    #referfriend-invitation-content .base-information p:nth-child(2),
+    #referfriend-invitation-content .base-price p:nth-child(2) {
+      font-weight: 400;
+      font-size: 24px;
+      color: rgba(0, 0, 0, 0.4);
+    }
+    #referfriend-invitation-content #withdraw-error{
+      color: #e0004d;
+    }
+    #referfriend-invitation-content .email-error,#referfriend-invitation-content .code-error{
+      display:none;
+      color:#e0004d;
+      margin:0;
+    }
+    #referfriend-invitation-content .code-error{
+      position:absolute;
+      bottom: 74px
+    }
+    #referfriend-invitation-content .code-disscount{
+      display: none;
+      font-size: 24px;
+    }
+    #referfriend-invitation-content .code-disscount span{
+      font-weight:700;
+    }
+    @media (max-width: 768px) {
+      #referfriend-invitation-content {
+        /* 内容区域的样式 */
+      }
+      #referfriend-invitation-content .gameplay-box {
+        {% comment %} margin: 10px auto 0; {% endcomment %}
+      }
+      #referfriend-invitation-content .title {
+        font-size: 26px;
+      }
+      #referfriend-invitation-content .gameplay-box-copycode .title {
+        font-size: 16px;
+      }
+      #referfriend-invitation-content .gameplay-description {
+        font-weight: 400;
+        font-size: 12px;
+        color: #000000;
+        line-height: 20px;
+      }
+      #referfriend-invitation-content .code-top {
+        {% comment %} width: 82px;
+        height: 23px; {% endcomment %}
+        font-weight: 700;
+        font-size: 20px;
+      }
+      #referfriend-invitation-content .code-text {
+        font-size: 28px;
+      }
+      #referfriend-invitation-content .copy-svg {
+        width: 20px;
+        height: 20px;
+        {% comment %} top: 4px;
+        left: 96px; {% endcomment %}
+      }
+      #referfriend-invitation-content .copy-btn-top {
+        {% comment %} margin-left: 30px; {% endcomment %}
+        font-weight: 400;
+        font-size: 16px;
+      }
+      #referfriend-invitation-content .copy-code-top {
+        {% comment %} display: inline-block;
+        position: relative;
+        width: 100%;
+        text-align: left; {% endcomment %}
+        line-height: 20px;
+        justify-content: space-between;
+      }
+
+      #referfriend-invitation-content .code-top{
+        font-size:14px;
+      }
+
+
+
+      #referfriend-invitation-content .copy-input {
+        margin-top: 0;
+        width: 100%;
+      }
+      #referfriend-invitation-content .modal-container{
+        width: 368px;
+      height: 460px;
+      padding: 48px 0;
+      }
+      #referfriend-invitation-content .textarea-content {
+        /* width: 300px;
+          height: 150px; */
+        padding: 10px;
+        resize: none;
+        /* width: 335px; */
+        width: 100%;
+        height: 118px;
+        background: #ffffff;
+        border-radius: 16px 16px 16px 16px;
+        border: 1px solid #9f9f9f;
+        font-weight: 400;
+        font-size: 14px;
+        box-sizing: border-box;
+      }
+      #referfriend-invitation-content .copy-btn {
+        position: absolute;
+        /* width: 335px; */
+        width: 100%;
+        height: 40px;
+        background: #000000;
+        border-radius: 90px 90px 90px 90px;
+        left: 0;
+        bottom: 0;
+        color: #ffffff;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        margin-left:0;
+      }
+      #referfriend-invitation-content .render-area {
+        width: 100%;
+        display: block;
+        align-items: center;
+        border-radius: 8px;
+        border: 0px;
+        margin-bottom: 20px;
+      }
+      #referfriend-invitation-content .invitation-detail {
+        margin-top: 20px;
+        min-height: 100%;
+      }
+      #referfriend-invitation-content .invitation-detail .description-text {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      #referfriend-invitation-content .description-product {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 20px 0px 0px;
+      }
+      #referfriend-invitation-content .description-product .description-data {
+        margin-left: 32px;
+      }
+      #referfriend-invitation-content .invitation-detail .description-text .description-title {
+        width: 160px;
+        display: inline-block;
+        margin: 0px;
+        font-size: 12px;
+      }
+      #referfriend-invitation-content .invitation-detail .description-text .description-data {
+        display: inline-block;
+        margin-left: 0px;
+        font-size: 12px;
+        margin-left:16px;
+      }
+      #referfriend-invitation-content .order-amount {
+        padding-right: 20px;
+        border: none;
+      }
+      #referfriend-invitation-content .hidden-br {
+        display: none;
+      }
+      #referfriend-invitation-content .show-symbol {
+        display: inline-block;
+        text-decoration: none;
+        /* 去除下划线 */
+        color: inherit;
+        /* 继承父元素颜色 */
+        cursor: pointer;
+      }
+      #referfriend-invitation-content .description-title p,
+      #referfriend-invitation-content .description-data p {
+        font-weight: 500;
+        font-size: 12px;
+        color: #000000;
+        line-height: 16px;
+      }
+      #referfriend-invitation-content .description-title img{
+      width:160px;
+    }
+      #referfriend-invitation-content .tabs {
+        display: none;
+        cursor: pointer;
+        margin: 20px 0;
+        font-size: 16px;
+      }
+      #referfriend-invitation-content .tabs div {
+        display: inline-block;
+        padding: 6px 6px;
+        transition: background-color 0.3s ease;
+      }
+      #referfriend-invitation-content .order-num {
+        font-weight: 500;
+        font-size: 16px;
+        min-width: 100px;
+        white-space: nowrap;
+        /* 防止换行 */
+        overflow: hidden;
+        /* 隐藏溢出的部分 */
+        text-overflow: ellipsis;
+        /* 超出的部分用省略号表示 */
+      }
+      #referfriend-invitation-content .tab-content {
+        display: none;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        margin: 10px 0px;
+      }
+      #referfriend-invitation-content .tab-content.active {
+        display: block;
+        opacity: 1;
+        visibility: visible;
+      }
+      #referfriend-invitation-content .table-header {
+        padding: 8px 0;
+        justify-content: space-between;
+        height: auto;
+        font-size: 18px;
+      }
+      #referfriend-invitation-content .table-header span:nth-child(1) {
+        font-size: 18px;
+        margin-left: 10px;
+      }
+      #referfriend-invitation-content .table-header span:nth-child(2) {
+        font-size: 18px;
+        margin-right: 10px;
+      }
+      #referfriend-invitation-content .table-content {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        border-bottom: 1px solid #f0f0f0;
+        padding: 20px 16px;
+      }
+      #referfriend-invitation-content .base-information {
+        margin-left: 10px;
+        text-align: left;
+      }
+      #referfriend-invitation-content .no-record{
+        font-size: 16px;
+        padding:20px 0;
+      }
+      #referfriend-invitation-content .base-price {
+        margin-right: 10px;
+        text-align: right;
+      }
+      #referfriend-invitation-content .base-information p:nth-child(1) {
+        font-weight: 500;
+        font-size: 18px;
+        white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 20ch;
+      }
+      #referfriend-invitation-content .base-information p:nth-child(2) {
+        font-size: 18px;
+      }
+      #referfriend-invitation-content .base-price p:nth-child(1) {
+        font-size: 18px;
+        font-weight: 500;
+      }
+      #referfriend-invitation-content .base-information p:nth-child(2),
+      #referfriend-invitation-content .base-price p:nth-child(2) {
+        font-size: 18px;
+      }
+      #referfriend-invitation-content .pending, #referfriend-invitation-content .withdraw {
+        min-height: 130px;
+      }
+
+      #referfriend-invitation-content .ped-price-total {
+        margin: 16px 0 2px 0;
+        font-size: 20px;
+        line-height: 1.2;
+      }
+      #referfriend-invitation-content .ped-price-des {
+        font-size: 12px;
+        line-height: 1.2;
+        width: 94px;
+        text-align: center;
+        margin: 0 auto;
+      }
+      #referfriend-invitation-content .withdraw-btn {
+        width: 100px;
+        height: 32px;
+        font-size: 14px;
+      }
+      #referfriend-invitation-content .invitation-detail .order-num {
+        font-size: 16px;
+        margin-bottom: 0px;
+      }
+      #referfriend-invitation-content .success-des {
+      font-weight: 500;
+      font-size: 23px;
+      color: #000000;
+      line-height: 24px;
+      }
+      #referfriend-invitation-content .code-error{
+      position:absolute;
+      bottom: 50px
+    }
+    }
+
+    /* === Invitation Product Block === */
+  .invitation-product {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 48px;
+    {% comment %} margin: 40px 0; {% endcomment %}
+    {% comment %} gap: 40px; {% endcomment %}
+  }
+
+  .invitation-product__image img {
+    width: 200px;
+    height: auto;
+    {% comment %} border-radius: 12px; {% endcomment %}
+  }
+
+  .invitation-product__info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height:200px;
+    margin-left:32px;
+  }
+
+  .invitation-product__title {
+    font-weight: 500;
+    font-size: 28px;
+    line-height:28px;
+    color: #000000;
+    margin-bottom: 16px;
+  }
+
+  .invitation-product__desc {
+    font-size: 16px;
+    color: #4d4d4d;
+    margin-bottom: 5px;
+    line-height:16px;
+  }
+
+  .invitation-product__pricing {
+    display: flex;
+    gap: 40px;
+    {% comment %} margin-bottom: 20px; {% endcomment %}
+  }
+
+  .invitation-product__label {
+    font-size: 16px;
+    color: #000;
+    line-height:16px;
+    margin-bottom: 5px;
+  }
+
+  .invitation-product__value {
+    font-size: 24px;
+    line-height:24px;
+    font-weight: 500;
+    color: #000000;
+  }
+
+  .invitation-product__value--highlight {
+    color: #e0004d;
+  }
+
+  .invitation-product__copy-btn {
+    width: 180px;
+    height: 42px;
+    font-size: 18px;
+    font-weight: 400;
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+  }
+
+  .invitation-product__copy-btn:hover {
+    background-color: #333333;
+  }
+
+  {% comment %} 登录弹窗样式 start {% endcomment %}
+  .no-scroll {
+    overflow: hidden;
+  }
+
+  .login-modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: none;
+    background-color: rgba(0,0,0,0.6);
+    z-index: 9999;
+  }
+
+  .login-modal .login-modal-container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 90%;
+    max-width: 386px;
+    {% comment %} min-height: 394px; {% endcomment %}
+    border-radius: 10px;
+    background-color: #fff;
+    {% comment %} overflow: hidden; {% endcomment %}
+  }
+
+  .login-modal .login-modal-top{
+    position: relative;
+    width: 100%;
+    height: 146px;
+    display: flex;
+    align-items: center;
+    background: url('https://cdn.shopify.com/s/files/1/0746/7168/5655/files/Frame_457393619_2x_8a72289d-993a-452b-8265-6d3c699efc4e.png?v=1750042701') no-repeat center center;
+    background-size: cover;
+    top: -1px;
+    border-top-left-radius:10px;
+    border-top-right-radius:10px;
+  }
+
+  .login-modal  .login-modal-title{
+    margin-left: 34px;
+    padding-top: 14px;
+    width: 186px;
+    font-weight: 700;
+    line-height: 34px;
+    font-size: 28px;
+    color: #070707;
+  }
+
+  .login-modal  .login-modal-close{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    padding: 2px;
+  }
+
+  .login-modal .close-m{
+    display: none;
+  }
+
+  .login-modal .login-modal-content {
+    padding: 18px 28px;
+    box-sizing: border-box;
+
+  }
+
+  .login-modal-desc{
+    font-size: 14px;
+    text-align:center;
+    font-weight: 400;
+    margin-bottom: 15px;
+  }
+
+  .login-modal .login-modal-text{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .login-modal .login-modal-text span{
+    margin: 0 4px;
+    font-weight: 700;
+  }
+
+  .login-modal input{
+      width: 100%;
+      height: 44px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      text-align: left;
+      font-size: 14px;
+      color: rgba(0,0,0,0.9);
+      padding:0 15px;
+  }
+
+  .login-modal  input::placeholder {
+    font-size: 14px;
+    color: rgba(0,0,0,0.4);
+  }
+
+  .login-modal input:focus {
+    border-color: #007BFF;
+    outline: none;
+  }
+
+  .login-modal .form-group{
+    margin-bottom: 15px;
+  }
+
+  .login-modal .form-group.error input{
+    border: 1px solid #E0004D;
+  }
+
+  .login-modal .form-group .error{
+    margin-top: 5px;
+    text-align: left;
+    color: #E0004D;
+    font-size: 12px;
+  }
+
+  .login-modal .form-submit {
+    width: 100%;
+    height: 44px;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    border-radius: 4px;
+    color: #fff;
+    background: #E0004D;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .login-modal .form-submit.disabled {
+    opacity: 0.8;
+  }
+
+  .login-modal .form-submit:hover{
+    opacity: 0.8;
+  }
+
+  .login-modal .loading-icon {
+    display: none;
+    animation: spin 1s linear infinite;
+    transform-origin: center;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  {% comment %} 登录弹窗样式 end {% endcomment %}
+
+
+
+  /* === Mobile Responsive === */
+  @media (max-width: 768px) {
+    .invitation-product {
+      margin: 20px 0 5px;
+    }
+
+    .login-modal-desc{
+      font-size: 12px;
+    }
+    .invitation-product__image img {
+      width: 130px;
+    }
+    .invitation-product__title {
+      font-size: 16px;
+      margin-bottom: 4px;
+      line-height:18px;
+    }
+    .invitation-product__desc {
+      font-size: 10px;
+      line-height: 1.3;
+      margin-bottom: 6px;
+      width: 100%;
+    }
+    .invitation-product__info{
+      height: 130px;
+      margin-left:15px;
+    }
+
+    .invitation-product__pricing {
+      margin-bottom: 5px;
+    }
+    .invitation-product__value {
+      line-height:14px;
+      font-size: 20px;
+    }
+
+    .invitation-product__copy-btn {
+      width: 100%;
+      max-width: 100%;
+      height: 30px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size: 14px;
+    }
+
+    .invitation-product__label {
+      margin-bottom: 6px;
+      line-height:10px;
+      font-size:12px;
+    }
+
+    #referfriend-invitation-content .code-text {
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    #referfriend-invitation-content .copy-wrap{
+      margin-left: 0px;
+    }
+
+    #referfriend-invitation-content .gameplay-box-item{
+      padding:12px;
+    }
+
+    #referfriend-invitation-content .code-disscount{
+      margin-top:4px;
+      font-size:12px;
+      line-height:14px;
+    }
+
+    #referfriend-invitation-content .gameplay-box-info{
+      margin-bottom: 24px;
+    }
+
+    {% comment %} 登录弹窗移动端样式 start {% endcomment %}
+    .login-modal .login-modal-container{
+      {% comment %} min-height: 336px; {% endcomment %}
+    }
+
+    .login-modal .login-modal-top{
+      height: 124px;
+    }
+
+    .login-modal  .login-modal-title{
+      width: 165px;
+      margin-left: 30px;
+      padding-top: 16px;
+      font-size: 25px;
+      line-height: 30px;
+    }
+
+    .login-modal .login-modal-content{
+      padding: 16px 28px;
+    }
+
+    .login-modal .login-modal-text{
+      font-size: 13px;
+    }
+
+    .login-modal input{
+      height: 38px;
+      font-size: 12px
+    }
+
+    .login-modal  input::placeholder {
+      font-size: 12px
+    }
+
+    .login-modal .form-submit{
+      height: 38px;
+      font-size: 16px;
+    }
+
+    .login-modal  .login-modal-close {
+      right: 0;
+      top: -40px;
+    }
+
+    .login-modal  .close-pc{
+      display: none;
+    }
+
+    .login-modal  .close-m{
+      display: block;
+    }
+
+    {% comment %} 登录弹窗移动端样式 end {% endcomment %}
+
+  }
+
+
+  @media (max-width: 768px) {
+    .login-modal .login-modal-text {
+      font-size: 12px;
+    }
+    .login-modal .login-modal-content {
+        padding: 16px 16px;
+    }
+  }
+</style>
+<script>
+  {% comment %} var getLoginStatus = '{{ customer.email }}' ? true : false; {% endcomment %}
+  var getLoginStatus = '{{ customer.log_in }}' ? true : false;
+</script>
+{{ 'refer-friend-main.js' | asset_url | script_tag }}
+
+<div class="container" id="referfriend-invitation-content">
+  <div class="gameplay-box gameplay-box-top  gameplay-box-info">
+    <p class="title">Program Introduction</p>
+    <div class="gameplay-description">
+      <p>Invite your friends, and earn $50 cash per order!</p>
+      <p>Your cash can be withdrawn via PayPal.</p>
+
+      <p>How to invite:</p>
+      <p>1. Share your invite code - your friends use it to get a discount when they place an order.</p>
+      <p>2. Share your invite link - friends click, order with a discount, and your commision will be paid out.</p>
+    </div>
+  </div>
+  <div
+    class="gameplay-box gameplay-box-copycode gameplay-box-item"
+    data-productId="8184944394481"
+    data-variant="44485783814385"
+    data-url="https://www.ulike.com/products/sapphire-air-10-ipl-hair-removal"
+  >
+    <div class="copy-code-top">
+      <div>
+        <div class="code-wrap">
+          <div class="code-text">Air 10 Invitation Code：</div>
+          <div class="code-top">------</div>
+        </div>
+      </div>
+      <div class="copy-wrap">
+        <div class="copy-svg">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 17" fill="none">
+            <g id="file-copy">
+              <g id="Union">
+                <path
+                  d="M3.99995 2.31644C3.99995 1.7318 4.52001 1.39453 4.9953 1.39453H9.36584C9.63437 1.39453 9.89162 1.50253 10.0797 1.69422L13.7139 5.39868C13.8972 5.58546 13.9999 5.83662 14.0001 6.09828L14.0046 12.4723C14.0046 13.0569 13.4846 13.3945 13.0093 13.3945H4.99995C4.52472 13.3945 4.00474 13.0573 4.00461 12.4728L3.99995 2.31644ZM4.99999 2.39453L5.00457 12.3945H13.0046L13.0003 6.40729H9.00004V2.39453H4.99999ZM10 3.04098V5.40729H12.3215L10 3.04098Z"
+                  fill="black" />
+                <path d="M2 5.39454V14.4073C2 14.9596 2.44772 15.4073 3 15.4073H11V14.4073L3 14.4073V5.39454H2Z"
+                  fill="black" />
+              </g>
+            </g>
+          </svg>
+        </div>
+        <div class="copy-btn-top">Copy</div>
+      </div>
+    </div>
+    <div class="code-disscount">Share with a friend and they can get <span></span> off</div>
+
+    <div class="invitation-product">
+      <div class="invitation-product__image">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0632/6275/2833/files/product1.png?v=1749714535"
+          alt="Ulike Air 10"
+        >
+      </div>
+      <div class="invitation-product__info">
+        <div>
+          <p class="invitation-product__title">Ulike Air 10</p>
+          <p class="invitation-product__desc">The next-generation in simple, lasting hair removal</p>
+        </div>
+        <div class="invitation-product__pricing">
+          <div class="invitation-product__price">
+            <div class="invitation-product__label">Price</div>
+            <div class="invitation-product__value invitation-product__value--highlight">$349</div>
+          </div>
+          <div class="invitation-product__commission">
+            <div class="invitation-product__label">Commission</div>
+            <div class="invitation-product__value">$50</div>
+          </div>
+        </div>
+        <button class="invitation-product__copy-btn">Copy Link</button>
+      </div>
+    </div>
+    {% comment %} 第二个 {% endcomment %}
+  </div>
+  {% comment %} <div
+    class="gameplay-box gameplay-box-copycode gameplay-box-item"
+    data-productId="7914926145777"
+    data-variant="43695950823665"
+    data-url="https://www.ulike.com/products/sapphire-air-3-ipl-hair-removal"
+  >
+    <div class="copy-code-top">
+      <div>
+        <div class="code-wrap">
+          <div class="code-text">Air 3 Invitation Code：</div>
+          <div class="code-top">------</div>
+        </div>
+      </div>
+      <div class="copy-wrap">
+        <div class="copy-svg">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 17" fill="none">
+            <g id="file-copy">
+              <g id="Union">
+                <path
+                  d="M3.99995 2.31644C3.99995 1.7318 4.52001 1.39453 4.9953 1.39453H9.36584C9.63437 1.39453 9.89162 1.50253 10.0797 1.69422L13.7139 5.39868C13.8972 5.58546 13.9999 5.83662 14.0001 6.09828L14.0046 12.4723C14.0046 13.0569 13.4846 13.3945 13.0093 13.3945H4.99995C4.52472 13.3945 4.00474 13.0573 4.00461 12.4728L3.99995 2.31644ZM4.99999 2.39453L5.00457 12.3945H13.0046L13.0003 6.40729H9.00004V2.39453H4.99999ZM10 3.04098V5.40729H12.3215L10 3.04098Z"
+                  fill="black" />
+                <path d="M2 5.39454V14.4073C2 14.9596 2.44772 15.4073 3 15.4073H11V14.4073L3 14.4073V5.39454H2Z"
+                  fill="black" />
+              </g>
+            </g>
+          </svg>
+        </div>
+        <div class="copy-btn-top">Copy</div>
+      </div>
+    </div>
+    <div class="code-disscount">Share with a friend and they can get <span></span> off</div>
+    {% comment %}
+      <div class="copy-input">
+        <textarea rows="10" cols="10" class="textarea-content" disabled>------</textarea>
+        <button class="copy-btn">Copy</button>
+      </div>
+    {% endcomment %}
+    <div class="invitation-product">
+      <div class="invitation-product__image">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0632/6275/2833/files/product3.png?v=1749714534"
+          alt="Ulike Air 3"
+        >
+      </div>
+      <div class="invitation-product__info">
+        <div>
+          <p class="invitation-product__title">Ulike Air 3</p>
+          <p class="invitation-product__desc">Long-lasting hair removal from the comfort of home</p>
+        </div>
+        <div class="invitation-product__pricing">
+          <div class="invitation-product__price">
+            <div class="invitation-product__label">Price</div>
+            <div class="invitation-product__value invitation-product__value--highlight">$329</div>
+          </div>
+          <div class="invitation-product__commission">
+            <div class="invitation-product__label">Commission</div>
+            <div class="invitation-product__value">$50</div>
+          </div>
+        </div>
+        <button class="invitation-product__copy-btn">Copy Link</button>
+      </div>
+    </div>
+  </div> {% endcomment %}
+
+  {% comment %} 第三个 {% endcomment %}
+  <div
+    class="gameplay-box gameplay-box-copycode gameplay-box-item"
+    data-productId="8790509945073"
+    data-url="https://www.ulike.com/products/ulike-reglow-led-light-therapy-mask"
+  >
+    {% comment %} <p class="title">My Invitation Code</p> {% endcomment %}
+    <div class="copy-code-top">
+      <div>
+        <div class="code-wrap">
+          <div class="code-text">ReGlow Invitation Code：</div>
+          <div class="code-top">------</div>
+        </div>
+      </div>
+      <div class="copy-wrap">
+        <div class="copy-svg">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 17" fill="none">
+            <g id="file-copy">
+              <g id="Union">
+                <path
+                  d="M3.99995 2.31644C3.99995 1.7318 4.52001 1.39453 4.9953 1.39453H9.36584C9.63437 1.39453 9.89162 1.50253 10.0797 1.69422L13.7139 5.39868C13.8972 5.58546 13.9999 5.83662 14.0001 6.09828L14.0046 12.4723C14.0046 13.0569 13.4846 13.3945 13.0093 13.3945H4.99995C4.52472 13.3945 4.00474 13.0573 4.00461 12.4728L3.99995 2.31644ZM4.99999 2.39453L5.00457 12.3945H13.0046L13.0003 6.40729H9.00004V2.39453H4.99999ZM10 3.04098V5.40729H12.3215L10 3.04098Z"
+                  fill="black" />
+                <path d="M2 5.39454V14.4073C2 14.9596 2.44772 15.4073 3 15.4073H11V14.4073L3 14.4073V5.39454H2Z"
+                  fill="black" />
+              </g>
+            </g>
+          </svg>
+        </div>
+        <div class="copy-btn-top">Copy</div>
+      </div>
+    </div>
+    <div class="code-disscount">Share with a friend and they can get <span></span> off</div>
+
+    <div class="invitation-product">
+      <div class="invitation-product__image">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0632/6275/2833/files/product2.png?v=1749714534"
+          alt="Ulike ReGlow"
+        >
+      </div>
+      <div class="invitation-product__info">
+        <div>
+          <p class="invitation-product__title">Ulike ReGlow</p>
+          <p class="invitation-product__desc">The breakthrough skin renewalmask powered by advanced LEDs</p>
+        </div>
+        <div class="invitation-product__pricing">
+          <div class="invitation-product__price">
+            <div class="invitation-product__label">Price</div>
+            <div class="invitation-product__value invitation-product__value--highlight">$399</div>
+          </div>
+          <div class="invitation-product__commission">
+            <div class="invitation-product__label">Commission</div>
+            <div class="invitation-product__value">$50</div>
+          </div>
+        </div>
+        <button class="invitation-product__copy-btn" data-url>Copy Link</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="gameplay-box">
+    <div class="title">My Rewards<span class="rewards-more">More&nbsp;&nbsp;></span></div>
+    <div class="price-area">
+      <div class="pending">
+        <p class="ped-price-total">$0</p>
+        <p class="ped-price-des">Pending Rewards</p>
+      </div>
+      <div class="withdraw">
+        <p class="ped-price-total">$0</p>
+        <p class="ped-price-des">Cash Available for Withdrawal</p>
+        <button class="withdraw-btn">Withdraw</button>
+      </div>
+    </div>
+  </div>
+  <div class="gameplay-box title tabs-title">Invitation record</div>
+  <!-- 标签区域 -->
+  <div class="tabs">
+    <div class="tab" data-tab="1">Invitation Records</div>
+    <div class="tab" data-tab="2">Commission Details</div>
+  </div>
+
+  <!-- 内容区域 -->
+  <div id="tab-content-1" class="tab-content">
+    <div class="gameplay-box invitation-record-batch">
+      <div class="title">
+        Invitation record
+        <span class="rewards-more">More&nbsp;&nbsp;></span>
+      </div>
+      <div class="invitation-detail" id="invitation-record-list">
+        <!-- 订单项会在这里渲染 -->
+      </div>
+    </div>
+  </div>
+  <div id="tab-content-2" class="tab-content">
+    <div class="table-header">
+      <span>Type</span>
+      <span>Amount</span>
+    </div>
+    <div class="amount-record-list"></div>
+  </div>
+
+  <div class="modal-copysuccess">
+    <span class="circle-check"> ✓ </span>
+    Copied Success
+  </div>
+  <div class="dlio-error">error</div>
+  <!-- 修改后的弹窗结构 -->
+  <div class="modal-mask"></div>
+  <div class="modal-container">
+    <!-- 新增关闭按钮 -->
+    <div class="modal-close">
+      <img
+        class="windows-bg"
+        loading="lazy"
+        src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/closed-img.png?v=1746619125"
+        alt=""
+        width="100%"
+      >
+    </div>
+    <div class="modal-header">
+      <p class="modal-title">Withdrawal</p>
+      <p class="modal-price">$50</p>
+      <p class="iput-email-title">Email<span class="order-status-red asterisk">&nbsp;*</span></p>
+      <input class="withdrawal-email" type="text" placeholder="Enter email">
+      <p class="email-default">Please enter your PayPal email address for withdrawal</p>
+      <p class="email-error">The email format is incorrect.</p>
+
+      <p class="iput-code-title">Code<span class="order-status-red asterisk">&nbsp;*</span></p>
+      <div class="code-wrapper">
+        <input class="withdrawal-code" type="text" placeholder="Enter code" maxlength="6">
+        <span class="getcode">Get code</span>
+      </div>
+      <p class="code-error">Verification code error.</p>
+      <button class="submit-btn">Submit</button>
+    </div>
+    <div class="modal-body">
+      <div class="success-img">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/cycle-success.png?v=1746619125"
+          alt=""
+          width="77px"
+          height="77px"
+          loading="lazy"
+        >
+      </div>
+      <p class="success-des">The application has been submitted and it is expected to arrive within one hour.</p>
+      <button class="success-btn">View withdrawal details</button>
+      <!-- <button class="modal-button modal-error"></button> -->
+    </div>
+  </div>
+
+  {% comment %} 登录弹窗 start {% endcomment %}
+  <div class="login-modal">
+    <div class="login-modal-container">
+      <div class="login-modal-top">
+        <div class="login-modal-title">Earn Big Cash Rewards</div>
+        <div class="login-modal-close">
+          {% comment %} pc端图标 {% endcomment %}
+          <svg
+            class="close-pc"
+            width="24"
+            height="25"
+            viewBox="0 0 24 25"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g id="close">
+              <path id="Union" d="M12.0006 14.1323L16.6144 18.7462L17.9933 17.3673L13.3794 12.7535L17.9933 8.13964L16.6144 6.76078L12.0006 11.3746L7.38667 6.76074L6.00781 8.1396L10.6217 12.7535L6.00781 17.3674L7.38667 18.7462L12.0006 14.1323Z" fill="white"/>
+            </g>
+          </svg>
+          {% comment %} m端图标 {% endcomment %}
+          <svg
+            class="close-m"
+            width="28"
+            height="28"
+            viewBox="0 0 28 28"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g id="Frame 22">
+              <rect x="0.5" y="0.5" width="27" height="27" rx="13.5" stroke="white" stroke-opacity="0.9"/>
+              <g id="close">
+                <path id="Union" d="M13.9991 14.9183L17.075 17.9942L17.9942 17.075L14.9183 13.9991L17.9942 10.9232L17.075 10.0039L13.9991 13.0798L10.9231 10.0039L10.0039 10.9231L13.0798 13.9991L10.0039 17.075L10.9231 17.9942L13.9991 14.9183Z" fill="white" fill-opacity="0.9"/>
+              </g>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <div class="login-modal-content">
+        <div class="login-modal-desc">Sign up or log in to get your invite link</div>
+        <form id="loginForm" novalidate>
+          <div class="form-group">
+            <input type="email" class="login-email" name="email" placeholder="Please enter your email" required>
+            <div class="error" id="emailError"></div>
+          </div>
+          <div class="form-group">
+            <input type="password" class="login-password" name="password" placeholder="Set Password" required>
+            <div class="error" id="passwordError"></div>
+          </div>
+          <button class="form-submit" type="submit">
+            <span>Submit</span>
+            <svg
+              t="1750071730678"
+              class="icon loading-icon"
+              viewBox="0 0 1024 1024"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              p-id="2032"
+              width="30"
+              height="30"
+            >
+              <path d="M512 170.666667C323.477333 170.666667 170.666667 323.477333 170.666667 512s152.810667 341.333333 341.333333 341.333333 341.333333-152.810667 341.333333-341.333333h85.333334c0 235.648-191.018667 426.666667-426.666667 426.666667S85.333333 747.648 85.333333 512 276.352 85.333333 512 85.333333v85.333334z" p-id="2033" fill="#ffffff"></path>
+            </svg>
+          </button>
+        </form>
+        <div class="login-modal-text">
+          <span>9,874</span>
+          <div>people have already claimed</div>
+          <span>$100</span>
+          <svg class width="32" height="18" viewBox="0 0 32 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g id="Frame 457393804">
+              <path id="Vector" d="M0 0V14.8115H29.8181V0H0ZM28.1681 9.86249C28.0797 9.84475 27.9733 9.84475 27.8666 9.84475C25.9331 9.84475 24.3544 11.406 24.3369 13.3392H5.1441C5.12636 11.4057 3.54766 9.84475 1.61418 9.84475V4.82481C3.51218 4.82481 5.05541 3.31706 5.1441 1.45454H24.3369C24.4253 3.3348 25.9688 4.82481 27.8666 4.82481C27.9733 4.82481 28.0797 4.82481 28.1681 4.80708V9.86249Z" fill="#87C596"/>
+              <path id="Vector_2" d="M30.8878 2.69629V15.7259H2.1875V17.5078H32.0056V2.69629H30.8878Z" fill="#87C596"/>
+              <path id="Vector_3" d="M15.6481 8.10758C15.5239 8.03662 15.3643 7.96567 15.2401 7.91246L15.0273 7.82377V9.71844C15.1701 9.69448 15.312 9.66591 15.453 9.63279C15.6304 9.59732 15.7723 9.49089 15.8964 9.33124C16.0029 9.1716 16.0738 8.99421 16.0738 8.81683C16.0738 8.62171 16.0383 8.4798 15.9674 8.37338C15.8964 8.26722 15.7723 8.17853 15.6481 8.10758ZM14.3887 4.80826C14.3 4.826 14.229 4.87921 14.1404 4.95016C14.0517 5.02112 13.9807 5.10981 13.9098 5.23398C13.8349 5.36255 13.8038 5.51193 13.8211 5.6597C13.8211 5.87255 13.8743 6.04994 13.9984 6.1741C14.1049 6.29827 14.2645 6.42244 14.4419 6.51113L14.6548 6.61756V4.7373H14.637C14.5483 4.75504 14.4774 4.77278 14.3887 4.80826Z" fill="#87C596"/>
+              <path id="Vector_4" d="M14.7439 2.12891C11.893 2.12891 9.58203 4.43987 9.58203 7.29075C9.58065 10.1416 11.8908 12.4534 14.7417 12.4548C17.5925 12.4562 19.9043 10.1461 19.9057 7.29518V7.29047C19.9057 4.43987 17.5945 2.12891 14.7439 2.12891ZM16.837 8.90493C16.7838 9.10005 16.6773 9.24196 16.5532 9.38414C16.429 9.52605 16.2871 9.63248 16.1452 9.70315C16.0033 9.77411 15.8436 9.82732 15.684 9.88081C15.5244 9.91629 15.3647 9.95176 15.2051 9.9695L15.0099 9.98697V10.306H14.6374V9.96923C14.5133 9.95149 14.4068 9.93347 14.3182 9.91601C14.2295 9.89855 14.123 9.8628 14.0166 9.82732C13.9102 9.79184 13.8037 9.73891 13.6973 9.68542C13.593 9.63294 13.4923 9.57369 13.3958 9.50803C13.2893 9.43708 13.2006 9.33037 13.0942 9.20648C12.9878 9.08231 12.9523 8.95815 12.9346 8.81624C12.9346 8.69207 12.9523 8.5679 12.9878 8.47921C13.041 8.37278 13.0942 8.30183 13.1829 8.24861C13.2792 8.19028 13.3896 8.15959 13.5022 8.15992C13.6441 8.15992 13.7683 8.1954 13.857 8.26635C13.9456 8.3373 13.9989 8.426 14.0166 8.51469C14.0343 8.60338 14.0166 8.67433 13.9989 8.72755C13.9811 8.78076 13.9456 8.81624 13.9102 8.83398L13.7328 8.94041C13.6973 8.97588 13.6618 9.01136 13.6264 9.06457C13.6086 9.11779 13.6618 9.20648 13.786 9.33065C13.8747 9.41934 13.9811 9.49029 14.0876 9.54351C14.194 9.59672 14.2827 9.6322 14.3536 9.6322L14.6197 9.68542V7.66325H14.6374C14.5665 7.62777 14.4778 7.61003 14.4068 7.57456C14.3182 7.53908 14.1762 7.45039 13.9634 7.32622C13.7699 7.21325 13.5961 7.06945 13.449 6.9005C13.3248 6.74086 13.2184 6.58121 13.1652 6.42157C13.0942 6.26193 13.0765 6.06681 13.0942 5.87168C13.1119 5.53466 13.2006 5.28632 13.3603 5.0912C13.5199 4.91382 13.6973 4.77191 13.857 4.68322C14.0127 4.59543 14.1798 4.52976 14.3536 4.4881L14.6552 4.41714V4.15107H15.0277V4.43488C15.1341 4.43488 15.2051 4.43488 15.276 4.45262C15.347 4.45262 15.4179 4.47008 15.5066 4.4881C15.5953 4.50584 15.755 4.54131 15.9678 4.61227C16.1807 4.68322 16.3758 4.78965 16.5177 4.96703C16.6596 5.14441 16.7306 5.28632 16.7306 5.42823C16.7306 5.57013 16.6596 5.71204 16.5354 5.81847C16.4113 5.9249 16.2694 5.97811 16.092 5.97811C15.9146 5.97811 15.7904 5.9249 15.6663 5.81847C15.5598 5.71204 15.5066 5.58787 15.5066 5.4637C15.5066 5.33954 15.5421 5.25084 15.6308 5.14441C15.7195 5.05572 15.755 5.00251 15.755 4.96703C15.755 4.93156 15.684 4.87834 15.5598 4.82513C15.4357 4.77191 15.3292 4.73643 15.2228 4.7187L14.9922 4.70096V6.77634C15.1696 6.84729 15.3647 6.91824 15.5953 7.00693C15.8018 7.07577 16.0033 7.15875 16.1984 7.25527C16.3758 7.34396 16.5532 7.48587 16.6951 7.68099C16.8547 7.87611 16.9257 8.07123 16.9257 8.30183C16.9257 8.51469 16.8902 8.70981 16.837 8.90493Z" fill="#87C596"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% comment %} 登录弹窗 end {% endcomment %}
+</div>
+
+{% schema %}
+{
+  "name": "Refer Friend Main",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "How It Works"
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "Refer Friend Main"
+    }
+  ]
+}
+{% endschema %}

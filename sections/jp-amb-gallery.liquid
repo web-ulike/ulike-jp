@@ -1,0 +1,384 @@
+{%- liquid
+  assign sid = section.id
+-%}
+
+<section class="jp-amb-gallery jp-amb-gallery--{{ sid }}">
+  <div class="container">
+    <div class="jp-amb-gallery__grid">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign bs = block.settings
+        -%}
+
+        <div class="jp-amb-gallery__item jp-amb-gallery__item--{{ forloop.index }}" {{ block.shopify_attributes }}>
+          <button
+            type="button"
+            class="jp-amb-gallery__video-card"
+            data-jp-amb-gallery-trigger
+            data-video-index="{{ forloop.index0 }}"
+            aria-label="Play video"
+          >
+            {%- if bs.video != blank -%}
+              {{ bs.video | video_tag:
+                class: 'jp-amb-gallery__video',
+                autoplay: false,
+                loop: false,
+                muted: false,
+                controls: false,
+                playsinline: true
+              }}
+            {%- endif -%}
+
+            {%- if bs.image != blank or bs.mobile_image != blank -%}
+              <picture class="jp-amb-gallery__cover">
+                {%- if bs.mobile_image != blank -%}
+                  <source media="(max-width: 768px)" srcset="{{ bs.mobile_image | image_url: width: 600 }}">
+                {%- endif -%}
+
+                {%- if bs.image != blank -%}
+                  <img
+                    class="jp-amb-gallery__image"
+                    src="{{ bs.image | image_url: width: 700 }}"
+                    alt="{{ bs.image.alt | escape }}"
+                    loading="lazy"
+                  >
+                {%- elsif bs.mobile_image != blank -%}
+                  <img
+                    class="jp-amb-gallery__image"
+                    src="{{ bs.mobile_image | image_url: width: 600 }}"
+                    alt="{{ bs.mobile_image.alt | escape }}"
+                    loading="lazy"
+                  >
+                {%- endif -%}
+              </picture>
+            {%- endif -%}
+
+            <span class="jp-amb-gallery__play" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="62" height="62" viewBox="0 0 62 62" fill="none">
+                <path d="M44.4791 29.7552C44.1724 29.4484 44.1724 29.4484 44.1724 29.4484L24.8469 18.4053C24.5401 18.0985 24.2334 18.0985 23.9266 18.0985C23.0063 18.0985 22.3928 18.712 22.3928 19.6323V42.3321C22.3928 43.2523 23.0063 43.8658 23.9266 43.8658C24.2334 43.8658 24.5401 43.8658 24.8469 43.5591L44.1724 32.5159H44.4791C44.7859 32.2092 45.0926 31.9024 45.0926 31.2889C45.0926 30.6754 44.7859 30.0619 44.4791 29.7552ZM25.4604 39.878V22.0863L41.1048 30.9822L25.4604 39.878Z" fill="white"/>
+                <path d="M30.9822 0C13.8039 0 0 13.8039 0 30.9822C0 48.1604 13.8039 61.9643 30.9822 61.9643C48.1604 61.9643 61.9643 48.1604 61.9643 30.9822C61.9643 13.8039 48.1604 0 30.9822 0ZM30.9822 59.2035C15.3377 59.2035 2.76079 46.6266 2.76079 30.9822C2.76079 15.3377 15.3377 2.76079 30.9822 2.76079C46.6266 2.76079 59.2035 15.3377 59.2035 30.9822C59.2035 46.6266 46.6266 59.2035 30.9822 59.2035Z" fill="white"/>
+              </svg>
+            </span>
+          </button>
+
+          {%- if bs.text != blank or bs.mobile_text != blank -%}
+            <div class="jp-amb-gallery__caption">
+              {%- if bs.text != blank -%}
+                <span class="jp-amb-gallery__caption-text jp-amb-gallery__caption-text--pc">{{ bs.text }}</span>
+              {%- endif -%}
+              {%- if bs.mobile_text != blank -%}
+                <span class="jp-amb-gallery__caption-text jp-amb-gallery__caption-text--mobile">{{ bs.mobile_text }}</span>
+              {%- elsif bs.text != blank -%}
+                <span class="jp-amb-gallery__caption-text jp-amb-gallery__caption-text--mobile">{{ bs.text }}</span>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const section = document.querySelector('.jp-amb-gallery--{{ sid }}');
+    if (!section) return;
+
+    const cards = section.querySelectorAll('[data-jp-amb-gallery-trigger]');
+
+    cards.forEach((card) => {
+      const video = card.querySelector('video');
+      if (!video) return;
+
+      card.addEventListener('click', () => {
+        const isPlaying = card.classList.contains('is-playing');
+
+        cards.forEach((otherCard) => {
+          if (otherCard === card) return;
+          const otherVideo = otherCard.querySelector('video');
+          if (otherVideo) {
+            otherVideo.pause();
+            otherVideo.currentTime = 0;
+          }
+          otherCard.classList.remove('is-playing');
+        });
+
+        if (isPlaying) {
+          video.pause();
+          card.classList.remove('is-playing');
+          return;
+        }
+
+        video.play().then(() => {
+          card.classList.add('is-playing');
+        }).catch(() => {});
+      });
+
+      video.addEventListener('ended', () => {
+        card.classList.remove('is-playing');
+        video.currentTime = 0;
+      });
+    });
+  })();
+</script>
+
+<style>
+  .jp-amb-gallery--{{ sid }} {
+    padding: 150px 0 200px;
+    background: #fff;
+    color: #000;
+  }
+
+  .jp-amb-gallery--{{ sid }} .jp-amb-gallery__grid {
+    width: 80%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 48px;
+    align-items: center;
+  }
+
+  .jp-amb-gallery--{{ sid }} .jp-amb-gallery__item {
+    text-align: center;
+  }
+
+  .jp-amb-gallery--{{ sid }} .jp-amb-gallery__item--2 {
+    transform: translateY(60px);
+  }
+
+  .jp-amb-gallery--{{ sid }} .jp-amb-gallery__video-card {
+    position: relative;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    display: block;
+    background: #f5f5f5;
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  .jp-amb-gallery--{{ sid }} picture {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .jp-amb-gallery--{{ sid }} .jp-amb-gallery__image,
+  .jp-amb-gallery--{{ sid }} .jp-amb-gallery__video {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+  }
+
+  .jp-amb-gallery--{{ sid }} .jp-amb-gallery__video {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .jp-amb-gallery--{{ sid }} .jp-amb-gallery__cover {
+    position: relative;
+    z-index: 2;
+    transition: opacity .25s ease, visibility .25s ease;
+  }
+
+  .jp-amb-gallery--{{ sid }} .jp-amb-gallery__cover .jp-amb-gallery__image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .jp-amb-gallery--{{ sid }} .jp-amb-gallery__play {
+    position: absolute;
+    right: 18px;
+    bottom: 18px;
+    z-index: 3;
+    width: 62px;
+    height: 62px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    pointer-events: none;
+  }
+
+  .jp-amb-gallery--{{ sid }} .jp-amb-gallery__play svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .jp-amb-gallery--{{ sid }} .jp-amb-gallery__video-card.is-playing .jp-amb-gallery__cover {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .jp-amb-gallery--{{ sid }} .jp-amb-gallery__video-card.is-playing .jp-amb-gallery__play {
+    display: none;
+  }
+
+  .jp-amb-gallery--{{ sid }} .jp-amb-gallery__caption {
+    margin-top: 40px;
+    font-size: 14px;
+    color: #000;
+    line-height: 1.5;
+  }
+
+  .jp-amb-gallery--{{ sid }} .jp-amb-gallery__caption-text {
+    display: inline-block;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .jp-amb-gallery--{{ sid }} .jp-amb-gallery__caption-text--mobile {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .jp-amb-gallery--{{ sid }} {
+      padding: 40px 0 20px;
+    }
+
+    .jp-amb-gallery--{{ sid }} .jp-amb-gallery__grid {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      align-items: stretch;
+    }
+
+    .jp-amb-gallery--{{ sid }} .jp-amb-gallery__item {
+      width: 100%;
+      transform: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .jp-amb-gallery--{{ sid }} .jp-amb-gallery__item--2 {
+      transform: none;
+    }
+
+    .jp-amb-gallery--{{ sid }} .jp-amb-gallery__video-card {
+      width: 100%;
+      margin: 0 auto;
+      order: 2;
+      aspect-ratio: 375 / 560;
+    }
+    .jp-amb-gallery--{{ sid }} picture {
+      height: 100%;
+    }
+    .jp-amb-gallery--{{ sid }} .jp-amb-gallery__cover {
+      position: absolute;
+      inset: 0;
+    }
+
+    .jp-amb-gallery--{{ sid }} .jp-amb-gallery__image,
+    .jp-amb-gallery--{{ sid }} .jp-amb-gallery__video {
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .jp-amb-gallery--{{ sid }} .jp-amb-gallery__video {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+
+    .jp-amb-gallery--{{ sid }} .jp-amb-gallery__cover .jp-amb-gallery__image {
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .jp-amb-gallery--{{ sid }} .jp-amb-gallery__caption {
+      order: 1;
+      width: 100%;
+      margin: 0 0 40px;
+      font-size: 20px;
+      line-height: 1.5;
+      color: #000;
+      text-align: center;
+      white-space: pre-line;
+    }
+
+    .jp-amb-gallery--{{ sid }} .jp-amb-gallery__caption-text--pc {
+      display: none;
+    }
+
+    .jp-amb-gallery--{{ sid }} .jp-amb-gallery__caption-text--mobile {
+      display: inline-block;
+      width: auto;
+      max-width: 100%;
+      text-align: center;
+      white-space: pre-line;
+      box-sizing: border-box;
+    }
+
+    .jp-amb-gallery--{{ sid }} .jp-amb-gallery__play {
+      right: 8px;
+      bottom: 8px;
+      width: 38px;
+      height: 38px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "JP Amb Gallery",
+  "blocks": [
+    {
+      "type": "video",
+      "name": "Video item",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "PC cover image"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile cover image"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Caption"
+        },
+        {
+          "type": "textarea",
+          "id": "mobile_text",
+          "label": "Mobile caption"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "JP Amb Gallery",
+      "blocks": [
+        {
+          "type": "video"
+        },
+        {
+          "type": "video"
+        },
+        {
+          "type": "video"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

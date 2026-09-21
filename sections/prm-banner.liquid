@@ -1,0 +1,506 @@
+<style>
+ #shopify-section-{{ section.id }} {
+--txt_color: {{ section.settings.txt_color}};
+  --code_text_color: {{ section.settings.code_text_color}};
+--prize_text_color: {{ section.settings.prize_text_color}};
+--note_text_color: {{ section.settings.note_text_color}};
+ }
+  
+  .shopify-section-group-header-group.topbar-section,.shopify-section-group-header-group.header-section,.footer-group{
+    display: none;
+  }
+  .main-content{
+    background-color: #fff;
+  }
+  .page-container{
+    overflow: hidden;
+    position: relative;
+  }
+    .section__inner{
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+  .md2-cnt svg{
+      color: var(--txt_color);
+  }
+  @media only screen and (min-width: 768px) {
+    body {
+          position: relative;
+      }
+      body:before {
+          content: "";
+          background: url({{section.settings.bg_image | image_url}}) no-repeat center center;
+          background-size: cover;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+  animation: ripple 4s cubic-bezier(0.2, 0, 0, 1);
+      }
+      .page-container{
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+        overflow: hidden;
+  }
+  }
+  @keyframes ripple {
+  0% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+  /* module1 start*/
+  .section-inner{
+    position: relative;
+  }
+  .kv_cnt{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .kv_cnt .title_kv{
+    font-family: var(--font-it-family);
+    color: #FFF;
+      /* text-align: center; */
+      font-size: 16vw;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 120%;
+      text-transform: uppercase;
+      padding-top: 10vw;
+      padding: 10vw 20px 0;
+     writing-mode: vertical-rl;
+  }
+  .kv_cnt .txt_kv{
+    color: #FFF;
+  text-align: center;
+  font-size: 4.2vw;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+  padding: 0 20px;
+  }
+  .hidden-pocke.title_kv{
+    visibility: hidden;
+  }
+  @media only screen and (min-width: 768px) {
+    .kv_cnt .title_kv{
+      width: 100%;
+      font-size: 80px;
+      padding-top: 50px;
+      margin: 0 auto 10px;
+    }
+    .kv_cnt .txt_kv{
+  font-size: 18px;
+  }
+  }
+  /* module1 end*/
+  /* md2-inner start*/
+  .md2-inner{
+    position: relative;
+    padding: 3.73vw 0 27vw 0;
+  }
+  .scroll {
+      position: absolute;
+      right: 3.5vw;
+      top: -29.3vw;
+    width: 4.5vw;
+  }
+  .svroll__inner-cus {
+      /* position: relative; */
+   width: 4.5vw;
+    display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2.66vw;
+  }
+  .ver__text-cus {
+      font-size: 3.2vw;
+        writing-mode: vertical-rl;
+      /* transform: rotate(-90deg); */
+  }
+  .ver__bar-cus {
+      display: block !important;
+      width: 0.25px;
+      height: 10.6vw;
+      background: #3F3636;
+      /* position: absolute;
+      left: 2.4vw;
+      top: 16vw; */
+  }
+  .md2-cnt {
+    text-align: center;
+    position: relative;
+  }
+  .md1-txt1{
+    color: var(--txt_color);
+  font-size: 3.5vw;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%;
+  margin-bottom: 5px;
+  letter-spacing: 1px;
+  }
+  .md1-txt1 strong{
+    font-family: var(--font-it-family);
+    font-size: 4.8vw;
+    font-style: normal;
+  font-weight: 400;
+  line-height: 130%;
+  }
+  .md1-txt1 em{
+    font-style: normal;
+  font-weight: 400;
+  line-height: 130%;
+    letter-spacing: -4.861px;
+  }
+  .md1-txt2{
+    color: var(--code_text_color);
+  text-align: center;
+  font-size: 10vw;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+  margin-bottom: 3.5vw;
+  display: flex;
+      justify-content: center;
+  }
+  .md1-txt2 strong,.md1-txt2 em{
+    font-size: 11.2vw;
+    font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+  font-family: var(--font-it-family);
+  }
+  .md1-txt2 em{
+      font-family: var(--font-it-family);
+  }
+  .md2-cnt svg{
+    width: 8vw;
+    height: 8vw;
+    margin: 0 auto 3.2vw;
+  }
+  .md1-txt3{
+    margin-top: 1.6vw;
+  }
+  .md1-txt4{
+    color: var(--code_text_color);
+  text-align: center;
+  font-size: 6.1vw;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+  margin-top: 1.3vw;
+  margin-bottom: 7vw;
+  }
+  .md1-box{
+    display: flex;
+    gap: 7px;
+  }
+  .md1-item{
+    position: relative;
+    border-radius: 20px;
+  background: #F8F5EF;
+  padding: 4vw;
+  text-align: left;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  border: 1px solid #E7B6CB;
+  }
+  .md1-fl-img{
+    position: absolute;
+    top: -8%;
+      right: 4%;
+    width: 6.13vw;
+  }
+  .md1-fl-img img{
+    width: 100%;
+  }
+  .md2-picture{
+    position: absolute;
+    width: 100%;
+    inset: 0;
+  }
+  .md2-picture img{
+    width: 100%;
+    inset: 0;
+    object-fit: cover;
+    position: absolute;
+    transform: translateY(-32%);
+  }
+  .md1-box .md1-item:nth-of-type(2) .md1-fl-img{
+    width: 16vw;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 2%;
+  }
+  .md1-fl-txt{
+    color: var(--prize_text_color);
+  font-size: 3.2vw;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%;
+  width: 30vw;
+  }
+  .md1-box .md1-item:nth-of-type(2) .md1-fl-txt{
+    width: 22.4vw;
+  }
+    .md1-txt5 {
+      font-size: 2.8vw;
+      color:var(--note_text_color);
+      text-align: left;
+      margin-top:10px;
+      line-height: 110%;
+text-transform: uppercase;
+  }
+  @media only screen and (min-width: 768px) {
+    .md2-inner{
+      padding: 16px 0 140px 0;
+    }
+    .md1-txt1 {
+      font-size: 18px;
+  }
+  .md1-txt1 strong {
+      font-size: 24px;
+  }
+  .md1-txt2 {
+      font-size: 50px;
+      margin-bottom: 17px;
+  }
+  .md1-txt2 strong,.md1-txt2 em {
+      font-size: 56px;
+  }
+  .md2-cnt svg{
+    width: 40px;
+    height: 40px;
+    margin-bottom: 13px;
+  }
+  .md1-txt4{
+      font-size: 30px;
+      margin-top: 6px;
+      margin-bottom: 35px;
+  }
+  .md1-item{
+    padding:20px;
+  }
+  .md1-fl-txt{
+      font-size: 16px;
+      width: 160px;
+  }
+  .md1-fl-img{
+    width: 30px;
+  }
+  .md1-box .md1-item:nth-of-type(2) .md1-fl-txt{
+    width: 112px;
+  }
+  .md1-box .md1-item:nth-of-type(2) .md1-fl-img {
+      width: 95px;
+  }
+  .scroll {
+      position: absolute;
+      right: 17px;
+      top: -146px;
+     width: 22px;
+  }
+  .svroll__inner-cus {
+   width: 22px;
+  gap:12px;
+  }
+
+  .ver__text-cus {
+      font-size: 16px;
+  }
+
+  .ver__bar-cus {
+      height: 53px;
+      /* left: 12px;
+      top: 80px; */
+  }
+      .md1-txt5 {
+      font-size: 10px;
+  }
+  }
+  /* md2-inner end*/
+</style>
+<section>
+  <div class="section-inner">
+    <div class="kv_cnt">
+     <div class="kv__top">
+        <h2 class="title_kv {% if section.settings.tle == blank %} hidden-pocket{% endif %}">{{ section.settings.tle }}</h2>
+      {%- if section.settings.txt != blank -%}
+      <div class="txt_kv to-top" style="transition-delay: 0.3s;">{{ section.settings.txt }}</div>
+        {%- endif -%}
+     </div>
+      <div class="md2-inner">
+        <div class="md2-cnt section__inner">
+          <div class="md1-txt1 to-top" style="transition-delay: 40ms;">{{ section.settings.txt_1 }}</div>
+          <div class="md1-txt2 to-top" style="transition-delay: 80ms;">{{ section.settings.txt_2 }}</div>
+         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none" class="to-top" style="transition-delay: 120ms;">
+            <path d="M13.5 19L1 31" stroke="currentColor"/>
+            <path d="M31.5 1L19 13.5" stroke="currentColor"/>
+            <path d="M1 1L31.5 31" stroke="currentColor"/>
+          </svg>
+          <div class="md1-txt1 to-top" style="transition-delay: 160ms;">{{ section.settings.txt_3 }}</div>
+          <div class="md1-txt4 to-top" style="transition-delay: 200ms;">{{ section.settings.txt_4 }}</div>
+
+          <div class="md1-box to-top" style="transition-delay: 240ms;">
+              {%- if section.settings.left_txt != blank -%}
+            <div class="md1-item">
+              <div class="md1-fl-txt">{{ section.settings.left_txt }}</div>
+              <div class="md1-fl-img">
+                {%- if section.settings.image_left -%}
+                  <img src="{{ section.settings.image_left | image_url }}" alt="">
+                {%- endif -%}
+              </div>
+            </div>
+            {%- endif -%}
+             {%- if section.settings.right_txt != blank -%}
+            <div class="md1-item">
+              <div class="md1-fl-txt">{{ section.settings.right_txt }}</div>
+              <div class="md1-fl-img">
+                {%- if section.settings.image_right -%}
+                  <img src="{{ section.settings.image_right | image_url }}" alt="">
+                {%- endif -%}
+              </div>
+            </div>
+             {%- endif -%}
+            
+          </div>
+          <div class="md1-txt5 to-top" style="transition-delay: 280ms;">{{ section.settings.txt_5 }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="kv_bg scale_img">
+      {%- if section.settings.image -%}
+        <img src="{{ section.settings.image | image_url }}" alt="">
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Prm Banner",
+  "class": "shopify-section--brand-md1",
+  "settings": [
+      {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        },
+    {
+          "type": "image_picker",
+          "id": "bg_image",
+          "label": "Background Images"
+        },
+    {
+      "type": "richtext",
+      "id": "tle",
+      "label": "Title"
+    },
+     {
+      "type": "text",
+      "id": "txt",
+      "label": "Text"
+    },
+     {
+      "type": "text",
+      "id": "scroll_txt",
+      "label": "Scroll Text"
+    },
+     {
+      "type": "richtext",
+      "id": "txt_1",
+      "label": "Text 1"
+    },
+    {
+      "type": "richtext",
+      "id": "txt_2",
+      "label": "Text 2"
+    },
+    {
+      "type": "richtext",
+      "id": "txt_3",
+      "label": "Text 3"
+    },
+    {
+      "type": "richtext",
+      "id": "txt_4",
+      "label": "Text 4"
+    },
+    {
+      "type": "richtext",
+      "id": "txt_5",
+      "label": "Text 5"
+    },
+ {
+          "type": "image_picker",
+          "id": "image_left",
+          "label": "Images Left"
+        },
+    {
+      "type": "richtext",
+      "id": "left_txt",
+      "label": "Text Left"
+    },
+     {
+      "type": "richtext",
+      "id": "right_txt",
+      "label": "Text Right"
+    },
+
+     {
+          "type": "image_picker",
+          "id": "image_right",
+          "label": "Images Right"
+        },
+    {
+      "type": "color",
+      "id": "txt_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "code_text_color",
+      "label": "Code Text color",
+      "default": "#ffffff"
+    },
+     {
+      "type": "color",
+      "id": "prize_text_color",
+      "label": "prize Text color",
+      "default": "#3F3636"
+    },
+      {
+      "type": "color",
+      "id": "note_text_color",
+      "label": "Note Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "rgba(0,0,0,0)"
+    }
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "Prm Banner"
+    }
+  ]
+}
+{% endschema %}

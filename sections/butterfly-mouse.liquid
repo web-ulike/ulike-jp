@@ -1,0 +1,171 @@
+<style>
+
+  #shopify-section-{{ section.id }}{
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+}
+
+  #follow-container {
+     position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: auto;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    will-change: transform;
+  }
+
+  .c-butterfly {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    pointer-events: none;
+    flex-wrap: nowrap;
+    display: flex;
+  }
+
+  .c-butterfly .wing--left {
+    perspective-origin: 100% center;
+  }
+
+  .c-butterfly .wing {
+    transform-origin: 50% center;
+    transform-style: preserve-3d;
+    perspective: 500px;
+  }
+
+
+  .c-butterfly .wing--left .wing__inner,
+  .c-butterfly .wing--right .wing__inner {
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0.33, 0, 0.67, 1);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    will-change: transform;
+  }
+
+  .c-butterfly .wing--left .wing__inner {
+    transform-origin: 100% center;
+    animation-name: rotateLeftWing;
+  }
+
+  .c-butterfly .wing--right {
+    perspective-origin: 0px center;
+  }
+
+  .c-butterfly .wing--right .wing__inner {
+    transform-origin: 0px center;
+    animation-name: rotateRightWing;
+  }
+
+  .c-butterfly .wing img {
+    width: 100%;
+    height: auto;
+  }
+
+
+  @keyframes rotateLeftWing {
+    50% {
+      transform: rotateY(80deg); 
+    }
+  }
+
+  @keyframes rotateRightWing {
+    50% {
+      transform: rotateY(-80deg);
+    }
+  }
+</style>
+
+
+ <div id="follow-container">
+    <div class="c-butterfly">
+      <div class="wing wing--left">
+        <div class="wing__inner">
+            {% if section.settings.left_image %}
+            <img data-butterfly-left="" src="{{ section.settings.left_image |   image_url }}"alt="left wing">
+            {% endif %}
+        </div>
+      </div>
+      <div class="wing wing--right">
+        <div class="wing__inner">
+             {% if section.settings.right_image %}
+            <img data-butterfly-right="" src="{{ section.settings.right_image |   image_url }}" alt="right wing">
+             {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+ const container = document.getElementById('follow-container');
+    const butterfly = container.querySelector('.c-butterfly');
+
+    // 记录位置
+    let currentX = window.innerWidth / 2;
+    let currentY = window.innerHeight / 2;
+    let targetX = currentX;
+    let targetY = currentY;
+    let prevX = currentX;
+    let prevY = currentY;
+    
+    let currentAngle = 0; 
+
+    const easeFactor = 0.15; // 缓冲系数，越小跟随越慢越柔和
+
+    // 监听鼠标移动
+    document.addEventListener('mousemove', (e) => {
+      targetX = e.clientX;
+      targetY = e.clientY;
+    });
+
+    // 动画更新函数
+    function update() {
+      // 1. 计算缓冲位置
+      currentX += (targetX - currentX) * easeFactor;
+      currentY += (targetY - currentY) * easeFactor;
+
+      // 2. 计算速度向量（当前位置减去上一帧位置）
+      const dx = currentX - prevX;
+      const dy = currentY - prevY;
+
+      // 更新上一帧位置
+      prevX = currentX;
+      prevY = currentY;
+
+      if (Math.abs(dx) > 0.1 || Math.abs(dy) > 0.1) {
+        currentAngle = Math.atan2(dy, dx) + (Math.PI / 2);
+      }
+      container.style.transform = `translate(-50%, -50%) translate(${currentX}px, ${currentY}px) rotateZ(${currentAngle}rad)`;
+
+      requestAnimationFrame(update);
+    }
+
+    update();
+</script>
+
+{% schema %}
+{
+  "name": "butterfly Mouse",
+  "settings": [
+     {
+        "type": "image_picker",
+        "id": "left_image",
+        "label": "Left Images"
+      },
+      {
+        "type": "image_picker",
+        "id": "right_image",
+        "label": "Right Images"
+      },
+  ],
+  "presets": [
+    {
+      "name": "butterfly Mouse"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,267 @@
+{%- liquid
+  assign sid = section.id
+  assign st = section.settings
+-%}
+
+<section
+  id="pd2026-countdown-{{ sid }}"
+  class="pd2026-countdown"
+  data-end-date="{{ st.end_date | escape }}"
+  data-every-day="{{ st.countdown_every_day }}"
+  data-fixed="{{ st.enable_fixed }}"
+>
+  <div class="pd2026-countdown__inner container">
+    {%- if st.title != blank -%}
+      <div class="pd2026-countdown__title to-top">{{ st.title }}</div>
+    {%- endif -%}
+
+    <div class="pd2026-countdown__timer to-top"  aria-live="polite">
+      <div class="pd2026-countdown__unit">
+        <span class="pd2026-countdown__number" data-days>00</span>
+        <span class="pd2026-countdown__label">{{ st.days_label }}</span>
+      </div>
+      <span class="pd2026-countdown__separator" aria-hidden="true">:</span>
+      <div class="pd2026-countdown__unit">
+        <span class="pd2026-countdown__number" data-hours>00</span>
+        <span class="pd2026-countdown__label">{{ st.hours_label }}</span>
+      </div>
+      <span class="pd2026-countdown__separator" aria-hidden="true">:</span>
+      <div class="pd2026-countdown__unit">
+        <span class="pd2026-countdown__number" data-minutes>00</span>
+        <span class="pd2026-countdown__label">{{ st.minutes_label }}</span>
+      </div>
+      <span class="pd2026-countdown__separator" aria-hidden="true">:</span>
+      <div class="pd2026-countdown__unit">
+        <span class="pd2026-countdown__number" data-seconds>00</span>
+        <span class="pd2026-countdown__label">{{ st.seconds_label }}</span>
+      </div>
+    </div>
+
+    {%- if st.button_text != blank and st.button_link != blank -%}
+      <a class="pd2026-countdown__button" href="{{ st.button_link }}">{{ st.button_text }}</a>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  #pd2026-countdown-{{ sid }} {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    background: #EAF8FF;
+    color: #190A0A;
+  }
+
+  #pd2026-countdown-{{ sid }}.is-fixed {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, .08);
+  }
+
+  #pd2026-countdown-{{ sid }} .pd2026-countdown__inner {
+    min-height: 110px;
+    display: flex;
+    padding: 23px 0;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  #pd2026-countdown-{{ sid }} .pd2026-countdown__title {
+    color: #190A0A;
+    font-size: 18px;
+    line-height: 1.2;
+    margin-top: 8px;
+  }
+
+  #pd2026-countdown-{{ sid }} .pd2026-countdown__timer {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  #pd2026-countdown-{{ sid }} .pd2026-countdown__unit {
+    display: grid;
+    justify-items: center;
+    gap: 10px;
+    min-width: 36px;
+  }
+
+  #pd2026-countdown-{{ sid }} .pd2026-countdown__separator {
+    color: #190A0A;
+    font-size: 21px;
+    line-height: 36px;
+  }
+
+  #pd2026-countdown-{{ sid }} .pd2026-countdown__number {
+    width: 39px;
+    height: 36px;
+    border-radius: 5px;
+    background: #190A0A;
+    display: flex;
+    padding: 6px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #FFF;
+    font-size: 21px;
+    font-weight: 400;
+  }
+
+  #pd2026-countdown-{{ sid }} .pd2026-countdown__label {
+    color: currentColor;
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  #pd2026-countdown-{{ sid }} .pd2026-countdown__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 30px;
+    padding: 0 18px;
+    border-radius: 999px;
+    background: #000000;
+    color: #ffffff;
+    font-size: 12px;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  @media screen and (max-width: 767px) {
+    #pd2026-countdown-{{ sid }} .pd2026-countdown__inner {
+      min-height: 150px;
+      padding: 40px 0 24px;
+      gap: 10px;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    #pd2026-countdown-{{ sid }} .pd2026-countdown__title {
+      max-width: none;
+      font-size: 18px;
+      margin-top: 8px;
+      white-space: normal;
+    }
+
+    #pd2026-countdown-{{ sid }} .pd2026-countdown__timer {
+      gap: 7px;
+    }
+
+    #pd2026-countdown-{{ sid }} .pd2026-countdown__unit {
+      gap: 12px;
+      min-width: 39px;
+    }
+
+    #pd2026-countdown-{{ sid }} .pd2026-countdown__number {
+      width: 39px;
+      height: 36px;
+      font-size: 21px;
+    }
+
+    #pd2026-countdown-{{ sid }} .pd2026-countdown__label {
+      font-size: 14px;
+    }
+
+    #pd2026-countdown-{{ sid }} .pd2026-countdown__button {
+      min-height: 28px;
+      padding: 0 12px;
+      font-size: 11px;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    var section = document.getElementById('pd2026-countdown-{{ sid }}');
+    if (!section) return;
+
+    var daysEl = section.querySelector('[data-days]');
+    var hoursEl = section.querySelector('[data-hours]');
+    var minutesEl = section.querySelector('[data-minutes]');
+    var secondsEl = section.querySelector('[data-seconds]');
+
+    function pad(value) {
+      value = parseInt(value, 10) || 0;
+      return value < 10 ? '0' + value : String(value);
+    }
+
+    function getEndTime() {
+      if (section.dataset.everyDay === 'true') {
+        var now = new Date();
+        return new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999).getTime();
+      }
+
+      var parsed = new Date(section.dataset.endDate).getTime();
+      return isNaN(parsed) ? 0 : parsed;
+    }
+
+    function render() {
+      var diff = Math.max(getEndTime() - Date.now(), 0);
+      var day = Math.floor(diff / 86400000);
+      var hour = Math.floor(diff % 86400000 / 3600000);
+      var minute = Math.floor(diff % 3600000 / 60000);
+      var second = Math.floor(diff % 60000 / 1000);
+
+      daysEl.textContent = pad(day);
+      hoursEl.textContent = pad(hour);
+      minutesEl.textContent = pad(minute);
+      secondsEl.textContent = pad(second);
+    }
+
+    render();
+    window.setInterval(render, 1000);
+
+    if (section.dataset.fixed === 'true') {
+      var placeholder = document.createElement('div');
+      var startTop = 0;
+      placeholder.hidden = true;
+      section.parentNode.insertBefore(placeholder, section.nextSibling);
+
+      function updateStart() {
+        var wasFixed = section.classList.contains('is-fixed');
+        if (wasFixed) section.classList.remove('is-fixed');
+        startTop = section.getBoundingClientRect().top + window.pageYOffset;
+        placeholder.style.height = section.offsetHeight + 'px';
+        if (wasFixed) section.classList.add('is-fixed');
+      }
+
+      function updateFixed() {
+        var shouldFix = window.pageYOffset >= startTop;
+        section.classList.toggle('is-fixed', shouldFix);
+        placeholder.hidden = !shouldFix;
+      }
+
+      updateStart();
+      updateFixed();
+      window.addEventListener('scroll', updateFixed, { passive: true });
+      window.addEventListener('resize', function () {
+        updateStart();
+        updateFixed();
+      });
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "2026 PD Countdown",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "終了まであと" },
+    { "type": "text", "id": "end_date", "label": "End date", "info": "Example: 2026-07-16T23:59:59+09:00", "default": "2026-07-16T23:59:59+09:00" },
+    { "type": "checkbox", "id": "countdown_every_day", "label": "Countdown to 23:59:59 every day", "default": false },
+    { "type": "checkbox", "id": "enable_fixed", "label": "Fix to bottom after scroll", "default": false },
+    { "type": "text", "id": "days_label", "label": "Days label", "default": "日" },
+    { "type": "text", "id": "hours_label", "label": "Hours label", "default": "時間" },
+    { "type": "text", "id": "minutes_label", "label": "Minutes label", "default": "分" },
+    { "type": "text", "id": "seconds_label", "label": "Seconds label", "default": "秒" },
+    { "type": "text", "id": "button_text", "label": "Button text" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "presets": [
+    { "name": "2026 PD Countdown" }
+  ]
+}
+{% endschema %}

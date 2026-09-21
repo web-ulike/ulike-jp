@@ -1,0 +1,54 @@
+{%- liquid
+  assign section_id = 'jp-air10-double-lamp-2026-' | append: section.id
+  assign default_body = 'さらに「ダブルランプ」搭載で、高出力エネルギーを均一かつ精密に照射し、打ち漏れやムラを大幅に減少。\n従来のケアでは太刀打ちできなかった太くて硬い毛の根元まで強力にアプローチし、再生を効果的に抑制します。'
+-%}
+
+<section id="{{ section_id }}" class="jp-double-lamp-2026">
+  <div class="jp-double-lamp-2026__background" aria-hidden="true">
+    <picture>
+      {%- if section.settings.background_image_mobile != blank -%}
+        <source media="(max-width: 749px)" srcset="{{ section.settings.background_image_mobile | image_url: width: 1200 }}">
+      {%- endif -%}
+      {%- if section.settings.background_image != blank -%}
+        {{ section.settings.background_image | image_url: width: 3000 | image_tag: loading: 'lazy', widths: '750, 1200, 1600, 2200, 3000', class: 'jp-double-lamp-2026__background-image', alt: '' }}
+      {%- elsif section.settings.background_image_mobile != blank -%}
+        {{ section.settings.background_image_mobile | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '375, 750, 1200', class: 'jp-double-lamp-2026__background-image', alt: '' }}
+      {%- endif -%}
+    </picture>
+  </div>
+  <div class="jp-double-lamp-2026__fade" aria-hidden="true"></div>
+
+  <div class="jp-double-lamp-2026__inner">
+    <div class="jp-double-lamp-2026__body to-top" style="transition-delay: .1s">{{ section.settings.body | default: default_body | escape | newline_to_br }}</div>
+  </div>
+</section>
+
+<style>
+  #{{ section_id }} { background: #eef1f8; color: #000; overflow: hidden; position: relative; }
+  #{{ section_id }} * { box-sizing: border-box; }
+  #{{ section_id }} .jp-double-lamp-2026__background, #{{ section_id }} .jp-double-lamp-2026__background picture { display: block; pointer-events: none; position: relative; width: 100%; }
+  #{{ section_id }} .jp-double-lamp-2026__background-image { display: block; height: auto; max-width: none; object-fit: initial; width: 100%; }
+  #{{ section_id }} .jp-double-lamp-2026__fade { background: linear-gradient(180deg, rgba(246,245,250,0) 0%, #eef1f8 65.517%); bottom: 0; height: 153px; left: 0; position: absolute; width: 100%; }
+  #{{ section_id }} .jp-double-lamp-2026__inner { bottom: 0; height: auto; left: 0; margin: 0; max-width: none; position: absolute; right: 0; top: 0; width: 100%; }
+  #{{ section_id }} .jp-double-lamp-2026__body { font-family: "Noto Sans JP", sans-serif; font-size: 24px; font-weight: 400; left: calc(50% + 94px); line-height: 1.5; position: absolute; top: 114px; width: 531px; }
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} { background: linear-gradient(0deg, #fff 15.69%, #e2e7f1 127.77%); }
+    #{{ section_id }} .jp-double-lamp-2026__background, #{{ section_id }} .jp-double-lamp-2026__background picture { height: auto; overflow: visible; }
+    #{{ section_id }} .jp-double-lamp-2026__background-image { height: auto; left: auto; max-width: none; position: relative; transform: none; width: 100%; }
+    #{{ section_id }} .jp-double-lamp-2026__fade { height: 53px; left: 0; transform: none; width: 100%; }
+    #{{ section_id }} .jp-double-lamp-2026__inner { max-width: none; width: 100%; }
+    #{{ section_id }} .jp-double-lamp-2026__body { font-size: 18px; left: 18px; line-height: 1.5; top: 65px; width: calc(100% - 36px); }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "jp-air10-double-lamp-2026",
+  "settings": [
+    { "type": "image_picker", "id": "background_image", "label": "PC 背景图片" },
+    { "type": "image_picker", "id": "background_image_mobile", "label": "M 背景图片" },
+    { "type": "textarea", "id": "body", "label": "说明文案", "default": "さらに「ダブルランプ」搭載で、高出力エネルギーを均一かつ精密に照射し、打ち漏れやムラを大幅に減少。\n従来のケアでは太刀打ちできなかった太くて硬い毛の根元まで強力にアプローチし、再生を効果的に抑制します。" }
+  ],
+  "presets": [{ "name": "jp-air10-double-lamp-2026" }]
+}
+{% endschema %}

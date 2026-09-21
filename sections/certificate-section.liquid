@@ -1,0 +1,211 @@
+<style>
+     #shopify-section-{{ section.id }} {
+      --section-background: {{ section.settings.background }};
+       background: var(--section-background);
+   }
+.media-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px);
+  }
+@media screen and (max-width: 768px){
+  .media-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.mobile_padding_top }}px);
+    padding-bottom: calc({{ section.settings.mobile_padding_bottom }}px);
+  }
+}
+/* certificate-section start */
+.certificate-section{
+  position: relative;
+}
+.certificate__images-wrapper,.certificate__images-wrapper picture,.certificate__images-wrapper picture img{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.certificate__content-wrapper {
+  position: relative;
+  z-index: 1;
+}
+.certificate__content-wrapper h3{
+  color: #FFF;
+text-align: center;
+font-size: 50px;
+font-style: normal;
+font-weight: 400;
+line-height: 1.3;
+margin-bottom: 77px;
+}
+.certificate__content-wrapper .certificate__item-wrapper{
+  display: flex;
+  gap: 41px;
+  flex-wrap: wrap;
+}
+.certificate__item-wrapper .certificate-item{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 10px;
+background: linear-gradient(120deg, rgba(255, 255, 255, 0.20) 3.69%, rgba(255, 255, 255, 0.10) 19.13%, rgba(255, 255, 255, 0.05) 37.05%, rgba(255, 255, 255, 0.05) 61.05%, rgba(255, 255, 255, 0.10) 76.2%, rgba(255, 255, 255, 0.20) 95.38%);
+flex: 0 0 calc((100% - 41px * 6) / 7);
+aspect-ratio: 1.26;
+}
+.certificate__content{
+  padding: 72px 0 130px;
+}
+  @media (max-width: 991px) {
+    .certificate__content-wrapper .certificate__item-wrapper {
+    gap: 32px;
+}
+.certificate__item-wrapper .certificate-item {
+    flex: 0 0 calc((100% - 32px * 3) / 4);
+}
+  }
+
+    @media (max-width: 650px) {
+      .certificate__content-wrapper h3{
+        font-size: 28px;
+        margin-bottom: 40px;
+      }
+          .certificate__content-wrapper .certificate__item-wrapper {
+    gap: 18px;
+}
+.certificate__item-wrapper .certificate-item {
+    flex: 0 0 calc((100% - 18px * 2) / 3);
+}
+    }
+/* certificate-section end */
+</style>
+   <section>
+   <div class="certificate-section">
+      <div class="certificate__images-wrapper">
+        {%- if section.settings.image -%}
+        <picture class="">
+             {%- if section.settings.mobile_image -%}
+          <source media="(max-width: 767px)" srcset="{{section.settings.mobile_image | image_url }}">
+           {%- endif -%}
+          <img src="{{section.settings.image | image_url }}" alt=""></img>
+        </picture>
+        {%- endif -%}
+      </div>
+      <div class="certificate__content-wrapper">
+        <div class="certificate__content">
+          <div class="container">
+             {%- if section.settings.tle != blank -%}
+            <h3 class="to-top">{{section.settings.tle }}</h3>
+             {%- endif -%}
+            <div class="certificate__item-wrapper">
+
+                 {%- for block in section.blocks -%}
+              <div class="certificate-item to-top">
+                {%- if block.settings.image -%}
+                <img src="{{block.settings.image | image_url }}" alt="" width="{{  block.settings.image.width  | divided_by: 1  }}" height="{{  block.settings.image.height  | divided_by: 1  }}">
+                  {%- endif -%}
+              </div>
+               {%- endfor -%}
+              
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% schema %}
+{
+  "name": "certificate-section",
+  "blocks": [
+        {
+    "name": "item",
+    "type": "item",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Images"
+      },
+      {
+        "type": "image_picker",
+        "id": "mobile_image",
+        "label": "Mobile Images"
+      }
+    ]
+    }
+  ],
+  "settings": [
+    {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Images"
+      },
+      {
+        "type": "image_picker",
+        "id": "mobile_image",
+        "label": "Mobile Images"
+      },
+     {
+        
+        "type": "text",
+        "id": "tle",
+        "label": "Title"
+      },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color_background",
+      "id": "background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Mobile Padding Top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Mobile Padding Bottom",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "certificate-section"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,80 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "rich-text": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {}
+        },
+        "text": {
+          "type": "text",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "heading",
+        "text"
+      ],
+      "disabled": true,
+      "settings": {
+        "subheading": "",
+        "button_link": "",
+        "text_alignment": "left"
+      }
+    },
+    "contact-form": {
+      "type": "contact-form",
+      "blocks": {
+        "contact-1": {
+          "type": "contact",
+          "disabled": true,
+          "settings": {}
+        },
+        "contact-2": {
+          "type": "contact",
+          "disabled": true,
+          "settings": {}
+        },
+        "contact-3": {
+          "type": "contact",
+          "disabled": true,
+          "settings": {}
+        },
+        "media": {
+          "type": "media",
+          "disabled": true,
+          "settings": {}
+        },
+        "custom_field-1": {
+          "type": "custom_field",
+          "disabled": true,
+          "settings": {}
+        },
+        "custom_field-2": {
+          "type": "custom_field",
+          "disabled": true,
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "contact-1",
+        "contact-2",
+        "contact-3",
+        "media",
+        "custom_field-1",
+        "custom_field-2"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "rich-text",
+    "contact-form"
+  ]
+}

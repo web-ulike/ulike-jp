@@ -1,0 +1,132 @@
+{
+  "type": "custom.overlay",
+  "name": "Overlay group",
+  "sections": {
+    "newsletter-popup": {
+      "type": "newsletter-popup",
+      "disabled": true,
+      "settings": {
+        "apparition_delay": 5,
+        "show_only_on_index": true,
+        "show_only_for_visitors": true,
+        "show_only_once": true,
+        "image_position": "left",
+        "title": "Get 10% off",
+        "content": "<p>Promotions, new products and sales. Directly to your inbox.<\/p>"
+      }
+    },
+    "privacy-banner": {
+      "type": "privacy-banner",
+      "disabled": true,
+      "settings": {
+        "cookie_bar_title": "Cookie policy",
+        "cookie_bar_content": "<p>I agree to the processing of my data in accordance with the conditions set out in the policy of Privacy.<\/p>"
+      }
+    },
+    "u_user_new_popup": {
+      "type": "u-user-new-popup",
+      "settings": {
+        "rt_float_image": "shopify:\/\/shop_images\/2500.png",
+        "image": "shopify:\/\/shop_images\/b2e36e23be9907e55c376203dd2c801c.jpg",
+        "m_image": "shopify:\/\/shop_images\/2500_1.jpg",
+        "title": "お得な特典をゲット！",
+        "title1": "<p>新規登録で、すぐに使える<\/p><p><strong>2,500円OFF<\/strong>クーポンをゲット! <\/p>\n<p style=\"font-size: 16px;\">クーポン適用後は、<strong>全販売チャネルで最安<\/strong>です！<\/p>",
+        "email_label": "メールアドレスを入力*",
+        "code_label": "認証コードを入力*",
+        "send_code_btn": "認証コードを入手",
+        "btn_text": "ログイン \/ 新規登録",
+        "already_have_password_text": "すでにパスワードをお持ちですか？",
+        "login_link": "https:\/\/account.ulike.com\/login",
+        "login_with_password": "パスワードでサインイン",
+        "end_label": "終了まであと",
+        "code_tle": "数量限定クーポン",
+        "code_txt1": "クーポンコード",
+        "code_txt2": "hello2500",
+        "code": "hello2500",
+        "copy_txt": "コードをコピー",
+        "code_note": "※クーポンコードは、登録完了メールでもご確認いただけます。"
+      }
+    },
+    "u_social_share_sidebar": {
+      "type": "u-social-share-sidebar",
+      "blocks": {
+        "badge_item": {
+          "type": "badge_item",
+          "settings": {
+            "label": "2500円\nOFF",
+            "custom_class": "g-floating-box",
+            "link": ""
+          }
+        },
+        "review_tab": {
+          "type": "review_tab",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/Star_1.svg",
+            "custom_class": "",
+            "text": "Reviews",
+            "link": "shopify:\/\/pages\/result-review"
+          }
+        },
+        "share_panel": {
+          "type": "share_panel",
+          "settings": {
+            "trigger_icon": "shopify:\/\/shop_images\/Group_457394931.svg",
+            "trigger_label": "Share",
+            "custom_class": "",
+            "show_x": true,
+            "icon_x": "shopify:\/\/shop_images\/X_73e090da-0255-4414-adeb-a1a626a463c6.svg",
+            "show_whatsapp": true,
+            "icon_whatsapp": "shopify:\/\/shop_images\/Whatsapp.svg",
+            "show_facebook": true,
+            "icon_facebook": "shopify:\/\/shop_images\/Facebook.svg",
+            "show_sns": false,
+            "show_line": true,
+            "icon_line": "shopify:\/\/shop_images\/LINE_LOGO.svg",
+            "show_email": true,
+            "show_copy": false
+          }
+        },
+        "cart_action": {
+          "type": "action_item",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/Vector_2.svg",
+            "custom_class": "",
+            "show_cart_count": true,
+            "label": "カート",
+            "link": "\/cart"
+          }
+        },
+        "scroll_top": {
+          "type": "scroll_top_item",
+          "settings": {
+            "icon": "shopify:\/\/shop_images\/Group_457394928.svg",
+            "custom_class": "",
+            "label": "Back to top",
+            "threshold": 1000
+          }
+        }
+      },
+      "block_order": [
+        "badge_item",
+        "review_tab",
+        "share_panel",
+        "cart_action",
+        "scroll_top"
+      ],
+      "name": "U Social Share",
+      "settings": {
+        "position": "right",
+        "circle_bg": "#ffffff",
+        "icon_color": "#e0004d",
+        "share_title": "",
+        "copied_text": "Copied"
+      }
+    }
+  },
+  "order": [
+    "newsletter-popup",
+    "privacy-banner",
+    "u_user_new_popup",
+    "u_social_share_sidebar"
+  ]
+}

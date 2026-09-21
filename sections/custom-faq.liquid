@@ -1,0 +1,554 @@
+<style>
+     #shopify-section-{{ section.id }} {
+      --section-background: {{ section.settings.background }};
+       background: var(--section-background);
+   }
+.media-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px);
+  }
+@media screen and (max-width: 768px){
+  .media-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.mobile_padding_top }}px);
+    padding-bottom: calc({{ section.settings.mobile_padding_bottom }}px);
+  }
+}
+
+/* 產品使用說明模块 */
+.product-instruction-module{
+}
+.product-instruction-box{
+  display: flex;
+  justify-content: space-between;
+}
+.product-instruction-box .product-instruction-left{
+  width: 100%;
+}
+.product-instruction-box .product-instruction-right{
+  width: 0%;
+}
+.product-instruction-box  .product-instruction-ul{
+margin-top: 48px;
+}
+.product-instruction-box  .instruction-list-top{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 35px 0;
+  cursor: pointer;
+}
+.product-instruction-box  .instruction-list-tle{
+  color:  #190A0A;
+font-size: 24px;
+font-weight: 400;
+}
+
+.product-instruction-box .instruction-list-content{
+  max-width: 760px;
+}
+.product-instruction-box .span {
+    position: relative;
+    display: block;
+    width: 19px;
+    height: 19px;
+    transition: all .4s ease;
+}
+
+.product-instruction-box .span:before {
+    width: 19px;
+    height: 2px;
+}
+.product-instruction-box .span:before, .product-instruction-box .span:after {
+    position: absolute;
+    content: '';
+    display: block;
+    background: #3F3636;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all .3s ease;
+}
+
+.product-instruction-box .span:after {
+    width: 2px;
+    height: 19px;
+}
+
+.product-instruction-box .instruction-list-top.active .span {
+    transform: translateY(-50%) rotate(180deg);
+}
+.product-instruction-box  .instruction-list-top.active .span:after {
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.product-instruction-box .product-instruction-list{
+  border-top: 1px solid  #D1D1D1;
+}
+
+.product-instruction-box .instn-ul{
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.product-instruction-box .instn-li{
+  display: flex;
+  background: #F8F8F8;
+  align-items: center;
+  width: 240px;
+}
+.product-instruction-box .instn-li-lt{
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.product-instruction-box .instn-li-tle{
+  color:  #3F3636;
+font-size: 14px;
+font-weight: 500;
+line-height: 1.5;
+}
+.product-instruction-box .instn-li-txt{
+color:  #3F3636;
+font-size: 14px;
+font-weight: 400;
+line-height: 1.5; 
+}
+.product-instruction-box .instn-note{
+  margin-top: 16px;
+  color:  #8B8B8B;
+font-size: 14px;
+font-weight: 400;
+line-height: 1.5;
+margin-bottom: 36px;
+}
+
+.use_right-table {
+    display: flex;
+    border: 1px solid #000;
+}
+
+.use_right-td {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+.use_right-table .use_right-td:not(:last-child) {
+    border-right: 1px solid #000;
+}
+.use_right-td .use_right-td1 {
+    background: #F5F5F5;
+    color: #3F3636;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    padding: 13px 0;
+    border-bottom: 1px solid #000;
+}
+.use_right-td2 {
+    padding: 24px 0px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.use_right-td2 .ts2-p1 {
+    color: #3F3636;
+    text-align: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+}
+.use_right-td2 .ts2-p2 {
+    color: #3F3636;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+}
+.use_right-table .use_right-td:last-child {
+    background: #F5F5F5;
+}
+.product-instruction-box .instruction-list-ul{
+  color: #3F3636;
+font-size: 16px;
+font-weight: 400;
+margin-bottom: 36px;
+}
+.product-instruction-module.faq-module .qa-content{
+ color: #3F3636;
+font-size: 16px;
+font-weight: 400;
+  margin-bottom: 36px;
+}
+  .product-instruction-module.faq-module .instruction-list-top {
+    padding: 28px 0;
+}
+
+.custom-h2{
+  color: #190A0A;
+font-size: 32px;
+font-weight: 400;
+line-height: 1.25;
+margin:0;
+}
+    .slideshow .home-heading__h2.rich_text strong{
+      color: #E0004D;
+      font-style: normal;
+      font-weight: 500;
+    }
+.custom-h2 p{
+  margin:0;
+}
+.custom-txt__inner{
+color:  #8B8B8B;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 1.5; 
+    margin-top: 50px;
+}
+
+
+
+.more-link__button{
+        display: inline-flex;
+color: #E0004D;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 125%;
+    letter-spacing: 1.6px;
+    margin-top:36px;
+}
+@media screen and (max-width: 1023px){
+    .custom-h2 {
+    font-size: 28px;
+}
+.custom-h2 a {
+    font-size: 14px;
+}
+  .product-instruction-box {
+    flex-direction: column-reverse;
+    gap: 24px;
+}
+.product-instruction-box .product-instruction-left {
+    width: 100%;
+}
+.product-instruction-box .product-instruction-right {
+    width: 100%;
+}
+.product-instruction-module.product-instruction-rever{
+  position: relative;
+}
+.product-instruction-module.product-instruction-rever .custom-h2{
+position: absolute;
+top: 64px;
+}
+.product-instruction-box .product-instruction-ul {
+    margin-top: 24px;
+}
+.product-instruction-box .instruction-list-top {
+    padding: 16px 0;
+}
+.product-instruction-box .instruction-list-tle {
+    font-size: 16px;
+}
+.product-instruction-box .span {
+    width: 10px;
+    height: 10px;
+}
+.product-instruction-box .span::before {
+    width: 10px;
+    height: 1px;
+}
+.product-instruction-box .span::after {
+    width: 1px;
+    height: 10px;
+}
+.product-instruction-box .instn-ul {
+    gap: 8px;
+}
+.product-instruction-box .instn-li {
+    width: calc(50% - 4px);
+}
+.product-instruction-box .instn-li-tle {
+font-size: 12px;
+}
+.product-instruction-box .instn-li-txt {
+font-size: 12px;
+}
+.product-instruction-box .instn-note {
+    margin-top: 8px;
+    font-size: 10px;
+    margin-bottom: 24px;
+}
+.use_right-td .use_right-td1 {
+    font-size: 10px;
+    padding: 7px 0;
+}
+.use_right-td2 {
+    padding: 15px 4px;
+}
+.use_right-td2 .ts2-p1 {
+    font-size: 10px;
+}
+.use_right-td2 .ts2-p2 {
+    font-size: 10px;
+}
+.product-instruction-box .instruction-list-ul {
+    font-size: 12px;
+    margin-bottom: 24px;
+}
+.product-instruction-module.faq-module .qa-content{
+font-size: 12px;
+  margin-bottom: 24px;
+}
+.product-instruction-module.faq-module .product-instruction-box{
+  flex-direction: column;
+}
+    .product-instruction-module.faq-module .instruction-list-top {
+    padding: 16px 0;
+}
+    .product-instruction-box .instruction-list-top {
+    padding: 16px 0;
+}
+    .product-instruction-module.faq-module .instruction-list-top {
+    padding: 16px 0;
+}
+.custom-txt__inner{
+font-size: 14px;
+    margin-top: 25px;
+}
+.custom-txt__inner a{
+padding-left:6px;
+}
+}
+@media (min-width: 1024px) and (max-width: 1450px) {
+.product-instruction-box .instruction-list-tle {
+    font-size: 19px;
+}
+.product-instruction-box .span {
+    width: 15px;
+    height: 15px;
+}
+.product-instruction-box .span::before {
+    width: 15px;
+    height: 2px;
+}
+.product-instruction-box .span::after {
+    width: 2px;
+    height: 15px;
+}
+.product-instruction-box .instn-li {
+    width: 192px;
+}
+.product-instruction-box .instn-ul {
+    gap: 13px;
+}
+
+.product-instruction-box .instn-note {
+    margin-top: 13px;
+    font-size: 11px;
+    margin-bottom: 29px;
+}
+.product-instruction-box .instruction-list-ul {
+    font-size: 13px;
+    margin-bottom: 29px;
+}
+.product-instruction-module.faq-module .qa-content{
+font-size: 13px;
+  margin-bottom: 29px;
+}
+    .product-instruction-box .instruction-list-top {
+    padding: 22px 0;
+}
+    .product-instruction-module.faq-module .instruction-list-top {
+    padding: 22px 0;
+}
+}
+</style>
+   <section>
+    <!-- 產品使用說明模块 -->
+       <div class="product-instruction-module faq-module to-top media-{{ section.id }}-padding">
+        <div class="product-instruction-wrapper">
+          <div class="container">
+
+            <div class="product-instruction-box">
+              <div class="product-instruction-left">
+                <h2 class="custom-h2">{{ section.settings.tle }}</h2>
+                <div class="product-instruction-ul">
+                 {%- for block in section.blocks -%}
+                  <custom-detail>
+                  <div class="product-instruction-list">
+                   <div class="instruction-list-top">
+                     <div class="instruction-list-tle">{{ block.settings.title }}</div>
+                     <div class="span"></div>
+                   </div>
+                    <div class="instruction-list-content">
+                       <div class="qa-content">{{ block.settings.answer }}</div>
+                    </div>
+                  </div>
+                  </custom-detail>
+                  {%- endfor -%}
+          
+                </div>
+              </div>
+              <div class="product-instruction-right">
+                <picture>
+              {%- if section.settings.mobile_image -%}
+                      <source media="(max-width:767px)" srcset="{{ section.settings.mobile_image | image_url }}">
+                       {%- endif -%}
+                        {%- if section.settings.image -%}
+                      <img src="{{ section.settings.image | image_url }}" alt="">
+                          {%- endif -%}
+            </picture>
+              </div>
+            </div>
+
+            {% if  section.settings.custom_txt != blank %}
+            <div class="custom-txt__inner">{{  section.settings.custom_txt }}</div>
+            {% endif %}
+
+
+            {% if  section.settings.more_txt != blank %}<a href="{{ section.settings.more_link }}" target="_blank" class="more-link__button"> {{  section.settings.more_txt }}</a>{% endif %}
+
+
+
+
+
+
+          </div>
+        </div>
+       </div>
+  </section>
+{% schema %}
+{
+  "name": "Custom FAQ",
+  "class": "custom-faq",
+  "blocks": [
+      {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Question",
+          "default": "About your shop"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Write content to help your customers to better understand your products or policies.</p>"
+        },
+        {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+        },
+        {
+            "type": "image_picker",
+            "id": "mobile_image",
+            "label": "Mobile image",
+            "info": "1000 x 1400px .jpg recommended. If none is set, desktop image will be used."
+          }
+      ]
+    }
+  ],
+  "settings": [
+     {
+          "type": "text",
+          "id": "tle",
+          "label": "Title"
+        },
+             {
+          "type": "url",
+          "id": "more_link",
+          "label": "More Link"
+        },
+          {
+          "type": "text",
+          "id": "more_txt",
+          "label": "More Text"
+        },
+
+          {
+          "type": "richtext",
+          "id": "custom_txt",
+          "label": "customer service"
+        },
+      {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        },
+          {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile Images"
+        },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color_background",
+      "id": "background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+     {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 300,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 300,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 0
+    },
+     {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Top",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Bottom",
+      "default": 10
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom FAQ"
+    }
+  ]
+}
+{% endschema %}

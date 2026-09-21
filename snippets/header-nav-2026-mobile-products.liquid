@@ -1,0 +1,28 @@
+<details is="menu-details" class="header-2026__mobile-products">
+  <summary class="drawer__menu-item block text-2xl font-bold leading-none tracking-tight cursor-pointer relative" aria-expanded="false">
+    {{- link.title | escape -}}
+  </summary>
+  <div class="drawer__submenu header-2026__mobile-products-panel z-1 absolute top-0 left-0 flex flex-col w-full h-full" data-parent>
+    <button type="button" class="header-2026__mobile-back">
+      <span class="header-2026__mobile-back-label">‹&nbsp; 戻る</span>
+      <strong>{{ link.title | escape }}</strong>
+    </button>
+
+    <div class="header-2026__mobile-products-scroll">
+      <div class="header-2026__mobile-categories">
+        {%- for childlink in link.links -%}
+          <details class="header-2026__mobile-category"{% if forloop.first %} open{% endif %}>
+            <summary>{{ childlink.title | escape }}</summary>
+            <div class="header-2026__mobile-product-list">
+              {%- for grandchildlink in childlink.links -%}
+                {%- render 'header-nav-2026-product-card', menu_link: grandchildlink, category_title: childlink.title, section: section, mobile: true -%}
+              {%- endfor -%}
+            </div>
+          </details>
+        {%- endfor -%}
+      </div>
+
+      <a class="header-2026__shop-all" href="{{ routes.all_products_collection_url }}">すべての製品を見る <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</details>

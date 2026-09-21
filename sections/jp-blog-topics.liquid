@@ -1,0 +1,925 @@
+{%- liquid
+  assign sid = section.id
+  assign st = section.settings
+
+  assign right_blog_handle = st.right_blog | default: 'article'
+  assign right_blog = blogs[right_blog_handle]
+
+  assign popular_link = st.popular_link | default: '/blogs/article'
+  assign news_link = st.news_link | default: '/blogs/news/'
+  assign feature_link = st.feature_link | default: '/blogs/news/ulike-pop-up'
+  assign arrow_icon = st.arrow_icon
+-%}
+
+<style>
+  .jp-blog-topics--{{ sid }} {
+    background: {{ st.bg_color }};
+    color: {{ st.text_color }};
+    padding: {{ st.padding_top }}px 0 {{ st.padding_bottom }}px;
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__inner {
+    margin: 0 auto;
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 34px;
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__title {
+    margin: 0;
+    font-size: 40px;
+    line-height: 1.2;
+    color: {{ st.title_color }};
+    font-weight: 400;
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__tabs {
+    display: flex;
+    align-items: center;
+    gap: 0px;
+    margin-left: auto;
+    flex: 0 0 auto;
+    justify-content: flex-end;
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__tabs--mobile {
+    display: none;
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__tab {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    color: #000;
+    font-size: 18px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: opacity 0.2s ease;
+    gap: 12px;
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__tab:hover {
+    opacity: 0.65;
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__tab--mobile-popular {
+    display: none;
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__body {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 65px;
+    align-items: start;
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__feature {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    background: transparent;
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__feature-image-wrap {
+    position: relative;
+    overflow: hidden;
+    background: #f5f5f5;
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__feature-image {
+    display: block;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__feature-title-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__feature-content {
+    position: relative;
+    z-index: 2;
+    display: block;
+    width: calc(100% - 100px);
+    min-height: 0;
+    margin: -130px 0 0 100px;
+    padding: 30px 32px 40px;
+    background: {{ st.card_bg }};
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__feature-text {
+    padding: 0;
+    min-width: 0;
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__date {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 14px;
+    line-height: 1.3;
+    color: {{ st.date_color }};
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__feature-title {
+    margin: 0;
+    font-size: 22px; 
+    line-height: 1.45;
+    font-weight: 500;
+    color: {{ st.text_color }};
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__feature-actions {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+    margin-top: 35px;
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__feature-more {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    min-width: 0;
+    padding: 0;
+    border-left: 0;
+    font-size: 16px;
+    line-height: 1.4;
+    color: {{ st.text_color }};
+    white-space: nowrap;
+    text-decoration: none;
+  }
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__link-text {
+    display: inline-block;
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__link-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 13px;
+    flex: 0 0 auto;
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__link-arrow img,
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__link-arrow svg {
+    display: block;
+    width: 14px;
+    height: 13px;
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__feature-more--news {
+    display: none;
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__feature-more--popular {
+    display: flex;
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__list-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__item {
+    display: grid;
+    grid-template-columns: 238px minmax(0, 1fr);
+    gap: 28px;
+    margin-bottom: 28px;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__item:last-child {
+    margin-bottom: 0;
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__item-image-wrap {
+    position: relative;
+    overflow: hidden;
+    background: #f5f5f5;
+    align-self: start;
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__item-image {
+    display: block;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__item-content {
+    min-width: 0;
+    padding-top: 0;
+    padding-bottom: 15px;
+    border-bottom: 1px solid {{ st.line_color }};
+  }
+
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__item-title {
+    margin: 6px 0;
+    font-size: 18px;
+    line-height: 1.4;
+    font-weight: 500;
+    color: {{ st.text_color }};
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__item-title-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__excerpt {
+    margin: 0 0 16px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #6B6B6B;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__more {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 16px;
+    line-height: 1;
+    color: {{ st.text_color }};
+    text-decoration: none;
+  }
+
+  .jp-blog-topics--{{ sid }} .jp-blog-topics__placeholder {
+    background: #f5f5f5;
+    width: 100%;
+    height: 100%;
+  }
+
+  @media screen and (max-width: 989px) {
+    .jp-blog-topics--{{ sid }} {
+      padding: {{ st.mobile_padding_top }}px 0 {{ st.mobile_padding_bottom }}px;
+    }
+
+    .jp-blog-topics--{{ sid }} .jp-blog-topics__header {
+      display: block;
+      margin-bottom: 22px;
+    }
+
+    .jp-blog-topics--{{ sid }} .jp-blog-topics__title {
+      font-size: 28px;
+    }
+
+    .jp-blog-topics--{{ sid }} .jp-blog-topics__tabs--desktop {
+      display: none;
+    }
+
+    .jp-blog-topics--{{ sid }} .jp-blog-topics__tabs--mobile {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      min-width: 0;
+      margin: 0;
+      padding: 0 15px 18px;
+      background: transparent;
+    }
+
+    .jp-blog-topics--{{ sid }} .jp-blog-topics__tab {
+      min-width: auto;
+      height: auto;
+      padding: 0;
+      font-size: 12px;
+      line-height: 1.4;
+      border-radius: 0;
+      background: transparent;
+      text-decoration: underline;
+      text-underline-offset: 5px;
+      text-decoration-thickness: 1px;
+    }
+
+    .jp-blog-topics--{{ sid }} .jp-blog-topics__tab--mobile-popular {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
+      margin-top: 4px;
+      margin-left: 0;
+      color: {{ st.text_color }};
+      font-size: 12px;
+      line-height: 1.4;
+      text-decoration: underline;
+      text-underline-offset: 5px;
+      text-decoration-thickness: 1px;
+      padding-right: 0;
+    }
+
+    .jp-blog-topics--{{ sid }} .jp-blog-topics__body {
+      display: block;
+    }
+
+    .jp-blog-topics--{{ sid }} .jp-blog-topics__feature {
+      margin-bottom: 0;
+    }
+
+    .jp-blog-topics--{{ sid }} .jp-blog-topics__feature-content {
+      display: block;
+      width: calc(100% - 34px);
+      min-height: auto;
+      margin: -28px 0 0 34px;
+      padding: 0;
+    }
+
+    .jp-blog-topics--{{ sid }} .jp-blog-topics__feature-text {
+      padding: 15px 15px 10px;
+    }
+    .jp-blog-topics--{{ sid }} .jp-blog-topics__date {
+      margin-bottom: 4px;
+    }
+
+    .jp-blog-topics--{{ sid }} .jp-blog-topics__feature-title {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .jp-blog-topics--{{ sid }} .jp-blog-topics__feature-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 0;
+      padding: 0 15px 18px;
+    }
+
+    .jp-blog-topics--{{ sid }} .jp-blog-topics__feature-more {
+      display: inline-flex;
+      gap: 10px;
+      min-width: 0;
+      padding: 0;
+      border-left: 0;
+      font-size: 12px;
+      line-height: 1.4;
+      text-align: left;
+      text-decoration: underline;
+      text-underline-offset: 5px;
+      text-decoration-thickness: 1px;
+    }
+
+    .jp-blog-topics--{{ sid }} .jp-blog-topics__feature-more--popular {
+      display: none;
+    }
+
+    .jp-blog-topics--{{ sid }} .jp-blog-topics__feature-more--news {
+      display: inline-flex;
+      text-align: left;
+    }
+
+    .jp-blog-topics--{{ sid }} .jp-blog-topics__list {
+      display: block;
+      overflow: hidden;
+      margin-top: 28px;
+    }
+
+    .jp-blog-topics--{{ sid }} .jp-blog-topics__list-wrapper {
+      display: flex;
+      flex-direction: row;
+    }
+    .jp-blog-topics--{{ sid }} .jp-blog-topics__tabs--mobile-old {
+      display: none;
+    }
+
+    .jp-blog-topics--{{ sid }} .jp-blog-topics__item {
+      display: block;
+      margin-bottom: 28px;
+    }
+
+    .jp-blog-topics--{{ sid }} .jp-blog-topics__item-content {
+      padding-top: 20px;
+      padding-bottom: 4px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      column-gap: 16px;
+      align-items: center;
+      border-bottom:0px;
+    }
+
+    .jp-blog-topics--{{ sid }} .jp-blog-topics__item-title {
+      font-size: 20px;
+      line-height: 1.3;
+      -webkit-line-clamp: 3;
+      margin-bottom: 15px;
+    }
+
+    .jp-blog-topics--{{ sid }} .jp-blog-topics__excerpt {
+      font-size: 16px;
+      line-height: 1.3;
+      -webkit-line-clamp: 3;
+    }
+
+    .jp-blog-topics--{{ sid }} .jp-blog-topics__item-content .jp-blog-topics__date,
+    .jp-blog-topics--{{ sid }} .jp-blog-topics__item-title-link,
+    .jp-blog-topics--{{ sid }} .jp-blog-topics__excerpt {
+      grid-column: 1 / -1;
+    }
+
+    .jp-blog-topics--{{ sid }} .jp-blog-topics__more {
+      grid-column: 1 / 2;
+      font-size: 12px;
+      line-height: 1.4;
+      text-decoration: underline;
+      text-underline-offset: 5px;
+      text-decoration-thickness: 1px;
+     
+    }
+  }
+</style>
+
+<section class="jp-blog-topics jp-blog-topics--{{ sid }}">
+  <div class="container jp-blog-topics__inner">
+    <div class="jp-blog-topics__header">
+      {%- if st.title != blank -%}
+        <h2 class="jp-blog-topics__title">{{ st.title }}</h2>
+      {%- endif -%}
+
+      <div class="jp-blog-topics__tabs jp-blog-topics__tabs--desktop">
+        <a class="jp-blog-topics__tab" href="{{ news_link }}" target="_blank" rel="noopener noreferrer">
+          <span class="jp-blog-topics__link-text">{{ st.news_text | remove: '》' | strip }}</span>
+          <span class="jp-blog-topics__link-arrow" aria-hidden="true">
+            {%- if arrow_icon != blank -%}
+              <img src="{{ arrow_icon | image_url: width: 28 }}" alt="" loading="lazy" width="14" height="13">
+            {%- else -%}
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13" fill="none">
+                <path d="M7.24821 11.2328L12.1356 6.34563L7.24821 1.45732C6.84676 1.05587 7.24821 0 7.24821 0L13.5938 6.34563L7.24821 12.6909C7.24821 12.6909 6.84676 11.6358 7.24821 11.2328Z" fill="currentColor"/>
+                <path d="M0.179123 11.2328L5.06652 6.34563L0.179123 1.45732C-0.223904 1.05587 0.179123 0 0.179123 0L6.52308 6.34563L0.179123 12.6909C0.179123 12.6909 -0.223904 11.6358 0.179123 11.2328Z" fill="currentColor"/>
+              </svg>
+            {%- endif -%}
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <div class="jp-blog-topics__body">
+      <div class="jp-blog-topics__left">
+        <div class="jp-blog-topics__feature">
+          <a class="jp-blog-topics__feature-image-wrap" href="{{ feature_link }}" target="_blank" rel="noopener noreferrer">
+            {%- if st.feature_image != blank -%}
+              <img
+                class="jp-blog-topics__feature-image"
+                src="{{ st.feature_image | image_url: width: 1000 }}"
+                alt="{{ st.feature_image.alt | escape }}"
+                loading="lazy"
+                width="{{ st.feature_image.width }}"
+                height="{{ st.feature_image.height }}"
+              >
+            {%- else -%}
+              {{ 'image' | placeholder_svg_tag: 'jp-blog-topics__placeholder placeholder-svg' }}
+            {%- endif -%}
+          </a>
+
+          <div class="jp-blog-topics__feature-content">
+            <div class="jp-blog-topics__feature-text">
+              {%- if st.feature_date != blank -%}
+                <span class="jp-blog-topics__date">{{ st.feature_date }}</span>
+              {%- endif -%}
+
+              {%- if st.feature_title != blank -%}
+                <a class="jp-blog-topics__feature-title-link" href="{{ feature_link }}" target="_blank" rel="noopener noreferrer">
+                  <h3 class="jp-blog-topics__feature-title">{{ st.feature_title }}</h3>
+                </a>
+              {%- endif -%}
+            </div>
+
+            <div class="jp-blog-topics__feature-actions">
+              <a class="jp-blog-topics__feature-more" href="{{ feature_link }}" target="_blank" rel="noopener noreferrer">
+                <span class="jp-blog-topics__link-text">{{ st.more_text | remove: '》' | strip }}</span>
+                <span class="jp-blog-topics__link-arrow" aria-hidden="true">
+                  {%- if arrow_icon != blank -%}
+                    <img src="{{ arrow_icon | image_url: width: 28 }}" alt="" loading="lazy" width="14" height="13">
+                  {%- else -%}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13" fill="none">
+                      <path d="M7.24821 11.2328L12.1356 6.34563L7.24821 1.45732C6.84676 1.05587 7.24821 0 7.24821 0L13.5938 6.34563L7.24821 12.6909C7.24821 12.6909 6.84676 11.6358 7.24821 11.2328Z" fill="currentColor"/>
+                      <path d="M0.179123 11.2328L5.06652 6.34563L0.179123 1.45732C-0.223904 1.05587 0.179123 0 0.179123 0L6.52308 6.34563L0.179123 12.6909C0.179123 12.6909 -0.223904 11.6358 0.179123 11.2328Z" fill="currentColor"/>
+                    </svg>
+                  {%- endif -%}
+                </span>
+              </a>
+              <a class="jp-blog-topics__feature-more jp-blog-topics__feature-more--popular" href="{{ popular_link }}" target="_blank" rel="noopener noreferrer">
+                <span class="jp-blog-topics__link-text">{{ st.popular_text | remove: '》' | strip }}</span>
+                <span class="jp-blog-topics__link-arrow" aria-hidden="true">
+                  {%- if arrow_icon != blank -%}
+                    <img src="{{ arrow_icon | image_url: width: 28 }}" alt="" loading="lazy" width="14" height="13">
+                  {%- else -%}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13" fill="none">
+                      <path d="M7.24821 11.2328L12.1356 6.34563L7.24821 1.45732C6.84676 1.05587 7.24821 0 7.24821 0L13.5938 6.34563L7.24821 12.6909C7.24821 12.6909 6.84676 11.6358 7.24821 11.2328Z" fill="currentColor"/>
+                      <path d="M0.179123 11.2328L5.06652 6.34563L0.179123 1.45732C-0.223904 1.05587 0.179123 0 0.179123 0L6.52308 6.34563L0.179123 12.6909C0.179123 12.6909 -0.223904 11.6358 0.179123 11.2328Z" fill="currentColor"/>
+                    </svg>
+                  {%- endif -%}
+                </span>
+              </a>
+              <a class="jp-blog-topics__feature-more jp-blog-topics__feature-more--news" href="{{ popular_link }}" target="_blank" rel="noopener noreferrer">
+                <span class="jp-blog-topics__link-text">{{ st.popular_text | remove: '》' | strip }}</span>
+                <span class="jp-blog-topics__link-arrow" aria-hidden="true">
+                  {%- if arrow_icon != blank -%}
+                    <img src="{{ arrow_icon | image_url: width: 28 }}" alt="" loading="lazy" width="14" height="13">
+                  {%- else -%}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13" fill="none">
+                      <path d="M7.24821 11.2328L12.1356 6.34563L7.24821 1.45732C6.84676 1.05587 7.24821 0 7.24821 0L13.5938 6.34563L7.24821 12.6909C7.24821 12.6909 6.84676 11.6358 7.24821 11.2328Z" fill="currentColor"/>
+                      <path d="M0.179123 11.2328L5.06652 6.34563L0.179123 1.45732C-0.223904 1.05587 0.179123 0 0.179123 0L6.52308 6.34563L0.179123 12.6909C0.179123 12.6909 -0.223904 11.6358 0.179123 11.2328Z" fill="currentColor"/>
+                    </svg>
+                  {%- endif -%}
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="jp-blog-topics__tabs jp-blog-topics__tabs--mobile jp-blog-topics__tabs--mobile-old">
+          <a class="jp-blog-topics__tab" href="{{ popular_link }}" target="_blank" rel="noopener noreferrer">
+            <span class="jp-blog-topics__link-text">{{ st.popular_text | remove: '》' | strip }}</span>
+            <span class="jp-blog-topics__link-arrow" aria-hidden="true">
+              {%- if arrow_icon != blank -%}
+                <img src="{{ arrow_icon | image_url: width: 28 }}" alt="" loading="lazy" width="14" height="13">
+              {%- else -%}
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13" fill="none">
+                  <path d="M7.24821 11.2328L12.1356 6.34563L7.24821 1.45732C6.84676 1.05587 7.24821 0 7.24821 0L13.5938 6.34563L7.24821 12.6909C7.24821 12.6909 6.84676 11.6358 7.24821 11.2328Z" fill="currentColor"/>
+                  <path d="M0.179123 11.2328L5.06652 6.34563L0.179123 1.45732C-0.223904 1.05587 0.179123 0 0.179123 0L6.52308 6.34563L0.179123 12.6909C0.179123 12.6909 -0.223904 11.6358 0.179123 11.2328Z" fill="currentColor"/>
+                </svg>
+              {%- endif -%}
+            </span>
+          </a>
+          <a class="jp-blog-topics__tab" href="{{ news_link }}" target="_blank" rel="noopener noreferrer">
+            <span class="jp-blog-topics__link-text">{{ st.news_text | remove: '》' | strip }}</span>
+            <span class="jp-blog-topics__link-arrow" aria-hidden="true">
+              {%- if arrow_icon != blank -%}
+                <img src="{{ arrow_icon | image_url: width: 28 }}" alt="" loading="lazy" width="14" height="13">
+              {%- else -%}
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13" fill="none">
+                  <path d="M7.24821 11.2328L12.1356 6.34563L7.24821 1.45732C6.84676 1.05587 7.24821 0 7.24821 0L13.5938 6.34563L7.24821 12.6909C7.24821 12.6909 6.84676 11.6358 7.24821 11.2328Z" fill="currentColor"/>
+                  <path d="M0.179123 11.2328L5.06652 6.34563L0.179123 1.45732C-0.223904 1.05587 0.179123 0 0.179123 0L6.52308 6.34563L0.179123 12.6909C0.179123 12.6909 -0.223904 11.6358 0.179123 11.2328Z" fill="currentColor"/>
+                </svg>
+              {%- endif -%}
+            </span>
+          </a>
+        </div>
+      </div>
+
+      <div class="jp-blog-topics__right">
+        <div class="jp-blog-topics__list swiper" data-jp-blog-topics-slider>
+          <div class="jp-blog-topics__list-wrapper swiper-wrapper">
+            {%- if right_blog != blank and right_blog.articles_count > 0 -%}
+              {%- for article in right_blog.articles limit: 3 -%}
+                <div class="jp-blog-topics__item swiper-slide">
+                  <a class="jp-blog-topics__item-image-wrap" href="{{ article.url }}" target="_blank" rel="noopener noreferrer">
+                    {%- if article.image != blank -%}
+                      <img
+                        class="jp-blog-topics__item-image"
+                        src="{{ article.image | image_url: width: 500 }}"
+                        alt="{{ article.image.alt | default: article.title | escape }}"
+                        loading="lazy"
+                        width="{{ article.image.width }}"
+                        height="{{ article.image.height }}"
+                      >
+                    {%- else -%}
+                      {{ 'image' | placeholder_svg_tag: 'jp-blog-topics__placeholder placeholder-svg' }}
+                    {%- endif -%}
+                  </a>
+
+                  <div class="jp-blog-topics__item-content">
+                    <span class="jp-blog-topics__date">{{ article.published_at | date: '%Y.%m.%d' }}</span>
+
+                    <a class="jp-blog-topics__item-title-link" href="{{ article.url }}" target="_blank" rel="noopener noreferrer">
+                      <h3 class="jp-blog-topics__item-title">{{ article.title }}</h3>
+                    </a>
+
+                    {%- if article.excerpt != blank -%}
+                      <p class="jp-blog-topics__excerpt">{{ article.excerpt | strip_html }}</p>
+                    {%- else -%}
+                      <p class="jp-blog-topics__excerpt">{{ article.content | strip_html | truncate: 90 }}</p>
+                    {%- endif -%}
+
+                    <a class="jp-blog-topics__more" href="{{ article.url }}" target="_blank" rel="noopener noreferrer">
+                      <span class="jp-blog-topics__link-text">{{ st.more_text | remove: '》' | strip }}</span>
+                      <span class="jp-blog-topics__link-arrow" aria-hidden="true">
+                        {%- if arrow_icon != blank -%}
+                          <img src="{{ arrow_icon | image_url: width: 28 }}" alt="" loading="lazy" width="14" height="13">
+                        {%- else -%}
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13" fill="none">
+                            <path d="M7.24821 11.2328L12.1356 6.34563L7.24821 1.45732C6.84676 1.05587 7.24821 0 7.24821 0L13.5938 6.34563L7.24821 12.6909C7.24821 12.6909 6.84676 11.6358 7.24821 11.2328Z" fill="currentColor"/>
+                            <path d="M0.179123 11.2328L5.06652 6.34563L0.179123 1.45732C-0.223904 1.05587 0.179123 0 0.179123 0L6.52308 6.34563L0.179123 12.6909C0.179123 12.6909 -0.223904 11.6358 0.179123 11.2328Z" fill="currentColor"/>
+                          </svg>
+                        {%- endif -%}
+                      </span>
+                    </a>
+                    <a class="jp-blog-topics__tab jp-blog-topics__tab--mobile-popular" href="{{ news_link }}" target="_blank" rel="noopener noreferrer">
+                      <span class="jp-blog-topics__link-text">{{ st.news_text | remove: '》' | strip }}</span>
+                      <span class="jp-blog-topics__link-arrow" aria-hidden="true">
+                        {%- if arrow_icon != blank -%}
+                          <img src="{{ arrow_icon | image_url: width: 28 }}" alt="" loading="lazy" width="14" height="13">
+                        {%- else -%}
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13" fill="none">
+                            <path d="M7.24821 11.2328L12.1356 6.34563L7.24821 1.45732C6.84676 1.05587 7.24821 0 7.24821 0L13.5938 6.34563L7.24821 12.6909C7.24821 12.6909 6.84676 11.6358 7.24821 11.2328Z" fill="currentColor"/>
+                            <path d="M0.179123 11.2328L5.06652 6.34563L0.179123 1.45732C-0.223904 1.05587 0.179123 0 0.179123 0L6.52308 6.34563L0.179123 12.6909C0.179123 12.6909 -0.223904 11.6358 0.179123 11.2328Z" fill="currentColor"/>
+                          </svg>
+                        {%- endif -%}
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              {%- endfor -%}
+            {%- else -%}
+              {%- for i in (1..3) -%}
+                <div class="jp-blog-topics__item swiper-slide">
+                  <div class="jp-blog-topics__item-image-wrap">
+                    {{ 'image' | placeholder_svg_tag: 'jp-blog-topics__placeholder placeholder-svg' }}
+                  </div>
+                  <div class="jp-blog-topics__item-content">
+                    <span class="jp-blog-topics__date">2025.01.12</span>
+                    <h3 class="jp-blog-topics__item-title">ブログ記事タイトルがここに入ります</h3>
+                    <p class="jp-blog-topics__excerpt">
+                      ブログ記事の説明文がここに入ります。Shopifyのブログから最新記事を自動で表示します。
+                    </p>
+                    <a class="jp-blog-topics__more" href="{{ popular_link }}" target="_blank" rel="noopener noreferrer">
+                      <span class="jp-blog-topics__link-text">{{ st.more_text | remove: '》' | strip }}</span>
+                      <span class="jp-blog-topics__link-arrow" aria-hidden="true">
+                        {%- if arrow_icon != blank -%}
+                          <img src="{{ arrow_icon | image_url: width: 28 }}" alt="" loading="lazy" width="14" height="13">
+                        {%- else -%}
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13" fill="none">
+                            <path d="M7.24821 11.2328L12.1356 6.34563L7.24821 1.45732C6.84676 1.05587 7.24821 0 7.24821 0L13.5938 6.34563L7.24821 12.6909C7.24821 12.6909 6.84676 11.6358 7.24821 11.2328Z" fill="currentColor"/>
+                            <path d="M0.179123 11.2328L5.06652 6.34563L0.179123 1.45732C-0.223904 1.05587 0.179123 0 0.179123 0L6.52308 6.34563L0.179123 12.6909C0.179123 12.6909 -0.223904 11.6358 0.179123 11.2328Z" fill="currentColor"/>
+                          </svg>
+                        {%- endif -%}
+                      </span>
+                    </a>
+                    <a class="jp-blog-topics__tab jp-blog-topics__tab--mobile-popular" href="{{ news_link }}" target="_blank" rel="noopener noreferrer">
+                      <span class="jp-blog-topics__link-text">{{ st.news_text | remove: '》' | strip }}</span>
+                      <span class="jp-blog-topics__link-arrow" aria-hidden="true">
+                        {%- if arrow_icon != blank -%}
+                          <img src="{{ arrow_icon | image_url: width: 28 }}" alt="" loading="lazy" width="14" height="13">
+                        {%- else -%}
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13" fill="none">
+                            <path d="M7.24821 11.2328L12.1356 6.34563L7.24821 1.45732C6.84676 1.05587 7.24821 0 7.24821 0L13.5938 6.34563L7.24821 12.6909C7.24821 12.6909 6.84676 11.6358 7.24821 11.2328Z" fill="currentColor"/>
+                            <path d="M0.179123 11.2328L5.06652 6.34563L0.179123 1.45732C-0.223904 1.05587 0.179123 0 0.179123 0L6.52308 6.34563L0.179123 12.6909C0.179123 12.6909 -0.223904 11.6358 0.179123 11.2328Z" fill="currentColor"/>
+                          </svg>
+                        {%- endif -%}
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              {%- endfor -%}
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  window.addEventListener('load', () => {
+    const section = document.querySelector('.jp-blog-topics--{{ sid }}');
+    if (!section) return;
+
+    const sliderEl = section.querySelector('[data-jp-blog-topics-slider]');
+    if (!sliderEl) return;
+
+    let swiper = null;
+
+    const initMobileSlider = () => {
+      if (window.innerWidth > 989) {
+        if (swiper) {
+          swiper.destroy(true, true);
+          swiper = null;
+        }
+        return;
+      }
+
+      if (swiper || typeof window.Swiper !== 'function') return;
+
+      swiper = new window.Swiper(sliderEl, {
+        slidesPerView: 1,
+        spaceBetween: 24,
+        loop: true,
+        speed: 650,
+        autoplay: {
+          delay: 3000,
+          disableOnInteraction: false,
+        },
+      });
+    };
+
+    initMobileSlider();
+    window.addEventListener('resize', initMobileSlider);
+  });
+</script>
+
+{% schema %}
+{
+  "name": "JP Blog Topics",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Basic"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Ulikeのトピックス"
+    },
+    {
+      "type": "text",
+      "id": "popular_text",
+      "label": "Popular button text",
+      "default": "もっと人気記事を見る 》"
+    },
+    {
+      "type": "url",
+      "id": "popular_link",
+      "label": "Popular button link"
+    },
+    {
+      "type": "text",
+      "id": "news_text",
+      "label": "News button text",
+      "default": "もっとお知らせを見る 》"
+    },
+    {
+      "type": "url",
+      "id": "news_link",
+      "label": "News button link"
+    },
+    {
+      "type": "text",
+      "id": "more_text",
+      "label": "More text",
+      "default": "詳しく見る 》"
+    },
+    {
+      "type": "image_picker",
+      "id": "arrow_icon",
+      "label": "Arrow icon"
+    },
+    {
+      "type": "header",
+      "content": "Left featured article"
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_image",
+      "label": "Feature image"
+    },
+    {
+      "type": "text",
+      "id": "feature_date",
+      "label": "Feature date",
+      "default": "2025.07.29"
+    },
+    {
+      "type": "textarea",
+      "id": "feature_title",
+      "label": "Feature title",
+      "default": "おうちサロンで叶える「ひんやり、ツルスベ肌」Ulike POP-UP ストアを開催！"
+    },
+    {
+      "type": "url",
+      "id": "feature_link",
+      "label": "Feature link"
+    },
+    {
+      "type": "header",
+      "content": "Right articles"
+    },
+    {
+      "type": "blog",
+      "id": "right_blog",
+      "label": "Blog source"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "date_color",
+      "label": "Date",
+      "default": "#555555"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Feature card background",
+      "default": "#F7F7F7"
+    },
+    {
+      "type": "color",
+      "id": "line_color",
+      "label": "Line",
+      "default": "#D7D7D7"
+    },
+    {
+      "type": "color",
+      "id": "tab_border_color",
+      "label": "Button border",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "tab_text_color",
+      "label": "Button text",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "side_padding",
+      "label": "Side padding PC",
+      "min": 20,
+      "max": 120,
+      "step": 4,
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top PC",
+      "min": 0,
+      "max": 180,
+      "step": 4,
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom PC",
+      "min": 0,
+      "max": 180,
+      "step": 4,
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Padding top Mobile",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Padding bottom Mobile",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 52
+    }
+  ],
+  "presets": [
+    {
+      "name": "JP Blog Topics"
+    }
+  ]
+}
+{% endschema %}

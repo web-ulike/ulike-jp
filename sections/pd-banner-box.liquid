@@ -1,0 +1,371 @@
+<style>
+/* pd_banner-box start*/
+.banner_ct-box1.destok_visible,.banner_ct-box3.destok_visible{
+  display: none;
+}
+.mobile_visible{
+
+}
+.pd_cust-container{
+  max-width: 940px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  overflow: hidden;
+}
+.pd_container{
+  max-width: 1330px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+}
+.pd_banner-box{
+  position: relative;
+}
+.pd_banner-box .pd_box-pn {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.pd_banner-pic, .pd_banner-pic img{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  min-height: 868px;
+}
+.pd_banner-wrapper{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  gap: 20px;
+}
+.pd_banner-ct{
+  text-align: center;
+}
+.banner_ct-box1{
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+.banner_ct-box1 .ct_box1-left{
+  color: #FFF;
+font-size: 87px;
+font-style: normal;
+font-weight: 500;
+line-height: 1;
+}
+.banner_ct-box1 .ct_box1-right{
+  color: #FFF;
+text-align: center;
+font-size: 40px;
+font-style: normal;
+font-weight: 500;
+line-height: 1;
+border: 2px solid #fff;
+padding: 5px 10px;
+}
+.banner_ct-box1 .ct_box1-right strong{
+  font-family: var(--font-it-family);
+  font-size: 77px;
+font-style: normal;
+font-weight: 500;
+line-height: 1;
+}
+.pd_banner-ct .banner_ct-box2{
+  color: #DE004D;
+text-align: center;
+-webkit-text-stroke-width: 3;
+-webkit-text-stroke-color: #FFF;
+font-size: 197px;
+font-style: normal;
+font-weight: 500;
+line-height: 1;
+text-shadow:  -1px -1px 0 #FFF,
+    1px -1px 0 #FFF,
+    -1px 1px 0 #FFF,
+    1px 1px 0 #FFF;
+}
+.banner_ct-box3{
+  color: #DE004D;
+font-size: 35px;
+font-style: normal;
+font-weight: 500;
+line-height: 1;
+background: #fff;
+padding: 19px 30px;
+margin-top: 10px;
+}
+.pd_banner-lt{
+  animation: swingRight 1s infinite alternate ease-in-out;
+}
+.pd_banner-rt{
+  animation: swingLeft 1s infinite alternate ease-in-out;
+}
+.pd_banner-bottom{
+  color: #F4F431;
+font-size: 37px;
+font-style: normal;
+font-weight: 500;
+background: #00B4DE;
+padding: 30px 20px;
+text-align: center;
+}
+  .yanhua{
+        position: absolute;
+    top: 0;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+  }
+  .yanhua img{
+        opacity: 0.6;
+  }
+@media (max-width: 1330px) {
+  .banner_ct-box1 .ct_box1-left{
+    font-size: calc(87 * (100vw / 1920));
+  }
+  .banner_ct-box1 .ct_box1-right{
+    font-size: calc(40 * (100vw / 1920));
+  }
+  .banner_ct-box1 .ct_box1-right strong {
+    font-size: calc(77 * (100vw / 1920));
+}
+.pd_banner-ct .banner_ct-box2{
+  font-size: calc(197 * (100vw / 1920));
+}
+.pd_banner-ct .banner_ct-box3{
+  font-size: calc(35 * (100vw / 1920));
+}
+}
+@media (max-width: 765px) {
+.banner_ct-box1.destok_visible,.banner_ct-box3.destok_visible{
+  display: flex;
+}
+.banner_ct-box1.mobile_visible,.banner_ct-box3.mobile_visible{
+  display: none;
+}
+  .banner_ct-box1 .ct_box1-left{
+    font-size: 33px;
+  }
+  .banner_ct-box1 .ct_box1-right{
+    font-size: 14px;
+    border: 1px solid #fff;
+  }
+  .banner_ct-box1 .ct_box1-right strong{
+    font-size: 26px;
+  }
+  .pd_banner-ct .banner_ct-box2{
+    font-size: 72px;
+  }
+ .banner_ct-box3{
+    font-size: 15px;
+  }
+  .banner_ct-box1{
+    width: 100%;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .banner_ct-box3{
+    background: none;
+    padding: 0;
+    text-align: center;
+    justify-content: center;
+    margin-top: 23px;
+  }
+  .pd_banner-pic, .pd_banner-pic img{
+    min-height: auto;
+  }
+   .yanhua{
+     display:none;
+  }
+}
+@keyframes swingRight {
+      0% {
+        transform: rotate(0deg);
+      }
+     
+      50% {
+        transform: rotate(15deg);
+      }
+     
+      100% {
+        transform: rotate(0deg);
+      }
+    }
+    @keyframes swingLeft {
+      0% {
+        transform: rotate(0deg);
+      }
+     
+      50% {
+        transform: rotate(-15deg);
+      }
+     
+      100% {
+        transform: rotate(0deg);
+      }
+    }
+    @media (max-width: 765px) {
+      .pd_banner-bottom{
+        font-size: 15px;
+        padding: 20px;
+}
+    }
+    
+/* pd_banner-box end*/
+</style>
+ <section>
+   <div class="pd_banner-box">
+       {%- if section.settings.yanhua_image -%}
+     <div class="yanhua to-opacity">
+         <img src="{{ section.settings.yanhua_image | image_url }}" alt="">
+     </div>
+      {%- endif -%}
+      <picture class="pd_banner-pic to-opacity">
+            {%- if section.settings.image_mobile -%}
+           <source
+              media="(max-width: 767px)"
+              srcset="{{ section.settings.image_mobile | image_url: width: '400x' }} 400w, {{ section.settings.image_mobile | image_url: width: '600x' }} 600w, {{ section.settings.image_mobile | image_url: width: '800x' }} 800w, {{ section.settings.image_mobile | image_url: width: '1000x' }} 1000w"
+              width="{{ section.settings.image_mobile.width }}"
+              height="{{ section.settings.image_mobile.height }}"
+            >
+            {%- endif -%}
+            {%- if section.settings.image -%}
+             {{- section.settings.image | image_url: width: section.settings.image.width | image_tag: loading: 'eager', sizes: '100vw', widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200', class: 'trade_banner__image' -}}
+            {%- endif -%}
+          </picture>
+    <div class="pd_box-pn">
+      <div class="pd_container">
+        <div class="banner_ct-box1 to-top destok_visible">
+          <div class="ct_box1-left">{{ section.settings.text_1 }}</div>
+          <div class="ct_box1-right">{{ section.settings.text_2 }}</div>
+        </div>
+        <div class="pd_banner-wrapper to-top">
+          <div class="pd_banner-lt">
+            <img src="{{ section.settings.left_image | image_url }}" alt="">
+          </div>
+          <div class="pd_banner-ct">
+            <div class="banner_ct-box1 to-top mobile_visible">
+               <div class="ct_box1-left">{{ section.settings.text_1 }}</div>
+               <div class="ct_box1-right">{{ section.settings.text_2 }}</div>
+            </div>
+            <div class="banner_ct-box2 to-top">
+              {{ section.settings.text_3 }}
+            </div>
+            <div class="banner_ct-box3 to-top mobile_visible">
+             {{ section.settings.text_4 }}
+            </div>
+          </div>
+          <div class="pd_banner-rt to-left">
+            <img src="{{ section.settings.right_image | image_url }}" alt="">
+          </div>
+        </div>
+        <div class="banner_ct-box3 to-top destok_visible">
+           {{ section.settings.text_4 }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pd_banner-bottom to-top">
+      {{ section.settings.text_5 }}
+  </div>
+  </section>
+<script>
+</script>
+{% schema %}
+{
+  "name": "Pd Banner 2024",
+  "class": "shopify-section--pd-banner", 
+  "settings": [
+    {
+          "type": "image_picker",
+          "id": "left_image",
+          "label": "Product Image 1"
+        },
+    {
+          "type": "image_picker",
+          "id": "right_image",
+          "label": "Product Image 2"
+        },
+    {
+      "type": "text",
+      "id": "text_1",
+      "label": "Text 1"
+    },
+  {
+      "type": "richtext",
+      "id": "text_2",
+      "label": "Text 2"
+    },
+    {
+      "type": "text",
+      "id": "text_3",
+      "label": "Text 3"
+    },
+    {
+      "type": "text",
+      "id": "text_4",
+      "label": "Text 4"
+    },
+    {
+      "type": "text",
+      "id": "text_5",
+      "label": "Text 5"
+    },
+     {
+      "type": "text",
+      "id": "button_txt",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Button Link"
+    },
+    {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        },
+      {
+          "type": "image_picker",
+          "id": "yanhua_image",
+          "label": "Image logo"
+        },
+     {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile Images"
+        },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "rgba(0,0,0,0)"
+    }
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "Pd Banner 2024"
+    }
+  ]
+}
+{% endschema %}

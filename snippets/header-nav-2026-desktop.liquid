@@ -1,0 +1,57 @@
+{%- liquid
+  unless limit
+    assign limit = main_menu.links.size
+  endunless
+  unless offset
+    assign offset = 0
+  endunless
+-%}
+
+<ul class="header-2026__nav-list flex flex-wrap list-menu">
+  {%- for link in main_menu.links limit: limit offset: offset -%}
+    {%- liquid
+      assign mega_kind = ''
+      assign normalized_title = link.title | strip
+      case normalized_title
+        when '製品一覧'
+          assign mega_kind = 'products'
+        when 'ユーザーガイド'
+          assign mega_kind = 'guide'
+        when 'Ulike独自の技術'
+          assign mega_kind = 'technology'
+        when 'Ulikeについて'
+          assign mega_kind = 'about'
+        when 'トピックス'
+          assign mega_kind = 'topics'
+      endcase
+    -%}
+
+    <li>
+      {%- if mega_kind != blank -%}
+        <details is="details-mega" trigger="{% if section.settings.hover_menu %}hover{% else %}click{% endif %}" level="top" class="header-2026__details header-2026__details--{{ mega_kind }}">
+          <summary>
+            <span class="header-2026__nav-link{% if link.current %} is-current{% endif %}">{{ link.title | escape }}</span>
+          </summary>
+          <div class="mega-menu header-2026__mega absolute top-0 left-0 w-full max-w-full overflow-hidden pointer-events-none">
+            {%- render 'header-nav-2026-mega', kind: mega_kind, link: link, section: section -%}
+          </div>
+        </details>
+      {%- elsif link.links != blank -%}
+        <details is="details-dropdown" trigger="{% if section.settings.hover_menu %}hover{% else %}click{% endif %}" level="top" class="header-2026__details">
+          <summary><span class="header-2026__nav-link{% if link.current %} is-current{% endif %}">{{ link.title | escape }}</span></summary>
+          <div class="dropdown opacity-0 invisible absolute top-0 max-w-full pointer-events-none">
+            <div class="dropdown__container relative">
+              <ul class="dropdown__nav grid gap-1d5 xl:gap-2" role="list">
+                {%- for childlink in link.links -%}
+                  <li class="opacity-0"><a href="{{ childlink.url }}" class="reversed-link text-sm-base">{{ childlink.title | escape }}</a></li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          </div>
+        </details>
+      {%- else -%}
+        <a class="header-2026__nav-link{% if link.current %} is-current{% endif %}" href="{{ link.url }}">{{ link.title | escape }}</a>
+      {%- endif -%}
+    </li>
+  {%- endfor -%}
+</ul>

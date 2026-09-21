@@ -1,0 +1,28 @@
+<desktop-navigation class="header-2026__desktop-navigation">
+  <ul class="header__linklist header-2026__nav-list list--unstyled {% unless bottom_navigation %}hidden-pocket hidden-lap{% endunless %}" role="list">
+    {%- for link in menu.links -%}
+      {%- assign panel = blank -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'header_navigation_panel' and block.settings.menu_item == link.title -%}
+          {%- assign panel = block -%}
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- assign kind = panel.settings.panel_type -%}
+      {%- if panel != blank -%}
+      <li class="header__linklist-item header-2026__nav-item has-dropdown" data-item-title="{{ link.title | escape }}">
+        <button class="header__linklist-link header-2026__nav-link" type="button" aria-controls="header-2026-menu-{{ section.id }}-{{ forloop.index0 }}" aria-expanded="false">
+          {{- link.title -}}
+        </button>
+        <div hidden id="header-2026-menu-{{ section.id }}-{{ forloop.index0 }}" class="mega-menu header-2026__mega header-2026__mega--{{ kind }}">
+          {%- render 'header-2026-focal-mega', kind: kind, menu_item: panel.settings.menu_item, section: section -%}
+        </div>
+      </li>
+      {%- else -%}
+      <li class="header__linklist-item header-2026__nav-item" data-item-title="{{ link.title | escape }}">
+        <a class="header__linklist-link header-2026__nav-link" href="{{ link.url }}">{{- link.title -}}</a>
+      </li>
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+</desktop-navigation>

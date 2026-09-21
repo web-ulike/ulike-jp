@@ -1,0 +1,252 @@
+<style>
+.title-diy{
+  font-size: 40px;
+}
+.ratio-video .ratio-video-cont video{
+width:100%;
+}
+@media (max-width: 991px) {
+  .title-diy {
+    font-size: 28px;
+  }
+}
+
+.ratio-video{
+  padding: 70px 0;
+}
+
+.ratio-video .container{
+  max-width: 1400px;
+}
+
+.ratio-video .title-diy{
+  {% comment %} max-width: 435px; {% endcomment %}
+  margin: 0 auto;
+}
+
+.ratio-video .ratio-video-cont{
+  margin-top: 55px;
+  position: relative;
+}
+
+.ratio-video .ratio-video-cont .img{
+  display: block;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  {% comment %} opacity: 0; {% endcomment %}
+}
+
+.ratio-video .iframe{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+.ratio-video .iframe video{
+  width: 100%;
+  height: 100%;
+}
+.ratio-video .ratio-video-text{
+  display: flex;
+  color: #000;
+  margin-top: 50px;
+  gap: 20px;
+}
+
+.ratio-video .ratio-video-item{
+  {% comment %} flex: 1; {% endcomment %}
+   flex: 0 0 calc((100% - 20px * 1) / 2);
+   position:relative;
+}
+
+.ratio-video .ratio-video-item:first-child{
+  {% comment %} padding-right: 120px; {% endcomment %}
+  {% comment %} border-right: 1px solid #e1e1e1; {% endcomment %}
+}
+.ratio-video .ratio-video-item:nth-child(2):before{
+  content:'';
+  display:block;
+  width:1px;
+  height:100%;
+  position:absolute;
+  left:-10px;
+  background:#e1e1e1;
+  {% comment %} padding-left: 120px; {% endcomment %}
+}
+.ratio-video .ratio-video-item:nth-child(2){
+
+  padding-left: 120px; 
+}
+.ratio-video .ratio-video-h5{
+  font-size: 28px;
+  font-family: var(--font-heading-family);
+  line-height: 1.2;
+  margin-bottom: 30px;
+}
+
+.ratio-video .ratio-video-p{
+ font-size: 18px;
+  line-height: 1.2;
+  max-width:600px;
+}
+.ratio-video .ratio-video-p p{
+  margin:0;
+}
+.ratio-video .ratio-video-p strong{
+font-weight: normal;
+font-style: normal;
+}
+.ratio-video .mb-box{
+  display: none;
+}
+.ratio-video-note{
+color: #B2B2B2;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top:20px
+}
+.ratio-video-note p{
+margin:0;
+}
+@media (max-width:1300px) {
+  .ratio-video .ratio-video-item:first-child{
+    padding-right: 60px;
+  }
+  .ratio-video .ratio-video-item:nth-child(2){
+    padding-left: 60px;
+  }
+}
+
+@media (max-width:991px) {
+  .ratio-video{
+    padding: 50px 0;
+  }
+  .ratio-video .mb-box{
+    display: block;
+  }
+
+  .ratio-video .pc-box{
+    display: none;
+  }
+  .ratio-video .ratio-video-cont{
+    margin-top: 30px;
+  }
+  .ratio-video .ratio-video-text{
+    margin-top: 30px;
+  }
+  .ratio-video .ratio-video-p{
+    line-height: 1.5;
+  }
+  .ratio-video-note{
+ display: none;
+}
+
+}
+</style>
+<section class="section-box">
+  <div class="ratio-video">
+    <div class="container">
+      <div class="title-diy to-top">
+        {{ section.settings.title }}
+      </div>
+      <div class="ratio-video-cont to-top" style="transition-delay: 0.1s">
+        {%- if section.settings.image != blank -%}
+           <img loading="lazy" class="img" width="{{ section.settings.image.width }}" height="{{ section.settings.image.height }}" {% render 'image-attributes', image: section.settings.image %} alt="{{ section.settings.image.alt | escape }}" >
+        {%- endif -%}
+        {%- if section.settings.video_url != blank -%}
+            {{- section.settings.video_url | video_tag: controls: false, autoplay: true, playsinline: true, muted: true, loop: true , image_size: '740x' -}}
+        {%- endif -%}
+      </div>
+      <div class="ratio-video-text pc-box">
+        <div class="ratio-video-item to-top" style="transition-delay: 0.2s">
+          <div class="ratio-video-h5">{{ section.settings.text }}</div>
+          <div class="ratio-video-p">
+            {{ section.settings.text1 }}
+          </div>
+           <div class="ratio-video-note">{{ section.settings.note1 }}</div>
+        </div>
+        <div class="ratio-video-item to-top" style="transition-delay: 0.3s">
+          <div class="ratio-video-h5">{{ section.settings.text2 }}</div>
+          <div class="ratio-video-p">
+            {{ section.settings.text3 }}
+          </div>
+          <div class="ratio-video-note">{{ section.settings.note2 }}</div>
+        </div>
+      </div>
+      <div class="ratio-video-text mb-box to-top" style="transition-delay: 0.2s">
+        <div class="ratio-video-p">
+          {{ section.settings.text4 }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "ratio-video",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "video_url",
+      "label": "Video",
+      "info": "Replaces the external video if both are set."
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "richtext",
+      "id": "text1",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "text2",
+      "label": "Text"
+    },
+    {
+      "type": "richtext",
+      "id": "text3",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "text4",
+      "label": "Text"
+    }  ,  {
+      "type": "richtext",
+      "id": "note1",
+      "label": "Note1"
+    },
+     {
+      "type": "richtext",
+      "id": "note2",
+      "label": "Note2"
+    }
+  ],
+  "presets": [
+    {
+      "name": "ratio-video",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,458 @@
+{%- if section.settings.background_type == 'boxed' -%}
+  {%- assign is_boxed = true -%}
+{%- else -%}
+  {%- assign is_boxed = false -%}
+{%- endif -%}
+
+{%- if section.settings.background != settings.background and section.settings.background != 'rgba(0,0,0,0)' -%}
+  {%- assign blends_with_background = false -%}
+{%- else -%}
+  {%- assign blends_with_background = true -%}
+{%- endif -%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    {%- if section.settings.background == 'rgba(0,0,0,0)' -%}
+      {%- assign section_background = settings.background -%}
+    {%- else -%}
+      {%- assign section_background = section.settings.background -%}
+    {%- endif -%}
+
+    {%- if section.settings.text_color == 'rgba(0,0,0,0)' -%}
+      {%- assign heading_color = settings.heading_color -%}
+      {%- assign text_color = settings.text_color -%}
+    {%- else -%}
+      {%- assign heading_color = section.settings.text_color -%}
+      {%- assign text_color = section.settings.text_color -%}
+    {%- endif -%}
+
+    {%- if section.settings.button_background == 'rgba(0,0,0,0)' -%}
+      {%- assign button_background = settings.primary_button_background -%}
+    {%- else -%}
+      {%- assign button_background = section.settings.button_background -%}
+    {%- endif -%}
+
+    {%- if section.settings.button_text_color == 'rgba(0,0,0,0)' -%}
+      {%- assign button_text_color = settings.primary_button_text_color -%}
+    {%- else -%}
+      {%- assign button_text_color = section.settings.button_text_color -%}
+    {%- endif -%}
+
+    --heading-color: {{ heading_color.red }}, {{ heading_color.green }}, {{ heading_color.blue }};
+    --text-color: {{ text_color.red }}, {{ text_color.green }}, {{ text_color.blue }};
+    --primary-button-background: {{ button_background.red }}, {{ button_background.green }}, {{ button_background.blue }};
+    --primary-button-text-color: {{ button_text_color.red }}, {{ button_text_color.green }}, {{ button_text_color.blue }};
+
+    --section-background: {{ section_background.red }}, {{ section_background.green }}, {{ section_background.blue }};
+  }
+
+  #shopify-section-{{ section.id }} .rich-text__spacing {
+    height: var(--spacing-height-mobile);
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .rich-text__spacing {
+      height: var(--spacing-height-desktop);
+    }
+  }
+</style>
+
+<section class="section {% unless blends_with_background or is_boxed %}section--flush{% endunless %}">
+  <div {% if is_boxed %}class="container"{% endif %}>
+    <div class="section__color-wrapper {% if is_boxed %}section__color-wrapper--boxed{% endif %}">
+      <div class="{% unless is_boxed %}container{% endunless %} {% unless blends_with_background %}vertical-breather{% endunless %}">
+        {%- assign text_position = section.settings.text_position -%}
+        {%- assign text_alignment = section.settings.text_alignment -%}
+
+        <div class="content-box content-box--{{ section.settings.text_width }} content-box--text-{{ text_alignment }} content-box--{{ text_position }} text-container">
+          {%- if section.blocks.size > 0 -%}
+            {%- for block in section.blocks -%}
+              {%- case block.type -%}
+                {%- when 'heading' -%}
+                  {%- if block.settings.heading != blank -%}
+                    {%- assign heading_tag = block.settings.heading_tag | default: 'h2' -%}
+                    <{{ heading_tag }} class="heading {{ block.settings.heading_size | default: 'h2' }}" {{ block.shopify_attributes }}>
+                      {{- block.settings.heading -}}
+                    </{{ heading_tag }}>
+                  {%- endif -%}
+
+                {%- when 'text' -%}
+                  {%- if block.settings.text != blank -%}
+                    <div
+                      class="rte {{ block.settings.text_size }}{% if block.settings.text_font == 'heading' %} heading{% endif %}{% if block.settings.secondary_color %} text--subdued{% endif %}"
+                      {% if block.settings.text_size == 'subtext-custom' %}style="font-size: {{ block.settings.text_max_size }}px;"{% endif %}
+                      {{ block.shopify_attributes }}
+                    >
+                      {{- block.settings.text -}}
+                    </div>
+                  {%- endif -%}
+
+                {%- when 'button' -%}
+                  {%- if block.settings.button_label != blank -%}
+                    <div class="button-wrapper" {{ block.shopify_attributes }}>
+                      <a
+                        {% if block.settings.button_link != blank %}href="{{ block.settings.button_link }}"{% else %}role="link" aria-disabled="true"{% endif %}
+                        class="button button--{{ block.settings.button_size | default: 'md' }} {% if block.settings.button_secondary_style %}button--secondary{% else %}button--primary{% endif %}"
+                      >
+                        {{- block.settings.button_label | escape -}}
+                      </a>
+                    </div>
+                  {%- endif -%}
+
+                {%- when 'liquid' -%}
+                  {%- if block.settings.liquid != blank -%}
+                    <div class="rte" {{ block.shopify_attributes }}>{{- block.settings.liquid -}}</div>
+                  {%- endif -%}
+
+                {%- when 'spacing' -%}
+                  <div
+                    class="rich-text__spacing"
+                    style="--spacing-height-desktop: {{ block.settings.height }}px; --spacing-height-mobile: {{ block.settings.height_mobile }}px;"
+                    aria-hidden="true"
+                    {{ block.shopify_attributes }}
+                  ></div>
+              {%- endcase -%}
+            {%- endfor -%}
+          {%- else -%}
+            {%- if section.settings.subheading != blank -%}
+              <h2 class="heading heading--small">{{ section.settings.subheading | escape }}</h2>
+            {%- endif -%}
+
+            {%- if section.settings.title != blank -%}
+              <h3 class="heading h2">{{ section.settings.title | escape }}</h3>
+            {%- endif -%}
+
+            {%- if section.settings.content != blank -%}
+              {{- section.settings.content -}}
+            {%- endif -%}
+
+            {%- if section.settings.button_text != blank -%}
+              <div class="button-wrapper">
+                <a href="{{ section.settings.button_link }}" class="button button--primary">{{ section.settings.button_text | escape }}</a>
+              </div>
+            {%- endif -%}
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Rich text",
+  "class": "shopify-section--rich-text",
+  "disabled_on": {
+    "groups": ["header", "custom.overlay"]
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "Heading",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Rich text"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "label": "Heading size",
+          "options": [
+            { "value": "h3", "label": "Small" },
+            { "value": "h2", "label": "Medium" },
+            { "value": "h1", "label": "Large" },
+            { "value": "title-sm", "label": "Legacy small" },
+            { "value": "title-md", "label": "Legacy medium" },
+            { "value": "title-lg", "label": "Legacy large" },
+            { "value": "title-xl", "label": "Legacy extra large" }
+          ],
+          "default": "h2"
+        },
+        {
+          "type": "select",
+          "id": "heading_tag",
+          "label": "HTML tag",
+          "options": [
+            { "value": "h2", "label": "H2" },
+            { "value": "h3", "label": "H3" },
+            { "value": "h4", "label": "H4" },
+            { "value": "div", "label": "Div" },
+            { "value": "p", "label": "Paragraph" }
+          ],
+          "default": "h2"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Share information about your brand with your customers.</p>"
+        },
+        {
+          "type": "select",
+          "id": "text_size",
+          "label": "Text size",
+          "options": [
+            { "value": "subtext-sm", "label": "Small" },
+            { "value": "subtext-md", "label": "Medium" },
+            { "value": "subtext-lg", "label": "Large" },
+            { "value": "subtext-xl", "label": "Extra large" },
+            { "value": "subtext-custom", "label": "Custom" }
+          ],
+          "default": "subtext-md"
+        },
+        {
+          "type": "range",
+          "id": "text_max_size",
+          "label": "Custom text size",
+          "min": 12,
+          "max": 128,
+          "step": 2,
+          "unit": "px",
+          "default": 32
+        },
+        {
+          "type": "select",
+          "id": "text_font",
+          "label": "Font",
+          "options": [
+            { "value": "body", "label": "Body" },
+            { "value": "heading", "label": "Heading" }
+          ],
+          "default": "body"
+        },
+        {
+          "type": "checkbox",
+          "id": "secondary_color",
+          "label": "Use subdued text color",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Button label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        },
+        {
+          "type": "select",
+          "id": "button_size",
+          "label": "Button size",
+          "options": [
+            { "value": "sm", "label": "Small" },
+            { "value": "md", "label": "Medium" },
+            { "value": "lg", "label": "Large" }
+          ],
+          "default": "md"
+        },
+        {
+          "type": "checkbox",
+          "id": "button_secondary_style",
+          "label": "Use secondary style",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "liquid",
+      "name": "Custom Liquid",
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "liquid",
+          "label": "Custom Liquid"
+        }
+      ]
+    },
+    {
+      "type": "spacing",
+      "name": "Spacing",
+      "settings": [
+        {
+          "type": "range",
+          "id": "height",
+          "label": "Desktop height",
+          "min": 0,
+          "max": 120,
+          "step": 4,
+          "unit": "px",
+          "default": 40
+        },
+        {
+          "type": "range",
+          "id": "height_mobile",
+          "label": "Mobile height",
+          "min": 0,
+          "max": 120,
+          "step": 4,
+          "unit": "px",
+          "default": 28
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Subheading"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Talk about your brand"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Content",
+      "default": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "select",
+      "id": "background_type",
+      "label": "Background",
+      "options": [
+        {
+          "value": "full_width",
+          "label": "Full width"
+        },
+        {
+          "value": "boxed",
+          "label": "Boxed"
+        }
+      ],
+      "default": "full_width"
+    },
+    {
+      "type": "select",
+      "id": "text_width",
+      "label": "Text width",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "fill",
+          "label": "Fill screen"
+        }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "select",
+      "id": "text_position",
+      "label": "Text position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "rgba(0,0,0,0)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Rich text",
+      "category": "Content",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}

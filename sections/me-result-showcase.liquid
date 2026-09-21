@@ -1,0 +1,214 @@
+{%- liquid
+  assign sid = section.id
+  assign st = section.settings
+  assign desktop_image = st.image | default: st.image_mobile
+
+  capture default_title
+    echo '<p>最短<span style="color:#75B5ED;">2週間</span>、<br>効果を実感。</p>'
+  endcapture
+  capture default_copy
+    echo '<p><span style="color:#75B5ED;">わずか6回</span>のケアで、お手入れの変化を実感*¹</p>'
+  endcapture
+  capture default_body
+    echo '<p>初めての光美容器だからこそ、一番大切なのは「本当に効果がある」こと。</p><p>Ulike Meは、6.6J/cm²のエネルギー密度と最大20Jの出力エネルギーを搭載。手に取りやすい価格帯でありながら、<span style="background:#75B5ED;color:#fff;">わずか2週間（約6回）のケア</span>で、ムダ毛ケアの変化を感じていただけます*¹</p>'
+  endcapture
+  capture default_footnote
+    echo '<p>*1. トリートメントスケジュールに従って週3回使用した場合。効果には個人差及び部位差があります。</p><p>*2. 国際認証機関CVCによる試験結果。No: WTS2025-2207。</p>'
+  endcapture
+-%}
+
+<section id="me-result-showcase-{{ sid }}" class="me-result-showcase" style="--me-result-bg: {{ st.background }};">
+  {% if desktop_image != blank %}
+    <picture class="me-result-showcase__background">
+      {% if st.image_mobile != blank %}
+        <source media="(max-width: 749px)" srcset="{{ st.image_mobile | image_url: width: 1200 }}">
+      {% endif %}
+      {{ desktop_image | image_url: width: 2400 | image_tag: class: 'me-result-showcase__background-image', loading: 'lazy', widths: '750, 1200, 1600, 1920, 2400', sizes: '100vw' }}
+    </picture>
+  {% endif %}
+
+  <div class="me-result-showcase__content me-result-showcase__desktop-content">
+    {{ st.title_html | default: default_title | replace: '2週間', '<span class="me-result-showcase__number">2</span>週間' | replace_first: '<p', '<p class="to-top"' }}
+    {{ st.description_html | default: default_copy | replace_first: '<p', '<p class="me-result-showcase__copy to-top" style="transition-delay: 0.1s"' }}
+    <div class="me-result-showcase__body to-top" style="transition-delay: 0.2s">{{ st.body_html | default: default_body }}</div>
+    {% if st.bottom_image != blank or st.bottom_image_mobile != blank %}
+      {%- assign desktop_bottom_image = st.bottom_image | default: st.bottom_image_mobile -%}
+      <div class="me-result-showcase__result to-top" style="transition-delay: 0.3s">
+        <picture class="me-result-showcase__result-image">
+          {{ desktop_bottom_image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '500, 750, 1000', sizes: '28vw' }}
+        </picture>
+        <div class="me-result-showcase__footnote">{{ st.footnote_html | default: default_footnote }}</div>
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="me-result-showcase__content me-result-showcase__mobile-content">
+    {{ st.title_html_mobile | default: st.title_html | default: default_title | replace: '2週間', '<span class="me-result-showcase__number">2</span>週間' | replace_first: '<p', '<p class="to-top"' }}
+    {{ st.description_html_mobile | default: st.description_html | default: default_copy | replace_first: '<p', '<p class="me-result-showcase__copy to-top" style="transition-delay: 0.1s"' }}
+    <div class="me-result-showcase__body to-top" style="transition-delay: 0.2s">{{ st.body_html_mobile | default: st.body_html | default: default_body }}</div>
+    {% if st.bottom_image != blank or st.bottom_image_mobile != blank %}
+      {%- assign mobile_bottom_image = st.bottom_image_mobile | default: st.bottom_image -%}
+      <div class="me-result-showcase__result to-top" style="transition-delay: 0.3s">
+        <picture class="me-result-showcase__result-image">
+          {{ mobile_bottom_image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '500, 750, 1000', sizes: 'calc(100vw - 60px)' }}
+        </picture>
+        <div class="me-result-showcase__footnote">{{ st.footnote_html | default: default_footnote }}</div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  #me-result-showcase-{{ sid }} {
+    position: relative;
+    overflow: hidden;
+    background: var(--me-result-bg);
+    color: #000;
+  }
+
+  #me-result-showcase-{{ sid }} .me-result-showcase__background,
+  #me-result-showcase-{{ sid }} .me-result-showcase__background-image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  #me-result-showcase-{{ sid }} .me-result-showcase__content {
+    position: absolute;
+    z-index: 0;
+  }
+
+  #me-result-showcase-{{ sid }} .me-result-showcase__desktop-content {
+    top: 16.2%;
+    left: max(8%, calc((100% - 1360px) / 2));
+    width: min(28%, 500px);
+  }
+
+  #me-result-showcase-{{ sid }} .me-result-showcase__mobile-content {
+    display: none;
+  }
+
+  #me-result-showcase-{{ sid }} .me-result-showcase__content > :first-child {
+    margin: 0;
+    font-size: 40px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  #me-result-showcase-{{ sid }} .me-result-showcase__copy {
+    margin: 16px 0 0;
+    font-size: 22px;
+    line-height: 1.4;
+  }
+
+  #me-result-showcase-{{ sid }} .me-result-showcase__number {
+    font-size: 64px;
+  }
+
+  #me-result-showcase-{{ sid }} .me-result-showcase__body {
+    margin-top: 40px;
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 434px;
+  }
+
+  #me-result-showcase-{{ sid }} .me-result-showcase__body p {
+    margin: 0;
+  }
+
+  #me-result-showcase-{{ sid }} .me-result-showcase__body p + p {
+    margin-top: 0px;
+  }
+
+  #me-result-showcase-{{ sid }} .me-result-showcase__result {
+    width: 100%;
+    margin-top: 64px;
+  }
+
+  #me-result-showcase-{{ sid }} .me-result-showcase__result-image,
+  #me-result-showcase-{{ sid }} .me-result-showcase__result-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  #me-result-showcase-{{ sid }} .me-result-showcase__footnote {
+    margin-top: 70px;
+    color: #737577;
+    font-size: 10px;
+    line-height: 1.5;
+  }
+
+  #me-result-showcase-{{ sid }} .me-result-showcase__footnote p {
+    margin: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    #me-result-showcase-{{ sid }} .me-result-showcase__desktop-content {
+      display: none;
+    }
+
+    #me-result-showcase-{{ sid }} .me-result-showcase__mobile-content {
+      display: block;
+      top: 32%;
+      left: 0;
+      width: 100%;
+      padding: 0 15px;
+    }
+
+    #me-result-showcase-{{ sid }} .me-result-showcase__content > :first-child {
+      font-size: 30px;
+      line-height: 1.3;
+    }
+
+    #me-result-showcase-{{ sid }} .me-result-showcase__number {
+      font-size: 48px;
+    }
+
+    #me-result-showcase-{{ sid }} .me-result-showcase__copy {
+      margin-top: 13px;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    #me-result-showcase-{{ sid }} .me-result-showcase__body {
+      margin-top: 28px;
+      font-size: 14px;
+    }
+
+    #me-result-showcase-{{ sid }} .me-result-showcase__body p + p {
+      margin-top: 10px;
+    }
+
+    #me-result-showcase-{{ sid }} .me-result-showcase__result {
+      width: 100%;
+      margin-top: 25px;
+    }
+
+    #me-result-showcase-{{ sid }} .me-result-showcase__footnote {
+      margin-top: 25px;
+      font-size: 10px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Ulike ME 效果模块",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "PC 背景图" },
+    { "type": "image_picker", "id": "image_mobile", "label": "移动端背景图" },
+    { "type": "html", "id": "title_html", "label": "PC 标题（HTML）", "default": "<p>最短<span style=\"color:#75B5ED;\">2週間</span>、<br>効果を実感。</p>" },
+    { "type": "html", "id": "description_html", "label": "PC 副标题（HTML）", "default": "<p><span style=\"color:#75B5ED;\">わずか6回</span>のケアで、お手入れの変化を実感*¹</p>" },
+    { "type": "html", "id": "body_html", "label": "PC 正文（HTML）", "default": "<p>初めての光美容器だからこそ、一番大切なのは「本当に効果がある」こと。</p><p>Ulike Meは、6.6J/cm²のエネルギー密度と最大20Jの出力エネルギーを搭載。手に取りやすい価格帯でありながら、<span style=\"background:#75B5ED;color:#fff;\">わずか2週間（約6回）のケア</span>で、ムダ毛ケアの変化を感じていただけます*¹</p>" },
+    { "type": "html", "id": "title_html_mobile", "label": "移动端标题（HTML）", "default": "<p>最短<span style=\"color:#75B5ED;\">2週間</span>、<br>効果を実感。</p>" },
+    { "type": "html", "id": "description_html_mobile", "label": "移动端副标题（HTML）", "default": "<p><span style=\"color:#75B5ED;\">わずか6回</span>のケアで、お手入れの変化を実感*¹</p>" },
+    { "type": "html", "id": "body_html_mobile", "label": "移动端正文（HTML）", "default": "<p>初めての光美容器だからこそ、一番大切なのは「本当に効果がある」こと。</p><p>Ulike Meは、6.6J/cm²のエネルギー密度と最大20Jの出力エネルギーを搭載。手に取りやすい価格帯でありながら、<span style=\"background:#75B5ED;color:#fff;\">わずか2週間（約6回）のケア</span>で、ムダ毛ケアの変化を感じていただけます*¹</p>" },
+    { "type": "image_picker", "id": "bottom_image", "label": "PC 效果演示图" },
+    { "type": "image_picker", "id": "bottom_image_mobile", "label": "移动端效果演示图" },
+    { "type": "html", "id": "footnote_html", "label": "效果演示图脚注（HTML）", "default": "<p>*1. トリートメントスケジュールに従って週3回使用した場合。効果には個人差及び部位差があります。</p><p>*2. 国際認証機関CVCによる試験結果。No: WTS2025-2207。</p>" },
+    { "type": "color", "id": "background", "label": "背景", "default": "#f0f5fb" }
+  ],
+  "presets": [{ "name": "Ulike 效果模块" }]
+}
+{% endschema %}

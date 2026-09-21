@@ -1,0 +1,100 @@
+{%- liquid
+  assign section_id = 'jp-men-shr-2026-' | append: section.id
+  assign default_title_first = 'ハイパワーでも肌に優しい'
+  assign default_title_second = 'SHRモード搭載'
+  assign default_body = '照射ボタンを押すと、2本のランプがわずかな時間差で複数回に分けて光を照射し、肌全体に均一にパワーを届けます。ハイパワーな光を、細かく蓄熱分割照射することで、肌への刺激を抑えながらもしっかり強力アプローチできるモードです。お顔やヒゲ、VIOなど、剛毛でもデリケートな部位のケアにおすすめ。'
+  assign default_note = '*SHRモード：UlikeのSHR（Strong Hair Removal）モードとは、IPL蓄熱式照射技術を指す。'
+-%}
+
+<section id="{{ section_id }}" class="jp-men-shr-2026">
+  <div class="jp-men-shr-2026__inner container">
+  <div class="jp-men-shr-2026__desktop-content">
+    <div class="jp-men-shr-2026__intro">
+      <h2 class="jp-men-shr-2026__title to-top"><span>{{ section.settings.title_first | default: default_title_first }}</span><span>{{ section.settings.title_second | default: default_title_second }}</span></h2>
+      <p class="jp-men-shr-2026__body to-top" style="transition-delay: .1s">{{ section.settings.body | default: default_body }}</p>
+    </div>
+    <div class="jp-men-shr-2026__gallery">
+      {%- for index in (1..3) -%}
+        {%- liquid
+          assign image_key = 'image_' | append: index
+          assign image = section.settings[image_key]
+        -%}
+        <div class="jp-men-shr-2026__card">
+          {%- if image != blank -%}
+            {{ image | image_url: width: 900 | image_tag: class: 'jp-men-shr-2026__image', loading: 'lazy', widths: '400, 550, 700, 900', alt: image.alt | default: section.settings.title_second }}
+          {%- else -%}
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'jp-men-shr-2026__placeholder' }}
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+    <p class="jp-men-shr-2026__note">{{ section.settings.note | default: default_note | escape }}</p>
+  </div>
+  </div>
+</section>
+
+<style>
+  #{{ section_id }} { 
+    color: {{ section.settings.text_color | default: '#000000' }}; 
+    margin-top: {{ section.settings.margin_top | default: 0 }}px; 
+    margin-bottom: {{ section.settings.margin_bottom | default: 0 }}px; overflow: hidden; 
+  }
+
+  #{{ section_id }} .jp-men-shr-2026__mobile-media { display: none; }
+  #{{ section_id }} .jp-men-shr-2026__desktop-content { padding: 7.017vw 9.044% 7.5vw;
+     background: {{ section.settings.background | default: '#f7f8fa' }}; 
+  }
+  #{{ section_id }} .jp-men-shr-2026__title { color: inherit; 
+     font-size: 45px; font-weight: 500; line-height: 1.2; margin: 0; 
+  }
+  #{{ section_id }} .jp-men-shr-2026__title span { display: block; }
+  #{{ section_id }} .jp-men-shr-2026__body { color: inherit; 
+    font-size: 23px; font-weight: 400; line-height: 1.4; margin: 2vw 0 0; text-align: justify; }
+  #{{ section_id }} .jp-men-shr-2026__gallery { display: grid; gap: 2.2vw; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 3.6vw; }
+  #{{ section_id }} .jp-men-shr-2026__card { background: #e5e6e9; min-width: 0; }
+  #{{ section_id }} .jp-men-shr-2026__image, #{{ section_id }} .jp-men-shr-2026__placeholder { display: block; height: auto; width: 100%; }
+  #{{ section_id }} .jp-men-shr-2026__placeholder { aspect-ratio: 699 / 568; fill: #cdd0d5; }
+  #{{ section_id }} .jp-men-shr-2026__note { color: {{ section.settings.note_color | default: '#000000' }}; font-family: inherit; font-size: 13px; line-height: 1.3; margin: 1.7vw 0 0; opacity: .5; }
+
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} .jp-men-shr-2026__inner { padding: 0; }
+    #{{ section_id }} { margin-top: {{ section.settings.mobile_margin_top | default: 0 }}px; 
+      margin-bottom: {{ section.settings.mobile_margin_bottom | default: 0 }}px;
+    }
+    #{{ section_id }} .jp-men-shr-2026__desktop-content { display: block; padding: 10.854vw 20px 5.889vw; }
+    #{{ section_id }} .jp-men-shr-2026__title { font-size: 5.543vw; line-height: 1.2; }
+    #{{ section_id }} .jp-men-shr-2026__body { font-size: 3.464vw; line-height: 1.4; margin-top: 3.233vw; }
+    #{{ section_id }} .jp-men-shr-2026__gallery { display: block; height: 75.115vw; margin-top: 12.702vw; position: relative; }
+    #{{ section_id }} .jp-men-shr-2026__card { aspect-ratio: 866 / 971; border: 5px solid #fff; box-sizing: border-box; overflow: hidden; position: absolute; }
+    #{{ section_id }} .jp-men-shr-2026__card:nth-child(1) { right: 0; top: 0; width: 56.527%; }
+    #{{ section_id }} .jp-men-shr-2026__card:nth-child(2) { left: 0; top: 21.833%; width: 59.465%; z-index: 1; }
+    #{{ section_id }} .jp-men-shr-2026__card:nth-child(3) { display: none; }
+    #{{ section_id }} .jp-men-shr-2026__image { height: 100%; object-fit: cover; width: 100%; }
+    #{{ section_id }} .jp-men-shr-2026__note { display: none; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "jp-men-shr-2026",
+  "settings": [
+    { "type": "header", "content": "外边距" },
+    { "type": "range", "id": "margin_top", "label": "PC 上边距", "min": 0, "max": 200, "step": 5, "unit": "px", "default": 0 },
+    { "type": "range", "id": "margin_bottom", "label": "PC 下边距", "min": 0, "max": 200, "step": 2, "unit": "px", "default": 0 },
+    { "type": "range", "id": "mobile_margin_top", "label": "M 上边距", "min": 0, "max": 200, "step": 2, "unit": "px", "default": 0 },
+    { "type": "range", "id": "mobile_margin_bottom", "label": "M 下边距", "min": 0, "max": 200, "step": 2, "unit": "px", "default": 0 },
+    { "type": "text", "id": "title_first", "label": "标题第一行", "default": "ハイパワーでも肌に優しい" },
+    { "type": "text", "id": "title_second", "label": "标题第二行", "default": "SHRモード搭載" },
+    { "type": "textarea", "id": "body", "label": "说明文案", "default": "照射ボタンを押すと、2本のランプがわずかな時間差で複数回に分けて光を照射し、肌全体に均一にパワーを届けます。ハイパワーな光を、細かく蓄熱分割照射することで、肌への刺激を抑えながらもしっかり強力アプローチできるモードです。お顔やヒゲ、VIOなど、剛毛でもデリケートな部位のケアにおすすめ。" },
+    { "type": "image_picker", "id": "image_1", "label": "PC 图片 1（建议 699 × 568）" },
+    { "type": "image_picker", "id": "image_2", "label": "PC 图片 2（建议 699 × 568）" },
+    { "type": "image_picker", "id": "image_3", "label": "PC 图片 3（建议 699 × 568）" },
+    { "type": "textarea", "id": "note", "label": "PC 脚注", "default": "*SHRモード：UlikeのSHR（Strong Hair Removal）モードとは、IPL蓄熱式照射技術を指す。" },
+    { "type": "image_picker", "id": "image_mobile", "label": "M 整体背景图（建议 1732 × 2623，含文案与图片）" },
+    { "type": "color", "id": "background", "label": "PC 背景色", "default": "#F7F8FA" },
+    { "type": "color", "id": "text_color", "label": "PC 文字颜色", "default": "#000000" },
+    { "type": "color", "id": "note_color", "label": "PC 脚注颜色", "default": "#000000" }
+  ],
+  "presets": [{ "name": "jp-men-shr-2026" }]
+}
+{% endschema %}

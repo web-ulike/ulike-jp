@@ -1,0 +1,206 @@
+<style>
+    #shopify-section-{{ section.id }} {
+    --section-background: {{ section.settings.background }};
+    --txt_color: {{ section.settings.txt_color }};
+    --rich_txt_color: {{ section.settings.rich_txt_color }};
+      {% if section.settings.background_image != blank %}
+         --background-image: url({{ section.settings.background_image | img_url: '3840x1176' }});
+        background-image: var( --background-image);
+      {% else %}
+        background-color: var(--section-background);
+      {% endif %}
+  }
+    .section-{{ section.id }}-padding {
+      padding-top: calc({{ section.settings.padding_top }}px);
+      padding-bottom: calc({{ section.settings.padding_bottom }}px);
+    }
+    @media screen and (max-width: 768px){
+      #shopify-section-{{ section.id }} {
+      {% if section.settings.mobile_background_image != blank %}
+        --background-image: url({{ section.settings.mobile_background_image | img_url : '750x1230' }});
+      {% endif %}
+      }
+    .section-{{ section.id }}-padding {
+      padding-top: calc({{ section.settings.padding_top }}px * 0.6);
+      padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.6);
+    }
+  }
+
+
+
+  
+/* md4__inner start*/
+.md4__inner{
+  padding: 80px 0px;
+}
+.md4_pic{
+  text-align: right;
+  margin-left: 22.1vw;
+  margin-right: 12.26vw;
+}
+.md4_pic img{
+  width: 100%;
+}
+.md4_tle{
+  margin-top: 10.6vw;
+  margin-bottom: 13.3vw;
+  color:  var(--txt_color);
+font-size: 5.86vw;
+font-style: normal;
+font-weight: 400;
+line-height: 1.5;
+padding-right: 17.3vw;
+margin-left: 6.4vw;
+}
+.md4_tle-box{
+  color: var(--rich_txt_color);
+font-size: 3.733vw;
+font-style: normal;
+font-weight: 300;
+line-height: 170%;
+margin-left: 24.8vw;
+margin-right: 9.8vw;
+}
+.md4_tle-box p{
+  
+}
+.md4_tle-box p:not(:last-child){
+  margin-bottom: 13.3vw;
+}
+@media only screen and (min-width: 768px) {
+  .md4_pic{
+    margin-left: 111px;
+    margin-right: 61px;
+  }
+  .md4_tle {
+    margin-top: 53px;
+    margin-bottom: 67px;
+    font-size: 29px;
+    padding-right: 86px;
+    margin-left: 32px;
+}
+.md4_tle-box {
+    font-size: 19px;
+    margin-left: 124px;
+    margin-right:49px;
+}
+.md4_tle-box p:not(:last-child) {
+    margin-bottom: 60px;
+}
+}
+/* md4__inner end*/
+</style>
+  <section>
+    
+    <div class="md4__inner">
+       {%- if section.settings.show_svg -%}
+      <svg xmlns="http://www.w3.org/2000/svg" width="375" height="490" viewBox="0 0 375 490" fill="none">
+        <path d="M378 1C374.5 57 231.5 36 283.5 82.5C340.764 133.707 523 85.5 238 202.5C160 225 297 235.5 238 244.5C179 253.5 38.5 244.5 77.5 301C105.561 341.652 137 350.5 123.5 378.5C110 406.5 34 441 14.5 428C-5.00001 415 29.5 403.5 45 431.5C60.5 459.5 38.5 487 -14 489" stroke="#EB9A73" class="atm_path1"/>
+      </svg>
+      {%- endif -%}
+      <div class="md4_pic scale_img">
+        {%- if section.settings.image -%}
+         <img src="{{ section.settings.image | image_url }}" alt="">
+        {%- endif -%}
+  
+      </div>
+        {%- if section.settings.fall_image -%}
+        <div class="atm_leaf">
+         <img src="{{ section.settings.fall_image | image_url }}" alt="" class="fall_img">
+        </div>
+      {%- endif -%}
+      <div class="md4_tle js-observer" style="transition-delay: 105ms;">{{ section.settings.txt_1 }}</div>
+      <div class="md4_tle-box to-top" style="transition-delay: 205ms;">
+      {{ section.settings.txt_2 }}
+      </div>
+    </div>
+  </section>
+{% schema %}
+{
+  "name": "Brand Md4",
+  "class": "shopify-section--brand-md4", 
+  "settings": [
+     {
+          "type": "checkbox",
+          "id": "show_svg",
+          "label": "Show Svg",
+         "default":false
+        },
+    {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        },
+     {
+          "type": "image_picker",
+          "id": "fall_image",
+          "label": "Fall Images"
+        },
+     {
+      "type": "richtext",
+      "id": "txt_1",
+      "label": "Text 1"
+    },
+      {
+      "type": "richtext",
+      "id": "txt_2",
+      "label": "Text 2"
+    },
+    {
+      "type": "color",
+      "id": "txt_color",
+      "label": "Text color",
+      "default": "#182E67"
+    },
+     {
+      "type": "color",
+      "id": "rich_txt_color",
+      "label": "Rich Text color",
+      "default": "#000000"
+    },
+      {
+          "type": "image_picker",
+          "id": "background_image",
+          "label": "Background Image"
+        },
+      {
+          "type": "image_picker",
+          "id": "mobile_background_image",
+          "label": "Mobile Background Image"
+        },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#F3F0E9"
+    },
+       {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 0
+    }
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "Brand Md4"
+    }
+  ]
+}
+{% endschema %}

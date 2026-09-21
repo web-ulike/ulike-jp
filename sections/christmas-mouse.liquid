@@ -1,0 +1,201 @@
+<style>
+  #shopify-section-{{ section.id }}{
+    position: relative;
+    z-index: 6;
+  }
+  .christmasCar {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    z-index: 99;
+    pointer-events: none;
+  }
+  
+  .christmasCar img {
+    max-width: 100%;
+    display: block;
+  }
+</style>
+<script type="text/javascript">
+class SnakeAnimation {
+  constructor(containerSelector, numSnakes) {
+    this.container = document.querySelector(containerSelector);
+    if (!this.container) return;
+
+    this.numSnakes = numSnakes;
+    this.snakeWidth = 25;
+    this.snakeHeight = 25;
+    this.snakeRadius = Math.max(this.snakeWidth, this.snakeHeight);
+    this.maxDistance = 1.5 * this.snakeRadius;
+    this.frameRate = 60;
+    this.damping = (9 * this.frameRate) / 30;
+
+    this.snakes = [];
+    this.mouse = { x: 0, y: 0, mouse: true };
+    this.rafId = null;
+
+    this.init();
+  }
+
+  /* ================= 初始化 ================= */
+
+  init() {
+    this.updateContainerDimensions();
+    this.createSnakes();
+
+    this.updateMousePosition = this.updateMousePosition.bind(this);
+    this.animate = this.animate.bind(this);
+
+    this.container.addEventListener('mousemove', this.updateMousePosition);
+    window.addEventListener('resize', this.handleResize.bind(this));
+
+    this.animate();
+  }
+
+  /* ================= 尺寸 & 坐标 ================= */
+
+  updateContainerDimensions() {
+    this.width = this.container.clientWidth;
+    this.height = this.container.clientHeight;
+
+    const style = getComputedStyle(this.container);
+    const border = parseInt(style.borderLeftWidth, 10) || 0;
+
+    const rect = this.container.getBoundingClientRect();
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+
+    this.left = rect.left + scrollLeft + border;
+    this.top = rect.top + scrollTop + border;
+
+    this.mouse.x = this.width / 2;
+    this.mouse.y = this.height / 2;
+  }
+
+  /* ================= 创建蛇 ================= */
+
+  createSnakes() {
+    for (let i = 0; i < this.numSnakes; i++) {
+      const el = document.createElement('div');
+      el.className = 'christmasCar';
+      el.innerHTML = `
+        <img src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/ceshi${i}.svg" />
+      `;
+
+      const snake = {
+        id: i,
+        x: (this.width * 4) / 5,
+        y: (this.height * 4) / 5,
+        angle: Math.PI * 1.5,
+        element: el,
+        leader: null
+      };
+
+      this.container.appendChild(el);
+      this.snakes.push(snake);
+    }
+
+    this.snakes.forEach((snake, i) => {
+      snake.leader = i === 0 ? this.mouse : this.snakes[i - 1];
+      this.positionSnake(snake);
+    });
+  }
+
+  /* ================= 动画循环 ================= */
+
+  animate() {
+    this.snakes.forEach(snake => this.follow(snake));
+    this.rafId = requestAnimationFrame(this.animate);
+  }
+
+  follow(snake) {
+    const leader = snake.leader;
+    if (!leader) return;
+
+    let dx = leader.x - snake.x;
+    let dy = leader.y - snake.y;
+    let dd = Math.hypot(dx, dy);
+
+    snake.angle = Math.atan2(dy, dx);
+    const direction = dd < this.snakeRadius ? -1 : 1;
+
+    if (dd > this.maxDistance && !leader.mouse) {
+      snake.x += Math.cos(snake.angle) * (dd - this.maxDistance);
+      snake.y += Math.sin(snake.angle) * (dd - this.maxDistance);
+      dd = this.maxDistance;
+    }
+
+    if (dd - this.snakeRadius < 0.5) return;
+
+    snake.x += (direction * Math.cos(snake.angle) * dd) / this.damping;
+    snake.y += (direction * Math.sin(snake.angle) * dd) / this.damping;
+
+    this.positionSnake(snake);
+  }
+
+  /* ================= 定位 & 旋转 ================= */
+
+  positionSnake(snake) {
+    snake.element.style.left =
+      snake.x - this.snakeWidth / 2 + 'px';
+    snake.element.style.top =
+      snake.y - this.snakeHeight / 2 + 'px';
+
+    const flip = snake.x < this.mouse.x;
+    this.rotate(snake.element, snake.angle, flip);
+  }
+
+  rotate(element, radians, flip) {
+    const angle = radians + Math.PI / 2;
+    element.style.transform = `rotate(${angle}rad)`;
+
+    const img = element.querySelector('img');
+    if (img) {
+      img.style.transform =
+        `scaleX(${flip ? -1 : 1}) rotate(${-angle}rad)`;
+    }
+  }
+
+  /* ================= 事件 ================= */
+
+  updateMousePosition(e) {
+    this.mouse.x = e.pageX - this.left;
+    this.mouse.y = e.pageY - this.top;
+  }
+
+  handleResize() {
+    cancelAnimationFrame(this.rafId);
+    this.snakes.forEach(s => s.element.remove());
+    this.snakes = [];
+    this.updateContainerDimensions();
+    this.createSnakes();
+    this.animate();
+  }
+}
+
+/* ================= 启动 ================= */
+
+if (window.innerWidth > 991) {
+  document.addEventListener('DOMContentLoaded', () => {
+    new SnakeAnimation('body', 5);
+  });
+}
+
+
+</script>
+{% schema %}
+{
+  "name": "christmas-mouse",
+  "settings": [
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "christmas-mouse"
+    }
+  ]
+}
+{% endschema %}

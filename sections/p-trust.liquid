@@ -1,0 +1,262 @@
+{% assign sid = section.id %}
+
+<style>
+  #p-trust-{{ sid }} {
+    padding: 132px 0 140px;
+    background: var(--p-trust-bg);
+    color: var(--p-trust-text);
+  }
+  #p-trust-{{ sid }} > .container {
+    --container-max-width: 1681px;
+    --container-gutter: 40px;
+  }
+  #p-trust-{{ sid }} .p-aps-trust__in { width: 100%; margin: 0 auto; }
+  #p-trust-{{ sid }} .p-aps-trust__lead {
+    margin: 0;
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  #p-trust-{{ sid }} .p-aps-trust__lead br { display: none; }
+  #p-trust-{{ sid }} .p-aps-trust__mobile { display: none; }
+  #p-trust-{{ sid }} .p-aps-trust__row {
+    display: grid;
+    grid-template-columns: 530px 1fr;
+    align-items: center;
+    gap: 40px;
+    margin-top: 66px;
+  }
+  #p-trust-{{ sid }} .p-aps-trust__award { display: block; width: 100%; height: auto; }
+  #p-trust-{{ sid }} .p-aps-trust__stats {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    width: 100%;
+  }
+  #p-trust-{{ sid }} .p-aps-trust__stat {
+    display: flex;
+    flex: 1 1 auto;
+    height: 123px;
+    min-width: max-content;
+    padding: 0;
+    border-left: 1px solid #dedede;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+  #p-trust-{{ sid }} .p-aps-trust__stat:first-child { border-top: 0; border-left: 0; }
+  #p-trust-{{ sid }} .p-aps-trust__mark { display: none; }
+  #p-trust-{{ sid }} .p-aps-trust__mark img { display: block; width: 100%; height: 100%; object-fit: contain; }
+  #p-trust-{{ sid }} .p-aps-trust__num {
+    margin: 0;
+    font-size: 90px;
+    font-weight: 500;
+    line-height: .78;
+    white-space: nowrap;
+   }
+  #p-trust-{{ sid }} .p-aps-trust__num sup {
+    font-size: .645em;
+    line-height: 1;
+    margin-left: 2px;
+    font-weight: 500;
+    vertical-align: .08em;
+   }
+  #p-trust-{{ sid }} .p-aps-trust__label {
+     margin: 24px 0 0;
+     font-size: 32px;
+     font-weight: 500;
+     line-height: 1.2;
+     letter-spacing: .05em;
+     white-space: nowrap;
+  }
+  #p-trust-{{ sid }} .p-aps-trust__label sup { 
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 1;
+    margin-left: 2px;
+    vertical-align: .4em; 
+  }
+  #p-trust-{{ sid }} .p-aps-trust__note {
+     width: 530px;
+     max-width: 100%;
+     margin: 52px 0 0;
+     color: #000;
+     opacity: 0.5;
+     font-size: 10px;
+     font-weight: 400;
+     line-height: 1.5;
+     text-align: justify;
+  }
+
+  @media screen and (max-width: 749px) {
+    #p-trust-{{ sid }} .p-aps-trust__desktop { display: none; }
+    #p-trust-{{ sid }} .p-aps-trust__mobile { display: block; }
+    #p-trust-{{ sid }} { padding: 32px 0 40px; }
+    #p-trust-{{ sid }} > .container {
+      --container-gutter: 15.5px;
+      padding-right: var(--container-gutter);
+      padding-left: var(--container-gutter);
+    }
+    #p-trust-{{ sid }} .p-aps-trust__in { width: 100%; max-width: 100%; min-width: 0; box-sizing: border-box; }
+    #p-trust-{{ sid }} .p-aps-trust__lead {
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 1.5;
+      text-align: center;
+    }
+    #p-trust-{{ sid }} .p-aps-trust__lead br { display: initial; }
+    #p-trust-{{ sid }} .p-aps-trust__row { display: block; margin-top: 35px; }
+    #p-trust-{{ sid }} .p-aps-trust__award { width: min(326px, 100%); margin: 0 auto 48px; }
+    #p-trust-{{ sid }} .p-aps-trust__row,
+    #p-trust-{{ sid }} .p-aps-trust__stats { min-width: 0; max-width: 100%; }
+    #p-trust-{{ sid }} .p-aps-trust__stats { display: block; width: 100%; margin: 0; }
+    #p-trust-{{ sid }} .p-aps-trust__stat {
+      display: grid;
+      min-width: 0;
+      grid-template-columns: 76.685px minmax(0, 1fr);
+      column-gap: 4px;
+      align-items: center;
+      width: 100%;
+      height: 116px;
+      min-height: 0;
+      padding: 0;
+      border-top: 0;
+      border-bottom: 1px solid #ebebeb;
+      border-left: 0;
+      text-align: left;
+    }
+    #p-trust-{{ sid }} .p-aps-trust__stat > div { min-width: 0; }
+    #p-trust-{{ sid }} .p-aps-trust__mark {
+      display: flex;
+      width: 76.685px;
+      height: 76.685px;
+      align-items: center;
+      justify-content: center;
+    }
+    #p-trust-{{ sid }} .p-aps-trust__mark img { width: 54px; height: 64px; object-fit: contain; }
+    #p-trust-{{ sid }} .p-aps-trust__num {
+      font-size: 50px;
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: -.045em;
+    }
+    #p-trust-{{ sid }} .p-aps-trust__num sup { 
+      font-size: .58em;
+      font-weight: 500;
+      vertical-align: .08em;
+      margin-left: 2px;
+    }
+    #p-trust-{{ sid }} .p-aps-trust__label { 
+      margin: 6px 0 0;
+      font-size: 14.53px;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+    #p-trust-{{ sid }} .p-aps-trust__label sup { font-size: .645em; vertical-align: .08em; }
+    #p-trust-{{ sid }} .p-aps-trust__note {
+      width: 100%;
+      margin-top: 40px;
+      color: #000;
+      opacity: 0.5;
+      font-size: 10px;
+      line-height: 1.5;
+     }
+  }
+</style>
+
+<section
+  id="p-trust-{{ sid }}"
+  class="p-aps-trust"
+  style="--p-trust-bg: {{ section.settings.background }}; --p-trust-text: {{ section.settings.text_color }};"
+>
+  <div class="container">
+    <div class="p-aps-trust__in">
+      {% if section.settings.heading_pc != blank %}
+        <div class="p-aps-trust__lead p-aps-trust__desktop to-top">{{ section.settings.heading_pc }}</div>
+      {% endif %}
+      {% if section.settings.heading_mobile != blank %}
+        <div class="p-aps-trust__lead p-aps-trust__mobile to-top">{{ section.settings.heading_mobile }}</div>
+      {% endif %}
+      <div class="p-aps-trust__row">
+        {% if section.settings.award_image != blank -%}
+          {{-
+            section.settings.award_image
+            | image_url: width: 800
+            | image_tag:
+              class: 'p-aps-trust__award to-top',
+              style: 'transition-delay: .1s',
+              loading: 'lazy',
+              widths: '300, 500, 800'
+          -}}
+        {%- endif %}
+        <div class="p-aps-trust__stats">
+          {% for block in section.blocks %}
+            <div
+              class="p-aps-trust__stat to-top"
+              style="transition-delay: .{{ forloop.index | plus: 1 }}s"
+              {{ block.shopify_attributes }}
+            >
+              <span class="p-aps-trust__mark" aria-hidden="true">
+                {% if block.settings.icon_image != blank %}
+                  {{
+                    block.settings.icon_image
+                    | image_url: width: 160
+                    | image_tag: loading: 'lazy', widths: '80, 160'
+                  }}
+                {% endif %}
+              </span>
+              <div>
+                <p class="p-aps-trust__num">{{ block.settings.number }}</p>
+                <p class="p-aps-trust__label">{{ block.settings.label }}</p>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% if section.settings.note != blank %}
+        <p class="p-aps-trust__note to-top" style="transition-delay: .5s">{{ section.settings.note }}</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "P Air Pro S 信赖背书",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "html", "id": "heading_pc", "label": "PC 标题 HTML", "default": "日本一だから、<br>安心して選べる。" },
+    {
+      "type": "html",
+      "id": "heading_mobile",
+      "label": "移动端标题 HTML",
+      "default": "日本一だから、<br>安心して選べる。"
+    },
+    { "type": "image_picker", "id": "award_image", "label": "奖项图片" },
+    { "type": "textarea", "id": "note", "label": "脚注" },
+    { "type": "color", "id": "background", "label": "背景色", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "文字颜色", "default": "#111111" }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "数据项",
+      "settings": [
+        { "type": "image_picker", "id": "icon_image", "label": "图标图片" },
+        { "type": "html", "id": "number", "label": "数字", "default": "1000<sup>+</sup>" },
+        { "type": "html", "id": "label", "label": "说明（支持 HTML）", "default": "取得特許<sup>*2</sup>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "P 信赖背书",
+      "blocks": [
+        { "type": "stat" },
+        { "type": "stat", "settings": { "number": "10年<sup>+</sup>", "label": "IPL開発経験" } },
+        { "type": "stat", "settings": { "number": "1000万<sup>+</sup>", "label": "販売台数" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

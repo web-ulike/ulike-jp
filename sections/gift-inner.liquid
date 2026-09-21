@@ -1,0 +1,254 @@
+<style>
+      .media-{{ section.id }}-padding {
+      padding-top: calc({{ section.settings.padding_top }}px);
+      padding-bottom: calc({{ section.settings.padding_bottom }}px);
+    }
+  @media screen and (max-width: 768px){
+    .media-{{ section.id }}-padding {
+      padding-top: calc({{ section.settings.mobile_padding_top }}px);
+      padding-bottom: calc({{ section.settings.mobile_padding_bottom }}px);
+    }
+  }
+  /* 礼品模块 start */
+     .gift-inner {
+     }
+      .gift-inner h2{
+        color:  #190A0A;
+        text-align: center;
+        font-size: 44px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        margin-top: 0;
+        margin-bottom: 70px;
+      }
+       .gift-inner .gift-wrapper{
+        display: flex;
+        gap: 20px;
+      }
+       .gift-inner .gift-wrapper .gift-list{
+        flex: 1;
+        position: relative;
+       }
+        .gift-inner .gift-add-ico{
+          position: absolute;
+          transform: translate(65%,-50%);
+          top: 50%;
+          right: 0;
+          z-index: 1;
+        }
+         .gift-inner .gift-txt{
+          color:  #190A0A;
+          text-align: center;
+          font-size: 20px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 150%;
+          margin-top: 20px;
+         }
+          .gift-inner .gift-pic-box{
+          position: relative;
+         }
+               .gift-note{
+            color: #fff;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%;
+      letter-spacing: 1.2px;
+      margin-top: 91px;
+  }
+     .gift-note p{
+    margin:0;
+    }
+    .gift-inner__txt{
+    color: #000;
+text-align: center;
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: 1.5;
+margin-bottom:72px;
+    }
+    .gift-inner__txt p{
+    margin:0;
+    }
+     .gift-inner__txt p strong{
+        position: relative;
+        font-family: var(--font-heading-family);
+            font-style: normal;
+    font-weight: 500;
+    }
+    .gift-inner__txt p strong:before{
+        content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(0deg, #FFE0EB 0%, #FFE0EB 100%), linear-gradient(0deg, #FFE0EB 0%, #FFE0EB 100%), linear-gradient(0deg, #FFE0EB 0%, #FFE0EB 100%), #FFE0EB;
+  bottom: 0;
+  left: 0;
+    z-index: -1;
+}
+         @media screen and (min-width: 1000px) {
+      .content-box--medium {
+          width: auto;
+      }
+  }
+            @media(max-width: 767px) {
+              .gift-inner h2{
+                font-size: 28px;
+                margin-bottom: 25px;
+              }
+              .gift-inner .gift-wrapper{
+                flex-direction: column;
+                gap: 14px;
+              }
+              .gift-inner .gift-add-ico{
+                display: none;
+              }
+              .gift-inner .gift-txt{
+                font-size: 15px;
+                margin-top: 14px;
+              }
+          .gift-note{
+      font-size: 10px;
+      margin-top: 32px;
+  }
+            }
+     /* 礼品模块 end */
+</style>
+<section>
+  <div class="gift-inner media-{{ section.id }}-padding">
+    <div class="container">
+      <h2 class="to-top">{{ section.settings.tle }}</h2>
+      {% if section.settings.txt != blank %}
+      <div class="gift-inner__txt to-top">{{ section.settings.txt }}</div>
+      {% endif %}
+      <div class="gift-wrapper to-top">
+        {% for block in section.blocks %}
+          <div class="gift-list">
+            <div class="gift-pic-box">
+              <picture class="gift-pic">
+                {% if block.settings.mobile_image %}
+                  <source media="(max-width: 767px)" srcset="{{ block.settings.mobile_image | image_url }}">
+                {% endif %}
+                {% if block.settings.image %}
+                  <img src="{{ block.settings.image | image_url }}" alt="">
+                {% endif %}
+              </picture>
+              {% unless forloop.last %}
+                <img src="{{ section.settings.logo_image | image_url }}" alt="" class="gift-add-ico">
+              {% endunless %}
+            </div>
+            <div class="gift-txt">{{ block.settings.text }}</div>
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if section.settings.note != blank %}
+        <div class="gift-note">
+          {{ section.settings.note }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "gift-inner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tle",
+      "label": "Title"
+    },
+
+        {
+      "type": "richtext",
+      "id": "txt",
+      "label": "Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_image",
+      "label": "Logo Image",
+      "info": "Format: 1x SVG image"
+    },
+    {
+      "type": "richtext",
+      "id": "note",
+      "label": "Note"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 300,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 300,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Bottom",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile Image"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "gift-inner"
+    }
+  ]
+}
+{% endschema %}

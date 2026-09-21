@@ -1,0 +1,1659 @@
+{%- liquid
+  assign se_id = section.id
+  assign se_stts = section.settings
+-%}
+
+{% if customer %}
+{% else %}
+  <div id="u-user-popup" class="popup">
+    <div class="overlay">
+      <div class="popup-content">
+        <button class="close-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="17" viewBox="0 0 18 17" fill="none">
+            <path d="M8.58301 9.95502L1.71777 16.82L0.343994 15.447L7.20898 8.582L0 1.37302L1.3728 0L8.58179 7.20901L15.7908 0L17.1638 1.37302L9.95483 8.582L16.8208 15.447L15.4468 16.82L8.58301 9.95502Z" fill="currentColor"/>
+          </svg>
+        </button>
+        <div class="popup-container">
+          <div class="popup-left">
+            <picture>
+              <source media="(max-width: 768px)" srcset="{{ se_stts.m_image | img_url: 'master' }}">
+              <img
+                class="image"
+                alt="VIP Benefits"
+                fetchpriority="high"
+                src="{{ se_stts.image | img_url: 'master' }}"
+                alt="{{ se_stts.alt_text | escape }}"
+              >
+            </picture>
+          </div>
+          <div class="popup-right">
+            <h2>{{ se_stts.title1 }}</h2>
+            <div class="popup-right-txt">
+              <div class="item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
+                  <path d="M0 0H9.27072V4.63164C9.27072 5.86101 8.78235 7.04006 7.91305 7.90936C7.04375 8.77866 5.86473 9.26703 4.63535 9.26703C3.40598 9.26703 2.22697 8.77866 1.35767 7.90936C0.488371 7.04006 0 5.86101 0 4.63164V0Z" fill="#E0004D"></path>
+                </svg>
+                新作&amp;セール情報
+              </div>
+              <div class="item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
+                  <path d="M0 0H9.27072V4.63164C9.27072 5.86101 8.78235 7.04006 7.91305 7.90936C7.04375 8.77866 5.86473 9.26703 4.63535 9.26703C3.40598 9.26703 2.22697 8.77866 1.35767 7.90936C0.488371 7.04006 0 5.86101 0 4.63164V0Z" fill="#E0004D"></path>
+                </svg>
+                会員限定特典
+              </div>
+              <div class="item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
+                  <path d="M0 0H9.27072V4.63164C9.27072 5.86101 8.78235 7.04006 7.91305 7.90936C7.04375 8.77866 5.86473 9.26703 4.63535 9.26703C3.40598 9.26703 2.22697 8.77866 1.35767 7.90936C0.488371 7.04006 0 5.86101 0 4.63164V0Z" fill="#E0004D"></path>
+                </svg>
+                無料サポート
+              </div>
+            </div>
+            <form id="login-form">
+              <div class="form-group">
+                <div class="email_svg-box">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="21"
+                    height="16"
+                    viewBox="0 0 21 16"
+                    fill="none"
+                    class="email_logo-svg"
+                  >
+                    <mask id="mask0_47_147" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="21" height="16">
+                      <path d="M21 0H0V16H21V0Z" fill="white"/>
+                    </mask>
+                    <g mask="url(#mask0_47_147)">
+                      <path d="M10.5 0H0V16H21V0H10.5ZM20 15H1V1H19.4C19.3719 1.01328 19.3446 1.02797 19.318 1.044L10.451 8.353L4.679 3.594C4.57769 3.51039 4.46091 3.44756 4.33532 3.4091C4.20972 3.37063 4.07779 3.35729 3.94703 3.36982C3.81628 3.38236 3.68928 3.42053 3.57329 3.48216C3.45729 3.54379 3.35457 3.62767 3.271 3.729L10.422 9.629L10.451 9.594L10.48 9.629L20 1.777V15Z" fill="black"/>
+                    </g>
+                  </svg>
+                  <input type="email" class="j_popup_email" placeholder="{{ se_stts.email_label }}" required>
+                </div>
+                <div class="input-msg-error"></div>
+              </div>
+              <div class="form-group verification-group">
+                <input
+                  type="text"
+                  class="verification-code"
+                  placeholder="{{ se_stts.code_label }}"
+                  required
+                  maxlength="12"
+                >
+                <button type="button" class="send-code-btn">{{ se_stts.send_code_btn }}</button>
+                <div class="input-msg-error"></div>
+              </div>
+
+              <button type="button" class="btn-primary">{{ se_stts.btn_text }}</button>
+              <div class="login-msg-error"></div>
+              {% comment %}
+                <div class="social-login">
+                  <img data-name="google"  src="https://cdn.shopify.com/s/files/1/0740/5882/6015/files/Frame_26_2x_486ba94a-a903-4d5e-bc89-7a27bc7a19c0.png?v=1743581041" loading="lazy" alt="Google"  />
+                  <img data-name="amazon" src="https://cdn.shopify.com/s/files/1/0740/5882/6015/files/Frame_27_2x_820bcf56-76ec-44c2-88e4-3a27589eeee9.png?v=1743581041" loading="lazy" alt="Amazon"  />
+                </div>
+              {% endcomment %}
+
+              {% comment %} 政策 {% endcomment %}
+              <div class="policy-agreement">
+                <input type="checkbox" id="policy-checkbox">
+                <label for="policy-checkbox">
+                  続行するには、Ulikeの
+                  <a href="https://jp.ulike.com/policies/privacy-policy" target="_blank">プライバシーポリシー</a>と
+                  <a href="https://jp.ulike.com/policies/terms-of-service" target="_blank">利用規約</a>
+                  に同意する必要があります。
+                </label>
+              </div>
+            </form>
+            {% if section.settings.end_label != blank %}
+              <div class="countdown-inner">
+                <div class="container">
+                  <div class="countdown-wrapper">
+                    <div class="countdown-fx">
+                      <countdown-timer-today
+                        end-time="{{section.settings.end_time }}"
+                        label="{{section.settings.end_label }}"
+                        class="countdown-ulike"
+                      >
+                      </countdown-timer-today>
+                      <div class="countdown-label-bix">
+                        <div class="countdown-label">{{ section.settings.end_label }}</div>
+                        <div class="countdown-label-wrapper">
+                          <span class="time-label">時間</span>
+                          <span class="countdown-separator">:</span>
+                          <span class="time-label">分</span>
+                          <span class="countdown-separator">:</span>
+                          <span class="time-label">秒</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="u-user-coupon-popup" class="coupon-popup" style="display:none">
+    <div class="overlay">
+      <div class="popup-code-content">
+        <div class="subscribe-module-gs rotate-bg">
+          <img
+            data-src="https://cdn.shopify.com/s/files/1/0553/7392/2352/files/beijingguangshu.jpg?v=1763518764"
+            alt=""
+            class="gs-img ls-is-cached lazyloaded"
+            src="https://cdn.shopify.com/s/files/1/0553/7392/2352/files/beijingguangshu.jpg?v=1763518764"
+          >
+        </div>
+        <button class="close-code-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="17" viewBox="0 0 18 17" fill="none">
+            <path d="M8.58301 9.95502L1.71777 16.82L0.343994 15.447L7.20898 8.582L0 1.37302L1.3728 0L8.58179 7.20901L15.7908 0L17.1638 1.37302L9.95483 8.582L16.8208 15.447L15.4468 16.82L8.58301 9.95502Z" fill="currentColor"/>
+          </svg>
+        </button>
+        <div class="popup-code-container">
+          <div class="popup-code-tle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+              <path d="M26 13C26 15.5712 25.2376 18.0846 23.8091 20.2224C22.3807 22.3603 20.3503 24.0265 17.9749 25.0104C15.5995 25.9944 12.9856 26.2518 10.4638 25.7502C7.94208 25.2486 5.6257 24.0105 3.80762 22.1924C1.98954 20.3743 0.751405 18.0579 0.249797 15.5362C-0.251811 13.0144 0.0056327 10.4006 0.989572 8.02512C1.97351 5.64968 3.63975 3.61935 5.77759 2.1909C7.91543 0.762437 10.4288 0 13 0C16.4478 0 19.7544 1.36964 22.1924 3.80761C24.6304 6.24558 26 9.55219 26 13Z" fill="#E0004D"/>
+              <path d="M20.6367 8.98794C20.5515 8.90232 20.4502 8.83437 20.3386 8.78801C20.2271 8.74164 20.1075 8.71777 19.9867 8.71777C19.8659 8.71777 19.7463 8.74164 19.6347 8.78801C19.5232 8.83437 19.4219 8.90232 19.3367 8.98794L11.8037 16.5199L7.66867 12.3819C7.58779 12.301 7.49176 12.2368 7.38606 12.1931C7.28037 12.1493 7.16708 12.1267 7.05267 12.1267C6.93826 12.1267 6.82498 12.1493 6.71928 12.1931C6.61359 12.2368 6.51756 12.301 6.43667 12.3819L6.26367 12.5549L11.0187 17.3099L11.8077 18.0999L12.5977 17.3099L20.7787 9.12894L20.6367 8.98794Z" fill="white"/>
+            </svg>
+            <div class="popup-code-tle-txt">{{ section.settings.code_tle }}</div>
+          </div>
+          <div class="popup-code-box">
+            <div class="popup-code-left">
+              <div class="code-left-txt1">{{ section.settings.code_txt1 }}</div>
+              <div class="code-left-txt2">{{ section.settings.code_txt2 }}</div>
+            </div>
+            <copy-button class="popup-code-right" text="{{ section.settings.code }}">
+              {{- section.settings.copy_txt -}}
+            </copy-button>
+          </div>
+          <div class="popup-code-note">{{ section.settings.code_note }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="notification_{{ se_id }}" style="display:none;">
+    <div class="notification-icon">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0740/5882/6015/files/color-success.svg?v=1741931573"
+        loading="lazy"
+        alt="Notification"
+      >
+    </div>
+    <div class="notification-text">Der Verifizierungscode wurde versandt - bitte prüfe Deinen Posteingang.</div>
+  </div>
+
+  <script>
+    window.addEventListener('load', function () {
+      const errorMessages = {
+        emailRequiredWithPhone:
+          'Du kannst dich nicht nur mit deiner Telefonnummer anmelden. Bitte gib sowohl deine E-Mail-Adresse als auch deine Telefonnummer ein.',
+        emailInvalid: 'メールアドレスを入力してください',
+        emailFormat: '有効なメールアドレスを入力してください！',
+        codeInvalid: '認証コードを入力してください。',
+        system_err: 'システム異常です。しばらくしてからもう一度お試しください。',
+      };
+      const thatLogin = $('#u-user-popup');
+
+      const thatLoginCoupon = $('#u-user-coupon-popup');
+
+      $(document).on('click', '#u-user-popup .close-btn', function (e) {
+        // 去掉错误提示
+        $('#u-user-popup').fadeOut(1000);
+      });
+
+      $(document).on('click', '#u-user-coupon-popup .close-code-btn', function (e) {
+        // 去掉错误提示
+        $('#u-user-coupon-popup').fadeOut(1000);
+      });
+
+      $(document).on('focus', '.j_popup_email, .verification-code', function () {
+        try {
+          const $input = $(this);
+          const $formGroup = $input.closest('.form-group');
+
+          if ($formGroup.length === 0) {
+            console.error('Form group not found');
+            return;
+          }
+          // 去掉错误提示
+          $formGroup.removeClass('form-group-error').find('.input-msg-error').text('');
+
+          if (!$input.val()) {
+            const $popupContent = $input.closest('.popup-content');
+            if ($popupContent.length === 0) {
+              return;
+            }
+            $popupContent.addClass('popup-active');
+          }
+        } catch (error) {
+          console.error('An error occurred:', error);
+        }
+      });
+
+      // Blur event using jQuery
+      $(document).on('blur', '.j_popup_email,.verification-code', function () {
+        if (!$(this).val()) {
+          $(this).closest('.popup-content').removeClass('popup-active');
+        }
+      });
+
+      let errorTimeout; // 存储定时器
+
+      function showLoginError(message) {
+        const $error = thatLogin.find('.login-msg-error');
+        clearTimeout(errorTimeout);
+        $error.stop(true, true).text(message || errorMessages.system_err).show();
+        errorTimeout = setTimeout(function () {
+          $error.fadeOut(200);
+        }, 6000);
+      }
+
+      let stepBtn = 1;
+
+      $(document).on('click', '.btn-primary', function () {
+        let $this = $(this); // 缓存按钮对象
+        commonGtmEvent('vip_subscribe_all', 'click', '');
+        let data = {
+          userEmail: '',
+          since: 'USER_SUBSCRIBE',
+          tags: ['pop_up_subscribe'],
+        };
+
+        data.userEmail = thatLogin.find('.j_popup_email').val().replace(/\s+/g, '').trim();
+        thatLogin.find('.j_popup_email').val(data.userEmail);
+
+        const isEmailValid = validateEmailField();
+
+        const isPolicyChecked = $('#policy-checkbox').is(':checked');
+
+        if (!isPolicyChecked) {
+          // 请勾选同意服务条款
+          showLoginError('プライバシーポリシーに同意してください');
+          return;
+        }
+        if (stepBtn === 1 && isEmailValid) {
+          commonGtmEvent('vip_subscribe', 'click', '');
+          // 显示code code框
+          sendUlikeApi('/user/userSubscribe', data).then(function (res) {
+            if (res.code == 0) {
+              thatLogin.fadeOut();
+              thatLoginCoupon.fadeIn();
+              localStorage.setItem('ulike-subscribed', 'true');
+            } else if (res.code == 99998) {
+              // 定义一个常量对象，用于存储订阅成功的消息
+              const messages = {
+                user_subscribe_email_repeat:
+                  'このメールアドレスは既に登録されています。別のメールアドレスをご利用ください。',
+              };
+              // 检查响应消息是否存在于 messages 对象中
+              showLoginError(messages[res.message] || res.message || errorMessages.system_err);
+            } else {
+              showLoginError(res.message || errorMessages.system_err);
+            }
+          }).catch(function (error) {
+            console.error('Subscription failed:', error);
+            showLoginError(errorMessages.system_err);
+          });
+        }
+      });
+
+      /**
+       * 验证邮箱字段的合法性
+       *
+       * 此函数用于验证用户输入的邮箱地址是否有效首先检查邮箱字段是否为空，
+       * 如果为空，则设置相应的错误消息如果邮箱格式不正确，则设置格式错误消息
+       * 如果存在任何错误，函数将打印错误消息并更新HTML以显示错误，然后返回false，
+       * 表示验证失败如果没有错误，函数返回true，表示验证成功
+       *
+       * @return {boolean} 如果邮箱字段验证成功，则返回true；否则返回false
+       */
+      function validateEmailField() {
+        // 初始化邮箱错误消息为空字符串
+        let emailError = '';
+        // 获取用户输入的邮箱地址，并去除前后空格
+        let userEmail = $('.j_popup_email').val().trim();
+
+        // 检查邮箱字段
+        if (userEmail == '') {
+          // 如果邮箱字段为空，则设置错误消息为“邮箱无效”
+          emailError = errorMessages.emailInvalid;
+        } else if (!validateEmail(userEmail)) {
+          // 如果邮箱格式不正确，则设置错误消息为“邮箱格式错误”
+          emailError = errorMessages.emailFormat;
+        }
+
+        // 如果存在邮箱错误
+        if (emailError) {
+          // 更新HTML以显示错误消息
+          $('#login-form .form-group').eq(0).find('.input-msg-error').text(emailError);
+          // 为错误字段的表单组添加错误类
+          $('#login-form .form-group').eq(0).addClass('form-group-error');
+          // 返回false表示验证失败
+          return false;
+        }
+        // 如果没有错误，返回true表示验证成功
+        return true;
+      }
+
+      function validateCodeField() {
+        // 初始化邮箱错误消息为空字符串
+        let codeError = '';
+        // 获取用户输入的邮箱地址，并去除前后空格
+        let userCode = $('.verification-code').val().trim();
+
+        // 检查邮箱字段
+        if (!userCode) {
+          // 如果邮箱字段为空，则设置错误消息为“邮箱无效”
+          codeError = errorMessages.codeInvalid;
+        }
+
+        // 如果存在邮箱错误
+        if (codeError) {
+          // 更新HTML以显示错误消息
+          $('#login-form .form-group').eq(1).find('.input-msg-error').text(codeError);
+          // 为错误字段的表单组添加错误类
+          $('#login-form .form-group').eq(1).addClass('form-group-error');
+          // 返回false表示验证失败
+          return false;
+        }
+        // 如果没有错误，返回true表示验证成功
+        return true;
+      }
+
+      // 监听政策协议区域的点击事件
+      $('.policy-agreement').on('click', function (e) {
+        // 确保点击事件不是由<a>标签或政策复选框本身冒泡上来的
+        if (!$(e.target).is('a') || !$(e.target).is('#policy-checkbox')) {
+          // 获取政策复选框
+          let checkbox = $('#policy-checkbox');
+          // 反转复选框的选中状态
+          checkbox.prop('checked', !checkbox.prop('checked'));
+        }
+      });
+
+      $(document).on('click', '.g-floating-box', function () {
+        commonGtmEvent('vip_Teaser', 'click', '');
+        const isSubscribed = localStorage.getItem('ulike-subscribed') === 'true';
+        if (isSubscribed) {
+          // 已订阅：不弹登录弹窗（你也可以改成直接弹优惠码弹窗）
+          $('#u-user-popup').hide();
+          $('#u-user-coupon-popup').show();
+          return;
+        }
+        // 未订阅：正常弹窗（用 flex 更稳）
+        $('#u-user-popup').show();
+      });
+
+      let popupDelay = 1000 * 4; // 倒计时（10秒），可动态设置
+      let timerEnded = false; // 倒计时是否结束
+      let hasScrolled = false; // 用户是否滚动过页面
+      let popupShown = false; // 防止重复触发弹窗
+      let popupCookieName = 'ulike_popup_login';
+
+      // 显示弹窗
+      function showPopup() {
+        if (popupShown) return;
+        popupShown = true;
+        commonGtmEvent('vip_impressions', 'show', '');
+        $('#u-user-popup').show();
+        window.removeEventListener('scroll', onUserScroll);
+      }
+
+      // 公共检查方法（你要的提取方法）
+      function checkAndShowPopup() {
+        const today = new Date().toISOString().split('T')[0]; // 当前日期（如 2025-04-22）
+        const popupData = JSON.parse(localStorage.getItem('ulike-popupData')) || {};
+        const sessionShown = sessionStorage.getItem('ulike-popupShown');
+
+        // 如果是新的一天，重置计数
+        if (popupData.date !== today) {
+          popupData.date = today;
+          popupData.count = 0;
+        }
+
+        // 如果当天弹出次数未超限制，且本 session 没弹过
+        if (popupData.count < 3 && !sessionShown && timerEnded && hasScrolled) {
+          showPopup();
+
+          // 更新次数 & 标记 session 已弹出
+          popupData.count += 1;
+          localStorage.setItem('ulike-popupData', JSON.stringify(popupData));
+          sessionStorage.setItem('ulike-popupShown', 'true');
+        }
+      }
+
+      // 滚动事件处理器
+      function onUserScroll() {
+        hasScrolled = true;
+        checkAndShowPopup();
+      }
+
+      let isSubscribed = localStorage.getItem('ulike-subscribed') === 'true'; // 判断是否已订阅
+      // 监听滚动   如果用户已经订阅，直接不弹窗
+      console.log('isSubscribed', isSubscribed);
+      if (isSubscribed) {
+        thatLogin.hide();
+        // Keep the teaser available so subscribed visitors can reopen their coupon.
+        $('.g-floating-box').show();
+      } else {
+        // 倒计时结束
+        setTimeout(() => {
+          timerEnded = true;
+          checkAndShowPopup(); // 提取调用
+        }, popupDelay);
+        $('.g-floating-box').show();
+        window.addEventListener('scroll', onUserScroll);
+      }
+
+      $(document).one('focus', '#login-form .j_popup_email', function () {
+        commonGtmEvent('vip_enter email', 'focus', '');
+      });
+
+      $(document).one('focus', '#login-form .verification-code', function () {
+        commonGtmEvent('vip_enter code', 'focus', '');
+      });
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.location.href.includes('ulikeunitedkingdom.myshopify')) {
+        document.querySelector('#u-user-popup').classList.add('hide-plug-diy');
+      }
+
+      // ✅ 新组件：表示“当天”的倒计时
+      class CountdownTimerToday extends HTMLElement {
+        constructor() {
+          super();
+          this.label = 'End in';
+          this.endTs = 0;
+          this.timer = null;
+          this.storageKey = 'ulike_ctToday_randEnd_' + (window.Shopify && Shopify.locale ? Shopify.locale : 'default');
+        }
+
+        connectedCallback() {
+          this.classList.add('countdown-ulike');
+
+          const labelAttr = this.getAttribute('label');
+          if (labelAttr) this.label = labelAttr;
+
+          this.endTs = this._getOrCreateTodayRandomEndTs();
+          this.init();
+        }
+
+        disconnectedCallback() {
+          if (this.timer) {
+            clearInterval(this.timer);
+            this.timer = null;
+          }
+        }
+
+        init() {
+          const s = (cls, txt = '') =>
+            Object.assign(document.createElement('span'), { className: cls, textContent: txt });
+          const d = (cls) => Object.assign(document.createElement('div'), { className: `countdown-box ${cls}` });
+
+          this.labelEl = s('countdown-label', this.label);
+          this.days = d('days-box');
+          this.daysSep = s('countdown-separator', ':');
+          this.hours = d('hours-box');
+          this.mSep = s('countdown-separator', ':');
+          this.mins = d('minutes-box');
+          this.sSep = s('countdown-separator', ':');
+          this.secs = d('seconds-box');
+
+          this.append(this.labelEl, this.days, this.daysSep, this.hours, this.mSep, this.mins, this.sSep, this.secs);
+          // This design does not show days
+          this.days.style.display = 'none';
+          this.daysSep.style.display = 'none';
+
+          this.update();
+          this.timer = setInterval(() => this.update(), 1000);
+        }
+
+        f(n) {
+          return String(n).padStart(2, '0');
+        }
+        _pad(n) {
+          return String(n).padStart(2, '0');
+        }
+
+        _ymd(d) {
+          return d.getFullYear() + '-' + this._pad(d.getMonth() + 1) + '-' + this._pad(d.getDate());
+        }
+
+        _startOfDay(d) {
+          return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0).getTime();
+        }
+
+        _endOfDay(d) {
+          return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 23, 59, 59, 999).getTime();
+        }
+
+        _getCache() {
+          try {
+            return JSON.parse(localStorage.getItem(this.storageKey) || '{}');
+          } catch (e) {
+            return {};
+          }
+        }
+
+        _setCache(obj) {
+          localStorage.setItem(this.storageKey, JSON.stringify(obj));
+        }
+
+        _genRandomEndTsForDay(dayDate, lowTs) {
+          const dayEnd = this._endOfDay(dayDate);
+          const low = Math.min(Math.max(lowTs, this._startOfDay(dayDate)), dayEnd);
+          const high = dayEnd;
+          if (low >= high) return 0;
+          return Math.floor(Math.random() * (high - low + 1)) + low;
+        }
+
+        _getOrCreateTodayRandomEndTs() {
+          const now = new Date();
+          const todayKey = this._ymd(now);
+          const cache = this._getCache();
+
+          // 同一天且没过期 -> 直接用
+          if (cache.date === todayKey && cache.endTs && Number(cache.endTs) > Date.now()) {
+            return Number(cache.endTs);
+          }
+
+          // 今天随机：范围 = (现在 + 1分钟) ~ 今天 23:59:59
+          const MIN_LEFT_MS = 8 * 60 * 60 * 1000;
+          let endTs = this._genRandomEndTsForDay(now, Date.now() + MIN_LEFT_MS);
+
+          // 如果今天不够时间了 -> 明天随机（整天内）
+          if (!endTs) {
+            const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0, 0);
+            const tKey = this._ymd(tomorrow);
+            const tStart = this._startOfDay(tomorrow);
+            endTs = this._genRandomEndTsForDay(tomorrow, tStart);
+            this._setCache({ date: tKey, endTs });
+            return endTs;
+          }
+
+          this._setCache({ date: todayKey, endTs });
+          return endTs;
+        }
+
+        update() {
+          // 到点：刷新为新的“当天随机”，如果当天已过则会自动生成明天
+          if (Date.now() >= this.endTs) {
+            this._setCache({});
+            this.endTs = this._getOrCreateTodayRandomEndTs();
+          }
+
+          const diff = Math.max(0, this.endTs - Date.now());
+          const d = Math.floor(diff / 864e5);
+          const h = Math.floor((diff / 36e5) % 24);
+          const m = Math.floor((diff / 6e4) % 60);
+          const s = Math.floor((diff / 1e3) % 60);
+
+          this.render(d, h, m, s);
+        }
+
+        render(d, h, m, s) {
+          this.days.textContent = this.f(d);
+          this.hours.textContent = this.f(h);
+          this.mins.textContent = this.f(m);
+          this.secs.textContent = this.f(s);
+        }
+      }
+      // ✅ 2) JS 里 define 的名字必须和上面标签一致：countdown-timer-today
+      window.customElements.define('countdown-timer-today', CountdownTimerToday);
+    });
+
+    /**
+     * GTM 增加GA事件
+     * @param {*} category
+     * @param {*} operating
+     * @param {*} label
+     */
+    function commonGtmEvent(category, operating, label) {
+      gtag('event', category, {
+        operating: operating,
+        label: label,
+      });
+    }
+    /**
+     * 验证邮箱格式是否正确
+     * @param {string} email - 待验证的邮箱地址
+     * @returns {boolean} - 返回true表示邮箱格式正确，返回false表示邮箱格式错误
+     */
+    function validateEmail(email) {
+      // 邮箱正则表达式
+      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      // 使用正则表达式测试邮箱格式是否正确
+      return emailRegex.test(email);
+    }
+
+    function sendUlikeApi(url, data) {
+      data.siteCode = 'JP'; // Ensure the site code is set to 'UK'
+      data.merchantCode = 'ULIKE'; // Ensure the merchant code is set to 'ULIKE'
+
+      var _url = 'https://api.ulike.com' + url;
+      data.language = window.Shopify.locale;
+
+      data.requestId = generateGUID();
+      // Set up the AJAX settings
+      var settings = {
+        url: _url,
+        method: 'POST', // POST is used as the request method
+        headers: {
+          'Content-Type': 'application/json', // Request payload is in JSON format
+        },
+        data: JSON.stringify(data), // Convert data object to JSON string
+        xhrFields: {
+          withCredentials: true, // Allow cookies and credentials to be sent
+        },
+      };
+
+      // Return a new Promise
+      return new Promise((resolve, reject) => {
+        $.ajax(settings)
+          .done(function (response) {
+            resolve(response); // Resolve the promise with the response
+          })
+          .fail(function (error) {
+            console.error('Error during API call:', error); // Log the error
+            reject(error); // Reject the promise with the error
+          });
+      });
+    }
+
+    function generateGUID() {
+      function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+          .toString(16)
+          .substring(1);
+      }
+      return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+    }
+  </script>
+  <style>
+    .hide-plug-diy {
+      display: none !important;
+    }
+  </style>
+  <style>
+            .email_svg-box{
+            position:relative;
+            }
+            #u-user-popup input[type=checkbox]:not(.switch):after {
+              border: 0px;
+              width: 0px;
+              height: 0px;
+            }
+            #u-user-popup, #u-user-coupon-popup {
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              z-index: 1001;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              display: none;
+            }
+
+            #u-user-popup .overlay,#u-user-coupon-popup .overlay {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background: rgba(0, 0, 0, 0.5);
+              z-index: 999;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+
+
+            #u-user-popup .popup-content {
+              display: flex;
+              max-width: 980px;
+              width: 90%;
+              border-radius: 0px;
+              background: #fff;
+              padding: 0;
+              position: relative;
+              height: 561px;
+              border-radius: 5px;
+            }
+
+            #u-user-coupon-popup .popup-code-content{
+             display: flex;
+              max-width: 490px;
+              width: 90%;
+              border-radius: 0px;
+              background: #fff;
+              padding: 0;
+              position: relative;
+              height: 448px;
+              border-radius: 5px;
+            }
+
+            #u-user-popup .popup-container {
+              display: flex;
+              width: 100%;
+                  {% comment %} display: grid;
+            grid-template-columns: 1fr 1fr; {% endcomment %}
+            }
+
+            #u-user-popup .popup-left {
+              {% comment %} position: absolute;
+              left: -20%;
+              bottom: 0px;
+              width: 475px; {% endcomment %}
+              width:50%;
+            }
+
+            #u-user-popup .popup-left img {
+              max-width: 100%;
+              height: auto;
+              user-drag: none;
+              pointer-events: none;
+                  border-top-left-radius: 5px;
+                      border-bottom-left-radius: 5px;
+            }
+
+            #u-user-popup .popup-detail-discount{
+              position: absolute;
+              display: flex;
+              width: 100%;
+              font-size: 12px;
+              color: #FFFFFF;
+              top: 40.5%;
+              left: 19%;
+              font-family: var(--font-heading-family);
+              font-weight: 500;
+              width: 180px;
+              text-align: center;
+              display: flex;
+              justify-content: center;
+            }
+
+            .icon-item {
+              display: flex;
+              align-items: center;
+              gap: 4px;
+            }
+
+            .icon-item img{
+              width: 28px;
+            }
+
+            #u-user-popup .popup-right {
+              flex: 1;
+              padding: 60px 50px;
+              text-align: left;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              {% comment %} text-align: center; {% endcomment %}
+              {% comment %} padding-left: 44%; {% endcomment %}
+            }
+
+            #u-user-popup .popup-right h2 {
+              font-family: var(--font-heading-family);
+              margin-bottom: 0px;
+              width: 100%;
+              {% comment %} height: 56px; {% endcomment %}
+              font-weight: 500;
+              {% comment %} font-size: 32px; {% endcomment %}
+              color: #190A0A;
+              line-height: 56px;
+              font-size: 28px;
+          line-height: 1.3;
+            }
+            #u-user-popup .popup-right h2 strong{
+            font-style: normal;
+            font-weight: 700;
+            color: #E0004D;
+            }
+            #u-user-popup .popup-right .popup-right-txt {
+              font-size: 14px;
+              font-family: var(--text-font-family);
+              color: #000;
+              line-height: normal;
+              margin-top: 20px;
+              line-height: 1.3;
+              font-weight:300;
+              display: flex;
+              {% comment %} justify-content: center; {% endcomment %}
+              align-items: center;
+              gap: 15px;
+            }
+            #u-user-popup .popup-right .popup-right-txt .item{
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              gap: 4px;
+            }
+
+            #u-user-popup #login-form {
+              margin-top: 20px;
+            }
+
+            #u-user-popup .form-group {
+              position: relative;
+            }
+
+            #u-user-popup .form-group .input-msg-error{
+              text-align: left;
+              margin: 4px 0px 0px 0px;
+              font-size: 12px;
+              height: 20px;
+              line-height: 20px;
+            }
+
+            #u-user-popup .form-group input {
+              width: 100%;
+              padding: 9px 20px 9px 48px;
+              outline: none;
+              text-align: left;
+              color: #000;
+              font-size: 16px;
+              background: #FFFFFF;
+              border: 1px solid #3F3636;
+              border-radius: 6px;
+                  background: #F6F6F6;
+            }
+
+            #u-user-popup .form-group input::placeholder {
+              color: #9C9C9C;
+            }
+
+            #u-user-popup .form-group-error {
+              color: #E0004D;
+            }
+
+            #u-user-popup .form-group-error input {
+              border-color: #E0004D;
+              color: #E0004D;
+            }
+            #u-user-popup .form-group-error .input-msg-error {
+              display: block;
+              text-align: left;
+              margin: 4px 0px 0px 0px;
+              font-size: 12px;
+            }
+            #login-form .login-msg-error{
+              color: rgba(224, 0, 77, 1);
+              font-size: 14px;
+              font-weight: 300;
+              {% comment %} margin-bottom: 4px; {% endcomment %}
+              display: flex;
+              text-align: center;
+              {% comment %} margin-top: 10px; {% endcomment %}
+              justify-content: center;
+                  margin-top: 15px;
+            }
+
+            #login-form .login-msg-error .notification-icon {
+              width: 20px;
+              margin-right: 4px;
+            }
+            #login-form .login-msg-error .notification-text {
+              font-size: 12px;
+              color: #190A0A;
+            }
+
+            #u-user-popup .verification-group {
+              display: none;
+              margin-bottom: 20px;
+            }
+
+            #u-user-popup .send-code-btn {
+              margin-left: 10px;
+              border: none;
+              color: #2194FF;
+              border-radius: 20px;
+              padding: 5px 20px;
+              cursor: pointer;
+              white-space: nowrap;
+              position: absolute;
+              right: 0px;
+              top: 10px;
+              font-size: 14px;
+            }
+
+            #u-user-popup .btn-primary {
+              width: 100%;
+              background: #e7004c;
+              color: #fff;
+              height: 47px;
+              border: none;
+              cursor: pointer;
+              font-size: 16px;
+              font-family: var(--text-font-family);
+              border-radius:6px;
+              margin-top:20px;
+              overflow: hidden;
+              position: relative;
+              text-align: center;
+
+            }
+              #u-user-popup .btn-primary:before{
+                  position: absolute;
+        content: '';
+        display: block;
+        width: 200%;
+        height: 200%;
+        z-index: 2;
+        background: linear-gradient(-45deg, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 60%);
+        animation: scanning 3s
+    linear infinite;
+              }
+              @keyframes scanning {
+
+              0% {
+        transform: translate(-100%, -100%);
+    }
+    100% {
+        transform: translate(100%, 100%);
+    }
+              }
+
+            .social-login {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-top: 10px;
+              gap: 20px;
+            }
+
+            #u-user-popup .social-login img{
+              width: 46px;
+              height: 46px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin: 0 5px;
+              cursor: pointer;
+              border-radius: 90px 90px 90px 90px;
+              border: 1px solid #C4C4C4;
+            }
+            #u-user-popup .social-login img:hover{
+              border: 1px solid #190A0A;
+            }
+
+            #u-user-popup .alternative-login a {
+              color: #888;
+              font-size: 12px;
+              text-decoration: none;
+              text-align: center;
+              display: inline;
+              margin-left: 5px;
+            }
+            #u-user-popup .policy-agreement {
+              display: flex;
+              align-items: center;
+              margin-bottom: 37px;
+                  margin-top: 16px;
+            }
+
+            #u-user-popup .policy-agreement input[type="checkbox"] {
+              width: 20px;
+              height: 20px;
+              pointer-events: none;
+              background-color: #F5F8FC; /* 未选中时的背景色 */
+              border: none;
+              display: inline-block;
+              margin-right: 10px;
+              {% comment %} background-image: url('https://cdn.shopify.com/s/files/1/0740/5882/6015/files/item_unit_checkbox_2x_1.png?v=1743584872'); /* 未选中的图片 */ {% endcomment %}
+              background-size: cover; /* 使图片覆盖整个框 */
+              cursor: pointer;
+              border:1px solid #0D0E1C;
+
+            }
+
+            #u-user-popup .policy-agreement input[type="checkbox"]:checked {
+              border:1px solid transparent;
+              appearance: none; /* 去掉默认样式 */
+              background-image: url('https://cdn.shopify.com/s/files/1/0740/5882/6015/files/item_unit_checkbox_2x_7710c7af-5c86-4cf1-82bc-35ab3de50d3a.png?v=1743584872'); /* 选中的图片 */
+              background-size: cover; /* 确保图片充满整个框 */
+            }
+
+            #u-user-popup .policy-agreement label {
+              font-size: 12px;
+              color: #A2A2A2;
+              text-align: left;
+              cursor: pointer;
+              width: 90%;
+            }
+
+            .policy-agreement a {
+                text-decoration: underline;
+                color: #A2A2A2;
+            }
+
+            .policy-agreement a:hover {
+                color: #190A0A;
+            }
+
+            #u-user-popup .close-btn {
+              position: absolute;
+              top: 10px;
+              right: 10px;
+              font-size: 20px;
+              cursor: pointer;
+              background: none;
+              border: none;
+              color: #626262;
+            }
+
+
+            #floating-box {
+              position: fixed;
+              height: 46px;
+              bottom: 97px;
+              right: 50px;
+              width: 46px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              cursor: pointer;
+              z-index: 17;
+              user-select: none;
+              display:none;
+            }
+            .g-floating-box {
+              display:none;
+            }
+
+            #floating-box .circle-tag {
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                background: linear-gradient(to bottom, #E91E63, #FFA4B9);
+                font-family: Arial, sans-serif;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                cursor: pointer;
+                user-select: none;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+              }
+
+              #floating-box .circle-tag .extra {
+                font-size: 14px;
+                line-height: 16px;
+                /* 使用你给定的渐变效果 */
+                background: linear-gradient(180deg, #FFF 32.17%, #EFDDC3 100%);
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                font-weight: 500;
+              }
+
+              #floating-box .circle-tag .text-num {
+                font-size: 14px;
+                line-height: 16px;
+                font-weight: 500;
+                color: #fff;
+                letter-spacing: 1px;
+              }
+        svg.email_logo-svg {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+            /* 倒计时 start */
+                      .countdown-inner{
+                      }
+                   .popup  .countdown-inner .countdown-wrapper{
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        flex-direction: column;
+                      }
+                   .popup  .countdown-inner .countdown-ulike {
+                        display: flex;
+                        align-items: center;
+                        font-size: 21px;
+                        gap: 12px;
+                        justify-content: center;
+                      }
+
+                   .popup  .countdown-inner  .countdown-label {
+                        font-size: 15px;
+                        color: #040D15;
+                        {% comment %} padding-right: 10px; {% endcomment %}
+                      }
+
+                    .popup   .countdown-inner .countdown-box {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 46px;
+                        height: 46px;
+                        background: #FFFFFC;
+                         color: #E0004D;
+                        border-radius: 5px;
+                        border:1px solid #BFBFBF;
+                      }
+
+                     .popup  .countdown-inner .countdown-separator {
+                        font-size: 24px;
+                        color: #0D0E1C
+                      }
+                     .popup  .countdown-inner .countdown-label-wrapper{
+                        display: flex;
+                        {% comment %} gap: 6px; {% endcomment %}
+                        margin-top: 5px;
+                            width: 70%;
+                      }
+                    .popup .countdown-inner  .countdown-fx{
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-end;
+                      }
+                    .popup  .countdown-inner .time-label{
+                        display: block;
+                        font-size: 15px;
+                        color: #000;
+                        width: 46px;
+                        text-align: center;
+                      }
+                    .popup   .countdown-inner .time-label-sep{
+                        display: block;
+                        width: 30px;
+                      }
+
+                        .popup  .countdown-inner .countdown-label-bix .countdown-label-wrapper{
+                            width: 100%;
+                            flex: 1;
+                            display: flex;
+        gap: 12px;
+                      }
+                           .popup  .countdown-inner .countdown-label-bix .countdown-separator{
+                              visibility: hidden;
+                          }
+           /* 倒计时 end */
+        @keyframes  rotateBg {
+
+        0% {
+            transform: translate(-50%, -50%) rotate(0);
+        }
+        100% {
+            transform: translate(-50%, -50%) rotate(360deg);
+        }
+        }
+
+           .popup-code-content .subscribe-module-gs{
+              position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+                z-index: 0;
+            overflow: hidden;
+                border-radius: 5px;
+          }
+        .popup-code-content .subscribe-module-gs img{
+        height: 100%;
+            object-fit: cover;
+            width: 150%;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            max-width: none;
+            animation: rotateBg 25s infinite linear;
+        }
+           .popup-code-content .close-code-btn{
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            z-index: 11;
+          }
+           .popup-code-content .popup-code-container{
+              width: 100%;
+            height: 100%;
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+                position: relative;
+            z-index: 1;
+          }
+           .popup-code-content  .popup-code-tle{
+              display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #000;
+            font-size: 30px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+          }
+
+          .popup-code-content .popup-code-note{
+              color: #5B5B5B;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 25px;
+            margin-top: 50px;
+          }
+          .popup-code-content  .popup-code-box{
+              display: flex;
+            {% comment %} background: linear-gradient(180deg, #E0004D 2.42%, #FF7595 100%); {% endcomment %}
+            width: 100%;
+            text-align: center;
+            border-radius: 10px;
+            align-items: center;
+                color: #FFF;
+                position:relative;
+          }
+          .popup-code-content  .popup-code-box::before {
+            content: '';
+            --wm-num: 10px;
+            --wm-num1: 11px;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            display: block;
+               border-radius: 10px;
+            transform: none;
+            background: linear-gradient(180deg, #E0004D 5%, #FF7595 95%);
+            -webkit-mask-image:
+              radial-gradient(circle at 60% 0,
+            transparent 0,
+            transparent var(--wm-num),
+            black var(--wm-num1),
+            black 100%
+          ),
+
+          radial-gradient(circle at 60% 100%,
+            transparent 0,
+            transparent var(--wm-num),
+            black var(--wm-num1),
+            black 100%
+          ),
+
+          radial-gradient(circle at 0 50%,
+            transparent 0,
+            transparent var(--wm-num),
+            black var(--wm-num1),
+            black 100%
+          ),
+          radial-gradient(circle at 100% 50%,
+            transparent 0,
+            transparent var(--wm-num),
+            black var(--wm-num1),
+            black 100%
+          );
+            -webkit-mask-composite: destination-in;
+          mask-image:
+          radial-gradient(circle at 60% 0,
+            transparent 0,
+            transparent var(--wm-num),
+            black var(--wm-num1),
+            black 100%
+          ),
+
+          radial-gradient(circle at 60% 100%,
+            transparent 0,
+            transparent var(--wm-num),
+            black var(--wm-num1),
+            black 100%
+          ),
+
+          radial-gradient(circle at 0 50%,
+            transparent 0,
+            transparent var(--wm-num),
+            black var(--wm-num1),
+            black 100%
+          ),
+          radial-gradient(circle at 100% 50%,
+            transparent 0,
+            transparent var(--wm-num),
+            black var(--wm-num1),
+            black 100%
+          );
+            mask-composite: intersect;
+        }
+         .popup-code-content  .popup-code-left{
+            width: 60%;
+            padding: 30px 20px;
+            position:relative;
+        }
+        .popup-code-content .popup-code-left:after{
+            content: '';
+            display: block;
+            width: 1px;
+            height: calc(100% - 20px);
+            position: absolute;
+            top: 10px;
+            right: 0;
+            border: 1px dashed #fff;
+        }
+         .popup-code-content  .code-left-txt1{
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+         .popup-code-content  .code-left-txt2{
+            font-size: 28px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            text-decoration: underline;
+        }
+         .popup-code-content  .popup-code-right{
+        flex: 1;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            position:relative;
+        }
+        .popup .countdown-label-bix{
+            width: 100%;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        }
+        .popup .countdown-label-bix .countdown-label{
+        visibility: hidden;
+        }
+        .popup countdown-label-bix .countdown-label-wrapper {
+        width: 100%;
+    }
+            @media (max-width: 1025px) {
+              #u-user-popup .popup-content {
+                flex-direction: column;
+                width: 90%;
+                height: auto;
+                border-radius: 5px;
+              }
+
+              #u-user-popup .popup-left {
+                {% comment %} left: initial;
+                top: -10%;
+                height: 395px;
+                width: inherit; {% endcomment %}
+                        width: 100%;
+              }
+
+              #u-user-popup .popup-right {
+                width: 100%;
+                {% comment %} padding: 92% 20px 0px; {% endcomment %}
+                 padding:23px 30px;
+              }
+
+              #u-user-popup .popup-right h2 {
+                font-size: 18px;
+                margin-bottom:10px;
+                line-height:1.5
+              }
+              #u-user-popup .popup-right .popup-right-txt {
+                font-size: 12px;
+                color: #190A0A;
+                line-height: 14px;
+                text-align: left;
+                font-style: normal;
+                text-transform: none;
+                margin:0 0 10px;
+              }
+
+              #u-user-popup #login-form {
+                margin-top: 10px;
+              }
+
+              #login-form .login-msg-error{
+                font-size: 12px;
+              }
+
+              .icon-item img{
+                width: 22px;
+              }
+
+              #u-user-popup .close-btn {
+                color:#fff;
+                z-index: 2;
+                width: 39px;
+                right: 0px;
+                left: 50%;
+                border: 1px solid #fff;
+                height: 39px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                top: auto;
+                bottom: -60px;
+                transform: translateX(-50%);
+              }
+
+              #u-user-popup .verification-group {
+                flex-direction: column;
+              }
+              #u-user-popup .form-group input {
+                font-size: 14px;
+                {% comment %} padding: 10px 20px; {% endcomment %}
+              }
+
+              #u-user-popup  .send-code-btn {
+                margin-left: 0;
+                width: 134px;
+                font-size: 12px;
+                padding: 11px 10px;
+                top: 2px;
+              }
+              #u-user-popup .popop-left-benefits {
+                bottom: initial;
+                top: 10px;
+                font-size: 0.6em;
+              }
+              #u-user-popup .policy-agreement label {
+                text-align: left;
+                font-size: 12px;
+                width: 80%;
+              }
+              .notification_{{ se_id }}{
+                font-size: 10px;
+                width: 90%;
+                padding: 10px 10px;
+              }
+              #u-user-popup .btn-primary {
+                padding: 6px;
+                height: 40px;
+              }
+              #floating-box {
+               bottom: 110px;
+               right: 42px;
+              }
+              .or-divider {
+                margin: 4px 0;
+              }
+              #u-user-popup .popup-detail-discount {
+                width: 110px;
+                text-align: center;
+                top: 37%;
+                left: 22%;
+                line-height: 16px;
+              }
+
+              #u-user-popup .social-login  img{
+                width: 36px;
+                height: 36px;
+              }
+              #u-user-popup .popup-container {
+        flex-direction: column;
+        }
+        #u-user-popup .policy-agreement{
+            margin-bottom: 12px;
+            margin-top: 10px;
+        }
+         .popup .countdown-inner .countdown-ulike {
+            font-size: 16px;
+            gap: 7px;
+        }
+         .popup .countdown-inner .countdown-label {
+            font-size: 12px;
+        }
+         .popup .countdown-inner .countdown-box{
+            width: 32px;
+            height: 32px;
+            border-radius: 3px;
+        }
+         .popup .countdown-inner .countdown-separator {
+            font-size: 18px;
+        }
+         .popup .countdown-inner .time-label{
+        font-size: 10px;
+            width: 33px;
+
+        }
+         .popup .countdown-inner .time-label-sep {
+            display: block;
+            width: 18px;
+        }
+         .popup .countdown-inner .countdown-label-wrapper {
+            {% comment %} width: 73%; {% endcomment %}
+        }
+        #u-user-popup .popup-code-content {
+            max-width: 350px;
+            width: 90%;
+            height: 300px;
+            border-radius: 5px;
+        }
+        .popup-code-content .close-code-btn {
+            right: 10px;
+            top: 10px;
+        }
+        .popup-code-content .popup-code-container{
+            padding: 25px 20px;
+        }
+        .popup-code-content .popup-code-tle{
+          gap: 5px;
+            font-size: 22px;
+                flex-direction: column;
+                    margin-bottom: 10px;
+        }
+
+        .popup-code-content .popup-code-note {
+                font-size: 16px;
+                margin-top: 26px;
+                line-height: 1.3;
+        }
+        .popup-code-content .popup-code-left{
+            padding: 30px 10px;
+        }
+        .popup-code-content .code-left-txt1 {
+            font-size: 12px;
+        }
+        .popup-code-content .code-left-txt2 {
+            font-size: 18px;
+        }
+        .popup-code-content .popup-code-right{
+        font-size: 12px;
+        }
+       .popup .countdown-label-bix{
+          gap: 7px;
+        }
+        #u-user-popup .popup-left img {
+          border-radius: 0;
+          border-top-left-radius: 5px;
+          border-top-right-radius: 5px;
+        }
+        .popup  .countdown-inner .countdown-label-bix .countdown-label-wrapper{
+            gap: 7px;
+          }
+     }
+
+        @media (max-width: 400px) {
+          #u-user-popup .popop-left-benefits {
+            font-size: 0.5em;
+          }
+        }
+  </style>
+{% endif %}
+
+{% schema %}
+{
+  "name": "u-user-popup",
+  "class": "u-user-popup",
+  "blocks": [],
+  "settings": [
+    { "type": "image_picker", "id": "rt_float_image", "label": "右侧浮动图片" },
+    { "type": "image_picker", "id": "image", "label": "左侧图片" },
+    { "type": "image_picker", "id": "m_image", "label": "左侧移动端图片" },
+    { "type": "html", "id": "title", "label": "弹窗标题", "default": "Unlock Your Benefits" },
+
+    { "type": "html", "id": "title1", "label": "弹窗标题1", "default": "<p>お得な特典をゲット！</p>" },
+
+    { "type": "html", "id": "email_label", "label": "邮箱输入框标签", "default": "Email Address*" },
+    { "type": "html", "id": "code_label", "label": "验证码输入框标签", "default": "Verification Code*" },
+    { "type": "html", "id": "send_code_btn", "label": "发送验证码按钮", "default": "Obtain your verification code" },
+    { "type": "html", "id": "btn_text", "label": "登录/注册按钮", "default": "Login/Register" },
+    {
+      "type": "html",
+      "id": "already_have_password_text",
+      "label": "已有密码文本",
+      "default": "Already have a password?"
+    },
+    { "type": "html", "id": "login_link", "label": "密码登录链接", "default": "https://account.ulike.com/login" },
+    { "type": "html", "id": "login_with_password", "label": "密码登录按钮文本", "default": "Login with password" },
+    {
+      "type": "text",
+      "id": "end_time",
+      "label": "End Time",
+      "info": "格式：2025-11-14 24:00:00"
+    },
+    {
+      "type": "text",
+      "id": "end_label",
+      "label": "End Label"
+    },
+    {
+      "type": "text",
+      "id": "code_tle",
+      "label": "Code Title"
+    },
+    {
+      "type": "text",
+      "id": "code_txt1",
+      "label": "Code Text"
+    },
+    {
+      "type": "text",
+      "id": "code_txt2",
+      "label": "Code Text"
+    },
+    {
+      "type": "text",
+      "id": "code",
+      "label": "Code"
+    },
+    {
+      "type": "text",
+      "id": "copy_txt",
+      "label": "Copy Text"
+    },
+    {
+      "type": "text",
+      "id": "code_note",
+      "label": "Code Note"
+    }
+  ],
+  "presets": [{ "name": "u-user-popup", "blocks": [] }]
+}
+{% endschema %}

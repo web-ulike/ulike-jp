@@ -1,0 +1,117 @@
+{%- liquid
+  assign sid = section.id
+  assign st = section.settings
+-%}
+
+<section class="jp-amb-family jp-amb-family--{{ sid }}">
+  {%- if st.title != blank -%}
+    <div class="jp-amb-family__content container">
+      <div class="jp-amb-family__title">{{ st.title }}</div>
+    </div>
+  {%- endif -%}
+  <picture>
+    {%- if st.mobile_image != blank -%}
+      <source media="(max-width: 768px)" srcset="{{ st.mobile_image | image_url: width: 900 }}">
+    {%- endif -%}
+
+    {%- if st.image != blank -%}
+      <img
+        class="jp-amb-family__image"
+        src="{{ st.image | image_url: width: 2400 }}"
+        alt="{{ st.image.alt | escape }}"
+        loading="lazy"
+        draggable="false"
+      >
+    {%- elsif st.mobile_image != blank -%}
+      <img
+        class="jp-amb-family__image"
+        src="{{ st.mobile_image | image_url: width: 900 }}"
+        alt="{{ st.mobile_image.alt | escape }}"
+        loading="lazy"
+        draggable="false"
+      >
+    {%- endif -%}
+  </picture>
+</section>
+
+<style>
+  .jp-amb-family--{{ sid }} {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #f4f7f6;
+    color: #111;
+  }
+
+  .jp-amb-family--{{ sid }} picture {
+    display: block;
+    width: 100%;
+  }
+
+  .jp-amb-family--{{ sid }} .jp-amb-family__image {
+    width: 100%;
+    height: auto;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  .jp-amb-family--{{ sid }} .jp-amb-family__content {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    z-index: 2;
+    transform: translateX(-50%);
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .jp-amb-family--{{ sid }} .jp-amb-family__title {
+    font-size: 40px;
+    line-height: 1.5;
+    letter-spacing: 12px;
+    font-weight: 400;
+    color: #000;
+    font-family: var(--font-hd-family);
+  }
+
+  @media (max-width: 768px) {
+    .jp-amb-family--{{ sid }} .jp-amb-family__content {
+      top: 10%;
+    }
+
+    .jp-amb-family--{{ sid }} .jp-amb-family__title {
+      font-size: 24px;
+      letter-spacing: 2.4px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "JP Amb Family",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "PC image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile image"
+    },
+    {
+      "type": "html",
+      "id": "title",
+      "label": "Title",
+      "default": "私が夢の美容習慣、<br>家族も、つながる。"
+    }
+  ],
+  "presets": [
+    {
+      "name": "JP Amb Family"
+    }
+  ]
+}
+{% endschema %}

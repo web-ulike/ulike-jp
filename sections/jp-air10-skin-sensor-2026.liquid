@@ -1,0 +1,137 @@
+{%- liquid
+  assign section_id = 'jp-air10-skin-sensor-2026-' | append: section.id
+  assign default_title = '肌の色を自動で感知し、\n最適な出力パワーを適宜に判別。'
+  assign default_description = '進化したスキンセンサー。認識範囲をダークブラウン*の肌まで拡張し、幅広い肌色をカバー。日焼けの状態や肌色の個人差を見極め、常に安全なパワーを維持。'
+  assign mobile_video_class = 'jp-skin-sensor-2026__video jp-skin-sensor-2026__video--mobile'
+  if section.settings.video == blank
+    assign mobile_video_class = mobile_video_class | append: ' jp-skin-sensor-2026__video--mobile-only'
+  endif
+-%}
+
+<section id="{{ section_id }}" class="jp-skin-sensor-2026">
+  <div class="jp-skin-sensor-2026__inner">
+    <div class="jp-skin-sensor-2026__content">
+      <h2 class="jp-skin-sensor-2026__title to-top">{{ section.settings.title | default: default_title | escape | newline_to_br }}</h2>
+      <p class="jp-skin-sensor-2026__description to-top" style="transition-delay: .1s">{{ section.settings.description | default: default_description | escape }}</p>
+      <div class="jp-skin-sensor-2026__benefit to-top" style="transition-delay: .2s">
+        {%- if section.settings.benefit_icon != blank -%}
+          {{ section.settings.benefit_icon | image_url: width: 180 | image_tag: loading: 'lazy', widths: '50, 80, 120, 180', class: 'jp-skin-sensor-2026__benefit-icon', alt: section.settings.benefit_icon.alt }}
+        {%- endif -%}
+        <p>{{ section.settings.benefit_text | default: '肌のトーンに合わせて自動的にパワーを調整' | escape }}</p>
+      </div>
+    </div>
+
+    <div class="jp-skin-sensor-2026__media to-top{% if section.settings.video_mobile != blank %} jp-skin-sensor-2026__media--has-mobile-video{% endif %}" style="transition-delay: .2s">
+      {%- if section.settings.video != blank or section.settings.video_mobile != blank -%}
+        {%- if section.settings.video != blank -%}
+          {{ section.settings.video | video_tag: class: 'jp-skin-sensor-2026__video jp-skin-sensor-2026__video--desktop', controls: false, autoplay: false, playsinline: true, muted: true, loop: true, preload: 'metadata' }}
+        {%- endif -%}
+        {%- if section.settings.video_mobile != blank -%}
+          {{ section.settings.video_mobile | video_tag: class: mobile_video_class, controls: false, autoplay: false, playsinline: true, muted: true, loop: true, preload: 'metadata' }}
+        {%- endif -%}
+      {%- else -%}
+        <picture>
+          {%- if section.settings.image_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ section.settings.image_mobile | image_url: width: 1200 }}">{%- endif -%}
+          {%- if section.settings.image != blank -%}
+            {{ section.settings.image | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '375, 750, 1200, 1600', class: 'jp-skin-sensor-2026__image', alt: section.settings.image.alt }}
+          {%- elsif section.settings.image_mobile != blank -%}
+            {{ section.settings.image_mobile | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '375, 750, 1200', class: 'jp-skin-sensor-2026__image', alt: section.settings.image_mobile.alt }}
+          {%- else -%}{{ 'image' | placeholder_svg_tag: 'jp-skin-sensor-2026__placeholder' }}{%- endif -%}
+        </picture>
+      {%- endif -%}
+    </div>
+    <p class="jp-skin-sensor-2026__note">{{ section.settings.note | default: '*フィッツパトリックV型を指す。' | escape }}</p>
+  </div>
+</section>
+
+<style>
+  #{{ section_id }} { background: {{ section.settings.background_color | default: '#f4f4f1' }}; color: #000; overflow: hidden; }
+  #{{ section_id }} * { box-sizing: border-box; }
+  #{{ section_id }} .jp-skin-sensor-2026__inner { height: 907px; margin: 0 auto; max-width: 1280px; position: relative; }
+  #{{ section_id }} .jp-skin-sensor-2026__content { left: 6px; position: absolute; top: 209px; width: 518px; }
+  #{{ section_id }} .jp-skin-sensor-2026__title {  font-size: 36px; font-weight: 400; line-height: 1.5; margin: 0; white-space: nowrap; }
+  #{{ section_id }} .jp-skin-sensor-2026__title br { display: block !important; }
+  #{{ section_id }} .jp-skin-sensor-2026__description { font-family: "Noto Sans JP", sans-serif; font-size: 24px; line-height: 1.5; margin: 39px 0 0; }
+  #{{ section_id }} .jp-skin-sensor-2026__benefit { align-items: center; display: flex; flex-direction: column; margin-top: 75px; width: 211px; }
+  #{{ section_id }} .jp-skin-sensor-2026__benefit-icon { display: block; height: 80px; object-fit: contain; width: 69px; }
+  #{{ section_id }} .jp-skin-sensor-2026__benefit p { font-family: "Noto Sans JP", sans-serif; font-size: 15px; font-weight: 500; line-height: 1.3; margin: 35px 0 0; text-align: center; }
+  #{{ section_id }} .jp-skin-sensor-2026__media { background: #d8d4cb; border-radius: 20px; height: 595px; overflow: hidden; position: absolute; right: -110px; top: 156px; width: 750px; }
+  #{{ section_id }} .jp-skin-sensor-2026__media picture, #{{ section_id }} .jp-skin-sensor-2026__image, #{{ section_id }} .jp-skin-sensor-2026__video, #{{ section_id }} .jp-skin-sensor-2026__placeholder { display: block; height: 100%; width: 100%; }
+  #{{ section_id }} .jp-skin-sensor-2026__image, #{{ section_id }} .jp-skin-sensor-2026__video { object-fit: cover; }
+  #{{ section_id }} .jp-skin-sensor-2026__video--mobile { display: none; }
+  #{{ section_id }} .jp-skin-sensor-2026__video--mobile-only { display: block; }
+  #{{ section_id }} .jp-skin-sensor-2026__placeholder { fill: #d8d4cb; }
+  #{{ section_id }} .jp-skin-sensor-2026__note { bottom: 45px; color: rgba(0,0,0,.5); font-family: Saans, "Noto Sans JP", sans-serif; font-size: 10px; left: 11px; line-height: 1.5; margin: 0; position: absolute; }
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} { background: #f4f4f2; }
+    #{{ section_id }} .jp-skin-sensor-2026__inner { height: 782px; max-width: none; width: 100%; }
+    #{{ section_id }} .jp-skin-sensor-2026__content { left: 19px; top: 38px; width: calc(100% - 38px); }
+    #{{ section_id }} .jp-skin-sensor-2026__title { font-size: 26px; white-space: normal; }
+    #{{ section_id }} .jp-skin-sensor-2026__description { font-size: 17px; margin-top: 20.2px; }
+    #{{ section_id }} .jp-skin-sensor-2026__benefit { margin-left: -4px; margin-top: 37px; width: 149px; }
+    #{{ section_id }} .jp-skin-sensor-2026__benefit-icon { height: 52px; width: 45px; }
+    #{{ section_id }} .jp-skin-sensor-2026__benefit p { font-size: 14px; margin-top: 15px; }
+    #{{ section_id }} .jp-skin-sensor-2026__media { border-radius: 9px; height: 267px; left: 19px; right: auto; top: 462px; width: calc(100% - 38px); }
+    #{{ section_id }} .jp-skin-sensor-2026__video--mobile { display: block; }
+    #{{ section_id }} .jp-skin-sensor-2026__media--has-mobile-video .jp-skin-sensor-2026__video--desktop { display: none; }
+    #{{ section_id }} .jp-skin-sensor-2026__note { bottom: 19px; font-family: Saans, "Noto Sans JP", sans-serif; font-size: 10px; left: 19px; }
+  }
+</style>
+
+<script>
+  (() => {
+    const media = document.querySelector('#{{ section_id }} .jp-skin-sensor-2026__media');
+    if (!media || media.dataset.videoObserverBound === 'true') return;
+
+    const videos = [...media.querySelectorAll('video')];
+    if (!videos.length) return;
+
+    media.dataset.videoObserverBound = 'true';
+    const playVisibleVideos = () => {
+      if (document.hidden) return;
+      videos.forEach((video) => {
+        if (video.offsetParent !== null) video.play().catch(() => {});
+      });
+    };
+    const pauseVideos = () => videos.forEach((video) => video.pause());
+
+    if (!('IntersectionObserver' in window)) {
+      playVisibleVideos();
+      return;
+    }
+
+    let isInView = false;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        isInView = entry.isIntersecting;
+        if (isInView) playVisibleVideos();
+        else pauseVideos();
+      });
+    }, { threshold: 0.25 });
+
+    observer.observe(media);
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) pauseVideos();
+      else if (isInView) playVisibleVideos();
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "jp-air10-skin-sensor-2026",
+  "settings": [
+    { "type": "color", "id": "background_color", "label": "背景颜色", "default": "#F4F4F1" },
+    { "type": "video", "id": "video", "label": "PC 肤色识别视频" },
+    { "type": "video", "id": "video_mobile", "label": "M 肤色识别视频" },
+    { "type": "image_picker", "id": "image", "label": "PC 肤色识别图片" },
+    { "type": "image_picker", "id": "image_mobile", "label": "M 肤色识别图片" },
+    { "type": "image_picker", "id": "benefit_icon", "label": "自动识别图标" },
+    { "type": "textarea", "id": "title", "label": "标题", "default": "肌の色を自動で感知し、\n最適な出力パワーを適宜に判別。" },
+    { "type": "textarea", "id": "description", "label": "说明文案", "default": "進化したスキンセンサー。認識範囲をダークブラウン*の肌まで拡張し、幅広い肌色をカバー。日焼けの状態や肌色の個人差を見極め、常に安全なパワーを維持。" },
+    { "type": "text", "id": "benefit_text", "label": "图标说明", "default": "肌のトーンに合わせて自動的にパワーを調整" },
+    { "type": "text", "id": "note", "label": "脚注", "default": "*フィッツパトリックV型を指す。" }
+  ],
+  "presets": [{ "name": "jp-air10-skin-sensor-2026" }]
+}
+{% endschema %}

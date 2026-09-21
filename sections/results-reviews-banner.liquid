@@ -1,0 +1,320 @@
+<style>
+.results-reviews-banner {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+.results-reviews-banner .results-reviews-banner-cont {
+  display: flex;
+  background: #F6F6F6;
+}
+
+.results-reviews-banner .results-reviews-banner-img {
+  width: 45.46%;
+}
+
+.results-reviews-banner .results-reviews-banner-pad {
+  position: relative;
+  padding-top: 71.78%;
+  height: 100%;
+  background:#C4C4C4;
+}
+
+.results-reviews-banner .results-reviews-banner-img .img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+}
+
+.results-reviews-banner .results-reviews-banner-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 2;
+}
+
+.results-reviews-banner .results-reviews-banner-play {
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  width: 40px;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.results-reviews-banner .results-reviews-banner-play svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.results-reviews-banner .results-reviews-banner-play .play-show-svg {
+  display: none;
+}
+
+.results-reviews-banner .is-play .play-hide-svg {
+  display: none;
+}
+
+.results-reviews-banner .is-play .play-show-svg {
+  display: block;
+}
+
+.results-reviews-banner .results-reviews-banner-txt {
+  flex: 1;
+  padding: 40px 2.6vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #000;
+}
+
+.results-reviews-banner .results-reviews-banner-title {
+  font-size: 40px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.results-reviews-banner .results-reviews-banner-sub {
+  font-size: 24px;
+  line-height: 1.33;
+  margin-top: 20px;
+}
+
+.results-reviews-banner .results-reviews-banner-p {
+  font-size: 16px;
+  line-height: 1.25;
+  margin-top: 16px;
+}
+
+.results-reviews-banner .results-reviews-banner-p p {
+  margin: 0;
+}
+
+.results-reviews-banner .results-reviews-banner-p ul {
+  padding: 0;
+  list-style: none;
+}
+
+.results-reviews-banner .results-reviews-banner-p li {
+  position: relative;
+  padding-left: 30px;
+  margin-top: 8px;
+}
+
+.results-reviews-banner .results-reviews-banner-p li::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 5px;
+  height: 10px;
+  border-right: 1.5px solid #000;
+  border-bottom: 1.5px solid #000;
+  left: 12px;
+  top: 50%;
+  margin-top: -2px;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.results-reviews-banner .results-reviews-banner-btn {
+  display: flex;
+  width: 200px;
+  height: 64px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  background: #e0004d;
+  color: #fff;
+  font-size: 16px;
+  line-height: 1.3;
+  margin-top: 24px;
+  cursor: pointer;
+}
+
+.results-reviews-banner .results-reviews-banner-btn:hover {
+  background: #c70341;
+}
+
+@media (max-width: 991px) {
+  .results-reviews-banner .results-reviews-banner-cont {
+    flex-direction: column;
+    margin: 0 -24px;
+  }
+  .results-reviews-banner .results-reviews-banner-img {
+    width: 100%;
+  }
+  .results-reviews-banner .results-reviews-banner-play {
+    bottom: 20px;
+    right: 20px;
+  }
+  .results-reviews-banner .results-reviews-banner-txt {
+    padding: 16px 27px 24px 27px;
+  }
+  .results-reviews-banner .results-reviews-banner-title {
+    font-size: 24px;
+  }
+  .results-reviews-banner .results-reviews-banner-sub {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-top: 15px;
+  }
+  .results-reviews-banner .results-reviews-banner-p {
+    font-size: 13px;
+    margin-top: 8px;
+  }
+
+  .results-reviews-banner .results-reviews-banner-btn {
+    width: 170px;
+    height: 52px;
+    font-size: 16px;
+    margin-top: 13px;
+  }
+}
+</style>
+<section class="section-box">
+  <div class="results-reviews-banner">
+    <div class="container">
+      <div class="results-reviews-banner-cont">
+        <div class="results-reviews-banner-img">
+          <div class="results-reviews-banner-pad">
+            {%- if section.settings.image != blank -%}
+              <img class="img" width="" height="" src="{{ section.settings.image | image_url }}">
+            {%- endif -%}
+            {%- if section.settings.video != blank -%}
+              {% assign img_url =  section.settings.image | image_url  %}
+                <native-video autoplay class="results-reviews-banner-video video-wrapper video-wrapper--native video-wrapper--native-custom">
+                  {{-
+                    section.settings.video
+                    | video_tag:
+                      controls: false,
+                      autoplay: true,
+                      playsinline: true,
+                      muted: true,
+                      loop: true,
+                      poster: img_url
+                  -}}
+                </native-video>
+                <div class="results-reviews-banner-play">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="41" viewBox="0 0 40 41" fill="none"
+                    class="play-show-svg">
+                    <circle cx="20" cy="20.9375" r="20" fill="white" fill-opacity="0.4"></circle>
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M22.2394 27.1486L22.2394 13.8199C23.0284 13.8199 23.668 14.4595 23.668 15.2485L23.668 27.1486L22.2394 27.1486Z"
+                      fill="white"></path>
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M16.3331 27.1486L16.3331 13.8199C17.1221 13.8199 17.7617 14.4595 17.7617 15.2485L17.7617 27.1486L16.3331 27.1486Z"
+                      fill="white"></path>
+                  </svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="41" viewBox="0 0 40 41" fill="none"
+                    class="play-hide-svg">
+                    <path
+                      d="M20 40.9375C31.0457 40.9375 40 31.9832 40 20.9375C40 9.89181 31.0457 0.9375 20 0.9375C8.95431 0.9375 0 9.89181 0 20.9375C0 31.9832 8.95431 40.9375 20 40.9375Z"
+                      fill="white" fill-opacity="0.4"></path>
+                    <path d="M16 12.9374L24.7989 18.8033L25.9133 19.5462L27.1718 20.3852L28 20.9374L16 28.9374V12.9374Z"
+                      stroke="white" stroke-width="1.42857" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                </div>
+              {%- endif -%}
+          </div>
+        </div>
+        <div class="results-reviews-banner-txt">
+          <div class="results-reviews-banner-title">{{ section.settings.text }}</div>
+          <div class="results-reviews-banner-sub">{{ section.settings.text1 }}</div>
+          <div class="results-reviews-banner-p">
+            {{ section.settings.text2 }}
+          </div>
+          {%- if section.settings.text3 != blank -%}
+            <a href="{{ section.settings.link }}" class="results-reviews-banner-btn">
+              {{ section.settings.text3 }}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>    
+<script>
+  (function () {
+    // 作用域内定义变量
+    const $p = document.querySelector('#shopify-section-{{ section.id }} .results-reviews-banner');
+    const video = $p.querySelector('.results-reviews-banner-video video');
+    const toggleButton = $p.querySelector('.results-reviews-banner-play');
+
+    // 更新视频状态
+    function updateStatus() {
+      toggleButton?.classList[video.paused ? "remove" : "add"]("is-play");
+    }
+
+    // 切换播放状态
+    toggleButton?.addEventListener('click', () => {
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
+      updateStatus();
+    });
+
+    // 监听播放和暂停事件
+    video?.addEventListener('play', updateStatus);
+    video?.addEventListener('pause', updateStatus);
+
+    // 页面初始状态
+    updateStatus();
+  })(); // 立即执行函数
+</script>
+{% schema %}
+{
+  "name": "results-reviews-banner",
+  "settings": [
+    
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "标题"
+    },
+    {
+      "type": "text",
+      "id": "text1",
+      "label": "Text"
+    },
+    {
+      "type": "richtext",
+      "id": "text2",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "text3",
+      "label": "按钮 Text"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "链接"
+    }
+  ],
+  "presets": [
+    {
+      "name": "results-reviews-banner"
+    }
+  ]
+}
+{% endschema %}

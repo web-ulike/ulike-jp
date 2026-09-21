@@ -1,0 +1,271 @@
+{%- liquid
+  assign sid = section.id
+  assign st = section.settings
+  assign fallback_bg = st.bg_pc | default: st.bg_mobile
+-%}
+
+<section
+  id="pd2026-banner-{{ sid }}"
+  class="pd2026-banner"
+  style="
+    --pd2026-banner-text: {{ st.text_color }};
+    --pd2026-banner-button-bg: {{ st.button_bg }};
+    --pd2026-banner-button-text: {{ st.button_text_color }};
+    --pd2026-banner-mobile-top: {{ st.mobile_content_top }}px;
+  "
+>
+  <div class="pd2026-banner__media" aria-hidden="true">
+    {%- if fallback_bg != blank -%}
+      <picture>
+        {%- if st.bg_mobile != blank -%}
+          <source
+            media="(max-width: 767px)"
+            srcset="{{ st.bg_mobile | image_url: width: 750 }} 750w, {{ st.bg_mobile | image_url: width: 1125 }} 1125w"
+            sizes="100vw"
+          >
+        {%- endif -%}
+        {%- if st.bg_pc != blank -%}
+          <source
+            media="(min-width: 768px)"
+            srcset="{{ st.bg_pc | image_url: width: 1440 }} 1440w, {{ st.bg_pc | image_url: width: 1920 }} 1920w, {{ st.bg_pc | image_url: width: 2400 }} 2400w"
+            sizes="100vw"
+          >
+        {%- endif -%}
+        {{
+          fallback_bg
+          | image_url: width: 2400
+          | image_tag:
+            class: 'pd2026-banner__image',
+            loading: 'eager',
+            fetchpriority: 'high',
+            widths: '750,1125,1440,1920,2400',
+            alt: fallback_bg.alt
+        }}
+      </picture>
+    {%- else -%}
+      <div class="pd2026-banner__placeholder"></div>
+    {%- endif -%}
+  </div>
+
+  <div class="pd2026-banner__inner container">
+    <div class="pd2026-banner__content">
+      {%- if st.discount_image != blank -%}
+        <div class="pd2026-banner__discount">
+          {{
+            st.discount_image
+            | image_url: width: 760
+            | image_tag:
+              class: 'pd2026-banner__discount-image',
+              loading: 'eager',
+              fetchpriority: 'high',
+              alt: st.discount_image.alt
+          }}
+        </div>
+      {%- endif -%}
+
+      {%- if st.festival_logo_image != blank -%}
+        <div class="pd2026-banner__festival-logo">
+          {{
+            st.festival_logo_image
+            | image_url: width: 620
+            | image_tag:
+              class: 'pd2026-banner__festival-logo-image',
+              loading: 'eager',
+              fetchpriority: 'high',
+              alt: st.festival_logo_image.alt
+          }}
+        </div>
+      {%- endif -%}
+
+      {%- if st.subtitle != blank -%}
+        <div class="pd2026-banner__subtitle">{{ st.subtitle }}</div>
+      {%- endif -%}
+
+      {%- if st.button_enable -%}
+        {%- if st.button_link != blank -%}
+          <a class="pd2026-banner__button" href="{{ st.button_link }}">
+            {{ st.button_label }}
+          </a>
+        {%- else -%}
+          <div class="pd2026-banner__button" role="text">
+            {{ st.button_label }}
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  #pd2026-banner-{{ sid }} {
+    position: relative;
+    overflow: hidden;
+    color: var(--pd2026-banner-text);
+  }
+
+  #pd2026-banner-{{ sid }} .pd2026-banner__media,
+  #pd2026-banner-{{ sid }} .pd2026-banner__media picture {
+    display: block;
+    width: 100%;
+  }
+
+  #pd2026-banner-{{ sid }} .pd2026-banner__image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  #pd2026-banner-{{ sid }} .pd2026-banner__placeholder {
+    aspect-ratio: 960 / 382;
+    background: #7ec8ee;
+  }
+
+  #pd2026-banner-{{ sid }} .pd2026-banner__inner {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  #pd2026-banner-{{ sid }} .pd2026-banner__content {
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    width: 320px;
+    text-align: center;
+    transform: translateY(-50%);
+    pointer-events: auto;
+  }
+
+  #pd2026-banner-{{ sid }} .pd2026-banner__discount,
+  #pd2026-banner-{{ sid }} .pd2026-banner__festival-logo {
+    display: block;
+    width: 100%;
+    line-height: 0;
+  }
+
+  #pd2026-banner-{{ sid }} .pd2026-banner__discount {
+    max-width: 320px;
+    margin: 0 auto 23px;
+  }
+
+  #pd2026-banner-{{ sid }} .pd2026-banner__festival-logo {
+    max-width: 320px;
+    margin: 0 auto 40px;
+  }
+
+  #pd2026-banner-{{ sid }} .pd2026-banner__discount-image,
+  #pd2026-banner-{{ sid }} .pd2026-banner__festival-logo-image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  #pd2026-banner-{{ sid }} .pd2026-banner__subtitle {
+    color: #000;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 0;
+  }
+
+  #pd2026-banner-{{ sid }} .pd2026-banner__subtitle p {
+    margin: 0;
+  }
+
+  #pd2026-banner-{{ sid }} .pd2026-banner__button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: baseline;
+    min-width: 158px;
+    min-height: 44px;
+    margin-top: 40px;
+    padding: 12px 22px;
+    background: #000;
+    color: #FFF;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1;
+    text-decoration: none;
+    transition: opacity .2s ease;
+  }
+
+  #pd2026-banner-{{ sid }} .pd2026-banner__button-week {
+    font-size: 10px;
+    line-height: 1;
+    vertical-align: baseline;
+  }
+
+  #pd2026-banner-{{ sid }} .pd2026-banner__button:hover {
+    opacity: .86;
+  }
+
+  @media screen and (max-width: 989px) {
+    #pd2026-banner-{{ sid }} .pd2026-banner__content {
+      width: 240px;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    #pd2026-banner-{{ sid }} .pd2026-banner__placeholder {
+    }
+
+    #pd2026-banner-{{ sid }} .pd2026-banner__content {
+      top: 50px;
+      left: 50%;
+      width: 230px;
+      text-align: center;
+      transform: translate(-50%, 0);
+    }
+
+    #pd2026-banner-{{ sid }} .pd2026-banner__discount {
+      max-width: 220px;
+      margin-bottom: 16px;
+    }
+
+    #pd2026-banner-{{ sid }} .pd2026-banner__festival-logo {
+      max-width: 220px;
+      margin-bottom: 20px;
+    }
+
+    #pd2026-banner-{{ sid }} .pd2026-banner__subtitle {
+      font-size: 12px;
+    }
+
+    #pd2026-banner-{{ sid }} .pd2026-banner__button {
+      min-width: 150px;
+      min-height: 30px;
+      margin-top: 22px;
+      padding: 9px 14px;
+      font-size: 20px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "2026 PD Banner",
+  "settings": [
+    { "type": "header", "content": "Images" },
+    { "type": "image_picker", "id": "bg_pc", "label": "Background image PC" },
+    { "type": "image_picker", "id": "bg_mobile", "label": "Background image mobile" },
+    { "type": "header", "content": "Content" },
+    { "type": "image_picker", "id": "discount_image", "label": "46% discount image" },
+    { "type": "image_picker", "id": "festival_logo_image", "label": "Festival logo image" },
+    { "type": "richtext", "id": "subtitle", "label": "Subtitle", "default": "<p>1回2分、たった3回で効果を実感</p>" },
+    { "type": "header", "content": "Button" },
+    { "type": "checkbox", "id": "button_enable", "label": "Show date button", "default": true },
+    { "type": "textarea", "id": "button_label", "label": "Button label", "default": "7.3<span class=\"pd2026-banner__button-week\">(金)</span> ~ 7.16<span class=\"pd2026-banner__button-week\">(木)</span>" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "header", "content": "Position" },
+    { "type": "range", "id": "mobile_content_top", "label": "Mobile content top", "min": 220, "max": 360, "step": 4, "unit": "px", "default": 276 },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#000000" },
+    { "type": "color", "id": "button_bg", "label": "Button background", "default": "#000000" },
+    { "type": "color", "id": "button_text_color", "label": "Button text", "default": "#ffffff" }
+  ],
+  "presets": [
+    { "name": "2026 PD Banner" }
+  ]
+}
+{% endschema %}

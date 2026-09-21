@@ -1,0 +1,191 @@
+<style>
+        .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px);
+  }
+  @media screen and (max-width: 768px){
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * 0.6);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.6);
+  }
+}
+/* md8-box start*/
+.md8-box{
+  background: linear-gradient(318deg, #111213 23.88%, #292E35 80.91%);
+}
+.md8_flex{
+  display: flex;
+  gap: 65px;
+  align-items: center;
+}
+.md8_flex img{
+  width: 100%;
+}
+.md8-left{
+  text-align: center;
+}
+.md8-right{
+  flex:1;
+}
+.md8-left .md8-name{
+  display: inline-block;
+  color: #000;
+font-size: 31px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+background: #B9E7FF;
+margin-top: 19px;
+padding: 0 10px;
+}
+.md8_img{
+  max-width: 419px;
+}
+.md8-left .md8-txt{
+  margin-top: 10px;
+  color:  #FFF;
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}
+.md8-right .md8_right-name{
+  color:  #FFF;
+font-size: 50px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+margin-bottom: 16px;
+}
+.md8_right-p{
+  color:  #FFF;
+font-size: 23px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}
+.md8_right-p p{
+  margin-bottom: 41px;
+}
+.md8_right-p strong{
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+background: #232A32;
+}
+@media (max-width: 768px) {
+  .md8_flex{
+    flex-direction: column;
+    gap: 17px;
+  }
+  .md8_img{
+    max-width: 100%;
+    max-width: 210px;
+    margin: 0 auto;
+  }
+  .md8-left .md8-name{
+    font-size: 27px;
+    margin-top: 33px;
+  }
+  .md8-left .md8-txt{
+    font-size: 15px;
+    margin-top: 5px;
+  }
+  .md8-right .md8_right-name{
+    font-size: 29px;
+    text-align: center;
+  }
+  .md8_right-p{
+    font-size: 12px;
+  }
+  .md8_right-p p{
+    margin-bottom: 19px;
+  }
+}
+/* md8-box end*/
+</style>
+  <section>
+    <div class="md8-box section-{{ section.id }}-padding">
+      <div class="women_container">
+        <div class="md8_flex">
+          <div class="md8-left to-top">
+            {%- if section.settings.image -%}
+            <div class="md8_img">
+              <img src="{{ section.settings.image | image_url }}" alt="">
+            </div>
+            {%- endif -%}
+            <div class="md8-name">{{ section.settings.txt1 }}</div>
+            <div class="md8-txt">
+             {{ section.settings.txt2 }}
+            </div>
+          </div>
+          <div class="md8-right to-top" style="transition-delay: 0.3s">
+            <div class="md8_right-name"> {{ section.settings.txt3 }}</div>
+            <div class="md8_right-p">
+               {{ section.settings.txt4 }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% schema %}
+{
+  "name": "Man Module8",
+  "class": "shopify-section--man-md8", 
+  "settings": [
+      {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        },
+      {
+      "type": "text",
+      "id": "txt1",
+      "label": "Text1"
+    },
+     {
+      "type": "richtext",
+      "id": "txt2",
+      "label": "Text2"
+    },
+      {
+      "type": "richtext",
+      "id": "txt3",
+      "label": "Text3"
+    },
+     {
+      "type": "richtext",
+      "id": "txt4",
+      "label": "Text4"
+    },
+     {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 300,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 300,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 48
+    }
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "Man Module8"
+    }
+  ]
+}
+{% endschema %}

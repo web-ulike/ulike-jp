@@ -1,0 +1,100 @@
+.jp-collection, .jp-collection-hero { color: #000; background: var(--collection-bg, #fff); }
+.jp-collection *, .jp-collection-hero * { box-sizing: border-box; }
+.jp-collection { display: block; padding: var(--collection-top, 85px) 0 var(--collection-bottom, 150px); }
+.jp-collection__inner { width: calc(100% - 80px); max-width: 1520px; margin-inline: auto; }
+.jp-collection__heading { margin-bottom: 100px; text-align: center; }
+.jp-collection__heading h2 { margin: 0; font: inherit; font-size: 36px; font-weight: 500; line-height: 1.3; letter-spacing: .1em; }
+.jp-collection__heading p { margin: 16px 0 0; font-size: 24px; line-height: 1.3; }
+.jp-collection__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 80px 30px; align-items: start; }
+.jp-collection-card { min-width: 0; }
+.jp-collection-card__media { display: block; aspect-ratio: 487 / 500; background: #f6f7f8; }
+.jp-collection-card__media picture { display: block; width: 100%; height: 100%; }
+.jp-collection-card__media img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.jp-collection-card__content { margin-top: 38px; }
+.jp-collection-card__heading { display: flex; align-items: center; gap: 10px; }
+.jp-collection-card__heading h3 { min-width: 0; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: inherit; font-size: 24px; line-height: 1.3; }
+.jp-collection-card__badge { flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; min-height: 25px; padding: 2px 12px; color: #fff; background: #e0004d; font-size: 16px; line-height: 1.3; }
+.jp-collection-card__subtitle { margin-top: 10px; font-size: 16px; line-height: 1.5; }
+.jp-collection-card__subtitle p { margin: 0; }
+.jp-collection-card__details { position: relative; margin-top: 10px; background: #f6f7f8; border-radius: 80px; }
+.jp-collection-card__details summary { position: relative; display: flex; align-items: center; min-height: 50px; padding: 12px 60px 12px 18px; cursor: pointer; list-style: none; }
+.jp-collection-card__details summary::-webkit-details-marker { display: none; }
+.jp-collection-card__summary { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #4d4d4d; font-size: 14px; line-height: 1.5; }
+.jp-collection-card__toggle { position: absolute; right: 13px; top: 11px; display: grid; place-items: center; width: 28px; height: 28px; border: 1px solid #ddd; border-radius: 50%; color: #000; }
+.jp-collection-card__toggle span { display: flex; }
+.jp-collection-card__toggle .jp-collection-card__minus { display: none; }
+.jp-collection-card__details[open] { border-radius: 20px; }
+.jp-collection-card__details[open] summary { position: absolute; z-index: 1; top: 0; right: 0; width: 52px; padding: 0; }
+.jp-collection-card__details[open] .jp-collection-card__summary { display: none; }
+.jp-collection-card__details[open] .jp-collection-card__plus { display: none; }
+.jp-collection-card__details[open] .jp-collection-card__minus { display: flex; }
+.jp-collection-card__description { padding: 14px 60px 14px 18px; color: #4d4d4d; font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; }
+.jp-collection-card__description :is(ul, ol) { margin: 0; padding-left: 21px; }
+.jp-collection-card__description > p { display: list-item; margin: 0 0 0 21px; list-style-type: disc; }
+.jp-collection-card__description li { margin: 0; }
+.jp-collection-card__description strong { font-weight: 700; }
+.jp-collection-card__link { display: inline-flex; align-items: center; gap: 8px; margin-top: 30px; 
+  border-bottom: 1px solid currentColor; color: var(--Ulike-, #e0004d);  font-size: 12px; 
+  font-weight: 700; line-height: 21px; text-decoration: none; text-transform: uppercase; }
+.jp-collection-card__link svg { display: block; width: 14px; height: 11px; }
+.jp-collection :is(a, summary, button):focus-visible { outline: 2px solid #e0004d; outline-offset: 4px; }
+.jp-collection__more { display: none; }
+.jp-collection--accessories { --collection-bg: #f7f7f7; }
+.jp-collection--accessories .jp-collection__inner { max-width: 1004px; }
+.jp-collection--accessories .jp-collection__heading { margin-bottom: 85px; }
+.jp-collection--accessories .jp-collection__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.jp-collection--accessories .jp-collection-card__media { background: #fff; }
+.jp-collection--accessories .jp-collection-card__heading h3 { white-space: normal; }
+.jp-collection-hero { position: relative; }
+.jp-collection-hero__media, .jp-collection-hero__media img { display: block; width: 100%; }
+.jp-collection-hero__media img { height: auto; }
+.jp-collection-hero__title { position: absolute; inset: var(--hero-title-top, 39%) auto auto var(--hero-title-left, 11.5%); margin: 0; text-align: left; font: inherit; font-size: 40px; font-weight: 400; line-height: 1.3; color: var(--hero-text, #000); }
+.jp-collection-hero__title p { margin: 0; }
+.jp-collection-hero__title--mobile { display: none; }
+.jp-collection-hero--empty { padding-block: 110px; }
+.jp-collection-hero--empty .jp-collection-hero__title { position: static; text-align: center; }
+@media (min-width: 1101px) and (max-width: 1679px) {
+  .jp-collection__inner { width: calc(100% - 120px); }
+  .jp-collection-card__heading h3 { font-size: 20px; }
+  .jp-collection-card__badge { font-size: 13px; }
+}
+@media (min-width: 750px) and (max-width: 1100px) {
+  .jp-collection__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .jp-collection-card__heading h3 { font-size: 20px; }
+  .jp-collection-card__badge { font-size: 13px; }
+}
+@media (max-width: 749px) {
+  .jp-collection { padding: var(--collection-top-mobile, 30px) 0 var(--collection-bottom-mobile, 50px); }
+  .jp-collection__inner { width: calc(100% - 42px); }
+  .jp-collection__heading { margin-bottom: 33px; }
+  .jp-collection__heading h2 { font-size: 20px; letter-spacing: .1em; }
+  .jp-collection__heading p { margin-top: 5px; font-size: 16px; }
+  .jp-collection__grid { grid-template-columns: minmax(0, 1fr); gap: 35px; }
+  .jp-collection-card__content { margin-top: 26px; }
+  .jp-collection-card__heading { gap: 7px; }
+  .jp-collection-card__heading h3 { font-size: 16px; }
+  .jp-collection-card__badge { min-height: 17px; padding: 2px 9px; font-size: 10px; }
+  .jp-collection-card__subtitle { margin-top: 8px; font-size: 12px; }
+  .jp-collection-card__details { margin-top: 8px; }
+  .jp-collection-card__details summary { min-height: 35px; padding: 9px 43px 9px 12px; }
+  .jp-collection-card__summary { font-size: 10px; }
+  .jp-collection-card__toggle { width: 19px; height: 19px; top: 8px; right: 9px; }
+  .jp-collection-card__toggle svg { width: 8px; }
+  .jp-collection-card__description { padding: 10px 43px 10px 12px; font-size: 10px; }
+  .jp-collection-card__details[open] summary { width: 38px; }
+  .jp-collection-card__link { gap: 6px; margin-top: 21px; font-size: 10px; line-height: 15px; }
+  .jp-collection-card__link svg { width: 10px; height: 8px; }
+  .jp-collection[data-ready]:not([data-expanded]) .jp-collection-card--extra { display: none; }
+  .jp-collection[data-ready] .jp-collection__more:not([hidden]) { display: flex; align-items: center; gap: 12px; margin: 40px auto 0; padding: 6px 10px 6px 14px; border: 0; border-radius: 30px; background: #fce6ed; color: #e0004d; font: inherit; font-size: 12px; line-height: 19px; cursor: pointer; }
+  .jp-collection__more-icon { display: grid; place-items: center; width: 19px; height: 19px; border-radius: 50%; color: #fff; background: #e0004d; }
+  .jp-collection--accessories .jp-collection__heading { margin-bottom: 22px; }
+  .jp-collection--accessories .jp-collection__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .jp-collection--accessories .jp-collection-card__media { aspect-ratio: 160 / 193; border-radius: 8px; }
+  .jp-collection--accessories .jp-collection-card__content { margin-top: 25px; }
+  .jp-collection--accessories .jp-collection-card__heading h3 { font-size: 13px; line-height: 1.5; }
+  .jp-collection--accessories .jp-collection-card__link { margin-top: 10px; }
+  .jp-collection-hero__title { inset: var(--hero-title-top-mobile, 7%) 20px auto; text-align: center; font-size: 24px; }
+  .jp-collection-hero__title--desktop { display: none; }
+  .jp-collection-hero__title--mobile { display: block; }
+  .jp-collection-hero--empty { padding: 60px 21px; }
+}

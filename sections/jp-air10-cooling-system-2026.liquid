@@ -1,0 +1,67 @@
+{%- liquid
+  assign section_id = 'jp-air10-cooling-system-2026-' | append: section.id
+  assign default_description = 'Ulike独自の「ダブルパイプ」と「VC液冷システム」が安定した放熱性能を実現し、30分間連続使用しても照射時の肌の表面温度を16℃以下*にキープ。'
+  assign default_note = '*国際認証機関CVCによる試験結果：NO: GJW2024-1748、結果はテスト条件により異なる可能性もあります。'
+-%}
+
+<section id="{{ section_id }}" class="jp-cooling-system-2026">
+  <div class="jp-cooling-system-2026__inner container">
+    <div class="jp-cooling-system-2026__content">
+      <h2 class="jp-cooling-system-2026__title to-top">{{ section.settings.title | default: '冷感、長時間キープ' | escape }}</h2>
+      <p class="jp-cooling-system-2026__description to-top" style="transition-delay: .1s">{{ section.settings.description | default: default_description | escape }}</p>
+    </div>
+
+    <div class="jp-cooling-system-2026__media to-top" style="transition-delay: .2s">
+      <picture>
+        {%- if section.settings.image_mobile != blank -%}
+          <source media="(max-width: 749px)" srcset="{{ section.settings.image_mobile | image_url: width: 1000 }}">
+        {%- endif -%}
+        {%- if section.settings.image != blank -%}
+          {{ section.settings.image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '750, 1200, 1700, 2100, 2400', class: 'jp-cooling-system-2026__image', alt: section.settings.image.alt }}
+        {%- elsif section.settings.image_mobile != blank -%}
+          {{ section.settings.image_mobile | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '375, 750, 1000', class: 'jp-cooling-system-2026__image', alt: section.settings.image_mobile.alt }}
+        {%- else -%}
+          {{ 'image' | placeholder_svg_tag: 'jp-cooling-system-2026__placeholder' }}
+        {%- endif -%}
+      </picture>
+    </div>
+
+    <p class="jp-cooling-system-2026__note">{{ section.settings.note | default: default_note | escape | newline_to_br }}</p>
+  </div>
+</section>
+
+<style>
+  #{{ section_id }} { background: {{ section.settings.background_color | default: '#f4f4f2' }}; color: #000; overflow: hidden; }
+  #{{ section_id }} .jp-cooling-system-2026__inner { position: relative; }
+  #{{ section_id }} .jp-cooling-system-2026__content { left: 0; position: absolute; top: 143px; width: 584px; z-index: 2; }
+  #{{ section_id }} .jp-cooling-system-2026__title { font-family: "Noto Sans JP", sans-serif; font-size: 48px; font-weight: 500; line-height: 1.5; margin: 0 0 25px; }
+  #{{ section_id }} .jp-cooling-system-2026__description { font-family: "Noto Sans JP", sans-serif; font-size: 24px; font-weight: 400; line-height: 1.5; margin: 0; }
+  #{{ section_id }} .jp-cooling-system-2026__media { left: 50%;
+    position: relative; transform: translateX(-50%); width: 100vw; }
+  #{{ section_id }} .jp-cooling-system-2026__media picture, #{{ section_id }} .jp-cooling-system-2026__image, #{{ section_id }} .jp-cooling-system-2026__placeholder { display: block; width: 100%; }
+  #{{ section_id }} .jp-cooling-system-2026__placeholder { fill: #e4e4e2; }
+  #{{ section_id }} .jp-cooling-system-2026__note { bottom: 78px; color: rgba(0,0,0,.5); font-family: Saans, "Noto Sans JP", sans-serif; font-size: 12px; left: max(30px, calc((100% - 1280px) / 2)); line-height: 1.5; margin: 0; position: absolute; }
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} .jp-cooling-system-2026__inner { padding-left: 0; padding-right: 0; width: 100%; }
+    #{{ section_id }} .jp-cooling-system-2026__content { left: 18.758px; text-align: justify; top: 55.707px; width: 90%; }
+    #{{ section_id }} .jp-cooling-system-2026__title { font-size: 30px; font-weight: 500; line-height: 1.5; margin-bottom: 14.737px; }
+    #{{ section_id }} .jp-cooling-system-2026__description { font-size: 18px; font-weight: 400; line-height: 1.5; text-align: justify; }
+    #{{ section_id }} .jp-cooling-system-2026__media { left: 0; margin-top: 0; position: relative; transform: none; width: 100%; }
+    #{{ section_id }} .jp-cooling-system-2026__note { bottom: 40px; display: block; font-family: "Noto Sans JP", sans-serif; font-size: 10px; font-weight: 400; left: 19.602px; line-height: 1.3; top: auto; width: 343.023px; z-index: 3; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "jp-air10-cooling-system",
+  "settings": [
+    { "type": "color", "id": "background_color", "label": "背景颜色", "default": "#F4F4F2" },
+    { "type": "image_picker", "id": "image", "label": "PC 右侧散热系统大图" },
+    { "type": "image_picker", "id": "image_mobile", "label": "M 散热系统大图" },
+    { "type": "text", "id": "title", "label": "标题", "default": "冷感、長時間キープ" },
+    { "type": "textarea", "id": "description", "label": "说明文案", "default": "Ulike独自の「ダブルパイプ」と「VC液冷システム」が安定した放熱性能を実現し、30分間連続使用しても照射時の肌の表面温度を16℃以下*にキープ。" },
+    { "type": "textarea", "id": "note", "label": "脚注文案", "default": "*国際認証機関CVCによる試験結果：NO: GJW2024-1748、結果はテスト条件により異なる可能性もあります。" }
+  ],
+  "presets": [{ "name": "jp-air10-cooling-system" }]
+}
+{% endschema %}

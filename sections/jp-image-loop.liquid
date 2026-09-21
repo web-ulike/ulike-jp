@@ -1,0 +1,187 @@
+{% comment %}
+  Section: jp-image-loop
+  功能：
+  - 循环添加图片小组件
+  - PC / Mobile 图片分开配置
+  - 移动端图片未配置时默认使用 PC 图
+  - 支持自定义锚点 ID
+  - 未配置锚点 ID 时，默认使用 section.id 生成随机唯一 ID
+  - 外层使用 container
+{% endcomment %}
+
+{%- liquid
+  assign sid = section.id
+  assign st = section.settings
+
+  if st.anchor_id != blank
+    assign anchor_id = st.anchor_id | handleize
+  else
+    assign anchor_id = 'jp-image-loop-' | append: sid
+  endif
+-%}
+
+<section
+  id="{{ anchor_id }}"
+  class="jp-image-loop jp-image-loop--{{ sid }}"
+>
+  <div{% if st.container_class != blank %} class="{{ st.container_class | escape }}"{% endif %}>
+    <div class="jp-image-loop__list">
+      {% for block in section.blocks %}
+        {%- liquid
+          assign bs = block.settings
+        -%}
+
+        {% if bs.pc_image != blank or bs.mobile_image != blank %}
+          <div
+            {% if bs.item_id != blank %}id="{{ bs.item_id | handleize }}"{% endif %}
+            class="jp-image-loop__item{% if bs.hide_on_pc %} jp-image-loop__item--hide-pc{% endif %}"
+            {{ block.shopify_attributes }}
+          >
+            <picture>
+              {% if bs.mobile_image != blank %}
+                <source
+                  media="(max-width: 767px)"
+                  srcset="
+                    {{ bs.mobile_image | image_url: width: 375 }} 375w,
+                    {{ bs.mobile_image | image_url: width: 550 }} 550w,
+                    {{ bs.mobile_image | image_url: width: 750 }} 750w,
+                    {{ bs.mobile_image | image_url: width: 900 }} 900w
+                  "
+                >
+              {% elsif bs.pc_image != blank %}
+                <source
+                  media="(max-width: 767px)"
+                  srcset="
+                    {{ bs.pc_image | image_url: width: 375 }} 375w,
+                    {{ bs.pc_image | image_url: width: 550 }} 550w,
+                    {{ bs.pc_image | image_url: width: 750 }} 750w,
+                    {{ bs.pc_image | image_url: width: 900 }} 900w
+                  "
+                >
+              {% endif %}
+
+              {% if bs.pc_image != blank %}
+                <img
+                  class="jp-image-loop__image"
+                  src="{{ bs.pc_image | image_url: width: 1920 }}"
+                  srcset="{{ bs.pc_image | image_url: width: 1920 }} 1920w"
+                  sizes="(min-width: 1921px) 1920px, 100vw"
+                  alt="{{ bs.pc_image.alt | default: bs.alt_text | escape }}"
+                  loading="lazy"
+                >
+              {% elsif bs.mobile_image != blank %}
+                <img
+                  class="jp-image-loop__image"
+                  src="{{ bs.mobile_image | image_url: width: 900 }}"
+                  srcset="
+                    {{ bs.mobile_image | image_url: width: 375 }} 375w,
+                    {{ bs.mobile_image | image_url: width: 550 }} 550w,
+                    {{ bs.mobile_image | image_url: width: 750 }} 750w,
+                    {{ bs.mobile_image | image_url: width: 900 }} 900w
+                  "
+                  sizes="100vw"
+                  alt="{{ bs.mobile_image.alt | default: bs.alt_text | escape }}"
+                  loading="lazy"
+                >
+              {% endif %}
+            </picture>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .jp-image-loop {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .jp-image-loop__list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .jp-image-loop__item {
+    width: 100%;
+  }
+
+  @media screen and (min-width: 768px) {
+    .jp-image-loop__item--hide-pc {
+      display: none;
+    }
+  }
+
+  .jp-image-loop__image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "jp-image-loop",
+  "settings": [
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "锚点 ID",
+      "info": "用于页面跳转，例如填写 image-section 后，可通过 #image-section 滚动到此模块。不填则默认使用随机 section ID。"
+    },
+    {
+      "type": "text",
+      "id": "container_class",
+      "label": "容器 class",
+      "info": "默认不填写。如需限制内容宽度，可填写 container。"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image_item",
+      "name": "图片",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "pc_image",
+          "label": "PC 图片"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "移动端图片",
+          "info": "不上传时，移动端默认显示 PC 图片。"
+        },
+        {
+          "type": "text",
+          "id": "alt_text",
+          "label": "图片 Alt 文案"
+        },
+        {
+          "type": "text",
+          "id": "item_id",
+          "label": "图片项 ID",
+          "info": "用于单张图片跳转锚点，无需填写"
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_on_pc",
+          "label": "PC 隐藏图片",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "jp-image-loop",
+      "blocks": [
+        {
+          "type": "image_item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,472 @@
+{% comment %}
+  Section: jp-triple-guarantee
+  - PC: left image + right accordion
+  - Mobile: title + image + accordion
+{% endcomment %}
+
+{%- liquid
+  assign sid = section.id
+  assign st = section.settings
+-%}
+
+<section id="jp-triple-guarantee-{{ sid }}" class="jp-triple-guarantee">
+  <div class="container jp-triple-guarantee__inner">
+    {% if st.heading != blank %}
+      <h2 class="jp-triple-guarantee__heading">{{ st.heading }}</h2>
+    {% endif %}
+
+    <div class="jp-triple-guarantee__body">
+      <div class="jp-triple-guarantee__image-wrap">
+        {% if st.image != blank %}
+          <img
+            class="jp-triple-guarantee__image"
+            src="{{ st.image | image_url: width: 1200 }}"
+            srcset="
+              {{ st.image | image_url: width: 600 }} 600w,
+              {{ st.image | image_url: width: 900 }} 900w,
+              {{ st.image | image_url: width: 1200 }} 1200w,
+              {{ st.image | image_url }} 1600w
+            "
+            sizes="(max-width: 768px) 100vw, 45vw"
+            alt="{{ st.image.alt | default: st.heading | escape }}"
+            loading="lazy"
+          >
+        {% else %}
+          <div class="jp-triple-guarantee__placeholder">Upload image</div>
+        {% endif %}
+      </div>
+
+      <div class="jp-triple-guarantee__accordion">
+        {% for block in section.blocks %}
+          {%- liquid
+            assign bs = block.settings
+          -%}
+
+          <div class="jp-triple-guarantee__item" {{ block.shopify_attributes }}>
+            <button
+              type="button"
+              class="jp-triple-guarantee__trigger"
+              aria-expanded="false"
+            >
+              <span>{{ bs.title }}</span>
+              <svg class="jp-triple-guarantee__icon" xmlns="http://www.w3.org/2000/svg" width="26" height="15" viewBox="0 0 26 15" fill="none" aria-hidden="true">
+                <path d="M2.35488 -9.92763e-07L12.5909 10.241L22.7169 0.111675L25.0667 2.46326L12.5299 15L10.1802 12.6484L10.2362 12.5926L-9.63953e-06 2.35137L2.35488 -9.92763e-07Z" fill="currentColor"/>
+              </svg>
+            </button>
+
+            <div class="jp-triple-guarantee__panel">
+              <div class="jp-triple-guarantee__panel-inner">
+                {% if bs.text != blank %}
+                  <div class="jp-triple-guarantee__text">
+                    {{ bs.text }}
+                  </div>
+                {% endif %}
+
+                {% if bs.note != blank %}
+                  <div class="jp-triple-guarantee__note">
+                    {{ bs.note }}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #jp-triple-guarantee-{{ sid }} {
+    background: {{ st.bg_color }};
+    padding: {{ st.pc_padding_top }}px 0 {{ st.pc_padding_bottom }}px;
+  }
+
+  #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__inner {
+    margin: 0 auto;
+  }
+
+  #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__heading {
+    margin: 0 0 60px;
+    text-align: center;
+    color: #000;
+    font-size: 48px;
+    line-height: 1.3;
+    font-weight: 500;
+  }
+
+  #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__body {
+    display: grid;
+    grid-template-columns: minmax(0, 48.5%) minmax(0, 51.5%);
+    align-items: center;
+    gap: 70px;
+  }
+
+  #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__image-wrap {
+    width: 100%;
+  }
+
+  #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__placeholder {
+    width: 100%;
+    min-height: 320px;
+    background: #f4f4f4;
+    color: #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+
+  #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__accordion {
+    width: 100%;
+  }
+
+  #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__item {
+    border-bottom: 1px solid rgba(25, 10, 10, 0.12);
+  }
+
+  #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__trigger {
+    width: 100%;
+    padding: 34px 0 18px;
+    border: 0;
+    background: transparent;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 32px;
+    line-height: 1.35;
+    font-weight: 500;
+  }
+
+  #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__trigger span {
+    display: block;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__icon {
+    flex: 0 0 auto;
+    width: 26px;
+    height: 15px;
+    color: #000;
+    transition: transform 0.25s ease;
+  }
+
+  #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__item.is-open .jp-triple-guarantee__icon {
+    transform: rotate(180deg);
+  }
+
+  #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__panel {
+    overflow: hidden;
+    height: auto;
+    transition: height 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: height;
+  }
+
+  #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__panel-inner {
+    padding: 0 30px 30px 0;
+  }
+
+  #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__text {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 20px;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+
+  #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__text p {
+    margin: 0;
+  }
+
+  #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__item:not(.is-open) .jp-triple-guarantee__text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+
+  #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__item:not(.is-open) .jp-triple-guarantee__note {
+    display: none;
+  }
+
+  #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__note {
+    margin-top: 16px;
+    color: rgba(25, 10, 10, 0.48);
+    font-size: 9px;
+    line-height: 1.55;
+    font-weight: 400;
+  }
+
+  #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__note p {
+    margin: 0;
+  }
+
+  @media screen and (max-width: 768px) {
+    #jp-triple-guarantee-{{ sid }} {
+      padding: {{ st.mb_padding_top }}px 0 {{ st.mb_padding_bottom }}px;
+    }
+
+    #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__inner {
+      max-width: none;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__heading {
+      margin: 0 16px 28px;
+      font-size: 20px;
+      line-height: 1.45;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__body {
+      display: block;
+    }
+
+    #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__image-wrap {
+      margin-bottom: 0;
+    }
+
+    #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__accordion {
+      background: #fff;
+    }
+
+    #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__trigger {
+      padding: 30px 16px 15px;
+      font-size: 20px;
+      line-height: 1.45;
+      font-weight: 500;
+      gap: 16px;
+    }
+
+    #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__panel-inner {
+      padding: 0 40px 20px 16px;
+    }
+
+    #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__text {
+      font-size: 10px;
+      line-height: 1.5;
+      color: rgba(25, 10, 10, 0.72);
+    }
+
+    #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__note {
+      margin-top: 14px;
+      font-size: 10px;
+      line-height: 1.55;
+    }
+
+    #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__placeholder {
+      min-height: 220px;
+    }
+  }
+</style>
+
+<script>
+  (() => {
+    const section = document.querySelector('#jp-triple-guarantee-{{ sid }}');
+    if (!section) return;
+
+    const items = Array.from(section.querySelectorAll('.jp-triple-guarantee__item'));
+
+    const getPanelHeight = (item, open) => {
+      const panel = item.querySelector('.jp-triple-guarantee__panel');
+      if (!panel) return 0;
+
+      const wasOpen = item.classList.contains('is-open');
+      item.classList.toggle('is-open', open);
+      panel.style.height = 'auto';
+      const height = panel.scrollHeight;
+      item.classList.toggle('is-open', wasOpen);
+      return height;
+    };
+
+    const setPanelHeight = (item, open, animate = true) => {
+      const panel = item.querySelector('.jp-triple-guarantee__panel');
+      const trigger = item.querySelector('.jp-triple-guarantee__trigger');
+      if (!panel) return;
+
+      const startHeight = panel.offsetHeight;
+      const endHeight = getPanelHeight(item, open);
+
+      panel.style.transition = animate ? '' : 'none';
+      panel.style.height = startHeight + 'px';
+      panel.offsetHeight;
+
+      item.classList.toggle('is-open', open);
+      if (trigger) trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+
+      requestAnimationFrame(() => {
+        panel.style.height = endHeight + 'px';
+      });
+
+      if (!animate) {
+        panel.offsetHeight;
+        panel.style.transition = '';
+      }
+    };
+
+    items.forEach((item) => {
+      setPanelHeight(item, false, false);
+    });
+
+    items.forEach((item) => {
+      const trigger = item.querySelector('.jp-triple-guarantee__trigger');
+      if (!trigger) return;
+
+      trigger.addEventListener('click', () => {
+        const shouldOpen = !item.classList.contains('is-open');
+
+        items.forEach((otherItem) => {
+          if (otherItem === item) {
+            setPanelHeight(otherItem, shouldOpen, true);
+          } else if (otherItem.classList.contains('is-open')) {
+            setPanelHeight(otherItem, false, true);
+          }
+        });
+      });
+    });
+
+    window.addEventListener('resize', () => {
+      items.forEach((item) => {
+        setPanelHeight(item, item.classList.contains('is-open'), false);
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "JP Triple Guarantee",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "PC container width",
+      "min": 1000,
+      "max": 1600,
+      "step": 20,
+      "default": 1320
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "長く安心して使え「トリプル保証」"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Left image"
+    },
+    {
+      "type": "range",
+      "id": "pc_padding_top",
+      "label": "PC padding top",
+      "min": 0,
+      "max": 180,
+      "step": 4,
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "pc_padding_bottom",
+      "label": "PC padding bottom",
+      "min": 0,
+      "max": 180,
+      "step": 4,
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "mb_padding_top",
+      "label": "Mobile padding top",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "mb_padding_bottom",
+      "label": "Mobile padding bottom",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "guarantee",
+      "name": "Guarantee item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "90日間の返金・返品保証"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Description",
+          "default": "<p>製品の効果や使用感に万が一ご満足いただけない場合も、購入から90日間は全額返金・返品可能。じっくり試せる3ヶ月の期間で、あなたの肌との相性や効果を実感いただいた上でのご判断ができます。</p>"
+        },
+        {
+          "type": "richtext",
+          "id": "note",
+          "label": "Small note"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "JP Triple Guarantee",
+      "blocks": [
+        {
+          "type": "guarantee",
+          "settings": {
+            "title": "90日間の返金・返品保証",
+            "text": "<p>製品の効果や使用感に万が一ご満足いただけない場合も、購入から90日間は全額返金・返品可能。じっくり試せる3ヶ月の期間で、あなたの肌との相性や効果を実感いただいた上でのご判断ができます。自信を持ってお届けする製品だからこそ実現できる、お客様目線の安心保証です。</p>"
+          }
+        },
+        {
+          "type": "guarantee",
+          "settings": {
+            "title": "2年間の長期メーカー保証",
+            "text": "<p>購入後2年間の長期メーカー保証付きで、万一の故障や不具合にも迅速に対応。世界No.1光美容器メーカーの高品質だからこそ提供できる充実の保証期間で、長期にわたって安心してご使用いただけます。</p>",
+            "note": "<p>*1. Ulikeユーティリティ：家庭用美容器部門の販売金額累計No.1。<br>*2. 2022年5月から2023年4月までの累計販売実績。</p>"
+          }
+        },
+        {
+          "type": "guarantee",
+          "settings": {
+            "title": "90万回²照射可能な長寿命設計",
+            "text": "<p>A++グレードのサファイア素材、ダブルパイプ放熱特許技術、さらにVC液冷放熱特許技術を採用した高効率冷却設計。これらの放熱・温度制御技術により、電子部品や光学系への熱負担を抑え、機器全体の耐久性を向上させています。</p>",
+            "note": "<p>*2. 当社の耐久性試験結果、最大90万回照射が可能です。</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

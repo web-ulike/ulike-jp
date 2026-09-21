@@ -1,0 +1,787 @@
+{% liquid
+  assign sid = section.id
+%}
+
+<section class="jp-home-reviews jp-home-reviews--{{ sid }}">
+  <div class="container">
+    <div class="jp-home-reviews__top to-top">
+      <div class="jp-home-reviews__top-left">
+        {% if section.settings.heading != blank %}
+          <h2 class="jp-home-reviews__title">{{ section.settings.heading }}</h2>
+        {% endif %}
+      </div>
+    </div>
+
+    {% if section.blocks.size > 1 %}
+      <div class="jp-home-reviews__nav-group">
+        <div class="jp-home-reviews__pagination swiper-pagination" aria-hidden="true"></div>
+        <button class="jp-home-reviews__nav jp-home-reviews__nav--prev" type="button" aria-label="Previous">
+         <svg xmlns="http://www.w3.org/2000/svg" width="9" height="15" viewBox="0 0 9 15" fill="none">
+            <path d="M1.41901 8.74609L1.386 8.77905L0 7.39307L7.39201 0L8.778 1.38611L2.806 7.35901L8.845 13.3981L7.459 14.7841L1.41901 8.74609Z" fill="black"/>
+          </svg>
+        </button>
+        <button class="jp-home-reviews__nav jp-home-reviews__nav--next" type="button" aria-label="Next">
+         <svg xmlns="http://www.w3.org/2000/svg" width="9" height="15" viewBox="0 0 9 15" fill="none">
+            <path d="M0 13.406L6.04492 7.36401L0.065918 1.38696L1.45398 0L8.854 7.40002L7.46594 8.78699L7.43298 8.75391L1.38794 14.796L0 13.406Z" fill="black"/>
+          </svg>
+        </button>
+      </div>
+    {% endif %}
+
+    <div class="jp-home-reviews__body to-top">
+      <div class="swiper jp-home-reviews__swiper">
+        <div class="swiper-wrapper">
+          {% for block in section.blocks %}
+            <div class="swiper-slide jp-home-reviews__slide" {{ block.shopify_attributes }}>
+              <article class="jp-home-reviews__card">
+                <div class="jp-home-reviews__card-top">
+                  <div class="jp-home-reviews__author-line">
+                    {% if block.settings.author != blank %}
+                      <span class="jp-home-reviews__author-name">{{ block.settings.author }}</span>
+                    {% endif %}
+                    {% if block.settings.show_verified %}
+                      <span class="jp-home-reviews__verified" aria-label="Verified purchase">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M10.1054 1.59844L7.38033 0L5.90426 2.62601H2.72504V5.93706L0 7.5355L1.58961 10.2757L0 13.0159L2.72504 14.6143V17.697H5.79072L7.49387 20.5514L10.2189 18.9529L12.944 20.5514L14.6471 17.697H17.8263V14.6143L20.5514 13.0159L18.9618 10.2757L20.5514 7.5355L17.8263 5.93706V2.62601H14.5336L13.0575 0L10.3325 1.59844H10.1054ZM13.8523 7.30716L14.9877 8.4489L9.19702 14.386L5.67718 10.8466L6.81261 9.70482L9.19702 12.1025L13.8523 7.42133V7.30716Z" fill="black"/>
+                          </svg>
+                      </span>
+                    {% endif %}
+                  </div>
+
+                  {% if block.settings.review_date != blank %}
+                    <div class="jp-home-reviews__date">{{ block.settings.review_date }}</div>
+                  {% endif %}
+                </div>
+
+                <div class="jp-home-reviews__rating-row">
+                  <div class="jp-home-reviews__stars" aria-label="{{ block.settings.rating }} stars">
+                    {% assign rating = block.settings.rating | default: 5 %}
+                    {% for i in (1..5) %}
+                      <span class="jp-home-reviews__star{% if i <= rating %} is-active{% endif %}">★</span>
+                    {% endfor %}
+                  </div>
+
+                  {% if block.settings.rating_text != blank %}
+                    <div class="jp-home-reviews__rating-text">{{ block.settings.rating_text }}</div>
+                  {% endif %}
+                </div>
+
+                {% if block.settings.review_title != blank %}
+                  <h3 class="jp-home-reviews__review-title">{{ block.settings.review_title }}</h3>
+                {% endif %}
+
+                {% if block.settings.review_text != blank %}
+                  <div class="jp-home-reviews__review-text">{{ block.settings.review_text }}</div>
+                {% endif %}
+
+                {% assign review_image_pc = block.settings.image %}
+                {% assign review_image_mobile = block.settings.mobile_image | default: review_image_pc %}
+                {% if review_image_pc != blank %}
+                  <div class="jp-home-reviews__gallery jp-home-reviews__gallery--single">
+                    <div class="jp-home-reviews__gallery-item">
+                      <picture>
+                        {% if review_image_mobile != blank %}
+                          <source
+                            media="(max-width: 749px)"
+                            srcset="{{ review_image_mobile | image_url: width: 760 }}"
+                          >
+                        {% endif %}
+                        <img
+                          class="jp-home-reviews__gallery-image"
+                          src="{{ review_image_pc | image_url: width: 760 }}"
+                          alt="{{ review_image_pc.alt | escape }}"
+                          loading="lazy"
+                          width="{{ review_image_pc.width }}"
+                          height="{{ review_image_pc.height }}"
+                        >
+                      </picture>
+                    </div>
+                  </div>
+                {% endif %}
+
+                <div class="jp-home-reviews__footer">
+                  <div class="jp-home-reviews__product-wrap">
+                    {% if block.settings.product_image != blank %}
+                      <div class="jp-home-reviews__product-image-wrap">
+                        <img
+                          class="jp-home-reviews__product-image"
+                          src="{{ block.settings.product_image | image_url: width: 120 }}"
+                          alt="{{ block.settings.product_name | escape }}"
+                          loading="lazy"
+                          width="{{ block.settings.product_image.width }}"
+                          height="{{ block.settings.product_image.height }}"
+                        >
+                      </div>
+                    {% endif %}
+
+                    <div class="jp-home-reviews__product-meta">
+                      {% if block.settings.product_name != blank %}
+                        <div class="jp-home-reviews__product-name">{{ block.settings.product_name }}</div>
+                      {% endif %}
+
+                      {% if block.settings.link != blank %}
+                      <a class="jp-home-reviews__link" href="{{ block.settings.link }}" target="_blank" rel="noopener noreferrer">
+                        <span>{{ block.settings.link_text | default: '詳しく見る ≫' }}</span>
+                      </a>
+                      {% elsif block.settings.link_text != blank %}
+                        <div class="jp-home-reviews__link jp-home-reviews__link--static">{{ block.settings.link_text }}
+                          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="12" viewBox="0 0 13 12" fill="none">
+                            <path d="M0.166638 10.4627L4.71871 5.91059L0.166638 1.35784C-0.208298 0.982899 0.166638 0 0.166638 0L6.07644 5.90974L0.166638 11.8239C0.166638 11.8239 -0.208298 10.8385 0.166638 10.4627Z" fill="black"/>
+                            <path d="M6.75353 10.4627L11.3056 5.91059L6.75353 1.35784C6.3786 0.982899 6.75353 0 6.75353 0L12.6633 5.90974L6.75353 11.8239C6.75353 11.8239 6.37687 10.8385 6.75353 10.4627Z" fill="black"/>
+                          </svg>
+                        </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    {% if section.settings.button_text != blank %}
+      <div class="jp-home-reviews__bottom">
+        {% if section.settings.button_link != blank %}
+          <a class="jp-home-reviews__all-btn" href="{{ section.settings.button_link }}" target="_blank" rel="noopener noreferrer">{{ section.settings.button_text }}</a>
+        {% else %}
+          <div class="jp-home-reviews__all-btn jp-home-reviews__all-btn--static">{{ section.settings.button_text }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  .jp-home-reviews--{{ sid }} {
+    --jp-home-reviews-bg: #fff;
+    --jp-home-reviews-card-bg: #F8F8F8;
+    --jp-home-reviews-title: #000;
+    --jp-home-reviews-text: #505050;
+    --jp-home-reviews-muted: #9b9b9b;
+    --jp-home-reviews-line: #d9d9d9;
+    --jp-home-reviews-border: #ececec;
+    --jp-home-reviews-star: #f4004d;
+    padding: 72px 0 64px;
+    background: var(--jp-home-reviews-bg);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__top {
+    display: block;
+    margin-bottom: 14px;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__top-left {
+    min-width: 0;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__title {
+    margin: 0;
+    font-size: 40px;
+    line-height: 1.15;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--jp-home-reviews-title);
+  }
+
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__nav-group {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 45px;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__pagination {
+    position: relative;
+    width: 80%;
+    height: 2px;
+    background: #d8d8d8;
+    overflow: hidden;
+    flex: 1 1 auto;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__pagination.swiper-pagination-progressbar {
+    background: #d8d8d8;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__pagination .swiper-pagination-progressbar-fill {
+    background: #111111;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__nav {
+    width: 60px;
+    height: 60px;
+    border-radius: 999px;
+    border: 1px solid #000;
+    background: #ffffff;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all .25s ease;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__nav svg path {
+    fill: currentColor;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__nav:hover {
+    color: #ffffff;
+    border-color: #000;
+    background: #000;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__nav--prev:hover {
+    color: #9b9b9b;
+    border-color: #9b9b9b;
+    background: #ffffff;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__nav.swiper-button-disabled {
+    opacity: 1;
+    color: #bdbdbd;
+    border-color: #d2d2d2;
+    cursor: default;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__swiper {
+    {% comment %} overflow: visible; {% endcomment %}
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__slide {
+    height: auto;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__card {
+    height: 100%;
+    background: var(--jp-home-reviews-card-bg);
+    border-radius: 6px;
+    padding: 30px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__author-line {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__author-name {
+    font-size: 16px;
+    line-height: 1.3;
+    color: var(--jp-home-reviews-title);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__verified {
+    width: 20px;
+    height: 20px;
+    color: #000;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__date {
+    font-size: 14px;
+    line-height: 1.2;
+    color: #8F8F8F;
+    white-space: nowrap;
+    flex: 0 0 auto;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__rating-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__stars {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+    line-height: 1;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__star {
+    font-size: 14px;
+    color: #d8d8d8;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__star.is-active {
+    color: var(--jp-home-reviews-star);
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__rating-text {
+    font-size: 16px;
+    line-height: 1.2;
+    color: #000;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__review-title {
+    margin: 10px 0 0;
+    font-size: 16px;
+    line-height: 1.3;
+    font-weight: 500;
+    color: var(--jp-home-reviews-title);
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__review-text {
+    margin: 20px 0px 25px;
+    padding-top: 20px;
+    border-top: 1px solid #dddddd;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--jp-home-reviews-text);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 60px;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__gallery {
+    margin-top: 10px;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__gallery--single .jp-home-reviews__gallery-item {
+    background: #ececec;
+    overflow: hidden;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__gallery-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__gallery picture {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__footer {
+    margin-top: 12px;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__product-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__product-image-wrap {
+    width: 78px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex: 0 0 auto;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__product-image {
+    width: 100%;
+    display: block;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__product-meta {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__product-name {
+    font-size: 18px;
+    line-height: 1.4;
+    color: var(--jp-home-reviews-title);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__link {
+    margin-top: 10px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #000000;
+    text-decoration: none;
+    gap: 6px;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__link--static {
+    pointer-events: none;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__bottom {
+    display: flex;
+    justify-content: center;
+    margin-top: 80px;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__all-btn {
+    min-width: 168px;
+    height: 30px;
+    padding: 0 20px;
+    border: 1px solid rgba(0, 0, 0, 0.30);
+    border-radius: 999px;
+    background: transparent;
+    color: #3d3d3d;
+    font-size: 18px;
+    line-height: 30px;
+    text-align: center;
+    text-decoration: none;
+    box-sizing: border-box;
+  }
+
+  .jp-home-reviews--{{ sid }} .jp-home-reviews__all-btn--static {
+    pointer-events: none;
+  }
+
+  @media screen and (min-width: 990px) {
+    .jp-home-reviews--{{ sid }} .jp-home-reviews__slide {
+      display: flex;
+    }
+  }
+
+  @media screen and (max-width: 989px) {
+    .jp-home-reviews--{{ sid }} {
+      padding: 42px 0 40px;
+    }
+
+    .jp-home-reviews--{{ sid }} .container {
+      padding-left: 14px;
+      padding-right: 14px;
+    }
+
+    .jp-home-reviews--{{ sid }} .jp-home-reviews__top {
+      margin-bottom: 10px;
+    }
+
+    .jp-home-reviews--{{ sid }} .jp-home-reviews__title {
+      font-size: 28px;
+      line-height: 1.2;
+      text-align: left;
+    }
+
+    .jp-home-reviews--{{ sid }} .jp-home-reviews__nav-group {
+      gap: 15px;
+      margin-bottom: 18px;
+    }
+
+    .jp-home-reviews--{{ sid }} .jp-home-reviews__pagination {
+      height: 2px;
+    }
+
+    .jp-home-reviews--{{ sid }} .jp-home-reviews__nav {
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+      flex: 0 0 28px;
+    }
+
+    .jp-home-reviews--{{ sid }} .jp-home-reviews__nav svg {
+      width: 6px;
+      height: 10px;
+    }
+
+    .jp-home-reviews--{{ sid }} .jp-home-reviews__card {
+      padding: 22px 10px 14px;
+      border-radius: 0;
+    }
+
+    .jp-home-reviews--{{ sid }} .jp-home-reviews__card-top {
+      margin-bottom: 8px;
+    }
+
+    .jp-home-reviews--{{ sid }} .jp-home-reviews__author-name {
+      font-size: 12px;
+    }
+
+    .jp-home-reviews--{{ sid }} .jp-home-reviews__verified {
+      width: 15px;
+      height: 15px;
+    }
+
+    .jp-home-reviews--{{ sid }} .jp-home-reviews__verified svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    .jp-home-reviews--{{ sid }} .jp-home-reviews__date {
+      font-size: 10px;
+    }
+
+    .jp-home-reviews--{{ sid }} .jp-home-reviews__rating-row {
+      margin-top: 2px;
+    }
+
+    .jp-home-reviews--{{ sid }} .jp-home-reviews__star {
+      font-size: 10px;
+    }
+
+    .jp-home-reviews--{{ sid }} .jp-home-reviews__rating-text {
+      font-size: 10px;
+    }
+
+    .jp-home-reviews--{{ sid }} .jp-home-reviews__review-title {
+      margin-top: 6px;
+      font-size: 16px;
+      line-height: 1.35;
+    }
+
+    .jp-home-reviews--{{ sid }} .jp-home-reviews__review-text {
+      margin-top: 15px;
+      padding-top: 14px;
+      font-size: 12px;
+      line-height: 1.45;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+    }
+
+    .jp-home-reviews--{{ sid }} .jp-home-reviews__gallery {
+      margin-top: 14px;
+    }
+
+    .jp-home-reviews--{{ sid }} .jp-home-reviews__footer {
+      margin-top: 10px;
+    }
+
+    .jp-home-reviews--{{ sid }} .jp-home-reviews__product-wrap {
+      gap: 10px;
+    }
+
+    .jp-home-reviews--{{ sid }} .jp-home-reviews__product-image-wrap {
+      width: 62px;
+    }
+
+    .jp-home-reviews--{{ sid }} .jp-home-reviews__product-name {
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .jp-home-reviews--{{ sid }} .jp-home-reviews__link {
+      margin-top: 2px;
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .jp-home-reviews--{{ sid }} .jp-home-reviews__bottom {
+      justify-content: left;
+      margin-top: 38px;
+    }
+
+    .jp-home-reviews--{{ sid }} .jp-home-reviews__all-btn {
+      min-width: 166px;
+      height: 28px;
+      padding: 0 16px;
+      font-size: 12px;
+      line-height: 26px;
+    }
+  }
+</style>
+
+<script>
+  (() => {
+    const sectionEl = document.querySelector('.jp-home-reviews--{{ sid }}');
+    if (!sectionEl) return;
+
+    const initReviewsSwiper = () => {
+      const swiperEl = sectionEl.querySelector('.jp-home-reviews__swiper');
+      const paginationEl = sectionEl.querySelector('.jp-home-reviews__pagination');
+      if (!swiperEl || typeof window.Swiper === 'undefined') return;
+
+      if (swiperEl.swiper) {
+        swiperEl.swiper.destroy(true, true);
+      }
+
+      new window.Swiper(swiperEl, {
+        slidesPerView: 1.08,
+        spaceBetween: 14,
+        speed: 700,
+        watchOverflow: true,
+        navigation: {
+          nextEl: sectionEl.querySelector('.jp-home-reviews__nav--next'),
+          prevEl: sectionEl.querySelector('.jp-home-reviews__nav--prev')
+        },
+        pagination: paginationEl ? {
+          el: paginationEl,
+          type: 'progressbar'
+        } : undefined,
+        breakpoints: {
+          768: {
+            slidesPerView: 2.2,
+            spaceBetween: 16
+          },
+          990: {
+            slidesPerView: 3.5,
+            spaceBetween: 40
+          }
+        }
+      });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initReviewsSwiper);
+    } else {
+      initReviewsSwiper();
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "JP Reviews",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "ユーザーの声"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Bottom button text",
+      "default": "すべてのレビューを見る ≫"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Bottom button link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author",
+          "default": "たかひろ"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_verified",
+          "label": "Show verified badge",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "review_date",
+          "label": "Date",
+          "default": "Sep 2025"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Rating",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "rating_text",
+          "label": "Rating text",
+          "default": "5.0"
+        },
+        {
+          "type": "text",
+          "id": "review_title",
+          "label": "Review title",
+          "default": "初心者でも安心して使える"
+        },
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Review text",
+          "default": "家庭用脱毛器を何台も使わせてみたが自分のクセ毛でUlikeが一番合っていると思い決めました。冷却使用してあましたが全く痛くない！光と音のない引き方も安心で痛みは何も感じませんでした。"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Review image"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Review image mobile"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_image",
+          "label": "Product image"
+        },
+        {
+          "type": "text",
+          "id": "product_name",
+          "label": "Product name",
+          "default": "Ulike Air 10 IPL光美容器"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link text",
+          "default": "詳しく見る ≫"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "JP Reviews",
+      "blocks": [
+        {
+          "type": "review"
+        },
+        {
+          "type": "review"
+        },
+        {
+          "type": "review"
+        },
+        {
+          "type": "review"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

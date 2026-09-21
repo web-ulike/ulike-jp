@@ -1,0 +1,1767 @@
+{%- liquid
+  assign sid = section.id
+  assign product = section.settings.product
+  assign product_form_id = 'ProductForm-' | append: sid
+  assign quantity_rule_soldout = false
+  if product != blank
+    assign check_against_inventory = true
+    if product.selected_or_first_available_variant.inventory_management != 'shopify' or product.selected_or_first_available_variant.inventory_policy == 'continue'
+      assign check_against_inventory = false
+    endif
+    if product.selected_or_first_available_variant.quantity_rule.min > product.selected_or_first_available_variant.inventory_quantity and check_against_inventory
+      assign quantity_rule_soldout = true
+    endif
+  endif
+-%}
+
+<style>
+  #shopify-section-{{ sid }} {
+    --color-button-background: #190A0A;
+    --buttons-radius: 0;
+    --buttons-border-width: 1px;
+    --color-button-border: 0, 0, 0;
+    --border-opacity: 1;
+  }
+
+  #pluc-{{ sid }} {
+    color: #000;
+    background: {{ section.settings.background }};
+  }
+
+  #pluc-{{ sid }} .pluc__inner {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  #pluc-{{ sid }} .pluc__heading {
+    margin: 0 0 80px;
+    color: {{ section.settings.text_color }};
+    text-align: center;   
+    font-size: 48px; 
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  #pluc-{{ sid }} .pluc__card {
+    display: flex;
+    align-items: stretch;
+    background: #f4f9ff;
+  }
+
+  #pluc-{{ sid }} .pluc__card--reverse {
+    flex-direction: row-reverse;
+  }
+
+  #pluc-{{ sid }} .pluc__media,
+  #pluc-{{ sid }} .pluc__content {
+    position: relative;
+    width: 50%;
+  }
+
+  #pluc-{{ sid }} .pluc__media picture,
+  #pluc-{{ sid }} .pluc__media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  #pluc-{{ sid }} .pluc__media img {
+    object-fit: cover;
+  }
+
+  #pluc-{{ sid }} .pluc__badge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 14px;
+    overflow: hidden;
+    background: #e0004d;
+    color: #fff;
+    font-family: var(--font-sans-family);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  #pluc-{{ sid }} .pluc__badge::before,
+  #pluc-{{ sid }} .pluc__tag::before {
+    position: absolute;
+    content: "";
+    width: 200%;
+    height: 200%;
+    z-index: 2;
+    background: linear-gradient(-45deg, rgba(255,255,255,0) 40%, rgba(255,255,255,.5) 50%, rgba(255,255,255,0) 60%);
+    animation: pluc-scanning-{{ sid }} 3s linear infinite;
+  }
+
+  #pluc-{{ sid }} .pluc__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px 100px 20px 116px;
+  }
+
+  #pluc-{{ sid }} .pluc__tag-image,
+  #pluc-{{ sid }} .pluc__tag {
+    margin-bottom: 18px;
+  }
+
+  #pluc-{{ sid }} .pluc__tag-image img {
+    display: block;
+    max-width: 120px;
+    height: auto;
+  }
+
+  #pluc-{{ sid }} .pluc__tag {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    padding: 3px 13px;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #e0004d;
+    color: #fffffc;
+    font-size: 16px;
+    line-height: 1.2;
+  }
+
+  #pluc-{{ sid }} .pluc__title {
+    margin: 0 0 18px;
+    font-family: var(--font-heading-family);
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  #pluc-{{ sid }} .pluc__title a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  #pluc-{{ sid }} .pluc__subtitle {
+    position: relative;
+    padding-bottom: 25px;
+    font-size: 16px;
+    line-height: 1.3;
+  }
+
+  #pluc-{{ sid }} .pluc__description {
+    position: relative;
+    margin-bottom: 31px;
+    padding-top: 23px;
+    padding-bottom: 29px;
+    color: rgba(0,0,0,.7);
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  #pluc-{{ sid }} .pluc__subtitle::after,
+  #pluc-{{ sid }} .pluc__description::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    opacity: .1;
+    background: #3F3636;
+  }
+
+  #pluc-{{ sid }} .pluc__description ul {
+    display: grid;
+    gap: 2px;
+    margin: 0;
+    padding-left: 1.2em;
+    list-style: disc outside;
+  }
+
+  #pluc-{{ sid }} .pluc__description li {
+    display: list-item;
+    padding-left: .2em;
+  }
+
+  #pluc-{{ sid }} .pluc__description li::marker {
+    font-size: 1em;
+    color: currentColor;
+  }
+
+  #pluc-{{ sid }} .pluc__price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 13px;
+    margin-bottom: 0px;
+  }
+
+  #pluc-{{ sid }} .pluc__price-notice {
+    color: #3F3636;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.3;
+  }
+
+  #pluc-{{ sid }} .pluc__price {
+    color: #e0004d;
+    font-family: var(--font-sans-family);
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 1.3;
+  }
+
+  #pluc-{{ sid }} .pluc__price-suffix {
+    font-size: 20px;
+    color: #000;
+  }
+
+  #pluc-{{ sid }} .pluc__compare-price {
+    color: #3f3636;
+    font-size: 20px;
+    color: #3F3636;
+    line-height: 1.3;
+    text-decoration: line-through;
+  }
+
+  #pluc-{{ sid }} .pluc__buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  #pluc-{{ sid }} .pluc__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    min-height: 48px;
+    padding: 0 30px;
+    border: 1px solid #190a0a;
+    color: #190a0a;
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.5;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  #pluc-{{ sid }} .pluc__link:hover {
+    background: #190a0a;
+    color: #fff;
+  }
+
+  #pluc-{{ sid }} .pluc__link--primary {
+    background: #190a0a;
+    color: #fff;
+  }
+
+  #pluc-{{ sid }} .pluc__link--primary:hover {
+    background: #fff;
+    color: #190a0a;
+  }
+
+  #pluc-{{ sid }} .product-form__submit {
+    height: 48px;
+    min-height: 48px;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-radius: 3px;
+    border: 1px solid var(--Ulike---Off-Black, #190A0A);
+    box-shadow: none;
+  }
+
+  #pluc-{{ sid }} .product-form__submit .btn-fill {
+    border-radius: 3px;
+  }
+
+  #pluc-{{ sid }} .pluc__upgrade {
+    display: flex;
+    justify-content: center;
+    margin: 60px 0 0;
+  }
+
+  #pluc-{{ sid }} .pluc__upgrade-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 46px;
+    padding: 4px 26px;
+    border: 0;
+    border-radius: 999px;
+    background: #f5f5f5;
+    color: #000;
+    font-size: 16px;
+    line-height: 1.2;
+    cursor: pointer;
+    font-weight: 500;
+  }
+
+  #pluc-{{ sid }} .pluc__upgrade-icon {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #E0004D;
+  }
+
+  #pluc-{{ sid }} .pluc__note {
+    margin-top: 60px;
+    color: #919191;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  #pluc-{{ sid }} .pluc-modal[hidden] {
+    display: none !important;
+  }
+
+  #pluc-{{ sid }} .pluc-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: grid;
+    place-items: center;
+    padding: 28px;
+    background: rgba(0,0,0,.60);
+  }
+
+  #pluc-{{ sid }} .pluc-modal__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,.60);
+  }
+
+  #pluc-{{ sid }} .pluc-modal__dialog {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: min(1123px, calc(100vw - 56px));
+    height: auto;
+    max-height: calc(100vh - 56px);
+    overflow: auto;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 24px 80px rgba(0,0,0,.28);
+    padding: 64px 84px;
+  }
+
+  #pluc-{{ sid }} .pluc-modal__close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: grid;
+    place-items: center;
+    width: 33px;
+    height: 33px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    line-height: 0;
+    cursor: pointer;
+  }
+
+  #pluc-{{ sid }} .pluc-modal__close svg {
+    display: block;
+    width: 33px;
+    height: 33px;
+  }
+
+  #pluc-{{ sid }} .pluc-compare {
+    position: relative;
+    display: grid;
+    grid-template-columns: 288px 310px 310px;
+    justify-content: center;
+    align-items: stretch;
+    margin: 0 auto;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__label-col {
+    padding-top: 172px;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__model {
+    position: relative;
+    display: grid;
+    grid-template-rows: 164px 70px 70px 70px 156px;
+    text-align: center;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__model--old {
+    background: #dedede;
+    border: 8px solid #cfcfcf;
+    border-bottom-width: 9px;
+    margin-top: 36px;
+    grid-template-rows: 128px 70px 70px 70px 156px;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__model--new {
+    background: #eaf3ff;
+    border: 8px solid #c6daf6;
+    border-bottom-width: 9px;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__model--new .pluc-compare__hero {
+    background-color: #eaf3ff;
+    background-image: var(--new-hero-bg, none);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__model--new.has-hero-bg .pluc-compare__hero {
+    background-color: transparent;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__pill {
+    position: absolute;
+    top: -32px;
+    left: -32px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 82px;
+    height: 82px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    background: #e8e8e8;
+    color: #222;
+    line-height: 1.15;
+    text-align: center;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__pill-main {
+    display: block;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__pill-sub {
+    display: block;
+    margin-top: 2px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__model--new .pluc-compare__pill {
+    top: -41px;
+    left: -32px;
+    background: #fff;
+    border: 1px solid #e0004d;
+    color: #e0004d;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 18px 0px;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 24px;
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.2;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__logo {
+    display: block;
+    max-width: 150px;
+    max-height: 30px;
+    object-fit: contain;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__name picture {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__hero > picture {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__product {
+    display: block;
+    max-width: 145px;
+    max-height: 98px;
+    object-fit: contain;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__model--old .pluc-compare__hero {
+    gap: 10px;
+    padding-top: 20px;
+    padding-bottom: 0px;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__model--old .pluc-compare__logo {
+    max-width: 112px;
+    max-height: 24px;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__model--old .pluc-compare__product {
+    max-width: 105px;
+    max-height: 72px;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__model--new .pluc-compare__logo {
+    max-width: 190px;
+    max-height: 34px;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__model--new .pluc-compare__product {
+    max-width: 170px;
+    max-height: 104px;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__cell,
+  #pluc-{{ sid }} .pluc-compare__row-label {
+    display: grid;
+    place-items: center;
+    min-height: 70px;
+    border-top: 2px solid transparent;
+    background-color: #fff;
+    color: #000;
+    font-size: 23px;
+    line-height: 1.3;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__model--old .pluc-compare__cell {
+    border-top-color: #cfcfcf;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__model--new .pluc-compare__cell {
+    border-top-color: #c6daf6;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__row-label {
+    background: #e6e6e6;
+    padding: 0 18px;
+    border-top-color: #fff;
+    border-left: 2px solid #fff;
+    border-right: 2px solid #fff;
+    text-align: center;
+    font-size: 18px;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__row-label:first-child {
+    border-top-color: transparent;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__row-label:last-child {
+    min-height: 156px;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__value {
+    font-size:26px;
+    font-weight: 500;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__sub {
+    font-size: 12px;
+    color: #676767;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__model--new .pluc-compare__value,
+  #pluc-{{ sid }} .pluc-compare__model--new .pluc-compare__strong {
+    color: #e0004d;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__colors {
+    align-items: start;
+    padding: 18px 54px;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__color-list {
+    display: grid;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    justify-content: center;
+    text-align: center;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__color-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.1;
+  }
+
+  #pluc-{{ sid }} .pluc-compare__swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--swatch);
+    flex: 0 0 auto;
+  }
+
+  @keyframes pluc-scanning-{{ sid }} {
+    0% { transform: translate(-100%, -100%); }
+    100% { transform: translate(100%, 100%); }
+  }
+
+  @media (min-width: 768px) and (max-width: 1450px) {
+    #pluc-{{ sid }} .pluc__content {
+      padding: 16px 110px 16px 92px;
+    }
+  }
+
+  @media (max-width: 992px) {
+    #pluc-{{ sid }} .pluc__inner {
+      padding-top: {{ section.settings.mobile_padding_top }}px;
+      padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+    }
+
+    #pluc-{{ sid }} .pluc__heading {
+      margin-bottom: 30px;
+      font-size: 28px;
+    }
+
+    #pluc-{{ sid }} .pluc__card,
+    #pluc-{{ sid }} .pluc__card--reverse {
+      flex-direction: column;
+    }
+
+    #pluc-{{ sid }} .pluc__media,
+    #pluc-{{ sid }} .pluc__content {
+      width: 100%;
+    }
+
+    #pluc-{{ sid }} .pluc__content {
+      padding: 40px 20px;
+    }
+
+    #pluc-{{ sid }} .pluc__title {
+      margin-bottom: 14px;
+      font-size: 24px;
+    }
+
+    #pluc-{{ sid }} .pluc__subtitle {
+      padding-bottom: 14px;
+      font-size: 14px;
+    }
+
+    #pluc-{{ sid }} .pluc__description {
+      margin-bottom: 20px;
+      padding-top: 14px;
+      padding-bottom: 14px;
+      font-size: 12px;
+    }
+
+    #pluc-{{ sid }} .pluc__price-row {
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    #pluc-{{ sid }} .pluc__price-notice {
+      font-size: 20px;
+    }
+
+    #pluc-{{ sid }} .pluc__price {
+      font-size: 25px;
+    }
+
+    #pluc-{{ sid }} .pluc__price-suffix {
+      font-size: 15px;
+    }
+
+    #pluc-{{ sid }} .pluc__compare-price {
+      font-size: 15px;
+    }
+
+    #pluc-{{ sid }} .pluc__buttons {
+      align-items: stretch;
+      flex-direction: row;
+      gap: 10px;
+    }
+
+    #pluc-{{ sid }} .pluc__buttons > * {
+      flex: 1 1 0;
+      width: 50%;
+      min-width: 0;
+    }
+
+    #pluc-{{ sid }} .product-form-wrapper,
+    #pluc-{{ sid }} .product-form,
+    #pluc-{{ sid }} .product-form__buttons,
+    #pluc-{{ sid }} shopify-buy-now {
+      display: block;
+      width: 100%;
+      height: 48px;
+      margin: 0;
+    }
+
+    #pluc-{{ sid }} .product-form__buttons {
+      gap: 0;
+    }
+
+    #pluc-{{ sid }} .pluc__link,
+    #pluc-{{ sid }} .product-form__submit {
+      min-width: 0;
+      width: 100%;
+      height: 48px;
+      min-height: 48px;
+      margin: 0;
+      padding: 0 10px;
+      font-size: 14px;
+    }
+
+    #pluc-{{ sid }} .pluc__badge {
+      padding: 7px 10px;
+      font-size: 12px;
+    }
+
+    #pluc-{{ sid }} .pluc__upgrade {
+      margin-top: 35px;
+    }
+
+    #pluc-{{ sid }} .pluc__note {
+      margin-top: 25px;
+      font-size: 8px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    #pluc-{{ sid }} .pluc-modal {
+      padding: 18px 10px;
+      place-items: center;
+    }
+
+    #pluc-{{ sid }} .pluc-modal__dialog {
+      width: min(355px, calc(100vw - 20px));
+      max-height: calc(100vh - 36px);
+      border-radius: 8px;
+      padding: 50px 15px 40px;
+      overflow-x: auto;
+    }
+
+    #pluc-{{ sid }} .pluc-modal__close {
+      top: 8px;
+      right: 8px;
+      width: 25.755px;
+      height: 25.755px;
+    }
+
+    #pluc-{{ sid }} .pluc-modal__close svg {
+      width: 25.755px;
+      height: 25.755px;
+    }
+
+    #pluc-{{ sid }} .pluc-compare {
+      grid-template-columns: 95px 103px auto;
+      width: 100%;
+      justify-content: start;
+    }
+
+    #pluc-{{ sid }} .pluc-compare__label-col {
+      padding-top: 154px;
+    }
+
+    #pluc-{{ sid }} .pluc-compare__model {
+      grid-template-rows: 150px 56px 56px 56px 120px;
+    }
+
+    #pluc-{{ sid }} .pluc-compare__model--old {
+      margin-top: 26px;
+      grid-template-rows: 124px 56px 56px 56px 120px;
+    }
+
+    #pluc-{{ sid }} .pluc-compare__model--old,
+    #pluc-{{ sid }} .pluc-compare__model--new {
+      border-width: 4px;
+      border-bottom-width: 5px;
+    }
+
+    #pluc-{{ sid }} .pluc-compare__pill {
+      top: -25px;
+      left: -26px;
+      width: 58px;
+      height: 58px;
+    }
+
+    #pluc-{{ sid }} .pluc-compare__model--new .pluc-compare__pill {
+      top: -31px;
+      left: -27px;
+    }
+
+    #pluc-{{ sid }} .pluc-compare__pill-main {
+      font-size: 18px;
+    }
+
+    #pluc-{{ sid }} .pluc-compare__pill-sub {
+      margin-top: 1px;
+      font-size: 10px;
+    }
+
+    #pluc-{{ sid }} .pluc-compare__hero {
+      gap: 7px;
+      padding: 24px 8px 9px;
+    }
+
+    #pluc-{{ sid }} .pluc-compare__model--new .pluc-compare__hero {
+      background-color: transparent;
+      background-image: none;
+    }
+
+    #pluc-{{ sid }} .pluc-compare__name {
+      min-height: 20px;
+      font-size: 12px;
+    }
+
+    #pluc-{{ sid }} .pluc-compare__logo {
+      max-width: 80px;
+      max-height: 16px;
+    }
+
+    #pluc-{{ sid }} .pluc-compare__product {
+      max-width: 80px;
+      max-height: 90px;
+    }
+
+    #pluc-{{ sid }} .pluc-compare__model--old .pluc-compare__hero {
+      gap: 6px;
+      padding-top: 22px;
+    }
+
+    #pluc-{{ sid }} .pluc-compare__model--old .pluc-compare__logo {
+      max-width: 56px;
+      max-height: 14px;
+    }
+
+    #pluc-{{ sid }} .pluc-compare__model--old .pluc-compare__product {
+      max-width: 62px;
+      max-height: 65px;
+    }
+
+    #pluc-{{ sid }} .pluc-compare__model--new .pluc-compare__logo {
+      max-width: 82px;
+      max-height: 20px;
+    }
+
+    #pluc-{{ sid }} .pluc-compare__model--new .pluc-compare__product {
+      max-width: 102px;
+      max-height: 104px;
+    }
+
+    #pluc-{{ sid }} .pluc-compare__model--new .pluc-compare__hero {
+      gap: 5px;
+      padding-top: 18px;
+      padding-right: 10px;
+      padding-bottom: 0px;
+      padding-left: 10px;
+    }
+
+    #pluc-{{ sid }} .pluc-compare__cell,
+    #pluc-{{ sid }} .pluc-compare__row-label {
+      min-height: 56px;
+      padding: 0 8px;
+      font-size: 11px;
+    }
+
+    #pluc-{{ sid }} .pluc-compare__row-label:last-child {
+      min-height: 120px;
+    }
+
+    #pluc-{{ sid }} .pluc-compare__value {
+      font-size: 20px;
+    }
+
+    #pluc-{{ sid }} .pluc-compare__sub {
+      font-size: 8px;
+    }
+
+    #pluc-{{ sid }} .pluc-compare__colors {
+      padding: 16px 9px;
+    }
+
+    #pluc-{{ sid }} .pluc-compare__color-list {
+      gap: 5px;
+    }
+
+    #pluc-{{ sid }} .pluc-compare__color-item {
+      gap: 5px;
+      font-size: 8px;
+    }
+
+    #pluc-{{ sid }} .pluc-compare__swatch {
+      width: 11px;
+      height: 11px;
+    }
+  }
+</style>
+
+<section id="pluc-{{ sid }}" class="pluc{% if section.settings.custom_class != blank %} {{ section.settings.custom_class }}{% endif %}" data-pluc-section>
+  <div class="pluc__inner">
+    <div class="container">
+      {%- if section.settings.tle != blank -%}
+        <h2 class="pluc__heading to-top">{{ section.settings.tle }}</h2>
+      {%- endif -%}
+
+      <div class="pluc__card{% if section.settings.image_position == 'right' %} pluc__card--reverse{% endif %}">
+        <div class="pluc__media slide-to-right">
+          <picture>
+            {%- if section.settings.mb_product_image != blank -%}
+              <source media="(max-width: 767px)" srcset="{{ section.settings.mb_product_image | image_url }}">
+            {%- endif -%}
+            {%- if section.settings.product_image != blank -%}
+              {{ section.settings.product_image | image_url: width: section.settings.product_image.width | image_tag: loading: 'lazy', widths: '400,600,800,1000,1200,1400,1600', alt: section.settings.product_image.alt }}
+            {%- endif -%}
+          </picture>
+
+          {%- if section.settings.active_txt != blank or section.settings.active_image != blank -%}
+            <div class="pluc__badge">
+              {%- if section.settings.active_txt != blank -%}
+                <span>{{ section.settings.active_txt }}</span>
+              {%- endif -%}
+              {%- if section.settings.active_image != blank -%}
+                <img src="{{ section.settings.active_image | image_url }}" alt="" width="16" height="18" loading="lazy">
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+
+        <div class="pluc__content to-top">
+          {%- if section.settings.tag_image != blank -%}
+            <div class="pluc__tag-image">
+              <img
+                src="{{ section.settings.tag_image | image_url }}"
+                alt="{{ section.settings.tag_image.alt }}"
+                width="{{ section.settings.tag_image.width }}"
+                height="{{ section.settings.tag_image.height }}"
+                loading="lazy"
+              >
+            </div>
+          {%- endif -%}
+
+          {%- if section.settings.tag_txt != blank -%}
+            <div class="pluc__tag">{{ section.settings.tag_txt }}</div>
+          {%- endif -%}
+
+          {%- if section.settings.product_title != blank -%}
+            <h3 class="pluc__title">
+              {%- if section.settings.product_title_link != blank -%}
+                <a href="{{ section.settings.product_title_link }}">{{ section.settings.product_title }}</a>
+              {%- else -%}
+                {{ section.settings.product_title }}
+              {%- endif -%}
+            </h3>
+          {%- endif -%}
+
+          {%- if section.settings.subtitle != blank -%}
+            <div class="pluc__subtitle">{{ section.settings.subtitle }}</div>
+          {%- endif -%}
+
+          {%- if section.settings.description != blank -%}
+            <div class="pluc__description">{{ section.settings.description }}</div>
+          {%- endif -%}
+
+          {%- assign compare_price_label = section.settings.compare_price_label | default: '定価' -%}
+          {%- if section.settings.price_notice_text != blank -%}
+            <div class="pluc__price-notice">{{ section.settings.price_notice_text }}</div>
+          {%- endif -%}
+          {%- if product != blank -%}
+            <div class="pluc__price-row">
+              <div class="pluc__price">
+                {{ product.price | money }}
+                {%- if section.settings.price_suffix != blank -%}
+                  <span class="pluc__price-suffix">{{ section.settings.price_suffix }}</span>
+                {%- endif -%}
+              </div>
+              {%- if product.compare_at_price > product.price -%}
+                <div class="pluc__compare-price">{{ compare_price_label }}{{ product.compare_at_price | money }}{{ section.settings.compare_price_suffix }}</div>
+              {%- elsif section.settings.compare_price != blank -%}
+                <div class="pluc__compare-price">{{ compare_price_label }}{{ section.settings.compare_price }}{{ section.settings.compare_price_suffix }}</div>
+              {%- endif -%}
+            </div>
+          {%- elsif section.settings.price != blank or section.settings.compare_price != blank -%}
+            <div class="pluc__price-row">
+              {%- if section.settings.price != blank -%}
+                <div class="pluc__price">
+                  {{ section.settings.price }}
+                  {%- if section.settings.price_suffix != blank -%}
+                    <span class="pluc__price-suffix">{{ section.settings.price_suffix }}</span>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+              {%- if section.settings.compare_price != blank -%}
+                <div class="pluc__compare-price">{{ compare_price_label }}{{ section.settings.compare_price }}{{ section.settings.compare_price_suffix }}</div>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
+          <div class="pluc__buttons">
+            {%- if section.settings.add_button_text != blank and product != blank -%}
+              <div class="product-form-wrapper product-form-wrapper-cus">
+                {%- form 'product',
+                  product,
+                  id: product_form_id,
+                  novalidate: 'novalidate',
+                  data-type: 'add-to-cart-form',
+                  class: 'product-form grid gap-8',
+                  is: 'product-form'
+                -%}
+                  <input
+                    type="hidden"
+                    name="id"
+                    value="{{ product.selected_or_first_available_variant.id }}"
+                    disabled
+                  >
+                  <div class="product-form__buttons grid gap-4">
+                    <div class="product-form__error-message alert alert--error text-sm font-medium leading-tight" role="alert" hidden></div>
+                    <button
+                      type="submit"
+                      name="add"
+                      form="{{ product_form_id }}"
+                      class="product-form__submit button button--secondary button--fixed w-full mt-2"
+                      is="hover-button"
+                      {% if product.selected_or_first_available_variant.available == false or quantity_rule_soldout %}disabled{% endif %}
+                      {% if product.template_suffix == 'pre-order' %}data-pre-order="true"{% endif %}
+                    >
+                      <span class="btn-fill" data-fill></span>
+                      <span class="btn-text">{{ section.settings.add_button_text }}</span>
+                    </button>
+                  </div>
+                {%- endform -%}
+              </div>
+            {%- endif -%}
+
+            {%- if section.settings.buy_button_text != blank -%}
+              {%- if product != blank -%}
+                <shopify-buy-now
+                  product-id="{{ product.id }}"
+                  variant-id="{{ product.selected_or_first_available_variant.id }}"
+                  button-text="{{ section.settings.buy_button_text }}"
+                >
+                  <button class="pluc__link pluc__link--primary btn-buy-now" type="button">{{ section.settings.buy_button_text }}</button>
+                </shopify-buy-now>
+              {%- elsif section.settings.buy_button_link != blank -%}
+                <a href="{{ section.settings.buy_button_link }}" class="pluc__link pluc__link--primary btn-buy-now">{{ section.settings.buy_button_text }}</a>
+              {%- endif -%}
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+
+      {%- if section.settings.show_upgrade_button -%}
+        <div class="pluc__upgrade">
+          <button type="button" class="pluc__upgrade-button" aria-controls="PlucModal-{{ sid }}" aria-expanded="false" data-pluc-open>
+            <span>{{ section.settings.upgrade_button_text }}</span>
+            <span class="pluc__upgrade-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+                <path d="M12.2773 7.13867H0V5.13867H12.2773V7.13867Z" fill="white"/>
+                <path d="M7.13867 12.2773H5.13867V0H7.13867V12.2773Z" fill="white"/>
+              </svg>
+            </span>
+          </button>
+        </div>
+
+        <div id="PlucModal-{{ sid }}" class="pluc-modal" role="dialog" aria-modal="true" aria-label="{{ section.settings.upgrade_button_text | escape }}" hidden data-pluc-modal>
+          <div class="pluc-modal__overlay" data-pluc-close></div>
+          <div class="pluc-modal__dialog">
+            <button class="pluc-modal__close" type="button" aria-label="Close" data-pluc-close>
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false">
+                <circle cx="16" cy="16" r="16" fill="black"/>
+                <path d="M19.6336 21.0478L10.9522 12.3664L12.3664 10.9522L21.0478 19.6336L19.6336 21.0478Z" fill="white"/>
+                <path d="M12.3664 21.0478L10.9522 19.6336L19.6336 10.9522L21.0478 12.3664L12.3664 21.0478Z" fill="white"/>
+              </svg>
+            </button>
+
+            <div class="pluc-compare">
+              <div class="pluc-compare__label-col">
+                <div class="pluc-compare__row-label">{{ section.settings.compare_row_1_label }}</div>
+                <div class="pluc-compare__row-label">{{ section.settings.compare_row_2_label }}</div>
+                <div class="pluc-compare__row-label">{{ section.settings.compare_row_3_label }}</div>
+                <div class="pluc-compare__row-label">{{ section.settings.compare_row_4_label }}</div>
+              </div>
+
+              <div class="pluc-compare__model pluc-compare__model--old">
+                {%- assign old_pill_lines = section.settings.old_pill_text | newline_to_br | split: '<br />' -%}
+                <div class="pluc-compare__pill">
+                  <span class="pluc-compare__pill-main">{{ old_pill_lines[0] | strip | escape }}</span>
+                  {%- if old_pill_lines[1] != blank -%}
+                    <span class="pluc-compare__pill-sub">{{ old_pill_lines[1] | strip | escape }}</span>
+                  {%- endif -%}
+                </div>
+                <div class="pluc-compare__hero">
+                  <div class="pluc-compare__name">
+                    {%- liquid
+                      assign old_logo_pc = section.settings.old_model_logo
+                      assign old_logo_mobile = section.settings.old_model_logo_mobile
+                      if old_logo_pc == blank
+                        assign old_logo_pc = old_logo_mobile
+                      endif
+                    -%}
+                    {%- if old_logo_pc != blank -%}
+                      <picture>
+                        {%- if old_logo_mobile != blank -%}
+                          <source media="(max-width: 767px)" srcset="{{ old_logo_mobile | image_url }}">
+                        {%- endif -%}
+                        <img
+                          class="pluc-compare__logo"
+                          src="{{ old_logo_pc | image_url }}"
+                          alt="{{ old_logo_pc.alt | default: section.settings.old_model_name }}"
+                          width="{{ old_logo_pc.width }}"
+                          height="{{ old_logo_pc.height }}"
+                          loading="lazy"
+                        >
+                      </picture>
+                    {%- else -%}
+                      {{ section.settings.old_model_name }}
+                    {%- endif -%}
+                  </div>
+                  {%- liquid
+                    assign old_product_image_pc = section.settings.old_model_image
+                    assign old_product_image_mobile = section.settings.old_model_image_mobile
+                    if old_product_image_pc == blank
+                      assign old_product_image_pc = old_product_image_mobile
+                    endif
+                  -%}
+                  {%- if old_product_image_pc != blank -%}
+                    <picture>
+                      {%- if old_product_image_mobile != blank -%}
+                        <source media="(max-width: 767px)" srcset="{{ old_product_image_mobile | image_url }}">
+                      {%- endif -%}
+                      <img
+                        class="pluc-compare__product"
+                        src="{{ old_product_image_pc | image_url }}"
+                        alt="{{ old_product_image_pc.alt }}"
+                        width="{{ old_product_image_pc.width }}"
+                        height="{{ old_product_image_pc.height }}"
+                        loading="lazy"
+                      >
+                    </picture>
+                  {%- endif -%}
+                </div>
+                <div class="pluc-compare__cell">
+                  <div>
+                    <div class="pluc-compare__value">{{ section.settings.old_row_1_value }}</div>
+                    {%- if section.settings.old_row_1_sub != blank -%}<div class="pluc-compare__sub">{{ section.settings.old_row_1_sub }}</div>{%- endif -%}
+                  </div>
+                </div>
+                <div class="pluc-compare__cell">{{ section.settings.old_row_2_value }}</div>
+                <div class="pluc-compare__cell">{{ section.settings.old_row_3_value }}</div>
+                <div class="pluc-compare__cell">{{ section.settings.old_row_4_value }}</div>
+              </div>
+
+              <div
+                class="pluc-compare__model pluc-compare__model--new{% if section.settings.new_model_bg_image != blank %} has-hero-bg{% endif %}"
+                {% if section.settings.new_model_bg_image != blank %}
+                  style="--new-hero-bg: url('{{ section.settings.new_model_bg_image | image_url }}');"
+                {% endif %}
+              >
+                {%- assign new_pill_lines = section.settings.new_pill_text | newline_to_br | split: '<br />' -%}
+                <div class="pluc-compare__pill">
+                  <span class="pluc-compare__pill-main">{{ new_pill_lines[0] | strip | escape }}</span>
+                  {%- if new_pill_lines[1] != blank -%}
+                    <span class="pluc-compare__pill-sub">{{ new_pill_lines[1] | strip | escape }}</span>
+                  {%- endif -%}
+                </div>
+                <div class="pluc-compare__hero">
+                  <div class="pluc-compare__name">
+                    {%- liquid
+                      assign new_logo_pc = section.settings.new_model_logo
+                      assign new_logo_mobile = section.settings.new_model_logo_mobile
+                      if new_logo_pc == blank
+                        assign new_logo_pc = new_logo_mobile
+                      endif
+                    -%}
+                    {%- if new_logo_pc != blank -%}
+                      <picture>
+                        {%- if new_logo_mobile != blank -%}
+                          <source media="(max-width: 767px)" srcset="{{ new_logo_mobile | image_url }}">
+                        {%- endif -%}
+                        <img
+                          class="pluc-compare__logo"
+                          src="{{ new_logo_pc | image_url }}"
+                          alt="{{ new_logo_pc.alt | default: section.settings.new_model_name }}"
+                          width="{{ new_logo_pc.width }}"
+                          height="{{ new_logo_pc.height }}"
+                          loading="lazy"
+                        >
+                      </picture>
+                    {%- else -%}
+                      {{ section.settings.new_model_name }}
+                    {%- endif -%}
+                  </div>
+                  {%- liquid
+                    assign new_product_image_pc = section.settings.new_model_image
+                    assign new_product_image_mobile = section.settings.new_model_image_mobile
+                    if new_product_image_pc == blank
+                      assign new_product_image_pc = new_product_image_mobile
+                    endif
+                  -%}
+                  {%- if new_product_image_pc != blank -%}
+                    <picture>
+                      {%- if new_product_image_mobile != blank -%}
+                        <source media="(max-width: 767px)" srcset="{{ new_product_image_mobile | image_url }}">
+                      {%- endif -%}
+                      <img
+                        class="pluc-compare__product"
+                        src="{{ new_product_image_pc | image_url }}"
+                        alt="{{ new_product_image_pc.alt }}"
+                        width="{{ new_product_image_pc.width }}"
+                        height="{{ new_product_image_pc.height }}"
+                        loading="lazy"
+                      >
+                    </picture>
+                  {%- endif -%}
+                </div>
+                <div class="pluc-compare__cell">
+                  <div>
+                    <div class="pluc-compare__value">{{ section.settings.new_row_1_value }}</div>
+                    {%- if section.settings.new_row_1_sub != blank -%}<div class="pluc-compare__sub">{{ section.settings.new_row_1_sub }}</div>{%- endif -%}
+                  </div>
+                </div>
+                <div class="pluc-compare__cell pluc-compare__strong">{{ section.settings.new_row_2_value }}</div>
+                <div class="pluc-compare__cell pluc-compare__strong">{{ section.settings.new_row_3_value }}</div>
+                <div class="pluc-compare__cell pluc-compare__colors">
+                  <ul class="pluc-compare__color-list">
+                    {%- if section.settings.color_1_label != blank -%}
+                      <li class="pluc-compare__color-item"><span class="pluc-compare__swatch" style="--swatch: {{ section.settings.color_1 }}"></span>{{ section.settings.color_1_label }}</li>
+                    {%- endif -%}
+                    {%- if section.settings.color_2_label != blank -%}
+                      <li class="pluc-compare__color-item"><span class="pluc-compare__swatch" style="--swatch: {{ section.settings.color_2 }}"></span>{{ section.settings.color_2_label }}</li>
+                    {%- endif -%}
+                    {%- if section.settings.color_3_label != blank -%}
+                      <li class="pluc-compare__color-item"><span class="pluc-compare__swatch" style="--swatch: {{ section.settings.color_3 }}"></span>{{ section.settings.color_3_label }}</li>
+                    {%- endif -%}
+                    {%- if section.settings.color_4_label != blank -%}
+                      <li class="pluc-compare__color-item"><span class="pluc-compare__swatch" style="--swatch: {{ section.settings.color_4 }}"></span>{{ section.settings.color_4_label }}</li>
+                    {%- endif -%}
+                    {%- if section.settings.color_5_label != blank -%}
+                      <li class="pluc-compare__color-item"><span class="pluc-compare__swatch" style="--swatch: {{ section.settings.color_5 }}"></span>{{ section.settings.color_5_label }}</li>
+                    {%- endif -%}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.note != blank -%}
+        <div class="pluc__note to-top">{{ section.settings.note }}</div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const root = document.getElementById('pluc-{{ sid }}');
+    if (!root) return;
+
+    const closeModal = (modal) => {
+      if (!modal) return;
+      modal.hidden = true;
+      const opener = root.querySelector(`[aria-controls="${modal.id}"]`);
+      if (opener) opener.setAttribute('aria-expanded', 'false');
+      document.documentElement.style.overflow = '';
+    };
+
+    root.addEventListener('click', (event) => {
+      const openButton = event.target.closest('[data-pluc-open]');
+      if (openButton) {
+        const modal = document.getElementById(openButton.getAttribute('aria-controls'));
+        if (!modal) return;
+        modal.hidden = false;
+        openButton.setAttribute('aria-expanded', 'true');
+        document.documentElement.style.overflow = 'hidden';
+        const closeButton = modal.querySelector('.pluc-modal__close');
+        if (closeButton) closeButton.focus();
+        return;
+      }
+
+      const closeButton = event.target.closest('[data-pluc-close]');
+      if (closeButton) {
+        closeModal(closeButton.closest('[data-pluc-modal]'));
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape') return;
+      const modal = root.querySelector('.pluc-modal:not([hidden])');
+      if (modal) closeModal(modal);
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "product line upgrade",
+  "class": "shopify-section--product-line-upgrade",
+  "settings": [
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom Class"
+    },
+    {
+      "type": "text",
+      "id": "tle",
+      "label": "Title",
+      "default": "製品ラインナップ"
+    },
+    {
+      "type": "richtext",
+      "id": "note",
+      "label": "Note"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Top",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Bottom",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Product card"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    },
+    {
+      "type": "text",
+      "id": "active_txt",
+      "label": "Active Text",
+      "default": "35% OFF"
+    },
+    {
+      "type": "image_picker",
+      "id": "active_image",
+      "label": "Active Images"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Desktop image position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Product Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "mb_product_image",
+      "label": "Mobile Product Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "tag_image",
+      "label": "Tag Images"
+    },
+    {
+      "type": "text",
+      "id": "tag_txt",
+      "label": "Tag Text"
+    },
+    {
+      "type": "text",
+      "id": "product_title",
+      "label": "Title",
+      "default": "Ulike Air 10 Max IPL光美容器"
+    },
+    {
+      "type": "url",
+      "id": "product_title_link",
+      "label": "Product Title Link"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "SubTitle"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "price",
+      "label": "Price"
+    },
+    {
+      "type": "text",
+      "id": "price_suffix",
+      "label": "Price Suffix"
+    },
+    {
+      "type": "text",
+      "id": "compare_price",
+      "label": "Compare Price"
+    },
+    {
+      "type": "text",
+      "id": "compare_price_suffix",
+      "label": "Compare Price Suffix"
+    },
+    {
+      "type": "text",
+      "id": "compare_price_label",
+      "label": "Compare Price Label",
+      "default": "定価"
+    },
+    {
+      "type": "text",
+      "id": "price_notice_text",
+      "label": "Price Notice Text"
+    },
+    {
+      "type": "text",
+      "id": "add_button_text",
+      "label": "Add Button Text",
+      "default": "今すぐ購入"
+    },
+    {
+      "type": "text",
+      "id": "buy_button_text",
+      "label": "Buy Button Text",
+      "default": "今すぐ購入"
+    },
+    {
+      "type": "url",
+      "id": "buy_button_link",
+      "label": "Buy Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Upgrade modal"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_upgrade_button",
+      "label": "Show upgrade button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "upgrade_button_text",
+      "label": "Upgrade button text",
+      "default": "旧モデルよりグレードアップ"
+    },
+    {
+      "type": "header",
+      "content": "Old model title and image"
+    },
+    {
+      "type": "textarea",
+      "id": "old_pill_text",
+      "label": "Old pill text",
+      "default": "旧\nモデル"
+    },
+    {
+      "type": "text",
+      "id": "old_model_name",
+      "label": "Old model logo fallback text",
+      "default": "Ulike Air 10"
+    },
+    {
+      "type": "image_picker",
+      "id": "old_model_logo",
+      "label": "Old model logo image (PC)"
+    },
+    {
+      "type": "image_picker",
+      "id": "old_model_logo_mobile",
+      "label": "Old model logo image (Mobile)"
+    },
+    {
+      "type": "image_picker",
+      "id": "old_model_image",
+      "label": "Old model product image"
+    },
+    {
+      "type": "image_picker",
+      "id": "old_model_image_mobile",
+      "label": "Old model product image (Mobile)"
+    },
+    {
+      "type": "header",
+      "content": "New model title and image"
+    },
+    {
+      "type": "textarea",
+      "id": "new_pill_text",
+      "label": "New pill text",
+      "default": "新\nモデル"
+    },
+    {
+      "type": "text",
+      "id": "new_model_name",
+      "label": "New model logo fallback text",
+      "default": "Ulike Air 10 Max"
+    },
+    {
+      "type": "image_picker",
+      "id": "new_model_logo",
+      "label": "New model logo image (PC)"
+    },
+    {
+      "type": "image_picker",
+      "id": "new_model_logo_mobile",
+      "label": "New model logo image (Mobile)"
+    },
+    {
+      "type": "image_picker",
+      "id": "new_model_bg_image",
+      "label": "New model top background image"
+    },
+    {
+      "type": "image_picker",
+      "id": "new_model_image",
+      "label": "New model product image"
+    },
+    {
+      "type": "image_picker",
+      "id": "new_model_image_mobile",
+      "label": "New model product image (Mobile)"
+    },
+    {
+      "type": "header",
+      "content": "Comparison row labels"
+    },
+    {
+      "type": "text",
+      "id": "compare_row_1_label",
+      "label": "Row 1 label",
+      "default": "最大パワー"
+    },
+    {
+      "type": "text",
+      "id": "compare_row_2_label",
+      "label": "Row 2 label",
+      "default": "エネルギー密度"
+    },
+    {
+      "type": "text",
+      "id": "compare_row_3_label",
+      "label": "Row 3 label",
+      "default": "肌色識別機能"
+    },
+    {
+      "type": "text",
+      "id": "compare_row_4_label",
+      "label": "Row 4 label",
+      "default": "アプリ機能"
+    },
+    {
+      "type": "header",
+      "content": "Old model comparison values"
+    },
+    {
+      "type": "text",
+      "id": "old_row_1_value",
+      "label": "Old row 1 value",
+      "default": "26J"
+    },
+    {
+      "type": "text",
+      "id": "old_row_1_sub",
+      "label": "Old row 1 sub",
+      "default": "(U-SHRモード時)"
+    },
+    {
+      "type": "text",
+      "id": "old_row_2_value",
+      "label": "Old row 2 value",
+      "default": "6.6J/cm²"
+    },
+    {
+      "type": "text",
+      "id": "old_row_3_value",
+      "label": "Old row 3 value",
+      "default": "なし"
+    },
+    {
+      "type": "text",
+      "id": "old_row_4_value",
+      "label": "Old row 4 value",
+      "default": "なし"
+    },
+    {
+      "type": "header",
+      "content": "New model comparison values"
+    },
+    {
+      "type": "text",
+      "id": "new_row_1_value",
+      "label": "New row 1 value",
+      "default": "28J"
+    },
+    {
+      "type": "text",
+      "id": "new_row_1_sub",
+      "label": "New row 1 sub",
+      "default": "(U-SHRモード時)"
+    },
+    {
+      "type": "text",
+      "id": "new_row_2_value",
+      "label": "New row 2 value",
+      "default": "7.1J/cm²"
+    },
+    {
+      "type": "text",
+      "id": "new_row_3_value",
+      "label": "New row 3 value",
+      "default": "あり"
+    },
+    {
+      "type": "header",
+      "content": "New model color list"
+    },
+    {
+      "type": "color",
+      "id": "color_1",
+      "label": "Color 1 swatch",
+      "default": "#fde8d3"
+    },
+    {
+      "type": "text",
+      "id": "color_1_label",
+      "label": "Color 1 label",
+      "default": "ホワイト"
+    },
+    {
+      "type": "color",
+      "id": "color_2",
+      "label": "Color 2 swatch",
+      "default": "#efd7bc"
+    },
+    {
+      "type": "text",
+      "id": "color_2_label",
+      "label": "Color 2 label",
+      "default": "ベージュ"
+    },
+    {
+      "type": "color",
+      "id": "color_3",
+      "label": "Color 3 swatch",
+      "default": "#f5c898"
+    },
+    {
+      "type": "text",
+      "id": "color_3_label",
+      "label": "Color 3 label",
+      "default": "ライトブラウン"
+    },
+    {
+      "type": "color",
+      "id": "color_4",
+      "label": "Color 4 swatch",
+      "default": "#e1a76b"
+    },
+    {
+      "type": "text",
+      "id": "color_4_label",
+      "label": "Color 4 label",
+      "default": "ミドルブラウン"
+    },
+    {
+      "type": "color",
+      "id": "color_5",
+      "label": "Color 5 swatch",
+      "default": "#c78747"
+    },
+    {
+      "type": "text",
+      "id": "color_5_label",
+      "label": "Color 5 label",
+      "default": "ダークブラウン"
+    }
+  ],
+  "presets": [
+    {
+      "name": "product line upgrade"
+    }
+  ]
+}
+{% endschema %}

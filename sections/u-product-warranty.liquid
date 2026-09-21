@@ -1,0 +1,2416 @@
+{% comment %}
+  Section: u-extended-warranty-register
+  Notes:
+  - New independent section for extended warranty registration
+  - Includes:
+    1) register form
+    2) success popup
+    3) query tab placeholder (currently unsupported)
+  - API submit is placeholder now, replace handleSubmit() as needed
+{% endcomment %}
+
+{%- liquid
+  assign sid = section.id
+  assign st = section.settings
+-%}
+
+<section
+  id="u-ewr-{{ sid }}"
+  class="u-ewr"
+  data-section-id="{{ sid }}"
+  data-enable-query="{{ st.enable_query }}"
+  data-site-code="{{ st.site_code | escape }}"
+  data-merchant-code="{{ st.merchant_code | escape }}"
+>
+  <div class="u-ewr__container container">
+    {%- if st.show_page_note -%}
+      <div class="u-ewr__page-note">
+        {{ st.page_note }}
+      </div>
+    {%- endif -%}
+
+    <div class="u-ewr__tab-panels">
+      <div class="u-ewr__panel is-active" data-ewr-panel="register" style="display:block;">
+        <form class="u-ewr__form" novalidate>
+          <div class="u-ewr__group">
+            <h3 class="u-ewr__group-title">{{ st.service_info_title }}</h3>
+
+            <div class="u-ewr__grid u-ewr__grid--2">
+              <div class="u-ewr__field">
+                <label class="u-ewr__label u-ewr__label--floating">
+                  {{ st.service_email_label }}
+                  <span class="u-ewr__required">*</span>
+                </label>
+                <input
+                  class="u-ewr__input"
+                  type="email"
+                  name="userEmail"
+                  placeholder=" "
+                  data-required="true"
+                  data-type="email"
+                >
+                <p class="u-ewr__error">{{ st.error_email }}</p>
+              </div>
+
+              <div class="u-ewr__field">
+                <label class="u-ewr__label u-ewr__label--floating">
+                  {{ st.service_order_label }}
+                  <span class="u-ewr__required">*</span>
+                </label>
+                <input
+                  class="u-ewr__input"
+                  type="text"
+                  name="orderNo"
+                  placeholder=" "
+                  data-required="true"
+                >
+                <p class="u-ewr__error">注文番号を入力してください。</p>
+                <p class="u-ewr__query-tip" data-ewr-order-query-tip></p>
+                <p class="u-ewr__query-tip u-ewr__query-tip--error" data-ewr-order-query-error></p>
+              </div>
+
+              <div class="u-ewr__field">
+                <label class="u-ewr__label">
+                  {{ st.service_year_label }}
+                  <span class="u-ewr__required">*</span>
+                </label>
+
+                <div class="u-ewr-select" data-ewr-select>
+                  <input type="hidden" name="serviceYear" data-required="true">
+                  <button type="button" class="u-ewr-select__trigger" aria-expanded="false">
+                    <span data-ewr-select-label>{{ st.select_placeholder }}</span>
+                    <span class="u-ewr-select__arrow">
+                      <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                  </button>
+
+                  <div class="u-ewr-select__menu">
+                    <ul class="u-ewr-select__list">
+                      {%- for block in section.blocks -%}
+                        {%- if block.type == 'service_year' -%}
+                          <li
+                            class="u-ewr-select__option"
+                            data-value="{{ block.settings.value | escape }}"
+                            data-label="{{ block.settings.label | escape }}"
+                            {{ block.shopify_attributes }}
+                          >
+                            {{ block.settings.label }}
+                          </li>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </ul>
+                  </div>
+                </div>
+
+                <p class="u-ewr__error">購入年数を選択してください。</p>
+              </div>
+
+              <div class="u-ewr__field is-filled">
+                <label class="u-ewr__label ">
+                  {{ st.service_date_label }}
+                  <span class="u-ewr__required">*</span>
+                </label>
+                <input
+                  class="u-ewr__input"
+                  type="date"
+                  name="serviceOrderDate"
+                  placeholder=" "
+                  data-required="true"
+                  max="{{ 'now' | date: '%Y-%m-%d' }}"
+                >
+                <p class="u-ewr__error">注文日時を選択してください。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="u-ewr__group">
+            <h3 class="u-ewr__group-title">{{ st.customer_info_title }}</h3>
+
+            <div class="u-ewr__grid u-ewr__grid--2">
+              <div class="u-ewr__field">
+                <label class="u-ewr__label ">
+                  {{ st.customer_name_label }}
+                  <span class="u-ewr__required">*</span>
+                </label>
+                <input
+                  class="u-ewr__input"
+                  type="text"
+                  name="customerName"
+                  placeholder=" "
+                  data-required="true"
+                >
+                <p class="u-ewr__error">氏名を入力してください。</p>
+              </div>
+
+              <div class="u-ewr__field">
+                {% render 'u-pr-phone-input',
+                  section_id: section.id,
+                  input_name: 'userPhone',
+                  label_text: st.customer_phone_label,
+                  placeholder_text: 'Enter Your Phone Number',
+                  error_text: '電話番号を入力してください。',
+                  default_country: 'jp',
+                  default_dial: '+81'
+                %}
+              </div>
+
+              <div class="u-ewr__field">
+                <label class="u-ewr__label u-ewr__label--floating">
+                  {{ st.customer_zip_label }}
+                  <span class="u-ewr__required">*</span>
+                </label>
+                <input
+                  class="u-ewr__input"
+                  type="text"
+                  name="shippingZip"
+                  placeholder=" "
+                  data-required="true"
+                >
+                <p class="u-ewr__error">郵便番号を入力してください。</p>
+              </div>
+
+              <div class="u-ewr__field u-ewr__field--placeholder u-ewr__field--desktop-only"></div>
+
+              <div class="u-ewr__field">
+                <label class="u-ewr__label u-ewr__label--floating">
+                  {{ st.customer_prefecture_label }}
+                  <span class="u-ewr__required">*</span>
+                </label>
+                <input
+                  class="u-ewr__input"
+                  type="text"
+                  name="shippingProvince"
+                  placeholder=" "
+                  data-required="true"
+                >
+                <p class="u-ewr__error">都道府県を入力してください。</p>
+              </div>
+
+              <div class="u-ewr__field">
+                <label class="u-ewr__label u-ewr__label--floating">
+                  {{ st.customer_city_label }}
+                  <span class="u-ewr__required">*</span>
+                </label>
+                <input
+                  class="u-ewr__input"
+                  type="text"
+                  name="shippingCity"
+                  placeholder=" "
+                  data-required="true"
+                >
+                <p class="u-ewr__error">市区町村を入力してください。</p>
+              </div>
+
+              <div class="u-ewr__field u-ewr__field--full">
+                <label class="u-ewr__label u-ewr__label--floating">
+                  {{ st.customer_address1_label }}
+                  <span class="u-ewr__required">*</span>
+                </label>
+                <input
+                  class="u-ewr__input"
+                  type="text"
+                  name="shippingAddress1"
+                  placeholder=" "
+                  data-required="true"
+                >
+                <p class="u-ewr__error">住所1を入力してください。</p>
+              </div>
+
+              <div class="u-ewr__field u-ewr__field--full">
+                <label class="u-ewr__label u-ewr__label--floating">
+                  {{ st.customer_address2_label }}
+                </label>
+                <input
+                  class="u-ewr__input"
+                  type="text"
+                  name="shippingAddress2"
+                  placeholder=" "
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="u-ewr__group">
+            <h3 class="u-ewr__group-title">{{ st.product_info_title }}</h3>
+
+            <div class="u-ewr__grid u-ewr__grid--2">
+              <div class="u-ewr__field">
+                <label class="u-ewr__label">
+                  {{ st.channel_label }}
+                  <span class="u-ewr__required">*</span>
+                </label>
+
+                <div class="u-ewr-select" data-ewr-select>
+                  <input type="hidden" name="orderChannel" data-required="true">
+                  <button type="button" class="u-ewr-select__trigger" aria-expanded="false">
+                    <span data-ewr-select-label>{{ st.select_placeholder }}</span>
+                    <span class="u-ewr-select__arrow">
+                      <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                  </button>
+
+                  <div class="u-ewr-select__menu">
+                    <ul class="u-ewr-select__list">
+                      {%- for block in section.blocks -%}
+                        {%- if block.type == 'channel' -%}
+                          <li
+                            class="u-ewr-select__option"
+                            data-value="{{ block.settings.value | escape }}"
+                            data-label="{{ block.settings.label | escape }}"
+                            {{ block.shopify_attributes }}
+                          >
+                            {{ block.settings.label }}
+                          </li>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </ul>
+                  </div>
+                </div>
+
+                <p class="u-ewr__error">購入サイトを選択してください。</p>
+              </div>
+
+              <div class="u-ewr__field">
+                <label class="u-ewr__label">
+                  {{ st.model_label }}
+                  <span class="u-ewr__required">*</span>
+                </label>
+
+                <div class="u-ewr-select" data-ewr-select>
+                  <input type="hidden" name="productTitle" data-required="true">
+                  <button type="button" class="u-ewr-select__trigger" aria-expanded="false">
+                    <span data-ewr-select-label>{{ st.select_placeholder }}</span>
+                    <span class="u-ewr-select__arrow">
+                      <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                  </button>
+
+                  <div class="u-ewr-select__menu">
+                    <ul class="u-ewr-select__list">
+                      <li class="u-ewr-select__option" data-value="Air 10" data-label="Air 10">Air 10</li>
+                      <li class="u-ewr-select__option" data-value="Air Pro S" data-label="Air Pro S">Air Pro S</li>
+                      <li class="u-ewr-select__option" data-value="Ulike X Plus" data-label="Ulike X Plus">Ulike X Plus</li>
+                      <li class="u-ewr-select__option" data-value="Ulike Men" data-label="Ulike Men">Ulike Men</li>
+                      <li class="u-ewr-select__option" data-value="Air Pro" data-label="Air Pro">Air Pro</li>
+                      <li class="u-ewr-select__option" data-value="Air 3" data-label="Air 3">Air 3</li>
+                      <li class="u-ewr-select__option" data-value="Air 2" data-label="Air 2">Air 2</li>
+                      <li class="u-ewr-select__option" data-value="Air10 Max" data-label="Air10 Max">Air10 Max</li>
+                      <li class="u-ewr-select__option" data-value="Ulike X Max" data-label="Ulike X Max">Ulike X Max</li>
+                      <li class="u-ewr-select__option" data-value="Air Rose" data-label="Air Rose">Air Rose</li>
+                      <li class="u-ewr-select__option" data-value="Ulike X (オフライン版)" data-label="Ulike X (オフライン版)">Ulike X (オフライン版)</li>
+                      <li class="u-ewr-select__option" data-value="Air 10 Pro (オフライン版)" data-label="Air 10 Pro (オフライン版)">Air 10 Pro (オフライン版)</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <p class="u-ewr__error">購入モデルを選択してください。</p>
+              </div>
+
+              <div class="u-ewr__field">
+                <label class="u-ewr__label u-ewr__label--floating">
+                  {{ st.product_order_label }}
+                  <span class="u-ewr__required">*</span>
+                </label>
+                <input
+                  class="u-ewr__input"
+                  type="text"
+                  name="serviceOrderNo"
+                  placeholder=" "
+                  data-required="true"
+                >
+                <p class="u-ewr__error">注文番号を入力してください。</p>
+              </div>
+
+              <div class="u-ewr__field" data-ewr-sn-field>
+                <label class="u-ewr__label u-ewr__label--floating">
+                  {{ st.serial_label }}
+                  <span class="u-ewr__required">*</span>
+                </label>
+                <input
+                  class="u-ewr__input"
+                  type="text"
+                  name="productSn"
+                  placeholder=" "
+                  data-required="true"
+                >
+                <p class="u-ewr__error">シリアルナンバーを入力してください。</p>
+              </div>
+            </div>
+
+            <div class="u-ewr__sn-note">
+              {{ st.serial_note }}
+            </div>
+
+            <div class="u-ewr__upload" data-ewr-upload-section>
+              <input
+                id="u-ewr-upload-{{ sid }}"
+                class="u-ewr__upload-input"
+                type="file"
+                name="proof_files"
+                multiple
+                accept="image/*,.pdf"
+              >
+
+              <div class="u-ewr__upload-box" data-upload-box>
+                <div class="u-ewr__upload-list" data-upload-list>
+                  <label class="u-ewr__upload-add" for="u-ewr-upload-{{ sid }}">
+                    {%- if st.upload_icon != blank -%}
+                      <img
+                        src="{{ st.upload_icon | image_url: width: 120 }}"
+                        alt=""
+                        loading="lazy"
+                        width="60"
+                        height="60"
+                      >
+                    {%- else -%}
+                      <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" fill="none">
+                        <g clip-path="url(#clip0_1_454)">
+                          <path d="M22.77 29.3112H24.6369C24.6369 27.4454 26.1302 25.5785 27.996 25.5785V23.7117C25.0104 23.7127 22.77 26.3247 22.77 29.3112Z" fill="black"/>
+                          <path d="M27.9956 16.6196C21.2763 16.6196 15.6777 22.2192 15.6777 29.311C15.6777 36.4039 21.2773 42.0024 27.9956 42.0024C29.8624 42.0024 31.7283 41.6289 33.2216 40.8827C37.3278 39.0159 40.3144 34.537 40.3144 29.6846V29.311C40.3144 22.2192 34.7148 16.6196 27.9956 16.6196ZM33.2216 36.4039C31.7283 37.5236 29.8624 38.2707 27.9956 38.2707C23.1431 38.2707 19.4104 34.1644 19.4104 29.312C19.4104 24.4596 23.5167 20.3533 27.9956 20.3533C32.848 20.3533 36.5807 24.4596 36.5807 29.312V29.6856C36.5817 32.2976 35.461 34.9106 33.2216 36.4039Z" fill="black"/>
+                          <path d="M55.9916 16.6198C55.9916 13.6333 53.7522 11.3938 50.7656 11.3938H42.1805V9.52799C42.1805 6.54143 39.9411 4.302 36.9545 4.302H19.4107C16.4251 4.302 14.1847 6.54143 14.1847 9.52799V11.3948H5.22599C2.23943 11.3948 0 13.6343 0 16.6208V45.3628C0 48.3493 2.23943 50.5888 5.22599 50.5888H33.2218C34.7151 50.5888 35.4612 50.2162 35.4612 48.7229C35.4612 47.2296 34.3415 46.8561 33.2218 46.8561H6.3457C4.85242 47.2296 3.73271 45.7364 3.73271 44.6166V16.9934C3.73271 15.5001 4.85242 14.3804 6.3457 14.3804H17.5438V10.2751C17.5438 8.78185 18.6635 7.66214 20.1568 7.66214H36.9545C38.4478 7.66214 39.5675 8.78185 39.5675 10.2751V14.3804H50.3931C51.8863 14.3804 53.006 15.5001 53.006 16.9934V29.3112C53.006 30.431 53.7532 31.5507 54.8729 31.5507C56.3662 31.5507 56.7388 30.8035 56.7388 29.3112L55.9916 16.6198Z" fill="black"/>
+                          <path d="M50.0193 34.91V53.201C50.0193 54.3207 49.2732 55.4404 48.1535 55.4404H47.7799C46.6602 55.4404 45.9141 54.3207 45.9141 53.201V34.91C45.9141 33.7903 46.6602 32.6706 47.7799 32.6706H48.5271C49.2732 32.297 50.0193 33.4167 50.0193 34.91Z" fill="black"/>
+                          <path d="M39.195 42.0024H57.486C58.6057 42.0024 59.7254 42.7486 59.7254 43.8683V44.2419C59.7254 45.3616 58.6057 46.1087 57.486 46.1087H39.195C38.0753 46.1087 36.9556 45.3616 36.9556 44.2419V43.8683C36.9546 42.7496 38.0743 42.0024 39.195 42.0024Z" fill="black"/>
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_1_454">
+                            <rect width="59.7711" height="59.7711" fill="white"/>
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    {%- endif -%}
+                  </label>
+                </div>
+
+                <div class="u-ewr__upload-text">
+                  {{ st.upload_text }}
+                </div>
+              </div>
+
+              <p class="u-ewr__error u-ewr__error--upload" data-upload-error></p>
+            </div>
+          </div>
+
+          <div class="u-ewr__actions">
+            <button type="submit" class="u-ewr__submit">
+              {{ st.submit_text }}
+            </button>
+          </div>
+
+          <p class="u-ewr__submit-error" data-ewr-submit-error></p>
+
+          <div class="u-ewr__footnotes">
+            <div>{{ st.footnote_1 }}</div>
+            <div>{{ st.footnote_2 }}</div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="u-ewr-modal" data-ewr-success hidden>
+    <div class="u-ewr-modal__overlay" data-ewr-success-close></div>
+
+    <div class="u-ewr-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="u-ewr-success-title-{{ sid }}">
+      <button type="button" class="u-ewr-modal__close" data-ewr-success-close aria-label="Close">×</button>
+
+      <div class="u-ewr-modal__icon">
+        {%- if st.success_icon != blank -%}
+          <img
+            src="{{ st.success_icon | image_url: width: 120 }}"
+            alt=""
+            loading="lazy"
+            width="60"
+            height="60"
+          >
+        {%- else -%}
+          <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="32" cy="32" r="24" fill="#59C36A"/>
+            <path d="M22 32L29 39L42 24" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        {%- endif -%}
+      </div>
+
+      <h3 id="u-ewr-success-title-{{ sid }}" class="u-ewr-modal__title">
+        {{ st.success_title }}
+      </h3>
+
+      <div class="u-ewr-modal__desc">
+        {{ st.success_desc }}
+      </div>
+
+      <div class="u-ewr-modal__subdesc">
+        {{ st.success_subdesc }}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #u-ewr-{{ sid }}{
+    --ewr-bg: {{ st.page_bg }};
+    --ewr-text: {{ st.text_color }};
+    --ewr-muted: {{ st.muted_color }};
+    --ewr-line: {{ st.line_color }};
+    --ewr-tab-bg: {{ st.tab_bg }};
+    --ewr-tab-active-bg: {{ st.tab_active_bg }};
+    --ewr-tab-active-text: {{ st.tab_active_text }};
+    --ewr-btn-bg: {{ st.button_bg }};
+    --ewr-btn-text: {{ st.button_text }};
+    --ewr-error: #D92D20;
+    --ewr-modal-border: #191919;
+
+    background: var(--ewr-bg);
+    color: var(--ewr-text);
+    padding: 40px 20px 60px;
+  }
+
+  #u-ewr-{{ sid }} *{
+    box-sizing: border-box;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__container{
+    margin: 0 auto;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__page-note{
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--ewr-muted);
+    margin-bottom: 26px;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__panel{
+    display: none;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__panel.is-active{
+    display: block;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__group + .u-ewr__group{
+    margin-top: 54px;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__group-title{
+    margin: 0 0 26px;
+    font-size: 34px;
+    line-height: 1.3;
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__grid{
+    display: grid;
+    gap: 20px 30px;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__grid--2{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__field{
+    position: relative;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__field .pr-form__group{
+    margin: 0;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__field .pr-form__label{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 1.4;
+    font-weight: 500;
+    letter-spacing: .02em;
+    color: #7A7A7A;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__field .pr-form__field{
+    position: relative;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__field .pr-form__error{
+    display: none;
+    margin: 8px 0 0;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--ewr-error);
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__field .pr-form__field.has-error .pr-form__error{
+    display: block;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__field--full{
+    grid-column: 1 / -1;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__label{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 1.4;
+    font-weight: 500;
+    letter-spacing: .02em;
+    color: #7A7A7A;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__label--floating{
+    position: absolute;
+    left: 0;
+    top: 17px;
+    z-index: 2;
+    margin: 0;
+    pointer-events: none;
+    transform-origin: left top;
+    transition: top .2s ease, transform .2s ease, color .2s ease;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__required{
+    color: #E5484D;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__input,
+  #u-ewr-{{ sid }} .u-ewr-select__trigger{
+    width: 100%;
+    height: 52px;
+    border: 0;
+    border-bottom: 1px solid var(--ewr-line);
+    border-radius: 0;
+    background: transparent;
+    color: var(--ewr-text);
+    font-size: 24px;
+    line-height: 1.2;
+    padding: 18px 0 10px;
+    outline: none;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__input::placeholder{
+    color: #9B9B9B;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__input[placeholder=" "]::placeholder{
+    color: transparent;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__field:focus-within .u-ewr__label--floating,
+  #u-ewr-{{ sid }} .u-ewr__field.is-filled .u-ewr__label--floating{
+    top: 0;
+    transform: scale(.84);
+    color: var(--ewr-text);
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__input:focus,
+  #u-ewr-{{ sid }} .u-ewr-select__trigger:focus{
+    border-bottom-color: var(--ewr-text);
+  }
+
+  #u-ewr-{{ sid }} .u-ewr-select{
+    position: relative;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr-select__trigger{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr-select__arrow{
+    display: inline-flex;
+    flex: 0 0 auto;
+    margin-left: 12px;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr-select__menu{
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    z-index: 10;
+    display: none;
+    background: #fff;
+    border: 1px solid #d9d9d9;
+    max-height: 260px;
+    overflow: auto;
+    box-shadow: 0 10px 24px rgba(0,0,0,.08);
+  }
+
+  #u-ewr-{{ sid }} .u-ewr-select.is-open .u-ewr-select__menu{
+    display: block;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr-select__list{
+    list-style: none;
+    margin: 0;
+    padding: 8px 0;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr-select__option{
+    padding: 12px 16px;
+    font-size: 16px;
+    line-height: 1.4;
+    cursor: pointer;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr-select__option:hover{
+    background: #f4f4f4;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__sn-note{
+    margin-top: 18px;
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--ewr-muted);
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__upload{
+    margin-top: 42px;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__upload-input{
+    display: none;
+  }
+
+
+  #u-ewr-{{ sid }} .u-ewr__upload-box{
+    border-radius: 4px;
+    background: #F5F5F5;
+    padding: 30px 24px 26px;
+    min-height: 220px;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__upload-list{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    min-height: 96px;
+    align-content: flex-start;
+    margin-bottom: 0px;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__upload-list.is-empty{
+    justify-content: center;
+    align-items: center;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__upload-item,
+  #u-ewr-{{ sid }} .u-ewr__upload-add{
+    width: 96px;
+    height: 96px;
+    border-radius: 4px;
+    background: #F5F5F5;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__upload-add{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ewr-text);
+    cursor: pointer;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__upload-thumb{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__upload-file{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--ewr-text);
+    background: #ececec;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__upload-remove{
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 22px;
+    height: 22px;
+    border: 0;
+    border-radius: 2px;
+    background: rgba(0,0,0,.55);
+    color: #fff;
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__upload-text{
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--ewr-muted);
+    text-align: center;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__error{
+    display: none;
+    margin: 8px 0 0;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--ewr-error);
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__query-tip{
+    display: none;
+    margin: 8px 0 0;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--ewr-muted);
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__query-tip.is-show{
+    display: block;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__query-tip--error{
+    color: var(--ewr-error);
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__field.is-error .u-ewr__error{
+    display: block;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__field.is-error .u-ewr__input,
+  #u-ewr-{{ sid }} .u-ewr__field.is-error .u-ewr-select__trigger{
+    border-bottom-color: var(--ewr-error);
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__error--upload.is-show{
+    display: block;
+    margin-top: 12px;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__actions{
+    display: flex;
+    justify-content: center;
+    margin-top: 46px;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__submit-error{
+    display: none;
+    margin: 12px 0 0;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--ewr-error);
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__submit-error.is-show{
+    display: block;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__submit{
+    min-width: 180px;
+    height: 52px;
+    border: 0;
+    border-radius: 0;
+    background: var(--ewr-btn-bg);
+    color: var(--ewr-btn-text);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr__footnotes{
+    margin-top: 34px;
+    display: grid;
+    gap: 0px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--ewr-muted);
+  }
+
+  #u-ewr-{{ sid }} .u-ewr-modal[hidden]{
+    display: none !important;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr-modal{
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    padding: 24px;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr-modal__overlay{
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,.12);
+  }
+
+  #u-ewr-{{ sid }} .u-ewr-modal__dialog{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: min(100%, 520px);
+    min-height: 330px;
+    max-height: calc(100vh - 48px);
+    overflow: auto;
+    background: #fff;
+    border: 1px solid var(--ewr-modal-border);
+    padding: 40px 24px;
+    text-align: center;
+    margin: 0;
+    z-index: 1;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr-modal__close{
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    border: 0;
+    background: transparent;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr-modal__icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 16px;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr-modal__icon img,
+  #u-ewr-{{ sid }} .u-ewr-modal__icon svg{
+    display: block;
+    margin: 0 auto;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr-modal__title{
+    margin: 0 0 10px;
+    font-size: 30px;
+    line-height: 1.3;
+    font-weight: 700;
+  }
+
+  #u-ewr-{{ sid }} .u-ewr-modal__desc{
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--ewr-text);
+  }
+
+  #u-ewr-{{ sid }} .u-ewr-modal__subdesc{
+    margin-top: 14px;
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ewr-muted);
+  }
+
+  @media (max-width: 767px){
+    #u-ewr-{{ sid }}{
+      padding: 22px 16px 42px;
+    }
+
+    #u-ewr-{{ sid }} .u-ewr__page-note{
+      font-size: 12px;
+      margin-bottom: 18px;
+    }
+
+    #u-ewr-{{ sid }} .u-ewr__group + .u-ewr__group{
+      margin-top: 40px;
+    }
+
+    #u-ewr-{{ sid }} .u-ewr__group-title{
+      font-size: 19px;
+      margin-bottom: 18px;
+    }
+
+    #u-ewr-{{ sid }} .u-ewr__grid--2{
+      grid-template-columns: 1fr;
+      gap: 22px;
+    }
+
+    #u-ewr-{{ sid }} .u-ewr__field--desktop-only{
+      display: none;
+    }
+
+    #u-ewr-{{ sid }} .u-ewr__input,
+    #u-ewr-{{ sid }} .u-ewr-select__trigger{
+      height: 42px;
+      font-size: 16px;
+      padding: 16px 0 8px;
+    }
+
+    #u-ewr-{{ sid }} .u-ewr__label{
+      font-size: 12px;
+      margin-bottom: 8px;
+      gap: 3px;
+    }
+
+    #u-ewr-{{ sid }} .u-ewr__field .pr-form__label{
+      font-size: 11px;
+      margin-bottom: 8px;
+      gap: 3px;
+    }
+
+    #u-ewr-{{ sid }} .u-ewr__label--floating{
+      top: 14px;
+    }
+
+    #u-ewr-{{ sid }} .u-ewr__field:focus-within .u-ewr__label--floating,
+    #u-ewr-{{ sid }} .u-ewr__field.is-filled .u-ewr__label--floating{
+      top: 0;
+    }
+
+    #u-ewr-{{ sid }} .u-ewr__sn-note,
+    #u-ewr-{{ sid }} .u-ewr__upload-text,
+    #u-ewr-{{ sid }} .u-ewr__footnotes{
+      font-size: 12px;
+    }
+
+    #u-ewr-{{ sid }} .u-ewr__upload{
+      margin-top: 28px;
+    }
+
+    #u-ewr-{{ sid }} .u-ewr__upload-box{
+      padding: 18px 14px 18px;
+      min-height: 168px;
+    }
+
+    #u-ewr-{{ sid }} .u-ewr__upload-list{
+      gap: 8px;
+      min-height: 62px;
+      margin-bottom: 12px;
+    }
+
+    #u-ewr-{{ sid }} .u-ewr__upload-list.is-empty{
+      justify-content: center;
+      align-items: center;
+    }
+
+    #u-ewr-{{ sid }} .u-ewr__upload-item,
+    #u-ewr-{{ sid }} .u-ewr__upload-add{
+      width: 62px;
+      height: 62px;
+    }
+
+    #u-ewr-{{ sid }} .u-ewr__actions{
+      margin-top: 34px;
+    }
+
+    #u-ewr-{{ sid }} .u-ewr__submit-error{
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    #u-ewr-{{ sid }} .u-ewr__submit{
+      min-width: 120px;
+      height: 38px;
+      font-size: 13px;
+    }
+
+    #u-ewr-{{ sid }} .u-ewr-modal{
+      padding: 16px;
+    }
+
+    #u-ewr-{{ sid }} .u-ewr-modal__dialog{
+      width: calc(100vw - 80px);
+      max-width: 520px;
+      min-height: 0;
+      max-height: calc(100vh - 80px);
+      padding: 24px 18px 20px;
+    }
+
+    #u-ewr-{{ sid }} .u-ewr-modal__title{
+      font-size: 24px;
+    }
+  }
+</style>
+
+<script>
+  (() => {
+    const root = document.getElementById('u-ewr-{{ sid }}');
+    if (!root) return;
+
+    // 表单与弹窗等核心节点缓存
+    const form = root.querySelector('.u-ewr__form');
+    const successModal = root.querySelector('[data-ewr-success]');
+    const successCloseEls = root.querySelectorAll('[data-ewr-success-close]');
+    const orderQueryTip = root.querySelector('[data-ewr-order-query-tip]');
+    const orderQueryError = root.querySelector('[data-ewr-order-query-error]');
+    const submitErrorEl = root.querySelector('[data-ewr-submit-error]');
+    const serviceEmailInput = form.querySelector('input[name="userEmail"]');
+    const serviceOrderInput = form.querySelector('input[name="orderNo"]');
+
+    const siteCode = (root.getAttribute('data-site-code') || 'JP').trim().toUpperCase();
+    const merchantCode = (root.getAttribute('data-merchant-code') || 'ULIKE').trim().toUpperCase();
+
+    const serviceYearVariantMap = {
+      '42869728641072': '1_year',
+      '42869728673840': '2_year',
+      '42869728706608': '3_year'
+    };
+
+    // 订单查询状态：避免重复请求与并发请求
+    let orderQueryKey = '';
+    let orderQueryLoading = false;
+
+    // 当前已选择并上传成功的文件列表
+    let uploadedFiles = [];
+    let uploadLoadingCount = 0;
+    const maxFiles = 5;
+    const maxSize = 10 * 1024 * 1024;
+
+    // 根据字段名获取表单项
+    function getInputByName(name) {
+      return form.querySelector('[name="' + name + '"]');
+    }
+
+    function getFieldValue(name) {
+      const input = getInputByName(name);
+      return input ? input.value || '' : '';
+    }
+
+    // 上传相关节点与限制配置
+    const uploadInput = root.querySelector('.u-ewr__upload-input');
+    const uploadSection = root.querySelector('[data-ewr-upload-section]');
+    const uploadList = root.querySelector('[data-upload-list]');
+    const uploadError = root.querySelector('[data-upload-error]');
+    const snField = root.querySelector('[data-ewr-sn-field]');
+
+    // 关闭所有自定义下拉，仅保留当前操作的下拉
+    function closeAllSelects(except) {
+      root.querySelectorAll('[data-ewr-select]').forEach((select) => {
+        if (select !== except) {
+          select.classList.remove('is-open');
+          const trigger = select.querySelector('.u-ewr-select__trigger');
+          if (trigger) trigger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
+    // 単項目バリデーション：必須とメール形式チェック（カスタム phone 対応）
+    function validateField(field) {
+      if (!field) return true;
+
+      let input = field.querySelector('input[data-required="true"], textarea[data-required="true"], select[data-required="true"]');
+
+      if (!input) {
+        input = field.querySelector('input[name="userPhone"], textarea[name="userPhone"], select[name="userPhone"]');
+      }
+
+      if (!input) {
+        input = field.querySelector('input, textarea, select');
+      }
+
+      if (!input) return true;
+
+      const errorEl = field.querySelector('.u-ewr__error:not(.u-ewr__error--upload), .pr-form__error');
+      if (errorEl && !errorEl.hasAttribute('data-default-text')) {
+        errorEl.setAttribute('data-default-text', errorEl.textContent || '');
+      }
+      if (errorEl && errorEl.hasAttribute('data-default-text')) {
+        errorEl.textContent = errorEl.getAttribute('data-default-text') || '';
+      }
+
+      const required = input.dataset.required === 'true' || input.name === 'userPhone';
+      const type = input.dataset.type || input.type;
+      const value = (input.value || '').trim();
+
+      let valid = true;
+
+      if (required && !value) {
+        valid = false;
+      }
+
+      if (valid && type === 'email' && value) {
+        valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+      }
+
+      field.classList.toggle('is-error', !valid);
+
+      const prField = field.querySelector('.pr-form__field');
+      if (prField) {
+        prField.classList.toggle('has-error', !valid);
+      }
+
+      return valid;
+    }
+
+    // 同步输入框填写态，用于浮动标签样式切换
+    function syncFieldFilledState(field) {
+      if (!field) return;
+      const input = field.querySelector('input, textarea, select');
+      if (!input) return;
+
+      const value = (input.value || '').trim();
+      field.classList.toggle('is-filled', !!value);
+    }
+
+    // 设置订单查询成功/进行中的提示文案
+    function setOrderQueryTip(message) {
+      if (!orderQueryTip) return;
+      orderQueryTip.textContent = message || '';
+      orderQueryTip.classList.toggle('is-show', !!message);
+    }
+
+    // 设置订单查询失败提示文案
+    function setOrderQueryError(message) {
+      if (!orderQueryError) return;
+      orderQueryError.textContent = message || '';
+      orderQueryError.classList.toggle('is-show', !!message);
+    }
+
+    // 设置上传区域错误提示
+    function setUploadError(message) {
+      if (!uploadError) return;
+
+      if (!message) {
+        uploadError.textContent = '';
+        uploadError.classList.remove('is-show');
+        return;
+      }
+
+      uploadError.textContent = message;
+      uploadError.classList.add('is-show');
+    }
+
+    function setSubmitError(message) {
+      if (!submitErrorEl) return;
+      submitErrorEl.textContent = message || '';
+      submitErrorEl.classList.toggle('is-show', !!message);
+    }
+
+    // フィールドエラーメッセージを設定（カスタム phone 対応）
+    function setFieldErrorMessage(name, message) {
+      const input = getInputByName(name);
+      if (!input) return;
+
+      const field = input.closest('.u-ewr__field');
+      if (!field) return;
+
+      const errorEl = field.querySelector('.u-ewr__error:not(.u-ewr__error--upload), .pr-form__error');
+      if (errorEl && !errorEl.hasAttribute('data-default-text')) {
+        errorEl.setAttribute('data-default-text', errorEl.textContent || '');
+      }
+      if (errorEl) {
+        errorEl.textContent = message || '';
+      }
+
+      field.classList.add('is-error');
+      const prField = field.querySelector('.pr-form__field');
+      if (prField) {
+        prField.classList.add('has-error');
+      }
+    }
+
+    function clearFieldErrorMessage(name) {
+      const input = getInputByName(name);
+      if (!input) return;
+
+      const field = input.closest('.u-ewr__field');
+      if (!field) return;
+
+      const errorEl = field.querySelector('.u-ewr__error:not(.u-ewr__error--upload), .pr-form__error');
+      if (errorEl && errorEl.hasAttribute('data-default-text')) {
+        errorEl.textContent = errorEl.getAttribute('data-default-text') || '';
+      }
+
+      field.classList.remove('is-error');
+      const prField = field.querySelector('.pr-form__field');
+      if (prField) {
+        prField.classList.remove('has-error');
+      }
+    }
+
+    // 通用回填方法：设置值、清除错误态、刷新填写态
+    function setInputValue(name, value) {
+      const input = getInputByName(name);
+      if (!input) return;
+
+      input.value = value == null ? '' : value;
+
+      const field = input.closest('.u-ewr__field');
+      if (field) field.classList.remove('is-error');
+      syncFieldFilledState(field);
+    }
+
+    function setSelectValue(name, value) {
+      const input = getInputByName(name);
+      if (!input) return;
+
+      const select = input.closest('[data-ewr-select]');
+      const field = input.closest('.u-ewr__field');
+      if (!select) {
+        setInputValue(name, value);
+        return;
+      }
+
+      const option = select.querySelector('.u-ewr-select__option[data-value="' + value + '"]');
+      const label = select.querySelector('[data-ewr-select-label]');
+
+      if (!option) {
+        input.value = '';
+        if (label) label.textContent = '{{ st.select_placeholder | escape }}';
+      } else {
+        input.value = value == null ? '' : value;
+        if (label) {
+          label.textContent = option.getAttribute('data-label') || option.textContent.trim();
+        }
+      }
+
+      if (field) field.classList.remove('is-error');
+      syncFieldFilledState(field);
+    }
+
+    function getServiceYearValueFromOrder(orderData) {
+      if (!orderData || !orderData.lineItems || !Array.isArray(orderData.lineItems.edges)) return '';
+
+      for (const edge of orderData.lineItems.edges) {
+        const variant = edge && edge.node && edge.node.variant;
+        if (!variant) continue;
+
+        const variantId = variant.longId
+          ? String(variant.longId)
+          : String((variant.id || '')).replace('gid://shopify/ProductVariant/', '');
+
+        if (variantId && serviceYearVariantMap[variantId]) {
+          return serviceYearVariantMap[variantId];
+        }
+      }
+
+      return '';
+    }
+
+    function shouldHideUploadByChannel() {
+      const channelInput = getInputByName('orderChannel');
+      const value = channelInput ? (channelInput.value || '').trim() : '';
+      return value === 'Shopify' || value === 'Amazon';
+    }
+
+    function syncUploadSectionVisibility() {
+      const hideUpload = shouldHideUploadByChannel();
+
+      if (uploadSection) {
+        uploadSection.hidden = hideUpload;
+      }
+
+      if (snField) {
+        snField.hidden = false;
+      }
+
+      if (hideUpload) {
+        setUploadError('');
+      }
+    }
+
+    // 初始化自定义下拉：打开、选择、回填 hidden input 与显示文案
+    root.querySelectorAll('[data-ewr-select]').forEach((select) => {
+      const trigger = select.querySelector('.u-ewr-select__trigger');
+      const hiddenInput = select.querySelector('input[type="hidden"]');
+      const label = select.querySelector('[data-ewr-select-label]');
+      const options = select.querySelectorAll('.u-ewr-select__option');
+
+      trigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        const isOpen = select.classList.contains('is-open');
+        closeAllSelects(select);
+        select.classList.toggle('is-open', !isOpen);
+        trigger.setAttribute('aria-expanded', String(!isOpen));
+      });
+
+      options.forEach((option) => {
+        option.addEventListener('click', () => {
+          const value = option.getAttribute('data-value') || '';
+          const text = option.getAttribute('data-label') || option.textContent.trim();
+
+          hiddenInput.value = value;
+          label.textContent = text;
+
+          select.classList.remove('is-open');
+          trigger.setAttribute('aria-expanded', 'false');
+
+          const field = hiddenInput.closest('.u-ewr__field');
+          if (field) field.classList.remove('is-error');
+          syncFieldFilledState(field);
+
+          if (hiddenInput.name === 'orderChannel') {
+            syncUploadSectionVisibility();
+          }
+        });
+      });
+    });
+
+    // 点击空白区域时关闭下拉
+    document.addEventListener('click', (e) => {
+      if (!root.contains(e.target)) return;
+      const inSelect = e.target.closest('[data-ewr-select]');
+      if (!inSelect) closeAllSelects();
+    });
+
+    // 将订单接口返回的数据自动回填到表单
+    function fillOrderAddress(orderData) {
+      if (!orderData) return;
+
+      const shippingAddress = orderData.shippingAddress || {};
+      const firstName = shippingAddress.firstName || '';
+      const lastName = shippingAddress.lastName || '';
+      const fullName = [firstName, lastName].filter(Boolean).join(' ').trim();
+
+      if (fullName) setInputValue('customerName', fullName);
+      setInputValue('userPhone', orderData.phone || shippingAddress.phone || '');
+      setInputValue('shippingZip', shippingAddress.zip || '');
+      setInputValue('shippingProvince', shippingAddress.province || '');
+      setInputValue('shippingCity', shippingAddress.city || '');
+      setInputValue('shippingAddress1', shippingAddress.address1 || '');
+      setInputValue('shippingAddress2', shippingAddress.address2 || '');
+      {% comment %} setInputValue('orderNo', orderData.name || ''); {% endcomment %}
+
+      if (orderData.createdAt) {
+        const createdAt = new Date(orderData.createdAt);
+        if (!isNaN(createdAt.getTime())) {
+          const year = createdAt.getFullYear();
+          const month = String(createdAt.getMonth() + 1).padStart(2, '0');
+          const day = String(createdAt.getDate()).padStart(2, '0');
+          setInputValue('serviceOrderDate', year + '-' + month + '-' + day);
+        }
+      }
+
+      const serviceYearValue = getServiceYearValueFromOrder(orderData);
+      if (serviceYearValue) {
+        setSelectValue('serviceYear', serviceYearValue);
+      }
+    }
+    function createUploadAddElement() {
+      const uploadAdd = document.createElement('label');
+      uploadAdd.className = 'u-ewr__upload-add';
+      uploadAdd.setAttribute('for', 'u-ewr-upload-{{ sid }}');
+      uploadAdd.innerHTML = `{%- if st.upload_icon != blank -%}
+                      <img
+                        src="{{ st.upload_icon | image_url: width: 120 }}"
+                        alt=""
+                        loading="lazy"
+                        width="60"
+                        height="60"
+                      >
+                    {%- else -%}
+                      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 30 24" fill="none">
+                        <path d="M28.8082 6.33764C28.8082 4.80103 27.656 3.64882 26.1194 3.64882H21.7023V2.68882C21.7023 1.15221 20.5501 0 19.0134 0H9.98697C8.45087 0 7.29815 1.15221 7.29815 2.68882V3.64933H2.68882C1.15221 3.64933 0 4.80154 0 6.33815V21.1262C0 22.6628 1.15221 23.815 2.68882 23.815H17.0929C17.8612 23.815 18.2451 23.6233 18.2451 22.855C18.2451 22.0867 17.669 21.8945 17.0929 21.8945H3.26492C2.49662 22.0867 1.92051 21.3184 1.92051 20.7423V6.52985C1.92051 5.76154 2.49662 5.18544 3.26492 5.18544H9.02646V3.07323C9.02646 2.30492 9.60256 1.72882 10.3709 1.72882H19.0134C19.7817 1.72882 20.3578 2.30492 20.3578 3.07323V5.18544H25.9277C26.696 5.18544 27.2721 5.76154 27.2721 6.52985V12.8675C27.2721 13.4436 27.6565 14.0197 28.2326 14.0197C29.0009 14.0197 29.1926 13.6353 29.1926 12.8675L28.8082 6.33764Z" fill="black"/>
+                      </svg>
+                    {%- endif -%}`;
+      return uploadAdd;
+    }
+
+    // 根据邮箱 + 订单号查询订单信息，并自动填充表单
+    async function queryCustomerOrder() {
+      const email = serviceEmailInput ? serviceEmailInput.value.trim() : '';
+      const orderNo = serviceOrderInput ? serviceOrderInput.value.trim() : '';
+
+      setOrderQueryError('');
+      setSubmitError('');
+
+      if (!email || !orderNo) {
+        setOrderQueryTip('');
+        return;
+      }
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        setOrderQueryTip('');
+        return;
+      }
+
+      const nextKey = email + '::' + orderNo;
+      if (orderQueryLoading || orderQueryKey === nextKey) return;
+
+      orderQueryLoading = true;
+      orderQueryKey = nextKey;
+      setOrderQueryTip('注文情報を照会中です...');
+
+      try {
+        const response = await window.UlikeCommon.sendUlikeApi('/user/queryCustomerOrder', {
+          merchantCode: merchantCode,
+          siteCode: siteCode,
+          orderNo: orderNo,
+          userEmail: email,
+        });
+
+        if (!response || response.code !== 0 || !response.data) {
+          throw new Error((response && response.message) || '注文情報の照会に失敗しました');
+        }
+
+        fillOrderAddress(response.data);
+        setOrderQueryTip('注文情報を自動入力しました。');
+      } catch (error) {
+        orderQueryKey = '';
+        setOrderQueryTip('');
+        setOrderQueryError('{{ st.query_order_error_text | escape }}');
+        console.error('注文情報の照会に失敗しました:', error);
+      } finally {
+        orderQueryLoading = false;
+      }
+    }
+
+    // 监听表单输入，实时更新填写态与错误态
+    form.querySelectorAll('.u-ewr__field').forEach((field) => {
+      const input = field.querySelector('input');
+      if (!input) return;
+
+      syncFieldFilledState(field);
+
+      input.addEventListener('input', () => {
+        syncFieldFilledState(field);
+        if (field.classList.contains('is-error')) validateField(field);
+      });
+
+      input.addEventListener('change', () => {
+        syncFieldFilledState(field);
+        if (field.classList.contains('is-error')) validateField(field);
+      });
+
+      input.addEventListener('blur', () => {
+        syncFieldFilledState(field);
+      });
+    });
+
+    // 邮箱与订单号变化后，自动触发订单查询
+    [serviceEmailInput, serviceOrderInput].forEach((input) => {
+      if (!input) return;
+
+      input.addEventListener('blur', () => {
+        queryCustomerOrder();
+      });
+
+      input.addEventListener('change', () => {
+        queryCustomerOrder();
+      });
+
+      input.addEventListener('input', () => {
+        orderQueryKey = '';
+        setOrderQueryTip('');
+        setOrderQueryError('');
+      });
+    });
+
+    syncUploadSectionVisibility();
+
+    // 同步提交按钮状态：上传中或提交中时禁用按钮
+    function setSubmitButtonState(disabled, text) {
+      const submitBtn = form.querySelector('.u-ewr__submit');
+      if (!submitBtn) return;
+      submitBtn.disabled = !!disabled;
+      if (text != null) submitBtn.textContent = text;
+    }
+
+    // 直传文件到签名地址
+    async function putUploadFile(file, uploadUrl) {
+      const response = await fetch(uploadUrl, {
+        method: 'PUT',
+        body: file,
+        headers: {
+          'Content-Type': file.type || 'application/octet-stream',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Upload failed: ' + response.status);
+      }
+    }
+
+    // 单文件上传：先换取签名地址，再上传文件，最后保留 fileKey 用于提交
+    async function uploadSingleFile(file) {
+      const signRes = await window.UlikeCommon.sendUlikeApi('/user/uploadSign', {
+        scene: 'APPLY_WARRANTY',
+        fileName: file.name,
+        contentType: file.type || 'application/octet-stream',
+        size: file.size,
+      });
+
+      if (!signRes || !signRes.data || !signRes.data.uploadUrl || !signRes.data.fileKey) {
+        throw new Error('Missing uploadUrl or fileKey');
+      }
+
+      await putUploadFile(file, signRes.data.uploadUrl);
+
+      return {
+        file: file,
+        name: file.name,
+        type: file.type,
+        size: file.size,
+        fileKey: signRes.data.fileKey,
+        previewUrl: file.type && file.type.indexOf('image/') === 0 ? URL.createObjectURL(file) : '',
+      };
+    }
+
+    function renderUploads() {
+      if (!uploadList) return;
+
+      uploadList.innerHTML = '';
+      uploadList.classList.toggle('is-empty', uploadedFiles.length === 0);
+
+      uploadedFiles.forEach((item, index) => {
+        const file = item.file;
+        const uploadItem = document.createElement('div');
+        uploadItem.className = 'u-ewr__upload-item';
+
+        const removeBtn = document.createElement('button');
+        removeBtn.type = 'button';
+        removeBtn.className = 'u-ewr__upload-remove';
+        removeBtn.textContent = '×';
+        removeBtn.addEventListener('click', () => {
+          const removed = uploadedFiles[index];
+          if (removed && removed.previewUrl) URL.revokeObjectURL(removed.previewUrl);
+          uploadedFiles.splice(index, 1);
+          renderUploads();
+          if (!uploadedFiles.length) setUploadError('');
+        });
+
+        if (item.previewUrl) {
+          const img = document.createElement('img');
+          img.className = 'u-ewr__upload-thumb';
+          img.alt = item.name;
+          img.src = item.previewUrl;
+          uploadItem.appendChild(img);
+        } else {
+          const fileBox = document.createElement('div');
+          fileBox.className = 'u-ewr__upload-file';
+          fileBox.textContent = item.name || (file ? file.name : 'File');
+          uploadItem.appendChild(fileBox);
+        }
+
+        uploadItem.appendChild(removeBtn);
+        uploadList.appendChild(uploadItem);
+      });
+
+      uploadList.appendChild(createUploadAddElement());
+    }
+
+    // 处理文件选择：数量与大小校验
+    if (uploadInput) {
+      uploadInput.addEventListener('change', async (e) => {
+        const files = Array.from(e.target.files || []);
+        if (!files.length) return;
+
+        e.target.value = '';
+
+        if (uploadedFiles.length + files.length > maxFiles) {
+          setUploadError('{{ st.upload_limit_error | escape }}');
+          return;
+        }
+
+        for (const file of files) {
+          if (file.size > maxSize) {
+            setUploadError('{{ st.upload_size_error | escape }}'.replace('[name]', file.name));
+            return;
+          }
+        }
+
+        setUploadError('');
+        setSubmitError('');
+        uploadLoadingCount += files.length;
+        setSubmitButtonState(true, '{{ st.submitting_text | escape }}');
+
+        try {
+          for (const file of files) {
+            const uploaded = await uploadSingleFile(file);
+            uploadedFiles.push(uploaded);
+            renderUploads();
+          }
+        } catch (error) {
+          console.error('Upload proof file failed:', error);
+          setUploadError('{{ st.submit_fail_text | escape }}');
+        } finally {
+          uploadLoadingCount = Math.max(0, uploadLoadingCount - files.length);
+          if (uploadLoadingCount === 0) {
+            const submitBtn = form.querySelector('.u-ewr__submit');
+            const submitText = submitBtn
+              ? submitBtn.getAttribute('data-default-text') || '{{ st.submit_text | escape }}'
+              : '{{ st.submit_text | escape }}';
+            setSubmitButtonState(false, submitText);
+          }
+        }
+      });
+      renderUploads();
+    }
+
+    function collectFormData() {
+      const userPhoneE164 = getFieldValue('userPhone_e164').trim();
+      const userPhoneDialCode = getFieldValue('userPhone_dial_code').trim();
+      const userPhoneRaw = getFieldValue('userPhone').trim();
+      const userPhone = userPhoneDialCode && userPhoneRaw ? userPhoneDialCode + '-' + userPhoneRaw : '';
+
+      return {
+        merchantCode: merchantCode,
+        siteCode: siteCode,
+        userEmail: getFieldValue('userEmail'),
+        firstName: getFieldValue('customerName'),
+        lastName: 'jp',
+        userPhone: userPhone,
+        orderChannel: getFieldValue('orderChannel'),
+        productTitle: getFieldValue('productTitle'),
+        orderNo: getFieldValue('serviceOrderNo'),
+        productSn: getFieldValue('productSn'),
+        fileKeyList: uploadedFiles.map((item) => item.fileKey).filter(Boolean),
+        extend: {
+          shippingAddress: {
+            address1: getFieldValue('shippingAddress1'),
+            address2: getFieldValue('shippingAddress2'),
+            city: getFieldValue('shippingCity'),
+            province: getFieldValue('shippingProvince'),
+            zip: getFieldValue('shippingZip'),
+          },
+          serviceInfo: {
+            orderDate: getFieldValue('orderNo'),
+            serviceOrderDate: getFieldValue('serviceOrderDate'),
+            year: getFieldValue('serviceYear')
+          },
+        },
+      };
+    }
+
+    // 打开提交成功弹窗
+    function openSuccess() {
+      if (!successModal) return;
+      successModal.hidden = false;
+      document.documentElement.classList.add('overflow-hidden');
+      document.body.classList.add('overflow-hidden');
+    }
+
+    // 关闭提交成功弹窗
+    function closeSuccess() {
+      if (!successModal) return;
+      successModal.hidden = true;
+      document.documentElement.classList.remove('overflow-hidden');
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    // 绑定弹窗关闭事件
+    successCloseEls.forEach((el) => {
+      el.addEventListener('click', closeSuccess);
+    });
+
+    async function handleSubmit(payload) {
+      const response = await window.UlikeCommon.sendUlikeApi('/user/submitWarrantyApply', payload);
+
+      if (!response || response.code !== 0) {
+        const submitError = new Error((response && response.message) || 'Submit failed');
+        submitError.code = response && response.code;
+        submitError.response = response;
+        throw submitError;
+      }
+
+      return response;
+    }
+
+    // 表单提交主流程：校验、提交、重置、成功反馈
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      setSubmitError('');
+
+      if (uploadLoadingCount > 0) {
+        setUploadError('ファイルをアップロード中です。しばらくしてから再度お試しください。');
+        return;
+      }
+
+      let valid = true;
+      const fields = form.querySelectorAll('.u-ewr__field');
+
+      // 逐项校验表单字段
+      fields.forEach((field) => {
+        if (!validateField(field)) valid = false;
+      });
+
+      // 上传文件按购买渠道决定是否必填
+      if (shouldHideUploadByChannel()) {
+        setUploadError('');
+      } else if (!uploadedFiles.length) {
+        setUploadError('{{ st.upload_required_error | escape }}');
+        valid = false;
+      } else {
+        setUploadError('');
+      }
+
+      if (!valid) {
+        scrollToFirstError();
+        return;
+      }
+
+      const submitBtn = form.querySelector('.u-ewr__submit');
+      const originalText = submitBtn.getAttribute('data-default-text') || submitBtn.textContent;
+      submitBtn.setAttribute('data-default-text', originalText);
+
+      try {
+        setSubmitButtonState(true, '{{ st.submitting_text | escape }}');
+
+        clearFieldErrorMessage('orderNo');
+        clearFieldErrorMessage('serviceOrderNo');
+        clearFieldErrorMessage('productSn');
+        clearFieldErrorMessage('userPhone');
+        const payload = collectFormData();
+        console.log('Submit payload:', payload);
+        await handleSubmit(payload);
+
+        form.reset();
+        uploadedFiles.forEach((item) => {
+          if (item && item.previewUrl) URL.revokeObjectURL(item.previewUrl);
+        });
+        uploadedFiles = [];
+        renderUploads();
+        setUploadError('');
+        setOrderQueryTip('');
+        setOrderQueryError('');
+        setSubmitError('');
+
+        root.querySelectorAll('[data-ewr-select]').forEach((select) => {
+          const hidden = select.querySelector('input[type="hidden"]');
+          const label = select.querySelector('[data-ewr-select-label]');
+          if (hidden) hidden.value = '';
+          if (label) label.textContent = '{{ st.select_placeholder | escape }}';
+        });
+        syncUploadSectionVisibility();
+
+        form.querySelectorAll('.u-ewr__field').forEach((field) => {
+          field.classList.remove('is-error');
+          field.classList.remove('is-filled');
+        });
+        openSuccess();
+      } catch (error) {
+        const responseCode = error && (error.code != null ? String(error.code) : '');
+        const responseMessage = error && error.message ? String(error.message) : '';
+
+        clearFieldErrorMessage('serviceOrderNo');
+        clearFieldErrorMessage('productSn');
+        clearFieldErrorMessage('userPhone');
+
+        if (responseCode === '99998') {
+          if (responseMessage === 'user_sys_order_no_invalid') {
+            setFieldErrorMessage('serviceOrderNo', '有効な注文番号を入力してください。');
+            setSubmitError('');
+            console.error(error);
+            return;
+          }
+
+          if (responseMessage === 'user_sys_order_no_exist') {
+            setFieldErrorMessage('serviceOrderNo', 'その注文番号は既に申請済みです。');
+            setSubmitError('');
+            console.error(error);
+            return;
+          }
+
+          if (responseMessage === 'user_sys_product_sn_invalid') {
+            setFieldErrorMessage('productSn', '有効なシリアルナンバーを入力してください。');
+            setSubmitError('');
+            console.error(error);
+            return;
+          }
+
+          if (responseMessage === 'user_sys_order_status_invalid') {
+            setFieldErrorMessage('serviceOrderNo', 'この注文はすでに保証申請済みです。再度ご提出しないでください。');
+            setSubmitError('');
+            console.error(error);
+            return;
+          }
+
+          if (responseMessage === 'user_sys_order_expired') {
+            setFieldErrorMessage('serviceOrderNo', 'この注文は登録可能期間を過ぎています。');
+            setSubmitError('');
+            console.error(error);
+            return;
+          }
+        }
+
+        setSubmitError('送信に失敗しました。しばらくしてから再度お試しください。');
+        console.error(error);
+      } finally {
+        setSubmitButtonState(false, originalText);
+      }
+    });
+
+
+       function scrollToFirstError() {
+      const firstErrorField = form.querySelector('.u-ewr__field.is-error');
+      const firstPhoneError = form.querySelector('.pr-form__field.has-error');
+      const uploadHasError = uploadError && uploadError.classList.contains('is-show') && uploadSection && !uploadSection.hidden;
+
+      let target = firstErrorField;
+
+      if (!target && firstPhoneError) {
+        target = firstPhoneError.closest('.u-ewr__field') || firstPhoneError;
+      }
+
+      if (!target && uploadHasError) {
+        target = uploadSection;
+      }
+
+      if (!target) return;
+
+      const rect = target.getBoundingClientRect();
+      const absoluteTop = window.pageYOffset + rect.top;
+      const offsetTop = Math.max(absoluteTop - 120, 0);
+
+      window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth'
+      });
+
+      const focusInput = target.querySelector('input:not([type="hidden"]), textarea, select, button');
+      if (focusInput && typeof focusInput.focus === 'function') {
+        focusInput.focus({ preventScroll: true });
+      }
+    }
+
+  })();
+
+
+
+</script>
+
+{% schema %}
+{
+  "name": "Ulike 延保登记",
+  "tag": "section",
+  "class": "section-u-extended-warranty-register",
+  "settings": [
+    {
+      "type": "text",
+      "id": "site_code",
+      "label": "站点编码",
+      "default": "JP"
+    },
+    {
+      "type": "text",
+      "id": "merchant_code",
+      "label": "商户编码",
+      "default": "ULIKE"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_page_note",
+      "label": "显示顶部说明",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "page_note",
+      "label": "顶部说明文案",
+      "default": "※ ご登録の前に必ず有償延長保証サービスをご購入ください。"
+    },
+    {
+      "type": "text",
+      "id": "register_tab_text",
+      "label": "登记页 Tab 文案",
+      "default": "延保登録"
+    },
+    {
+      "type": "text",
+      "id": "query_tab_text",
+      "label": "查询页 Tab 文案",
+      "default": "延保登録查询"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_query",
+      "label": "启用查询页 Tab",
+      "default": false
+    },
+    {
+      "type": "textarea",
+      "id": "query_placeholder_text",
+      "label": "查询页占位文案",
+      "default": "查询功能现阶段暂不支持。"
+    },
+    {
+      "type": "text",
+      "id": "service_info_title",
+      "label": "延保服务信息标题",
+      "default": "有償延長保証サービスの購入情報"
+    },
+    {
+      "type": "text",
+      "id": "service_email_label",
+      "label": "延保邮箱标签",
+      "default": "メールアドレス"
+    },
+    {
+      "type": "text",
+      "id": "service_order_label",
+      "label": "延保订单号标签",
+      "default": "注文番号"
+    },
+    {
+      "type": "text",
+      "id": "service_year_label",
+      "label": "延保年数标签",
+      "default": "購入年数"
+    },
+    {
+      "type": "text",
+      "id": "service_date_label",
+      "label": "延保订单时间标签",
+      "default": "注文日時"
+    },
+    {
+      "type": "text",
+      "id": "customer_info_title",
+      "label": "客户信息标题",
+      "default": "お客様購入情報"
+    },
+    {
+      "type": "text",
+      "id": "customer_name_label",
+      "label": "姓名标签",
+      "default": "氏名"
+    },
+    {
+      "type": "text",
+      "id": "customer_phone_label",
+      "label": "电话标签",
+      "default": "電話番号"
+    },
+    {
+      "type": "text",
+      "id": "customer_zip_label",
+      "label": "邮编标签",
+      "default": "郵便番号 (例: 123-4567)"
+    },
+    {
+      "type": "text",
+      "id": "customer_zip_placeholder",
+      "label": "邮编占位",
+      "default": "123-4567"
+    },
+    {
+      "type": "text",
+      "id": "customer_prefecture_label",
+      "label": "都道府县标签",
+      "default": "都道府県"
+    },
+    {
+      "type": "text",
+      "id": "customer_city_label",
+      "label": "市区町村标签",
+      "default": "市区町村"
+    },
+    {
+      "type": "text",
+      "id": "customer_address1_label",
+      "label": "住址1标签",
+      "default": "住所1"
+    },
+    {
+      "type": "text",
+      "id": "customer_address2_label",
+      "label": "住址2标签",
+      "default": "住所2"
+    },
+    {
+      "type": "text",
+      "id": "product_info_title",
+      "label": "本体购买信息标题",
+      "default": "本体購入情報"
+    },
+    {
+      "type": "text",
+      "id": "channel_label",
+      "label": "购买网站标签",
+      "default": "購入サイト"
+    },
+    {
+      "type": "text",
+      "id": "model_label",
+      "label": "购买型号标签",
+      "default": "購入モデル"
+    },
+    {
+      "type": "text",
+      "id": "product_order_label",
+      "label": "本体订单号标签",
+      "default": "注文番号"
+    },
+    {
+      "type": "text",
+      "id": "serial_label",
+      "label": "序列号标签",
+      "default": "シリアルナンバー(SN)"
+    },
+    {
+      "type": "textarea",
+      "id": "serial_note",
+      "label": "序列号说明",
+      "default": "※本体の側面、コードとの接続部分付近に印刷されている「SN:」で始まる番号です。"
+    },
+    {
+      "type": "text",
+      "id": "select_placeholder",
+      "label": "下拉默认文案",
+      "default": "選択してください"
+    },
+    {
+      "type": "image_picker",
+      "id": "upload_icon",
+      "label": "上传图标"
+    },
+    {
+      "type": "textarea",
+      "id": "upload_text",
+      "label": "上传说明",
+      "default": "注文写真・レシート・領収書などの購入証明書類をアップロードしてください。"
+    },
+    {
+      "type": "text",
+      "id": "submit_text",
+      "label": "提交按钮文案",
+      "default": "登録完了"
+    },
+    {
+      "type": "text",
+      "id": "submitting_text",
+      "label": "提交中按钮文案",
+      "default": "送信中..."
+    },
+    {
+      "type": "textarea",
+      "id": "footnote_1",
+      "label": "底部说明1",
+      "default": "※「登録完了」を押す前に、登録情報をスクリーンショットとして保存するのがおすすめです。"
+    },
+    {
+      "type": "textarea",
+      "id": "footnote_2",
+      "label": "底部说明2",
+      "default": "※ご登録に何か不明なところがございましたら、「jpsupport@ulikeglobal.com」にご連絡いただけます。"
+    },
+    {
+      "type": "image_picker",
+      "id": "success_icon",
+      "label": "成功图标"
+    },
+    {
+      "type": "text",
+      "id": "success_title",
+      "label": "成功标题",
+      "default": "登録完了"
+    },
+    {
+      "type": "textarea",
+      "id": "success_desc",
+      "label": "成功说明",
+      "default": "ご登録頂き誠にありがとうございました。ただいま有償延長保証サービスが有効になっております。"
+    },
+    {
+      "type": "textarea",
+      "id": "success_subdesc",
+      "label": "成功补充说明",
+      "default": "ご登録に何か不明なところがございましたら、「jpsupport@ulikeglobal.com」にご連絡いただけます。"
+    },
+    {
+      "type": "text",
+      "id": "error_required",
+      "label": "必填报错",
+      "default": "この項目は必須です。"
+    },
+    {
+      "type": "text",
+      "id": "error_email",
+      "label": "邮箱报错",
+      "default": "有効なメールアドレスを入力してください。"
+    },
+    {
+      "type": "text",
+      "id": "upload_required_error",
+      "label": "上传必填报错",
+      "default": "購入証明書類をアップロードしてください。"
+    },
+    {
+      "type": "text",
+      "id": "upload_limit_error",
+      "label": "上传数量限制报错",
+      "default": "アップロードできるファイルは最大5件です。"
+    },
+    {
+      "type": "text",
+      "id": "upload_size_error",
+      "label": "上传大小限制报错",
+      "default": "[name] のサイズが大きすぎます。10MB以内のファイルをアップロードしてください。"
+    },
+    {
+      "type": "text",
+      "id": "submit_fail_text",
+      "label": "提交失败提示",
+      "default": "送信に失敗しました。しばらくしてから再度お試しください。"
+    },
+    {
+      "type": "text",
+      "id": "query_order_error_text",
+      "label": "查询订单失败提示",
+      "default": "注文情報の照会に失敗しました。注文番号とメールアドレスをご確認ください。"
+    },
+    {
+      "type": "color",
+      "id": "page_bg",
+      "label": "页面背景",
+      "default": "#f2f2f2"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "主文字颜色",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "辅助文字颜色",
+      "default": "#8d8d8d"
+    },
+    {
+      "type": "color",
+      "id": "line_color",
+      "label": "下划线颜色",
+      "default": "#3a3a3a"
+    },
+    {
+      "type": "color",
+      "id": "tab_bg",
+      "label": "Tab 背景",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_bg",
+      "label": "激活 Tab 背景",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_text",
+      "label": "激活 Tab 文字",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "按钮背景",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text",
+      "label": "按钮文字",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "service_year",
+      "name": "延保年数",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "显示文案",
+          "default": "1年延長"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "提交值",
+          "default": "1_year"
+        }
+      ]
+    },
+    {
+      "type": "channel",
+      "name": "购买网站",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "显示文案",
+          "default": "Ulike公式サイト"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "提交值",
+          "default": "shopify"
+        }
+      ]
+    },
+    {
+      "type": "model",
+      "name": "购买型号",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "显示文案",
+          "default": "Air 10"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "提交值",
+          "default": "air_10"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ulike warranty",
+      "blocks": [
+        {
+          "type": "service_year",
+          "settings": {
+            "label": "1年延長",
+            "value": "1_year"
+          }
+        },
+        {
+          "type": "service_year",
+          "settings": {
+            "label": "2年延長",
+            "value": "2_year"
+          }
+        },
+        {
+          "type": "service_year",
+          "settings": {
+            "label": "3年延長",
+            "value": "3_year"
+          }
+        },
+        {
+          "type": "channel",
+          "settings": {
+            "label": "Ulike公式サイト",
+            "value": "shopify"
+          }
+        },
+        {
+          "type": "channel",
+          "settings": {
+            "label": "アマゾン",
+            "value": "amazon"
+          }
+        },
+        {
+          "type": "channel",
+          "settings": {
+            "label": "楽天市場",
+            "value": "rakuten"
+          }
+        },
+        {
+          "type": "channel",
+          "settings": {
+            "label": "ヤフー",
+            "value": "yahoo"
+          }
+        },
+        {
+          "type": "channel",
+          "settings": {
+            "label": "Qoo10",
+            "value": "qoo10"
+          }
+        },
+        {
+          "type": "channel",
+          "settings": {
+            "label": "Tiktok",
+            "value": "tiktok"
+          }
+        },
+        {
+          "type": "model",
+          "settings": {
+            "label": "Air 10",
+            "value": "air_10"
+          }
+        },
+        {
+          "type": "model",
+          "settings": {
+            "label": "Air Pro S",
+            "value": "air_pro_s"
+          }
+        },
+        {
+          "type": "model",
+          "settings": {
+            "label": "Ulike X Plus",
+            "value": "ulike_x_plus"
+          }
+        },
+        {
+          "type": "model",
+          "settings": {
+            "label": "Ulike Men",
+            "value": "ulike_men"
+          }
+        },
+        {
+          "type": "model",
+          "settings": {
+            "label": "Air Pro",
+            "value": "air_pro"
+          }
+        },
+        {
+          "type": "model",
+          "settings": {
+            "label": "Air 3",
+            "value": "air_3"
+          }
+        },
+        {
+          "type": "model",
+          "settings": {
+            "label": "Air 2",
+            "value": "air_2"
+          }
+        },
+        {
+          "type": "model",
+          "settings": {
+            "label": "Air Rose",
+            "value": "air_rose"
+          }
+        },
+        {
+          "type": "model",
+          "settings": {
+            "label": "Ulike X(OFF Line版)",
+            "value": "ulike_x_offline"
+          }
+        },
+        {
+          "type": "model",
+          "settings": {
+            "label": "Air 10 Pro(OFF Line版)",
+            "value": "air_10_pro_offline"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %} 

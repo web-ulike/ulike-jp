@@ -1,0 +1,130 @@
+{%- liquid
+  assign section_id = 'jp-x-wavelength-2026-' | append: section.id
+  assign desktop_image = section.settings.image | default: section.settings.image_mobile
+  assign mobile_image = section.settings.image_mobile | default: desktop_image
+  assign desktop_diagram_image = section.settings.diagram_image | default: section.settings.diagram_image_mobile
+  assign mobile_diagram_image = section.settings.diagram_image_mobile | default: desktop_diagram_image
+-%}
+
+<section id="{{ section_id }}" class="jp-x-wavelength-2026">
+  <div class="jp-x-wavelength-2026__stage">
+    <div class="jp-x-wavelength-2026__copy">
+      <h2 class="jp-x-wavelength-2026__title to-top">
+        <span>{{ section.settings.title_line_1 | escape }}</span>
+        <strong>{{ section.settings.title_line_2 | escape }}</strong>
+      </h2>
+      <p class="jp-x-wavelength-2026__description to-top" style="transition-delay: .1s"><span>{{ section.settings.wavelength | escape }}</span>{{ section.settings.description | escape }}</p>
+
+      <div class="jp-x-wavelength-2026__diagram{% if desktop_diagram_image != blank %} is-image{% endif %} to-top" style="transition-delay: .2s">
+        {%- if desktop_diagram_image != blank -%}
+          <picture>
+            {%- if mobile_diagram_image != blank -%}<source media="(max-width: 749px)" srcset="{{ mobile_diagram_image | image_url: width: 900 }}">{%- endif -%}
+            {{ desktop_diagram_image | image_url: width: 1600 | image_tag: class: 'jp-x-wavelength-2026__diagram-image', loading: 'lazy', widths: '274, 670, 900, 1200, 1600', alt: desktop_diagram_image.alt }}
+          </picture>
+        {%- else -%}
+          <div class="jp-x-wavelength-2026__range jp-x-wavelength-2026__range--left">
+            <b>{{ section.settings.left_range | escape }}</b><small>{{ section.settings.left_caption | escape }}</small>
+          </div>
+          <div class="jp-x-wavelength-2026__range jp-x-wavelength-2026__range--right">
+            <b>{{ section.settings.right_range | escape }}</b><small>{{ section.settings.right_caption | escape }}</small>
+          </div>
+          <div class="jp-x-wavelength-2026__spectrum" aria-hidden="true"><i></i></div>
+          <div class="jp-x-wavelength-2026__measure" aria-hidden="true"></div>
+          <p>{{ section.settings.diagram_label | escape }}</p>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="jp-x-wavelength-2026__image-wrap to-top" style="transition-delay: .3s">
+      {%- if desktop_image != blank -%}
+        <picture>
+          {%- if mobile_image != blank -%}<source media="(max-width: 749px)" srcset="{{ mobile_image | image_url: width: 900 }}">{%- endif -%}
+          {{ desktop_image | image_url: width: 2400 | image_tag: class: 'jp-x-wavelength-2026__image', loading: 'lazy', widths: '335, 670, 1000, 1262, 1600, 2000, 2400', alt: desktop_image.alt }}
+        </picture>
+      {%- else -%}
+        {{ 'image' | placeholder_svg_tag: 'jp-x-wavelength-2026__placeholder' }}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  #{{ section_id }} { background: #040407; color: #fff; overflow: hidden; }
+  #{{ section_id }} * { box-sizing: border-box; }
+  #{{ section_id }} .jp-x-wavelength-2026__stage { height: min(1577px, 82.135417vw); margin: 0 auto; max-width: 1920px; position: relative; width: 100%; }
+  #{{ section_id }} .jp-x-wavelength-2026__copy { inset: 0; pointer-events: none; position: absolute; }
+  #{{ section_id }} .jp-x-wavelength-2026__title { color: #fff; left: 0; line-height: 1.8; margin: 0; position: absolute; right: 0; text-align: center; top: 95px; }
+  #{{ section_id }} .jp-x-wavelength-2026__title span, #{{ section_id }} .jp-x-wavelength-2026__title strong { display: block; font-size: 48px; font-weight: 500; height: 86px; }
+  #{{ section_id }} .jp-x-wavelength-2026__title > span { color: #fff; }
+  #{{ section_id }} .jp-x-wavelength-2026__title strong { align-items: center; background: #c9ecff; color: #000; display: flex; font-weight: 700; height: 66px; justify-content: center; line-height: 1.8; margin: 11px auto 0; width: 324px; }
+  #{{ section_id }} .jp-x-wavelength-2026__description { font-size: 24px; left: 50%; line-height: 1.5; margin: 0; position: absolute; text-align: center; top: 349.6px; transform: translate(-50%, -50%); width: 934px; }
+  #{{ section_id }} .jp-x-wavelength-2026__description span { color: #c9ecff; font-size: 32px; font-weight: 600; }
+  #{{ section_id }} .jp-x-wavelength-2026__diagram { border-left: 1px solid #fff; border-right: 1px solid #fff; height: 158px; left: 50%; position: absolute; top: 423px; transform: translateX(-50%); width: 670px; }
+  #{{ section_id }} .jp-x-wavelength-2026__diagram.is-image { border: 0; }
+  #{{ section_id }} .jp-x-wavelength-2026__diagram picture, #{{ section_id }} .jp-x-wavelength-2026__diagram-image { display: block; height: 100%; width: 100%; }
+  #{{ section_id }} .jp-x-wavelength-2026__diagram-image { object-fit: contain; }
+  #{{ section_id }} .jp-x-wavelength-2026__range { position: absolute; text-align: center; top: 0; width: 172px; }
+  #{{ section_id }} .jp-x-wavelength-2026__range--left { left: 23px; }
+  #{{ section_id }} .jp-x-wavelength-2026__range--right { left: 353px; width: 194px; }
+  #{{ section_id }} .jp-x-wavelength-2026__range b { display: block; font-size: 30px; font-weight: 400; line-height: 1.4; }
+  #{{ section_id }} .jp-x-wavelength-2026__range small { display: block; font-size: 18px; line-height: 1.4; margin-top: -1px; }
+  #{{ section_id }} .jp-x-wavelength-2026__spectrum { background: linear-gradient(90deg, #00e57a 0%, #d7fa60 31.2%, #fffa4e 31.2%, #ff9a16 65.8%, #ff1d2b 100%); height: 10px; left: 0; position: absolute; right: 0; top: 82px; }
+  #{{ section_id }} .jp-x-wavelength-2026__spectrum i { border-left: 2px solid rgba(0, 0, 0, .48); display: block; height: 10px; left: 31.2%; position: absolute; top: 0; }
+  #{{ section_id }} .jp-x-wavelength-2026__measure { border-top: 1px solid #8a8a8a; height: 1px; left: 0; position: absolute; right: 0; top: 126px; }
+  #{{ section_id }} .jp-x-wavelength-2026__measure::before, #{{ section_id }} .jp-x-wavelength-2026__measure::after { border-bottom: 7px solid transparent; border-top: 7px solid transparent; content: ''; position: absolute; top: -7px; }
+  #{{ section_id }} .jp-x-wavelength-2026__measure::before { border-right: 9px solid #8a8a8a; left: 0; }
+  #{{ section_id }} .jp-x-wavelength-2026__measure::after { border-left: 9px solid #8a8a8a; right: 0; }
+  #{{ section_id }} .jp-x-wavelength-2026__diagram > p { background: #040407; font-size: 30px; left: 50%; line-height: 1.4; margin: 0; padding: 0 10px; position: absolute; text-align: center; top: 106px; transform: translateX(-50%); white-space: nowrap; }
+  #{{ section_id }} .jp-x-wavelength-2026__image-wrap { background: #343434; border-radius: 10px; height: 694px; left: 50%; overflow: hidden; position: absolute; top: 695px; transform: translateX(-50%); width: 1262px; }
+  #{{ section_id }} .jp-x-wavelength-2026__image { display: block; height: 160.438%; left: -19.310%; max-width: none; object-fit: fill; position: absolute; top: -50.231%; width: 141.165%; }
+  #{{ section_id }} .jp-x-wavelength-2026__placeholder { display: block; height: 100%; width: 100%; }
+  #{{ section_id }} .jp-x-wavelength-2026__placeholder { fill: #505057; }
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} .jp-x-wavelength-2026__stage { height: 593px; max-width: none; }
+    #{{ section_id }} .jp-x-wavelength-2026__title { font-family: "Noto Sans JP", sans-serif; top: 41px; }
+    #{{ section_id }} .jp-x-wavelength-2026__title span, #{{ section_id }} .jp-x-wavelength-2026__title strong { font-size: 30px; height: 54px; letter-spacing: 0; }
+    #{{ section_id }} .jp-x-wavelength-2026__title > span { color: #fff; font-weight: 500; }
+    #{{ section_id }} .jp-x-wavelength-2026__title strong { align-items: center; background: #c9ecff; color: #000; display: flex; font-weight: 700; height: 40.33px; justify-content: center; line-height: 1.8; margin-top: 7px; width: 199.342px; }
+    #{{ section_id }} .jp-x-wavelength-2026__description { color: #fff; font-family: "Noto Sans JP", sans-serif; font-size: 14px; font-weight: 400; line-height: 1.5; top: 157px; transform: translateX(-50%); width: 314px; }
+    #{{ section_id }} .jp-x-wavelength-2026__description span { color: #c9ecff; font-family: "Saans", "Noto Sans JP", sans-serif; font-size: 24px; font-weight: 600; }
+    #{{ section_id }} .jp-x-wavelength-2026__diagram { height: 72px; top: 244px; width: 274px; }
+    #{{ section_id }} .jp-x-wavelength-2026__range { width: 72px; }
+    #{{ section_id }} .jp-x-wavelength-2026__range--left { left: 9px; }
+    #{{ section_id }} .jp-x-wavelength-2026__range--right { left: 145px; width: 80px; }
+    #{{ section_id }} .jp-x-wavelength-2026__range b { color: #fff; font-family: "Saans", "Noto Sans JP", sans-serif; font-size: 13.275px; font-weight: 400; }
+    #{{ section_id }} .jp-x-wavelength-2026__range small { color: #fff; font-family: "Noto Sans JP", sans-serif; font-size: 7.965px; font-weight: 400; }
+    #{{ section_id }} .jp-x-wavelength-2026__spectrum { height: 4px; top: 35px; }
+    #{{ section_id }} .jp-x-wavelength-2026__spectrum i { border-left-width: 1px; height: 4px; }
+    #{{ section_id }} .jp-x-wavelength-2026__measure { top: 57px; }
+    #{{ section_id }} .jp-x-wavelength-2026__measure::before, #{{ section_id }} .jp-x-wavelength-2026__measure::after { border-bottom-width: 4px; border-top-width: 4px; top: -4px; }
+    #{{ section_id }} .jp-x-wavelength-2026__measure::before { border-right-width: 5px; }
+    #{{ section_id }} .jp-x-wavelength-2026__measure::after { border-left-width: 5px; }
+    #{{ section_id }} .jp-x-wavelength-2026__diagram > p { color: #fff; font-family: "Saans", "Noto Sans JP", sans-serif; font-size: 13.261px; font-weight: 400; padding: 0 4px; top: 48px; }
+    #{{ section_id }} .jp-x-wavelength-2026__image-wrap { border-radius: 2.65px; height: 202px; top: 335px; width: 335px; }
+    #{{ section_id }} .jp-x-wavelength-2026__image { height: 100%; left: 0; max-width: none; object-fit: cover; position: static; top: 0; width: 100%; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "jp-x-wavelength-2026",
+  "settings": [
+    { "type": "text", "id": "title_line_1", "label": "标题第一行", "default": "男性のヒゲに特化した" },
+    { "type": "text", "id": "title_line_2", "label": "标题高亮第二行", "default": "パワフル設計" },
+    { "type": "text", "id": "wavelength", "label": "说明高亮波长", "default": "550-1200nm" },
+    { "type": "textarea", "id": "description", "label": "说明文案", "default": "の広帯域の光を採用し、ヒゲのお手入れをサポート。太くて硬い毛にも配慮した設計で、効率的なムダ毛ケアが可能です。" },
+    { "type": "text", "id": "left_range", "label": "左侧波长范围", "default": "550-650nm" },
+    { "type": "text", "id": "left_caption", "label": "左侧说明", "default": "うぶ毛に作用" },
+    { "type": "text", "id": "right_range", "label": "右侧波长范围", "default": "650-1200nm" },
+    { "type": "text", "id": "right_caption", "label": "右侧说明", "default": "剛毛に作用" },
+    { "type": "text", "id": "diagram_label", "label": "波长图下方文案", "default": "Ulike 広波長" },
+    { "type": "image_picker", "id": "diagram_image", "label": "PC 波长图图片" },
+    { "type": "image_picker", "id": "diagram_image_mobile", "label": "M 波长图图片" },
+    { "type": "image_picker", "id": "image", "label": "PC 底部图片" },
+    { "type": "image_picker", "id": "image_mobile", "label": "M 底部图片" }
+  ],
+  "presets": [
+    { "name": "jp-x-wavelength-2026" }
+  ]
+}
+{% endschema %}

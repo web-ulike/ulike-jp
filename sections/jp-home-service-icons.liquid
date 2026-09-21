@@ -1,0 +1,307 @@
+{% liquid
+  assign sid = section.id
+  assign container_class = section.settings.container_class | default: ''
+%}
+
+<section class="jp-home-service-icons jp-home-service-icons--{{ sid }}">
+  <div class="{{ container_class }}">
+    <div class="jp-home-service-icons__inner">
+      <div class="jp-home-service-icons__list swiper">
+        <div class="swiper-wrapper">
+          {% for block in section.blocks %}
+            <div class="jp-home-service-icons__item swiper-slide" {{ block.shopify_attributes }}>
+              {% if block.settings.link != blank %}
+                <a class="jp-home-service-icons__link" href="{{ block.settings.link }}">
+              {% else %}
+                <div class="jp-home-service-icons__link">
+              {% endif %}
+
+              {% if block.settings.icon != blank %}
+                <div class="jp-home-service-icons__icon">
+                  <img
+                    src="{{ block.settings.icon | image_url: width: 120 }}"
+                    alt="{{ block.settings.icon.alt | escape }}"
+                    loading="lazy"
+                    width="{{ block.settings.icon.width }}"
+                    height="{{ block.settings.icon.height }}"
+                  >
+                </div>
+              {% endif %}
+
+              {% if block.settings.text != blank %}
+                <div class="jp-home-service-icons__text">{{ block.settings.text }}</div>
+              {% endif %}
+
+              {% if block.settings.link != blank %}
+                </a>
+              {% else %}
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .jp-home-service-icons--{{ sid }} {
+    --jp-home-service-icons-border: #ece7ea;
+    --jp-home-service-icons-text: #111111;
+    --jp-home-service-icons-bg: #ffffff;
+    --jp-home-service-icons-icon-size: 37px;
+    --jp-home-service-icons-gap: 10px;
+    padding: 33px 30px;
+    background: var(--jp-home-service-icons-bg);
+    border-bottom: 1px solid var(--jp-home-service-icons-border);
+  }
+
+  .jp-home-service-icons--{{ sid }} .jp-home-service-icons__inner {
+    position: relative;
+  }
+
+  .jp-home-service-icons--{{ sid }} .jp-home-service-icons__list {
+    overflow: hidden;
+  }
+
+  .jp-home-service-icons--{{ sid }} .jp-home-service-icons__list .swiper-wrapper {
+    display: grid;
+    grid-template-columns: repeat({{ section.blocks.size | at_most: 5 }}, minmax(0, 1fr));
+    gap: 0;
+  }
+
+  .jp-home-service-icons--{{ sid }} .jp-home-service-icons__item {
+    position: relative;
+    min-width: 0;
+  }
+
+  .jp-home-service-icons--{{ sid }} .jp-home-service-icons__item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 1px;
+    height: 22px;
+    background: #cfc7cb;
+    transform: translateY(-50%);
+  }
+
+  .jp-home-service-icons--{{ sid }} .jp-home-service-icons__link {
+    min-height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--jp-home-service-icons-gap);
+    text-decoration: none;
+    color: var(--jp-home-service-icons-text);
+    text-align: center;
+    padding: 8px 12px;
+  }
+
+  .jp-home-service-icons--{{ sid }} .jp-home-service-icons__icon {
+    width: var(--jp-home-service-icons-icon-size);
+    height: var(--jp-home-service-icons-icon-size);
+    flex: 0 0 var(--jp-home-service-icons-icon-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .jp-home-service-icons--{{ sid }} .jp-home-service-icons__icon img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    display: block;
+  }
+
+  .jp-home-service-icons--{{ sid }} .jp-home-service-icons__text {
+    font-size: 24px;
+    line-height: 1.3;
+    font-weight: 400;
+    white-space: nowrap;
+  }
+
+  @media screen and (max-width: 989px) {
+    .jp-home-service-icons--{{ sid }} {
+      --jp-home-service-icons-icon-size: 42px;
+      padding: 0;
+      border-top: 0;
+      border-bottom: 1px solid #dedede;
+    }
+
+    .jp-home-service-icons--{{ sid }} .container {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .jp-home-service-icons--{{ sid }} .jp-home-service-icons__list {
+      overflow: hidden;
+    }
+
+    .jp-home-service-icons--{{ sid }} .jp-home-service-icons__list .swiper-wrapper {
+      display: flex;
+      gap: 0;
+    }
+
+    .jp-home-service-icons--{{ sid }} .jp-home-service-icons__item {
+      width: 25%;
+      min-width: 25%;
+      flex: 0 0 25%;
+      position: relative;
+    }
+
+    .jp-home-service-icons--{{ sid }} .jp-home-service-icons__item:not(:last-child)::after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 24px;
+      right: 0;
+      width: 1px;
+      height: 44px;
+      background: #eeeeee;
+      transform: none;
+    }
+
+    .jp-home-service-icons--{{ sid }} .jp-home-service-icons__link {
+      min-height: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 16px 4px 14px;
+      gap: 8px;
+    }
+
+    .jp-home-service-icons--{{ sid }} .jp-home-service-icons__item:first-child .jp-home-service-icons__link,
+    .jp-home-service-icons--{{ sid }} .jp-home-service-icons__item:last-child .jp-home-service-icons__link {
+      justify-content: center;
+      text-align: center;
+      padding-left: 4px;
+      padding-right: 4px;
+    }
+
+    .jp-home-service-icons--{{ sid }} .jp-home-service-icons__icon {
+      width: var(--jp-home-service-icons-icon-size);
+      height: var(--jp-home-service-icons-icon-size);
+      flex: 0 0 var(--jp-home-service-icons-icon-size);
+    }
+
+    .jp-home-service-icons--{{ sid }} .jp-home-service-icons__text {
+      width: 100%;
+      font-size: 13px;
+      line-height: 1.25;
+      text-align: center;
+      white-space: nowrap;
+      color: #111111;
+    }
+  }
+</style>
+
+<script>
+  (() => {
+    const sectionEl = document.querySelector('.jp-home-service-icons--{{ sid }}');
+    if (!sectionEl) return;
+
+    const initServiceIconsSwiper = () => {
+      const swiperEl = sectionEl.querySelector('.jp-home-service-icons__list');
+      if (!swiperEl || typeof window.Swiper === 'undefined') return;
+
+      const isMobile = window.innerWidth <= 989;
+
+      if (swiperEl.swiper) {
+        swiperEl.swiper.destroy(true, true);
+      }
+
+      if (!isMobile) return;
+
+      new window.Swiper(swiperEl, {
+        slidesPerView: 4,
+        spaceBetween: 0,
+        freeMode: true,
+        watchOverflow: true
+      });
+    };
+
+    initServiceIconsSwiper();
+    window.addEventListener('resize', initServiceIconsSwiper);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "JP Home Service Icons",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "container_class",
+      "label": "Container class"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Service item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "送料無料"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "JP Home Service Icons",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "text": "送料無料"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "text": "100日返金保証"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "text": "お問い合わせ"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "text": "安全なお支払い"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "text": "2年保証"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

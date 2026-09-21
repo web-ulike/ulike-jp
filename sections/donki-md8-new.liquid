@@ -1,0 +1,125 @@
+<style>
+     #shopify-section-{{ section.id }} {
+    --text-color: {{  section.settings.text_color }};
+    --section-background: {{ section.settings.background }};
+    background:  {% if section.settings.bg_image != blank %}url('{{ section.settings.bg_image | image_url  }}') {% endif %} var(--section-background); no-repeat 100% 100%;
+    background-size: cover;
+  }
+  @media only screen and (min-width: 768px) {
+  }
+@media only screen and (min-width: 390px) {
+ 
+}
+.donki-md8-new__wrapper {
+    text-align: center;
+    padding: 50px 15px;
+    color: #ffffff;
+}
+  .md8_new_tle {
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+  .donki-md8-new__wrapper img{
+    width:100%;
+    display:block;
+    margin-top:25px;
+  }
+  .md8_new_txt {
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 25px;
+     text-align: left;
+}
+  .md8_new_note {
+    font-size: 8px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    margin-top: 10px;
+    text-align: left;
+}
+  .donki-md8-new__wrapper .donki_md8-new-video{
+    width:100%;
+    position:relative;
+     margin-top:25px;
+}
+</style>
+  <section>
+     <div class="donki-md8-new__wrapper">
+       <div class="md8_new_tle js-observer">{{ section.settings.tle }}</div>
+
+       {%- if section.settings.image -%}
+        <img src="{{ section.settings.image | image_url }}" alt="" class="donki_md1-bg scale_img" width="{{ section.settings.image.width }}" height="{{ section.settings.image.height }}">
+        {%- endif -%}
+
+{%- if section.settings.video != blank -%}
+  
+    <div class="donki_md8-new-video to-top">
+       {%- assign video_url = section.settings.video -%}
+    {{- video_url | video_tag: controls: false, autoplay: true, playsinline: true, muted: true, loop: true -}}
+    </div>
+ {%- endif -%}
+
+       
+       <div class="md8_new_txt to-top">{{ section.settings.txt }}</div>
+        <div class="md8_new_note to-top">{{ section.settings.note }}</div>
+    </div>
+    
+  </section>
+{% schema %}
+{
+  "name": "Donki Md8 New",
+  "class": "shopify-section--donki-md8-new", 
+  "settings": [
+     {
+      "type": "richtext",
+      "id": "tle",
+      "label": "Title"
+    },
+      {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        },
+     {
+      "type": "video",
+      "id": "video",
+      "label": "Video",
+      "info": "Replaces the external video if both are set."
+    },
+     {
+      "type": "richtext",
+      "id": "txt",
+      "label": "Text"
+    },
+     {
+      "type": "richtext",
+      "id": "note",
+      "label": "Note"
+    },
+    {
+          "type": "image_picker",
+          "id": "bg_image",
+          "label": "Background Images"
+        },
+
+      {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#F9F8F6"
+    }
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "Donki Md8 New"
+    }
+  ]
+}
+{% endschema %}

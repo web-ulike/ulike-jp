@@ -1,0 +1,168 @@
+<style>
+/* md6__inner start*/
+     #shopify-section-{{ section.id }} {
+    --text-color: {{  section.settings.text_color }};
+    --section-background: {{ section.settings.background }};
+    /* background:var(--section-background); */
+    background:  {% if section.settings.bg_image != blank %}url('{{ section.settings.bg_image | image_url  }}') {% endif %} var(--section-background); no-repeat 100% 100%;
+    background-size: cover;
+  }
+.md6__inner{
+  /* background: #F9F8F6; */
+  padding: 12vw 0;
+}
+.md6_tle-box{
+  display: inline-flex;
+  flex-direction: column;
+  margin-bottom: 12vw;
+}
+.md6-tle-inner{
+  color: #3F3636;
+font-size: 5.3vw;
+font-style: normal;
+font-weight: 400;
+line-height: 125%;
+margin-left: 9.3vw;
+padding-bottom: 4.5vw;
+position: relative;
+padding-right: 8vw;
+}
+.md6_tle-box::after{
+  content: '';
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: #000;
+  left: 0;
+}
+.md6-bt-box{
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 18.5vw;
+  margin-right: 4.8vw;
+  gap: 20px;
+}
+.md6-bt-box img{
+  width: 100%;
+}
+.md6_bt-img{
+  flex: 1 1 calc(50% - 10px);
+}
+  a.md5_return-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:  #FFF;
+    font-size: 2.66vw;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 180%;
+    letter-spacing: 0.5px;
+    background: #E0004D;
+    padding: 3.46vw;
+    gap: 2.13vw;
+}
+@media only screen and (min-width: 768px) {
+  .md6__inner {
+    padding: 60px 0;
+}
+.md6_tle-box {
+    margin-bottom: 60px;
+}
+.md6-tle-inner {
+    font-size: 26px;
+    margin-left: 46px;
+    padding-bottom: 23px;
+    padding-right: 40px;
+}
+.md6-bt-box {
+    margin-left: 92px;
+    margin-right: 24px;
+}
+    a.md5_return-btn {
+    font-size: 12px;
+    padding: 15px;
+    gap: 10px;
+}
+}
+/* md6__inner end*/
+</style>
+  <section>
+    <div class="md6__inner">
+      <div class="md6-inner-top">
+       <div class="md6_tle-box">
+        <div class="md6-tle-inner js-observer"><p>{{ section.settings.tle }}</p></div>
+       </div>
+        <div class="md6-bt-box">
+          {%- for block in section.blocks -%}
+          <div class="md6_bt-img to-top" style="transition-delay: {{ forloop.index0 | times: 0.1 | plus: 0.1  }}s;" {{ block.shopify_attributes }}>
+           {%- if block.settings.image -%}
+              <img src="{{ block.settings.image | image_url }}" alt="">
+            {%- endif -%}
+          </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+      {%- if section.settings.btn_text != blank -%}
+      <div class="to-top">
+        <a href="{{ section.settings.btn_link }}" class="md5_return-btn">{{ section.settings.btn_text  }}
+          <svg xmlns="http://www.w3.org/2000/svg" width="5" height="7" viewBox="0 0 5 7" fill="none">
+            <path d="M1 0.799805L4 3.4998L1 6.1998" stroke="white" stroke-width="0.6" stroke-linecap="square"/>
+          </svg>
+        </a>
+      </div>
+    {%- endif -%}
+  </section>
+{% schema %}
+{
+  "name": "Brand Md8",
+  "class": "shopify-section--brand-md8", 
+  "settings": [
+        {
+          "type": "image_picker",
+          "id": "bg_image",
+          "label": "Background Images"
+        },
+      {
+      "type": "text",
+      "id": "tle",
+      "label": "Title"
+    },
+         {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Button Text"
+    },
+      {
+      "type": "url",
+      "id": "btn_link",
+      "label": "Button Link"
+    },
+      {
+      "type": "color_background",
+      "id": "background",
+      "label": "Background",
+      "default": "#F9F8F6"
+    }
+  ],
+  "blocks": [
+                {
+      "type": "item",
+      "name": "item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Md8"
+    }
+  ]
+}
+{% endschema %}

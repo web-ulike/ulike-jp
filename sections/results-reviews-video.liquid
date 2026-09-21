@@ -1,0 +1,1877 @@
+
+<style>
+.results-reviews-video {
+  padding: 50px 0;
+}
+.results-reviews-video .results-reviews-video-title {
+  color: #190a0a;
+  font-size: 40px;
+  line-height: 1.14;
+  letter-spacing: -0.64px;
+  font-weight: 500;
+  margin: 0;
+}
+.results-reviews-video .results-reviews-video-tabs {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  margin-top: 24px;
+  border-bottom: 1px solid #dbdbdb;
+}
+
+.results-reviews-video .results-reviews-video-tab {
+  color: #190a0a;
+  font-size: 16px;
+  line-height: 1;
+  letter-spacing: 1.359px;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  height: 48px;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  margin-bottom: -1px;
+}
+
+.results-reviews-video .results-reviews-video-tab.active {
+  border-bottom: 2px solid #000;
+  font-weight: 500;
+}
+
+.results-reviews-video .results-reviews-video-cont {
+  position: relative;
+  z-index: 1;
+  max-width: 1494px;
+  margin: 0 auto;
+  overflow: hidden;
+  margin-top: 30px;
+}
+
+.results-reviews-video .results-reviews-video-arraws {
+  position: absolute;
+  width: 100%;
+  top: 32.95%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+}
+
+.results-reviews-video .results-reviews-video-arraw {
+  width: clamp(40px, 2.917vw, 56px);
+  cursor: pointer;
+  z-index: 2;
+}
+
+.results-reviews-video .results-reviews-video-arraw.swiper-button-disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.results-reviews-video .results-reviews-video-arraw:first-child {
+  transform: scale(-1, -1);
+}
+
+.results-reviews-video .results-reviews-video-arraw svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.results-reviews-video .results-reviews-video-arraw:hover circle {
+  fill: #000;
+}
+
+.results-reviews-video .results-reviews-video-arraw:hover path {
+  fill: #fff;
+}
+
+.results-reviews-video .results-reviews-video-list {
+  display: flex;
+}
+
+.results-reviews-video .results-reviews-video-item {
+  width: 240px;
+  flex-shrink: 0;
+}
+
+.results-reviews-video .results-reviews-video-img {
+  position: relative;
+  z-index: 1;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.results-reviews-video .results-reviews-video-pos {
+  position: relative;
+  padding-top: 177.1%;
+  z-index:1;
+}
+  
+.results-reviews-video .results-reviews-video-img .img {
+  position: absolute;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.results-reviews-video .results-reviews-video-img .video-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.results-reviews-video .results-reviews-video-img svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+
+.results-reviews-video .results-reviews-video-tag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  padding: 8px;
+  background: rgba(25, 10, 10, 0.5);
+  color: #fff;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0.6px;
+}
+
+.results-reviews-video .results-reviews-video-muted {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  cursor: pointer;
+  width: 30px;
+  cursor: pointer;
+}
+
+.results-reviews-video .h-muted {
+  display: none;
+}
+
+.results-reviews-video .muted-no .h-muted {
+  display: block;
+}
+
+.results-reviews-video .muted-no .n-muted {
+  display: none;
+}
+
+.results-reviews-video .results-reviews-video-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  cursor: pointer;
+  pointer-events: none;
+}
+
+.results-reviews-video .play-no .results-reviews-video-play {
+  display: none;
+}
+
+.results-reviews-video .results-reviews-video-play .v-zt {
+  display: none;
+}
+
+.results-reviews-video .results-reviews-video-share {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 2;
+  width: 40px;
+  text-align: center;
+  gap: 5px;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.57;
+}
+
+.results-reviews-video .results-reviews-video-dz,.results-reviews-video .results-reviews-video-fx {
+  cursor: pointer;
+  width:100%;
+}
+
+.results-reviews-video .results-reviews-video-dz.active path {
+  stroke: rgba(25, 10, 10, 0.6);
+  fill: #fff;
+}
+
+.results-reviews-video .results-reviews-video-text {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding:10px;
+  border-radius: 4px;
+  border: 1px solid #e5e5e5;
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+.results-reviews-video .pro-img {
+  width: 68px;
+  display: block;
+}
+
+.results-reviews-video .results-reviews-product-txt{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.results-reviews-video .results-reviews-video-name {
+  color: #000;
+  font-size: 16px;
+  line-height: 1.1;
+  letter-spacing: 0.36px;
+}
+
+.results-reviews-video .results-reviews-video-price {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.results-reviews-video .n-price {
+  color: #190a0a;
+  line-height: 1.5;
+  letter-spacing: 0.36px;
+}
+
+.results-reviews-video .d-price {
+  color: #b3adad;
+  line-height: 1.5;
+  letter-spacing: 0.36px;
+  text-decoration: line-through;
+}
+
+.results-reviews-video .results-reviews-video-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #190a0a;
+  font-size: 12px;
+  line-height: 1.5;
+  letter-spacing: 0.36px;
+  background: linear-gradient(0deg, #000 0%, #000 100%) no-repeat;
+  background-size: 100% 1px;
+  background-position: left bottom;
+  cursor: pointer;
+  margin-top: 3px;
+  text-transform: uppercase;
+}
+
+.results-reviews-video .results-reviews-video-share-popup {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(25, 10, 10, 0.5);
+  z-index: 10;
+  padding: 20px;
+  display: none;
+}
+
+.results-reviews-video .results-reviews-video-share-cont {
+  width: 95%;
+  max-width: 518px;
+  background: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 30px 22px;
+}
+
+.results-reviews-video .results-reviews-video-share-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #190a0a;
+  font-size: 16px;
+  line-height: 1.68;
+}
+
+.results-reviews-video .results-reviews-video-share-close {
+  width: 24px;
+  cursor: pointer;
+}
+
+.results-reviews-video .results-reviews-video-share-top svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.results-reviews-video .results-reviews-video-share-list {
+  display: flex;
+  gap: 22px;
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+.results-reviews-video .results-reviews-video-share-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 60px;
+  flex-shrink: 0;
+  color: #190a0a;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.results-reviews-video .results-reviews-video-share-item svg,.results-reviews-video .results-reviews-video-share-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.results-reviews-video .results-reviews-video-copy {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-radius: 4px;
+  border: 1px solid #808284;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.results-reviews-video .results-reviews-video-copy-txt {
+  flex: 1;
+  color: #190a0a;
+  font-size: 14px;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.results-reviews-video .results-reviews-video-copy-btn {
+  display: flex;
+  height: 36px;
+  padding: 0 13px;
+  align-items: center;
+  border-radius: 4px;
+  background: #000;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.results-reviews-video .results-reviews-video-copy-btn:hover {
+  background: #3f3636;
+}
+
+.results-reviews-video .results-reviews-video-popup {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(25, 10, 10, 0.7);
+  z-index: 9;
+  padding: 20px;
+  display: none;
+}
+.open-popup {
+  overflow: hidden;
+}
+.open-popup .results-reviews-video .results-reviews-video-popup {
+  display: block;
+}
+
+.results-reviews-video .results-popu-top {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  z-index: 2;
+}
+
+.results-reviews-video .results-popu-top svg {
+  display: block;
+  width: 35px;
+  height: auto;
+  cursor: pointer;
+}
+
+.results-reviews-video .results-popu-cont {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.results-reviews-video .results-popu-arraws {
+  position: absolute;
+  width: 100%;
+  padding: 0 60px;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+  z-index: 999;
+}
+
+.results-reviews-video .results-popu-arraw {
+  width: 56px;
+  cursor: pointer;
+  pointer-events: all;
+  filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.3));
+}
+
+.results-reviews-video .results-popu-arraw svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.results-reviews-video-popup .results-reviews-video-text {
+  background: #fff;
+  margin-top: 0;
+}
+.results-reviews-video-popup .results-reviews-video-img {
+  background: #fff;
+}
+.results-reviews-video-popup .results-reviews-video-img .img {
+  opacity: 0;
+}
+
+.results-reviews-video-popup .swiper-slide-active .results-reviews-video-play {
+  display: none;
+}
+
+.results-reviews-video-popup .results-reviews-video-img::before{
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.4);
+  z-index: 2;
+}
+
+.results-reviews-video-popup .swiper-slide-active .results-reviews-video-img::before{
+  display: none;
+}
+
+.small-window-ulike {
+  position: fixed;
+  right: 50%;
+  bottom: 50%;
+  transform: translate(50%, 50%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28.646vw;
+  max-width: 550px;
+  opacity: 0;
+  pointer-events: none;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.small-box.small-window-ulike {
+  transition: all 0.8s ease-in-out;
+}
+.small-mobile.small-window-ulike {
+  transition: right 0.8s ease;
+}
+.small-box.small-window-ulike,
+.small-mobile.small-window-ulike {
+  right: 20px;
+  bottom: 80px;
+  transform: translate(0, 0);
+  width: clamp(105px, 9.375vw, 180px);
+  opacity: 1;
+  pointer-events: all;
+}
+
+.small-window-ulike .small-window-ulike-cont {
+  width: 100%;
+}
+
+.small-window-ulike .small-window-ulike-v {
+  width: 100%;
+  padding-top: 177.6%;
+  position: relative;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.small-window-ulike .small-window-video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.small-window-ulike .small-window-ulike-close {
+  position: absolute;
+  width: clamp(12px, 1.04vw, 20px);
+  height: clamp(12px, 1.04vw, 20px);
+  right: clamp(5px, 0.52vw, 10px);
+  top: clamp(5px, 0.52vw, 10px);
+  cursor: pointer;
+  z-index: 3;
+}
+
+.small-window-ulike .small-window-ulike-close::after{
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 40px;
+  height: 40px;
+  display: block;
+}
+
+.small-window-ulike .small-window-ulike-close svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .small-window-ulike {
+    bottom: 80px;
+    right: -100%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .results-reviews-video-popup .results-reviews-video-item {
+    width: 28.646vw;
+    max-width: 500px;
+  }
+
+  .results-reviews-video-popup .results-reviews-video-text {
+    padding: 10px 15px;
+  }
+
+  .results-reviews-video-popup .results-reviews-video-tag {
+    padding: clamp(8px, 0.9375vw, 18px);
+    font-size: clamp(12px, 1.4vw, 27px);
+    left: clamp(10px, 1.146vw, 22px);
+    top: clamp(10px, 1.146vw, 22px);
+  }
+
+  .results-reviews-video-popup .results-reviews-video-muted {
+    width: clamp(30px, 3.542vw, 68px);
+    top: clamp(10px, 1.146vw, 22px);
+    right: clamp(10px, 1.146vw, 22px);
+  }
+  .results-reviews-video-popup .results-reviews-video-play {
+    width: clamp(40px, 3.75vw, 72px);
+  }
+  .results-reviews-video-popup .results-reviews-video-share {
+    width: clamp(40px, 4.74vw, 91px);
+    bottom: clamp(10px, 1.146vw, 22px);
+    right: clamp(10px, 1.146vw, 22px);
+    gap: 9px;
+    font-size: clamp(12px, 1.67vw, 32px);
+  }
+  .results-reviews-video-popup .results-reviews-video-name {
+    font-size: clamp(12px, 1.67vw, 32px);
+  }
+  .results-reviews-video-popup .results-reviews-video-price {
+    font-size: clamp(12px, 1.4vw, 27px);
+  }
+  .results-reviews-video-popup .results-reviews-video-btn {
+    font-size: clamp(12px, 1.4vw, 27px);
+  }
+  .results-reviews-video-popup .pro-img {
+    width: clamp(68px, 8.125vw, 156px);
+  }
+}
+
+@media (max-width: 1300px) {
+  .results-reviews-video .results-reviews-video-arraw,
+  .results-reviews-video .results-popu-arraw {
+    width: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .results-reviews-video .results-reviews-video-title {
+    font-size: 24px;
+    text-align: center;
+  }
+  .results-reviews-video-tabs::before {
+    position: absolute;
+    content: '';
+    display: block;
+    width: calc(100% + 48px);
+    height: 1px;
+    background-color: #dbdbdb;
+    bottom: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 0;
+  }
+  .results-reviews-video .results-reviews-video-arraws {
+    display: none;
+  }
+  .results-reviews-video .results-reviews-video-share-list {
+    gap: 10px;
+    margin-top: 15px;
+  }
+  .results-reviews-video .results-reviews-video-share-item {
+    width: 50px;
+    gap: 5px;
+  }
+  .results-reviews-video .results-reviews-video-tabs{
+    justify-content: center;
+  }
+}
+</style>
+<section class="section-box">
+  <results-reviews-video>
+    <div class="results-reviews-video">
+      <div class="container">
+        <div class="results-reviews-video-top">
+          {%- if section.settings.text != blank -%}
+            <h3 class="results-reviews-video-title">{{ section.settings.text }}</h3>
+          {%- endif -%}
+          {% assign sub_items = section.settings.items_json | split: ','  %}
+          {%- if sub_items.size >0 -%}
+            <div class="results-reviews-video-tabs">
+              {% for item in sub_items %}
+                <div class="results-reviews-video-tab {% if forloop.index == 1 %}active{% endif %}" data-type="{{ forloop.index }}">{{ item }}</div>
+              {% endfor %}
+            </div>
+          {%- endif -%}
+        </div>
+        <div class="results-reviews-video-cont">
+          <div class="results-reviews-video-list swiper-wrapper">
+          </div>
+          <div class="results-reviews-video-arraws">
+            <div class="results-reviews-video-arraw video-swiper-prev">
+              <svg xmlns="http://www.w3.org/2000/svg" width="57" height="57" viewBox="0 0 57 57" fill="none">
+                <circle cx="28" cy="28" r="28" transform="matrix(1 -8.74228e-08 -8.74228e-08 -1 0.28125 56.4575)"
+                  fill="#FBFAF4" />
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M23.2409 46.7505L22.5338 47.4576L21.1195 46.0434L21.8267 45.3363L28.2824 38.8806L34.3676 32.7954C35.1486 32.0143 36.415 32.0143 37.196 32.7954L29.6966 40.2948L23.2409 46.7505ZM40.7408 27.8363C41.1314 28.2268 41.1314 28.86 40.7408 29.2505C40.6094 29.382 40.4503 29.4693 40.2824 29.5122L40.2824 29.5434L40.0359 29.5434L40.0316 29.5434L39.2824 29.5434L29.0318 29.5434L18.7812 29.5434L16.2812 29.5434C15.1766 29.5434 14.2812 28.648 14.2812 27.5434L18.7812 27.5434L37.6195 27.5434L21.8266 11.7505L21.1195 11.0434L22.5338 9.62922L23.2409 10.3363L40.7408 27.8363Z"
+                  fill="#190A0A" />
+              </svg>
+            </div>
+            <div class="results-reviews-video-arraw video-swiper-next">
+              <svg xmlns="http://www.w3.org/2000/svg" width="57" height="57" viewBox="0 0 57 57" fill="none">
+                <circle cx="28" cy="28" r="28" transform="matrix(1 -8.74228e-08 -8.74228e-08 -1 0.28125 56.4575)"
+                  fill="#FBFAF4" />
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M23.2409 46.7505L22.5338 47.4576L21.1195 46.0434L21.8267 45.3363L28.2824 38.8806L34.3676 32.7954C35.1486 32.0143 36.415 32.0143 37.196 32.7954L29.6966 40.2948L23.2409 46.7505ZM40.7408 27.8363C41.1314 28.2268 41.1314 28.86 40.7408 29.2505C40.6094 29.382 40.4503 29.4693 40.2824 29.5122L40.2824 29.5434L40.0359 29.5434L40.0316 29.5434L39.2824 29.5434L29.0318 29.5434L18.7812 29.5434L16.2812 29.5434C15.1766 29.5434 14.2812 28.648 14.2812 27.5434L18.7812 27.5434L37.6195 27.5434L21.8266 11.7505L21.1195 11.0434L22.5338 9.62922L23.2409 10.3363L40.7408 27.8363Z"
+                  fill="#190A0A" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="results-reviews-video-share-popup">
+        <div class="results-reviews-video-share-cont">
+          <div class="results-reviews-video-share-top">
+            <div class="results-reviews-video-share-t">Share</div>
+            <div class="results-reviews-video-share-close">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+                <path d="M19.7992 4.69995L4.19922 20.3" stroke="#756B6E" stroke-width="1.68" stroke-linecap="round"
+                  stroke-linejoin="round" />
+                <path d="M4.19922 4.69995L19.7992 20.3" stroke="#756B6E" stroke-width="1.68" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </div>
+          </div>
+          <div class="results-reviews-video-share-list">
+          </div>
+          <div class="results-reviews-video-copy">
+            <div class="results-reviews-video-copy-txt" title="">
+            </div>
+            <div class="results-reviews-video-copy-btn">Copy</div>
+          </div>
+        </div>
+      </div>
+      <div class="results-reviews-video-popup">
+        <div class="results-popu-top">
+          <div class="results-popu-close">
+            <svg xmlns="http://www.w3.org/2000/svg" width="41" height="41" viewBox="0 0 41 41" fill="none">
+              <path d="M33.1797 7.55164L7.17969 33.5516" stroke="white" stroke-width="2.8" stroke-linecap="round"
+                stroke-linejoin="round" />
+              <path d="M7.17969 7.55164L33.1797 33.5516" stroke="white" stroke-width="2.8" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </div>
+          <div class="results-popu-zoom">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M2.52344 5.95608C2.52344 4.65821 3.57557 3.60608 4.87344 3.60608H35.127C36.4248 3.60608 37.477 4.65821 37.477 5.95608V19.029H34.777V6.30608H5.22344V33.6061H17.3924V36.3061H4.87344C3.57557 36.3061 2.52344 35.2539 2.52344 33.9561V5.95608Z" fill="white"/>
+              <rect x="20.4824" y="22.0828" width="16.9941" height="14.2233" rx="1" fill="white"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M13.2281 17.4123L8.2168 12.7225L10.0617 10.7511L15.073 15.4409L13.2281 17.4123Z" fill="white"/>
+              <path d="M19.5981 21.5261L9.81147 20.7561L18.1817 11.812L19.5981 21.5261Z" fill="white"/>
+            </svg>
+          </div>
+        </div>
+        <div class="results-popu-cont">
+          <div class="results-popu-swiper swiper-wrapper">
+          </div>
+        </div>
+        <div class="results-popu-arraws">
+          <div class="results-popu-arraw video-swiper-prev-popup">
+            <svg xmlns="http://www.w3.org/2000/svg" width="57" height="57" viewBox="0 0 57 57" fill="none">
+              <circle cx="28.8169" cy="28.7557" r="28" transform="rotate(-180 28.8169 28.7557)" fill="#190A0A"
+                fill-opacity="0.6" />
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M33.8573 47.0486L34.5644 47.7557L35.9786 46.3415L35.2715 45.6344L28.8158 39.1787L22.7306 33.0935C21.9495 32.3124 20.6832 32.3124 19.9021 33.0935L27.4016 40.5929L33.8573 47.0486ZM16.3573 28.1344C15.9668 28.5249 15.9668 29.1581 16.3573 29.5486C16.4888 29.6801 16.6478 29.7673 16.8158 29.8103L16.8158 29.8415L17.0622 29.8415L17.0666 29.8415L17.8158 29.8415L28.0663 29.8415L38.3169 29.8415L40.817 29.8415C41.9215 29.8415 42.817 28.9461 42.817 27.8415L38.3169 27.8415L19.4786 27.8415L35.2715 12.0486L35.9786 11.3415L34.5644 9.92731L33.8573 10.6344L16.3573 28.1344Z"
+                fill="white" />
+            </svg>
+          </div>
+          <div class="results-popu-arraw video-swiper-next-popup">
+            <svg xmlns="http://www.w3.org/2000/svg" width="57" height="57" viewBox="0 0 57 57" fill="none">
+              <circle cx="28" cy="28" r="28" transform="matrix(1 -8.74228e-08 -8.74228e-08 -1 0.816895 56.7557)"
+                fill="#190A0A" fill-opacity="0.6" />
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M23.7765 47.0486L23.0694 47.7557L21.6552 46.3415L22.3623 45.6344L28.818 39.1787L34.9032 33.0935C35.6843 32.3124 36.9506 32.3124 37.7317 33.0935L30.2322 40.5929L23.7765 47.0486ZM41.2765 28.1344C41.667 28.5249 41.667 29.1581 41.2765 29.5486C41.145 29.6801 40.986 29.7673 40.818 29.8103L40.818 29.8415L40.5716 29.8415L40.5672 29.8415L39.818 29.8415L29.5674 29.8415L19.3169 29.8415L16.8168 29.8415C15.7122 29.8415 14.8168 28.9461 14.8168 27.8415L19.3169 27.8415L38.1552 27.8415L22.3623 12.0486L21.6552 11.3415L23.0694 9.92731L23.7765 10.6344L41.2765 28.1344Z"
+                fill="white" />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="small-window-ulike">
+        <div class="small-window-ulike-cont">
+          <div class="small-window-ulike-v">
+            <div class="small-window-ulike-close">
+              <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
+                <path d="M17.2188 4.42651L4.21875 17.4265" stroke="white" stroke-width="1.4" stroke-linecap="round"
+                  stroke-linejoin="round" />
+                <path d="M4.21875 4.42651L17.2188 17.4265" stroke="white" stroke-width="1.4" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </div>
+            <video src="" playsinline="true" class="small-window-video"></video>
+          </div>
+        </div>
+      </div>
+    </div>
+    <canvas id="canvas" style="display:none;"></canvas>
+  </results-reviews-video>
+</section>
+                  
+<script>
+  class resultsReviewsVideo extends HTMLElement {
+    constructor() {
+      super();
+      this.el = this
+      this.videoType = "1" //视频类型
+      this.videoSwiper = null //视频swiper
+      this.popupSwiper = null //弹窗视频swiper
+      this.videoEl = null //当前播放视频元素
+      this.handleEnded = null; // 保存事件处理器
+      this.realIndex = null //当前视频索引
+      this.currentShare = null //当前分享
+      this.isSmall = false //是否是小窗口放大
+      this.smallIndex = null //小窗口视频索引
+      this.currentTime = 0 //当前播放时间
+
+      this.data = [  //视频数据
+        {% for block in section.blocks %}
+        {% assign img_url =  block.settings.image | image_url  %}
+          {
+            id: '{{ block.id }}',
+            type: '{{ block.settings.text3 }}',
+            {% if block.settings.image != blank %}
+              img: '{{ block.settings.image | image_url }}',
+            {% else %}
+              img: '',
+            {% endif %}
+            tag:'{{ block.settings.tag_txt }}',
+            {% if block.settings.video != blank %}
+              video: '{{-
+                    block.settings.video
+                    | video_tag:
+                      controls: false,
+                      playsinline: true,
+                      muted: true,
+                      class:'results-reviews-video-el video-box'
+                  -}}',
+              video1: '{{-
+                    block.settings.video
+                    | video_tag:
+                      controls: false,
+                      playsinline: true,
+                      muted: true,
+                      class:'results-reviews-video-el video-box'
+                  -}}',
+              videoJson: {{ block.settings.video | json }},
+            {% else %}
+              video:'',
+              videoJson:false,
+            {% endif %}
+            {% if block.settings.image_pro != blank %}
+              proImg: '{{ block.settings.image_pro | image_url }}',
+            {% else %}
+              proImg: '',
+            {% endif %}
+            {% if block.settings.product != blank %}
+              {% assign product = block.settings.product  %}
+              {% assign media = block.settings.product.media[0] | json   %}
+              proName: '{{ product.title }}',
+              proPrice: '{{ product.selected_or_first_available_variant.metafields.custom["page_price"] | times: 100 | money }}',
+              proPriceOld: '{{ product.price | money }}',
+              proId: '{{ product.selected_or_first_available_variant.id }}',
+              code:'{{ product.metafields.custom["discount_code"] }}',
+              media:{{ media }},
+            {% else %}
+              proName: '',
+              proPrice: '',
+              proPriceOld: '',
+              proId: '',
+              code:'',
+              media:'',
+            {% endif %}
+            proBtn: '{{ block.settings.text1 }}',
+            dzTxt: '{{ block.settings.text2 }}',
+            muted: true,
+            shareObj:[{{ block.settings.share_json | replace: "'", '"'}}]
+          }{% if forloop.last == false %},{% endif %}
+        {% endfor %}
+      ]
+      this.init();
+    }
+    init() {
+      let that = this;
+      this.setDzData();
+      let list = that.data.filter(item => item.type === "1")
+      this.buildHtml(list);
+      // 合并监听点击事件
+      this.el.addEventListener('click', (event) => {
+        const target = event.target;
+
+        // 处理加入购物车
+        const addToCartButton = target.closest('.results-reviews-video-btn');
+        if (addToCartButton) {
+          const pId = addToCartButton.getAttribute('data-proId');
+          const code = addToCartButton.getAttribute('data-code');
+          that.toggleLoading(true);
+           window.UlikeCommon.addToCartPromise(pId,code,{},"").then(()=>{
+            that.toggleLoading(false);
+          })
+          return; // 防止继续执行后面的代码
+        }
+
+        // 处理点赞或取消
+        const likeButton = target.closest('.results-reviews-video-dz');
+        if (likeButton) {
+          const parentItem = likeButton.closest('.results-reviews-video-item');
+          if (!parentItem) return;
+          const id = parentItem.getAttribute('data-id');
+          let dzItem = that.setDzData(true, id, true); // 获取点赞数据 和 执行了点赞缓存数据更新(第三个参数为true)
+          const span = likeButton.querySelector('span');
+          if (!dzItem.isDz) {
+            likeButton.classList.remove('active');
+          } else {
+            likeButton.classList.add('active');
+          }
+          if (span) {
+            span.textContent = dzItem.num;
+          }
+          return; // 防止继续执行后面的代码
+        }
+
+        // 播放视频
+        const playButton = target.closest('.results-reviews-video-el');
+        if (playButton) {
+          event.stopPropagation();
+          const popupBox = playButton.closest('.results-reviews-video-popup');
+          this.closeSmallWindow()
+          if (!popupBox) {
+            const closBox = playButton.closest('.results-reviews-video-list');
+            const parentItem = playButton.closest('.results-reviews-video-item');
+            let index = Array.from(closBox.children).indexOf(parentItem)
+            if (that.isMobile()) {
+              if (!parentItem.classList.contains('swiper-slide-active')) return
+              // 当前视频播放状态点击暂停
+              if (!playButton.paused) {
+                playButton.pause()
+                parentItem.querySelector('.results-reviews-video-img').classList.remove('play-no');
+                return
+              }
+              if (that.videoEl && !that.videoEl.paused) that.videoEl.pause();
+              that.videoEl = playButton
+              parentItem.querySelector('.results-reviews-video-img').classList.add('play-no');
+              that.videoEl.loop = true;
+              that.playVideo()
+              return;
+            }
+            parentItem.classList.remove('play-no');
+            if (!playButton.paused) playButton.pause();
+            that.isSmall = true;
+            that.currentTime = playButton.currentTime
+            that.openPopup(index)
+          }
+          return; // 防止继续执行后面的代码
+        }
+
+        // 关闭弹窗
+        const closeButton = target.closest('.results-popu-close');
+        if (closeButton) {
+          this.closePopup();
+          return; // 防止继续执行后面的代码
+        }
+
+        // 小窗播放视频
+        const playVideoButton = target.closest('.results-popu-zoom');
+        if (playVideoButton) {
+          this.openSmallWindow();
+          this.closePopup();
+          return; // 防止继续执行后面的代码
+        }
+
+        // 声音开关
+        const muteButton = target.closest('.results-reviews-video-muted');
+        if (muteButton) {
+          let playItem = target.closest('.results-reviews-video-item')
+          let popupEl = muteButton.closest('.results-reviews-video-popup')
+          let id = playItem.getAttribute('data-id');
+          let isMuted = muteButton.getAttribute('data-muted') == 'true' ? true : false;
+          if (popupEl) {
+            if (this.videoEl) {
+              this.videoEl.muted = !isMuted
+            }
+          }
+          muteButton.setAttribute('data-muted', !isMuted);
+          that.el.querySelector('.results-reviews-video-cont .results-reviews-video-item[data-id="' + id + '"]').classList[isMuted ? 'add' : 'remove']('muted-no');
+          that.el.querySelector('.results-reviews-video-cont .results-reviews-video-item[data-id="' + id + '"] .results-reviews-video-muted').setAttribute('data-muted', !isMuted);
+          that.el.querySelector('.results-reviews-video-cont .results-reviews-video-item[data-id="' + id + '"] .video-box').muted = !isMuted
+          playItem.classList[isMuted ? 'add' : 'remove']('muted-no');
+          that.data = that.data.map(item =>
+            item.id === id
+              ? { ...item, muted: !isMuted }
+              : item
+          );
+          return; // 防止继续执行后面的代码
+        }
+
+        // tab切换
+        const videoTab = target.closest('.results-reviews-video-tab');
+        if (videoTab) {
+          if (this.videoEl && !that.videoEl.paused) that.videoEl.pause();
+          if (this.isMobile()) this.el.querySelector('.results-reviews-video-list .play-no')?.classList.remove('play-no');
+          const allTabs = this.el.querySelectorAll('.results-reviews-video-tab');
+          allTabs.forEach(tab => tab.classList.remove('active'));
+          videoTab.classList.add('active');
+          that.videoType = videoTab.getAttribute('data-type');
+          const list = that.data.filter(item => item.type === that.videoType);
+          that.buildHtml(list);
+          return; // 防止继续执行后面的代码
+        }
+
+        // 点击分享按钮
+        const shareButton = target.closest('.results-reviews-video-share');
+        if (shareButton) {
+          const parentItem = shareButton.closest('.results-reviews-video-item');
+          if (!parentItem) return;
+          let id = parentItem.getAttribute('data-id');
+          this.currentShare = that.data.find(item => item.id === id);
+          if (!this.currentShare) return;
+          this.buildShareHtml(this.currentShare)
+          return; // 防止继续执行后面的代码
+        }
+
+        // 点击关闭分享弹窗并清除保存的分享数据
+        const closeShareButton = target.closest('.results-reviews-video-share-close');
+        if (closeShareButton) {
+          this.currentShare = null;
+          let shareBox = this.el.querySelector('.results-reviews-video-share-popup');
+          if (shareBox) {
+            shareBox.style.display = 'none';
+          }
+          return; // 防止继续执行后面的代码
+        }
+
+        // 点击复制分享链接
+        const copyButton = target.closest('.results-reviews-video-copy-btn');
+        if (copyButton) {
+          let shareBox = this.el.querySelector('.results-reviews-video-share-popup');
+          if (shareBox) {
+            let text = shareBox.querySelector('.results-reviews-video-copy-txt').innerText || '';
+            window.UlikeCommon.copyCodeFun(text,()=>{
+              this.createMessage('{{ section.settings.copy_s }}', 1000);
+            })
+          }
+          return; // 防止继续执行后面的代码
+        }
+
+        // 关闭小窗播放视频
+        const smallWindowCloseButton = target.closest('.small-window-ulike-close');
+        if (smallWindowCloseButton) {
+          this.closeSmallWindow();
+          return; // 防止继续执行后面的代码
+        }
+
+        // 小窗视频点击回到弹窗放大 small-window-video
+        const smallWindowVideo = target.closest('.small-window-video');
+        if (smallWindowVideo) {
+          this.currentTime = smallWindowVideo.currentTime;
+          if (this.isMobile()) {
+            this.videoEl.currentTime = this.currentTime;
+            this.videoEl.play();
+            this.scrollToTopOfElement(this.el)
+            this.closeSmallWindow()
+            return
+          }
+          this.isSmall = true;
+          this.closeSmallWindow()
+          this.openPopup(this.smallIndex)
+          return; // 防止继续执行后面的代码
+        }
+
+      });
+
+      // 监听滚动后播放的视频是否在可视区域，如果不在可视区域则小窗播放
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const ratio = entry.intersectionRatio;
+
+          if (ratio === 1) {
+            let mVideo = that.el.querySelector('.small-window-video');
+            if (mVideo && !mVideo.paused) {
+              this.videoEl.currentTime = mVideo.currentTime;
+              this.videoEl.play();
+              this.videoEl.closest('.results-reviews-video-img').classList.add('play-no');
+              that.closeSmallWindow();
+            }
+          } else if (ratio <= 0.8 && ratio > 0) {
+            if (this.videoEl && !that.videoEl.paused) {
+              that.videoEl.pause();
+              that.openSmallWindow()
+            }
+          }
+        });
+      }, {
+        threshold: [0.8, 1] // 设置阈值，用于监听完全进入和 20% 离开
+      });
+
+      if (this.isMobile()) {
+        return observer.observe(this.el.querySelector('.results-reviews-video-cont'));
+        let playBox = this.el.querySelector('.play-no');
+        if (this.videoEl && !that.videoEl.paused && playBox) observer.observe(playBox);
+      }
+
+      // 鼠标hover播放视频
+      this.el.addEventListener('mouseover', (event) => {
+        const target = event.target;
+        const videoImg = target.closest('.results-reviews-video-img');
+        if (videoImg && !this.isMobile()) {
+          if (videoImg.closest('.results-reviews-video-popup')) return;
+          let video = videoImg.querySelector('.video-box')
+          videoImg.classList.add('play-no');
+          video.loop = true; // 设置循环播放
+          if (Math.floor(video.currentTime) >= Math.floor(video.duration)) video.currentTime = 0; // 如果当前时间大于视频总时长则重置
+          video.play();
+        }
+      })
+
+      // 鼠标移出暂停视频
+      this.el.addEventListener('mouseout', (event) => {
+        const target = event.target;
+        const videoImg = target.closest('.results-reviews-video-img');
+        if (videoImg && !this.isMobile()) {
+          if (videoImg.closest('.results-reviews-video-popup')) return;
+          let video = videoImg.querySelector('.video-box')
+          videoImg.classList.remove('play-no');
+          if (!video.paused) video.pause();
+        }
+      });
+    }
+
+    // 滚动到顶部
+    // scrollToTopOfElement(element) {
+    //   if (!element) return;
+    //   element.scrollIntoView({
+    //     behavior: 'smooth', // 平滑滚动
+    //     block: 'start',     // 滚动到目标元素顶部
+    //     inline: 'nearest',  // 水平方向的对齐方式
+    //   });
+    // }
+    // 设置视频封面
+    // setPoster(el) {
+    //   let videoList = el.querySelectorAll('.video-box')
+    //   const canvas = this.el.querySelector('#canvas');
+    //   const context = canvas.getContext('2d');
+    //   videoList.forEach(item => {
+    //     item.addEventListener('loadeddata', () => {
+    //       item.currentTime = 1; // 设置到第1秒
+    //     });
+
+    //     item.addEventListener('seeked', () => {
+    //       canvas.width = item.videoWidth;
+    //       canvas.height = item.videoHeight;
+    //       context.drawImage(item, 0, 0, canvas.width, canvas.height);
+
+    //       const posterDataUrl = canvas.toDataURL('image/jpeg');
+    //       item.setAttribute('poster', posterDataUrl);
+    //     });
+    //   })
+    // }
+
+    setPoster(el) {
+      const videos = el.querySelectorAll('.video-box')
+      videos.forEach((video) => {
+        const canvas = this.el.querySelector('#canvas');
+        const context = canvas.getContext('2d');
+    
+        video.crossOrigin = 'anonymous'; // 避免跨域问题
+        video.preload = 'auto';
+        video.muted = true; // 确保不会触发播放拦截
+    
+        // 确保视频元数据已加载
+        if (video.readyState >= 1) {
+          // 视频已经加载完元数据
+          this.processVideoPoster(video, canvas, context);
+        } else {
+          // 监听 loadedmetadata 事件
+          video.addEventListener('loadedmetadata', () => {
+            this.processVideoPoster(video, canvas, context);
+          });
+        }
+      });
+    }
+
+    // 封装封面图处理逻辑
+    processVideoPoster(video, canvas, context) {
+      video.currentTime = 1; // 跳到第1秒
+    
+      video.addEventListener('seeked', () => {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    
+        // 预加载封面图
+        const posterDataUrl = canvas.toDataURL('image/jpeg');
+        return video.setAttribute('poster', posterDataUrl);
+        const img = new Image();
+    
+        img.onload = () => {
+          video.setAttribute('poster', posterDataUrl);
+          video.dataset.posterSet = 'true'; // 标记已设置封面
+        };
+    
+        img.onerror = (error) => {
+          console.error('封面图加载失败:', error);
+        };
+    
+        img.src = posterDataUrl;
+      });
+    }
+    // 滚动到顶部，保留一定的距离
+    scrollToTopOfElement(element, offset = 80) {
+      if (!element) return;
+      
+      const elementTop = element.getBoundingClientRect().top + window.scrollY;
+      const targetPosition = elementTop - offset;
+    
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth', // 平滑滚动
+      });
+    }
+
+    // 拼接分享html
+    buildShareHtml(item) {
+      const match = this.currentShare.video.match(/<source\s[^>]*src=["']([^"']+)["']/);
+      const rawSrc = match ? match[1] : '';
+      const src = rawSrc
+        ? rawSrc
+            .replace(/^\/\//, 'https://')
+            .replace(/\?v=\d+$/, '')
+        : '';
+      if(this.isMobile()){
+        navigator.share
+          ? navigator
+              .share({
+                title: '',
+                text: "Video",
+                url: src,
+              })
+              .then(() => console.log('\u5206\u4EAB\u6210\u529F'))
+              .catch((error) => console.log('\u5206\u4EAB\u5931\u8D25', error))
+          : console.log(
+              '\u5F53\u524D\u6D4F\u89C8\u5668\u4E0D\u652F\u6301 Web \u5206\u4EAB\u529F\u80FD'
+            )
+        return
+      }
+      let shareBox = this.el.querySelector('.results-reviews-video-share-popup');
+      if (shareBox) {
+        let listHtml = shareBox.querySelector('.results-reviews-video-share-list');
+        let list = item.shareObj || []
+        let html = '';
+        if (list.length > 0) {
+          list.forEach((item, index) => {
+            html += `<a href="${item.link}${src}" target="_blank" class="results-reviews-video-share-item">
+            ${item.img?`<img src="${item.img}" />`:''}
+            ${item.name}
+          </a>`;
+          });
+          listHtml.style.display = 'flex';
+          listHtml.innerHTML = html;
+        }else{
+          listHtml.style.display = 'none';
+        }
+        
+        shareBox.querySelector('.results-reviews-video-copy-txt').innerHTML = src;
+        shareBox.querySelector('.results-reviews-video-copy-txt').setAttribute('title', src);
+        shareBox.style.display = 'block';
+      }
+    }
+
+    // 判断是否移动端（小于768）
+    isMobile() {
+      return window.innerWidth < 768;
+    }
+
+    // 提示消息
+    createMessage(content, duration = 3000) {
+      // 创建一个 div 元素
+      if (document.querySelector('.message-ulike')) {
+        return document.querySelector('.message-ulike').textContent = content;
+      }
+      const message = document.createElement('div');
+      message.className = 'message-ulike';
+      message.textContent = content; // 设置提示内容
+      message.style.position = 'fixed';
+      message.style.top = '50%';
+      message.style.left = '50%';
+      message.style.transform = 'translate(-50%, -50%)'; // 屏幕居中
+      message.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+      message.style.color = '#fff';
+      message.style.padding = '0 16px';
+      message.style.lineHeight = '44px';
+      message.style.fontSize = '14px';
+      message.style.textAlign = 'center';
+      message.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+      message.style.opacity = '1';
+      message.style.transition = 'opacity 0.3s ease';
+      message.style.zIndex = '11';
+      document.body.appendChild(message); // 添加到文档中
+
+      // 一段时间后移除提示
+      setTimeout(() => {
+        message.style.opacity = '0'; // 渐隐效果
+        message.addEventListener('transitionend', () => {
+          document.body.removeChild(message); // 动画结束后移除元素
+        });
+      }, duration);
+    }
+
+    // 小窗播放视频
+    openSmallWindow() {
+      let popupEl = document.querySelector('.small-window-ulike');
+      let videoSm = popupEl.querySelector('.small-window-video')
+      let videoSrc = `${this.videoEl.src || this.videoEl.querySelector('source')?.src}`
+      let videoCuTime = this.videoEl?.currentTime || 0;
+      let videoMuted = this.videoEl?.muted || false;
+      videoSm.src = videoSrc;
+      videoSm.muted = videoMuted;
+      videoSm.currentTime = videoCuTime;
+      videoSm.loop = true;
+      popupEl.classList.add(this.isMobile() ? 'small-mobile' : 'small-box');
+      if (!this.isMobile()) this.smallIndex = this.el.querySelector('.results-reviews-video-popup .swiper-slide-active').getAttribute('data-swiper-slide-index') * 1;
+      setTimeout(() => {
+        videoSm.play();
+      }, 400);
+    }
+
+    // 关闭小窗播放视频
+    closeSmallWindow() {
+      let popupEl = this.el.querySelector('.small-window-ulike');
+      popupEl.classList.remove(this.isMobile() ? 'small-mobile' : 'small-box');
+      popupEl.querySelector('.small-window-video').pause();
+      if (this.isMobile() && this.el.querySelector('.play-no') && this.videoEl.paused) this.el.querySelector('.play-no').classList.remove('play-no');
+    }
+
+    // 关闭弹窗
+    closePopup() {
+      if (this.videoEl) {
+        this.videoEl.currentTime = 0;
+        if (!this.videoEl.paused) this.videoEl.pause();
+        this.removeVideoEndedListener()
+      }
+      this.realIndex = null
+      this.videoEl = null
+      document.body.classList.remove('open-popup');
+    }
+
+    // 打开弹窗
+    openPopup(index) {
+      let list = this.data.filter(item => item.type === this.videoType);
+      this.buildHtml(list, true);
+      this.swiperInitPopup(index)
+      document.body.classList.add('open-popup');
+    }
+
+    // 监听视频ended 切换swiper下一个
+    playVideoEnded() {
+      if (!this.videoEl) return;
+      // 如果已经有绑定的处理器，先移除
+      if (this.handleEnded) {
+        this.videoEl.removeEventListener('ended', this.handleEnded);
+      }
+      // 创建一个新的处理器
+      this.handleEnded = () => {
+        this.videoEl.currentTime = 0;
+        this.videoEl.pause();
+        this.popupSwiper.slideNext();
+        // 移除当前事件监听器
+        this.videoEl.removeEventListener('ended', this.handleEnded);
+      };
+
+      // 添加ended事件监听器
+      this.videoEl.addEventListener('ended', this.handleEnded);
+    }
+    // 移除ended事件监听器
+    removeVideoEndedListener() {
+      if (this.videoEl && this.handleEnded) {
+        this.videoEl.removeEventListener('ended', this.handleEnded);
+        this.handleEnded = null; // 清空处理器引用
+      }
+    }
+
+    // 播放视频
+    playVideo() {
+      if (this.videoEl) {
+        // this.videoEl.playbackRate = 6 设置倍数播放
+        if (!this.videoEl.paused) {
+          // this.videoEl.pause();
+        } else {
+          if (this.isSmall) {
+            this.videoEl.currentTime = this.currentTime;
+            this.isSmall = false;
+          }
+          if (Math.floor(this.videoEl.currentTime) >= Math.floor(this.videoEl.duration)) this.videoEl.currentTime = 0;
+          this.videoEl.play();
+        }
+      }
+      if (this.isMobile()) return;
+      this.playVideoEnded();
+    }
+
+    // 初始设置点赞数据
+    setDzData(isGetItem = false, id, isDzTap = false) {
+      const dzList = localStorage.getItem('dzListVideo') ? JSON.parse(localStorage.getItem('dzListVideo')) : [];
+      if (isGetItem) {
+        // 根据id获取点赞数据
+        const dzIndex = dzList.findIndex(dz => dz.id === id);
+        if (isDzTap) {
+          // 执行点赞数据更新
+          dzList[dzIndex].num = dzList[dzIndex].num > dzList[dzIndex].randomNum ? dzList[dzIndex].num + (dzList[dzIndex].isDz ? -1 : 1) : dzList[dzIndex].randomNum + (dzList[dzIndex].isDz ? -1 : 1);
+          dzList[dzIndex].isDz = !dzList[dzIndex].isDz
+          if (!dzList[dzIndex].isDz && dzList[dzIndex].randomNum < dzList[dzIndex].num) {
+            dzList[dzIndex].randomNum = dzList[dzIndex].num
+          }
+          
+          try {
+            localStorage.setItem('dzListVideo', JSON.stringify(dzList));
+          } catch (error) {
+            
+          }
+          return { ...dzList[dzIndex] }
+        }
+        if (dzIndex !== -1) {
+          return { ...dzList[dzIndex] };
+        } else {
+          return { oldNum: 0, num: 0, isDz: false };
+        }
+      } else {
+        this.data.forEach(item => {
+          item.dzTxt = item.dzTxt*1
+          const dzIndex = dzList.findIndex(dz => dz.id === item.id);
+          // 有缓存更新缓存点赞数据
+          if (dzIndex !== -1) {
+            // 判断初始数据和缓存点赞oldNum是否一致，不一致则更新缓存数据
+            if (dzList[dzIndex].oldNum !== item.dzTxt) {
+              dzList[dzIndex] = { id: item.id, num: item.dzTxt || 0, oldNum: item.dzTxt || 0, randomNum: item.dzTxt || 0, isDz: dzList[dzIndex].isDz || false };
+            } else {
+              // 点赞数据和缓存点赞oldNum一致，则增加点赞数量
+              dzList[dzIndex] = { id: item.id, num: this.addDzNum(dzList[dzIndex].num || 0), oldNum: item.dzTxt || 0, randomNum: this.addDzNum(dzList[dzIndex].randomNum || 0), isDz: dzList[dzIndex].isDz || false };
+            }
+          } else {
+            // 没有缓存，则新增点赞数据
+            dzList.push({ id: item.id, num: item.dzTxt || 0, oldNum: item.dzTxt || 0, randomNum: item.dzTxt || 0, isDz: false });
+          }
+        });
+      }
+      try {
+        localStorage.setItem('dzListVideo', JSON.stringify(dzList));
+      } catch (error) {
+        
+      }
+    }
+
+    // 随机返回范围内的数字
+    getRandomArbitrary(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    // 增加点赞数量
+    addDzNum(num) {
+      // 刷新概率百分之20增加点赞数量
+      return this.getRandomArbitrary(0, 10) > 2 ? num + this.getRandomArbitrary(1, 3) : num;
+    }
+
+    // 定义遮罩方法
+    toggleLoading(isOpen) {
+      let overlay = document.getElementById('loading-overlay');
+      let styleElement = document.getElementById('loading-style');
+
+      if (isOpen) {
+        if (!overlay) {
+          // 创建遮罩层
+          overlay = document.createElement('div');
+          overlay.id = 'loading-overlay';
+          overlay.style.position = 'fixed';
+          overlay.style.top = '0';
+          overlay.style.left = '0';
+          overlay.style.width = '100%';
+          overlay.style.height = '100%';
+          overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
+          overlay.style.zIndex = '1000';
+          overlay.style.display = 'flex';
+          overlay.style.justifyContent = 'center';
+          overlay.style.alignItems = 'center';
+
+          // 创建转圈动画
+          const spinner = document.createElement('div');
+          spinner.style.width = '40px';
+          spinner.style.height = '40px';
+          spinner.style.border = '3px solid #aaa';
+          spinner.style.borderTop = '3px solid #e0004d';
+          spinner.style.borderRadius = '50%';
+          spinner.style.animation = 'ulikeSpin 1s linear infinite';
+
+          overlay.appendChild(spinner);
+          document.body.appendChild(overlay);
+
+          // 添加 CSS 动画
+          if (!styleElement) {
+            styleElement = document.createElement('style');
+            styleElement.id = 'loading-style';
+            styleElement.innerHTML = `
+                body{
+                  overflow: hidden;
+                }
+                @keyframes ulikeSpin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+              `;
+            document.head.appendChild(styleElement);
+          }
+        }
+      } else {
+        // 移除遮罩层和样式
+        if (overlay) {
+          overlay.remove();
+        }
+        if (styleElement) {
+          styleElement.remove();
+        }
+      }
+    }
+
+
+    // 轮播初始化
+    swiperInit() {
+      if (this.videoSwiper) this.videoSwiper.destroy(true, true);
+      this.videoSwiper = new Swiper(".results-reviews-video-cont", {
+        slidesPerView: "auto",
+        spaceBetween: 10,
+        navigation: {
+          nextEl: ".video-swiper-next",
+          prevEl: ".video-swiper-prev",
+        },
+      });
+      if (this.isMobile()) {
+        // 监听 transitionStart 事件
+        this.videoSwiper.on('transitionStart', (e) => {
+          this.el.querySelector('.results-reviews-video-list .play-no')?.classList.remove('play-no');
+          if (this.videoEl && !this.videoEl.paused) {
+            // 暂停视频
+            this.videoEl.pause();
+          }
+        })
+        // 监听 transitionEnd 事件
+        this.videoSwiper.on('transitionEnd', (e) => {
+          if (this.realIndex == null) {
+            this.realIndex = e.realIndex
+            this.videoEl = this.el.querySelector('.results-reviews-video-list .swiper-slide-active .video-box');
+            this.el.querySelector('.results-reviews-video-list .swiper-slide-active .results-reviews-video-img').classList.add('play-no');
+            this.videoEl.loop = true;
+            this.playVideo();
+            return
+          }
+          if (this.realIndex == e.realIndex) {
+            if (this.videoEl && this.videoEl.paused) {
+              if (Math.floor(this.videoEl.currentTime) >= Math.floor(this.videoEl.duration)) this.videoEl.currentTime = 0;
+              this.el.querySelector('.results-reviews-video-list .swiper-slide-active .results-reviews-video-img').classList.add('play-no');
+              this.videoEl.loop = true;
+              this.videoEl.play();
+            }
+            return
+          }
+          this.realIndex = e.realIndex
+          // if (this.videoEl) {
+          // 更新视频元素并播放
+          this.videoEl = this.el.querySelector('.results-reviews-video-list .swiper-slide-active .video-box');
+          if (this.videoEl) {
+            this.el.querySelector('.results-reviews-video-list .swiper-slide-active .results-reviews-video-img').classList.add('play-no');
+            this.videoEl.loop = true;
+            this.playVideo();
+          }
+          // }
+        });
+      }
+    }
+
+    // 弹窗轮播初始化
+    swiperInitPopup(num = 0) {
+      if (this.popupSwiper) this.popupSwiper.destroy(true, true);
+      this.popupSwiper = new Swiper('.results-popu-cont', {
+        initialSlide: num, //默认第几个在中心位置显示，总数量中间的一个，计算
+        autoplay: false,
+        // 容器能够显示的slide数量，可以用来调节中间slide占比大小（为了达到设计图的尺寸），
+        // slide不能固定宽度，会影响滑动效果，所以这里用比例调节
+        slidesPerView: "auto", // 每个slide的宽度：外层容器 1310 / slidesPerView = 387
+        // 当前active的slide居中-最前面的大图
+        centeredSlides: true,
+        effect: "creative",
+        loop: true,
+        grabCursor: true,
+        creativeEffect: {
+          prev: {
+            translate: ["-53%", 0, 0], // 偏移量
+            scale: 0.85, // 缩放量
+            shadow: true, // 是否加阴影
+          },
+          next: {
+            translate: ["53%", 0, 0],
+            scale: 0.85,
+            shadow: true,
+          },
+          limitProgress: 2, // 显示五个堆叠的最重要的这个属性，后面依次以前面属性等比配置
+          shadowPerProgress: true, //是否等比配置透明度
+        },
+        navigation: {
+          nextEl: '.video-swiper-next-popup',
+          prevEl: '.video-swiper-prev-popup',
+        },
+        on: {
+
+        }
+      });
+      // 监听 transitionStart 事件
+      this.popupSwiper.on('transitionStart', (e) => {
+        if (this.videoEl && !this.videoEl.paused) {
+          // 暂停视频
+          this.removeVideoEndedListener();
+          this.videoEl.pause();
+        }
+      })
+      // 监听 transitionEnd 事件
+      this.popupSwiper.on('transitionEnd', (e) => {
+        if (this.realIndex == null) {
+          this.realIndex = e.realIndex
+          this.videoEl = this.el.querySelector('.results-reviews-video-popup .swiper-slide-active .video-box');
+          this.playVideo();
+          this.videoEl.addEventListener('canplay', () => {
+            this.toggleLoading(false);
+            this.el.querySelector('.results-reviews-video-popup').style.opacity = 1;
+          });
+          return
+        }
+        if (this.realIndex == e.realIndex) {
+          if (this.videoEl && this.videoEl.paused) {
+            if (Math.floor(this.videoEl.currentTime) >= Math.floor(this.videoEl.duration)) this.videoEl.currentTime = 0;
+            this.videoEl.play();
+          }
+          return
+        }
+        this.realIndex = e.realIndex
+        this.removeVideoEndedListener()
+        if (this.videoEl) {
+          setTimeout(() => {
+            // 更新视频元素并播放
+            this.videoEl = this.el.querySelector('.results-reviews-video-popup .swiper-slide-active .video-box');
+            if (this.videoEl) {
+              this.playVideo();
+            }
+          }, 500);
+        }
+      });
+
+    }
+     // 图片大小
+    convertShopifyImageUrl(url, size) {
+      return url?url.replace(/(\.[^/.]+)$/, `_${size}$1`):''
+    }
+    // 更新html
+    buildHtml(list = [], isPopup = false) {
+      let html = '';
+      list.forEach((item, index) => {
+        let dzItem = this.setDzData(true, item.id)
+        html += `
+          <div class="results-reviews-video-item swiper-slide ${item.muted ? '' : 'muted-no'}" data-id="${item.id}">
+            <div class="results-reviews-video-img">
+              <div class="results-reviews-video-pos">
+                ${item.img?`<img src="${item.img}" class="img" alt="">`:''}
+                ${item.videoJson ? item[isPopup?'video1':'video'] : '' }
+                ${item.tag ? `<div class="results-reviews-video-tag">${item.tag}</div>` : ''}
+                <div class="results-reviews-video-muted" data-muted="${item.muted}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+                    <g filter="url(#filter0_b_309_60828)" class="n-muted">
+                      <rect width="30" height="30" rx="15" fill="#190A0A" fill-opacity="0.6" />
+                      <path
+                        d="M14.3711 11.7205C14.3711 11.1615 13.7245 10.8507 13.288 11.1999L11.0378 13H9.03776C8.66957 13 8.37109 13.2985 8.37109 13.6667V16.3334C8.37109 16.7016 8.66957 17 9.03776 17H11.0378L13.288 18.8002C13.7245 19.1494 14.3711 18.8386 14.3711 18.2796V11.7205Z"
+                        fill="white" />
+                      <path d="M20.998 13.0001L16.998 17.0001" stroke="white" stroke-width="1.33333"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M16.998 13.0001L20.998 17.0001" stroke="white" stroke-width="1.33333"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                    </g>
+                    <g filter="url(#filter0_b_309_60827)" class="h-muted">
+                      <rect width="30" height="30" rx="15" fill="#190A0A" fill-opacity="0.6" />
+                      <path
+                        d="M14.3711 11.7205C14.3711 11.1615 13.7245 10.8507 13.288 11.1999L11.0378 13H9.03776C8.66957 13 8.37109 13.2985 8.37109 13.6667V16.3334C8.37109 16.7016 8.66957 17 9.03776 17H11.0378L13.288 18.8002C13.7245 19.1494 14.3711 18.8386 14.3711 18.2796V11.7205Z"
+                        fill="white" />
+                      <path 
+                        d="M19.074 10.7867C20.3238 12.0369 21.0259 13.7323 21.0259 15.5001C21.0259 17.2678 20.3238 18.9632 19.074 20.2134M16.7207 13.1401C17.3456 13.7652 17.6967 14.6129 17.6967 15.4967C17.6967 16.3806 17.3456 17.2283 16.7207 17.8534"
+                        stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+                    </g>
+                    <defs xmlns="http://www.w3.org/2000/svg">
+                      <filter id="filter0_b_309_60828" x="-1.5" y="-1.5" width="33" height="33" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                      <feGaussianBlur in="BackgroundImageFix" stdDeviation="0.75"/>
+                      <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_309_60828"/>
+                      <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_309_60828" result="shape"/>
+                      </filter>
+                    </defs>
+                    <defs xmlns="http://www.w3.org/2000/svg">
+                      <filter id="filter0_b_309_60827" x="-1.5" y="-1" width="33" height="33" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                      <feGaussianBlur in="BackgroundImageFix" stdDeviation="0.75"/>
+                      <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_309_60827"/>
+                      <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_309_60827" result="shape"/>
+                      </filter>
+                    </defs>
+                  </svg>
+                </div>
+                <div class="results-reviews-video-play">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                    <path
+                      d="M20 40C31.0457 40 40 31.0457 40 20C40 8.95431 31.0457 0 20 0C8.95431 0 0 8.95431 0 20C0 31.0457 8.95431 40 20 40Z"
+                      fill="#190A0A" fill-opacity="0.6" />
+                    <path d="M16 11.9999L24.7989 17.8658L25.9133 18.6087L27.1718 19.4477L28 19.9999L16 27.9999V11.9999Z"
+                      stroke="white" stroke-width="1.42857" stroke-linecap="round" stroke-linejoin="round" />
+                    <path class="v-zt" fill-rule="evenodd" clip-rule="evenodd"
+                      d="M22.2394 26.2111L22.2394 12.8824C23.0284 12.8824 23.668 13.522 23.668 14.311L23.668 26.2111L22.2394 26.2111Z"
+                      fill="white" />
+                    <path class="v-zt" fill-rule="evenodd" clip-rule="evenodd"
+                      d="M16.3331 26.2111L16.3331 12.8824C17.1221 12.8824 17.7617 13.522 17.7617 14.311L17.7617 26.2111L16.3331 26.2111Z"
+                      fill="white" />
+                  </svg>
+                </div>
+                <div class="results-reviews-video-share">
+                  <div class="results-reviews-video-dz ${dzItem.isDz ? 'active' : ''}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="41" height="41" viewBox="0 0 41 41" fill="none">
+                      <circle cx="20.2812" cy="20.6901" r="20" fill="#190A0A" fill-opacity="0.6" />
+                      <path
+                        d="M16.3457 19.8771L19.5973 12.561C20.2441 12.561 20.8644 12.818 21.3218 13.2753C21.7791 13.7327 22.036 14.3529 22.036 14.9997V18.2513H26.637C26.8727 18.2487 27.1061 18.2973 27.3212 18.3938C27.5362 18.4903 27.7276 18.6324 27.8823 18.8102C28.0369 18.9881 28.1511 19.1974 28.2168 19.4237C28.2825 19.6501 28.2982 19.888 28.2628 20.121L27.141 27.4371C27.0822 27.8248 26.8853 28.1781 26.5866 28.4321C26.2878 28.686 25.9073 28.8234 25.5152 28.819H16.3457M16.3457 19.8771V28.819M16.3457 19.8771H13.907C13.4759 19.8771 13.0623 20.0484 12.7574 20.3533C12.4525 20.6582 12.2812 21.0717 12.2812 21.5029V27.1932C12.2812 27.6244 12.4525 28.0379 12.7574 28.3428C13.0623 28.6477 13.4759 28.819 13.907 28.819H16.3457"
+                        stroke="white" stroke-width="0.812899" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <span>${dzItem.isDz ? dzItem.num : (dzItem.randomNum || item.dzTxt || 0)}</span>
+                  </div>
+                  {% comment %} <div class="results-reviews-video-fx">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <g filter="url(#filter0_b_345_70967)">
+                        <rect width="40" height="40" rx="20" fill="#190A0A" fill-opacity="0.6"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M24.8617 26.5347C26.133 26.5347 27.1636 25.5041 27.1636 24.2328C27.1636 22.9614 26.133 21.9308 24.8617 21.9308C23.5903 21.9308 22.5597 22.9614 22.5597 24.2328C22.5597 25.5041 23.5903 26.5347 24.8617 26.5347ZM28.0007 24.2328C28.0007 25.9664 26.5953 27.3718 24.8617 27.3718C23.128 27.3718 21.7227 25.9664 21.7227 24.2328C21.7227 22.4991 23.128 21.0938 24.8617 21.0938C26.5953 21.0938 28.0007 22.4991 28.0007 24.2328Z" fill="white"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15.139 22.5118C16.4103 22.5118 17.441 21.4811 17.441 20.2098C17.441 18.9385 16.4103 17.9079 15.139 17.9079C13.8677 17.9079 12.8371 18.9385 12.8371 20.2098C12.8371 21.4811 13.8677 22.5118 15.139 22.5118ZM18.278 20.2098C18.278 21.9435 16.8726 23.3488 15.139 23.3488C13.4054 23.3488 12 21.9435 12 20.2098C12 18.4762 13.4054 17.0708 15.139 17.0708C16.8726 17.0708 18.278 18.4762 18.278 20.2098Z" fill="white"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M24.8617 18.0691C26.133 18.0691 27.1636 17.0385 27.1636 15.7672C27.1636 14.4959 26.133 13.4652 24.8617 13.4652C23.5903 13.4652 22.5597 14.4959 22.5597 15.7672C22.5597 17.0385 23.5903 18.0691 24.8617 18.0691ZM28.0007 15.7672C28.0007 17.5008 26.5953 18.9062 24.8617 18.9062C23.128 18.9062 21.7227 17.5008 21.7227 15.7672C21.7227 14.0336 23.128 12.6282 24.8617 12.6282C26.5953 12.6282 28.0007 14.0336 28.0007 15.7672Z" fill="white"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8145 22.2395C18.0657 21.729 18.6757 21.5085 19.1953 21.7407L22.7122 23.3119L22.2622 24.2266L17.8145 22.2395Z" fill="white"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M22.7851 17.1252L19.2338 18.7747C18.724 19.0115 18.1188 18.7884 17.8847 18.2773L22.3605 16.1984L22.7851 17.1252Z" fill="white"/>
+                        </g>
+                        <defs>
+                        <filter id="filter0_b_345_70967" x="-2" y="-2" width="44" height="44" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                        <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                        <feGaussianBlur in="BackgroundImageFix" stdDeviation="1"/>
+                        <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_345_70967"/>
+                        <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_345_70967" result="shape"/>
+                        </filter>
+                        </defs>
+                      </svg>
+                  </div> {% endcomment %}
+                </div>
+              </div>
+            </div>
+            <div class="results-reviews-video-text">
+              ${item.proImg?`<img src="${item.proImg}" alt="" class="pro-img">`:`<img src="${this.convertShopifyImageUrl(item.media?.src,'80x')}" class="pro-img" alt="">`}
+              <div class="results-reviews-product-txt">
+                <div class="results-reviews-video-name">${item.proName}</div>
+                <div class="results-reviews-video-price">
+                  {% comment %} <span class="n-price">${item.proPrice}</span> {% endcomment %}
+                  <span class="n-price">${item.proPriceOld}</span>
+                </div>
+                <div class="results-reviews-video-btn" data-proId = "${item.proId}" data-code="${item.code}">
+                  ${item.proBtn}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="12" viewBox="0 0 15 12" fill="none">
+                    <path d="M0.950195 5.8656L14.0372 5.86499" stroke="#190A0A" stroke-width="0.608696" />
+                    <path d="M11.2979 3.12585L14.5032 5.86559L11.2979 8.53594" stroke="#190A0A" stroke-width="0.608696"
+                      stroke-linejoin="round" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          `
+      })
+      if (isPopup) {
+        this.el.querySelector('.results-popu-swiper').innerHTML = html;
+        this.toggleLoading(true);
+        this.el.querySelector('.results-reviews-video-popup').style.opacity = 0;
+        setTimeout(() => {
+          this.setPoster(this.el.querySelector('.results-popu-swiper'))
+        }, 300)
+      } else {
+        this.el.querySelector('.results-reviews-video-list').innerHTML = html;
+        this.swiperInit()
+        setTimeout(() => {
+          this.setPoster(this.el.querySelector('.results-reviews-video-list'))
+        }, 300)
+      }
+    }
+
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+     customElements.define('results-reviews-video', resultsReviewsVideo);
+  });
+</script>
+{% schema %}
+{
+  "name": "results-reviews-video",
+  "blocks": [
+    {
+      "name": "item",
+      "type": "item",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "产品选择"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video"
+        },
+        {
+          "type": "text",
+          "id": "tag_txt",
+          "label": "Label Text",
+          "default":"BEAUTY EXPERT"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_pro",
+          "label": "产品图片",
+          "info": "不传图片默认获取选择产品的第一张图"
+        },
+        {
+          "type": "text",
+          "id": "text1",
+          "label": "加购文案",
+          "default":"Add to Cart"
+        },
+        {
+          "type": "text",
+          "id": "text2",
+          "label": "点赞初始数据",
+          "default":"0"
+        },
+        {
+          "type": "text",
+          "id": "text3",
+          "label": "视频类型",
+          "default":"1",
+          "info": "对应TabJSON位置=> 1 2"
+        },
+        {
+          "type": "textarea",
+          "id": "share_json",
+          "label": "分享JSON",
+          "default":"{'name':'Inbox','img':'https://cdn.shopify.com/s/files/1/0656/9079/6273/files/icon_3f08dca5-ae48-4990-8d24-ada678f43d75.png','link':'mailto:?body='},{'name':'Facebook','img':'https://cdn.shopify.com/s/files/1/0656/9079/6273/files/icon_1.png','link':'https://www.facebook.com/sharer/sharer.php?u=https:'},{'name':'Pinterest','img':'https://cdn.shopify.com/s/files/1/0656/9079/6273/files/icon_2.png','link':'https://pinterest.com/pin/create/button/?url='},{'name':'Twitter','img':'https://cdn.shopify.com/s/files/1/0656/9079/6273/files/icon_3.png','link':'https://twitter.com/intent/tweet?url='}",
+          "info": "分享列表=》{'name':'name1','img':'img1',link:'link1'},{'name':'name1','img':'img1',link:'link1'}"
+        }     
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "标题"
+    },
+    {
+      "type": "textarea",
+      "id": "items_json",
+      "label": "Tab(JSON)",
+      "info": "Tab Item=》Item 1, Item 2",
+      "default":"Influencer Videos,UGC Videos"
+    },
+    {
+      "type": "text",
+      "id": "copy_s",
+      "label": "复制成功文案",
+      "default":"Link copied to clipboard"
+    }
+  ],
+  "presets": [
+    {
+      "name": "results-reviews-video",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

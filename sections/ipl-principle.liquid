@@ -1,0 +1,300 @@
+<script
+      src="//cdn.shopify.com/s/files/1/0493/9834/9974/t/5/assets/jquery.min.js?v=115860211936397945481659602557"
+    ></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+<style>
+.ipl-principle{
+  padding: 70px 0 120px 0;
+  color: #000;
+}
+  
+.ipl-principle .title-diy{
+  font-weight: normal;
+  margin:0;
+}
+  
+.ipl-principle .ipl-principle-sub{
+  font-size: 20px;
+  line-height: 1.2;
+  text-align: center;
+  max-width: 1000px;
+  margin: 0 auto;
+  margin-top: 28px;
+}
+
+.ipl-principle .ipl-principle-list{
+  display: flex;
+  gap: 20px;
+  margin-top: 60px;
+}
+
+.ipl-principle .ipl-principle-item{
+  flex: 1;
+  background: #f9f9f9;
+}
+
+.ipl-principle .img{
+  display: block;
+  width: 100%;
+}
+
+.ipl-principle .ipl-principle-txt{
+  display: flex;
+  align-items: center;
+  padding: 30px 25px;
+}
+
+.ipl-principle .ipl-principle-num{
+  font-size: 50px;
+  font-family: var(--font-heading-family);
+  line-height: 1;
+  margin-right: 15px;
+}
+.ipl-principle .ipl-principle-p-sub{
+ font-size: 18px;
+}
+
+.ipl-principle .ipl-principle-p{
+  font-size: 16px;
+  font-family: var(--font-heading-family);
+  line-height: 1.5;
+}
+
+  .men-diy .ipl-principle-num{
+    display:none;
+  }
+  
+.men-diy .ipl-principle-txt{
+  flex-direction: column;
+  align-items: flex-start;
+  gap:13px;
+  padding:0;
+  margin-top:18px;
+}
+.men-diy .ipl-principle-p{
+  font-size: 20px;
+  color:#fff;
+  line-height: 1;
+}
+
+.men-diy .ipl-principle-p-sub{
+  color:#929292;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.men-diy.ipl-principle{
+  background:#000;
+}
+  
+.men-diy .ipl-principle-list{
+  gap:50px;
+}
+  
+.men-diy .ipl-principle-item{
+  background:none;
+}
+  
+.men-diy .ipl-principle-item .img{
+  border-radius: 10px;
+}
+  
+.men-diy .title-diy{
+  font-size:60px;
+  color:#fff;
+}
+.seo-diy.ipl-principle {
+  padding-bottom: 70px;
+}
+.seo-diy .ipl-principle-num{
+  color:#E0004D;
+  {% comment %} font-family: var(--text-font-family); {% endcomment %}
+}
+  
+.seo-diy.ipl-principle .title-diy{
+  max-width: 790px;
+  margin: 0 auto;
+}
+
+  .seo-diy.ipl-principle .ipl-principle-sub{
+    max-width:750px;
+  }
+  .seo-diy .ipl-principle-p{
+    {% comment %} font-family: var(--text-font-family); {% endcomment %}
+  }
+  .slick-dots{
+    bottom:-50px;
+  }
+  .slick-dots li{
+    margin:0;
+  }
+@media (max-width:1200px) {
+  .ipl-principle .ipl-principle-txt{
+    padding: 20px 15px;
+  }
+  .men-diy .ipl-principle-txt{
+    padding:0;
+  }
+  .ipl-principle .ipl-principle-num{
+    font-size: 40px;
+  }
+  .ipl-principle .ipl-principle-p{
+    font-size: 14px;
+  }
+}
+
+@media (max-width:991px) {
+  .ipl-principle{
+    padding: 50px 0;
+  }
+  .seo-diy.ipl-principle {
+    padding-bottom: 50px;
+  }
+  .men-diy .title-diy{
+    font-size:28px;
+  }
+  .ipl-principle .ipl-principle-sub{
+    font-size: 14px;
+    margin-top: 20px;
+  }
+  .ipl-principle .ipl-principle-list{
+    margin-top: 30px;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+  .ipl-principle .ipl-principle-item{
+    flex: none;
+    width: 100%;
+  }
+  .ipl-principle .ipl-principle-num{
+    font-size: 30px;
+  }
+  .ipl-principle .ipl-principle-p-sub{
+ font-size: 14px;
+}
+  .ipl-principle .ipl-principle-p{
+    font-size: 12px;
+    zoom: .9;
+  }
+  .men-diy .ipl-principle-p{
+    font-size: 16px;
+  }
+
+  .men-diy .ipl-principle-p-sub{
+    font-size: 12px;
+  }
+  .seo-diy .ipl-principle-p{
+    zoom:1;
+  }
+  .seo-diy.ipl-principle .ipl-principle-list{
+    flex-wrap:nowrap;
+  }
+  .seo-diy.ipl-principle .ipl-principle-item{
+    flex-shrink: 0;
+  }
+}
+</style>
+<section class="section-box">
+  <div class="ipl-principle {{ section.settings.text1 }}">
+    <div class="container">
+      <h3 class="title-diy to-top">{{ section.settings.title }}</h3>
+      <div class="ipl-principle-sub to-top" style="transition-delay: 0.1s">
+        {{ section.settings.text }}
+      </div>
+      <div class="ipl-principle-list">
+        {%- for block in section.blocks -%}
+          <div class="ipl-principle-item to-top" style="transition-delay: 0.{{ forloop.index }}s">
+            {%- if block.settings.image != blank -%}
+               <img loading="lazy" class="img" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" {% render 'image-attributes', image: block.settings.image %} alt="{{ block.settings.image.alt | escape }}" >
+            {%- endif -%}
+            <div class="ipl-principle-txt">
+              <div class="ipl-principle-num">0{{ forloop.index }}</div>
+              {% comment %} <div class="ipl-principle-p">
+                {{ block.settings.text }}
+              </div> {% endcomment %}
+              {%- if block.settings.text1 != blank -%}
+                <div class="ipl-principle-p-sub">
+                  {{ block.settings.text1 }}
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  // window.addEventListener('load', () => {
+    $(window).on('resize', function () {
+      if ($(window).width() > 768) {
+        $('.seo-diy .ipl-principle-list').slick('unslick');
+      } else {
+        if ($(window).width() < 769) {
+          $('.seo-diy .ipl-principle-list').slick({
+            infinite: true,
+            slidesToShow: 1,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            arrows: false,
+            dots:true,
+            slidesToScroll: 1,
+          });
+        }
+      }
+    });
+  // })
+</script>
+{% schema %}
+{
+"name": "ipl-principle",
+"blocks": [
+    {
+    "name": "item",
+    "type": "item",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "text",
+        "label": "Text"
+      },
+      {
+        "type": "text",
+        "id": "text1",
+        "label": "Text"
+      }
+    ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "text1",
+      "label": "自定义Class"
+    }
+  ],
+  "presets": [
+    {
+      "name": "ipl-principle",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

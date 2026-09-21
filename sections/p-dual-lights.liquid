@@ -1,0 +1,276 @@
+{% comment %}
+  Section: p-dual-lights
+  用途：产品页 28J / 双灯卖点模块
+{% endcomment %}
+
+<style>
+  #shopify-section-{{ section.id }} .p-dual-lights {
+    position: relative;
+    background: {{ section.settings.bg_color }};
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .p-dual-lights__media {
+    position: relative;
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .p-dual-lights__image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  #shopify-section-{{ section.id }} .p-dual-lights__content {
+    position: absolute;
+    top: 24.8%;
+    left: 8.1%;
+    width: 420px;
+    color: {{ section.settings.text_color }};
+    z-index: 2;
+  }
+
+  #shopify-section-{{ section.id }} .p-dual-lights__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+    font-size: 18px;
+    line-height: 1.4;
+    font-weight: 400;
+  }
+
+  #shopify-section-{{ section.id }} .p-dual-lights__eyebrow-icon {
+    width: 34px;
+    height: auto;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .p-dual-lights__title {
+    margin: 0;
+    font-size: 40px;
+    line-height: 1.35;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .p-dual-lights__line {
+    width: 64px;
+    height: 4px;
+    margin: 52px 0 42px;
+    background: {{ section.settings.line_color }};
+  }
+
+  #shopify-section-{{ section.id }} .p-dual-lights__desc {
+    margin: 0;
+    font-size: 13px;
+    line-height: 2;
+    font-weight: 400;
+    color: {{ section.settings.desc_color }};
+  }
+
+  #shopify-section-{{ section.id }} .p-dual-lights__note {
+    margin: 58px 0 0;
+    font-size: 10px;
+    line-height: 1.8;
+    font-weight: 400;
+    color: {{ section.settings.note_color }};
+  }
+
+  @media screen and (max-width: 768px) {
+    #shopify-section-{{ section.id }} .p-dual-lights__content {
+      position: static;
+      width: auto;
+      padding: 33px 20px 0;
+      text-align: left;
+    }
+
+    #shopify-section-{{ section.id }} .p-dual-lights__eyebrow {
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    #shopify-section-{{ section.id }} .p-dual-lights__eyebrow-icon {
+      width: 25px;
+    }
+
+    #shopify-section-{{ section.id }} .p-dual-lights__title {
+      text-align: center;
+      font-size: 24px;
+      line-height: 1.45;
+      font-weight: 400;
+    }
+
+    #shopify-section-{{ section.id }} .p-dual-lights__line {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .p-dual-lights__media {
+      margin-top: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .p-dual-lights__desc {
+      padding: 0 20px;
+      margin-top: 22px;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    #shopify-section-{{ section.id }} .p-dual-lights__note {
+      padding: 0 20px 38px;
+      margin-top: 24px;
+      font-size: 10px;
+      line-height: 1.7;
+    }
+  }
+</style>
+
+<section class="p-dual-lights">
+  {% if section.settings.image != blank or section.settings.image_mobile != blank %}
+    <picture class="p-dual-lights__media">
+      {% if section.settings.image_mobile != blank %}
+        <source
+          media="(max-width: 768px)"
+          srcset="{{ section.settings.image_mobile | image_url: width: 900 }}"
+        >
+      {% endif %}
+
+      {% if section.settings.image != blank %}
+        <img
+          class="p-dual-lights__image"
+          src="{{ section.settings.image | image_url: width: 2400 }}"
+          alt="{{ section.settings.image.alt | escape }}"
+          loading="lazy"
+          width="{{ section.settings.image.width }}"
+          height="{{ section.settings.image.height }}"
+        >
+      {% elsif section.settings.image_mobile != blank %}
+        <img
+          class="p-dual-lights__image"
+          src="{{ section.settings.image_mobile | image_url: width: 900 }}"
+          alt="{{ section.settings.image_mobile.alt | escape }}"
+          loading="lazy"
+          width="{{ section.settings.image_mobile.width }}"
+          height="{{ section.settings.image_mobile.height }}"
+        >
+      {% endif %}
+    </picture>
+  {% endif %}
+
+  <div class="p-dual-lights__content">
+    {% if section.settings.eyebrow != blank %}
+      <div class="p-dual-lights__eyebrow">
+        {% if section.settings.eyebrow_icon != blank %}
+          <img
+            class="p-dual-lights__eyebrow-icon"
+            src="{{ section.settings.eyebrow_icon | image_url: width: 80 }}"
+            alt=""
+            loading="lazy"
+            width="34"
+            height="20"
+          >
+        {% endif %}
+        <span>{{ section.settings.eyebrow }}</span>
+      </div>
+    {% endif %}
+
+    {% if section.settings.title != blank %}
+      <h2 class="p-dual-lights__title">{{ section.settings.title }}</h2>
+    {% endif %}
+
+    <div class="p-dual-lights__line"></div>
+  </div>
+
+  {% if section.settings.desc != blank %}
+    <div class="p-dual-lights__desc">{{ section.settings.desc }}</div>
+  {% endif %}
+
+  {% if section.settings.note != blank %}
+    <div class="p-dual-lights__note">{{ section.settings.note }}</div>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "P 双灯卖点",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "PC 背景图"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "移动端背景图"
+    },
+    {
+      "type": "image_picker",
+      "id": "eyebrow_icon",
+      "label": "小标题图标"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "小标题",
+      "default": "ダブルランプ搭載"
+    },
+    {
+      "type": "html",
+      "id": "title",
+      "label": "主标题",
+      "default": "たった３回<sup>*1</sup>で<br>効果実感"
+    },
+    {
+      "type": "html",
+      "id": "desc",
+      "label": "正文",
+      "default": "出力エネルギーが28J<sup>*2</sup>へとアップグレード。たった週3回の新習慣が、目に見える肌の変化をいち早く体験いただけます<sup>*1</sup>。さらに「ダブルランプ」搭載で、高出力エネルギーを均一かつ精密に照射し、打ち漏れやムラを大幅に減少。従来のケアでは太刀打ちできなかった太くて硬い毛の根元まで強力にアプローチし、再生を効果的に抑制します。"
+    },
+    {
+      "type": "html",
+      "id": "note",
+      "label": "备注",
+      "default": "*1.国際認証機関SGSによる報告：GZCPCH24001216-01S1_CN。トリートメントスケジュールに従って週3回使用した場合、効果を実感し始めます。効果には個人差及び部位差があります。*2.国際認証機関CVCによります：WTS2024-15864、最大出力エネルギーはUSHRモード使用時に限られている、結果はテスト条件による異なる可能性もあります。"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "背景颜色",
+      "default": "#F5F7FB"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "标题颜色",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "desc_color",
+      "label": "正文颜色",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "note_color",
+      "label": "备注颜色",
+      "default": "#777777"
+    },
+    {
+      "type": "color",
+      "id": "line_color",
+      "label": "短线颜色",
+      "default": "#111111"
+    }
+  ],
+  "presets": [
+    {
+      "name": "P 双灯卖点"
+    }
+  ]
+}
+{% endschema %}

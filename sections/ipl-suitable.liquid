@@ -1,0 +1,243 @@
+<style>
+.ipl-suitable{
+  padding: 100px 0;
+}
+
+.ipl-suitable .container{
+  max-width: 1400px;
+}
+
+.ipl-suitable .ipl-suitable-cont{
+  display: flex;
+  align-items: center;
+}
+
+.ipl-suitable .ipl-suitable-table,.ipl-suitable .ipl-suitable-txt{
+  width: 50%;
+}
+
+.ipl-suitable .ipl-suitable-txt{
+  padding-left: 30px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ipl-suitable .ipl-suitable-txt-cont{
+  max-width: 450px;
+  /* margin: 0 auto; */
+}
+
+.ipl-suitable .title-diy{
+  text-align: left;
+}
+
+.ipl-suitable .ipl-suitable-p{
+  font-size: 16px;
+  color: #000;
+  margin-top: 35px;
+}
+
+.ipl-suitable .before-after-text-btn{
+  width: 260px;
+  height: 55px;
+  background: #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  margin-top: 45px;
+  cursor: pointer;
+  border: 2px solid #000;
+}
+
+.ipl-suitable .before-after-text-btn:hover .btn-txt::before{
+  color: #000;
+}
+
+.ipl-suitable .ipl-suitable-tab{
+  width: 100%;
+}
+
+.ipl-suitable .ipl-suitable-tab td{
+  position: relative;
+  border-right: 1px solid #e9e9e9;
+  border-bottom: 1px solid #e9e9e9;
+}
+
+.ipl-suitable .ipl-suitable-tab .img{
+  display: block;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.ipl-suitable .ipl-suitable-t{
+  position: absolute;
+  font-size: 12px;
+  color: #fff;
+  font-family: var(--font-heading-family);
+  line-height: 1.2;
+  top: 3px;
+  left: 3px;
+  z-index: 2;
+}
+
+.ipl-suitable .ipl-suitable-tag{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.ipl-suitable .ipl-suitable-tag.tag-su{
+  background: #000;
+}
+
+.ipl-suitable .ipl-suitable-tag.tag-su::before{
+  position: absolute;
+  content: '';
+  width: 7px;
+  height: 13px;
+  border-right: 1.5px solid #fff;
+  border-bottom: 1.5px solid #fff;
+  transform: translate(-50%,-50%) rotate(45deg);
+  left: 50%;
+  top: 50%;
+  margin-top: -2px;
+}
+
+.ipl-suitable .ipl-suitable-tag.tag-er{
+  background: #c4c4c4;
+}
+
+.ipl-suitable .ipl-suitable-tag.tag-er::before,.ipl-suitable .ipl-suitable-tag.tag-er::after{
+  position: absolute;
+  content: '';
+  display: block;
+  width: 1px;
+  height: 13px;
+  background: #fff;
+  left: 50%;
+  top: 50%;
+}
+
+.ipl-suitable .ipl-suitable-tag.tag-er::before{
+  transform: translate(-50%,-50%) rotate(-45deg);
+}
+
+.ipl-suitable .ipl-suitable-tag.tag-er::after{
+  transform: translate(-50%,-50%) rotate(45deg);
+}
+
+@media (max-width:1200px) {
+  .ipl-suitable .ipl-suitable-t{
+    width: 100%;
+    zoom: .8;
+  }
+}
+
+@media (max-width:991px) {
+  .ipl-suitable{
+    padding: 50px 0;
+  }
+  .ipl-suitable .ipl-suitable-cont{
+    flex-direction: column;
+    align-items: normal;
+    gap: 30px;
+  }
+  .ipl-suitable .ipl-suitable-table, .ipl-suitable .ipl-suitable-txt{
+    width: 100%;
+  }
+  .ipl-suitable .ipl-suitable-txt{
+    padding: 0;
+  }
+  .ipl-suitable .ipl-suitable-txt-cont{
+    max-width: none;
+  }
+  .ipl-suitable .ipl-suitable-p{
+    margin-top: 15px;
+    font-size: 14px;
+  }
+  .ipl-suitable .before-after-text-btn{
+    margin-top: 25px;
+  }
+}
+
+@media (max-width:640px) {
+  .ipl-suitable .before-after-text-btn{
+    width: 100%;
+  }
+  .ipl-suitable .ipl-suitable-t{
+    zoom: .5;
+  }
+  .ipl-suitable .ipl-suitable-tag{
+    zoom: .6;
+  }
+}
+</style>
+<section class="section-box">
+  <div class="ipl-suitable">
+    <div class="container">
+      <div class="ipl-suitable-cont">
+        <div class="ipl-suitable-table">
+          {{ section.settings.html }}
+        </div>
+        <div class="ipl-suitable-txt">
+          <div class="ipl-suitable-txt-cont">
+            <div class="title-diy to-top" style="transition-delay: 0.1s">
+              {{ section.settings.title }}
+            </div>
+            <div class="ipl-suitable-p to-top" style="transition-delay: 0.2s">
+              {{ section.settings.text }}
+            </div>
+            {%- if section.settings.text1 != blank -%}
+              <div class="before-after-text-btn show-match-box btn-diy to-top" style="transition-delay: 0.3s">
+                <div class="btn-txt" text="{{ section.settings.text1 }}">
+                  <span>{{ section.settings.text1 }}</span>
+                </div>
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "ipl-suitable",
+  "settings": [
+    {
+      "type": "html",
+      "id": "html",
+      "label": "HTML"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "text1",
+      "label": "Text"
+    }
+  ],
+  "presets": [
+    {
+      "name": "ipl-suitable",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

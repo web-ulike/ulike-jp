@@ -1,0 +1,637 @@
+<style>
+     #shopify-section-{{ section.id }} {
+      --section-background: {{ section.settings.background }};
+       background: var(--section-background);
+   }
+.media-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px);
+  }
+@media screen and (max-width: 768px){
+  .media-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.mobile_padding_top }}px);
+    padding-bottom: calc({{ section.settings.mobile_padding_bottom }}px);
+  }
+}
+
+/* temperature-section start */
+    @keyframes draw-line{
+      100% {
+          stroke-dashoffset: 0;
+      }
+    }
+
+  table th, table td {
+    text-align: left;
+    line-height: normal;
+    font-size: initial;
+    padding: 0;
+}
+.temperature-section{
+  position: relative;
+}
+.temperature__content-box{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.temperature__content-container{
+  padding: 68px 0;
+}
+.temperature__content-box h3{
+  color: #000;
+text-align: center;
+font-size: 50px;
+font-style: normal;
+font-weight: 400;
+line-height: 1.3;
+margin-bottom: 54px;
+}
+.temperature__wrapper {
+  display: flex;
+  align-items: center;
+  gap: 125px;
+}
+.temperature__wrapper .temperature__content-lt{
+  flex: 1;
+}
+.temperature__wrapper .temperature__content-rt{
+  width: 48%;
+  background: rgba(255, 255, 255, 0.80);
+}
+.temperature__table-wrapper{
+  padding: 66px 90px;
+}
+ .temperature__content-rt table{
+    width: 100%;
+    position: relative;
+    box-shadow: none;
+    border-radius: 0;
+    border: none;
+    border-collapse: initial;
+}
+
+.temperature__content-lt h4{
+  color: #000;
+font-size: 40px;
+font-style: normal;
+font-weight: 400;
+line-height: 1.3;
+margin-bottom: 23px;
+}
+.temperature__content-lt .temperature__content-txt{
+  color: #000;
+font-size: 18px;
+font-style: normal;
+font-weight: 350;
+line-height: 1.5;
+letter-spacing: 0.9px;
+}
+.temperature__content-box .temperature__content-note{
+  color: rgba(0, 0, 0, 0.70);
+font-size: 14px;
+font-style: normal;
+font-weight: 300;
+line-height: 1.5;
+letter-spacing: 0.7px;
+margin-top: 44px;
+}
+.temperature__table-wrapper .chart .y-label{
+  width: 10%;
+  color: #000;
+font-size: 23px;
+font-style: normal;
+font-weight: 250;
+line-height: 2.5;
+letter-spacing: 0.912px;
+}
+.temperature__table-wrapper .x-line{
+  position: relative;
+}
+.temperature__table-wrapper .x-line::before{
+  display: block;
+  content: '';
+  width: 100%;
+  height: 1px;
+  top: 0;
+  left: 0;
+  background: repeating-linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.5) 0,
+    rgba(0, 0, 0, 0.5) 5px,
+    transparent 5px,
+    transparent 10px
+  );
+}
+.temperature__table-wrapper .x-label{
+  width: 14%;
+  color: #000;
+font-size: 23px;
+font-style: normal;
+font-weight: 250;
+line-height: 2.5;
+letter-spacing: -0.228px;
+}
+.table__bottom-wrapper{
+  display: flex;
+  padding-left: 10%;
+  color: #000;
+font-size: 12px;
+font-style: normal;
+font-weight: 300;
+line-height: 1; 
+letter-spacing: 0.48px;
+justify-content: space-between;
+margin-top: 28px;
+}
+.table__bottom-wrapper .table__bottom{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.table__bottom-wrapper .table__bottom-line{
+  width: 15px;
+  height: 3px;
+  background: #000;
+  display: block;
+}
+.table__bottom-wrapper .table__bottom-line2{
+    background: #57C8F8;
+}
+.table__bottom-wrapper .table__bottom-line3{
+    background: #E00004;
+}
+.temperature__table-container{
+  position: relative;
+}
+.temperature__table-container .temperature__table-line1{
+  position: absolute;
+    top: 11%;
+  left: 10%;
+  width: 90%;
+      stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+}
+.temperature__content-rt.appear .temperature__table-container .temperature__table-line{
+      animation: draw-line 2s ease forwards 1s;
+}
+.temperature__table-container .temperature__table-line2{
+  position: absolute;
+  top: 33%;
+  left: 10%;
+  width: 90%;
+      stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+}
+.temperature__table-container .temperature__table-line3{
+  position: absolute;
+  top: 34%;
+  left: 10%;
+  width: 90%;
+      stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+}
+.temperature__table-container .temperature__table-snowflake1{
+  position: absolute;
+top: 51%;
+    left: 23%;
+    opacity: 0;
+}
+.temperature__table-container .temperature__table-snowflake2{
+  position: absolute;
+top: 50%;
+left: 38%;
+opacity: 0;
+}
+.temperature__images-box img{
+  min-height: 755px;
+}
+.temperature__content-rt .temperature__table-snowflake{
+      transition: opacity 1s ease-in-out 2s;
+}
+.temperature__content-rt.appear .temperature__table-snowflake{
+      opacity: 1;
+}
+.temperature-section .btn-link{
+display: inline-flex;
+padding: 14px 60px;
+justify-content: center;
+align-items: center;
+gap: 10px;
+border-radius: var(--br);
+background:  var(--bg);
+color: var(--cr);
+text-align: center;
+font-size: 20px;
+font-style: normal;
+margin-top:36px;
+margin-bottom:60px;
+}
+.blast_friday-2025 .temperature__content-lt h4{
+color:#FFFFFC;
+}
+.blast_friday-2025 .temperature__content-lt .temperature__content-txt{
+color:#FFFFFC;
+}
+.blast_friday-2025  .temperature__content-box .temperature__content-note{
+color: #FFF;
+}
+.blast_friday-2025.temperature-section .btn-link{
+    border-radius: 0;
+}
+.temperature__content-note.mobile_show_box{
+display:none;
+}
+@media (max-width: 1550px) {
+  .temperature__wrapper {
+    gap: 80px;
+}
+.temperature__table-wrapper {
+    padding: 40px 60px;
+}
+}
+@media (max-width: 991px) {
+.temperature__wrapper{
+  flex-direction: column;
+  gap: 25px;
+}
+.temperature__images-box img{
+  min-height: 627px;
+}
+.temperature__content-box h3{
+  font-size: 28px;
+margin-bottom: 15px;
+}
+.temperature__content-lt h4{
+  font-size: 28px;
+  text-align: left;
+      margin-bottom: 15px;
+}
+.temperature__content-lt .temperature__content-txt{
+  font-size: 14px;
+}
+.temperature__content-box .temperature__content-note{
+  font-size: 10px;
+  margin-top: 0px;
+  position: absolute;
+  bottom: 23px;
+}
+.temperature__wrapper .temperature__content-rt {
+    width: 100%;
+    max-width: 335px;
+}
+.temperature__content-container {
+    padding: 43px 0px 23px;
+}
+.temperature__table-wrapper {
+       padding: 27px 42px 20px;
+    }
+    .temperature__table-wrapper .chart .y-label {
+    font-size: 10.493px;
+line-height: 2.5;
+letter-spacing: 0.42px;
+}
+.temperature__table-wrapper .x-label {
+    font-size: 10px;
+line-height: 2.5;
+letter-spacing: -0.105px;
+}
+.table__bottom-wrapper {
+   font-size: 10px;
+   margin-top: 6px;
+   flex-wrap: wrap;
+   row-gap: 5px;
+   column-gap: 10px;
+}
+.temperature__table-container .temperature__table-line1 {
+    top: 0;
+}
+.temperature__table-container .temperature__table-line3 {
+    top: 20%;
+}
+.temperature__table-container .temperature__table-snowflake1,.temperature__table-container .temperature__table-snowflake2{
+  width: 13px;
+  height: 13px;
+  top: 45%;
+}
+.table__bottom-wrapper .table__bottom {
+  width: calc(50% - 5px);
+}
+.temperature__table-container .temperature__table-line2 {
+    top: 30.3%;
+}
+.temperature-section .btn-link{
+  display:block;
+          width: max-content;
+padding: 11px 45px;
+font-size: 15px;
+margin:20px auto 0;
+margin-left:0;
+}
+.temperature__content-box .temperature__content-note.visibile_note{
+display:none;
+}
+.temperature__content-note.mobile_show_box{
+display:block;
+}
+}
+/* temperature-section  end*/
+</style>
+   <section>
+ <div class="temperature-section{% if section.settings.custom_class!=blank %} {{section.settings.custom_class}}{% endif %}">
+      <div class="temperature__images-box">
+         {%- if section.settings.image -%}
+        <picture class="temperature__images">
+          <source media="(max-width: 767px)" srcset="{{section.settings.mobile_image | image_url }}">
+          <img src="{{section.settings.image | image_url }}" alt=""></img>
+        </picture>
+        {%- endif -%}
+      </div>
+      <div class="temperature__content-box">
+        <div class="temperature__content-container">
+          <div class="container">
+             {%- if section.settings.tle != blank -%}
+            <h3 class="to-top">{{section.settings.tle }}</h3>
+             {%- endif -%}
+            <div class="temperature__wrapper">
+              <div class="temperature__content-lt to-top">
+                 {%- if section.settings.left_tle != blank -%}
+                <h4>{{ section.settings.left_tle }}</h4>
+                 {%- endif -%}
+                  {%- if section.settings.left_subtle != blank -%}
+                <div class="temperature__content-txt">{{ section.settings.left_subtle }}</div>
+                  {%- endif -%}
+
+                   {%- if section.settings.link_text != blank -%}
+                      <a href="{{ section.settings.link_url }}"  target="_blank" class="btn-link" style="--bg:{{ section.settings.button_background }};--cr:{{ section.settings.button_text_color }};--br:{{ section.settings.border_raidus }}px">{{ section.settings.link_text }}</a>
+                         {%- endif -%}
+
+
+
+                    {%- if section.settings.left_note != blank -%}
+                <div class="temperature__content-note  {% if section.settings.link_text != blank %} visibile_note{% endif %}">{{ section.settings.left_note }}</div>
+                {%- endif -%}
+              </div>
+              <div class="temperature__content-rt to-top">
+                <div class="temperature__table-wrapper">
+                  <div class="temperature__table-container">
+                   <table class="chart">
+                    <tbody>
+                      <!-- y轴刻度行 -->
+                        {%- for block in section.blocks -%}
+                          {%- case block.type -%}
+                         {%- when 'xaxis' -%}
+                      <tr>
+                        <td class="y-label">{{ block.settings.text  }}</td>
+                        <td colspan="12" class="x-line"></td>
+                      </tr>
+
+                          {%- endcase -%}
+                       {%- endfor -%}
+
+                      <!-- x轴刻度 -->
+                      <tr>
+                        <td></td>
+                          {%- for block in section.blocks -%}
+                          {%- case block.type -%}
+                         {%- when 'yaxis' -%}
+                        <td class="x-label">{{ block.settings.text  }}</td>
+                            {%- endcase -%}
+                       {%- endfor -%}
+                        <td colspan="6"></td>
+                      </tr>
+                      </tbody>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="490" height="72" viewBox="0 0 490 72" fill="none" class="temperature__table-line temperature__table-line1">
+                        <path d="M0.65625 70.4788C29.6287 70.2413 96.9155 61.4248 133.962 45.4662C180.271 25.518 227.291 29.7926 324.183 26.9429C401.696 24.6631 467.145 14.8313 488.756 1.29492" stroke="#E00004" stroke-width="2.13731"/>
+                      </svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="499" height="3" viewBox="0 0 499 3" fill="none" class="temperature__table-line temperature__table-line2">
+                        <line x1="0.734375" y1="1.75654" x2="498.015" y2="1.75654" stroke="black" stroke-width="2.13731"/>
+                      </svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="500" height="72" viewBox="0 0 500 72" fill="none" class="temperature__table-line temperature__table-line3">
+                        <path d="M1.24219 0.898438C16.917 25.1771 58.0511 67.0846 100.625 69.9021C144.799 72.8256 151.936 62.9026 225.31 62.1326C303.684 61.31 411.983 62.1326 499.619 62.1326" stroke="#57C8F8" stroke-width="2.13731"/>
+                      </svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none" class="temperature__table-snowflake temperature__table-snowflake1">
+                        <path d="M12.9051 25.0485C19.9173 25.0485 25.6016 21.2092 25.6016 14.2462V0.53418H0.208603V14.2462C0.208603 21.2092 5.89291 25.0485 12.9051 25.0485Z" fill="#40C4FC"/>
+                        <path d="M16.3783 15.2607L16.687 17.8236C17.0481 17.7799 17.3052 17.4518 17.2624 17.0903L17.0918 15.6722L18.8972 16.7161L19.2266 16.1449L17.4211 15.101L18.7329 14.5401C18.9829 14.4337 19.1329 14.1898 19.1329 13.9339C19.1329 13.8474 19.1163 13.76 19.0797 13.675L16.7084 14.6887L13.1932 12.6551C12.8781 12.4732 12.803 12.7703 12.6213 13.0857L16.3791 15.2599L16.3783 15.2607Z" fill="#FFFFFC"/>
+                        <path d="M8.34778 15.1013L6.54233 16.1452L6.87168 16.7164L8.67713 15.6725L8.50651 17.0906C8.50333 17.1176 8.50175 17.1438 8.50175 17.17C8.50175 17.4989 8.74776 17.7834 9.08187 17.8239L9.39059 15.261L11.8968 13.8127L12.5555 13.4313V17.0898L10.4921 18.639C10.7104 18.9298 11.123 18.9893 11.4143 18.7709L12.5555 17.9136V20.0007H13.2142V17.9136L14.3554 18.7709C14.4736 18.8598 14.6125 18.9027 14.7498 18.9027C14.9498 18.9027 15.1482 18.8114 15.2768 18.639L13.2134 17.0898V13.0508L13.5427 12.8601L14.4157 12.3556L16.7084 11.0305L19.0797 12.0442C19.2226 11.7089 19.067 11.322 18.7329 11.179L17.4211 10.6182L19.2266 9.57424L18.8972 9.00303L17.0918 10.0469L17.2624 8.62884C17.2656 8.60183 17.2671 8.57561 17.2671 8.5494C17.2671 8.22049 17.0211 7.93608 16.687 7.89556L16.3783 10.4585L13.2126 12.2881V8.62964L15.276 7.08045C15.0585 6.78968 14.6451 6.73009 14.3538 6.94857L13.2126 7.80578V5.71875H12.5539V7.80578L11.4127 6.94857C11.2945 6.85959 11.1556 6.81669 11.0183 6.81669C10.8183 6.81669 10.6207 6.90805 10.4913 7.08045L12.5547 8.62964V12.2881L9.38979 10.4585L9.08108 7.89556C8.71999 7.93925 8.46286 8.26736 8.50571 8.62884L8.67634 10.0469L6.87088 9.00303L6.54153 9.57424L8.34699 10.6182L7.03516 11.179C6.78518 11.2855 6.63518 11.5286 6.63518 11.7852C6.63518 11.8718 6.65184 11.96 6.68835 12.0442L9.05965 11.0305L12.2246 12.8593L9.05965 14.6882L6.68835 13.6744C6.5455 14.0097 6.70026 14.3966 7.03516 14.5396L8.34699 15.1005L8.34778 15.1013Z" fill="#FFFFFC"/>
+                      </svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none" class="temperature__table-snowflake temperature__table-snowflake2">
+                        <path d="M12.9051 25.0485C19.9173 25.0485 25.6016 21.2092 25.6016 14.2462V0.53418H0.208603V14.2462C0.208603 21.2092 5.89291 25.0485 12.9051 25.0485Z" fill="#40C4FC"/>
+                        <path d="M16.3783 15.2607L16.687 17.8236C17.0481 17.7799 17.3052 17.4518 17.2624 17.0903L17.0918 15.6722L18.8972 16.7161L19.2266 16.1449L17.4211 15.101L18.7329 14.5401C18.9829 14.4337 19.1329 14.1898 19.1329 13.9339C19.1329 13.8474 19.1163 13.76 19.0797 13.675L16.7084 14.6887L13.1932 12.6551C12.8781 12.4732 12.803 12.7703 12.6213 13.0857L16.3791 15.2599L16.3783 15.2607Z" fill="#FFFFFC"/>
+                        <path d="M8.34778 15.1013L6.54233 16.1452L6.87168 16.7164L8.67713 15.6725L8.50651 17.0906C8.50333 17.1176 8.50175 17.1438 8.50175 17.17C8.50175 17.4989 8.74776 17.7834 9.08187 17.8239L9.39059 15.261L11.8968 13.8127L12.5555 13.4313V17.0898L10.4921 18.639C10.7104 18.9298 11.123 18.9893 11.4143 18.7709L12.5555 17.9136V20.0007H13.2142V17.9136L14.3554 18.7709C14.4736 18.8598 14.6125 18.9027 14.7498 18.9027C14.9498 18.9027 15.1482 18.8114 15.2768 18.639L13.2134 17.0898V13.0508L13.5427 12.8601L14.4157 12.3556L16.7084 11.0305L19.0797 12.0442C19.2226 11.7089 19.067 11.322 18.7329 11.179L17.4211 10.6182L19.2266 9.57424L18.8972 9.00303L17.0918 10.0469L17.2624 8.62884C17.2656 8.60183 17.2671 8.57561 17.2671 8.5494C17.2671 8.22049 17.0211 7.93608 16.687 7.89556L16.3783 10.4585L13.2126 12.2881V8.62964L15.276 7.08045C15.0585 6.78968 14.6451 6.73009 14.3538 6.94857L13.2126 7.80578V5.71875H12.5539V7.80578L11.4127 6.94857C11.2945 6.85959 11.1556 6.81669 11.0183 6.81669C10.8183 6.81669 10.6207 6.90805 10.4913 7.08045L12.5547 8.62964V12.2881L9.38979 10.4585L9.08108 7.89556C8.71999 7.93925 8.46286 8.26736 8.50571 8.62884L8.67634 10.0469L6.87088 9.00303L6.54153 9.57424L8.34699 10.6182L7.03516 11.179C6.78518 11.2855 6.63518 11.5286 6.63518 11.7852C6.63518 11.8718 6.65184 11.96 6.68835 12.0442L9.05965 11.0305L12.2246 12.8593L9.05965 14.6882L6.68835 13.6744C6.5455 14.0097 6.70026 14.3966 7.03516 14.5396L8.34699 15.1005L8.34778 15.1013Z" fill="#FFFFFC"/>
+                      </svg>
+                    </table>
+                    <div class="table__bottom-wrapper">
+                      <div class="table__bottom">
+                        <div class="table__bottom-line table__bottom-line1"></div>
+                        <div class="table__bottom-txt">{{section.settings.line_txt1 }}</div>
+                      </div>
+                       <div class="table__bottom">
+                        <div class="table__bottom-line table__bottom-line2"></div>
+                        <div class="table__bottom-txt">{{section.settings.line_txt2 }}</div>
+                      </div>
+                       <div class="table__bottom">
+                        <div class="table__bottom-line table__bottom-line3"></div>
+                        <div class="table__bottom-txt">{{section.settings.line_txt3 }}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+             {%- if section.settings.left_note != blank -%}
+                <div class="temperature__content-note mobile_show_box">{{ section.settings.left_note }}</div>
+                {%- endif -%}
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% schema %}
+{
+  "name": "temperature-section",
+  "blocks": [
+        {
+    "name": "xaxis",
+    "type": "xaxis",
+    "settings": [
+       
+      {
+        "type": "text",
+        "id": "text",
+        "label": "Text"
+      }
+    ]
+    },
+      {
+    "name": "yaxis",
+    "type": "yaxis",
+    "settings": [
+       
+      {
+        "type": "text",
+        "id": "text",
+        "label": "Text"
+      }
+    ]
+    }
+  ],
+  "settings": [
+      {
+        
+        "type": "text",
+        "id": "custom_class",
+        "label": "Custom Class"
+      },
+    {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Images"
+      },
+      {
+        "type": "image_picker",
+        "id": "mobile_image",
+        "label": "Mobile Images"
+      },
+     {
+        
+        "type": "text",
+        "id": "tle",
+        "label": "Title"
+      },
+           {
+        
+        "type": "text",
+        "id": "left_tle",
+        "label": "left Title"
+      },
+      {
+        
+        "type": "richtext",
+        "id": "left_subtle",
+        "label": "left subTitle"
+      },
+        {
+      "type": "url",
+      "id": "link_url",
+      "label": "Button Link"
+    },
+     {
+      "type": "text",
+      "id": "link_text",
+      "label": "Button Link Text"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button Background",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#fff"
+    },
+     {
+          "type": "range",
+          "id": "border_raidus",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "border raidus",
+          "default": 0
+        },
+        {
+        
+        "type": "richtext",
+        "id": "left_note",
+        "label": "left Note"
+      },
+
+       {
+        
+        "type": "text",
+        "id": "line_txt1",
+        "label": "Line Text1"
+      },
+       {
+        
+        "type": "text",
+        "id": "line_txt2",
+        "label": "Line Text2"
+      },
+       {
+        
+        "type": "text",
+        "id": "line_txt3",
+        "label": "Line Text3"
+      },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color_background",
+      "id": "background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Mobile Padding Top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Mobile Padding Bottom",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "temperature-section"
+    }
+  ]
+}
+{% endschema %}

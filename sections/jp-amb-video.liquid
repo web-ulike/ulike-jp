@@ -1,0 +1,196 @@
+{%- liquid
+  assign sid = section.id
+  assign st = section.settings
+-%}
+
+<section class="jp-amb-video jp-amb-video--{{ sid }}">
+  <div class="jp-amb-video__media">
+    {%- if st.video_file != blank -%}
+      {{ st.video_file | video_tag:
+        class: 'jp-amb-video__video',
+        autoplay: true,
+        loop: true,
+        muted: true,
+        controls: false,
+        playsinline: true
+      }}
+    {%- elsif st.image != blank or st.mobile_image != blank -%}
+      <picture>
+        {%- if st.mobile_image != blank -%}
+          <source media="(max-width: 768px)" srcset="{{ st.mobile_image | image_url: width: 900 }}">
+        {%- endif -%}
+
+        {%- if st.image != blank -%}
+          <img
+            class="jp-amb-video__image"
+            src="{{ st.image | image_url: width: 2400 }}"
+            alt="{{ st.image.alt | escape }}"
+            loading="lazy"
+          >
+        {%- elsif st.mobile_image != blank -%}
+          <img
+            class="jp-amb-video__image"
+            src="{{ st.mobile_image | image_url: width: 900 }}"
+            alt="{{ st.mobile_image.alt | escape }}"
+            loading="lazy"
+          >
+        {%- endif -%}
+      </picture>
+    {%- endif -%}
+  </div>
+
+  <div class="jp-amb-video__content">
+    {%- if st.title != blank -%}
+      <div class="jp-amb-video__title">{{ st.title }}</div>
+    {%- endif -%}
+
+    {%- if st.show_play_icon -%}
+      {%- if st.video_url != blank -%}
+        <a class="jp-amb-video__play" href="{{ st.video_url }}" aria-label="Play video">
+          <span></span>
+        </a>
+      {%- else -%}
+        <div class="jp-amb-video__play" aria-hidden="true">
+          <span></span>
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  .jp-amb-video--{{ sid }} {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #f5f5f5;
+  }
+
+  .jp-amb-video--{{ sid }} .jp-amb-video__media,
+  .jp-amb-video--{{ sid }} picture {
+    display: block;
+    width: 100%;
+  }
+
+  .jp-amb-video--{{ sid }} .jp-amb-video__image,
+  .jp-amb-video--{{ sid }} .jp-amb-video__video {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .jp-amb-video--{{ sid }} .jp-amb-video__video {
+    object-fit: cover;
+  }
+
+  .jp-amb-video--{{ sid }} .jp-amb-video__content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .jp-amb-video--{{ sid }} .jp-amb-video__title {
+    font-size: 44px;
+    line-height: 1.45;
+    letter-spacing: .16em;
+    color: #fff;
+    font-weight: 500;
+    text-align: center;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, .18);
+  }
+
+  .jp-amb-video--{{ sid }} .jp-amb-video__play {
+    position: absolute;
+    right: 7.5%;
+    bottom: 12%;
+    width: 54px;
+    height: 54px;
+    border: 1px solid rgba(255, 255, 255, .85);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, .08);
+    text-decoration: none;
+    pointer-events: auto;
+  }
+
+  .jp-amb-video--{{ sid }} .jp-amb-video__play span {
+    width: 0;
+    height: 0;
+    display: block;
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+    border-left: 14px solid #fff;
+    margin-left: 4px;
+  }
+
+  @media (max-width: 768px) {
+    .jp-amb-video--{{ sid }} .jp-amb-video__title {
+      font-size: 24px;
+      line-height: 1.5;
+      letter-spacing: .12em;
+    }
+
+    .jp-amb-video--{{ sid }} .jp-amb-video__play {
+      right: 22px;
+      bottom: 22px;
+      width: 40px;
+      height: 40px;
+    }
+
+    .jp-amb-video--{{ sid }} .jp-amb-video__play span {
+      border-top-width: 7px;
+      border-bottom-width: 7px;
+      border-left-width: 11px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "JP Amb Video",
+  "settings": [
+    {
+      "type": "video",
+      "id": "video_file",
+      "label": "Autoplay video"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "PC image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile image"
+    },
+    {
+      "type": "html",
+      "id": "title",
+      "label": "Title",
+      "default": "毎日を、あなたと。"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_play_icon",
+      "label": "Show play icon",
+      "default": false
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "Play icon link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "JP Amb Video"
+    }
+  ]
+}
+{% endschema %}

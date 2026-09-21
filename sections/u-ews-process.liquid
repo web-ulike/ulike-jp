@@ -1,0 +1,308 @@
+{% comment %}
+  Section: u-ews-process
+  Usage:
+  - Extended warranty service process section
+  - Text and icons are configurable
+  - Layout/style is fixed
+{% endcomment %}
+
+{%- liquid
+  assign sid = section.id
+  assign st = section.settings
+-%}
+
+<section id="u-ews-process-{{ sid }}" class="u-ews-process">
+  <div class="u-ews-process__inner container">
+    {%- if st.desc != blank -%}
+      <div class="u-ews-process__desc rte to-top">
+        {{ st.desc }}
+      </div>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="u-ews-process__list to-top">
+        {%- for block in section.blocks -%}
+          <div class="u-ews-process__item-wrap" {{ block.shopify_attributes }}>
+            <div class="u-ews-process__item">
+              <div class="u-ews-process__icon-wrap">
+                {%- if block.settings.icon != blank -%}
+                  <img
+                    class="u-ews-process__icon"
+                    src="{{ block.settings.icon | image_url: width: 120 }}"
+                    alt="{{ block.settings.title | escape }}"
+                    loading="lazy"
+                    width="56"
+                    height="{{ 56 | divided_by: block.settings.icon.aspect_ratio | round }}"
+                  >
+                {%- else -%}
+                  <div class="u-ews-process__icon-placeholder"></div>
+                {%- endif -%}
+              </div>
+
+              {%- if block.settings.title != blank -%}
+                <div class="u-ews-process__title">
+                  {{ block.settings.title }}
+                </div>
+              {%- endif -%}
+
+              {%- if block.settings.desc != blank -%}
+                <div class="u-ews-process__text">
+                  {{ block.settings.desc }}
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+
+          {%- unless forloop.last -%}
+            <div class="u-ews-process__arrow" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="26" height="22" viewBox="0 0 26 22" fill="none">
+                <path d="M1 21L11 11L1 1M15 21L25 11L15 1" stroke="#E0004D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          {%- endunless -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  #u-ews-process-{{ sid }} {
+    background: #F8F9FC;
+    padding: 80px 0 80px;
+    position: relative;
+  }
+
+  #u-ews-process-{{ sid }} .u-ews-process__inner {
+    
+  }
+
+  #u-ews-process-{{ sid }} .u-ews-process__desc {
+    max-width: 900px;
+    margin: 0 auto 40px;
+    text-align: center;
+    color: #000;
+    font-size: 20px;
+    line-height: 1.4;
+  }
+
+  #u-ews-process-{{ sid }} .u-ews-process__desc p {
+    margin: 0;
+  }
+
+  #u-ews-process-{{ sid }} .u-ews-process__list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0;
+    width: 100%;
+    margin: 0 auto;
+    flex-wrap: nowrap;
+  }
+
+  #u-ews-process-{{ sid }} .u-ews-process__item-wrap {
+    flex: 0 0 auto;
+  }
+
+  #u-ews-process-{{ sid }} .u-ews-process__item {
+    width: 225px;
+    height: 225px;
+    background: #fff;
+    padding: 40px 50px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    background: #FFF;
+    box-shadow: 0 4px 16px 0 rgba(140, 144, 179, 0.22);
+
+
+  }
+
+  #u-ews-process-{{ sid }} .u-ews-process__icon-wrap {
+    width: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+
+  #u-ews-process-{{ sid }} .u-ews-process__icon {
+    display: block;
+    width: 100%;
+  }
+
+  #u-ews-process-{{ sid }} .u-ews-process__icon-placeholder {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #111;
+    border-radius: 6px;
+  }
+
+  #u-ews-process-{{ sid }} .u-ews-process__title {
+    color: #111;
+    font-size: 13px;
+    line-height: 1.55;
+    font-weight: 500;
+  }
+
+  #u-ews-process-{{ sid }} .u-ews-process__text {
+    margin-top: 4px;
+    color: #666;
+    font-size: 11px;
+    line-height: 1.55;
+  }
+
+  #u-ews-process-{{ sid }} .u-ews-process__arrow {
+    width: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 42px;
+  }
+
+  #u-ews-process-{{ sid }} .u-ews-process__arrow svg {
+    display: block;
+    width: 26px;
+    height: 22px;
+  }
+
+  @media screen and (max-width: 749px) {
+    #u-ews-process-{{ sid }} {
+      padding: 40px 0 50px;
+    }
+
+    #u-ews-process-{{ sid }} .u-ews-process__inner {
+    }
+
+    #u-ews-process-{{ sid }} .u-ews-process__desc {
+      margin: 0 auto 30px;
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    #u-ews-process-{{ sid }} .u-ews-process__list {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #u-ews-process-{{ sid }} .u-ews-process__item-wrap {
+      width: 100%;
+    }
+
+    #u-ews-process-{{ sid }} .u-ews-process__item {
+      width: 100%;
+      height: 100%;
+      padding: 24px;
+      gap: 33px;
+      flex-direction: inherit;
+      align-items: center;
+    }
+
+    #u-ews-process-{{ sid }} .u-ews-process__icon-wrap {
+      width: 40px;
+      margin-bottom: 0px;
+    }
+
+    #u-ews-process-{{ sid }} .u-ews-process__icon {
+      
+    }
+
+    #u-ews-process-{{ sid }} .u-ews-process__icon-placeholder {
+      width: 24px;
+      height: 24px;
+    }
+
+    #u-ews-process-{{ sid }} .u-ews-process__title {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    #u-ews-process-{{ sid }} .u-ews-process__text {
+      font-size: 9px;
+      line-height: 1.5;
+      margin-top: 2px;
+    }
+
+    #u-ews-process-{{ sid }} .u-ews-process__arrow {
+      width: 26px;
+      margin: 15px 0;
+    }
+
+    #u-ews-process-{{ sid }} .u-ews-process__arrow svg {
+      transform: rotate(90deg);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "u-ews-process",
+  "tag": "section",
+  "class": "section section-u-ews-process",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "desc",
+      "label": "Description",
+      "default": "<p>有償延長保証サービスの購入と保証登録を行ってから延長保証が有効となり、延長保証期間内では当社製品に不具合がある場合、引き続き修理・交換にて丁寧に対応させていただきます。</p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "process_item",
+      "name": "Process item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "有償延長保証サービスを購入"
+        },
+        {
+          "type": "text",
+          "id": "desc",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "u-ews-process",
+      "blocks": [
+        {
+          "type": "process_item",
+          "settings": {
+            "title": "有償延長保証サービスをご購入"
+          }
+        },
+        {
+          "type": "process_item",
+          "settings": {
+            "title": "有償延長保証サービスを登録する"
+          }
+        },
+        {
+          "type": "process_item",
+          "settings": {
+            "title": "有償延長保証サービスが有効になる"
+          }
+        },
+        {
+          "type": "process_item",
+          "settings": {
+            "title": "不具合の場合交換修理サポートに案内"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

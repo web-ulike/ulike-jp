@@ -1,0 +1,399 @@
+{% comment %}
+  Section: u-doctor-recommend-swiper
+{% endcomment %}
+
+{%- liquid
+  assign sid = section.id
+  assign st = section.settings
+-%}
+
+<section id="u-doctor-recommend-{{ sid }}" class="u-dr">
+  <div class="u-dr__container container">
+    {% if st.heading != blank %}
+      <div class="u-dr__head">
+        <h2 class="u-dr__title">{{ st.heading }}</h2>
+      </div>
+    {% endif %}
+
+    {% if section.blocks.size > 0 %}
+      <div class="u-dr__slider-wrap">
+        <custom-swiper
+          class="u-dr-swiper"
+          slides-per-view="1"
+          autoplay="true"
+          space-between="16"
+          loop="false"
+          centered-slides="false"
+          pagination="true"
+          navigation="true"
+          breakpoints='{
+            "768": {
+              "slidesPerView": 1,
+              "spaceBetween": 20
+            }
+          }'
+        >
+          <div class="u-dr__swiper-nav">
+            <button type="button" class="swiper-prev u-dr__nav-btn" aria-label="Previous">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.5 5L7.5 10L12.5 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <button type="button" class="swiper-next u-dr__nav-btn" aria-label="Next">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+
+          <div class="swiper-container">
+            <div class="swiper-wrapper">
+              {% for block in section.blocks %}
+                <div class="swiper-slide" {{ block.shopify_attributes }}>
+                  <div class="u-dr-card">
+                    <div class="u-dr-card__media">
+                      {% if block.settings.image != blank %}
+                        <img
+                          src="{{ block.settings.image | image_url: width: 800 }}"
+                          alt="{{ block.settings.name | escape }}"
+                          loading="lazy"
+                          width="400"
+                          height="{{ 400 | divided_by: block.settings.image.aspect_ratio | round }}"
+                        >
+                      {% endif %}
+                    </div>
+
+                    <div class="u-dr-card__content">
+                      {% if block.settings.card_title != blank %}
+                        <h3 class="u-dr-card__title">{{ block.settings.card_title }}</h3>
+                      {% endif %}
+
+                      {% if block.settings.desc != blank %}
+                        <div class="u-dr-card__desc rte">
+                          {{ block.settings.desc }}
+                        </div>
+                      {% endif %}
+
+                      <div class="u-dr-card__footer">
+                        {% if block.settings.job != blank %}
+                          <div class="u-dr-card__job">{{ block.settings.job }}</div>
+                        {% endif %}
+                        {% if block.settings.name != blank %}
+                          <div class="u-dr-card__name">{{ block.settings.name }}</div>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+
+            <div class="swiper-pagination u-dr__pagination"></div>
+          </div>
+        </custom-swiper>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  #u-doctor-recommend-{{ sid }} {
+    background: #F6F6F6;
+    padding: 50px 0 60px;
+  }
+
+  #u-doctor-recommend-{{ sid }} .u-dr__head {
+    margin: 0 auto 28px;
+  }
+
+  #u-doctor-recommend-{{ sid }} .u-dr__title {
+    margin: 0;
+    font-size: 40px;
+    line-height: 1.2;
+    font-weight: 500;
+    color: #190A0A;
+  }
+
+  #u-doctor-recommend-{{ sid }} .u-dr__slider-wrap {
+    position: relative;
+    margin: 0 auto;
+  }
+
+  #u-doctor-recommend-{{ sid }} .u-dr-swiper {
+    display: block;
+    position: relative;
+  }
+
+  #u-doctor-recommend-{{ sid }} .u-dr-swiper .swiper-container {
+    overflow: hidden;
+  }
+
+  #u-doctor-recommend-{{ sid }} .u-dr__swiper-nav {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  #u-doctor-recommend-{{ sid }} .u-dr__nav-btn {
+    width: 44px;
+    height: 44px;
+    border: 1px solid #d9d9d9;
+    background: #fff;
+    color: #111;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: opacity .25s ease, border-color .25s ease;
+  }
+
+  #u-doctor-recommend-{{ sid }} .u-dr__nav-btn.swiper-button-disabled {
+    opacity: .35;
+    cursor: not-allowed;
+  }
+
+  #u-doctor-recommend-{{ sid }} .swiper-prev.u-dr__nav-btn {
+    transform: translateX(-22px);
+  }
+
+  #u-doctor-recommend-{{ sid }} .swiper-next.u-dr__nav-btn {
+    transform: translateX(22px);
+  }
+
+  #u-doctor-recommend-{{ sid }} .u-dr-card {
+    display: flex;
+    align-items: stretch;
+    background: #fff;
+    overflow: visible;
+    gap: 188px;
+  }
+
+  #u-doctor-recommend-{{ sid }} .u-dr-card__media {
+    width: 30%;
+    background: #efefef;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  #u-doctor-recommend-{{ sid }} .u-dr-card__media img {
+    width: 100%;
+    display: block;
+  }
+
+  #u-doctor-recommend-{{ sid }} .u-dr-card__content {
+    width: 66%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  #u-doctor-recommend-{{ sid }} .u-dr-card__title {
+    margin: 0 0 128px;
+    font-size: 40px;
+    line-height: 1.3;
+    font-weight: 500;
+    color: #190A0A;
+  }
+
+  #u-doctor-recommend-{{ sid }} .u-dr-card__desc {
+    color: #756B6E;
+    font-size: 20px;
+    line-height: 1.8;
+    width: 80%;
+    margin-bottom: 110px;
+  }
+
+  #u-doctor-recommend-{{ sid }} .u-dr-card__desc p {
+    margin: 0;
+  }
+
+  #u-doctor-recommend-{{ sid }} .u-dr-card__desc,
+  #u-doctor-recommend-{{ sid }} .u-dr-card__desc p {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+  }
+
+  #u-doctor-recommend-{{ sid }} .u-dr-card__footer {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  #u-doctor-recommend-{{ sid }} .u-dr-card__job {
+    color: #E0004D;
+    font-size: 20px;
+    line-height: 1.8;
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+
+  #u-doctor-recommend-{{ sid }} .u-dr-card__name {
+    color: #190A0A;
+    font-size: 24px;
+    line-height: 1.5;
+    font-weight: 500;
+  }
+
+  @media screen and (max-width: 767px) {
+    #u-doctor-recommend-{{ sid }} .u-dr__head{
+       margin: 0 auto 30px;
+    }
+
+    #u-doctor-recommend-{{ sid }} .u-dr__slider-wrap {
+      padding: 0 0 8px;
+    }
+
+    #u-doctor-recommend-{{ sid }} .u-dr__slider-wrap {
+      padding: 0 0 8px;
+    }
+
+    #u-doctor-recommend-{{ sid }} .u-dr-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    #u-doctor-recommend-{{ sid }} .u-dr__swiper-nav {
+      display: none;
+    }
+
+    #u-doctor-recommend-{{ sid }} .u-dr__title {
+      font-size: 24px;
+      text-align: center;
+    }
+
+    #u-doctor-recommend-{{ sid }} .u-dr-card__media,
+    #u-doctor-recommend-{{ sid }} .u-dr-card__content {
+      width: 100%;
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+
+    #u-doctor-recommend-{{ sid }} .u-dr-card__media {
+      width: 100%;
+      background: #efefef;
+      aspect-ratio: auto;
+      align-items: flex-end;
+      justify-content: center;
+      min-height: 0;
+    }
+
+    #u-doctor-recommend-{{ sid }} .u-dr-card__content {
+      width: 100%;
+      padding: 30px 20px;
+      justify-content: flex-start;
+      min-height: 260px;
+    }
+
+    #u-doctor-recommend-{{ sid }} .u-dr-card__title {
+      font-size: 20px;
+      margin: 0 0 14px;
+      line-height: 1.5;
+    }
+
+    #u-doctor-recommend-{{ sid }} .u-dr-card__desc {
+      width: 100%;
+      font-size: 14px;
+      line-height: 1.3;
+      margin-bottom: 16px;
+    }
+
+    #u-doctor-recommend-{{ sid }} .u-dr-card__job {
+      font-size: 12px;
+      line-height: 1.4;
+      margin-bottom: 10px;
+    }
+
+    #u-doctor-recommend-{{ sid }} .u-dr-card__name {
+      font-size: 20px;
+      line-height: 1.25;
+    }
+
+    #u-doctor-recommend-{{ sid }} .u-dr__pagination {
+      position: static;
+      margin-top: 16px;
+      text-align: center;
+    }
+  }
+
+  #u-doctor-recommend-{{ sid }} .u-dr__pagination {
+    display: none;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Doctor recommend",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "専門医推奨"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "doctor",
+      "name": "Doctor card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Doctor image"
+        },
+        {
+          "type": "text",
+          "id": "card_title",
+          "label": "Card title",
+          "default": "信頼性、安全性、有効性"
+        },
+        {
+          "type": "richtext",
+          "id": "desc",
+          "label": "Description",
+          "default": "<p>ここに説明文を入力してください。</p>"
+        },
+        {
+          "type": "text",
+          "id": "job",
+          "label": "Job title",
+          "default": "一晩プクリニック院長・皮フ科・予防エイジングケア"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Doctor name",
+          "default": "宇井千穂 先生"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "u-doctor-recommend-swiper",
+      "blocks": [
+        {
+          "type": "doctor"
+        },
+        {
+          "type": "doctor"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,141 @@
+{%- liquid
+  assign section_id = 'jp-air10-long-life-2026-' | append: section.id
+-%}
+
+<section id="{{ section_id }}" class="jp-long-life-2026">
+  <div class="jp-long-life-2026__inner">
+    <div class="jp-long-life-2026__intro">
+      <h2 class="jp-long-life-2026__title jp-long-life-2026__title--desktop">
+        {{ section.settings.title | escape | newline_to_br }}
+      </h2>
+      <h2 class="jp-long-life-2026__title jp-long-life-2026__title--mobile">
+        {{ section.settings.title_mobile | default: section.settings.title | escape | newline_to_br }}
+      </h2>
+      <div class="jp-long-life-2026__description">{{ section.settings.description }}</div>
+    </div>
+
+    <div class="jp-long-life-2026__metrics" aria-label="製品の耐久性とケアコスト">
+      <div class="jp-long-life-2026__metric">
+        <p class="jp-long-life-2026__metric-value">
+          <span>{{ section.settings.lifetime_value | escape }}</span
+          ><small>{{ section.settings.lifetime_unit | escape }}<sup>{{ section.settings.lifetime_note | default: '*1' | escape }}</sup></small>
+        </p>
+        <p class="jp-long-life-2026__metric-label">{{ section.settings.lifetime_label | escape }}</p>
+      </div>
+      <div class="jp-long-life-2026__divider"></div>
+      <div class="jp-long-life-2026__metric">
+        <p class="jp-long-life-2026__metric-value">
+          <span>{{ section.settings.cost_value | escape }}</span
+          ><small>{{ section.settings.cost_unit | escape }}<sup>{{ section.settings.cost_note | default: '*2' | escape }}</sup></small>
+        </p>
+        <p class="jp-long-life-2026__metric-label">{{ section.settings.cost_label | escape }}</p>
+      </div>
+    </div>
+
+    <div class="jp-long-life-2026__image-wrap">
+      {% if section.settings.image != blank %}
+        <picture>
+          {% if section.settings.image_mobile != blank %}
+            <source media="(max-width: 749px)" srcset="{{ section.settings.image_mobile | image_url: width: 1000 }}">
+          {% endif %}
+          {{
+            section.settings.image
+            | image_url: width: 2200
+            | image_tag: class: 'jp-long-life-2026__image', loading: 'lazy', widths: '750, 1200, 1600, 1920, 2200'
+          }}
+        </picture>
+      {% else %}
+        {{ 'lifestyle-2' | placeholder_svg_tag: 'jp-long-life-2026__placeholder' }}
+      {% endif %}
+    </div>
+
+    {% if section.settings.note != blank %}
+      <div class="jp-long-life-2026__note">{{ section.settings.note }}</div>
+    {% endif %}
+  </div>
+</section>
+
+{% style %}
+  #{{ section_id }} { background: #fff; color: #000; }
+  #{{ section_id }} * { box-sizing: border-box; }
+  #{{ section_id }} .jp-long-life-2026__inner { max-width: 1280px; margin: 0 auto; padding: 102px 40px 32px; }
+  #{{ section_id }} .jp-long-life-2026__intro { margin: 0 auto; max-width: 680px; text-align: center; }
+  #{{ section_id }} .jp-long-life-2026__title { color: #000; font-size: 40px; font-weight: 500; line-height: 1.5; margin: 0 0 29px; }
+  #{{ section_id }} .jp-long-life-2026__title--mobile { display: none; }
+  #{{ section_id }} .jp-long-life-2026__description { color: #3f3636; font-size: 20px; font-weight: 400; line-height: 1.5; }
+  #{{ section_id }} .jp-long-life-2026__description p { margin: 0; }
+  #{{ section_id }} .jp-long-life-2026__metrics { align-items: center; display: flex; gap: 0; margin: 60px auto 80px; width: fit-content; }
+  #{{ section_id }} .jp-long-life-2026__metric { min-width: 0; text-align: center; }
+  #{{ section_id }} .jp-long-life-2026__metric:first-child, #{{ section_id }} .jp-long-life-2026__metric:last-child { width: max-content; }
+  #{{ section_id }} .jp-long-life-2026__metric-value, #{{ section_id }} .jp-long-life-2026__metric-label { margin: 0; }
+  #{{ section_id }} .jp-long-life-2026__metric-value { color: #e0004d; font-family: Roboto, sans-serif; font-size: 79.698px; font-weight: 600; line-height: 1.2; white-space: nowrap; }
+  #{{ section_id }} .jp-long-life-2026__metric-value small { color: #000; font-family: "Noto Sans JP", sans-serif; font-size: 29.887px; font-weight: 500; margin-left: 3px; }
+  #{{ section_id }} .jp-long-life-2026__metric-value sup { font-family: Saans, "Noto Sans JP", sans-serif; font-size: 19.277px; font-weight: 500; line-height: 1.2; vertical-align: baseline; }
+  #{{ section_id }} .jp-long-life-2026__metric-label { color: #000; font-family: "Noto Sans JP", sans-serif; font-size: 19.925px; line-height: 1.5; margin-top: 0; }
+  #{{ section_id }} .jp-long-life-2026__divider { align-self: center; background: #b3b3b3; display: block; flex: 0 0 1px; height: 90.622px; margin: 0 57px; width: 1px; }
+  #{{ section_id }} .jp-long-life-2026__image-wrap { border-radius: 12px; margin: 0 auto; max-width: 1110px; overflow: hidden; width: 100%; }
+  #{{ section_id }} .jp-long-life-2026__image-wrap picture, #{{ section_id }} .jp-long-life-2026__image, #{{ section_id }} .jp-long-life-2026__placeholder { display: block; width: 100%; }
+  #{{ section_id }} .jp-long-life-2026__image { height: auto; }
+  #{{ section_id }} .jp-long-life-2026__placeholder { aspect-ratio: 336 / 298; fill: #eee; }
+  #{{ section_id }} .jp-long-life-2026__note { color: rgba(0, 0, 0, .5); font-size: 12px; line-height: 1.5; margin: 30px auto 0; max-width: 1110px; }
+  #{{ section_id }} .jp-long-life-2026__note p { margin: 0; }
+
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} .jp-long-life-2026__inner { padding: 54px 19px 31px; }
+    #{{ section_id }} .jp-long-life-2026__intro { margin: 0; text-align: left; }
+    #{{ section_id }} .jp-long-life-2026__title { font-family: "Noto Sans JP", sans-serif; font-size: 30px; line-height: 1.5; margin-bottom: 18px; }
+    #{{ section_id }} .jp-long-life-2026__title--desktop { display: none; }
+    #{{ section_id }} .jp-long-life-2026__title--mobile { display: block; }
+    #{{ section_id }} .jp-long-life-2026__description { color: #000; font-family: Saans, "Noto Sans JP", sans-serif; font-size: 19px; line-height: 1.5; }
+    #{{ section_id }} .jp-long-life-2026__metrics { gap: 0; margin: 31px 0 40px; width: 235px; }
+    #{{ section_id }} .jp-long-life-2026__metric { min-width: 0; }
+    #{{ section_id }} .jp-long-life-2026__metric:first-child { width: 77px; }
+    #{{ section_id }} .jp-long-life-2026__metric:last-child { width: 108px; }
+    #{{ section_id }} .jp-long-life-2026__metric-value { font-family: Roboto, sans-serif; font-size: 40px; }
+    #{{ section_id }} .jp-long-life-2026__metric-value small { font-family: "Noto Sans JP", sans-serif; font-size: 15px; margin-left: 1px; }
+    #{{ section_id }} .jp-long-life-2026__metric-value sup { font-size: 10px; }
+    #{{ section_id }} .jp-long-life-2026__metric-label { font-family: "Noto Sans JP", sans-serif; font-size: 12px; line-height: 1.5; margin-top: 0; white-space: nowrap; }
+    #{{ section_id }} .jp-long-life-2026__divider { height: 46.8px; margin: 0 21px 0 28px; }
+    #{{ section_id }} .jp-long-life-2026__image-wrap { aspect-ratio: auto; border-radius: 0; margin: 0; max-width: none; width: 100%; }
+    #{{ section_id }} .jp-long-life-2026__image { height: auto; object-fit: contain; }
+    #{{ section_id }} .jp-long-life-2026__note { font-family: "Noto Sans JP", sans-serif; font-size: 10px; line-height: 1.5; margin: 16px 0 0; max-width: 335px; }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "jp-air10-long-life-2026",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "PC 图片" },
+    { "type": "image_picker", "id": "image_mobile", "label": "移动端图片" },
+    { "type": "textarea", "id": "title", "label": "PC 标题（换行请回车）", "default": "長く付き合える、納得の一台" },
+    {
+      "type": "textarea",
+      "id": "title_mobile",
+      "label": "移动端标题（换行请回车）",
+      "default": "長く付き合える、\n納得の一台"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "说明文字",
+      "default": "<p>最大90万回*1の長寿命ランプを採用し、毎日のケアを長く支える一台。1回あたりのケアコストは約116円と*2、サロン施術と比べても無理のない使い続けやすさを叶えます。</p>"
+    },
+    { "type": "text", "id": "lifetime_value", "label": "寿命数值", "default": "90" },
+    { "type": "text", "id": "lifetime_unit", "label": "寿命单位", "default": "万回" },
+    { "type": "text", "id": "lifetime_note", "label": "寿命脚注标记", "default": "*1" },
+    { "type": "text", "id": "lifetime_label", "label": "寿命说明", "default": "長寿命ランプ" },
+    { "type": "text", "id": "cost_value", "label": "成本数值", "default": "116" },
+    { "type": "text", "id": "cost_unit", "label": "成本单位", "default": "円/回" },
+    { "type": "text", "id": "cost_note", "label": "成本脚注标记", "default": "*2" },
+    { "type": "text", "id": "cost_label", "label": "成本说明", "default": "自宅でサロン級" },
+    {
+      "type": "richtext",
+      "id": "note",
+      "label": "脚注",
+      "default": "<p>*1.当社の耐久性試験結果。最大90万回連続で照射できます。<br>*2.116円の算出根拠：本体価格69,800円 ÷ 最大照射回数90万発 ＝ 約0.078円／発。全身ケア1回あたり約1,500発使用した場合、約116円相当。</p>"
+    }
+  ],
+  "presets": [{ "name": "jp-air10-long-life-2026" }]
+}
+{% endschema %}

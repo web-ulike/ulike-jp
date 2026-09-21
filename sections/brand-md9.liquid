@@ -1,0 +1,42 @@
+<style>
+
+</style>
+  <section>
+    <div class="md5__inner">
+      
+   <div class="md5-top-two to-top appear">
+        <div class="md5_two-txt">{{ section.settings.txt }}</div>
+        <div class="md-two-img">
+          {%- if section.settings.image -%}
+         <img src="{{ section.settings.image | image_url }}" alt="">
+        {%- endif -%}
+        </div>
+      </div>
+     
+    </div>
+  </section>
+{% schema %}
+{
+  "name": "Brand Md9",
+  "class": "shopify-section--brand-md9", 
+  "settings": [
+     {
+      "type": "richtext",
+      "id": "txt",
+      "label": "Text"
+    },
+    {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        }
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "Brand Md9"
+    }
+  ]
+}
+{% endschema %}

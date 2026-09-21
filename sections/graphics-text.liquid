@@ -1,0 +1,173 @@
+<style>
+    .media-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px);
+  }
+@media screen and (max-width: 768px){
+  .media-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.mobile_padding_top }}px);
+    padding-bottom: calc({{ section.settings.mobile_padding_bottom }}px);
+  }
+}
+   /* image-with-text start */
+   .graphics-text-wrapper{
+    display: flex;
+    align-items: center;
+   }
+   .graphics-text-wrapper .graphics-text-content{
+   flex: 1;
+   }
+  .graphics-text-wrapper .graphics-text-pic{
+   flex: 1;
+   }
+   .graphics-text-content .iwt-tle-box{
+    max-width: 364px;
+    padding: 20px 0 17px;
+    border-top: 1px solid #CACACA;
+    border-bottom: 1px solid #CACACA;
+    color:  #190A0A;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+   }
+    .graphics-text-content .iwt-note-box{
+    max-width: 641px;
+   }
+   .graphics-text-content .iwt-note-box{
+    color: #000;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 150%;
+    letter-spacing: 1.2px;
+    margin-top: 37px;
+   }
+   @media screen and (max-width: 991px) {
+    .graphics-text-wrapper{
+      flex-direction: column-reverse;
+      gap: 32px;
+      position: relative;
+      padding-top: 115px;
+    }
+    .graphics-text-content .iwt-tle-box{
+      max-width: 100%;
+          padding: 27px 0;
+          border-bottom-width: 0;
+          font-size: 20px;
+          position: absolute;
+          top: 0;
+          left: 0;
+          text-align: center;
+          width: 100%;
+    }
+    .graphics-text-content .iwt-note-box{
+      max-width: 100%;
+      margin-top: 0;
+      padding-bottom: 35px;
+      border-bottom: 1px solid #CACACA;
+    }
+   }
+   /* image-with-text end */
+</style>
+  <section>
+ <div class="graphics-text media-{{ section.id }}-padding">
+            <div class="container">
+              <div class="graphics-text-wrapper to-top"> 
+
+                <div class="graphics-text-content">
+                  <div class="iwt-tle-box">
+                    {{ section.settings.tle }}
+                  </div>
+                  <div class="iwt-note-box">
+                   {{ section.settings.note }}
+                  </div>
+                </div>
+                <picture class="graphics-text-pic">
+                   {% if section.settings.mobile_image %}
+                        <source media="(max-width: 767px)" srcset="{{ section.settings.mobile_image | image_url }}">
+                        {%  endif %}
+                        {%  if section.settings.image %}
+                        <img src="{{ section.settings.image | image_url }}" alt="">
+                        {%  endif %}
+                </picture>
+
+              </div>
+            </div>
+          </div>
+       </section>
+{% schema %}
+{
+  "name": "graphics-text",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "tle",
+      "label": "Title"
+    },
+     {
+      "type": "richtext",
+      "id": "note",
+      "label": "Note"
+    },
+       {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile Image"
+        },
+     {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 300,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 300,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 0
+    },
+     {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile Padding Bottom",
+      "default": 0
+    }
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "graphics-text"
+    }
+  ]
+}
+{% endschema %}

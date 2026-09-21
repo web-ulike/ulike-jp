@@ -1,0 +1,365 @@
+{% comment %}
+  Section: u-service-policy-tabs
+  Notes:
+  - Service policy tabs section
+  - Only current panel is shown
+  - First tab/panel is active by default
+  - Tab text is configurable
+  - Panel title/content use richtext
+{% endcomment %}
+
+{%- liquid
+  assign sid = section.id
+-%}
+
+<section id="u-service-policy-tabs-{{ sid }}" class="u-service-policy-tabs">
+  <div class="u-service-policy-tabs__nav-wrap">
+    <div class="u-service-policy-tabs__nav container" data-policy-tabs-nav>
+      {%- for block in section.blocks -%}
+        <button
+          type="button"
+          class="u-service-policy-tabs__tab{% if forloop.first %} is-active{% endif %}"
+          data-target="u-policy-panel-{{ sid }}-{{ block.id }}"
+          {{ block.shopify_attributes }}
+        >
+          {{ block.settings.tab_title }}
+        </button>
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <div class="u-service-policy-tabs__content container">
+    {%- for block in section.blocks -%}
+      <div
+        id="u-policy-panel-{{ sid }}-{{ block.id }}"
+        class="u-service-policy-tabs__panel{% if forloop.first %} is-active{% endif %}"
+        data-policy-panel
+        {% unless forloop.first %}hidden{% endunless %}
+        {{ block.shopify_attributes }}
+      >
+        {%- if block.settings.content_title != blank -%}
+          <div class="u-service-policy-tabs__panel-title rte">
+            {{ block.settings.content_title }}
+          </div>
+        {%- endif -%}
+
+        {%- if block.settings.content_text != blank -%}
+          <div class="u-service-policy-tabs__panel-text rte">
+            {{ block.settings.content_text }}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+<style>
+  #u-service-policy-tabs-{{ sid }} {
+    background: #fff;
+  }
+
+  #u-service-policy-tabs-{{ sid }} {
+    --policy-tabs-sticky-top: 0px;
+    --policy-tabs-sticky-show-offset: 0px;
+  }
+
+  #u-service-policy-tabs-{{ sid }} .u-service-policy-tabs__nav-wrap {
+    background: #fff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.50);
+    position: relative;
+    z-index: 4;
+    transition: top 0.25s ease;
+  }
+
+  #u-service-policy-tabs-{{ sid }} .u-service-policy-tabs__nav-wrap.is-stuck {
+    position: sticky;
+    top: var(--policy-tabs-sticky-top);
+  }
+
+  #u-service-policy-tabs-{{ sid }} .u-service-policy-tabs__nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 30px;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none;
+    height: 70px;
+  }
+
+  #u-service-policy-tabs-{{ sid }} .u-service-policy-tabs__nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  #u-service-policy-tabs-{{ sid }} .u-service-policy-tabs__tab {
+    position: relative;
+    padding: 0px 4px;
+    border: 0;
+    background: transparent;
+    color: rgba(0, 0, 0, 0.80);
+    font-size: 16px;
+    line-height: 1.4;
+    cursor: pointer;
+    flex: 0 0 auto;
+    height: 100%;
+  }
+
+  #u-service-policy-tabs-{{ sid }} .u-service-policy-tabs__tab.is-active {
+    color: rgba(0, 0, 0);
+    font-weight: 500;
+  }
+
+  #u-service-policy-tabs-{{ sid }} .u-service-policy-tabs__tab.is-active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 3px;
+    background: #808080;
+  }
+
+  #u-service-policy-tabs-{{ sid }} .u-service-policy-tabs__content {
+    padding-top: 40px;
+    padding-bottom: 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  #u-service-policy-tabs-{{ sid }} .u-service-policy-tabs__panel {
+    display: none;
+    padding: 20px 0 56px;
+    min-height: 240px;
+  }
+
+  #u-service-policy-tabs-{{ sid }} .u-service-policy-tabs__panel.is-active {
+    display: block;
+  }
+
+  #u-service-policy-tabs-{{ sid }} .u-service-policy-tabs__panel-title {
+    margin: 0 0 16px;
+    color: #111;
+    font-size: 24px;
+    line-height: 1.4;
+    font-weight: 600;
+  }
+
+  #u-service-policy-tabs-{{ sid }} .u-service-policy-tabs__panel-title p {
+    margin: 0 0 8px;
+  }
+
+  #u-service-policy-tabs-{{ sid }} .u-service-policy-tabs__panel-title p:last-child {
+    margin-bottom: 0;
+  }
+
+  #u-service-policy-tabs-{{ sid }} .u-service-policy-tabs__panel-text {
+    color: #444;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  #u-service-policy-tabs-{{ sid }} .u-service-policy-tabs__panel-text h3{
+    font-size: 24px;
+  }
+
+  #u-service-policy-tabs-{{ sid }} .u-service-policy-tabs__panel-text p {
+    margin: 0 0 14px;
+  }
+
+  #u-service-policy-tabs-{{ sid }} .u-service-policy-tabs__panel-text p:last-child {
+    margin-bottom: 0;
+  }
+
+  #u-service-policy-tabs-{{ sid }} .u-service-policy-tabs__panel-text ul,
+  #u-service-policy-tabs-{{ sid }} .u-service-policy-tabs__panel-text ol {
+    margin: 0 0 14px 20px;
+    padding: 0;
+  }
+
+  #u-service-policy-tabs-{{ sid }} .u-service-policy-tabs__panel-text li {
+    margin-bottom: 8px;
+  }
+
+  #u-service-policy-tabs-{{ sid }} .u-service-policy-tabs__panel-text a {
+    color: #111;
+    text-decoration: underline;
+  }
+
+  @media screen and (max-width: 749px) {
+    #u-service-policy-tabs-{{ sid }} .u-service-policy-tabs__nav {
+      gap: 28px;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+    #u-service-policy-tabs-{{ sid }} .u-service-policy-tabs__nav-wrap.is-stuck {
+      top: var(--policy-tabs-sticky-top);
+    }
+
+    #u-service-policy-tabs-{{ sid }} .u-service-policy-tabs__tab {
+      padding: 13px 0 12px;
+      font-size: 12px;
+    }
+
+    #u-service-policy-tabs-{{ sid }} .u-service-policy-tabs__content {
+      padding: 18px 16px 56px;
+    }
+
+    #u-service-policy-tabs-{{ sid }} .u-service-policy-tabs__panel {
+      padding: 14px 0 40px;
+      min-height: 180px;
+    }
+
+    #u-service-policy-tabs-{{ sid }} .u-service-policy-tabs__panel-title {
+      margin-bottom: 12px;
+      font-size: 18px;
+    }
+
+    #u-service-policy-tabs-{{ sid }} .u-service-policy-tabs__panel-text {
+      font-size: 13px;
+      line-height: 1.8;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    const root = document.getElementById('u-service-policy-tabs-{{ sid }}');
+    if (!root) return;
+
+    const tabs = Array.from(root.querySelectorAll('.u-service-policy-tabs__tab'));
+    const panels = Array.from(root.querySelectorAll('[data-policy-panel]'));
+    const nav = root.querySelector('[data-policy-tabs-nav]');
+    const navWrap = root.querySelector('.u-service-policy-tabs__nav-wrap');
+    if (!tabs.length || !panels.length || !navWrap) return;
+
+    function getStickyShowOffset() {
+      const styles = window.getComputedStyle(root);
+      const value = parseFloat(styles.getPropertyValue('--policy-tabs-sticky-show-offset'));
+      return Number.isNaN(value) ? 0 : value;
+    }
+
+    function updateStickyState() {
+      const rootTop = root.getBoundingClientRect().top + window.pageYOffset;
+      const shouldStick = window.pageYOffset >= (rootTop + getStickyShowOffset());
+      navWrap.classList.toggle('is-stuck', shouldStick);
+    }
+
+    function setActive(targetId) {
+      tabs.forEach((tab) => {
+        const isActive = tab.getAttribute('data-target') === targetId;
+        tab.classList.toggle('is-active', isActive);
+      });
+
+      panels.forEach((panel) => {
+        const isActive = panel.id === targetId;
+        panel.classList.toggle('is-active', isActive);
+        panel.hidden = !isActive;
+      });
+
+      const activeTab = tabs.find((tab) => tab.classList.contains('is-active'));
+      if (activeTab && nav) {
+        const navRect = nav.getBoundingClientRect();
+        const tabRect = activeTab.getBoundingClientRect();
+        const offset = activeTab.offsetLeft - (navRect.width / 2) + (tabRect.width / 2);
+        nav.scrollTo({ left: offset, behavior: 'smooth' });
+      }
+    }
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', function() {
+        const targetId = this.getAttribute('data-target');
+        if (!targetId) return;
+
+        updateStickyState();
+
+        const stickyTop = parseFloat(window.getComputedStyle(root).getPropertyValue('--policy-tabs-sticky-top')) || 0;
+        const currentNavHeight = navWrap.offsetHeight || 0;
+        const rootTop = root.getBoundingClientRect().top + window.pageYOffset;
+        const scrollTop = rootTop - currentNavHeight - stickyTop;
+
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+
+        setActive(targetId);
+      });
+    });
+
+    window.addEventListener('scroll', updateStickyState, { passive: true });
+    window.addEventListener('resize', updateStickyState);
+    updateStickyState();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "u-service-policy-tabs",
+  "tag": "section",
+  "class": "section section-u-service-policy-tabs",
+  "max_blocks": 10,
+  "blocks": [
+    {
+      "type": "policy_item",
+      "name": "Policy item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_title",
+          "label": "Tab title",
+          "default": "2年間メーカー保証"
+        },
+        {
+          "type": "richtext",
+          "id": "content_title",
+          "label": "Content title",
+          "default": "<p>2年間メーカー保証</p>"
+        },
+        {
+          "type": "html",
+          "id": "content_text",
+          "label": "Content(HTML)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "u-service-policy-tabs",
+      "blocks": [
+        {
+          "type": "policy_item",
+          "settings": {
+            "tab_title": "2年間メーカー保証",
+            "content_title": "<p>保証サービス</p><p>最終更新日：2025年9月</p>",
+            "content_text": "<p>ここに2年間メーカー保証の説明文を入力してください。</p>"
+          }
+        },
+        {
+          "type": "policy_item",
+          "settings": {
+            "tab_title": "90日間全額返金保証",
+            "content_title": "<p>返金ポリシー</p><p>最終更新日：2025年9月</p>",
+            "content_text": "<p>ここに90日間全額返金保証の説明文を入力してください。</p>"
+          }
+        },
+        {
+          "type": "policy_item",
+          "settings": {
+            "tab_title": "有償延長保証サービス",
+            "content_title": "<p>有償延長保証サービス</p>",
+            "content_text": "<p>ここに有償延長保証サービスの説明文を入力してください。</p>"
+          }
+        },
+        {
+          "type": "policy_item",
+          "settings": {
+            "tab_title": "有償交換サービス",
+            "content_title": "<p>有償交換サービス</p>",
+            "content_text": "<p>ここに有償交換サービスの説明文を入力してください。</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
