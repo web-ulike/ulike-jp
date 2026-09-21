@@ -27,14 +27,16 @@
                     {% if mobile_image != blank %}
                       <source
                         media="(max-width: 989px)"
-                        srcset="{{ mobile_image | image_url: width: 1200 }}"
+                        srcset="{{ mobile_image | image_url: width: 750 }} 750w, {{ mobile_image | image_url: width: 1200 }} 1200w"
+                        sizes="100vw"
                         width="{{ mobile_image.width }}"
                         height="{{ mobile_image.height }}"
                       >
                     {% elsif pc_image != blank %}
                       <source
                         media="(max-width: 989px)"
-                        srcset="{{ pc_image | image_url: width: 1200 }}"
+                        srcset="{{ pc_image | image_url: width: 750 }} 750w, {{ pc_image | image_url: width: 1200 }} 1200w"
+                        sizes="100vw"
                         width="{{ pc_image.width }}"
                         height="{{ pc_image.height }}"
                       >
@@ -43,9 +45,12 @@
                     {% if pc_image != blank %}
                       <img
                         class="jp-home-hero__image"
-                        src="{{ pc_image | image_url }}"
+                        src="{{ pc_image | image_url: width: 1920 }}"
+                        srcset="{{ pc_image | image_url: width: 1440 }} 1440w, {{ pc_image | image_url: width: 1920 }} 1920w, {{ pc_image | image_url: width: 2560 }} 2560w"
+                        sizes="100vw"
                         alt="{{ mobile_image.alt | default: pc_image.alt | escape }}"
                         loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                        {% if forloop.first %}fetchpriority="high"{% endif %}
                         width="{{ pc_image.width }}"
                         height="{{ pc_image.height }}"
                       >
@@ -53,8 +58,11 @@
                       <img
                         class="jp-home-hero__image"
                         src="{{ mobile_image | image_url: width: 1200 }}"
+                        srcset="{{ mobile_image | image_url: width: 750 }} 750w, {{ mobile_image | image_url: width: 1200 }} 1200w"
+                        sizes="100vw"
                         alt="{{ mobile_image.alt | escape }}"
                         loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                        {% if forloop.first %}fetchpriority="high"{% endif %}
                         width="{{ mobile_image.width }}"
                         height="{{ mobile_image.height }}"
                       >
