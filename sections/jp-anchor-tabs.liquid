@@ -109,7 +109,6 @@
     white-space: nowrap;
     text-align: center;
     transition: color 0.25s ease, transform 0.25s ease;
-    text-align: center;
   }
 
   #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__item::after {
@@ -192,11 +191,11 @@
         .filter(Boolean);
     };
 
-    const getButtonSelectors = (btn) => {
+    const getButtonTargetIds = (btn) => {
       return parseTargetIds(btn.dataset.anchorTargets);
     };
 
-    const getButtonHiddenSelectors = (btn) => {
+    const getButtonHiddenIds = (btn) => {
       return parseTargetIds(btn.dataset.anchorHiddenTargets);
     };
 
@@ -219,14 +218,14 @@
       const hiddenTargets = [];
 
       buttons.forEach((btn) => {
-        getButtonSelectors(btn).forEach((id) => {
+        getButtonTargetIds(btn).forEach((id) => {
           const target = getTargetById(id);
           if (target && !visibleTargets.includes(target)) {
             visibleTargets.push(target);
           }
         });
 
-        getButtonHiddenSelectors(btn).forEach((id) => {
+        getButtonHiddenIds(btn).forEach((id) => {
           const target = getTargetById(id, true);
           if (target && !hiddenTargets.includes(target)) {
             hiddenTargets.push(target);
@@ -279,8 +278,8 @@
     };
 
     const showTargets = (activeBtn) => {
-      const activeIds = getButtonSelectors(activeBtn);
-      const activeHiddenTargets = getButtonHiddenSelectors(activeBtn)
+      const activeIds = getButtonTargetIds(activeBtn);
+      const activeHiddenTargets = getButtonHiddenIds(activeBtn)
         .map((id) => getTargetById(id, true))
         .filter(Boolean);
 
@@ -331,7 +330,7 @@
 
     const targetMap = buttons
       .map((btn) => {
-        const firstId = getButtonSelectors(btn)[0];
+        const firstId = getButtonTargetIds(btn)[0];
         const target = firstId ? getTargetById(firstId) : null;
         return target ? { btn, target } : null;
       })
