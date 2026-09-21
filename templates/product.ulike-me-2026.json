@@ -3,7 +3,10 @@
     "main-page": {
       "type": "main-page",
       "disabled": true,
-      "settings": {}
+      "settings": {
+        "show_title": true,
+        "page_width": "medium"
+      }
     },
     "jp_main_product_WYkFGb": {
       "type": "jp-main-product",
@@ -114,21 +117,24 @@
           "type": "tab",
           "settings": {
             "title": "機能詳細",
-            "target_ids": "shopify-section-template--19583700009008__p_hero_PLCnmC,shopify-section-template--19583700009008__me_highlights_DQmriP,shopify-section-template--19583700009008__me_result_showcase_ej8UGU,shopify-section-template--19583700009008__me_painless_care_qFLjnQ,shopify-section-template--19583700009008__me_cooling_performance_nXmk4m,shopify-section-template--19583700009008__me_sensitive_skin_Fz3rzM,shopify-section-template--19583700009008__me_speed_care_qFPjcq,shopify-section-template--19583700009008__me_lightweight_design_9PXhBM,shopify-section-template--19583700009008__me_precision_care_iBVdMR,shopify-section-template--19583700009008__me_full_body_care_GEFy3c,shopify-section-template--19583700009008__me_guarantee_overlay_gDRzw4,shopify-section-template--19583700009008__p_airpro_s_trust"
+            "target_ids": "",
+            "hide_target_ids": "shopify-section-template--23869225992240__faq_XLh3Cr,\nshopify-section-template--23869225992240__p_airpro_s_use"
           }
         },
         "tab_h9UJAD": {
           "type": "tab",
           "settings": {
             "title": "使用ステップ",
-            "target_ids": "shopify-section-template--19583700009008__p_airpro_s_use"
+            "target_ids": "shopify-section-template--23869225992240__p_airpro_s_use",
+            "hide_target_ids": ""
           }
         },
         "tab_w4DrJm": {
           "type": "tab",
           "settings": {
             "title": "よくある質問",
-            "target_ids": "shopify-section-template--19583700009008__faq_XLh3Cr,\nshopify-section-template--19583700009008__rich_text_hG7Lex"
+            "target_ids": "shopify-section-template--23869225992240__faq_XLh3Cr",
+            "hide_target_ids": ""
           }
         }
       },
@@ -157,10 +163,12 @@
         "image": "shopify:\/\/shop_images\/Pic_2.jpg",
         "image_mobile": "shopify:\/\/shop_images\/18_e2596602-ac30-4d55-a079-cfb5900d5fc4.jpg",
         "title": "日本一だから、安心して選べる。",
+        "title_mobile": "",
         "subtitle": "",
         "copy": "",
         "content_image": "shopify:\/\/shop_images\/No.1_e86146fb-5503-4b4b-bc64-c75d1f464d08.svg",
         "note": "※ 株式会社富士経済発行『美肌・美髪ケア家電トレンドデータ 2026』に基づく。\n光美容器とは、レーザーやIPLなどの技術を用いてムダ毛を処理する美容機器を指します。",
+        "note_mobile": "",
         "background": "#f3f6f7",
         "text_color": "#000000"
       }
@@ -437,6 +445,7 @@
         "shaving": {
           "type": "step",
           "settings": {
+            "step_label": "",
             "image": "shopify:\/\/shop_images\/pic-step01.png",
             "title": "シェービング",
             "text": "ケアする前日の夜にまずシェービングをします。乾いた状態で剃らないでください。"
@@ -445,6 +454,7 @@
         "test": {
           "type": "step",
           "settings": {
+            "step_label": "",
             "image": "shopify:\/\/shop_images\/2-pic.png",
             "title": "テスト",
             "text": "照射する前に、付属のゴーグルを着用してください。まず腕やすねでテストすることをおすすめします。"
@@ -453,6 +463,7 @@
         "care": {
           "type": "step",
           "settings": {
+            "step_label": "",
             "image": "shopify:\/\/shop_images\/pic-step02_1.jpg",
             "title": "ムダ毛ケア",
             "text": "照射口が肌に密着するように押し当てて、照射ボタンを押します。短く押すと1 回照射、2秒長押しすると連続照射を開始します。"
@@ -461,6 +472,7 @@
         "moisturize": {
           "type": "step",
           "settings": {
+            "step_label": "",
             "image": "shopify:\/\/shop_images\/pic-step04.png",
             "title": "潤す & 紫外線対策",
             "text": "ケアした後、ボディクリームを塗り、お肌のうるおいを保ちましょう。照射後 48 時間は、照射部位に紫外線をあてないでください。"
@@ -614,8 +626,18 @@
       "name": "t:sections.rich-text.presets.name",
       "settings": {
         "subheading": "",
+        "title": "Talk about your brand",
+        "content": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.<\/p>",
+        "button_text": "",
         "button_link": "",
-        "text_alignment": "left"
+        "background_type": "full_width",
+        "text_width": "medium",
+        "text_position": "center",
+        "text_alignment": "left",
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)",
+        "button_background": "rgba(0,0,0,0)",
+        "button_text_color": "rgba(0,0,0,0)"
       }
     },
     "17859207556cc4bb4b": {
@@ -635,7 +657,10 @@
       "block_order": [
         "judge_me_reviews_all_reviews_page_8CUzjt"
       ],
-      "settings": {}
+      "settings": {
+        "include_horizontal_margins": true,
+        "include_vertical_margins": true
+      }
     }
   },
   "order": [

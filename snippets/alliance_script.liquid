@@ -1,0 +1,85 @@
+<script>
+const pgid = 's00000026764002';
+
+const isCrossDomain = true;
+const a8salesScript = 'https://statics.a8.net/a8sales/a8sales.js';
+const a8crossScript = 'https://statics.a8.net/a8sales/a8crossDomain.js';
+analytics.subscribe("page_viewed", async (event) => {
+    insertScript(a8salesScript, null);
+    log('a8salesScript loaded.');
+    if (isCrossDomain) {
+        insertScript(a8crossScript, null);
+        log('a8crossScript loaded.');
+    }
+});
+analytics.subscribe("checkout_completed", async (event) => {
+    log('checkout_completed event start');
+    const currency = 'JPY';
+    let orderNo = '';
+    const co = event.data.checkout;
+    log("event.data.checkout", co);
+    if (co.order.id) {
+        orderNo = co.order.id;
+    }
+    let itemArray = [];
+    let totalOrderDiscount = 0;
+    let subtotal = 0;
+    co.lineItems.forEach((item) => {
+        let discountEach;
+        let discountAcross;
+        [discountEach, discountAcross] = sumDiscountsPerItem(item);
+        const finalItemPrice = item.variant.price.amount * item.quantity - discountEach;
+        const calcUnitPrice = finalItemPrice / item.quantity;
+        subtotal += finalItemPrice;
+        totalOrderDiscount += discountAcross;
+        itemArray.push({
+            "code": item.id,
+            "price": calcUnitPrice,
+            "quantity": item.quantity
+        });
+    });
+    const a8salesObj = {
+        "pid": pgid,
+        "order_number": orderNo,
+        "currency": currency,
+        "items": itemArray,
+        "amount_priority": "total_price",
+        "total_price": subtotal - totalOrderDiscount
+    };
+    log("a8sales", a8salesObj);
+    insertScript(a8salesScript, function () {
+        a8sales(a8salesObj);
+    });
+    log('checkout_completed event end');
+});
+
+function insertScript(src, onload) {
+    let span = document.createElement('span');
+    span.id = 'a8sales';
+    document.getElementsByTagName('body').item(0).appendChild(span);
+    let f = document.getElementsByTagName('script').item(0), j = document.createElement('script');
+    j.src = src;
+    j.async = true;
+    if (onload) {
+        j.onload = onload;
+    }
+    f.parentNode.insertBefore(j, f);
+}
+function sumDiscountsPerItem(item) {
+    let discountEach = 0;
+    let discountAcross = 0;
+    if (item && item.discountAllocations) {
+        item.discountAllocations.forEach((alloc) => {
+            if (alloc.discountApplication && alloc.discountApplication.allocationMethod === "EACH") {
+                discountEach += alloc.amount.amount;
+            } else {
+                discountAcross += alloc.amount.amount;
+            }
+        });
+    }
+    return [discountEach, discountAcross];
+}
+function log() {
+    console.log('[a8.net pixel v4.0.25]', ...arguments);
+}
+</script>

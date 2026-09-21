@@ -1,0 +1,199 @@
+<style>
+            #shopify-section-{{ section.id }} {
+            --text-color: {{  section.settings.text_color.red }}, {{  section.settings.text_color.green }}, {{  section.settings.text_color.blue }};
+            --section-background: {{ section.settings.background.red }}, {{ section.settings.background.green }}, {{ section.settings.background.blue }};
+            --color-border: 255, 255, 255;
+            /* background: rgb(var(--section-background, var(--background))); */
+          }
+
+   .section-{{ section.id }}-padding {
+        padding-top: calc({{ section.settings.padding_top }}px);
+        padding-bottom: calc({{ section.settings.padding_bottom }}px);
+      }
+      @media screen and (max-width: 768px){
+      .section-{{ section.id }}-padding {
+        padding-top: calc({{ section.settings.padding_top }}px * 0.6);
+        padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.6);
+      }
+    }
+  /* father-module7 start*/
+  .father-module7{
+    background: #282A2F;
+  }
+  .father-md7-box{
+    border-radius: 10px;
+  border: 2px solid #E0004D;
+  padding: 89px 34px 41px 46px;
+  background: #F4F4F4;
+  }
+  .father-md7-top{
+    display: flex;
+    align-items: center;
+    gap: 47px;
+  }
+  .md7-right{
+    flex: 1;
+  }
+  .md7-right h3{
+    color: #000;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  margin-bottom: 22px;
+  }
+  .md7-right .md7-right-txt{
+    color: #000;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  }
+  .father-md7-txt{
+    margin-top: 50px;
+    color: #000;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 150%;
+  }
+  @media (max-width: 767px) {
+    .father-md7-box {
+        padding: 40px 20px;
+    }
+    .md7-left img{
+      max-width: 150px;
+    }
+    .father-md7-top{
+      flex-direction: column;
+      gap: 15px;
+    }
+    .md7-right h3{
+      font-size: 16px;
+      text-align: center;
+    }
+    .md7-right .md7-right-txt{
+      font-size: 14px;
+    }
+    .father-md7-txt{
+      margin-top: 15px;
+    }
+  }
+  /* father-module7 end*/
+  @media (max-width: 767px) {
+  }
+</style>
+<section>
+  <div class="father-module7 section-{{ section.id }}-padding">
+    <div class="father-module-container">
+      <div class="father-md7-box">
+        <div class="father-md7-top">
+          <div class="md7-left to-top" style="transition-delay: 0.3s;">
+            <picture>
+              {%- if section.settings.image_mobile -%}
+                <source
+                  media="(max-width: 767px)"
+                  srcset="{{ section.settings.image_mobile | image_url: width: '400x' }} 400w, {{ section.settings.image_mobile | image_url: width: '600x' }} 600w, {{ section.settings.image_mobile | image_url: width: '800x' }} 800w, {{ section.settings.image_mobile | image_url: width: '1000x' }} 1000w"
+                  width="{{ section.settings.image_mobile.width }}"
+                  height="{{ section.settings.image_mobile.height }}"
+                >
+              {%- endif -%}
+              {%- if section.settings.image -%}
+                {{-
+                  section.settings.image
+                  | image_url: width: section.settings.image.width
+                  | image_tag:
+                    loading: 'eager',
+                    sizes: '100vw',
+                    widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200',
+                    class: 'trade_banner__image'
+                -}}
+              {%- endif -%}
+            </picture>
+          </div>
+          <div class="md7-right">
+            <h3 clas="to-top" style="transition-delay: 0.4s;">{{ section.settings.tle }}</h3>
+            <div class="md7-right-txt to-top" style="transition-delay: 0.5s;">
+              {{ section.settings.sub_tle }}
+            </div>
+          </div>
+        </div>
+        <div class="father-md7-txt to-top" style="transition-delay: 0.6s;">
+          {{ section.settings.note }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Father Module6",
+  "class": "shopify-section--father-Module6",
+  "settings": [
+       {
+      "type": "richtext",
+      "id": "tle",
+      "label": "Text"
+    },
+     {
+      "type": "richtext",
+      "id": "sub_tle",
+      "label": "SubTtltle"
+    },
+     {
+      "type": "richtext",
+      "id": "note",
+      "label": "Note"
+    },
+      {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        },
+     {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile Images"
+        },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "rgba(0,0,0,0)"
+    },
+     {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_top.label",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.global.settings.padding_bottom.label",
+      "default": 48
+    }
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "Father Module6"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,20 @@
+<section class="section-box">
+  {{ section.settings.html_cont }}
+</section>
+{% schema %}
+{
+  "name": "css-module",
+  "settings": [
+    {
+      "type": "html",
+      "id": "html_cont",
+      "label": "HTML"
+    }
+  ],
+  "presets": [
+    {
+      "name": "css-module"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,378 @@
+<style>
+   /* kv css start*/
+  @media (min-width: 768px) {
+      :root {
+          --size: 1920;
+      }
+  }
+
+  @media (min-width: 920px) {
+      :root {
+          --size: 1920;
+      }
+  }
+
+  @media (min-width: 1180px) {
+      :root {
+          --size: 1920;
+      }
+  }
+
+  @media (min-width: 1440px) {
+      :root {
+          --size: 1920;
+      }
+  }
+  @media (min-width: 768px) {
+      .kv_box {
+          font-size: calc(10 * (100vw / var(--size)));
+      }
+  }
+  @media (min-width: 1670px) {
+      .kv_box {
+          font-size: 10px;
+      }
+  }
+  .kv_container{
+    width: 100%;
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 0 40px;
+  }
+  .kv_box{
+    position: relative;
+    display:block;
+  }
+  .kv_box .w_full{
+  display: block;
+  width: 100%;
+  }
+  .kv_box .w_full img{
+  width: 100%;
+  object-fit: cover;
+  }
+  .kv_content {
+    position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+  }
+  .top_txt{
+    position: relative;
+  }
+  .top_txt .top_bix{
+    position: absolute;
+    max-width: 78.6em;
+    top: 4.5em;
+    left: 0;
+  }
+  .top_txt img{
+    width: 60em;
+  }
+  .top_txt img.summer_kv_logo{
+     width: 37.2em;
+ }
+  .bottom_img-box .img1{
+  width: 37.7em;
+  }
+  .bottom_img-box .img2{
+    width: 2.9em;
+  }
+  .top_bix h1{
+   font-family: var(--font-hd-family);
+    color: #000;
+  font-size: 7.5em;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%;
+  }
+  .top_bix h1 p{
+    margin: 0;
+  }
+  .kv_txt{
+    color: #000;
+  text-align: right;
+  font-family: var(--font-hd-family);
+  font-size: 3em;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 130%; /* 52px */
+  letter-spacing: 0.4px;
+  margin-top: 15px;
+  }
+  .bottom_img{
+    margin-top: 60px;
+  }
+  .kv_note{
+    color: rgba(0, 0, 0, 0.30);
+  font-size: 1.6em;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-top: 25px;
+  }
+    .bottom_img-box {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+  }
+  @media (max-width: 768px) {
+    .top_bix h1{
+      font-size: 35px;
+    }
+    .kv_txt{
+      font-size: 19px;
+    }
+    .top_txt img{
+      width: 100%;
+    }
+    .bottom_img-box .img1{
+      width: 91px;
+    }
+    .bottom_img-box .img2 {
+      width: 14px;
+  }
+  .kv_container{
+    padding: 0 20px;
+  }
+  .kv_note{
+    font-size: 10px;
+    position: absolute;
+    bottom: 20px;
+    margin: 0;
+  }
+  .kv_content {
+      align-items: baseline;
+  }
+  .top_txt .top_bix{
+    width: 100%;
+    top: 43px;
+  }
+    .bottom_img-box {
+     align-items: flex-end;
+    justify-content: flex-end;
+  }
+  .top_txt img.summer_kv_logo {
+     width: 100%;
+     max-width: 230px;
+   }
+  }
+  /* kv css end*/
+</style>
+<section>
+  <a href="{{ section.settings.link_url }}" class="kv_box">
+    <picture class="w_full">
+      {%- if section.settings.image_mobile -%}
+        <source
+          media="(max-width: 767px)"
+          srcset="{{ section.settings.image_mobile | image_url: width: '400x' }} 400w, {{ section.settings.image_mobile | image_url: width: '600x' }} 600w, {{ section.settings.image_mobile | image_url: width: '800x' }} 800w, {{ section.settings.image_mobile | image_url: width: '1000x' }} 1000w"
+          width="{{ section.settings.image_mobile.width }}"
+          height="{{ section.settings.image_mobile.height }}"
+        >
+      {%- endif -%}
+      {%- if section.settings.image -%}
+        {{-
+          section.settings.image
+          | image_url: width: section.settings.image.width
+          | image_tag:
+            loading: 'eager',
+            sizes: '100vw',
+            widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200',
+            class: ''
+        -}}
+      {%- endif -%}
+    </picture>
+    <div class="kv_content">
+      <div class="kv_container">
+        <div class="top_txt">
+          <div class="top_bix">
+            {%- if section.settings.logo_image_tag -%}
+              {{-
+                section.settings.logo_image_tag
+                | image_url: width: section.settings.logo_image_tag.width
+                | image_tag: loading: 'eager', sizes: '100vw', widths: '100,200,300,400', class: 'summer_kv_logo'
+              -}}
+            {%- endif -%}
+            {%- if section.settings.tle != blank -%}
+              <h1>{{ section.settings.tle }}</h1>
+            {%- endif -%}
+            {%- if section.settings.sub_tle != blank -%}
+              <div class="kv_txt">{{ section.settings.sub_tle }}</div>
+            {%- endif -%}
+          </div>
+          <picture>
+            {%- if section.settings.logo_image -%}
+              <source
+                media="(max-width: 767px)"
+                srcset="{{ section.settings.logo_image | image_url: width: '400x' }} 400w, {{ section.settings.logo_image | image_url: width: '600x' }} 600w, {{ section.settings.logo_image | image_url: width: '800x' }} 800w, {{ section.settings.logo_image | image_url: width: '1000x' }} 1000w"
+                width="{{ section.settings.logo_image.width }}"
+                height="{{ section.settings.logo_image.height }}"
+              >
+            {%- endif -%}
+            {%- if section.settings.logo_image -%}
+              {{-
+                section.settings.logo_image
+                | image_url: width: section.settings.logo_image.width
+                | image_tag:
+                  loading: 'eager',
+                  sizes: '100vw',
+                  widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200',
+                  class: ''
+              -}}
+            {%- endif -%}
+          </picture>
+        </div>
+        <div class="bottom_img">
+          <div class="bottom_img-box">
+            <picture>
+              {%- if section.settings.mobile_product_image1 -%}
+                <source
+                  media="(max-width: 767px)"
+                  srcset="{{ section.settings.mobile_product_image1 | image_url: width: '400x' }} 400w, {{ section.settings.mobile_product_image1 | image_url: width: '600x' }} 600w, {{ section.settings.mobile_product_image1 | image_url: width: '800x' }} 800w, {{ section.settings.mobile_product_image1 | image_url: width: '1000x' }} 1000w"
+                  width="{{ section.settings.mobile_product_image1.width }}"
+                  height="{{ section.settings.mobile_product_image1.height }}"
+                >
+              {%- endif -%}
+              {%- if section.settings.product_image1 -%}
+                {{-
+                  section.settings.product_image1
+                  | image_url: width: section.settings.product_image1.width
+                  | image_tag:
+                    loading: 'eager',
+                    sizes: '100vw',
+                    widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200',
+                    class: 'img1'
+                -}}
+              {%- endif -%}
+            </picture>
+            <picture>
+              {%- if section.settings.mobile_product_image2 -%}
+                <source
+                  media="(max-width: 767px)"
+                  srcset="{{ section.settings.mobile_product_image2 | image_url: width: '400x' }} 400w, {{ section.settings.mobile_product_image2 | image_url: width: '600x' }} 600w, {{ section.settings.mobile_product_image2 | image_url: width: '800x' }} 800w, {{ section.settings.mobile_product_image2 | image_url: width: '1000x' }} 1000w"
+                  width="{{ section.settings.mobile_product_image2.width }}"
+                  height="{{ section.settings.mobile_product_image2.height }}"
+                >
+              {%- endif -%}
+              {%- if section.settings.product_image2 -%}
+                {{-
+                  section.settings.product_image2
+                  | image_url: width: section.settings.product_image2.width
+                  | image_tag:
+                    loading: 'eager',
+                    sizes: '100vw',
+                    widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200',
+                    class: 'img2'
+                -}}
+              {%- endif -%}
+            </picture>
+          </div>
+          {%- if section.settings.note != blank -%}
+            <div class="kv_note">
+              {{ section.settings.note }}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </a>
+</section>
+<script></script>
+{% schema %}
+{
+  "name": "Summer Banner",
+  "class": "shopify-section--summer-banner",
+  "settings": [
+     {
+          "type": "image_picker",
+          "id": "logo_image_tag",
+          "label": "Images Logo Tag"
+        },
+    {
+      "type": "richtext",
+      "id": "tle",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "sub_tle",
+      "label": "Sub Title"
+    },
+     {
+      "type": "text",
+      "id": "note",
+      "label": "Note"
+    },
+     {
+      "type": "text",
+      "id": "button_txt",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Button Link"
+    },
+    {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Images"
+        },
+     {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile Images"
+        },
+     {
+          "type": "image_picker",
+          "id": "logo_image",
+          "label": "Images Text"
+        },
+
+  {
+          "type": "image_picker",
+          "id": "product_image1",
+          "label": "Product Image1"
+        },
+     {
+          "type": "image_picker",
+          "id": "mobile_product_image1",
+          "label": "Mobile Product Image1"
+        },
+
+     {
+          "type": "image_picker",
+          "id": "product_image2",
+          "label": "Product Image2"
+        },
+
+    {
+          "type": "image_picker",
+          "id": "mobile_product_image2",
+          "label": "Mobile Product Image2"
+        },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "rgba(0,0,0,0)"
+    }
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "Summer Banner"
+    }
+  ]
+}
+{% endschema %}

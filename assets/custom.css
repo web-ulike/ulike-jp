@@ -12,6 +12,40 @@
   display: none;
 }
 
+/* Keep image variants clear so the product photo is the only fill. */
+.product-form__variants .block-swatch__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+.product-form__variants .block-swatch__radio:checked + .block-swatch__item,
+.product-form__variants .block-swatch__item.is-selected,
+.product-form__variants .block-swatch.is-disabled .block-swatch__item {
+  background: transparent;
+}
+
+.product-form__variants .block-swatch__item--image {
+  min-width: 0;
+  padding: 0;
+  line-height: 0;
+}
+
+.product-form__variants .block-swatch__image {
+  display: block;
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+}
+
+@media screen and (min-width: 1000px) {
+  .product-form__variants .block-swatch__image {
+    width: 72px;
+    height: 72px;
+  }
+}
+
 /* Align the legacy product detail typography with the live storefront. */
 @media screen and (min-width: 1000px) {
   .product.product--thumbnails-bottom .product-meta__title {
@@ -45,7 +79,7 @@
   .product.product--thumbnails-bottom .product-form__description h5 {
     margin: 0;
     font-size: 14px !important;
-    font-weight: 700;
+    font-weight: 500;
     line-height: 1.5;
     letter-spacing: -0.04em;
     text-transform: none;
@@ -68,10 +102,11 @@
     font-weight: 500;
   }
 
-  .product.product--thumbnails-bottom .product-form__add-button {
-    font-size: 15px;
+  .shopify-section--main-product .product-form__add-button {
+    min-height: 56px;
+    font-size: 14px;
     font-weight: 500;
-    line-height: normal;
+    line-height: 56px;
     letter-spacing: normal;
     text-transform: none;
   }
@@ -363,5 +398,31 @@
 
   .footer-group .footer-copyright .credits ul {
     justify-content: flex-start;
+  }
+}
+
+/* Shared reveal styles for legacy Ulike modules that use class="to-top". */
+.to-top {
+  opacity: 0;
+  transform: translateY(100px);
+  transition: opacity 1s cubic-bezier(.25, 1, .5, 1), transform 1s cubic-bezier(.25, 1, .5, 1);
+  will-change: opacity, transform;
+  -webkit-transition: opacity 1s cubic-bezier(.25, 1, .5, 1), transform 1s cubic-bezier(.25, 1, .5, 1);
+  -moz-transition: opacity 1s cubic-bezier(.25, 1, .5, 1), transform 1s cubic-bezier(.25, 1, .5, 1);
+  -ms-transition: opacity 1s cubic-bezier(.25, 1, .5, 1), transform 1s cubic-bezier(.25, 1, .5, 1);
+  -o-transition: opacity 1s cubic-bezier(.25, 1, .5, 1), transform 1s cubic-bezier(.25, 1, .5, 1);
+}
+
+.to-top.appear {
+  opacity: 1;
+  transform: translateY(0);
+  will-change: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .to-top {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }

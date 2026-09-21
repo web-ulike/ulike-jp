@@ -1,3 +1,319 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    --article-ink: #241d1f;
+    --article-muted: #73696c;
+    --article-line: #e9e4e5;
+    --article-surface: #fbf9f9;
+  }
+
+  #shopify-section-{{ section.id }} .article {
+    margin: 0;
+    color: var(--article-ink);
+  }
+
+  #shopify-section-{{ section.id }} .article__hero {
+    background: var(--article-surface);
+    padding: clamp(32px, 5vw, 76px) 0 clamp(38px, 6vw, 88px);
+  }
+
+  #shopify-section-{{ section.id }} .article__hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(30px, 5vw, 72px);
+  }
+
+  #shopify-section-{{ section.id }} .article__hero-copy {
+    max-width: 880px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .article__breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 22px;
+    color: var(--article-muted);
+    font-size: 12px;
+    letter-spacing: .08em;
+    justify-content: center;
+  }
+
+  #shopify-section-{{ section.id }} .article__breadcrumb a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .article__breadcrumb a:hover {
+    color: var(--article-ink);
+  }
+
+  #shopify-section-{{ section.id }} .article__category {
+    display: inline-flex;
+    margin-bottom: 15px;
+    color: #b51b57;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .article__title {
+    max-width: 760px;
+    margin: 0 auto;
+    color: var(--article-ink);
+    font-size: clamp(30px, 4vw, 56px);
+    font-weight: 500;
+    line-height: 1.22;
+    letter-spacing: -.035em;
+  }
+
+  #shopify-section-{{ section.id }} .article__excerpt {
+    max-width: 650px;
+    margin: 22px auto 0;
+    color: var(--article-muted);
+    font-size: clamp(15px, 1.4vw, 18px);
+    line-height: 1.8;
+  }
+
+  #shopify-section-{{ section.id }} .article__hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 14px;
+    margin-top: 27px;
+    color: var(--article-muted);
+    font-size: 13px;
+    line-height: 1.4;
+    justify-content: center;
+  }
+
+  #shopify-section-{{ section.id }} .article__hero-meta > * + *::before {
+    content: '';
+    display: inline-block;
+    width: 3px;
+    height: 3px;
+    margin-right: 14px;
+    vertical-align: middle;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  #shopify-section-{{ section.id }} .article__hero-image {
+    display: block;
+    width: min(100%, 920px);
+    margin: 0 auto;
+    border-radius: 2px;
+    box-shadow: 0 18px 50px rgba(36, 29, 31, .11);
+  }
+
+  #shopify-section-{{ section.id }} .article__main-part > .container {
+    padding-top: clamp(42px, 6vw, 88px);
+    padding-bottom: clamp(56px, 8vw, 112px);
+  }
+
+  #shopify-section-{{ section.id }} .article__inner {
+    align-items: flex-start;
+    flex-direction: row;
+    justify-content: center;
+    gap: clamp(30px, 7vw, 112px);
+    min-height: 0;
+    margin-inline: 0;
+  }
+
+  #shopify-section-{{ section.id }} .article__content {
+    width: min(100%, 760px);
+    max-width: 760px;
+  }
+
+  #shopify-section-{{ section.id }} .article__content .rte {
+    color: var(--article-ink);
+    font-size: 16px;
+    line-height: 1.95;
+  }
+
+  #shopify-section-{{ section.id }} .article__content .rte > *:first-child { margin-top: 0; }
+  #shopify-section-{{ section.id }} .article__content .rte p,
+  #shopify-section-{{ section.id }} .article__content .rte ul,
+  #shopify-section-{{ section.id }} .article__content .rte ol,
+  #shopify-section-{{ section.id }} .article__content .rte blockquote,
+  #shopify-section-{{ section.id }} .article__content .rte figure { margin: 0 0 1.65em; }
+
+  #shopify-section-{{ section.id }} .article__content .rte ul,
+  #shopify-section-{{ section.id }} .article__content .rte ol { padding-inline-start: 1.4em; }
+
+  #shopify-section-{{ section.id }} .article__content .rte li + li { margin-top: .45em; }
+
+  #shopify-section-{{ section.id }} .article__content .rte a {
+    color: inherit;
+    text-decoration-color: #c91f62;
+    text-decoration-thickness: 1px;
+    text-underline-offset: .18em;
+  }
+
+  #shopify-section-{{ section.id }} .article__content .rte h2,
+  #shopify-section-{{ section.id }} .article__content .rte h3,
+  #shopify-section-{{ section.id }} .article__content .rte h4 {
+    margin: 2.1em 0 .7em;
+    color: var(--article-ink);
+    font-weight: 500;
+    line-height: 1.35;
+    letter-spacing: -.02em;
+  }
+
+  #shopify-section-{{ section.id }} .article__content .rte h2 { font-size: clamp(25px, 3vw, 36px); }
+  #shopify-section-{{ section.id }} .article__content .rte h3 { font-size: clamp(21px, 2.4vw, 28px); }
+  #shopify-section-{{ section.id }} .article__content .rte img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    border-radius: 2px;
+  }
+
+  #shopify-section-{{ section.id }} .article__content .rte figure { max-width: 100%; }
+  #shopify-section-{{ section.id }} .article__content .rte figcaption {
+    margin-top: 10px;
+    color: var(--article-muted);
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  #shopify-section-{{ section.id }} .article__content .rte table {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  #shopify-section-{{ section.id }} .article__content .rte blockquote {
+    margin: 2.2em 0;
+    padding: 18px 24px;
+    border-left: 3px solid #c91f62;
+    background: var(--article-surface);
+    color: var(--article-muted);
+  }
+
+  #shopify-section-{{ section.id }} .article__info {
+    position: sticky;
+    top: calc(var(--header-height, 0px) + 28px);
+    flex: 0 0 180px;
+    width: 180px;
+    max-width: none;
+    margin: 6px 0 0;
+    padding-top: 22px;
+    border-top: 1px solid var(--article-line);
+    gap: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .article__tags,
+  #shopify-section-{{ section.id }} .article__share { display: block; }
+  #shopify-section-{{ section.id }} .article__tags-label,
+  #shopify-section-{{ section.id }} .article__share-label {
+    display: block;
+    margin: 0 0 10px;
+    color: var(--article-muted);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .article__tags-list { margin: 0; }
+  #shopify-section-{{ section.id }} .article__tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+  }
+  #shopify-section-{{ section.id }} .article__tags-item { margin: 0 8px 8px 0; }
+  #shopify-section-{{ section.id }} .article__tags-item a {
+    display: inline-flex;
+    padding: 4px 9px;
+    border: 1px solid var(--article-line);
+    border-radius: 999px;
+    color: var(--article-muted);
+    font-size: 12px;
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .article__tags-item a:hover {
+    border-color: var(--article-ink);
+    color: var(--article-ink);
+  }
+
+  #shopify-section-{{ section.id }} .article__share-button-list {
+    gap: 14px;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .article__share-button-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--article-line);
+    border-radius: 50%;
+    transition: border-color .2s ease, color .2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .article__share-button-item:hover {
+    border-color: var(--article-ink);
+    color: var(--article-ink);
+  }
+
+  @media screen and (min-width: 1000px) {
+    #shopify-section-{{ section.id }} .article__hero-grid {
+      grid-template-columns: minmax(0, 1fr) minmax(380px, .86fr);
+      gap: clamp(48px, 6vw, 112px);
+    }
+
+    #shopify-section-{{ section.id }} .article__hero-copy { margin: 0; text-align: left; }
+    #shopify-section-{{ section.id }} .article__breadcrumb,
+    #shopify-section-{{ section.id }} .article__hero-meta { justify-content: flex-start; }
+    #shopify-section-{{ section.id }} .article__title { margin-inline: 0; }
+    #shopify-section-{{ section.id }} .article__excerpt { margin-inline: 0; }
+    #shopify-section-{{ section.id }} .article__hero-image { width: 100%; }
+
+    #shopify-section-{{ section.id }} .article__inner {
+      display: flex;
+      flex-direction: row;
+      gap: clamp(42px, 7vw, 112px);
+    }
+  }
+
+  @media screen and (max-width: 999px) {
+    #shopify-section-{{ section.id }} .article__hero-image { max-width: 720px; }
+    #shopify-section-{{ section.id }} .article__inner {
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 34px;
+    }
+    #shopify-section-{{ section.id }} .article__info {
+      position: static;
+      display: flex;
+      flex: none;
+      flex-wrap: wrap;
+      width: 100%;
+      margin: 0;
+      padding-top: 18px;
+      gap: 18px 28px;
+    }
+  }
+
+  @media screen and (max-width: 740px) {
+    #shopify-section-{{ section.id }} .article__hero { padding: 28px 0 42px; }
+    #shopify-section-{{ section.id }} .article__breadcrumb { margin-bottom: 18px; }
+    #shopify-section-{{ section.id }} .article__hero-meta { margin-top: 21px; }
+    #shopify-section-{{ section.id }} .article__main-part > .container { padding-top: 38px; }
+    #shopify-section-{{ section.id }} .article__content { width: 100%; }
+    #shopify-section-{{ section.id }} .article__content .rte { font-size: 15px; line-height: 1.85; }
+    #shopify-section-{{ section.id }} .article__share-button-list { gap: 12px; }
+  }
+</style>
+
 <section>
   <div class="article">
     <div class="article__main-part">
@@ -34,26 +350,52 @@
         </blog-post-navigation>
       {%- endif -%}
 
+      {%- assign minutes_to_read = article.content | strip_html | split: ' ' | size | divided_by: 180 | plus: 1 -%}
+
+      <header class="article__hero">
+        <div class="container">
+          <div class="article__hero-grid">
+            <div class="article__hero-copy">
+              <nav class="article__breadcrumb" aria-label="{{ 'general.breadcrumb.title' | t }}">
+                <a href="{{ routes.root_url }}">{{ 'general.breadcrumb.home' | t }}</a>
+                <span aria-hidden="true">/</span>
+                <a href="{{ blog.url }}">{{ blog.title }}</a>
+              </nav>
+
+              {%- if article.tags.size > 0 -%}
+                <a href="{{ blog.url }}/tagged/{{ article.tags.first | handle }}" class="article__category">{{ article.tags.first }}</a>
+              {%- endif -%}
+
+              <h1 class="article__title">{{ article.title }}</h1>
+
+              {%- if article.excerpt != blank -%}
+                <div class="article__excerpt">{{ article.excerpt }}</div>
+              {%- endif -%}
+
+              <div class="article__hero-meta">
+                {%- if section.settings.show_date -%}
+                  <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'abbreviated_date' }}</time>
+                {%- endif -%}
+                {%- if section.settings.show_author -%}
+                  <span>{{ 'article.general.written_by' | t: author: article.author }}</span>
+                {%- endif -%}
+                <span>{{ 'article.general.reading_time' | t: count: minutes_to_read }}</span>
+                {%- if article.comments_enabled? -%}
+                  <a href="#blog-post-{{ article.id }}-comments" data-smooth-scroll class="article__comments-count">{{ 'article.comments.comments_count' | t: count: article.comments_count }}</a>
+                {%- endif -%}
+              </div>
+            </div>
+
+            {%- if section.settings.show_image and article.image -%}
+              {{ article.image | image_url: width: 1400 | image_tag: widths: '400,600,800,1000,1200,1400', sizes: '(max-width: 999px) calc(100vw - 40px), 43vw', class: 'article__hero-image', loading: 'eager', alt: article.image.alt | default: article.title }}
+            {%- endif -%}
+          </div>
+        </div>
+      </header>
+
       <div class="container">
         <div class="article__inner">
           {%- capture blog_post_info -%}
-            <div class="article__meta">
-              {%- if section.settings.show_author -%}
-                <span class="article__meta-item article__author">{{ 'article.general.written_by' | t: author: article.author }}</span>
-              {%- endif -%}
-
-              {%- if section.settings.show_date -%}
-                <time class="article__meta-item article__date">{{ article.published_at | date: format: 'abbreviated_date' }}</time>
-              {%- endif -%}
-
-              {%- if article.comments_enabled? -%}
-                <a href="#blog-post-{{ article.id }}-comments" data-smooth-scroll class="article__meta-item article__comments-count text--subdued link icon-text">
-                  {%- render 'icon' with 'comment' -%}
-                  {{- 'article.comments.comments_count' | t: count: article.comments_count -}}
-                </a>
-              {%- endif -%}
-            </div>
-
             {%- if article.tags.size > 0 -%}
               <div class="article__tags">
                 <span class="article__tags-label heading heading--small">{{ 'article.general.tags' | t }}</span>
@@ -137,7 +479,7 @@
           {%- endif -%}
 
           <div class="article__content">
-            <div class="rte" {{ block.shopify_attributes }}>
+            <div class="rte">
               {{- article.content -}}
             </div>
           </div>
@@ -179,6 +521,12 @@
       "type": "checkbox",
       "id": "show_share_buttons",
       "label": "Show share buttons",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image",
+      "label": "Show featured image",
       "default": true
     }
   ]

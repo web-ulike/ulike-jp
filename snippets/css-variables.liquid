@@ -24,13 +24,13 @@ It seems that preloading all the variations upfront can cause performance issue 
 other resources, such as CSS or JS
 {%- endcomment -%}
 
-{%- unless settings.heading_font.system? -%}
+{% comment %} {%- unless settings.heading_font.system? -%}
   <link rel="preload" href="{{ settings.heading_font | font_url }}" as="font" type="font/woff2" crossorigin>
 {%- endunless -%}
 
 {%- unless settings.text_font.system? -%}
   <link rel="preload" href="{{ settings.text_font | font_url }}" as="font" type="font/woff2" crossorigin>
-{%- endunless -%}
+{%- endunless -%} {% endcomment %}
 
 <style>
   /* Typography (heading) */
@@ -98,13 +98,13 @@ other resources, such as CSS or JS
 
     --base-font-size: {{ settings.text_font_size }}px;
     --heading-font-family: {{ settings.heading_font.family }}, {{ settings.heading_font.fallback_families }};
-    --heading-font-weight: {{ settings.heading_font.weight }};
+    --heading-font-weight: 500;
     --heading-font-style: {{ settings.heading_font.style }};
     --heading-text-transform: {{ settings.heading_text_transform }};
     --text-font-family: {{ settings.text_font.family }}, {{ settings.text_font.fallback_families }};
     --text-font-weight: {{ settings.text_font.weight }};
     --text-font-style: {{ settings.text_font.style }};
-    --text-font-bold-weight: {{ text_font_bold.weight | default: '700' }};
+    --text-font-bold-weight: {{ text_font_bold.weight | default: '500' }};
 
     /* Typography (font size) */
     --heading-xxsmall-font-size: {% if settings.heading_font_size == 'small' %}10px{% else %}11px{% endif %};
@@ -181,7 +181,7 @@ other resources, such as CSS or JS
     :root {
       --container-gutter: 40px;
       --grid-column-count: 20;
-      --vertical-breather: 0px;
+      --vertical-breather: 20px;
       --vertical-breather-tight: {% if settings.vertical_spacing == 'small' %}40px{% elsif settings.vertical_spacing == 'medium' %}48px{% else %}64px{% endif %};
 
       /* Typography (font size) */
@@ -207,24 +207,24 @@ other resources, such as CSS or JS
 
   @media screen and (min-width: 1200px) {
     :root {
-      --vertical-breather: 0px;
+      --vertical-breather: 20px;
       --vertical-breather-tight: {% if settings.vertical_spacing == 'small' %}48px{% elsif settings.vertical_spacing == 'medium' %}48px{% else %}64px{% endif %};
       --product-list-block-spacing: 48px;
 
       /* Typography */
       --heading-large-font-size: {% if settings.heading_font_size == 'small' %}58px{% elsif settings.heading_font_size == 'medium' %}64px{% else %}72px{% endif %};
       --heading-h1-font-size: {% if settings.heading_font_size == 'small' %}50px{% elsif settings.heading_font_size == 'medium' %}56px{% else %}62px{% endif %};
-      --heading-h2-font-size: {% if settings.heading_font_size == 'small' %}44px{% elsif settings.heading_font_size == 'medium' %}48px{% else %}54px{% endif %};
-      --heading-h3-font-size: {% if settings.heading_font_size == 'small' %}32px{% elsif settings.heading_font_size == 'medium' %}36px{% else %}40px{% endif %};
-      --heading-h4-font-size: {% if settings.heading_font_size == 'small' %}26px{% elsif settings.heading_font_size == 'medium' %}30px{% else %}34px{% endif %};
-      --heading-h5-font-size: {% if settings.heading_font_size == 'small' %}22px{% elsif settings.heading_font_size == 'medium' %}24px{% else %}26px{% endif %};
+      --heading-h2-font-size: {% if settings.heading_font_size == 'small' %}44px{% elsif settings.heading_font_size == 'medium' %}28px{% else %}54px{% endif %};
+      --heading-h3-font-size: {% if settings.heading_font_size == 'small' %}32px{% elsif settings.heading_font_size == 'medium' %}26px{% else %}40px{% endif %};
+      --heading-h4-font-size: {% if settings.heading_font_size == 'small' %}26px{% elsif settings.heading_font_size == 'medium' %}15px{% else %}34px{% endif %};
+      --heading-h5-font-size: {% if settings.heading_font_size == 'small' %}22px{% elsif settings.heading_font_size == 'medium' %}12px{% else %}26px{% endif %};
       --heading-h6-font-size: {% if settings.heading_font_size == 'small' %}16px{% elsif settings.heading_font_size == 'medium' %}18px{% else %}18px{% endif %};
     }
   }
 
   @media screen and (min-width: 1600px) {
     :root {
-      --vertical-breather: 0px;
+      --vertical-breather: 40px;
       --vertical-breather-tight: {% if settings.vertical_spacing == 'small' %}48px{% elsif settings.vertical_spacing == 'medium' %}48px{% else %}64px{% endif %};
     }
   }

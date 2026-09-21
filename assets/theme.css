@@ -1300,7 +1300,7 @@ p a:not(.button), .rte a:not(.button), .link {
 }
 
 .section {
-  margin: var(--vertical-breather) 0;
+  /* margin: var(--vertical-breather) 0; */
   display: block;
 }
 
@@ -1415,6 +1415,23 @@ p a:not(.button), .rte a:not(.button), .link {
 
 .page-content--medium, .shopify-policy__body {
   max-width: 670px;
+}
+
+/* Keep editor-authored page content from creating a page-level horizontal scroll. */
+.page-content--medium.rte {
+  width: 100%;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.page-content--medium.rte :is(iframe, embed, object, video) {
+  max-width: 100%;
+}
+
+.page-content--medium.rte > table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
 }
 
 .page-content--small {
@@ -2232,7 +2249,7 @@ p a:not(.button), .rte a:not(.button), .link {
 }
 
 .banner__content {
-  margin: 0;
+  margin: 0 auto;
 }
 
 .banner--success {
@@ -4180,7 +4197,7 @@ shopify-accelerated-checkout, shopify-accelerated-checkout-cart {
   --section-background: initial;
   background: rgb(var(--background));
   color: rgb(var(--text-color));
-  z-index: 10;
+  z-index: 31;
   transform: translateX(calc(var(--transform-logical-flip) * 100%));
   visibility: hidden;
   text-align: start;
@@ -4242,7 +4259,7 @@ shopify-accelerated-checkout, shopify-accelerated-checkout-cart {
   opacity: 0;
   visibility: hidden;
   background: #000;
-  width: 100vw;
+  width: 99vw;
   height: 100vh;
   transition: visibility .6s ease-in-out, opacity .6s ease-in-out;
   position: fixed;
@@ -6213,7 +6230,7 @@ input:checked + .popover__choice-label:is(:lang(ae), :lang(ar), :lang(arc), :lan
 }
 
 .article {
-  margin: 40px 0;
+  margin: 40px auto;
 }
 
 .article__inner {
@@ -7987,6 +8004,7 @@ shopify-account::part(signed-out-avatar) {
   justify-content: flex-end;
   align-items: center;
   display: flex;
+  max-width: 300px;
 }
 
 .header__secondary-links .header__linklist {
