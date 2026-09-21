@@ -141,19 +141,21 @@
                               <input type="hidden" form="{{ product_form_id }}" data-option-position="{{ option.position }}" name="option{{ option.position }}" value="{{ value.id }}">
                             {%- endif -%}
 
-                            <a href="{{ value.product_url }}" class="block-swatch__item {% if value == option.selected_value %}is-selected{% endif %}">
+                            <a href="{{ value.product_url }}" class="block-swatch__item{% if variant_image != blank %} block-swatch__item--image{% endif %}{% if value == option.selected_value %} is-selected{% endif %}">
                               {%- if variant_image != blank -%}
-                                {{- variant_image | image_url: width: 96 | image_tag: loading: 'lazy', widths: '48,72,96', class: 'block-swatch__image', alt: '' -}}
+                                {{- variant_image | image_url: width: 144 | image_tag: loading: 'lazy', widths: '56,72,112,144', class: 'block-swatch__image', alt: value -}}
+                              {%- else -%}
+                                {{- value -}}
                               {%- endif -%}
-                              <span>{{- value -}}</span>
                             </a>
                           {%- else -%}
                             <input class="block-swatch__radio visually-hidden" type="radio" data-option-position="{{ option.position }}" name="option{{ option.position }}" form="{{ product_form_id }}" id="{{ option_id }}-{{ forloop.index }}" value="{{ value.id }}" {% if value == option.selected_value %}checked="checked"{% endif %}>
-                            <label class="block-swatch__item" for="{{ option_id }}-{{ forloop.index }}">
+                            <label class="block-swatch__item{% if variant_image != blank %} block-swatch__item--image{% endif %}" for="{{ option_id }}-{{ forloop.index }}">
                               {%- if variant_image != blank -%}
-                                {{- variant_image | image_url: width: 96 | image_tag: loading: 'lazy', widths: '48,72,96', class: 'block-swatch__image', alt: '' -}}
+                                {{- variant_image | image_url: width: 144 | image_tag: loading: 'lazy', widths: '56,72,112,144', class: 'block-swatch__image', alt: value -}}
+                              {%- else -%}
+                                {{- value -}}
                               {%- endif -%}
-                              <span>{{- value -}}</span>
                             </label>
                           {%- endif -%}
                         </div>
