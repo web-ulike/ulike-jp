@@ -5,7 +5,7 @@ IMPLEMENTATION NOTE: the header in Focal is pretty complex as it allows a lot of
 {%- endcomment -%}
 
 {{- 'header-2026.css' | asset_url | stylesheet_tag -}}
-<script src="{{ 'header-2026.js' | asset_url }}" defer="defer"></script>
+{% comment %} <script src="{{ 'header-2026.js' | asset_url }}" defer="defer"></script> {% endcomment %}
 
 <style>
   :root {
