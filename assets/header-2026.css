@@ -554,14 +554,9 @@
     position: relative;
     z-index: 2;
     min-height: 0;
-    overflow-x: hidden;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    scrollbar-width: none;
+    overflow: hidden auto;
     background: #fff;
   }
-
-  .header-2026__mobile-content::-webkit-scrollbar { display: none; }
 
   .header-2026__mobile-root {
     display: flex;
@@ -572,7 +567,6 @@
   .header-2026__mobile-root > a,
   .header-2026__mobile-root > button {
     display: flex;
-    min-width: 0;
     min-height: 60px;
     align-items: center;
     justify-content: space-between;
@@ -589,7 +583,6 @@
 
   .header-2026__mobile-root-label {
     display: inline-flex;
-    min-width: 0;
     align-items: center;
   }
 
@@ -616,9 +609,7 @@
     z-index: 3;
     inset: 0;
     display: flex;
-    min-width: 0;
     flex-direction: column;
-    overflow: hidden;
     background: #fff;
   }
 
@@ -630,7 +621,7 @@
     display: grid;
     width: calc(100% - 48px);
     min-height: 34px;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: 1fr 1fr;
     align-items: center;
     margin: 0 24px;
     padding: 0;
@@ -657,14 +648,10 @@
   }
 
   .header-2026__mobile-back strong {
-    min-width: 0;
     justify-self: end;
-    overflow: hidden;
     font-size: 18px;
     font-weight: 500;
     line-height: 22px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
   }
 
   .header-2026__mobile-products-scroll {
@@ -745,7 +732,6 @@
     min-height: 0;
     flex: 1 1 auto;
     padding: 0 24px 32px;
-    overflow-x: hidden;
     overflow-y: auto;
     scrollbar-width: none;
   }
@@ -757,8 +743,7 @@
   .header-2026__mobile-topic-links > details > summary {
     display: grid;
     min-height: 80px;
-    min-width: 0;
-    grid-template-columns: 40px minmax(0, 1fr) 15px;
+    grid-template-columns: 40px max-content 15px;
     align-items: center;
     gap: 30px;
     color: #000;
@@ -781,14 +766,6 @@
     width: 8px;
     height: 15px;
     margin-inline-start: -20px;
-  }
-
-  .header-2026__mobile-links > a > span,
-  .header-2026__mobile-topic-links > details > summary > span {
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
   }
 
   .header-2026__mobile-about-list {
