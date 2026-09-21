@@ -1,18 +1,6 @@
 <section>
   <div class="container">
     <div class="page-header">
-      <nav aria-label="{{ 'general.breadcrumb.title' | t }}" class="breadcrumb breadcrumb--floating text--xsmall hidden-phone">
-        <ol class="breadcrumb__list" role="list">
-          <li class="breadcrumb__item">
-            <a class="breadcrumb__link" href="{{ routes.root_url }}">{{ 'general.breadcrumb.home' | t }}</a>
-          </li>
-
-          <li class="breadcrumb__item">
-            <span class="breadcrumb__link" aria-current="page">{{ page.title }}</span>
-          </li>
-        </ol>
-      </nav>
-
       <div class="page-header__text-wrapper text-container">
         {%- if section.settings.show_title -%}
           <h1 class="heading h2">{{ page.title }}</h1>
