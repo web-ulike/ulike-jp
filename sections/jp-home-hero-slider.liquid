@@ -1,6 +1,9 @@
 {% liquid
   assign sid = section.id
   assign custom_class = section.settings.custom_class
+  assign first_slide = section.blocks.first
+  assign first_pc_image = first_slide.settings.image_pc | default: first_slide.settings.image_mobile
+  assign first_mobile_image = first_slide.settings.image_mobile | default: first_pc_image
 %}
 
 <section class="jp-home-hero jp-home-hero--{{ sid }}{% if custom_class != blank %} {{ custom_class | escape }}{% endif %}">
@@ -183,6 +186,12 @@
     position: relative;
     z-index: 1;
   }
+
+  {% if first_pc_image != blank %}
+    .jp-home-hero--{{ sid }} .jp-home-hero__swiper {
+      aspect-ratio: {{ first_pc_image.width }} / {{ first_pc_image.height }};
+    }
+  {% endif %}
 
   .jp-home-hero--{{ sid }} .jp-home-hero__media picture {
     display: block;
@@ -461,6 +470,12 @@
 
 
   @media screen and (max-width: 989px) {
+    {% if first_mobile_image != blank %}
+      .jp-home-hero--{{ sid }} .jp-home-hero__swiper {
+        aspect-ratio: {{ first_mobile_image.width }} / {{ first_mobile_image.height }};
+      }
+    {% endif %}
+
     .jp-home-hero--{{ sid }} .jp-home-hero__slide {
    
     }
