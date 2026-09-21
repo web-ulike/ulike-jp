@@ -73,9 +73,13 @@
   max-height: calc(100vh - var(--header-height, 100px) - var(--announcement-bar-height, 0px) - 1px);
   max-height: calc(100dvh - var(--header-height, 100px) - var(--announcement-bar-height, 0px) - 1px);
   overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
   color: #190a0a;
   background: #fff;
 }
+
+.header-2026__mega-panel::-webkit-scrollbar { display: none; }
 
 /* Prevent the theme's legacy mega-menu column margin from shifting content
    away from the divider-defined cells in the 2026 navigation. */
