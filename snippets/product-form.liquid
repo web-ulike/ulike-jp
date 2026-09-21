@@ -125,6 +125,7 @@
                   {%- when 'block' -%}
                     <div class="block-swatch-list">
                       {%- for value in option.values -%}
+                        {%- assign variant_image = value.variant.featured_media -%}
                         <div class="block-swatch {% unless value.available %}is-disabled{% endunless %}">
                           {%- if value.product_url != blank -%}
                             {%- if value == option.selected_value -%}
@@ -132,11 +133,19 @@
                             {%- endif -%}
 
                             <a href="{{ value.product_url }}" class="block-swatch__item {% if value == option.selected_value %}is-selected{% endif %}">
-                              {{- value -}}
+                              {%- if variant_image != blank -%}
+                                {{- variant_image | image_url: width: 96 | image_tag: loading: 'lazy', widths: '48,72,96', class: 'block-swatch__image', alt: '' -}}
+                              {%- endif -%}
+                              <span>{{- value -}}</span>
                             </a>
                           {%- else -%}
                             <input class="block-swatch__radio visually-hidden" type="radio" data-option-position="{{ option.position }}" name="option{{ option.position }}" form="{{ product_form_id }}" id="{{ option_id }}-{{ forloop.index }}" value="{{ value.id }}" {% if value == option.selected_value %}checked="checked"{% endif %}>
-                            <label class="block-swatch__item" for="{{ option_id }}-{{ forloop.index }}">{{ value }}</label>
+                            <label class="block-swatch__item" for="{{ option_id }}-{{ forloop.index }}">
+                              {%- if variant_image != blank -%}
+                                {{- variant_image | image_url: width: 96 | image_tag: loading: 'lazy', widths: '48,72,96', class: 'block-swatch__image', alt: '' -}}
+                              {%- endif -%}
+                              <span>{{- value -}}</span>
+                            </label>
                           {%- endif -%}
                         </div>
                       {%- endfor -%}
