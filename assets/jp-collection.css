@@ -75,7 +75,7 @@
   .jp-collection__grid { grid-template-columns: minmax(0, 1fr); gap: 35px; }
   .jp-collection-card__content { margin-top: 26px; }
   .jp-collection-card__heading { gap: 7px; }
-  .jp-collection-card__heading h3 { font-size: 16px; }
+  .jp-collection-card__heading h3 { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 16px; }
   .jp-collection-card__badge { min-height: 17px; padding: 2px 9px; font-size: 10px; }
   .jp-collection-card__subtitle { margin-top: 8px; font-size: 12px; }
   .jp-collection-card__details { margin-top: 8px; }
