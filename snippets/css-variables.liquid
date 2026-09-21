@@ -104,7 +104,7 @@ other resources, such as CSS or JS
     --text-font-family: {{ settings.text_font.family }}, {{ settings.text_font.fallback_families }};
     --text-font-weight: {{ settings.text_font.weight }};
     --text-font-style: {{ settings.text_font.style }};
-    --text-font-bold-weight: {{ text_font_bold.weight | default: '700' }};
+    --text-font-bold-weight: {{ text_font_bold.weight | default: '500' }};
 
     /* Typography (font size) */
     --heading-xxsmall-font-size: {% if settings.heading_font_size == 'small' %}10px{% else %}11px{% endif %};
