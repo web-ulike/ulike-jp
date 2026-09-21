@@ -96,6 +96,12 @@ If you plan to remove PageFly, please see the guide in our help center first: ht
     
     <script src="{{ 'vendor.js' | asset_url }}" defer></script>
     <script src="{{ 'theme.js' | asset_url }}" defer></script>
+    <script>
+      window.UlikeCommon = window.UlikeCommon || {};
+      window.UlikeCommon.isMobile = window.UlikeCommon.isMobile || function () {
+        return window.matchMedia('(max-width: 768px)').matches;
+      };
+    </script>
     <script src="{{ 'custom.js' | asset_url }}" defer></script>
 
     {{ content_for_header }}
