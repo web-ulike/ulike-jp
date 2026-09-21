@@ -3,46 +3,24 @@
     "main": {
       "type": "main-cart",
       "blocks": {
-        "free_shipping": {
-          "type": "free_shipping",
-          "disabled": true,
-          "settings": {
-            "minimum_amount": "1000"
-          }
-        },
         "subtotal": {
-          "type": "subtotal",
+          "type": "totals",
           "settings": {}
         },
         "cart_note": {
-          "type": "cart_note",
+          "type": "order_note",
           "settings": {
-            "heading": "特別な指示を注文する"
+            "open_by_default": false
           }
-        },
-        "buttons": {
-          "type": "buttons",
-          "settings": {}
         }
       },
       "block_order": [
-        "free_shipping",
         "subtotal",
-        "cart_note",
-        "buttons"
+        "cart_note"
       ],
       "settings": {
-        "heading_size": "title-sm",
-        "heading_alignment": "md:items-end",
-        "heading_tag": "h1",
-        "show_vendor": false,
-        "show_payment_icons": true,
-        "show_shipping_calculator": false,
-        "padding_top": 72,
-        "padding_bottom": 60,
-        "divider": false,
-        "full_width": false,
-        "rounded": false
+        "show_payment_methods": true,
+        "show_shipping_estimator": false
       }
     },
     "recently-viewed": {
