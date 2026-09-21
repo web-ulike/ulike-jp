@@ -816,14 +816,6 @@
   .header-2026__mobile-about-list > a > img { display: block; width: 100%; height: auto; aspect-ratio: 342 / 184; margin-top: 14px; border-radius: 8px; object-fit: cover; }
 }
 
-/* The drawer is appended to <body>; remove it from the desktop layout entirely
-   so its fixed overlay cannot create a desktop page overflow. */
-@media screen and (min-width: 1200px) {
-  .header-2026__mobile-drawer {
-    display: none;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .header-2026__nav-link,
   .header-2026__topic-toggle-arrow {
