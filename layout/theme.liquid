@@ -8,9 +8,12 @@
 <html class="no-js" lang="{{ request.locale.iso_code }}" dir="{{ direction }}">
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, maximum-scale=1.0">
     <meta name="theme-color" content="{{ settings.header_background }}">
-
+    <meta name="google-site-verification" content="LFXtK0nMZw56btAezr_aQ0i7CTgHqngDUSwiYnmZ6H8" />
+    <meta name="google-site-verification" content="rfqnC7SkaSvFrHeuj5NjmFuX0mJdSh1FH61d6IvjA-g" /> <!-- 数据部门的 -->
+    
     <title>{% if page_title == blank %}{{ shop.name }}{% else %}{{ page_title }}{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% endif %}</title>
 
     {%- if page_description -%}
@@ -18,7 +21,7 @@
     {%- endif -%}
 
     {%- if settings.favicon != blank -%}
-      <link rel="shortcut icon" href="{{ settings.favicon | image_url: width: 32, height: 32 }}" type="image/png" />
+      <link rel="shortcut icon" href="https://jp.ulike.com/cdn/shop/files/favicon.png?crop=center&height=32&v=1663654290&width=32" type="image/png" />
     {%- endif -%}
 
     {%- comment -%}Few prefech to increase performance on commonly used third-parties{%- endcomment -%}
@@ -84,6 +87,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/gsap.min.js" defer="defer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/ScrollTrigger.min.js" defer="defer"></script>
     <script src="{{ 'scroll-animation.js' | asset_url }}" defer="defer"></script>
+    
     <script src="{{ 'vendor.js' | asset_url }}" defer></script>
     <script src="{{ 'theme.js' | asset_url }}" defer></script>
     <script src="{{ 'ulike-common.js' | asset_url }}" defer></script>
@@ -94,6 +98,13 @@
 
     {% include 'pagefly-app-header' %}
 
+    <script type="text/javascript">
+     (function(w,d,s){
+      var f=d.getElementsByTagName(s)[0],j=d.createElement(s);
+      j.async=true;j.src='https://dmp.im-apps.net/js/1022072/0001/itm.js';
+      f.parentNode.insertBefore(j, f);
+     })(window,document,'script');
+    </script>
 
   </head>
 

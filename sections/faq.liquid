@@ -19,7 +19,7 @@
     margin: 0;
     color: inherit;
     font-size: clamp(32px, 2.6vw, 48px);
-    font-weight: 700;
+    font-weight: 500;
     letter-spacing: -0.04em;
     line-height: 1.25;
   }
@@ -70,6 +70,9 @@
     letter-spacing: -0.025em;
     line-height: 1.5;
     overflow-wrap: anywhere;
+  }
+  #shopify-section-{{ section.id }} .faq-reference__question strong{
+    font-weight: 400;
   }
 
   #shopify-section-{{ section.id }} .faq-reference__icon {
@@ -176,9 +179,9 @@
 {%- endif -%}
 
 <section class="faq-reference{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded{% endif %}">
-  <div class="container{% if section.settings.narrow %} container--small{% endif %} relative">
-    <header class="faq-reference__header">
-      <{{ section.settings.heading_tag | default: 'h2' }} class="faq-reference__title">{{ faq_heading }}</{{ section.settings.heading_tag | default: 'h2' }}>
+  <div class="container relative">
+    <header class="faq-reference__header to-top">
+      <{{ section.settings.heading_tag | default: 'h2' }} class="faq-reference__title">{{ faq_heading | strip_html }}</{{ section.settings.heading_tag | default: 'h2' }}>
       {%- if section.settings.description != blank -%}
         <div class="faq-reference__description rte">{{ section.settings.description }}</div>
       {%- endif -%}
@@ -197,7 +200,7 @@
             {%- for block in section.blocks -%}
               {%- case block.type -%}
                 {%- when 'rich-text' -%}
-                  <div class="faq-reference__item faq-reference__item--text" {{ block.shopify_attributes }}>
+                  <div class="faq-reference__item faq-reference__item--text to-top" style="transition-delay: {{ forloop.index0 | modulo: 4 | times: 100 }}ms" {{ block.shopify_attributes }}>
                     <div class="grid gap-2d5">
                       <p class="heading lg:text-3xl text-2xl font-bold leading-none tracking-tight">
                         {%- render 'highlighted-text', content: block.settings.heading, style: block.settings.highlighted_text, scribble: block.settings.highlighted_scribble, gradient: with_gradient -%}
@@ -209,7 +212,7 @@
                   </div>
 
                 {%- when 'question' -%}
-                  <div class="faq-reference__item">
+                  <div class="faq-reference__item to-top" style="transition-delay: {{ forloop.index0 | modulo: 4 | times: 100 }}ms">
                     <details class="details" is="accordion-details" {{ block.shopify_attributes }}>
                       <summary class="faq-reference__summary">
                         <span class="faq-reference__question">

@@ -586,43 +586,50 @@
         "question_HeKazg": {
           "type": "question",
           "settings": {
-            "title": "<strong>アプリのパスワードを忘れたらどうすればいいですか？<\/strong>"
+            "title": "<strong>アプリのパスワードを忘れたらどうすればいいですか？<\/strong>",
+            "text": "<p>ログインの画面では、パスワードを入力する欄の下に「パスワードを忘れた」があります。ここをクリックしてご案内に従えばパスワードを変更することができます。<\/p>"
           }
         },
         "question_PaWa7K": {
           "type": "question",
           "settings": {
-            "title": "<strong>新発売のAir10 Max & Ulike X Maxは従来のAir 10 & Ulike Xとの違いは何ですか？<\/strong>"
+            "title": "<strong>新発売のAir10 Max & Ulike X Maxは従来のAir 10 & Ulike Xとの違いは何ですか？<\/strong>",
+            "text": "<p>従来のAir10 & Ulike Xに比べると、新発売のAir10 Max & Ulike X Maxは照射パワーが上がり、照射モードの切り替えも簡単になり、全部スキンセンサー機能とアプリ連携機能も搭載されるようになっています。指などのような照射範囲が狭いところにも使えるために、オンラインストアで販売するUlike X Maxと家電量販店で販売するAir10 Maxには専用のアタッチメントも付属されるようになっています。<\/p>"
           }
         },
         "question_bRUXh4": {
           "type": "question",
           "settings": {
-            "title": "<strong>プランを作成して、ケアも開始しましたが、ケア記録が保存されないのはなぜでしょうか？<\/strong>"
+            "title": "<strong>プランを作成して、ケアも開始しましたが、ケア記録が保存されないのはなぜでしょうか？<\/strong>",
+            "text": "<p>ケア記録が保存されないのは主に下記の原因があります：<br\/>a）使用中、bluetoothがオフになって接続が切れてしまった<br\/>b）使用中、別の画面に戻してしまった<br\/>c）使用が完了した際に、先に本体の電源をオフにした<br\/>d）使用が完了してから、アプリ内の「ケア停止」を押し忘れた<br\/>e）「ケア停止」を押したが、ホームに戻って「今すぐ記録」を押し忘れた<br\/><strong>■正しい方法：<br\/><\/strong>ケアを開始してから、なるべく３分以上のご使用を推奨いたします。ケア完了後、まず「ケア停止」を押してから本体電源をオフにしてください。最後はホームに戻って「今すぐ記録」を押してケア記録を保存します。<\/p>"
           }
         },
         "question_pTHJLi": {
           "type": "question",
           "settings": {
-            "title": "<strong>本体とスマホのbluetoothが接続できない場合はどうすればいいですか？<\/strong>"
+            "title": "<strong>本体とスマホのbluetoothが接続できない場合はどうすればいいですか？<\/strong>",
+            "text": "<p>まずスマホのbluetoothをオンにして、再度本体を起動させて、本体のbluetoothもオンにして、再度デバイスをスキャンしてください。<\/p>"
           }
         },
         "question_KbYCjm": {
           "type": "question",
           "settings": {
-            "title": "<strong>ホームでの「今すぐ記録」のボタンがグレイ色のまま押せないのはなぜでしょうか？<\/strong>"
+            "title": "<strong>ホームでの「今すぐ記録」のボタンがグレイ色のまま押せないのはなぜでしょうか？<\/strong>",
+            "text": "<p>ケア時間が３分間未満、もしくは使用途中でケア記録が保存されていない場合、ケア記録が無効になり、再度ケアを開始してください。<\/p>"
           }
         },
         "question_pPyEXB": {
           "type": "question",
           "settings": {
-            "title": "<strong>家族共用の場合、どのようにプランを作成しますか？<\/strong>"
+            "title": "<strong>家族共用の場合、どのようにプランを作成しますか？<\/strong>",
+            "text": "<p>Ulikeは利用者のプライバシーを徹底的に保護しておりますので、脱毛器は家族共用の場合、同一アカウントで他人のケアプランを作成できず、違うメールアドレスでアカウントを作成してから、デバイスを追加するのを推奨いたします。<\/p>"
           }
         },
         "question_pTbNYK": {
           "type": "question",
           "settings": {
-            "title": "<strong>アタッチメントの正しい使い方は？<\/strong>"
+            "title": "<strong>アタッチメントの正しい使い方は？<\/strong>",
+            "text": "<p>お手数ですが、以下の手順でお試しください。<\/p><ol><li>アタッチメントなしで電源を入れ、中〜高出力モードで肌に密着させて2〜3回照射します。<\/li><li>肌に密着したまま1秒キープ→垂直に持ち上げ、照射面全体を肌から離して1秒キープします。これを2〜3回繰り返します。<\/li><li>その後、アタッチメントを装着して照射します。<\/li><\/ol>"
           }
         }
       },
@@ -639,7 +646,11 @@
         "@media screen and (min-width: 1024px) {.container.container--small {max-width: inherit; --page-padding: var(--sp-60); }}"
       ],
       "name": "t:sections.faq.presets.name",
-      "settings": {}
+      "settings": {
+        "heading": "<strong>よくあるご質問<\/strong>",
+        "heading_size": "title-md",
+        "heading_tag": "h2"
+      }
     },
     "p_ipl_no1_7CDAcd": {
       "type": "p-IPL-no1",
