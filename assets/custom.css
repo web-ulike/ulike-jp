@@ -12,27 +12,38 @@
   display: none;
 }
 
-/* Product variant choices use a neutral fill and show their assigned variant image. */
+/* Keep image variants clear so the product photo is the only fill. */
 .product-form__variants .block-swatch__item {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  background: #f2f2f2;
+  background: transparent;
 }
 
 .product-form__variants .block-swatch__radio:checked + .block-swatch__item,
-.product-form__variants .block-swatch__item.is-selected {
-  background: #202020;
-  color: #fff;
+.product-form__variants .block-swatch__item.is-selected,
+.product-form__variants .block-swatch.is-disabled .block-swatch__item {
+  background: transparent;
+}
+
+.product-form__variants .block-swatch__item--image {
+  min-width: 0;
+  padding: 0;
+  line-height: 0;
 }
 
 .product-form__variants .block-swatch__image {
-  width: 36px;
-  height: 36px;
-  border-radius: 3px;
+  display: block;
+  width: 56px;
+  height: 56px;
   object-fit: cover;
-  flex: none;
+}
+
+@media screen and (min-width: 1000px) {
+  .product-form__variants .block-swatch__image {
+    width: 72px;
+    height: 72px;
+  }
 }
 
 /* Align the legacy product detail typography with the live storefront. */
@@ -387,5 +398,31 @@
 
   .footer-group .footer-copyright .credits ul {
     justify-content: flex-start;
+  }
+}
+
+/* Shared reveal styles for legacy Ulike modules that use class="to-top". */
+.to-top {
+  opacity: 0;
+  transform: translateY(100px);
+  transition: opacity 1s cubic-bezier(.25, 1, .5, 1), transform 1s cubic-bezier(.25, 1, .5, 1);
+  will-change: opacity, transform;
+  -webkit-transition: opacity 1s cubic-bezier(.25, 1, .5, 1), transform 1s cubic-bezier(.25, 1, .5, 1);
+  -moz-transition: opacity 1s cubic-bezier(.25, 1, .5, 1), transform 1s cubic-bezier(.25, 1, .5, 1);
+  -ms-transition: opacity 1s cubic-bezier(.25, 1, .5, 1), transform 1s cubic-bezier(.25, 1, .5, 1);
+  -o-transition: opacity 1s cubic-bezier(.25, 1, .5, 1), transform 1s cubic-bezier(.25, 1, .5, 1);
+}
+
+.to-top.appear {
+  opacity: 1;
+  transform: translateY(0);
+  will-change: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .to-top {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
