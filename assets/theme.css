@@ -1417,23 +1417,6 @@ p a:not(.button), .rte a:not(.button), .link {
   max-width: 670px;
 }
 
-/* Keep editor-authored page content from creating a page-level horizontal scroll. */
-.page-content--medium.rte {
-  width: 100%;
-  min-width: 0;
-  overflow-wrap: anywhere;
-}
-
-.page-content--medium.rte :is(iframe, embed, object, video) {
-  max-width: 100%;
-}
-
-.page-content--medium.rte > table {
-  display: block;
-  max-width: 100%;
-  overflow-x: auto;
-}
-
 .page-content--small {
   max-width: 460px;
 }
