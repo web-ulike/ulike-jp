@@ -29,11 +29,6 @@
     color: #fff;
   }
 
-  .footer-new_{{ se_id }} > .container {
-    max-width: 1920px;
-    padding-inline: clamp(40px, 8.333vw, 160px);
-  }
-
   .footer-new_{{ se_id }} .footer-new__newsletter {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 615px;
@@ -229,9 +224,9 @@
 
   .footer-new_{{ se_id }} .footer__inner .footer__item-list {
     display: grid;
-    gap: clamp(40px, 6.77vw, 130px);
+    gap: clamp(24px, calc(-51.714px + 8vw), 130px);
     width: 100%;
-    grid-template-columns: minmax(260px, 328px) repeat(3, minmax(110px, 1fr)) minmax(260px, 315px);
+    grid-template-columns: minmax(260px, 280px) repeat(3, minmax(110px, 1fr)) minmax(260px, 315px);
   }
 
   .footer-new_{{ se_id }} .footer__inner .footer__item-list .footer__item {
@@ -242,7 +237,7 @@
   .footer-new_{{ se_id }} .footer__inner .footer__item-list .footer__item .footer__item-title {
     color: #fff;
     margin: 0 0 30px;
-    font-size: 24px;
+    font-size: clamp(10px, 1.25vw, 24px);
     font-weight: 400;
     line-height: 1.3;
   }
@@ -266,14 +261,14 @@
   .footer-new_{{ se_id }} .footer__inner .footer__item-list .footer__item .footer__item-content .linklist__item {
     margin: 0;
     color: #737577;
-    font-size: 16px;
-    line-height: 25px;
+    font-size: clamp(12px, calc(9.143px + 0.357vw), 16px);
+    line-height: 1.5625;
     padding: 0px;
   }
 
   .footer-new_{{ se_id }} .footer__inner .footer__item-list .footer__item .footer__item-content .linklist__item a {
     color: #737577;
-    line-height: 25px;
+    line-height: inherit;
     /* 171.429% */
     text-decoration: none;
   }
@@ -297,9 +292,12 @@
     color: #919191;
     padding: 28px 0 24px;
     border-top: 1px solid #292929;
+    font-size: clamp(12px, calc(10.571px + 0.179vw), 14px);
   }
 
   .footer-new_{{ se_id }} .footer__aside .footer__payment-methods {
+    width: 100%;
+    margin-inline-start: 0;
     display: flex;
     justify-content: space-between;
   }
@@ -316,10 +314,10 @@
     color: rgba(255, 255, 255, 0.7);
     text-align: right;
     font-family: Saans;
-    font-size: 16px;
+    font-size: inherit;
     font-style: normal;
     font-weight: 380;
-    line-height: 24px;
+    line-height: 1.5;
     /* 150% */
     width: auto;
     flex: 0 1 540px;
@@ -415,13 +413,11 @@
   @media (min-width: 1200px) {
     .footer-new_{{ se_id }} .footer__inner .footer__item--social_media .footer__item-title {
       margin-bottom: 27px;
-      font-size: 20px;
     }
 
     .footer-new_{{ se_id }} .footer__aside {
       padding: 36px 0 16px;
       color: #fff;
-      font-size: 14px;
       line-height: normal;
     }
 
@@ -450,8 +446,43 @@
 
   @media (min-width: 1920px) {
     .footer-new_{{ se_id }} .footer__inner .footer__item-list {
-      grid-template-columns: 328px 182px 120px 131px 315px;
-      gap: 130px;
+      grid-template-columns: 328px 200px 160px 160px 320px;
+      gap: 80px;
+    }
+  }
+
+  @media (min-width: 800px) and (max-width: 1599px) {
+    .footer-new_{{ se_id }} .footer__aside .footer__payment-methods {
+      flex-wrap: nowrap;
+      gap: clamp(16px, 2.5vw, 40px);
+    }
+
+    .footer-new_{{ se_id }} .footer__aside .footer__payment-methods .policy {
+      flex: 1 1 auto;
+      gap: clamp(12px, 2vw, 32px);
+      min-width: 0;
+    }
+
+    .footer-new_{{ se_id }} .footer__aside .footer__payment-methods .policy p {
+      flex: 0 0 auto;
+      margin: 0;
+      white-space: nowrap;
+    }
+
+    .footer-new_{{ se_id }} .footer__aside .footer__payment-methods .pay-list {
+      flex: 0 1 clamp(240px, 30vw, 480px);
+      min-width: 0;
+    }
+
+    .footer-new_{{ se_id }} .footer__aside .footer__payment-methods .pay-list .pay-image picture {
+      width: 100%;
+    }
+
+    .footer-new_{{ se_id }} .footer__aside .footer__payment-methods .pay-list .pay-image img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
     }
   }
 
@@ -463,17 +494,13 @@
 
     .footer-new_{{ se_id }} .footer__inner .footer__item-list {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 48px 64px;
+      gap: 32px 24px;
     }
   }
 
   @media (max-width: 768px) {
     .footer-new_{{ se_id }} {
       background: #000;
-    }
-
-    .footer-new_{{ se_id }} > .container {
-      padding-inline: clamp(20px, 5.6vw, 24px);
     }
 
     .footer-new_{{ se_id }} .footer-new__newsletter {
@@ -858,7 +885,7 @@
                     <div class="footer__item-content">
                       <ul class="linklist list--unstyled" role="list">
                         {%- for link in menu.links -%}
-                          <li class="linklist__item ">
+                          <li class="linklist__item">
                           {%- if link.title == 'Ulike for PCOS' or  link.title == 'Blogs'  or link.title == 'FAQs' or link.title == 'IPL Hair Removal Devices' -%}
                               <a href="{{ link.url }}" title="{{ link.title | escape  }}" aria-label="{{ link.title }}"  {% if link.title == 'Blogs' %}target="_blank"{% endif %} class="link--faded">{{ link.title }}</a>
                             {%- else -%}
@@ -888,6 +915,26 @@
                   </div>
                   <div class="footer__item-content">
                     <div class="linklist__item rte">{{ block.settings.content }}</div>
+                    {%- for index in (1..3) -%}
+                      {%- liquid
+                        if index == 1
+                          assign email_name_key = 'emailname'
+                          assign email_url_key = 'emailurl'
+                        else
+                          assign email_name_key = 'emailname_' | append: index
+                          assign email_url_key = 'emailurl_' | append: index
+                        endif
+                        assign email_name = block.settings[email_name_key]
+                        assign email_url = block.settings[email_url_key]
+                      -%}
+                      {%- if email_url != blank -%}
+                        <div class="linklist__item">
+                          <a href="{{ email_url | escape }}" class="link--faded">
+                            {{- email_name | default: email_url | escape -}}
+                          </a>
+                        </div>
+                      {%- endif -%}
+                    {%- endfor -%}
                   </div>
                 {%- when 'social_media' -%}
                   <p class="footer__item-title heading heading--small">{{ block.settings.title }}</p>
@@ -1010,7 +1057,7 @@
               {%- endcase -%}
           {%- endcapture -%}
           {%- if block_content != blank -%}
-            <div class="footer__item footer__item--{{ block.type }}">
+            <div class="footer__item footer__item--{{ block.type }}" {{ block.shopify_attributes }}>
               {{ block_content }}
             </div>
           {% endif %}
@@ -1822,7 +1869,7 @@
 
 <script>
   window.addEventListener('load', function() {
-    if (isMobile()) {
+    if (window.UlikeCommon.isMobile()) {
       $(document).on('click', 'footer .footer__item-list .footer__item', function () {
         $(this).toggleClass('active');
       });
@@ -1831,11 +1878,6 @@
     }
   });
 </script>
-
-<!-- 暂时代码 周一会改 勿动 -->
-{% if section.settings.show_tc and request.path != '/pages/air-10-ads-exclusive' %}
-  {%- render 'memorial-day' -%}
-{%- endif -%}
 
 {% schema %}
 {

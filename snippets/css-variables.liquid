@@ -170,7 +170,7 @@ other resources, such as CSS or JS
     --grid-gap: 24px;
     --grid-column-width: calc((100vw - var(--container-outer-width) * 2 - var(--grid-gap) * (var(--grid-column-count) - 1)) / var(--grid-column-count));
 
-    --vertical-breather: 0px;
+    --vertical-breather: 20px;
     --vertical-breather-tight: {% if settings.vertical_spacing == 'small' %}28px{% elsif settings.vertical_spacing == 'medium' %}36px{% else %}48px{% endif %};
 
     /* Shopify related variables */
@@ -224,7 +224,7 @@ other resources, such as CSS or JS
 
   @media screen and (min-width: 1600px) {
     :root {
-      --vertical-breather: 0px;
+      --vertical-breather: 50px;
       --vertical-breather-tight: {% if settings.vertical_spacing == 'small' %}48px{% elsif settings.vertical_spacing == 'medium' %}48px{% else %}64px{% endif %};
     }
   }

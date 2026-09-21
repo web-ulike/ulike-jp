@@ -6,8 +6,9 @@
   }
 
   #shopify-section-{{ section.id }} .faq-reference {
-    color: #111;
-    padding: clamp(48px, 4.5vw, 80px) 0 clamp(56px, 5vw, 96px);
+    padding: var(--section-padding-top) 0 var(--section-padding-bottom);
+    background: var(--gradient-background, rgb(var(--color-background, 255 255 255)));
+    color: rgb(var(--color-foreground, 17 17 17));
   }
 
   #shopify-section-{{ section.id }} .faq-reference__header {
@@ -16,7 +17,7 @@
 
   #shopify-section-{{ section.id }} .faq-reference__title {
     margin: 0;
-    color: #111;
+    color: inherit;
     font-size: clamp(32px, 2.6vw, 48px);
     font-weight: 700;
     letter-spacing: -0.04em;
@@ -32,13 +33,18 @@
 
   #shopify-section-{{ section.id }} .faq-reference__list {
     overflow: hidden;
-    border: 1px solid #e7e7e7;
+    border: 1px solid rgb(var(--color-border, 231 231 231));
     border-radius: 20px;
-    background: #fff;
+    background: rgb(var(--color-background, 255 255 255));
+  }
+
+  #shopify-section-{{ section.id }} .faq-reference__list--with-background {
+    border: 0;
+    background: rgb(var(--color-foreground, 17 17 17) / 0.04);
   }
 
   #shopify-section-{{ section.id }} .faq-reference__item + .faq-reference__item {
-    border-top: 1px solid #e7e7e7;
+    border-top: 1px solid rgb(var(--color-border, 231 231 231));
   }
 
   #shopify-section-{{ section.id }} .faq-reference__summary {
@@ -48,7 +54,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 20px;
-    color: #111;
+    color: inherit;
     cursor: pointer;
     list-style: none;
   }
@@ -58,10 +64,12 @@
   }
 
   #shopify-section-{{ section.id }} .faq-reference__question {
+    min-width: 0;
     font-size: clamp(18px, 1.2vw, 22px);
     font-weight: 600;
     letter-spacing: -0.025em;
     line-height: 1.5;
+    overflow-wrap: anywhere;
   }
 
   #shopify-section-{{ section.id }} .faq-reference__icon {
@@ -95,9 +103,32 @@
 
   #shopify-section-{{ section.id }} .faq-reference__answer {
     padding: 0 clamp(24px, 3vw, 48px) 32px;
-    color: #333;
+    color: rgb(var(--color-foreground, 17 17 17) / 0.82);
     font-size: 15px;
     line-height: 1.7;
+    overflow-wrap: anywhere;
+  }
+
+  #shopify-section-{{ section.id }} .faq-reference__answer > :first-child {
+    margin-block-start: 0;
+  }
+
+  #shopify-section-{{ section.id }} .faq-reference__answer > :last-child {
+    margin-block-end: 0;
+  }
+
+  #shopify-section-{{ section.id }} .faq-reference__answer p + p {
+    margin-block-start: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .faq-reference__answer :is(ul, ol) {
+    margin-block: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .faq-reference__answer a {
+    font-weight: 600;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
   }
 
   #shopify-section-{{ section.id }} .faq-reference__item--text {
@@ -106,7 +137,8 @@
 
   @media screen and (max-width: 767px) {
     #shopify-section-{{ section.id }} .faq-reference {
-      padding: 56px 0 72px;
+      padding-top: min(var(--section-padding-top), 56px);
+      padding-bottom: min(var(--section-padding-bottom), 72px);
     }
 
     #shopify-section-{{ section.id }} .faq-reference__header {
@@ -143,7 +175,7 @@
   {%- assign faq_heading = 'よくあるご質問' -%}
 {%- endif -%}
 
-<section class="faq-reference">
+<section class="faq-reference{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded{% endif %}">
   <div class="container{% if section.settings.narrow %} container--small{% endif %} relative">
     <header class="faq-reference__header">
       <{{ section.settings.heading_tag | default: 'h2' }} class="faq-reference__title">{{ faq_heading }}</{{ section.settings.heading_tag | default: 'h2' }}>
@@ -154,21 +186,21 @@
 
     {%- if section.blocks.size > 0 -%}
       {%- liquid
-        assign withGradient = false
+        assign with_gradient = false
         if section.settings.gradient_highlight != blank and section.settings.gradient_highlight != 'rgba(0,0,0,0)'
-          assign withGradient = true
+          assign with_gradient = true
         endif
 
         assign contact = section.blocks | where: "type", "contact" | first
       -%}
-      <div class="faq-reference__list">
+      <div class="faq-reference__list faq-reference__list--{{ section.settings.style | default: 'with-border' }}">
             {%- for block in section.blocks -%}
               {%- case block.type -%}
                 {%- when 'rich-text' -%}
                   <div class="faq-reference__item faq-reference__item--text" {{ block.shopify_attributes }}>
                     <div class="grid gap-2d5">
                       <p class="heading lg:text-3xl text-2xl font-bold leading-none tracking-tight">
-                        {%- render 'highlighted-text', content: block.settings.heading, style: block.settings.highlighted_text, scribble: block.settings.highlighted_scribble, gradient: withGradient -%}
+                        {%- render 'highlighted-text', content: block.settings.heading, style: block.settings.highlighted_text, scribble: block.settings.highlighted_scribble, gradient: with_gradient -%}
                       </p>
                       <div class="text-opacity text-base rte">
                         {{- block.settings.text -}}
@@ -180,7 +212,9 @@
                   <div class="faq-reference__item">
                     <details class="details" is="accordion-details" {{ block.shopify_attributes }}>
                       <summary class="faq-reference__summary">
-                        <span class="faq-reference__question">{{ block.settings.title }}</span>
+                        <span class="faq-reference__question">
+                          {%- render 'highlighted-text', content: block.settings.title, style: block.settings.highlighted_text, scribble: block.settings.highlighted_scribble, gradient: with_gradient -%}
+                        </span>
                         <span class="faq-reference__icon" aria-hidden="true"></span>
                       </summary>
                       <div class="faq-reference__answer rte">
@@ -199,7 +233,7 @@
               <div class="flex justify-between gap-6">
                 <div class="grid gap-2d5">
                   <p class="heading lg:text-3xl text-2xl font-bold leading-none tracking-tight">
-                    {%- render 'highlighted-text', content: contact.settings.heading, style: contact.settings.highlighted_text, scribble: contact.settings.highlighted_scribble, gradient: withGradient -%}
+                    {%- render 'highlighted-text', content: contact.settings.heading, style: contact.settings.highlighted_text, scribble: contact.settings.highlighted_scribble, gradient: with_gradient -%}
                   </p>
                   <div class="text-opacity text-base rte">
                     {{- contact.settings.text -}}
@@ -229,7 +263,7 @@
                 {%- if form.posted_successfully? -%}
                   <div class="field">
                     {%- liquid
-                      assign success_message = 'contact.form.post_success' | t
+                      assign success_message = 'contact.form.successfully_sent' | t
                       render 'alert', status: 'success', content: success_message
                     -%}
                   </div>
@@ -270,12 +304,12 @@
                       autocomplete="phone"
                       type="tel"
                       id="ContactFormPhone-{{ section.id }}"
-                      name="contact[{{ 'contact.form.phone' | t }}]"
+                      name="contact[{{ 'customer.addresses.phone' | t }}]"
                       value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
-                      placeholder="{{ 'contact.form.phone' | t | escape }}"
+                      placeholder="{{ 'customer.addresses.phone' | t | escape }}"
                       pattern="[0-9\-]*"
                     />
-                    <label class="label is-floating" for="ContactFormPhone-{{ section.id }}">{{ 'contact.form.phone' | t }}</label>
+                    <label class="label is-floating" for="ContactFormPhone-{{ section.id }}">{{ 'customer.addresses.phone' | t }}</label>
                   </div>
                 {%- endif -%}
 
@@ -292,10 +326,10 @@
                   <label class="label is-floating" for="ContactFormMessage-{{ section.id }}">{{ 'contact.form.message' | t }}</label>
                 </div>
                 <div class="field">
-                  <label for="ContactSubmit-{{ section.id }}" class="sr-only">{{ 'contact.form.send' | t }}</label>
+                  <label for="ContactSubmit-{{ section.id }}" class="sr-only">{{ 'contact.form.submit' | t }}</label>
                   <button type="submit" id="ContactSubmit-{{ section.id }}" class="button button--primary button--fixed" is="hover-button">
                     <span class="btn-fill" data-fill></span>
-                    <span class="btn-text">{{ 'contact.form.send' | t }}</span>
+                    <span class="btn-text">{{ 'contact.form.submit' | t }}</span>
                   </button>
                 </div>
               </div>
@@ -306,24 +340,22 @@
   </div>
 </section>
 
-{%- if section.blocks.size > 0 -%}
+{%- assign faq_questions = section.blocks | where: 'type', 'question' -%}
+{%- if faq_questions.size > 0 -%}
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
       "mainEntity": [
-        {%- for block in section.blocks -%}
-          {%- case block.type %}
-            {%- when 'question' %}
-              {
-                "@type": "Question",
-                "name": {{ block.settings.title | json }},
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": {{ block.settings.text | json }}
-                }
-              }{% unless forloop.last %},{% endunless %}
-          {% endcase -%}
+        {%- for block in faq_questions -%}
+          {
+            "@type": "Question",
+            "name": {{ block.settings.title | strip_html | json }},
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": {{ block.settings.text | json }}
+            }
+          }{% unless forloop.last %},{% endunless %}
         {%- endfor -%}
       ]
     }
