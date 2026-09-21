@@ -21,13 +21,11 @@
     --jp-anchor-border: {{ st.border_color }};
     --jp-anchor-sticky-top-pc: {{ st.sticky_top_pc }}px;
     --jp-anchor-sticky-top-mb: {{ st.sticky_top_mb }}px;
-    {% comment %} --jp-anchor-scroll-offset-pc: {{ st.scroll_offset_pc }}px; {% endcomment %}
-    --jp-anchor-scroll-offset-pc: 20px;
+    --jp-anchor-scroll-offset-pc: {{ st.scroll_offset_pc }}px;
     --jp-anchor-scroll-offset-mb: {{ st.scroll_offset_mb }}px;
-    --jp-anchor-tab-count: {{ section.blocks.size }};
   "
 >
-  <div class="container">
+  <div class="jp-container">
     <div class="jp-anchor-tabs__list" role="tablist">
       {% for block in section.blocks %}
         {%- liquid
@@ -40,6 +38,7 @@
             type="button"
             class="jp-anchor-tabs__item{% if forloop.first %} is-active{% endif %}"
             data-anchor-targets="{{ target_ids | escape }}"
+            data-anchor-hidden-targets="{{ bs.hide_target_ids | escape }}"
             {{ block.shopify_attributes }}
           >
             {{ bs.title }}
@@ -56,7 +55,7 @@
     border-bottom: 1px solid var(--jp-anchor-border);
     position: relative;
     z-index: 20;
-    margin: 30px 0 50px;
+    margin: 60px 0px;
   }
 
   #jp-anchor-tabs-{{ sid }}.is-sticky {
@@ -89,7 +88,7 @@
     align-items: center;
     justify-content: center;
     gap: 0;
-    width: min(100%, 1200px);
+    width: 80%;
     margin: 0 auto;
     height: 48px;
   }
@@ -97,7 +96,6 @@
   #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__item {
     position: relative;
     flex: 1 1 0;
-    width: auto;
     height: 100%;
     padding: 0 24px;
     border: 0;
@@ -110,21 +108,18 @@
     cursor: pointer;
     white-space: nowrap;
     transition: color 0.25s ease, transform 0.25s ease;
-    text-align: center;
   }
 
   #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__item::after {
     content: '';
     position: absolute;
-    right: 0;
+    left: 50%;
     bottom: 0;
-    left: 0;
-    width: 100%;
+    width: 0;
     height: 1px;
     background: var(--jp-anchor-active);
-    transform: scaleX(0);
-    transform-origin: center;
-    transition: transform 0.28s ease;
+    transform: translateX(-50%);
+    transition: width 0.28s ease;
   }
 
   #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__item:hover {
@@ -136,19 +131,19 @@
   }
 
   #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__item.is-active::after {
-    transform: scaleX(1);
+    width: 280px;
+    max-width: 80%;
   }
 
   @media screen and (max-width: 768px) {
     #jp-anchor-tabs-{{ sid }}{
-      margin: 20px 0 30px;
+      margin: 20px 0px;
     }
     #jp-anchor-tabs-{{ sid }}.is-fixed {
       top: var(--jp-anchor-sticky-top-mb);
     }
 
     #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__list {
-      display: flex;
       justify-content: flex-start;
       height: 49px;
       overflow-x: auto;
@@ -166,13 +161,15 @@
 
     #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__item {
       flex: 0 0 auto;
-      width: auto;
       padding: 0 24px;
       font-size: 14px;
       line-height: 1.4;
-      letter-spacing: 0.08em;
     }
 
+    #jp-anchor-tabs-{{ sid }} .jp-anchor-tabs__item.is-active::after {
+      width: 100%;
+      max-width: 120px;
+    }
   }
 </style>
 
@@ -184,6 +181,8 @@
 
     const buttons = Array.from(section.querySelectorAll('[data-anchor-targets]'));
     if (!buttons.length) return;
+    const mainContent = document.querySelector('#MainContent');
+    const ownSectionContainer = section.closest('[id^="shopify-section-template"]');
     const normalizeSelector = (value) => {
       const selector = (value || '').trim();
       if (!selector) return '';
@@ -197,33 +196,53 @@
         .filter(Boolean);
     };
 
-    const getTargetBySelector = (selector) => {
-      const target = document.querySelector(selector);
-      return target;
+    const getButtonHiddenSelectors = (btn) => {
+      return (btn.dataset.anchorHiddenTargets || '')
+        .split(',')
+        .map((item) => normalizeSelector(item))
+        .filter(Boolean);
     };
 
-    const getCurrentControlledSelectors = () => {
-      const selectors = [];
+    const getTargetBySelector = (selector, scopeToMainContent = false) => {
+      const scope = scopeToMainContent && mainContent ? mainContent : document;
+
+      try {
+        return scope.querySelector(selector);
+      } catch (error) {
+        return null;
+      }
+    };
+
+    const getFollowingMainContentSections = () => {
+      if (!mainContent) return [];
+
+      const sections = Array.from(mainContent.querySelectorAll('[id^="shopify-section-template"]'));
+      const ownSectionIndex = sections.indexOf(ownSectionContainer);
+
+      return ownSectionIndex >= 0 ? sections.slice(ownSectionIndex + 1) : [];
+    };
+
+    const getCurrentControlledTargets = () => {
+      const visibleTargets = [];
+      const hiddenTargets = [];
 
       buttons.forEach((btn) => {
         getButtonSelectors(btn).forEach((selector) => {
-          if (!selectors.includes(selector)) {
-            selectors.push(selector);
+          const target = getTargetBySelector(selector);
+          if (target && !visibleTargets.includes(target)) {
+            visibleTargets.push(target);
+          }
+        });
+
+        getButtonHiddenSelectors(btn).forEach((selector) => {
+          const target = getTargetBySelector(selector, true);
+          if (target && !hiddenTargets.includes(target)) {
+            hiddenTargets.push(target);
           }
         });
       });
 
-      return selectors;
-    };
-
-    const getControlledTargets = () => {
-      return getCurrentControlledSelectors()
-        .map((selector) => {
-          const target = getTargetBySelector(selector);
-          console.log('[JP Anchor Tabs] find controlled target:', selector, target);
-          return target;
-        })
-        .filter(Boolean);
+      return { visibleTargets, hiddenTargets };
     };
 
     const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
@@ -269,33 +288,51 @@
 
     const showTargets = (activeBtn) => {
       const activeSelectors = getButtonSelectors(activeBtn);
-      console.log('[JP Anchor Tabs] clicked tab:', activeBtn);
-      console.log('[JP Anchor Tabs] active selectors:', activeSelectors);
+      const activeHiddenTargets = getButtonHiddenSelectors(activeBtn)
+        .map((selector) => getTargetBySelector(selector, true))
+        .filter(Boolean);
+
+      if (!activeSelectors.length && !activeHiddenTargets.length) return;
 
       const activeTargets = [];
-
       activeSelectors.forEach((selector) => {
         const target = getTargetBySelector(selector);
         if (target) {
           activeTargets.push(target);
         }
-        else {
-          console.warn('[JP Anchor Tabs] target not found:', selector);
-        }
       });
 
-      getControlledTargets().forEach((target) => {
-        const shouldShow = activeTargets.includes(target);
-        console.log(shouldShow ? '[JP Anchor Tabs] keep/show target:' : '[JP Anchor Tabs] hide target:', target.id, target);
+      const { visibleTargets, hiddenTargets } = getCurrentControlledTargets();
+      const controlledSections = getFollowingMainContentSections();
 
-        target.classList.toggle('is-active', shouldShow);
-        target.style.display = shouldShow ? '' : 'none';
+      if (activeSelectors.length) {
+        const targetsToToggle = controlledSections.length ? controlledSections : visibleTargets;
+
+        targetsToToggle.forEach((target) => {
+          const shouldShow = activeTargets.some((activeTarget) => {
+            return activeTarget === target || target.contains(activeTarget);
+          });
+          target.classList.toggle('is-active', shouldShow);
+          target.style.display = shouldShow ? '' : 'none';
+        });
+      } else if (activeHiddenTargets.length) {
+        controlledSections.forEach((target) => {
+          target.classList.remove('is-active');
+          target.style.display = '';
+        });
+      }
+
+      hiddenTargets.forEach((target) => {
+        if (activeHiddenTargets.includes(target)) {
+          target.style.display = 'none';
+        } else if (!visibleTargets.includes(target) && !getFollowingMainContentSections().includes(target)) {
+          target.style.display = '';
+        }
       });
     };
 
     buttons.forEach((btn) => {
       btn.addEventListener('click', () => {
-        console.log('[JP Anchor Tabs] tab click raw targets:', btn.dataset.anchorTargets);
         setActive(btn);
         showTargets(btn);
         scrollToTabs();
@@ -469,14 +506,20 @@
         {
           "type": "text",
           "id": "title",
-          "label": "Tab title",
+          "label": "标签标题",
           "default": "機能詳細"
         },
         {
           "type": "textarea",
           "id": "target_ids",
-          "label": "Target element IDs",
-          "info": "product-features,product-reviews or #product-features,#product-reviews"
+          "label": "显示的目标元素 ID",
+          "info": "点击当前标签时显示这些元素，并隐藏当前 Anchor Tabs 下方其余 ID 以 shopify-section-template 开头的区块。填写元素 ID，多个 ID 用英文逗号或换行分隔；可带或不带 #。留空则不处理显示/隐藏。"
+        },
+        {
+          "type": "textarea",
+          "id": "hide_target_ids",
+          "label": "需要隐藏的 Section ID",
+          "info": "点击当前标签时，隐藏当前 Anchor Tabs 下方指定的 shopify-section-template… 区块。若未填写“显示的目标元素 ID”，会先恢复下方全部 Section 显示，再隐藏这里填写的 ID。多个 ID 用英文逗号或换行分隔；可带或不带 #。留空则不处理。若同一 ID 同时填写在显示和隐藏项中，隐藏优先。"
         }
       ]
     }
