@@ -48,6 +48,15 @@
                 {%- assign selector_type = 'swatch' -%}
               {%- endif -%}
 
+              {%- if selector_type == 'swatch' -%}
+                {%- for value in option.values -%}
+                  {%- if value.variant.featured_media != blank -%}
+                    {%- assign selector_type = 'block' -%}
+                    {%- break -%}
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endif -%}
+
               {%- if variant_image_options contains option_downcase -%}
                 {%- assign selector_type = 'variant_image' -%}
               {%- endif -%}
