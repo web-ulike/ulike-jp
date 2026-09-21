@@ -110,10 +110,13 @@
     flex-direction: row;
     justify-content: center;
     gap: clamp(30px, 7vw, 112px);
+    min-height: 0;
+    margin-inline: 0;
   }
 
   #shopify-section-{{ section.id }} .article__content {
     width: min(100%, 760px);
+    max-width: 760px;
   }
 
   #shopify-section-{{ section.id }} .article__content .rte {

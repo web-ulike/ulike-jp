@@ -75,6 +75,9 @@
 
 .header-2026__mega-panel {
   box-sizing: border-box;
+  max-height: calc(100vh - var(--header-height, 100px) - var(--announcement-bar-height, 0px));
+  max-height: calc(100dvh - var(--header-height, 100px) - var(--announcement-bar-height, 0px));
+  overflow-y: auto;
   color: #190a0a;
   background: #fff;
 }
