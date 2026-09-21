@@ -183,7 +183,7 @@
 
     const buttons = Array.from(section.querySelectorAll('[data-anchor-targets]'));
     if (!buttons.length) return;
-    const mainContent = document.querySelector('#MainContent');
+    const mainContent = document.querySelector('#main');
     const ownSectionContainer = section.closest('[id^="shopify-section-template"]');
     const normalizeSelector = (value) => {
       const selector = (value || '').trim();
