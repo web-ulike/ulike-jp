@@ -184,41 +184,31 @@
     const buttons = Array.from(section.querySelectorAll('[data-anchor-targets]'));
     if (!buttons.length) return;
     const mainContent = document.querySelector('#main');
-    const ownSectionContainer = section.closest('[id^="shopify-section-template"]');
-    const normalizeSelector = (value) => {
-      const selector = (value || '').trim();
-      if (!selector) return '';
-      return selector.startsWith('#') ? selector : `#${selector}`;
+    const ownSectionContainer = section.closest('[id^="shopify-section-"]');
+    const parseTargetIds = (value) => {
+      return (value || '')
+        .split(/[,，\n\r]+/)
+        .map((id) => id.trim().replace(/^#/, ''))
+        .filter(Boolean);
     };
 
     const getButtonSelectors = (btn) => {
-      return (btn.dataset.anchorTargets || '')
-        .split(',')
-        .map((item) => normalizeSelector(item))
-        .filter(Boolean);
+      return parseTargetIds(btn.dataset.anchorTargets);
     };
 
     const getButtonHiddenSelectors = (btn) => {
-      return (btn.dataset.anchorHiddenTargets || '')
-        .split(',')
-        .map((item) => normalizeSelector(item))
-        .filter(Boolean);
+      return parseTargetIds(btn.dataset.anchorHiddenTargets);
     };
 
-    const getTargetBySelector = (selector, scopeToMainContent = false) => {
-      const scope = scopeToMainContent && mainContent ? mainContent : document;
-
-      try {
-        return scope.querySelector(selector);
-      } catch (error) {
-        return null;
-      }
+    const getTargetById = (id, scopeToMainContent = false) => {
+      const target = document.getElementById(id);
+      return target && (!scopeToMainContent || !mainContent || mainContent.contains(target)) ? target : null;
     };
 
     const getFollowingMainContentSections = () => {
       if (!mainContent) return [];
 
-      const sections = Array.from(mainContent.querySelectorAll('[id^="shopify-section-template"]'));
+      const sections = Array.from(mainContent.querySelectorAll('[id^="shopify-section-"]'));
       const ownSectionIndex = sections.indexOf(ownSectionContainer);
 
       return ownSectionIndex >= 0 ? sections.slice(ownSectionIndex + 1) : [];
@@ -229,15 +219,15 @@
       const hiddenTargets = [];
 
       buttons.forEach((btn) => {
-        getButtonSelectors(btn).forEach((selector) => {
-          const target = getTargetBySelector(selector);
+        getButtonSelectors(btn).forEach((id) => {
+          const target = getTargetById(id);
           if (target && !visibleTargets.includes(target)) {
             visibleTargets.push(target);
           }
         });
 
-        getButtonHiddenSelectors(btn).forEach((selector) => {
-          const target = getTargetBySelector(selector, true);
+        getButtonHiddenSelectors(btn).forEach((id) => {
+          const target = getTargetById(id, true);
           if (target && !hiddenTargets.includes(target)) {
             hiddenTargets.push(target);
           }
@@ -289,16 +279,14 @@
     };
 
     const showTargets = (activeBtn) => {
-      const activeSelectors = getButtonSelectors(activeBtn);
+      const activeIds = getButtonSelectors(activeBtn);
       const activeHiddenTargets = getButtonHiddenSelectors(activeBtn)
-        .map((selector) => getTargetBySelector(selector, true))
+        .map((id) => getTargetById(id, true))
         .filter(Boolean);
 
-      if (!activeSelectors.length && !activeHiddenTargets.length) return;
-
       const activeTargets = [];
-      activeSelectors.forEach((selector) => {
-        const target = getTargetBySelector(selector);
+      activeIds.forEach((id) => {
+        const target = getTargetById(id);
         if (target) {
           activeTargets.push(target);
         }
@@ -307,7 +295,7 @@
       const { visibleTargets, hiddenTargets } = getCurrentControlledTargets();
       const controlledSections = getFollowingMainContentSections();
 
-      if (activeSelectors.length) {
+      if (activeTargets.length) {
         const targetsToToggle = controlledSections.length ? controlledSections : visibleTargets;
 
         targetsToToggle.forEach((target) => {
@@ -317,7 +305,7 @@
           target.classList.toggle('is-active', shouldShow);
           target.style.display = shouldShow ? '' : 'none';
         });
-      } else if (activeHiddenTargets.length) {
+      } else if (!activeIds.length) {
         controlledSections.forEach((target) => {
           target.classList.remove('is-active');
           target.style.display = '';
@@ -343,8 +331,8 @@
 
     const targetMap = buttons
       .map((btn) => {
-        const firstSelector = getButtonSelectors(btn)[0];
-        const target = firstSelector ? document.querySelector(firstSelector) : null;
+        const firstId = getButtonSelectors(btn)[0];
+        const target = firstId ? getTargetById(firstId) : null;
         return target ? { btn, target } : null;
       })
       .filter(Boolean);
