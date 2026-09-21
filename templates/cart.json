@@ -1,48 +1,35 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "main-cart",
       "blocks": {
-        "free_shipping": {
-          "type": "free_shipping",
-          "disabled": true,
-          "settings": {
-            "minimum_amount": "1000"
-          }
-        },
         "subtotal": {
-          "type": "subtotal",
+          "type": "totals",
           "settings": {}
         },
         "cart_note": {
-          "type": "cart_note",
+          "type": "order_note",
           "settings": {
-            "heading": "注文に関するメモ"
+            "open_by_default": false
           }
-        },
-        "buttons": {
-          "type": "buttons",
-          "settings": {}
         }
       },
       "block_order": [
-        "free_shipping",
         "subtotal",
-        "cart_note",
-        "buttons"
+        "cart_note"
       ],
       "settings": {
-        "heading_size": "title-sm",
-        "heading_alignment": "md:items-end",
-        "heading_tag": "h1",
-        "show_vendor": false,
-        "show_payment_icons": true,
-        "show_shipping_calculator": false,
-        "padding_top": 48,
-        "padding_bottom": 80,
-        "divider": false,
-        "full_width": false,
-        "rounded": false
+        "show_payment_methods": true,
+        "show_shipping_estimator": false
       }
     },
     "recently-viewed": {
@@ -53,7 +40,7 @@
         "carousel_on_desktop": true,
         "columns_mobile": "1",
         "swipe_on_mobile": true,
-        "heading": "おすすめ商品",
+        "heading": "You may also like",
         "heading_size": "title-sm",
         "heading_alignment": "text-left md:items-end md:flex-row",
         "heading_tag": "h2",
