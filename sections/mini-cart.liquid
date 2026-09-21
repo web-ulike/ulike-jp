@@ -427,7 +427,7 @@
         {%- if section.settings.show_checkout_button -%}
           <button form="mini-cart-form" type="submit" class="checkout-button button button--primary button--full" name="checkout">
             <span class="checkout-button__lock">{%- render 'icon' with 'lock' -%}</span>
-            {{- 'cart.general.checkout' | t -}}
+            {{- section.settings.checkout_button_text | default: '今すぐ注文' | escape -}}
             <span class="checkout-button__price"><span class="square-separator"></span>{{ cart.total_price | money_with_currency }}</span>
           </button>
         {%- endif -%}
@@ -465,6 +465,12 @@
       "id": "show_checkout_button",
       "label": "Show checkout button",
       "default": true
+    },
+    {
+      "type": "text",
+      "id": "checkout_button_text",
+      "label": "Checkout button text",
+      "default": "今すぐ注文"
     },
     {
       "type": "checkbox",
