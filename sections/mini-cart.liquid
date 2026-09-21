@@ -415,7 +415,13 @@
       {%- endif -%}
       <div class="mini-cart__footer-buttons{% if section.settings.show_checkout_button and section.settings.show_view_cart_button and section.settings.footer_button_layout == 'side_by_side' %} mini-cart__footer-buttons--side-by-side{% endif %}">
         {%- if section.settings.show_view_cart_button or section.settings.show_checkout_button == false -%}
-          <a href="{{ routes.cart_url }}" class="button button--secondary button--full" data-no-instant>{{ 'cart.general.view_cart' | t }}</a>
+          <a href="{{ routes.cart_url }}" class="button button--secondary button--full" data-no-instant>
+            {%- if section.settings.show_view_cart_button -%}
+              {{ 'cart.general.view_cart' | t }}
+            {%- else -%}
+              {{ 'cart.general.go_to_cart' | t }}
+            {%- endif -%}
+          </a>
         {%- endif -%}
 
         {%- if section.settings.show_checkout_button -%}
