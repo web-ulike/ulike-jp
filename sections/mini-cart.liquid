@@ -1,3 +1,31 @@
+<style>
+  #mini-cart .mini-cart__footer-buttons {
+    display: grid;
+    gap: 10px;
+  }
+
+  #mini-cart .mini-cart__footer-buttons--side-by-side {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #mini-cart .mini-cart__footer-buttons .button {
+    --button-background: 0, 0, 0;
+    --button-text-color: 255, 255, 255;
+    min-width: 0;
+    padding-inline: 10px;
+    white-space: normal;
+    line-height: 1.3;
+    min-height: var(--button-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #mini-cart .mini-cart__footer-buttons--side-by-side .checkout-button__price {
+    display: none;
+  }
+</style>
+
 <cart-drawer section="{{ section.id }}" id="mini-cart" class="mini-cart drawer drawer--large">
   <span class="drawer__overlay"></span>
 
@@ -367,17 +395,24 @@
         </div>
       {%- endif -%}
 
-      {%- if section.settings.show_checkout_button -%}
-        <button form="mini-cart-form" type="submit" class="checkout-button button button--primary button--full" name="checkout">
-          <span class="checkout-button__lock">{%- render 'icon' with 'lock' -%}</span>
-
-          {{- 'cart.general.checkout' | t -}}
-          <span class="square-separator"></span>
-          {{- cart.total_price | money_with_currency -}}
-        </button>
-      {%- else -%}
-        <a href="{{ routes.cart_url }}" class="button button--primary button--full" data-no-instant>{{ 'cart.general.go_to_cart' | t }}</a>
+      {%- if section.settings.show_checkout_button and section.settings.show_view_cart_button and section.settings.footer_button_layout == 'side_by_side' -%}
+        <div class="mini-cart__footer-total">
+          {{ 'cart.general.total' | t }}: {{ cart.total_price | money_with_currency }}
+        </div>
       {%- endif -%}
+      <div class="mini-cart__footer-buttons{% if section.settings.show_checkout_button and section.settings.show_view_cart_button and section.settings.footer_button_layout == 'side_by_side' %} mini-cart__footer-buttons--side-by-side{% endif %}">
+        {%- if section.settings.show_view_cart_button or section.settings.show_checkout_button == false -%}
+          <a href="{{ routes.cart_url }}" class="button button--secondary button--full" data-no-instant>{{ 'cart.general.view_cart' | t }}</a>
+        {%- endif -%}
+
+        {%- if section.settings.show_checkout_button -%}
+          <button form="mini-cart-form" type="submit" class="checkout-button button button--primary button--full" name="checkout">
+            <span class="checkout-button__lock">{%- render 'icon' with 'lock' -%}</span>
+            {{- 'cart.general.checkout' | t -}}
+            <span class="checkout-button__price"><span class="square-separator"></span>{{ cart.total_price | money_with_currency }}</span>
+          </button>
+        {%- endif -%}
+      </div>
     </footer>
   {%- endif -%}
 
@@ -411,6 +446,22 @@
       "id": "show_checkout_button",
       "label": "Show checkout button",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_cart_button",
+      "label": "Show view cart button",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "footer_button_layout",
+      "label": "Footer button layout",
+      "options": [
+        { "value": "side_by_side", "label": "Side by side" },
+        { "value": "stacked", "label": "Stacked" }
+      ],
+      "default": "side_by_side"
     },
     {
       "type": "url",

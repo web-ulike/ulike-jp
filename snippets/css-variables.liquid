@@ -181,7 +181,7 @@ other resources, such as CSS or JS
     :root {
       --container-gutter: 40px;
       --grid-column-count: 20;
-      --vertical-breather: 0px;
+      --vertical-breather: 20px;
       --vertical-breather-tight: {% if settings.vertical_spacing == 'small' %}40px{% elsif settings.vertical_spacing == 'medium' %}48px{% else %}64px{% endif %};
 
       /* Typography (font size) */
@@ -207,7 +207,7 @@ other resources, such as CSS or JS
 
   @media screen and (min-width: 1200px) {
     :root {
-      --vertical-breather: 0px;
+      --vertical-breather: 20px;
       --vertical-breather-tight: {% if settings.vertical_spacing == 'small' %}48px{% elsif settings.vertical_spacing == 'medium' %}48px{% else %}64px{% endif %};
       --product-list-block-spacing: 48px;
 
@@ -224,7 +224,7 @@ other resources, such as CSS or JS
 
   @media screen and (min-width: 1600px) {
     :root {
-      --vertical-breather: 0px;
+      --vertical-breather: 40px;
       --vertical-breather-tight: {% if settings.vertical_spacing == 'small' %}48px{% elsif settings.vertical_spacing == 'medium' %}48px{% else %}64px{% endif %};
     }
   }
