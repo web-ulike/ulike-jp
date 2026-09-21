@@ -84,9 +84,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.1.14/swiper-bundle.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11.1.14/swiper-bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/gsap.min.js" defer="defer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/ScrollTrigger.min.js" defer="defer"></script>
-    <script src="{{ 'scroll-animation.js' | asset_url }}" defer="defer"></script>
+
     
     <script src="{{ 'vendor.js' | asset_url }}" defer></script>
     <script src="{{ 'theme.js' | asset_url }}" defer></script>
@@ -102,6 +100,10 @@
       f.parentNode.insertBefore(j, f);
      })(window,document,'script');
     </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/gsap.min.js" defer="defer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.3/ScrollTrigger.min.js" defer="defer"></script>
+    <script src="{{ 'scroll-animation.js' | asset_url }}" defer="defer"></script>
 
   {% include 'pagefly-app-header' %}
 </head>
