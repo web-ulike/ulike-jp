@@ -24,6 +24,18 @@
   #mini-cart .mini-cart__footer-buttons--side-by-side .checkout-button__price {
     display: none;
   }
+
+  #mini-cart .mini-cart__footer-buttons--side-by-side .checkout-button__lock {
+    display: none;
+  }
+
+  #mini-cart .mini-cart__footer-total {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
 </style>
 
 <cart-drawer section="{{ section.id }}" id="mini-cart" class="mini-cart drawer drawer--large">
@@ -397,7 +409,8 @@
 
       {%- if section.settings.show_checkout_button and section.settings.show_view_cart_button and section.settings.footer_button_layout == 'side_by_side' -%}
         <div class="mini-cart__footer-total">
-          {{ 'cart.general.total' | t }}: {{ cart.total_price | money_with_currency }}
+          <span>{{ 'cart.general.total' | t }}</span>
+          <span>{{ cart.total_price | money_with_currency }}</span>
         </div>
       {%- endif -%}
       <div class="mini-cart__footer-buttons{% if section.settings.show_checkout_button and section.settings.show_view_cart_button and section.settings.footer_button_layout == 'side_by_side' %} mini-cart__footer-buttons--side-by-side{% endif %}">
