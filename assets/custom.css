@@ -426,14 +426,3 @@
     transition: none;
   }
 }
-
-/* Reserve the home hero's image space before Swiper and the image finish loading. */
-.jp-home-hero__swiper {
-  aspect-ratio: 3840 / 1552;
-}
-
-@media (max-width: 989px) {
-  .jp-home-hero__swiper {
-    aspect-ratio: 750 / 1379;
-  }
-}
