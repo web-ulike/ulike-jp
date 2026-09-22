@@ -71,50 +71,7 @@
     </div>
     </activity-end-overlay>
   </section>
-    <script>
-    {% comment %} class ActivityEndOverlay extends HTMLElement {
-        constructor() {
-            super();
-            this.shopifyEventEndTime = "{{ section.settings.event_end_date }}";
-            this.checkActivityStatus();
-            this.intervalId = setInterval(() => this.checkActivityStatus(), 60000);
-        }
-        endActivity() {
-
-            this.querySelector('#activityOverlay').style.display = 'flex';
-        }
-
-        checkActivityStatus() {
-            // 验证日期是否有效
-            if (!this.shopifyEventEndTime || this.shopifyEventEndTime === "") {
-                console.warn("活动结束日期未设置，请在主题设置中配置（格式：YYYY-MM-DD）");
-                return;
-            }
-
-            // 验证日期格式
-            const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-            if (!dateRegex.test(this.shopifyEventEndTime)) {
-                console.warn("活动结束日期格式错误，请使用 YYYY-MM-DD 格式");
-                return;
-            }
-            const endTime = new Date(this.shopifyEventEndTime + "T23:59:59");
-            const now = new Date();
-            if (isNaN(endTime.getTime())) {
-                console.warn("活动结束日期无效，请检查输入");
-                return;
-            }
-
-            if (now >= endTime) {
-                this.endActivity();
-            }
-        }
-
-        disconnectedCallback() {
-            // 清理定时器
-            clearInterval(this.intervalId);
-        }
-    } {% endcomment %}
-
+  <script>
 
     class ActivityEndOverlay extends HTMLElement {
         constructor() {
