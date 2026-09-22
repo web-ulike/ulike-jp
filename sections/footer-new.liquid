@@ -2,6 +2,8 @@
   assign se_id = section.id
   assign se_bks = section.blocks
   assign se_stts = section.settings
+  assign current_year = 'now' | date: '%Y'
+  assign policy_copy = se_stts.text | default: '© Ulike. All rights Reserved [year].' | replace: '[year]', current_year
 -%}
 <style>
   .common-btn{
@@ -1119,7 +1121,7 @@
     <div class="footer__aside">
       <div class="footer__payment-methods">
         <div class="policy">
-          <p>{{ se_stts.text }}</p>
+          <p>{{ policy_copy }}</p>
           {%- if se_stts.policy_menu != blank -%}
             <ul class="footer-new__policy-links" role="list">
               {%- for link in se_stts.policy_menu.links -%}
@@ -1970,7 +1972,8 @@
       "type": "text",
       "id": "text",
       "label": "政策文案",
-      "default": "© Ulike. All rights Reserved 2026."
+      "default": "© Ulike. All rights Reserved [year].",
+      "info": "[year] 会自动显示当前年份。"
     },
     {
       "type": "link_list",
