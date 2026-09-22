@@ -19,8 +19,8 @@
   #shopify-section-{{ section.id }} .endof-overlay__description { margin-top: 38px; color: #000; font-size: 12px; font-weight: 400; line-height: 1.5; }
   #shopify-section-{{ section.id }} .endof-overlay__description p { margin: 0; }
   #shopify-section-{{ section.id }} .endof-overlay__button {
-    display: inline-flex; align-items: center; justify-content: center; gap: 12px; box-sizing: border-box; width: 178px; min-height: 52px;
-    margin-top: 43px; padding: 14px 24px; color: #fff; font-size: 12px; font-weight: 500; line-height: 1.5; text-align: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 80px; box-sizing: border-box; width: 178px;
+    margin-top: 43px; padding: 14px 24px; color: #fff; font-family: "Noto Sans JP", sans-serif; font-size: 12px; font-style: normal; font-weight: 500; line-height: normal; text-align: center;
     text-decoration: none; border: 0; border-radius: 0; box-shadow: none; cursor: pointer; appearance: none;
     background: linear-gradient(96deg, #e0004d 17.3%, #ff508c 49.8%, #e0004d 77.3%);
   }
@@ -29,7 +29,10 @@
     color: #fff;
     background: linear-gradient(96deg, #e0004d 17.3%, #ff508c 49.8%, #e0004d 77.3%);
   }
-  #shopify-section-{{ section.id }} .endof-overlay__button::after {
+  #shopify-section-{{ section.id }} .endof-overlay__button-content {
+    display: inline-flex; align-items: center; gap: 12px;
+  }
+  #shopify-section-{{ section.id }} .endof-overlay__button-content::after {
     width: 8px; height: 8px; border-top: 1px solid currentColor; border-right: 1px solid currentColor; content: ''; transform: rotate(45deg);
   }
   @media screen and (max-width: 750px) {
@@ -50,14 +53,14 @@
     <div class="endof-overlay" id="activityOverlay-{{ section.id }}" role="dialog" aria-modal="true" aria-labelledby="activityOverlayTitle-{{ section.id }}">
       <div class="endof-overlay-content">
         {%- if section.settings.character_image != blank -%}
-          {{ section.settings.character_image | image_url: width: 464 | image_tag: class: 'endof-overlay__image', loading: 'eager', widths: '232,464' }}
+          <img class="endof-overlay__image" src="{{ section.settings.character_image | image_url: width: 464 }}" width="{{ section.settings.character_image.width }}" height="{{ section.settings.character_image.height }}" alt="{{ section.settings.character_image.alt | escape }}" loading="eager">
         {%- else -%}
           <img class="endof-overlay__image" src="{{ 'endof-event-mask-character.png' | asset_url }}" width="232" height="218" alt="" loading="eager">
         {%- endif -%}
         <div class="endof-overlay__body">
           <h2 class="endof-overlay__title" id="activityOverlayTitle-{{ section.id }}">{{ section.settings.tle | default: default_title }}</h2>
           <div class="endof-overlay__description">{{ section.settings.des | default: default_description }}</div>
-          <a class="endof-overlay__button" href="{{ section.settings.link_url | default: routes.root_url }}">{{ section.settings.button_txt | default: default_button_text }}</a>
+          <a class="endof-overlay__button" href="{{ section.settings.link_url | default: routes.root_url }}"><span class="endof-overlay__button-content">{{ section.settings.button_txt | default: default_button_text }}</span></a>
         </div>
       </div>
     </div>
