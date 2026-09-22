@@ -8,6 +8,7 @@
   assign popular_link = st.popular_link | default: '/blogs/article'
   assign news_link = st.news_link | default: '/blogs/news/'
   assign feature_link = st.feature_link | default: '/blogs/news/ulike-pop-up'
+  assign feature_label = st.feature_title | strip_html | default: st.feature_image.alt | default: '記事を読む'
   assign arrow_icon = st.arrow_icon
 -%}
 
@@ -480,12 +481,12 @@
     <div class="jp-blog-topics__body">
       <div class="jp-blog-topics__left">
         <div class="jp-blog-topics__feature">
-          <a class="jp-blog-topics__feature-image-wrap" href="{{ feature_link }}" target="_blank" rel="noopener noreferrer">
+          <a class="jp-blog-topics__feature-image-wrap" href="{{ feature_link }}" target="_blank" rel="noopener noreferrer" aria-label="{{ feature_label | escape }}">
             {%- if st.feature_image != blank -%}
               <img
                 class="jp-blog-topics__feature-image"
                 src="{{ st.feature_image | image_url: width: 1000 }}"
-                alt="{{ st.feature_image.alt | escape }}"
+                alt=""
                 loading="lazy"
                 width="{{ st.feature_image.width }}"
                 height="{{ st.feature_image.height }}"
