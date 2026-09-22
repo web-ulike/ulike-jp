@@ -7,14 +7,39 @@
   assign tiktok_url = section.settings.tiktok_url | default: 'https://www.tiktok.com/@ulikejp'
   assign yahoo_url = section.settings.yahoo_url | default: 'https://store.shopping.yahoo.co.jp/ulike/'
 -%}
-<section id="where-to-purchase-{{ section.id }}" class="where-to-purchase" aria-label="{{ section.settings.hero_title | escape }}">
+<section
+  id="where-to-purchase-{{ section.id }}"
+  class="where-to-purchase"
+  aria-label="{{ section.settings.hero_title | escape }}"
+>
   <div class="where-to-purchase__hero">
     <picture class="where-to-purchase__hero-media">
-      <source media="(max-width: 749px)" srcset="{% if hero_mobile != blank %}{{ hero_mobile | image_url: width: 1440 }}{% else %}{{ 'where-to-purchase-hero-mobile.jpg' | asset_url }}{% endif %}">
+      <source
+        media="(max-width: 749px)"
+        srcset="{% if hero_mobile != blank %}{{ hero_mobile | image_url: width: 1440 }}{% else %}{{ 'where-to-purchase-hero-mobile.jpg' | asset_url }}{% endif %}"
+      >
       {%- if hero_desktop != blank -%}
-        {{ hero_desktop | image_url: width: 2560 | image_tag: class: 'where-to-purchase__hero-image', loading: 'eager', fetchpriority: 'high', widths: '960, 1440, 1920, 2560', sizes: '100vw', alt: section.settings.hero_title }}
+        {{
+          hero_desktop
+          | image_url: width: 2560
+          | image_tag:
+            class: 'where-to-purchase__hero-image',
+            loading: 'eager',
+            fetchpriority: 'high',
+            widths: '960, 1440, 1920, 2560',
+            sizes: '100vw',
+            alt: section.settings.hero_title
+        }}
       {%- else -%}
-        <img class="where-to-purchase__hero-image" src="{{ 'where-to-purchase-hero-desktop.jpg' | asset_url }}" width="2560" height="1155" loading="eager" fetchpriority="high" alt="{{ section.settings.hero_title | escape }}">
+        <img
+          class="where-to-purchase__hero-image"
+          src="{{ 'where-to-purchase-hero-desktop.jpg' | asset_url }}"
+          width="2560"
+          height="1155"
+          loading="eager"
+          fetchpriority="high"
+          alt="{{ section.settings.hero_title | escape }}"
+        >
       {%- endif -%}
     </picture>
     <div class="where-to-purchase__hero-copy">
@@ -25,7 +50,14 @@
 
   <div class="where-to-purchase__offline-intro">
     <div class="where-to-purchase__intro">
-      <img class="where-to-purchase__icon" src="{% if section.settings.location_icon != blank %}{{ section.settings.location_icon | image_url: width: 100 }}{% else %}{{ 'where-to-purchase-location.svg' | asset_url }}{% endif %}" width="50" height="50" loading="lazy" alt="">
+      <img
+        class="where-to-purchase__icon"
+        src="{% if section.settings.location_icon != blank %}{{ section.settings.location_icon | image_url: width: 100 }}{% else %}{{ 'where-to-purchase-location.svg' | asset_url }}{% endif %}"
+        width="50"
+        height="50"
+        loading="lazy"
+        alt=""
+      >
       <div class="where-to-purchase__copy">
         <h2>{{ section.settings.offline_title | escape }}</h2>
         <p>{{ section.settings.offline_text | escape | newline_to_br }}</p>
@@ -35,12 +67,33 @@
       <h3>{{ section.settings.store_list_title | escape }}</h3>
       <label class="visually-hidden" for="store-prefecture-{{ section.id }}">都道府県</label>
       <div class="where-to-purchase__select-wrap">
-        <select id="store-prefecture-{{ section.id }}" class="where-to-purchase__native-select visually-hidden" data-store-select tabindex="-1" aria-hidden="true" aria-controls="store-list-{{ section.id }}"></select>
-        <button class="where-to-purchase__select-trigger" type="button" data-store-trigger aria-haspopup="listbox" aria-expanded="false" aria-controls="store-options-{{ section.id }}">
+        <select
+          id="store-prefecture-{{ section.id }}"
+          class="where-to-purchase__native-select visually-hidden"
+          data-store-select
+          tabindex="-1"
+          aria-hidden="true"
+          aria-controls="store-list-{{ section.id }}"
+        ></select>
+        <button
+          class="where-to-purchase__select-trigger"
+          type="button"
+          data-store-trigger
+          aria-haspopup="listbox"
+          aria-expanded="false"
+          aria-controls="store-options-{{ section.id }}"
+        >
           <span data-store-selected>北海道</span>
           <span class="where-to-purchase__select-arrow" aria-hidden="true"></span>
         </button>
-        <div id="store-options-{{ section.id }}" class="where-to-purchase__select-menu" data-store-menu role="listbox" aria-label="都道府県" hidden>
+        <div
+          id="store-options-{{ section.id }}"
+          class="where-to-purchase__select-menu"
+          data-store-menu
+          role="listbox"
+          aria-label="都道府県"
+          hidden
+        >
           <div class="where-to-purchase__select-menu-label">都道府県</div>
           <div data-store-options></div>
         </div>
@@ -54,7 +107,14 @@
 
   <div class="where-to-purchase__online">
     <div class="where-to-purchase__intro">
-      <img class="where-to-purchase__icon" src="{% if section.settings.online_icon != blank %}{{ section.settings.online_icon | image_url: width: 100 }}{% else %}{{ 'where-to-purchase-online-icon.svg' | asset_url }}{% endif %}" width="50" height="50" loading="lazy" alt="">
+      <img
+        class="where-to-purchase__icon"
+        src="{% if section.settings.online_icon != blank %}{{ section.settings.online_icon | image_url: width: 100 }}{% else %}{{ 'where-to-purchase-online-icon.svg' | asset_url }}{% endif %}"
+        width="50"
+        height="50"
+        loading="lazy"
+        alt=""
+      >
       <div class="where-to-purchase__copy">
         <h2>{{ section.settings.online_title | escape }}</h2>
         <p>{{ section.settings.online_text | escape | newline_to_br }}</p>
@@ -62,17 +122,52 @@
     </div>
     <h3 class="where-to-purchase__online-heading">{{ section.settings.online_list_title | escape }}</h3>
     <div class="where-to-purchase__online-grid">
-      <a href="{{ amazon_url }}" target="_blank" rel="noopener" aria-label="Amazon"><img src="{% if section.settings.amazon_logo != blank %}{{ section.settings.amazon_logo | image_url: width: 300 }}{% else %}{{ 'where-to-purchase-amazon.png' | asset_url }}{% endif %}" width="123" height="46" loading="lazy" alt="Amazon"></a>
-      <a href="{{ rakuten_url }}" target="_blank" rel="noopener" aria-label="Rakuten"><img src="{% if section.settings.rakuten_logo != blank %}{{ section.settings.rakuten_logo | image_url: width: 300 }}{% else %}{{ 'where-to-purchase-tiktok.svg' | asset_url }}{% endif %}" width="101" height="30" loading="lazy" alt="Rakuten"></a>
-      <a href="{{ qoo10_url }}" target="_blank" rel="noopener" aria-label="Qoo10"><img src="{% if section.settings.qoo10_logo != blank %}{{ section.settings.qoo10_logo | image_url: width: 300 }}{% else %}{{ 'where-to-purchase-rakuten.svg' | asset_url }}{% endif %}" width="94" height="24" loading="lazy" alt="Qoo10"></a>
-      <a href="{{ tiktok_url }}" target="_blank" rel="noopener" aria-label="TikTok Shop"><img src="{% if section.settings.tiktok_logo != blank %}{{ section.settings.tiktok_logo | image_url: width: 300 }}{% else %}{{ 'where-to-purchase-qoo10.svg' | asset_url }}{% endif %}" width="105" height="28" loading="lazy" alt="TikTok Shop"></a>
-      <a href="{{ yahoo_url }}" target="_blank" rel="noopener" aria-label="Yahoo!ショッピング"><img src="{% if section.settings.yahoo_logo != blank %}{{ section.settings.yahoo_logo | image_url: width: 300 }}{% else %}{{ 'where-to-purchase-yahoo.svg' | asset_url }}{% endif %}" width="180" height="90" loading="lazy" alt="Yahoo! JAPAN"></a>
+      <a href="{{ amazon_url }}" target="_blank" rel="noopener" aria-label="Amazon"
+        ><img
+          src="{% if section.settings.amazon_logo != blank %}{{ section.settings.amazon_logo | image_url: width: 300 }}{% else %}{{ 'where-to-purchase-amazon.png' | asset_url }}{% endif %}"
+          width="123"
+          height="46"
+          loading="lazy"
+          alt="Amazon"
+      ></a>
+      <a href="{{ rakuten_url }}" target="_blank" rel="noopener" aria-label="Rakuten"
+        ><img
+          src="{% if section.settings.rakuten_logo != blank %}{{ section.settings.rakuten_logo | image_url: width: 300 }}{% else %}{{ 'where-to-purchase-tiktok.svg' | asset_url }}{% endif %}"
+          width="101"
+          height="30"
+          loading="lazy"
+          alt="Rakuten"
+      ></a>
+      <a href="{{ qoo10_url }}" target="_blank" rel="noopener" aria-label="Qoo10"
+        ><img
+          src="{% if section.settings.qoo10_logo != blank %}{{ section.settings.qoo10_logo | image_url: width: 300 }}{% else %}{{ 'where-to-purchase-rakuten.svg' | asset_url }}{% endif %}"
+          width="94"
+          height="24"
+          loading="lazy"
+          alt="Qoo10"
+      ></a>
+      <a href="{{ tiktok_url }}" target="_blank" rel="noopener" aria-label="TikTok Shop"
+        ><img
+          src="{% if section.settings.tiktok_logo != blank %}{{ section.settings.tiktok_logo | image_url: width: 300 }}{% else %}{{ 'where-to-purchase-qoo10.svg' | asset_url }}{% endif %}"
+          width="105"
+          height="28"
+          loading="lazy"
+          alt="TikTok Shop"
+      ></a>
+      <a href="{{ yahoo_url }}" target="_blank" rel="noopener" aria-label="Yahoo!ショッピング"
+        ><img
+          src="{% if section.settings.yahoo_logo != blank %}{{ section.settings.yahoo_logo | image_url: width: 300 }}{% else %}{{ 'where-to-purchase-yahoo.svg' | asset_url }}{% endif %}"
+          width="180"
+          height="90"
+          loading="lazy"
+          alt="Yahoo! JAPAN"
+      ></a>
     </div>
   </div>
 </section>
 
 <style>
-  #where-to-purchase-{{ section.id }} { color:#000; font-family:var(--text-font-family, 'Saans', 'Noto Sans JP', sans-serif); }
+  #where-to-purchase-{{ section.id }} { color:#000;  }
   #where-to-purchase-{{ section.id }} * { box-sizing:border-box; }
   #where-to-purchase-{{ section.id }} h1,#where-to-purchase-{{ section.id }} h2,#where-to-purchase-{{ section.id }} h3,#where-to-purchase-{{ section.id }} h4,#where-to-purchase-{{ section.id }} p { margin:0; }
   #where-to-purchase-{{ section.id }} .where-to-purchase__hero { height:41.6667vw; max-height:800px; min-height:500px; overflow:hidden; position:relative; background:#d2afb0; }
@@ -85,7 +180,9 @@
   #where-to-purchase-{{ section.id }} .where-to-purchase__intro { width:min(548px,100%); display:flex; flex-direction:column; align-items:center; gap:35px; }
   #where-to-purchase-{{ section.id }} .where-to-purchase__icon { display:block; width:50px; height:50px; object-fit:contain; }
   #where-to-purchase-{{ section.id }} .where-to-purchase__copy { width:100%; display:flex; flex-direction:column; align-items:center; gap:30px; text-align:center; }
-  #where-to-purchase-{{ section.id }} .where-to-purchase__copy h2 { font-size:32px; font-weight:400; line-height:1.5; }
+  #where-to-purchase-{{ section.id }} .where-to-purchase__copy h2 { 
+    font-size: 24px; line-height:1.5; 
+  }
   #where-to-purchase-{{ section.id }} .where-to-purchase__copy p { font-size:18px; line-height:1.5; }
   #where-to-purchase-{{ section.id }} .where-to-purchase__picker { width:495px; max-width:100%; display:flex; flex-direction:column; align-items:center; gap:30px; }
   #where-to-purchase-{{ section.id }} .where-to-purchase__picker h3,#where-to-purchase-{{ section.id }} .where-to-purchase__online-heading { font-size:20px; font-weight:400; line-height:1.5; }
@@ -112,10 +209,10 @@
   #where-to-purchase-{{ section.id }} .where-to-purchase__store-details { margin-top:30px; display:flex; flex-direction:column; gap:15px; font-size:16px; line-height:1.5; }
   #where-to-purchase-{{ section.id }} .where-to-purchase__online { min-height:569px; padding:82px 20px 70px; display:flex; flex-direction:column; align-items:center; background:#f9f9f9; }
   #where-to-purchase-{{ section.id }} .where-to-purchase__online-heading { margin-top:45px; }
-  #where-to-purchase-{{ section.id }} .where-to-purchase__online-grid { 
-    margin-top: 100px; 
+  #where-to-purchase-{{ section.id }} .where-to-purchase__online-grid {
+    margin-top: 100px;
     display:grid;
-    grid-template-columns:repeat(5,100px); 
+    grid-template-columns:repeat(5,100px);
     gap:30px;
    }
   #where-to-purchase-{{ section.id }} .where-to-purchase__online-grid a { width:180px; height:90px; display:flex; align-items:center; justify-content:center; border:1px solid #ebebeb; background:#fff; transition:border-color .2s ease,transform .2s ease; }
@@ -161,42 +258,170 @@
     if (!root || root.dataset.initialized) return;
     root.dataset.initialized = 'true';
     const storeData = {
-      '北海道':[
-        ['ヨドバシカメラ マルチメディア札幌','北海道札幌市北区北6条西5-1-22','011-707-1010'],
-        ['ビックカメラ札幌店','北海道札幌市中央区北4条西2-1 さっぽろ東急百貨店 5階・6階','011-261-1111'],
-        ['コジマ×ビックカメラ CiiNA CiiNA屯田店','北海道札幌市北区屯田8条3丁目5-1 CiiNA CiiNA屯田 2階','011-776-5252'],
-        ['ヤマダデンキ Tecc LIFE SELECT 清田店','北海道札幌市清田区清田一条1-1-1','011-887-4440'],
-        ['ヤマダデンキ Tecc LIFE SELECT 旭川店','北海道旭川市緑町12丁目2719番地1','0166-50-2201'],
-        ['ヤマダデンキ Tecc LIFE SELECT 函館本店','北海道函館市美原二丁目14-1','0138-34-3111'],
-        ['ヤマダデンキ Tecc LIFE SELECT 札幌本店','北海道札幌市中央区北一条西8丁目1-2','011-205-8001']
+      北海道: [
+        ['ヨドバシカメラ マルチメディア札幌', '北海道札幌市北区北6条西5-1-22', '011-707-1010'],
+        ['ビックカメラ札幌店', '北海道札幌市中央区北4条西2-1 さっぽろ東急百貨店 5階・6階', '011-261-1111'],
+        [
+          'コジマ×ビックカメラ CiiNA CiiNA屯田店',
+          '北海道札幌市北区屯田8条3丁目5-1 CiiNA CiiNA屯田 2階',
+          '011-776-5252',
+        ],
+        ['ヤマダデンキ Tecc LIFE SELECT 清田店', '北海道札幌市清田区清田一条1-1-1', '011-887-4440'],
+        ['ヤマダデンキ Tecc LIFE SELECT 旭川店', '北海道旭川市緑町12丁目2719番地1', '0166-50-2201'],
+        ['ヤマダデンキ Tecc LIFE SELECT 函館本店', '北海道函館市美原二丁目14-1', '0138-34-3111'],
+        ['ヤマダデンキ Tecc LIFE SELECT 札幌本店', '北海道札幌市中央区北一条西8丁目1-2', '011-205-8001'],
       ],
-      '岩手県':['ヤマダデンキ Tecc LIFE SELECT 盛岡本店'],
-      '宮城県':['ヨドバシカメラ マルチメディア仙台','コジマ×ビックカメラ 名取イオンモール店','コジマ×ビックカメラ 卸団地店','ヤマダデンキ LABI仙台','ヤマダデンキ Tecc LIFE SELECT 仙台あすと長町店'],
-      '福島県':['ヤマダデンキ テックランドNew会津若松店'],
-      '茨城県':['ビックカメラ 水戸駅店','ヤマダデンキ テックランドNew日立店'],
-      '群馬県':['ビックカメラ 高崎東口店','コジマ×ビックカメラ イオンモール高崎店','ヤマダデンキ LABI1 LIFE SELECT 高崎','ヤマダデンキ Tecc LIFE SELECT 前橋吉岡店'],
-      '埼玉県':['ヨドバシカメラ マルチメディアさいたま新都心駅前店','ビックカメラ 大宮西口そごう店','ビックカメラ 所沢駅店','ヤマダデンキ Tecc LIFE SELECT 春日部本店','ヤマダデンキ Tecc LIFE SELECT ムサシ久喜菖蒲店','ヤマダデンキ Tecc LIFE SELECT 狭山店'],
-      '千葉県':['ビックカメラ 千葉駅前店','ビックカメラ 柏店','ビックカメラ千葉駅前店','ビックカメラ 船橋駅FACE店','ヤマダデンキ LABI津田沼','ヤマダデンキ Tecc LIFE SELECT 木更津請西本店','ヤマダデンキ テックランド 千葉中央店'],
-      '東京都':['ヨドバシカメラ マルチメディア町田店','ヨドバシカメラ マルチメディア錦糸町','ヨドバシカメラ マルチメディア上野','ヨドバシカメラ 新宿西口本店','ヨドバシカメラ マルチメディア吉祥寺','ヨドバシカメラ マルチメディアAkiba','ビックカメラ 池袋本店','ビックカメラ京王調布店','ビックカメラＪＲ八王子駅店','ビックカメラ渋谷ハチ公口店','ビックカメラ渋谷東口店','ビックカメラ 立川店','ビックカメラ 有楽町店','ビックカメラ新宿西口店','ビックカメラ 池袋西口店','ビックカメラ新宿東口駅前店','ビックカメラ 赤坂見附駅店','ビックカメラ ＡＫＩＢＡ','ビックカメラ 京王調布店','ビックカメラ 日本橋三越','コジマ×ビックカメラ 江戸川店','コジマ×ビックカメラ 志村店','コジマ×ビックカメラ 有明ガーデン店','ヤマダデンキ LABI1 LIFE SELECT 池袋','ヤマダデンキ LABI LIFE SELECT 品川大井町','ヤマダデンキ LABI LIFE SELECT 立川','ヤマダデンキ LABI吉祥寺','ヤマダデンキ LABI渋谷','ヤマダデンキ LABI新宿西口館','ヤマダデンキ LABI東京八重洲','ヤマダデンキ LABI LIFE SELECT 自由が丘'],
-      '神奈川県':['ヨドバシカメラ マルチメディア川崎ルフロン','ヨドバシカメラ マルチメディア京急上大岡','ヨドバシカメラ マルチメディア横浜','ビックカメラ 藤沢店','ビックカメラ 新横浜店','ビックカメラ 横浜西口店','ビックカメラ ラゾーナ川崎店','ビックカメラ 相模大野店','コジマ×ビックカメラ 相模原店','コジマ×ビックカメラ 梶ヶ谷店','コジマ×ビック港北東急S.C店','ヤマダデンキ Tecc LIFE SELECT 港北センター店','ヤマダデンキ LABI大船','ヤマダデンキ Tecc LIFE SELECT 神戸本店','ヤマダデンキ LABI LIFE SELECT 茅ヶ崎','ヤマダデンキ LABI上大岡','ヤマダデンキ LABI藤沢','ヤマダデンキ テックランドスーパービバホーム長津田店','ヤマダデンキ Tecc LIFE SELECT 湘南平塚店'],
-      '新潟県':['ヨドバシカメラ マルチメディア新潟駅前店','ビックカメラ新潟店'],
-      '石川県':['Tecc LIFE SELECT 野々市御経塚店'],
-      '長野県':['Tecc LIFE SELECT 長野SBC通り店','Tecc LIFE SELECT 松本本店'],
-      '岐阜県':['ヤマダデンキ Tecc LIFE SELECT イオンタウン大垣店'],
-      '静岡県':['ビックカメラ 浜松店'],
-      '愛知県':['ヨドバシカメラ マルチメディア名古屋松坂屋店','ビックカメラ 名古屋駅西店','ビックカメラ 名古屋ＪＲゲートタワー店','ヤマダデンキ Tecc LIFE SELECT New一宮店','ヤマダデンキ LABI名古屋','ヤマダデンキ YAMADA web.com 千種センター店'],
-      '京都府':['ヨドバシカメラ マルチメディア京都','ヤマダデンキ テックランド 京都醍醐店','ヤマダデンキ テックランド 京都吉祥院店'],
-      '大阪府':['ヨドバシカメラ マルチメディア梅田','ビックカメラ なんば店','ビックカメラ あべのキューズモール店','ビックカメラ アリオ八尾店','ビックカメラ 高槻阪急スクエア店','コジマxビックカメラ ＮＥＷ大東店','ヤマダデンキ LABI1 LIFE SELECT なんば','ヤマダデンキ LABI LIFE SELECT 千里','ヤマダデンキ テックランド 堺本店','ヤマダデンキ テックランド ららぽーと堺店'],
-      '兵庫県':['ヤマダデンキ Tecc LIFE SELECT 姫路本店','ヤマダデンキ Tecc LIFE SELECT 神戸垂水店','ヤマダデンキ Tecc LIFE SELECT 加古川本店','ヤマダデンキ LABI三宮','ヤマダデンキ Tecc LIFE SELECT 尼崎店'],
-      '岡山県':['ビックカメラ 岡山駅前店'],
-      '広島県':['ビックカメラ 広島駅前店','ヤマダデンキ Tecc LIFE SELECT 広島アルパーク店','ヤマダデンキ LABI広島','ヤマダデンキ Tecc LIFE SELECT福山店'],
-      '徳島県':['Tecc LIFE SELECT 徳島本店'],
-      '香川県':['Tecc LIFE SELECT 高松春日本店'],
-      '高知県':['Tecc LIFE SELECT 高知本店'],
-      '福岡県':['ヨドバシカメラ マルチメディア博多','コジマxビックカメラ ＮＥＷ福岡春日店','コジマxビックカメラ ＮＥＷ八幡店','ビックカメラ天神１号館','ビックカメラ天神２号館','コジマ×ビックカメラ 小倉店','ヤマダデンキ Tecc LIFE SELECT 福岡志免本店','ヤマダデンキ テックランドNew久留米中央店'],
-      '熊本県':['ビックカメラ アミュプラザくまもと店','Tecc LIFE SELECT 熊本春日店'],
-      '鹿児島県':['ビックカメラ鹿児島中央駅店'],
-      '沖縄県':['コジマ×ビックカメライーアス沖縄豊崎店','ヤマダデンキ テックランド てだこ浦西店','ヤマダデンキ テックランド那覇本店']
+      岩手県: ['ヤマダデンキ Tecc LIFE SELECT 盛岡本店'],
+      宮城県: [
+        'ヨドバシカメラ マルチメディア仙台',
+        'コジマ×ビックカメラ 名取イオンモール店',
+        'コジマ×ビックカメラ 卸団地店',
+        'ヤマダデンキ LABI仙台',
+        'ヤマダデンキ Tecc LIFE SELECT 仙台あすと長町店',
+      ],
+      福島県: ['ヤマダデンキ テックランドNew会津若松店'],
+      茨城県: ['ビックカメラ 水戸駅店', 'ヤマダデンキ テックランドNew日立店'],
+      群馬県: [
+        'ビックカメラ 高崎東口店',
+        'コジマ×ビックカメラ イオンモール高崎店',
+        'ヤマダデンキ LABI1 LIFE SELECT 高崎',
+        'ヤマダデンキ Tecc LIFE SELECT 前橋吉岡店',
+      ],
+      埼玉県: [
+        'ヨドバシカメラ マルチメディアさいたま新都心駅前店',
+        'ビックカメラ 大宮西口そごう店',
+        'ビックカメラ 所沢駅店',
+        'ヤマダデンキ Tecc LIFE SELECT 春日部本店',
+        'ヤマダデンキ Tecc LIFE SELECT ムサシ久喜菖蒲店',
+        'ヤマダデンキ Tecc LIFE SELECT 狭山店',
+      ],
+      千葉県: [
+        'ビックカメラ 千葉駅前店',
+        'ビックカメラ 柏店',
+        'ビックカメラ千葉駅前店',
+        'ビックカメラ 船橋駅FACE店',
+        'ヤマダデンキ LABI津田沼',
+        'ヤマダデンキ Tecc LIFE SELECT 木更津請西本店',
+        'ヤマダデンキ テックランド 千葉中央店',
+      ],
+      東京都: [
+        'ヨドバシカメラ マルチメディア町田店',
+        'ヨドバシカメラ マルチメディア錦糸町',
+        'ヨドバシカメラ マルチメディア上野',
+        'ヨドバシカメラ 新宿西口本店',
+        'ヨドバシカメラ マルチメディア吉祥寺',
+        'ヨドバシカメラ マルチメディアAkiba',
+        'ビックカメラ 池袋本店',
+        'ビックカメラ京王調布店',
+        'ビックカメラＪＲ八王子駅店',
+        'ビックカメラ渋谷ハチ公口店',
+        'ビックカメラ渋谷東口店',
+        'ビックカメラ 立川店',
+        'ビックカメラ 有楽町店',
+        'ビックカメラ新宿西口店',
+        'ビックカメラ 池袋西口店',
+        'ビックカメラ新宿東口駅前店',
+        'ビックカメラ 赤坂見附駅店',
+        'ビックカメラ ＡＫＩＢＡ',
+        'ビックカメラ 京王調布店',
+        'ビックカメラ 日本橋三越',
+        'コジマ×ビックカメラ 江戸川店',
+        'コジマ×ビックカメラ 志村店',
+        'コジマ×ビックカメラ 有明ガーデン店',
+        'ヤマダデンキ LABI1 LIFE SELECT 池袋',
+        'ヤマダデンキ LABI LIFE SELECT 品川大井町',
+        'ヤマダデンキ LABI LIFE SELECT 立川',
+        'ヤマダデンキ LABI吉祥寺',
+        'ヤマダデンキ LABI渋谷',
+        'ヤマダデンキ LABI新宿西口館',
+        'ヤマダデンキ LABI東京八重洲',
+        'ヤマダデンキ LABI LIFE SELECT 自由が丘',
+      ],
+      神奈川県: [
+        'ヨドバシカメラ マルチメディア川崎ルフロン',
+        'ヨドバシカメラ マルチメディア京急上大岡',
+        'ヨドバシカメラ マルチメディア横浜',
+        'ビックカメラ 藤沢店',
+        'ビックカメラ 新横浜店',
+        'ビックカメラ 横浜西口店',
+        'ビックカメラ ラゾーナ川崎店',
+        'ビックカメラ 相模大野店',
+        'コジマ×ビックカメラ 相模原店',
+        'コジマ×ビックカメラ 梶ヶ谷店',
+        'コジマ×ビック港北東急S.C店',
+        'ヤマダデンキ Tecc LIFE SELECT 港北センター店',
+        'ヤマダデンキ LABI大船',
+        'ヤマダデンキ Tecc LIFE SELECT 神戸本店',
+        'ヤマダデンキ LABI LIFE SELECT 茅ヶ崎',
+        'ヤマダデンキ LABI上大岡',
+        'ヤマダデンキ LABI藤沢',
+        'ヤマダデンキ テックランドスーパービバホーム長津田店',
+        'ヤマダデンキ Tecc LIFE SELECT 湘南平塚店',
+      ],
+      新潟県: ['ヨドバシカメラ マルチメディア新潟駅前店', 'ビックカメラ新潟店'],
+      石川県: ['Tecc LIFE SELECT 野々市御経塚店'],
+      長野県: ['Tecc LIFE SELECT 長野SBC通り店', 'Tecc LIFE SELECT 松本本店'],
+      岐阜県: ['ヤマダデンキ Tecc LIFE SELECT イオンタウン大垣店'],
+      静岡県: ['ビックカメラ 浜松店'],
+      愛知県: [
+        'ヨドバシカメラ マルチメディア名古屋松坂屋店',
+        'ビックカメラ 名古屋駅西店',
+        'ビックカメラ 名古屋ＪＲゲートタワー店',
+        'ヤマダデンキ Tecc LIFE SELECT New一宮店',
+        'ヤマダデンキ LABI名古屋',
+        'ヤマダデンキ YAMADA web.com 千種センター店',
+      ],
+      京都府: [
+        'ヨドバシカメラ マルチメディア京都',
+        'ヤマダデンキ テックランド 京都醍醐店',
+        'ヤマダデンキ テックランド 京都吉祥院店',
+      ],
+      大阪府: [
+        'ヨドバシカメラ マルチメディア梅田',
+        'ビックカメラ なんば店',
+        'ビックカメラ あべのキューズモール店',
+        'ビックカメラ アリオ八尾店',
+        'ビックカメラ 高槻阪急スクエア店',
+        'コジマxビックカメラ ＮＥＷ大東店',
+        'ヤマダデンキ LABI1 LIFE SELECT なんば',
+        'ヤマダデンキ LABI LIFE SELECT 千里',
+        'ヤマダデンキ テックランド 堺本店',
+        'ヤマダデンキ テックランド ららぽーと堺店',
+      ],
+      兵庫県: [
+        'ヤマダデンキ Tecc LIFE SELECT 姫路本店',
+        'ヤマダデンキ Tecc LIFE SELECT 神戸垂水店',
+        'ヤマダデンキ Tecc LIFE SELECT 加古川本店',
+        'ヤマダデンキ LABI三宮',
+        'ヤマダデンキ Tecc LIFE SELECT 尼崎店',
+      ],
+      岡山県: ['ビックカメラ 岡山駅前店'],
+      広島県: [
+        'ビックカメラ 広島駅前店',
+        'ヤマダデンキ Tecc LIFE SELECT 広島アルパーク店',
+        'ヤマダデンキ LABI広島',
+        'ヤマダデンキ Tecc LIFE SELECT福山店',
+      ],
+      徳島県: ['Tecc LIFE SELECT 徳島本店'],
+      香川県: ['Tecc LIFE SELECT 高松春日本店'],
+      高知県: ['Tecc LIFE SELECT 高知本店'],
+      福岡県: [
+        'ヨドバシカメラ マルチメディア博多',
+        'コジマxビックカメラ ＮＥＷ福岡春日店',
+        'コジマxビックカメラ ＮＥＷ八幡店',
+        'ビックカメラ天神１号館',
+        'ビックカメラ天神２号館',
+        'コジマ×ビックカメラ 小倉店',
+        'ヤマダデンキ Tecc LIFE SELECT 福岡志免本店',
+        'ヤマダデンキ テックランドNew久留米中央店',
+      ],
+      熊本県: ['ビックカメラ アミュプラザくまもと店', 'Tecc LIFE SELECT 熊本春日店'],
+      鹿児島県: ['ビックカメラ鹿児島中央駅店'],
+      沖縄県: [
+        'コジマ×ビックカメライーアス沖縄豊崎店',
+        'ヤマダデンキ テックランド てだこ浦西店',
+        'ヤマダデンキ テックランド那覇本店',
+      ],
     };
     const select = root.querySelector('[data-store-select]');
     const trigger = root.querySelector('[data-store-trigger]');
@@ -204,72 +429,120 @@
     const menu = root.querySelector('[data-store-menu]');
     const options = root.querySelector('[data-store-options]');
     const list = root.querySelector('[data-store-list]');
-    const closeMenu = () => { menu.hidden=true; trigger.setAttribute('aria-expanded','false'); };
-    const openMenu = () => { menu.hidden=false; trigger.setAttribute('aria-expanded','true'); };
+    const closeMenu = () => {
+      menu.hidden = true;
+      trigger.setAttribute('aria-expanded', 'false');
+    };
+    const openMenu = () => {
+      menu.hidden = false;
+      trigger.setAttribute('aria-expanded', 'true');
+    };
     Object.keys(storeData).forEach((prefecture) => {
-      select.add(new Option(prefecture,prefecture));
+      select.add(new Option(prefecture, prefecture));
       const option = document.createElement('button');
-      option.type='button'; option.className='where-to-purchase__select-option';
-      option.setAttribute('role','option'); option.dataset.value=prefecture; option.textContent=prefecture;
-      option.addEventListener('click',()=>{ select.value=prefecture; select.dispatchEvent(new Event('change',{bubbles:true})); closeMenu(); trigger.focus(); });
+      option.type = 'button';
+      option.className = 'where-to-purchase__select-option';
+      option.setAttribute('role', 'option');
+      option.dataset.value = prefecture;
+      option.textContent = prefecture;
+      option.addEventListener('click', () => {
+        select.value = prefecture;
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+        closeMenu();
+        trigger.focus();
+      });
       options.appendChild(option);
     });
     const render = (prefecture) => {
       const fragment = document.createDocumentFragment();
       storeData[prefecture].forEach((item) => {
         const store = Array.isArray(item) ? item : [item];
-        const card = document.createElement('article'); card.className='where-to-purchase__store';
-        const title = document.createElement('h4'); title.textContent=store[0]; card.appendChild(title);
-        if(store[1] || store[2]){
-          const details=document.createElement('div'); details.className='where-to-purchase__store-details';
-          if(store[1]){const address=document.createElement('p'); address.textContent=`住所：${store[1]}`; details.appendChild(address);}
-          if(store[2]){const phone=document.createElement('p'); phone.textContent=`電話番号：${store[2]}`; details.appendChild(phone);}
+        const card = document.createElement('article');
+        card.className = 'where-to-purchase__store';
+        const title = document.createElement('h4');
+        title.textContent = store[0];
+        card.appendChild(title);
+        if (store[1] || store[2]) {
+          const details = document.createElement('div');
+          details.className = 'where-to-purchase__store-details';
+          if (store[1]) {
+            const address = document.createElement('p');
+            address.textContent = `住所：${store[1]}`;
+            details.appendChild(address);
+          }
+          if (store[2]) {
+            const phone = document.createElement('p');
+            phone.textContent = `電話番号：${store[2]}`;
+            details.appendChild(phone);
+          }
           card.appendChild(details);
         }
         fragment.appendChild(card);
       });
-      list.replaceChildren(fragment); list.scrollTop=0;
+      list.replaceChildren(fragment);
+      list.scrollTop = 0;
     };
     const updateSelection = (prefecture) => {
-      selectedLabel.textContent=prefecture;
-      options.querySelectorAll('[role="option"]').forEach((option)=>option.setAttribute('aria-selected',String(option.dataset.value===prefecture)));
+      selectedLabel.textContent = prefecture;
+      options
+        .querySelectorAll('[role="option"]')
+        .forEach((option) => option.setAttribute('aria-selected', String(option.dataset.value === prefecture)));
       render(prefecture);
     };
-    trigger.addEventListener('click',()=>menu.hidden ? openMenu() : closeMenu());
-    trigger.addEventListener('keydown',(event)=>{ if(event.key==='Escape') closeMenu(); });
-    select.addEventListener('change',(event)=>updateSelection(event.target.value));
-    document.addEventListener('click',(event)=>{ if(!root.contains(event.target) || !event.target.closest('.where-to-purchase__select-wrap')) closeMenu(); });
+    trigger.addEventListener('click', () => (menu.hidden ? openMenu() : closeMenu()));
+    trigger.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeMenu();
+    });
+    select.addEventListener('change', (event) => updateSelection(event.target.value));
+    document.addEventListener('click', (event) => {
+      if (!root.contains(event.target) || !event.target.closest('.where-to-purchase__select-wrap')) closeMenu();
+    });
     updateSelection(select.value);
   })();
 </script>
 
 {% schema %}
 {
-  "name":"販売店一覧（統合）",
-  "settings":[
-    {"type":"image_picker","id":"hero_desktop","label":"KV画像（PC）"},
-    {"type":"image_picker","id":"hero_mobile","label":"KV画像（モバイル）"},
-    {"type":"image_picker","id":"location_icon","label":"線下エリアアイコン"},
-    {"type":"image_picker","id":"online_icon","label":"オンラインエリアアイコン"},
-    {"type":"text","id":"hero_title","label":"KVタイトル","default":"販売店一覧"},
-    {"type":"textarea","id":"hero_text","label":"KV説明","default":"オフライン店舗でUlikeを発見、あなたの美をより深く体験。"},
-    {"type":"text","id":"offline_title","label":"線下エリア見出し","default":"お近くの店舗でUlikeを体験"},
-    {"type":"textarea","id":"offline_text","label":"線下エリア説明","default":"実際にUlikeのIPL光美容器をお試しいただける店舗をご紹介します。\nお近くの店舗で、Ulikeの使い心地をぜひご体験ください。"},
-    {"type":"text","id":"store_list_title","label":"店舗一覧見出し","default":"Ulike取扱店舗一覧"},
-    {"type":"text","id":"online_title","label":"オンライン見出し","default":"オンラインショップでUlikeを購入"},
-    {"type":"textarea","id":"online_text","label":"オンライン説明","default":"公式ストアをはじめ、各ECサイトからUlikeをご購入いただけます。\nご自宅からいつでも、お好みのショップでお買い求めいただけます。"},
-    {"type":"text","id":"online_list_title","label":"EC一覧見出し","default":"EC店舗一覧"},
-    {"type":"image_picker","id":"amazon_logo","label":"Amazonロゴ"},
-    {"type":"image_picker","id":"rakuten_logo","label":"楽天ロゴ"},
-    {"type":"image_picker","id":"qoo10_logo","label":"Qoo10ロゴ"},
-    {"type":"image_picker","id":"tiktok_logo","label":"TikTokロゴ"},
-    {"type":"image_picker","id":"yahoo_logo","label":"Yahoo!ロゴ"},
-    {"type":"url","id":"amazon_url","label":"Amazonリンク"},
-    {"type":"url","id":"rakuten_url","label":"楽天リンク"},
-    {"type":"url","id":"qoo10_url","label":"Qoo10リンク"},
-    {"type":"url","id":"tiktok_url","label":"TikTokリンク"},
-    {"type":"url","id":"yahoo_url","label":"Yahoo!リンク"}
+  "name": "販売店一覧（統合）",
+  "settings": [
+    { "type": "image_picker", "id": "hero_desktop", "label": "KV画像（PC）" },
+    { "type": "image_picker", "id": "hero_mobile", "label": "KV画像（モバイル）" },
+    { "type": "image_picker", "id": "location_icon", "label": "線下エリアアイコン" },
+    { "type": "image_picker", "id": "online_icon", "label": "オンラインエリアアイコン" },
+    { "type": "text", "id": "hero_title", "label": "KVタイトル", "default": "販売店一覧" },
+    {
+      "type": "textarea",
+      "id": "hero_text",
+      "label": "KV説明",
+      "default": "オフライン店舗でUlikeを発見、あなたの美をより深く体験。"
+    },
+    { "type": "text", "id": "offline_title", "label": "線下エリア見出し", "default": "お近くの店舗でUlikeを体験" },
+    {
+      "type": "textarea",
+      "id": "offline_text",
+      "label": "線下エリア説明",
+      "default": "実際にUlikeのIPL光美容器をお試しいただける店舗をご紹介します。\nお近くの店舗で、Ulikeの使い心地をぜひご体験ください。"
+    },
+    { "type": "text", "id": "store_list_title", "label": "店舗一覧見出し", "default": "Ulike取扱店舗一覧" },
+    { "type": "text", "id": "online_title", "label": "オンライン見出し", "default": "オンラインショップでUlikeを購入" },
+    {
+      "type": "textarea",
+      "id": "online_text",
+      "label": "オンライン説明",
+      "default": "公式ストアをはじめ、各ECサイトからUlikeをご購入いただけます。\nご自宅からいつでも、お好みのショップでお買い求めいただけます。"
+    },
+    { "type": "text", "id": "online_list_title", "label": "EC一覧見出し", "default": "EC店舗一覧" },
+    { "type": "image_picker", "id": "amazon_logo", "label": "Amazonロゴ" },
+    { "type": "image_picker", "id": "rakuten_logo", "label": "楽天ロゴ" },
+    { "type": "image_picker", "id": "qoo10_logo", "label": "Qoo10ロゴ" },
+    { "type": "image_picker", "id": "tiktok_logo", "label": "TikTokロゴ" },
+    { "type": "image_picker", "id": "yahoo_logo", "label": "Yahoo!ロゴ" },
+    { "type": "url", "id": "amazon_url", "label": "Amazonリンク" },
+    { "type": "url", "id": "rakuten_url", "label": "楽天リンク" },
+    { "type": "url", "id": "qoo10_url", "label": "Qoo10リンク" },
+    { "type": "url", "id": "tiktok_url", "label": "TikTokリンク" },
+    { "type": "url", "id": "yahoo_url", "label": "Yahoo!リンク" }
   ],
-  "presets":[{"name":"販売店一覧（統合）"}]
+  "presets": [{ "name": "販売店一覧（統合）" }]
 }
 {% endschema %}
