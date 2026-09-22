@@ -235,11 +235,14 @@
 
   #pluc-{{ sid }} .pluc__link {
     display: flex;
+    width: 100%;
+    box-sizing: border-box;
     align-items: center;
     justify-content: center;
     height: 48px;
     min-height: 48px;
     padding: 0 30px;
+    border-radius: 3px;
     border: 1px solid #190a0a;
     color: #190a0a;
     text-align: center;
@@ -247,6 +250,11 @@
     line-height: 1.5;
     text-decoration: none;
     cursor: pointer;
+  }
+
+  #pluc-{{ sid }} shopify-buy-now {
+    display: block;
+    width: 100%;
   }
 
   #pluc-{{ sid }} .pluc__link:hover {
