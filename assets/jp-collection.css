@@ -70,6 +70,10 @@
   font: inherit;
   font-size: 24px;
   line-height: 1.3;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 .jp-collection-card__badge {
   flex-shrink: 0;
@@ -313,7 +317,7 @@
   .jp-collection-card__heading h3 {
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: normal;
     font-size: 16px;
   }
   .jp-collection-card__badge {
