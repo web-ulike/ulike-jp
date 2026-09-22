@@ -122,46 +122,56 @@
     </div>
     <h3 class="where-to-purchase__online-heading">{{ section.settings.online_list_title | escape }}</h3>
     <div class="where-to-purchase__online-grid">
-      <a href="{{ amazon_url }}" target="_blank" rel="noopener" aria-label="Amazon"
-        ><img
-          src="{% if section.settings.amazon_logo != blank %}{{ section.settings.amazon_logo | image_url: width: 300 }}{% else %}{{ 'where-to-purchase-amazon.png' | asset_url }}{% endif %}"
+      {% if section.settings.amazon_logo != blank %}
+        <a href="{{ amazon_url }}" target="_blank" rel="noopener" aria-label="Amazon"
+          ><img
+          src="{{ section.settings.amazon_logo | image_url: width: 300 }}"
           width="123"
           height="46"
           loading="lazy"
           alt="Amazon"
-      ></a>
-      <a href="{{ rakuten_url }}" target="_blank" rel="noopener" aria-label="Rakuten"
-        ><img
-          src="{% if section.settings.rakuten_logo != blank %}{{ section.settings.rakuten_logo | image_url: width: 300 }}{% else %}{{ 'where-to-purchase-tiktok.svg' | asset_url }}{% endif %}"
+        ></a>
+      {% endif %}
+      {% if section.settings.rakuten_logo != blank %}
+        <a href="{{ rakuten_url }}" target="_blank" rel="noopener" aria-label="Rakuten"
+          ><img
+          src="{{ section.settings.rakuten_logo | image_url: width: 300 }}"
           width="101"
           height="30"
           loading="lazy"
           alt="Rakuten"
-      ></a>
-      <a href="{{ qoo10_url }}" target="_blank" rel="noopener" aria-label="Qoo10"
-        ><img
-          src="{% if section.settings.qoo10_logo != blank %}{{ section.settings.qoo10_logo | image_url: width: 300 }}{% else %}{{ 'where-to-purchase-rakuten.svg' | asset_url }}{% endif %}"
+        ></a>
+      {% endif %}
+      {% if section.settings.qoo10_logo != blank %}
+        <a href="{{ qoo10_url }}" target="_blank" rel="noopener" aria-label="Qoo10"
+          ><img
+          src="{{ section.settings.qoo10_logo | image_url: width: 300 }}"
           width="94"
           height="24"
           loading="lazy"
           alt="Qoo10"
-      ></a>
-      <a href="{{ tiktok_url }}" target="_blank" rel="noopener" aria-label="TikTok Shop"
-        ><img
-          src="{% if section.settings.tiktok_logo != blank %}{{ section.settings.tiktok_logo | image_url: width: 300 }}{% else %}{{ 'where-to-purchase-qoo10.svg' | asset_url }}{% endif %}"
+        ></a>
+      {% endif %}
+      {% if section.settings.tiktok_logo != blank %}
+        <a href="{{ tiktok_url }}" target="_blank" rel="noopener" aria-label="TikTok Shop"
+          ><img
+          src="{{ section.settings.tiktok_logo | image_url: width: 300 }}"
           width="105"
           height="28"
           loading="lazy"
           alt="TikTok Shop"
-      ></a>
-      <a href="{{ yahoo_url }}" target="_blank" rel="noopener" aria-label="Yahoo!ショッピング"
-        ><img
-          src="{% if section.settings.yahoo_logo != blank %}{{ section.settings.yahoo_logo | image_url: width: 300 }}{% else %}{{ 'where-to-purchase-yahoo.svg' | asset_url }}{% endif %}"
+        ></a>
+      {% endif %}
+      {% if section.settings.yahoo_logo != blank %}
+        <a href="{{ yahoo_url }}" target="_blank" rel="noopener" aria-label="Yahoo!ショッピング"
+          ><img
+          src="{{ section.settings.yahoo_logo | image_url: width: 300 }}"
           width="180"
           height="90"
           loading="lazy"
           alt="Yahoo! JAPAN"
-      ></a>
+        ></a>
+      {% endif %}
     </div>
   </div>
 </section>
@@ -214,8 +224,9 @@
     width: 1060px;
     margin-top: 100px;
     display:grid;
-    grid-template-columns:repeat(5,180px);
+    grid-template-columns:repeat(auto-fit,180px);
     gap:40px;
+    justify-content:center;
    }
   #where-to-purchase-{{ section.id }} .where-to-purchase__online-grid a { width:180px; height:90px; display:flex; align-items:center; justify-content:center; border:1px solid #ebebeb; background:#fff; transition:border-color .2s ease,transform .2s ease; }
   #where-to-purchase-{{ section.id }} .where-to-purchase__online-grid a:hover { border-color:#e0004d; transform:translateY(-2px); }
