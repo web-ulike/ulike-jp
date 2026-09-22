@@ -1178,6 +1178,24 @@
   </div>
 </footer>
 
+<script>
+  (() => {
+    const footer = document.getElementById('footer-new');
+    if (!footer) return;
+
+    footer.querySelectorAll('a[href]').forEach((link) => {
+      const href = link.getAttribute('href');
+      if (!href || href.startsWith('#') || /^(mailto:|tel:|javascript:)/i.test(href)) return;
+
+      const url = new URL(href, window.location.origin);
+      if (url.origin !== window.location.origin) return;
+
+      url.searchParams.set('ref', 'footer');
+      link.href = `${url.pathname}${url.search}${url.hash}`;
+    });
+  })();
+</script>
+
 {% comment %} 优化速度首页不加载弹出框 {% endcomment %}
 {% if request.path != '/' %}
   <div class="match-box" style="display: none;">
