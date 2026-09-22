@@ -4,14 +4,6 @@ if (!customElements.get('jp-collection-grid')) {
       this.controller?.abort();
       this.controller = new AbortController();
       const { signal } = this.controller;
-      const mobileQuery = window.matchMedia('(max-width: 749px)');
-      const syncCardDetails = () => {
-        this.querySelectorAll('.jp-collection-card__details').forEach((details) => {
-          details.open = !mobileQuery.matches;
-        });
-      };
-      syncCardDetails();
-      mobileQuery.addEventListener('change', syncCardDetails, { signal });
       const button = this.querySelector('[data-collection-more]');
       const extras = this.querySelectorAll('.jp-collection-card--extra');
       if (!button || !extras.length) return;
