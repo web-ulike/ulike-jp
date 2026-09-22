@@ -21,7 +21,13 @@
   #shopify-section-{{ section.id }} .endof-overlay__button {
     display: inline-flex; align-items: center; justify-content: center; gap: 12px; box-sizing: border-box; width: 178px; min-height: 52px;
     margin-top: 43px; padding: 14px 24px; color: #fff; font-size: 12px; font-weight: 500; line-height: 1.5; text-align: center;
-    text-decoration: none; background: linear-gradient(96deg, #e0004d 17.3%, #ff508c 49.8%, #e0004d 77.3%);
+    text-decoration: none; border: 0; border-radius: 0; box-shadow: none; cursor: pointer; appearance: none;
+    background: linear-gradient(96deg, #e0004d 17.3%, #ff508c 49.8%, #e0004d 77.3%);
+  }
+  #shopify-section-{{ section.id }} .endof-overlay__button:hover,
+  #shopify-section-{{ section.id }} .endof-overlay__button:focus {
+    color: #fff;
+    background: linear-gradient(96deg, #e0004d 17.3%, #ff508c 49.8%, #e0004d 77.3%);
   }
   #shopify-section-{{ section.id }} .endof-overlay__button::after {
     width: 8px; height: 8px; border-top: 1px solid currentColor; border-right: 1px solid currentColor; content: ''; transform: rotate(45deg);
@@ -46,7 +52,7 @@
         {%- if section.settings.character_image != blank -%}
           {{ section.settings.character_image | image_url: width: 464 | image_tag: class: 'endof-overlay__image', loading: 'eager', widths: '232,464' }}
         {%- else -%}
-          {{ 'endof-event-mask-character.png' | asset_url | image_tag: class: 'endof-overlay__image', loading: 'eager' }}
+          <img class="endof-overlay__image" src="{{ 'endof-event-mask-character.png' | asset_url }}" width="232" height="218" alt="" loading="eager">
         {%- endif -%}
         <div class="endof-overlay__body">
           <h2 class="endof-overlay__title" id="activityOverlayTitle-{{ section.id }}">{{ section.settings.tle | default: default_title }}</h2>
