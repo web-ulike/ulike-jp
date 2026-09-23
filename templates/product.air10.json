@@ -1,14 +1,20 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main-product": {
       "type": "main-product",
       "blocks": {
-        "vendor": {
-          "type": "text",
-          "disabled": true,
-          "settings": {
-            "text": "<p>{{ product.vendor }}<\/p>"
-          }
+        "quantity_selector_Jacayh": {
+          "type": "quantity_selector",
+          "settings": {}
         },
         "title": {
           "type": "title",
@@ -22,26 +28,25 @@
           "type": "description",
           "settings": {}
         },
-        "ulike_giveaway_LiGj9z": {
-          "type": "ulike_giveaway",
-          "disabled": true,
-          "settings": {}
-        },
         "variant_picker": {
           "type": "variant_picker",
-          "settings": {}
-        },
-        "liquid_eMynGN": {
-          "type": "liquid",
-          "disabled": true,
           "settings": {
-            "liquid": "{%  render 'couponcode' %}"
+            "hide_sold_out_variants": false,
+            "selector_mode": "block",
+            "color_mode": "swatch",
+            "variant_image_options": "",
+            "size_chart_page": ""
           }
         },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
-            "show_gift_card_recipient": false
+            "show_payment_button": true,
+            "show_gift_card_recipient": false,
+            "atc_button_background": "rgba(0,0,0,0)",
+            "atc_button_text_color": "rgba(0,0,0,0)",
+            "buy_now_button_background": "rgba(0,0,0,0)",
+            "buy_now_button_text_color": "rgba(0,0,0,0)"
           }
         },
         "collapsible_tab_Yh33GT": {
@@ -56,11 +61,6 @@
           "type": "collapsible_tab",
           "settings": {}
         },
-        "collapsible_tab_GMeNDy": {
-          "type": "collapsible_tab",
-          "disabled": true,
-          "settings": {}
-        },
         "custom_text_aaiQQL": {
           "type": "custom_text",
           "settings": {}
@@ -68,15 +68,12 @@
         "inventory": {
           "type": "inventory",
           "disabled": true,
-          "settings": {}
+          "settings": {
+            "low_inventory_threshold": 0
+          }
         },
         "pickup_availability": {
           "type": "pickup_availability",
-          "settings": {}
-        },
-        "ulike_giveaway_AQLP7E": {
-          "type": "ulike_giveaway",
-          "disabled": true,
           "settings": {}
         },
         "payment_method_RGCKEy": {
@@ -99,30 +96,38 @@
         }
       },
       "block_order": [
-        "vendor",
+        "quantity_selector_Jacayh",
         "title",
         "countdown",
         "description",
-        "ulike_giveaway_LiGj9z",
         "variant_picker",
-        "liquid_eMynGN",
         "buy_buttons",
         "collapsible_tab_Yh33GT",
         "collapsible_tab_6KDej7",
         "collapsible_tab_i9YDmT",
-        "collapsible_tab_GMeNDy",
         "custom_text_aaiQQL",
         "inventory",
         "pickup_availability",
-        "ulike_giveaway_AQLP7E",
         "payment_method_RGCKEy",
         "share",
         "complementary",
         "sticky_buy_button"
       ],
       "settings": {
+        "show_vendor": true,
+        "show_sku": false,
+        "show_badges": false,
+        "show_taxes_included": false,
+        "show_product_rating": false,
+        "show_sticky_add_to_cart": false,
+        "show_share_buttons": true,
+        "help_page": "",
         "enable_video_autoplay": true,
-        "enable_video_looping": true
+        "enable_video_looping": true,
+        "enable_image_zoom": true,
+        "show_thumbnails_on_mobile": false,
+        "desktop_thumbnails_position": "bottom",
+        "transition_effect": "slide"
       }
     },
     "help-drawer": {
@@ -133,7 +138,7 @@
           "settings": {
             "icon": "rocket",
             "heading": "Shipping Information",
-            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.<\/p>",
+            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.</p>",
             "highlighted_text": "none",
             "highlighted_scribble": "circle",
             "color_text": "#b45309",
@@ -148,7 +153,7 @@
           "settings": {
             "icon": "headphone",
             "heading": "Customer Support",
-            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.<\/p>",
+            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.</p>",
             "highlighted_text": "none",
             "highlighted_scribble": "circle",
             "color_text": "#0369a1",
@@ -163,7 +168,7 @@
           "settings": {
             "icon": "chat_bubble",
             "heading": "FAQ’s",
-            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.<\/p>",
+            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.</p>",
             "highlighted_text": "none",
             "highlighted_scribble": "circle",
             "color_text": "#be123c",
@@ -178,7 +183,7 @@
           "settings": {
             "icon": "phone",
             "heading": "Contact Us",
-            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.<\/p>",
+            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.</p>",
             "highlighted_text": "none",
             "highlighted_scribble": "circle",
             "color_text": "#4d7c0f",
@@ -198,7 +203,7 @@
       "disabled": true,
       "settings": {
         "heading": "Need help?",
-        "description": "<p>If you have any questions, you are always welcome to contact us. We'll get back to you as soon as possible, within 24 hours on weekdays.<\/p>"
+        "description": "<p>If you have any questions, you are always welcome to contact us. We'll get back to you as soon as possible, within 24 hours on weekdays.</p>"
       }
     },
     "ulike_slideshow_xffenV": {
@@ -207,7 +212,7 @@
         "image_MbDBC7": {
           "type": "image",
           "settings": {
-            "image_mobile": "shopify:\/\/shop_images\/MB_a976a8ae-6ddc-420e-8a03-32f8cd6d7baf.jpg",
+            "image_mobile": "shopify://shop_images/MB_a976a8ae-6ddc-420e-8a03-32f8cd6d7baf.jpg",
             "heading": "",
             "heading_size": "title-lg tracking-heading",
             "heading_tag": "h2",
@@ -250,12 +255,24 @@
         "text_m4KxmR": {
           "type": "text",
           "disabled": true,
-          "settings": {}
+          "settings": {
+            "text": "<p>Share information about your brand with your customers.</p>",
+            "text_size": "subtext-md",
+            "text_max_size": 32,
+            "text_font": "body",
+            "secondary_color": false
+          }
         },
         "text_QmPcmU": {
           "type": "text",
           "disabled": true,
-          "settings": {}
+          "settings": {
+            "text": "<p>Share information about your brand with your customers.</p>",
+            "text_size": "subtext-md",
+            "text_max_size": 32,
+            "text_font": "body",
+            "secondary_color": false
+          }
         }
       },
       "block_order": [
@@ -265,8 +282,18 @@
       "disabled": true,
       "settings": {
         "subheading": "",
+        "title": "Talk about your brand",
+        "content": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+        "button_text": "",
         "button_link": "",
-        "text_alignment": "center"
+        "background_type": "full_width",
+        "text_width": "medium",
+        "text_position": "center",
+        "text_alignment": "center",
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)",
+        "button_background": "rgba(0,0,0,0)",
+        "button_text_color": "rgba(0,0,0,0)"
       }
     },
     "multicolumn_bXT9x4": {
@@ -278,7 +305,7 @@
             "show_border": false,
             "text_alignment": "left",
             "text_alignment_mobile": "left",
-            "image": "shopify:\/\/shop_images\/1_5646f40b-2153-4d43-8e97-ce6f9e248c3a.jpg",
+            "image": "shopify://shop_images/1_5646f40b-2153-4d43-8e97-ce6f9e248c3a.jpg",
             "image_ratio": "adapt",
             "heading": "",
             "heading_size": "text-lg-2xl",
@@ -295,7 +322,7 @@
             "show_border": false,
             "text_alignment": "left",
             "text_alignment_mobile": "left",
-            "image": "shopify:\/\/shop_images\/2f5e1791210766270639ef6495b4d249.jpg",
+            "image": "shopify://shop_images/2f5e1791210766270639ef6495b4d249.jpg",
             "image_ratio": "adapt",
             "heading": "",
             "heading_size": "text-lg-2xl",
@@ -312,7 +339,7 @@
             "show_border": false,
             "text_alignment": "left",
             "text_alignment_mobile": "left",
-            "image": "shopify:\/\/shop_images\/b1c95b235dbb872f80d0f78e93c5a140.jpg",
+            "image": "shopify://shop_images/b1c95b235dbb872f80d0f78e93c5a140.jpg",
             "image_ratio": "adapt",
             "heading": "",
             "heading_size": "text-lg-2xl",
@@ -330,7 +357,7 @@
             "show_border": false,
             "text_alignment": "left",
             "text_alignment_mobile": "left",
-            "image": "shopify:\/\/shop_images\/c19302a47b9d7901de51cbb8204f55f7.jpg",
+            "image": "shopify://shop_images/c19302a47b9d7901de51cbb8204f55f7.jpg",
             "image_ratio": "adapt",
             "heading": "",
             "heading_size": "text-lg-2xl",
@@ -389,7 +416,13 @@
       "blocks": {
         "text_E4kRGi": {
           "type": "text",
-          "settings": {}
+          "settings": {
+            "text": "<p>Share information about your brand with your customers.</p>",
+            "text_size": "subtext-md",
+            "text_max_size": 32,
+            "text_font": "body",
+            "secondary_color": false
+          }
         }
       },
       "block_order": [
@@ -398,51 +431,51 @@
       "disabled": true,
       "settings": {
         "subheading": "",
+        "title": "Talk about your brand",
+        "content": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+        "button_text": "",
         "button_link": "",
-        "text_alignment": "left"
+        "background_type": "full_width",
+        "text_width": "medium",
+        "text_position": "center",
+        "text_alignment": "left",
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)",
+        "button_background": "rgba(0,0,0,0)",
+        "button_text_color": "rgba(0,0,0,0)"
       }
     },
     "product-recommendations": {
       "type": "product-recommendations",
       "disabled": true,
       "settings": {
-        "subheading": ""
+        "subheading": "",
+        "title": "You may also like",
+        "recommendations_count": 4,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
       }
     },
     "17098718307bcd2722": {
       "type": "apps",
       "blocks": {
         "judge_me_reviews_review_widget_AeWwrW": {
-          "type": "shopify:\/\/apps\/judge-me-reviews\/blocks\/review_widget\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
           "settings": {
             "review_data": "real_data",
             "max_width": 1200,
             "show_shop_reviews": false,
             "empty_state": "other_products_reviews"
           }
-        },
-        "ryviu_reviews_qa_ryviu_widget_yigzrd": {
-          "type": "shopify:\/\/apps\/ryviu-product-reviews\/blocks\/ryviu-widget\/807ad6ed-1a6a-4559-abea-ed062858d9da",
-          "disabled": true,
-          "settings": {
-            "layout": "",
-            "layout_tablet": "",
-            "layout_mobile": "",
-            "r_wapper_class": "",
-            "r_max_width": 1440,
-            "r_padding_block": 0,
-            "hide_when_no_reviews": false,
-            "one_col_on_mobile": false,
-            "hide_title_image_form": false,
-            "enable_schema": false
-          }
         }
       },
       "block_order": [
-        "judge_me_reviews_review_widget_AeWwrW",
-        "ryviu_reviews_qa_ryviu_widget_yigzrd"
+        "judge_me_reviews_review_widget_AeWwrW"
       ],
-      "settings": {}
+      "settings": {
+        "include_horizontal_margins": true,
+        "include_vertical_margins": true
+      }
     },
     "rich_text_eD4rPg": {
       "type": "rich-text",
@@ -451,7 +484,7 @@
           "type": "button",
           "settings": {
             "button_label": "もっとFAQを見る",
-            "button_link": "https:\/\/jp.ulike.com\/pages\/faq",
+            "button_link": "https://jp.ulike.com/pages/faq",
             "button_size": "md",
             "button_secondary_style": false
           }
@@ -463,8 +496,18 @@
       "name": "t:sections.rich-text.presets.name",
       "settings": {
         "subheading": "",
+        "title": "Talk about your brand",
+        "content": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+        "button_text": "",
         "button_link": "",
-        "text_alignment": "left"
+        "background_type": "full_width",
+        "text_width": "medium",
+        "text_position": "center",
+        "text_alignment": "left",
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)",
+        "button_background": "rgba(0,0,0,0)",
+        "button_text_color": "rgba(0,0,0,0)"
       }
     }
   },
