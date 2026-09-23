@@ -559,7 +559,7 @@
                     assign price_suffix = block.settings.price_suffix
                     assign compare_price_suffix = block.settings.compare_price_suffix
                     if section.settings.custom_class contains 'valentine-sale-2026'
-                      if block.settings.compare_price_label == blank
+                      if block.settings.compare_price_label == blank or block.settings.compare_price_label == '定価'
                         assign compare_price_label = '通常価格：'
                       endif
                       if price_suffix == blank
