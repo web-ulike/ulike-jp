@@ -4,8 +4,8 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 @media screen and (min-width: 900px) and (max-width: 1600px) {
-  .container {
-    max-width: 1200px;
+  :root{
+    --container-max-width: 1200px;
   }
 }
 
