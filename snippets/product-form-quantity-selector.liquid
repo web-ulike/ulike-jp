@@ -1,5 +1,5 @@
 {%- if request.page_type != 'password' and product.available -%}
-  <div data-block-type="quantity-selector" data-block-id="{{ block.id }}" class="product-form__quantity" {{ block.shopify_attributes }}>
+  <div data-block-type="quantity-selector" {% if block != blank %}data-block-id="{{ block.id }}"{% endif %} class="product-form__quantity" {% if block != blank %}{{ block.shopify_attributes }}{% endif %}>
     <span class="product-form__quantity-label">{{ 'product.form.quantity' | t }}:</span>
 
     <quantity-selector class="quantity-selector">
