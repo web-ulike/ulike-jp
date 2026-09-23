@@ -48,7 +48,7 @@
     position: relative;
     z-index: 5;
     width: 100%;
-    background: #EAF8FF;
+    background: {{ st.background_color }};
     color: #190A0A;
   }
 
@@ -249,6 +249,7 @@
 {
   "name": "2026 PD Countdown",
   "settings": [
+    { "type": "color", "id": "background_color", "label": "Background color", "default": "#EAF8FF" },
     { "type": "text", "id": "title", "label": "Title", "default": "終了まであと" },
     { "type": "text", "id": "end_date", "label": "End date", "info": "Example: 2026-07-16T23:59:59+09:00", "default": "2026-07-16T23:59:59+09:00" },
     { "type": "checkbox", "id": "countdown_every_day", "label": "Countdown to 23:59:59 every day", "default": false },
