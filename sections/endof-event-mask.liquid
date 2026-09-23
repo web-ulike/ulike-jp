@@ -109,9 +109,19 @@
     }
     checkActivityStatus() {
       if (!this.shopifyEventEndTime) return;
-      const dateRegex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/;
-      if (!dateRegex.test(this.shopifyEventEndTime)) return;
-      const endTime = new Date(this.shopifyEventEndTime);
+      const dateOnlyRegex = /^\d{4}-\d{2}-\d{2}$/;
+      const dateTimeRegex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/;
+      let endTimeValue;
+
+      if (dateOnlyRegex.test(this.shopifyEventEndTime)) {
+        endTimeValue = `${this.shopifyEventEndTime}T23:59:59`;
+      } else if (dateTimeRegex.test(this.shopifyEventEndTime)) {
+        endTimeValue = this.shopifyEventEndTime.replace(' ', 'T');
+      } else {
+        return;
+      }
+
+      const endTime = new Date(endTimeValue);
       if (!Number.isNaN(endTime.getTime()) && new Date() >= endTime) this.endActivity();
     }
     disconnectedCallback() { clearInterval(this.intervalId); }
@@ -124,7 +134,7 @@
   "name": "endof-event-mask",
   "class": "endof-event-mask",
   "settings": [
-    { "type": "text", "id": "event_end_date", "label": "Event end date", "default": "2025-08-31 23:59", "info": "请输入活动结束日期，格式为YYYY-MM-DD HH:MM" },
+    { "type": "text", "id": "event_end_date", "label": "Event end date", "default": "2025-08-31 23:59", "info": "支持 YYYY-MM-DD（当天 23:59:59 结束）或 YYYY-MM-DD HH:MM。" },
     { "type": "image_picker", "id": "character_image", "label": "Character image", "info": "未上传时将使用 Figma 默认插画。" },
     { "type": "text", "id": "tle", "label": "Title" },
     { "type": "richtext", "id": "des", "label": "Description" },
