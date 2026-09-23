@@ -1,7 +1,6 @@
 {%- assign color_label_list = 'general.label.color' | t | replace: ', ', ',' | downcase | split: ',' -%}
 {%- assign color_white_label = 'general.label.white' | t | downcase -%}
 {%- assign size_label_list = 'general.label.size' | t | replace: ', ', ',' | downcase | split: ',' -%}
-{%- assign quantity_selector_block = section.blocks | where: 'type', 'quantity_selector' | first -%}
 {%- assign buy_buttons_block = section.blocks | where: 'type', 'buy_buttons' | first -%}
 {%- assign quantity_in_purchase_row = false -%}
 {%- if section.type == 'main-product' and context != 'quick-buy' and buy_buttons_block != blank -%}
@@ -438,7 +437,7 @@
                   <div class="jp-main-product-legacy__purchase-primary{% if product.available %} jp-main-product-legacy__purchase-primary--with-quantity{% endif %}">
                 {%- endif -%}
                 {%- if quantity_in_purchase_row -%}
-                  {%- render 'product-form-quantity-selector', block: quantity_selector_block, product: product, product_form_id: product_form_id -%}
+                  {%- render 'product-form-quantity-selector', product: product, product_form_id: product_form_id -%}
                 {%- endif -%}
                 <button id="AddToCart" type="submit" is="loader-button" {% unless block.settings.show_payment_button and template.suffix != 'quick-buy-popover' %}data-use-primary{% endunless %} data-product-add-to-cart-button data-button-content="{% if product.template_suffix == 'pre-order' %}{{ 'product.form.pre_order' | t | escape }}{% else %}{{ 'product.form.add_to_cart' | t | escape }}{% endif %}" class="product-form__add-button button {% unless product.selected_or_first_available_variant.available %}button--ternary{% else %}{% if block.settings.show_payment_button and template.suffix != 'quick-buy-popover' %}button--secondary{% else %}button--primary{% endif %}{% endunless %} button--full" {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}>
                   {%- if product.selected_or_first_available_variant == nil -%}
