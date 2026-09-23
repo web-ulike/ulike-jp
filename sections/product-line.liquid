@@ -167,13 +167,15 @@
     .product__content-wrapper .btn-link.btn-buy-now{
       background:  #190A0A;
       color: #fff;
+      width: 100%;
+      box-sizing: border-box;
     }
     .product__content-wrapper .btn-link.btn-buy-now:hover{
       background:  #fff;
       color: #190A0A;
     }
     .product-line .product__slide-list:not(:last-child){
-      margin-bottom: 80px;
+      margin-bottom: var(--product-line-block-gap-desktop, 80px);
     }
     .product__image-wrapper .tag-box{
       font-family: var(--font-sans-family);
@@ -386,7 +388,7 @@
       gap: 5px;
     }
     .product-line .product__slide-list:not(:last-child) {
-        margin-bottom: 25px;
+        margin-bottom: var(--product-line-block-gap-mobile, 25px);
     }
     .product-note {
         font-size: 8px;
@@ -454,7 +456,7 @@
       <h2 class="to-top">{{ section.settings.tle }}</h2>
 
       {%- for block in section.blocks -%}
-        <div class="product__slide-list">
+        <div class="product__slide-list" style="--product-line-block-gap-desktop: {{ block.settings.block_gap_desktop | default: 80 }}px; --product-line-block-gap-mobile: {{ block.settings.block_gap_mobile | default: 25 }}px;">
           <div class="product__slide">
             <div class="product__slide-inner {% if block.settings.image_position == 'right' %}product__slide-inner_reverse{% endif %}">
               <div class="product__image-wrapper slide-to-right">
@@ -478,7 +480,7 @@
                   </div>
                 {%- endif -%}
               </div>
-              <div class="product__content-wrapper  to-top">
+              <div class="product__content-wrapper to-top" style="background-color: {{ block.settings.content_background | default: '#F4F9FF' }};">
                 {%- if block.settings.tag_image -%}
                   <div class="tag-img">
                     <img src="{{ block.settings.tag_image | image_url }}" alt="">
@@ -725,6 +727,32 @@
       "type": "item",
       "name": "item",
       "settings": [
+        {
+          "type": "range",
+          "id": "block_gap_desktop",
+          "label": "PC 模块下方间距",
+          "min": 0,
+          "max": 200,
+          "step": 5,
+          "unit": "px",
+          "default": 80
+        },
+        {
+          "type": "range",
+          "id": "block_gap_mobile",
+          "label": "M 模块下方间距",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "px",
+          "default": 25
+        },
+        {
+          "type": "color",
+          "id": "content_background",
+          "label": "内容区域背景色",
+          "default": "#F4F9FF"
+        },
         {
           "type": "product",
           "id": "product",
