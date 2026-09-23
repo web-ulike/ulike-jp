@@ -434,7 +434,9 @@
               <input type="hidden" disabled name="id" value="{{ product.selected_or_first_available_variant.id }}">
 
               <product-payment-container {% if update_url %}id="MainPaymentContainer"{% endif %} class="product-form__payment-container" {{ block.shopify_attributes }}>
-                {%- if quantity_in_purchase_row -%}<div class="jp-main-product-legacy__purchase-primary{% if quantity_selector_block != blank and product.available %} jp-main-product-legacy__purchase-primary--with-quantity{% endif %}">{%- endif -%}
+                {%- if quantity_in_purchase_row -%}
+                  <div class="jp-main-product-legacy__purchase-primary{% if quantity_selector_block != blank and product.available %} jp-main-product-legacy__purchase-primary--with-quantity{% endif %}">
+                {%- endif -%}
                 {%- if quantity_in_purchase_row and quantity_selector_block != blank -%}
                   {%- render 'product-form-quantity-selector', block: quantity_selector_block, product: product, product_form_id: product_form_id -%}
                 {%- endif -%}
@@ -451,7 +453,9 @@
                     {{- 'product.form.sold_out' | t -}}
                   {%- endif -%}
                 </button>
-                {%- if quantity_in_purchase_row -%}</div>{%- endif -%}
+                {%- if quantity_in_purchase_row -%}
+                  </div>
+                {%- endif -%}
 
                 {%- if block.settings.show_payment_button and recipient_feature_active == false and template.suffix != 'quick-buy-popover' -%}
                   {{ form | payment_button }}
