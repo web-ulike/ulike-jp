@@ -49,7 +49,9 @@
         <span class="header-2026__product-badge">{{ menu_tag }}</span>
       {%- endif -%}
     </span>
-    {%- render 'header-2026-product-rating', product: card_product -%}
+    <span class="header-2026__rating" aria-label="4.9 / 5">
+      <span aria-hidden="true">★★★★★</span><small>4.9/5</small>
+    </span>
     {%- if card_product != blank -%}
       <span class="header-2026__product-price">{{ card_product.price | money_without_trailing_zeros }} <small>（税込）</small></span>
     {%- endif -%}

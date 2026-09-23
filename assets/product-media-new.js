@@ -928,39 +928,21 @@
   function initJudgeMeReviewScroll() {
     if (document.documentElement.dataset.judgeMeReviewScrollInitialized === 'true') return;
 
-    var correctionTimers = [];
-    function cancelCorrections() {
-      correctionTimers.forEach(function (timer) {
-        window.clearTimeout(timer);
-      });
-      correctionTimers = [];
-    }
-
-    document.addEventListener('wheel', cancelCorrections, { passive: true });
-    document.addEventListener('touchstart', cancelCorrections, { passive: true });
-    document.addEventListener('keydown', cancelCorrections);
-
     document.addEventListener('click', function (event) {
-      var reviewBlock = event.target.closest('.jp-product-info__block--review');
-      cancelCorrections();
-      if (!reviewBlock) return;
+      var badge = event.target.closest('.jdgm-prev-badge');
 
-      var target = document.querySelector('#judgeme_product_reviews');
-      if (!target) return;
+      if (!badge) return;
 
       event.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-      // Lazy-loaded product sections can move the review widget after the first scroll.
-      [600, 1600, 3000].forEach(function (delay) {
-        correctionTimers.push(window.setTimeout(function () {
-          var top = target.getBoundingClientRect().top;
-          var offset = parseFloat(window.getComputedStyle(target).scrollMarginTop) || 0;
-          if (Math.abs(top - offset) > 24) {
-            window.scrollTo(0, window.scrollY + top - offset);
-          }
-        }, delay));
-      });
+      var target = document.querySelector('#judgeme_product_reviews');
+
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
     });
 
     document.documentElement.dataset.judgeMeReviewScrollInitialized = 'true';
