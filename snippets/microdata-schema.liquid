@@ -92,7 +92,7 @@ managed at the theme level.
     description has been configured in Shopify admin. This prevents the
     Organization/WebSite schema from being reported as incomplete.
   {%- endcomment -%}
-  {%- assign schema_description = shop.brand.short_description | default: shop.description | default: shop.name -%}
+  {%- assign schema_description = shop.brand.short_description | default: shop.description | default: page_description | default: shop.name -%}
 
   <script type="application/ld+json">
   [
