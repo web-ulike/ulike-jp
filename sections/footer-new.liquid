@@ -2,6 +2,8 @@
   assign se_id = section.id
   assign se_bks = section.blocks
   assign se_stts = section.settings
+  assign current_year = 'now' | date: '%Y'
+  assign policy_copy = se_stts.text | default: '© Ulike. All rights Reserved [year].' | replace: '[year]', current_year
 -%}
 <style>
   .common-btn{
@@ -25,7 +27,7 @@
   }
 
   .footer-new_{{ se_id }} {
-    background: #000;
+    background: #2E2E2E;
     color: #fff;
   }
 
@@ -141,13 +143,19 @@
     gap: 12px;
     align-items: center;
     margin-top: 20px;
-    color: #696969;
+    color: #b8b8b8;
     font-size: 14px;
     line-height: 1.45;
   }
 
   .footer-new_{{ se_id }} label.footer-new__newsletter-note {
     cursor: pointer;
+  }
+
+  .footer-new_{{ se_id }} .footer-new__newsletter-note a {
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
 
   .footer-new_{{ se_id }} .footer-new__newsletter-note img {
@@ -211,22 +219,20 @@
   }
 
   .footer-new_{{ se_id }} .footer__inner {
-    background: #000;
+    background: #2E2E2E;
     padding: 46px 0 40px;
     display: flex;
     color: #919191;
-    font-family: Saans;
     font-size: 16px;
     font-weight: 300;
     line-height: 24px;
-    /* 171.429% */
   }
 
   .footer-new_{{ se_id }} .footer__inner .footer__item-list {
     display: grid;
     gap: clamp(24px, calc(-51.714px + 8vw), 130px);
     width: 100%;
-    grid-template-columns: minmax(260px, 280px) repeat(3, minmax(110px, 1fr)) minmax(260px, 315px);
+    grid-template-columns: 260px 200px 150px 170px minmax(260px, 315px);
   }
 
   .footer-new_{{ se_id }} .footer__inner .footer__item-list .footer__item {
@@ -500,7 +506,7 @@
 
   @media (max-width: 768px) {
     .footer-new_{{ se_id }} {
-      background: #000;
+      background: #2E2E2E;
     }
 
     .footer-new_{{ se_id }} .footer-new__newsletter {
@@ -643,11 +649,15 @@
     .footer-new_{{ se_id }} .footer__inner .footer__item-list .footer__item .footer__item-content .linklist__item {
       padding: 0;
       font-size: 10px;
-      line-height: 12px;
+      line-height: 14px;
     }
 
     .footer-new_{{ se_id }} .footer__inner .footer__item-list .footer__item .footer__item-content .linklist__item a {
-      line-height: 12px;
+      display: inline-flex;
+      min-height: 28px;
+      align-items: center;
+      padding-block: 4px;
+      line-height: 14px;
     }
 
     .footer-new_{{ se_id }} .footer__inner .footer__item-list .footer__item .footer__item-content p {
@@ -777,17 +787,17 @@
 
     .footer-new_{{ se_id }} .footer-new__policy-links {
       display: grid;
-      grid-template-columns: repeat(5, max-content);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       justify-content: start;
-      column-gap: 11px;
-      row-gap: 0;
+      column-gap: 16px;
+      row-gap: 4px;
       width: 100%;
-      font-size: 8px;
-      line-height: 10px;
+      font-size: 10px;
+      line-height: 14px;
     }
 
     .footer-new_{{ se_id }} .footer-new__policy-links li {
-      white-space: nowrap;
+      min-width: 0;
     }
 
     .footer-new_{{ se_id }} .footer-new__policy-links li:nth-child(6) {
@@ -795,6 +805,10 @@
     }
 
     .footer-new_{{ se_id }} .footer-new__policy-links a {
+      display: inline-flex;
+      min-height: 28px;
+      align-items: center;
+      padding-block: 4px;
       color: #737577;
     }
 
@@ -1107,7 +1121,7 @@
     <div class="footer__aside">
       <div class="footer__payment-methods">
         <div class="policy">
-          <p>{{ se_stts.text }}</p>
+          <p>{{ policy_copy }}</p>
           {%- if se_stts.policy_menu != blank -%}
             <ul class="footer-new__policy-links" role="list">
               {%- for link in se_stts.policy_menu.links -%}
@@ -1132,6 +1146,7 @@
             <span class="hidden-desk">{{ se_stts.text2 }}</span>
             {%- assign pay_image = se_stts.image | default: se_stts.m_image -%}
             {%- if pay_image != blank -%}
+              {%- assign pay_image_alt = pay_image.alt | default: 'ご利用可能なお支払い方法' -%}
               <picture>
                 {%- if se_stts.m_image != blank -%}
                   <source
@@ -1141,7 +1156,7 @@
                     height="{{ se_stts.m_image.height }}"
                   >
                 {%- endif -%}
-                {{ pay_image | image_url: width: 1060 | image_tag: loading: 'lazy', widths: '500,600,1000,1060', sizes: '(max-width: 767px) 100vw, 540px', alt: pay_image.alt }}
+                {{ pay_image | image_url: width: 1060 | image_tag: loading: 'lazy', widths: '500,600,1000,1060', sizes: '(max-width: 767px) 100vw, 540px', alt: pay_image_alt }}
               </picture>
             {%- endif -%}
           </div>
@@ -1151,6 +1166,7 @@
     <!-- 品牌vi -->
     {%- if se_stts.footer_image != blank or se_stts.footer_m_image != blank -%}
       {%- assign brand_image = se_stts.footer_image | default: se_stts.footer_m_image -%}
+      {%- assign brand_image_alt = brand_image.alt | default: shop.name | append: ' ロゴ' -%}
       <div class="footer-brand-image">
         <picture>
           {%- if se_stts.footer_m_image != blank -%}
@@ -1161,12 +1177,30 @@
               height="{{ se_stts.footer_m_image.height }}"
             >
           {%- endif -%}
-          {{ brand_image | image_url: width: 1920 | image_tag: loading: 'lazy', widths: '500,1000,1520,1920', sizes: '(max-width: 1920px) 100vw, 1920px', alt: brand_image.alt }}
+          {{ brand_image | image_url: width: 1920 | image_tag: loading: 'lazy', widths: '500,1000,1520,1920', sizes: '(max-width: 1920px) 100vw, 1920px', alt: brand_image_alt }}
         </picture>
       </div>
     {%- endif -%}
   </div>
 </footer>
+
+<script>
+  (() => {
+    const footer = document.getElementById('footer-new');
+    if (!footer) return;
+
+    footer.querySelectorAll('a[href]').forEach((link) => {
+      const href = link.getAttribute('href');
+      if (!href || href.startsWith('#') || /^(mailto:|tel:|javascript:)/i.test(href)) return;
+
+      const url = new URL(href, window.location.origin);
+      if (url.origin !== window.location.origin) return;
+
+      url.searchParams.set('ref', 'footer');
+      link.href = `${url.pathname}${url.search}${url.hash}`;
+    });
+  })();
+</script>
 
 {% comment %} 优化速度首页不加载弹出框 {% endcomment %}
 {% if request.path != '/' %}
@@ -1938,7 +1972,8 @@
       "type": "text",
       "id": "text",
       "label": "政策文案",
-      "default": "© Ulike. All rights Reserved 2026."
+      "default": "© Ulike. All rights Reserved [year].",
+      "info": "[year] 会自动显示当前年份。"
     },
     {
       "type": "link_list",

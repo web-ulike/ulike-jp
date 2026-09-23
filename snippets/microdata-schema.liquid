@@ -1,13 +1,67 @@
-{%- comment -%}
-This snippet structures the micro-data using JSON-LD specification. Starting from Focal 11.2, we are using
-the structured_data built-in filter to ensure that Shopify can keep it up to date without requiring theme upgrade. If
-you believe some information for products are missing, please reach Shopify support directly, as it is no longer
-managed at the theme level.
-{%- endcomment -%}
-
 {%- if request.page_type == 'product' -%}
+  {%- comment -%}
+    Shopify's structured_data filter does not expose Offer-level shipping.
+    The values below mirror the Japan shipping information published on the
+    storefront: free domestic shipping, 1–3 business days to dispatch, and
+    5–7 business days in transit. Do not add validFrom without the actual
+    campaign start date for the price.
+  {%- endcomment -%}
   <script type="application/ld+json">
-    {{- product | structured_data -}}
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": {{ product.title | json }},
+      "url": {{ canonical_url | json }},
+      "description": {{ product.description | strip_html | strip_newlines | json }},
+      {%- if product.featured_image -%}
+        "image": [{{ product.featured_image | image_url: width: 1200 | prepend: "https:" | json }}],
+      {%- endif -%}
+      {%- if product.vendor != blank -%}
+        "brand": {
+          "@type": "Brand",
+          "name": {{ product.vendor | json }}
+        },
+      {%- endif -%}
+      "offers": [
+        {%- for variant in product.variants -%}
+          {
+            "@type": "Offer",
+            "url": {{ canonical_url | json }},
+            "priceCurrency": {{ cart.currency.iso_code | default: shop.currency | json }},
+            "price": {{ variant.price | divided_by: 100.0 | json }},
+            "availability": "https://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}",
+            "itemCondition": "https://schema.org/NewCondition",
+            "shippingDetails": {
+              "@type": "OfferShippingDetails",
+              "shippingDestination": {
+                "@type": "DefinedRegion",
+                "addressCountry": "JP"
+              },
+              "shippingRate": {
+                "@type": "MonetaryAmount",
+                "value": 0,
+                "currency": {{ cart.currency.iso_code | default: shop.currency | json }}
+              },
+              "deliveryTime": {
+                "@type": "ShippingDeliveryTime",
+                "handlingTime": {
+                  "@type": "QuantitativeValue",
+                  "minValue": 1,
+                  "maxValue": 3,
+                  "unitCode": "DAY"
+                },
+                "transitTime": {
+                  "@type": "QuantitativeValue",
+                  "minValue": 5,
+                  "maxValue": 7,
+                  "unitCode": "DAY"
+                }
+              }
+            }
+          }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ]
+    }
   </script>
 {%- elsif request.page_type == 'article' -%}
   <script type="application/ld+json">
@@ -87,6 +141,12 @@ managed at the theme level.
 
 {%- if request.page_type == 'index' -%}
   {%- assign potential_action_target = request.origin | append: routes.search_url | append: "?q={search_term_string}" -%}
+  {%- comment -%}
+    Keep the optional description property present even when no Brand short
+    description has been configured in Shopify admin. This prevents the
+    Organization/WebSite schema from being reported as incomplete.
+  {%- endcomment -%}
+  {%- assign schema_description = shop.brand.short_description | default: shop.description | default: page_description | default: shop.name -%}
 
   <script type="application/ld+json">
   [
@@ -94,6 +154,7 @@ managed at the theme level.
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": {{ shop.name | json }},
+      "description": {{ schema_description | strip_html | strip_newlines | json }},
       "url": {{ shop.url | append: page.url | json }},
       "potentialAction": {
         "@type": "SearchAction",
@@ -108,9 +169,7 @@ managed at the theme level.
       {%- if shop.brand.logo -%}
         "logo": {{ shop.brand.logo | image_url: width: shop.brand.logo.width | prepend: "https:" | json }},
       {%- endif -%}
-      {%- if shop.brand.short_description -%}
-        "description": {{ shop.brand.short_description | json }},
-      {%- endif -%}
+      "description": {{ schema_description | strip_html | strip_newlines | json }},
       {%- if shop.brand.slogan -%}
         "slogan": {{ shop.brand.slogan | json }},
       {%- endif -%}

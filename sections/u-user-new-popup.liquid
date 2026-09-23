@@ -432,7 +432,6 @@
 
       let isSubscribed = localStorage.getItem('ulike-subscribed') === 'true'; // 判断是否已订阅
       // 监听滚动   如果用户已经订阅，直接不弹窗
-      console.log('isSubscribed', isSubscribed);
       if (isSubscribed) {
         thatLogin.hide();
         // Keep the teaser available so subscribed visitors can reopen their coupon.
@@ -816,7 +815,6 @@
             }
             #u-user-popup .popup-right .popup-right-txt {
               font-size: 14px;
-              font-family: var(--text-font-family);
               color: #000;
               line-height: normal;
               margin-top: 20px;
@@ -929,7 +927,6 @@
               border: none;
               cursor: pointer;
               font-size: 16px;
-              font-family: var(--text-font-family);
               border-radius:6px;
               margin-top:20px;
               overflow: hidden;

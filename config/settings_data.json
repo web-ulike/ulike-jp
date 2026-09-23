@@ -12,7 +12,7 @@
     "footer_background": "#282828",
     "footer_text_color": "#ffffff",
     "primary_button_background": "#000000",
-    "secondary_button_background": "#f3ff34",
+    "secondary_button_background": "#FFFFFF",
     "secondary_button_text_color": "#282828",
     "product_on_sale_accent": "#de2a2a",
     "product_custom_label_background": "#405de6",
@@ -51,6 +51,9 @@
         "settings": {
           "show_order_note": true,
           "show_checkout_button": true,
+          "checkout_button_text": "今すぐ注文",
+          "show_view_cart_button": true,
+          "footer_button_layout": "side_by_side",
           "empty_button_link": "shopify:\/\/collections\/all",
           "show_recommendations": false,
           "recommendations_title": "You may also like"
@@ -134,7 +137,7 @@
           "newsletter_placeholder": "メールアドレス",
           "newsletter_button": "今すぐ登録",
           "newsletter_note": "<p>続行するには、Ulike の プライバシーポリシーと 利用規約 に同意する必要があります。<\/p>",
-          "text": "© Ulike. All rights Reserved 2026.",
+          "text": "© Ulike. All rights Reserved [year].",
           "policy_menu": "",
           "image": "shopify:\/\/shop_images\/20251024-144619_1.png",
           "m_image": "shopify:\/\/shop_images\/20251024-145118_1.png",
@@ -173,6 +176,11 @@
       },
       "7924418359578431505": {
         "type": "shopify:\/\/apps\/seoant-ai-seo\/blocks\/seoant-core\/8e57283b-dcb0-4f7b-a947-fb5c57a0d59d",
+        "disabled": false,
+        "settings": {}
+      },
+      "1513253815146976218": {
+        "type": "shopify:\/\/apps\/omnisend-email-marketing-sms\/blocks\/app-embed\/44704aa2-794f-4c5d-8c8e-039c841158e9",
         "disabled": false,
         "settings": {}
       }

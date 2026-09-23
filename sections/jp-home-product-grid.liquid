@@ -44,12 +44,13 @@
           <div class="jp-home-product-showcase-grid__content">
             <div class="jp-home-product-showcase-grid__content-main">
               {% if block.settings.title_image != blank %}
+                {% assign product_title = block.settings.title | default: block.settings.title_image.alt | default: '商品詳細' %}
                 <div class="jp-home-product-showcase-grid__title">
                   {% if block.settings.link != blank %}
-                    <a target="_blank" href="{{ block.settings.link }}">
+                    <a target="_blank" href="{{ block.settings.link }}" aria-label="{{ product_title | escape }}">
                       <img
                         src="{{ block.settings.title_image | image_url: width: 600 }}"
-                        alt="{{ block.settings.title_image.alt | escape }}"
+                        alt=""
                         loading="lazy"
                         width="{{ block.settings.title_image.width }}"
                         height="{{ block.settings.title_image.height }}"

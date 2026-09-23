@@ -231,15 +231,19 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin-block-start: 2rem;
   }
 
   #pluc-{{ sid }} .pluc__link {
     display: flex;
+    width: 100%;
+    box-sizing: border-box;
     align-items: center;
     justify-content: center;
     height: 48px;
     min-height: 48px;
     padding: 0 30px;
+    border-radius: 3px;
     border: 1px solid #190a0a;
     color: #190a0a;
     text-align: center;
@@ -247,6 +251,11 @@
     line-height: 1.5;
     text-decoration: none;
     cursor: pointer;
+  }
+
+  #pluc-{{ sid }} shopify-buy-now {
+    display: block;
+    width: 100%;
   }
 
   #pluc-{{ sid }} .pluc__link:hover {
@@ -270,8 +279,11 @@
     padding-top: 0;
     padding-bottom: 0;
     border-radius: 3px;
-    border: 1px solid var(--Ulike---Off-Black, #190A0A);
+    border: 1px solid #190A0A;
     box-shadow: none;
+    width: 100%;
+    background: #fff;
+    line-height: 1;
   }
 
   #pluc-{{ sid }} .product-form__submit .btn-fill {
@@ -684,21 +696,22 @@
     }
 
     #pluc-{{ sid }} .pluc__price {
-      font-size: 25px;
+      font-size: 24px;
     }
 
     #pluc-{{ sid }} .pluc__price-suffix {
-      font-size: 15px;
+      font-size: 13px;
     }
 
     #pluc-{{ sid }} .pluc__compare-price {
-      font-size: 15px;
+      font-size: 13px;
     }
 
     #pluc-{{ sid }} .pluc__buttons {
       align-items: stretch;
       flex-direction: row;
       gap: 10px;
+      margin-block-start: 0px;
     }
 
     #pluc-{{ sid }} .pluc__buttons > * {

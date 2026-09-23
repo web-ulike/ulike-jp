@@ -27,7 +27,7 @@
     </div>
     {% if block.settings.subtitle != blank %}<div class="jp-collection-card__subtitle">{{ block.settings.subtitle }}</div>{% endif %}
     {% if block.settings.text != blank %}
-      <details class="jp-collection-card__details" open>
+      <details class="jp-collection-card__details">
         <summary aria-label="{{ card_title | escape }}：製品の特徴">
           <span class="jp-collection-card__summary">{{ summary | escape }}</span>
           <span class="jp-collection-card__toggle" aria-hidden="true">

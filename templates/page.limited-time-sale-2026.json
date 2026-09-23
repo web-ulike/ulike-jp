@@ -3,7 +3,10 @@
     "main-page": {
       "type": "main-page",
       "disabled": true,
-      "settings": {}
+      "settings": {
+        "show_title": true,
+        "page_width": "medium"
+      }
     },
     "professional_quality_wdhCUz": {
       "type": "professional-quality",
@@ -293,7 +296,7 @@
             "des": "<p>*最大90万回*⁷照射、家族みんなでシェアOK<\/p><p>*3.0サファイア冷感技術で、痛みレス*²<br\/>*顔からVIOまで全身時短ケア可能<\/p>",
             "discount": "",
             "discount_txt": "",
-            "price_notice_text": "期間限定で22,680円OFF",
+            "price_notice_text": "期間限定で25,920円OFF",
             "price": "",
             "price_suffix": "（税込）",
             "ori_price": "",
@@ -320,7 +323,7 @@
             "des": "<p>*メンズの剛毛にも強い、広波長テクノロジーを採用<\/p><p>*3.0サファイア冷感技術で、痛みレス*²<br\/>*SHRモード搭載、剛毛にもしっかりケア<\/p>",
             "discount": "",
             "discount_txt": "",
-            "price_notice_text": "期間限定で21,540円OFF",
+            "price_notice_text": "期間限定で22,000円OFF",
             "price": "",
             "price_suffix": "（税込）",
             "ori_price": "¥71,800",
@@ -382,7 +385,13 @@
       "type": "custom-liquid",
       "name": "t:sections.custom-liquid.presets.name",
       "settings": {
-        "liquid": "<a\n  class=\"upgrade-banner\"\n  target=\"_blank\"\n  href=\"https:\/\/jp.ulike.com\/pages\/buying-guide\"\n  aria-label=\"旧モデルよりグレードアップ\"\n>\n  <span class=\"upgrade-banner__text\">旧モデルよりグレードアップ<\/span>\n\n  <span class=\"upgrade-banner__icon\" aria-hidden=\"true\">\n    <svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" width=\"20\" height=\"18\" viewBox=\"0 0 20 18\" fill=\"none\">\n      <path d=\"M0.847656 0.849609L8.14131 8.12407L0.991181 16.5829\" stroke=\"white\" stroke-width=\"2.40057\"\/>\n      <path d=\"M10.4492 0.849609L17.7429 8.12407L10.5927 16.5829\" stroke=\"white\" stroke-width=\"2.40057\"\/>\n    <\/svg>\n  <\/span>\n<\/a>\n\n<style>\n  .upgrade-banner {\n    position: relative;\n    display: block;\n    box-sizing: border-box;\n    width: 437px;\n    height: 76px;\n    margin: 36px auto;\n    overflow: visible;\n    border-radius: 50px;\n    background: linear-gradient(180deg, #ff9cbe 0%, #e0004d 100%);\n    box-shadow:\n      inset 0 0 0 6px rgba(255, 255, 255, 0.3),\n      0 10px 44px rgba(254, 32, 121, 0.4);\n    color: #fff;\n    font-family: \"Noto Sans JP\", Arial, sans-serif;\n    text-decoration: none;\n    cursor: pointer;\n  }\n\n  .upgrade-banner__text {\n    position: absolute;\n    top: 50%;\n    left: 50px;\n    font-size: 20px;\n    font-weight: 500;\n    line-height: 1;\n    white-space: nowrap;\n    transform: translateY(-50%);\n  }\n\n  .upgrade-banner__icon {\n    position: absolute;\n    top: 50%;\n    right: 50px;\n    display: flex;\n    width: 20px;\n    height: 18px;\n    align-items: center;\n    justify-content: center;\n    background: transparent;\n    transform: translateY(-50%);\n  }\n\n  .upgrade-banner__icon svg {\n    display: block;\n    width: 100%;\n    height: 100%;\n  }\n\n  @media screen and (max-width: 480px) {\n    .upgrade-banner {\n      width: calc(100% - 32px);\n      height: 68px;\n      margin: 24px auto;\n    }\n\n    .upgrade-banner__text {\n      left: 28px;\n      font-size: 16px;\n    }\n\n    .upgrade-banner__icon {\n      right: 28px;\n    }\n  }\n<\/style>"
+        "subheading": "",
+        "title": "",
+        "liquid": "<a\n  class=\"upgrade-banner\"\n  target=\"_blank\"\n  href=\"https:\/\/jp.ulike.com\/pages\/buying-guide\"\n  aria-label=\"旧モデルよりグレードアップ\"\n>\n  <span class=\"upgrade-banner__text\">旧モデルよりグレードアップ<\/span>\n\n  <span class=\"upgrade-banner__icon\" aria-hidden=\"true\">\n    <svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" width=\"20\" height=\"18\" viewBox=\"0 0 20 18\" fill=\"none\">\n      <path d=\"M0.847656 0.849609L8.14131 8.12407L0.991181 16.5829\" stroke=\"white\" stroke-width=\"2.40057\"\/>\n      <path d=\"M10.4492 0.849609L17.7429 8.12407L10.5927 16.5829\" stroke=\"white\" stroke-width=\"2.40057\"\/>\n    <\/svg>\n  <\/span>\n<\/a>\n\n<style>\n  .upgrade-banner {\n    position: relative;\n    display: block;\n    box-sizing: border-box;\n    width: 437px;\n    height: 76px;\n    margin: 36px auto;\n    overflow: visible;\n    border-radius: 50px;\n    background: linear-gradient(180deg, #ff9cbe 0%, #e0004d 100%);\n    box-shadow:\n      inset 0 0 0 6px rgba(255, 255, 255, 0.3),\n      0 10px 44px rgba(254, 32, 121, 0.4);\n    color: #fff;\n    font-family: \"Noto Sans JP\", Arial, sans-serif;\n    text-decoration: none;\n    cursor: pointer;\n  }\n\n  .upgrade-banner__text {\n    position: absolute;\n    top: 50%;\n    left: 50px;\n    font-size: 20px;\n    font-weight: 500;\n    line-height: 1;\n    white-space: nowrap;\n    transform: translateY(-50%);\n  }\n\n  .upgrade-banner__icon {\n    position: absolute;\n    top: 50%;\n    right: 50px;\n    display: flex;\n    width: 20px;\n    height: 18px;\n    align-items: center;\n    justify-content: center;\n    background: transparent;\n    transform: translateY(-50%);\n  }\n\n  .upgrade-banner__icon svg {\n    display: block;\n    width: 100%;\n    height: 100%;\n  }\n\n  @media screen and (max-width: 480px) {\n    .upgrade-banner {\n      width: calc(100% - 32px);\n      height: 68px;\n      margin: 24px auto;\n    }\n\n    .upgrade-banner__text {\n      left: 28px;\n      font-size: 16px;\n    }\n\n    .upgrade-banner__icon {\n      right: 28px;\n    }\n  }\n<\/style>",
+        "background_type": "full_width",
+        "add_vertical_spacing": true,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
       }
     },
     "assure_md_fGPhRh": {
@@ -930,31 +939,15 @@
             "show_first": "product",
             "empty_state": "empty_widget"
           }
-        },
-        "ryviu_reviews_qa_ryviu_featured_widget_QA38JW": {
-          "type": "shopify:\/\/apps\/ryviu-product-reviews\/blocks\/ryviu-featured-widget\/807ad6ed-1a6a-4559-abea-ed062858d9da",
-          "disabled": true,
-          "settings": {
-            "title_status": true,
-            "title_heading": "ご愛用者の声",
-            "title_align": "r_center",
-            "type_ryviu": "default",
-            "layout_carousel": "default",
-            "image_aspect_ratio": "auto",
-            "content_align": "r_center",
-            "autoplay": true,
-            "limit_reviews": 20,
-            "r_wapper_featured": "",
-            "r_max_width_featured": 1920,
-            "padding_block": 0
-          }
         }
       },
       "block_order": [
-        "judge_me_reviews_all_reviews_page_HVXkGM",
-        "ryviu_reviews_qa_ryviu_featured_widget_QA38JW"
+        "judge_me_reviews_all_reviews_page_HVXkGM"
       ],
-      "settings": {}
+      "settings": {
+        "include_horizontal_margins": true,
+        "include_vertical_margins": true
+      }
     },
     "css_module_WT8hqM": {
       "type": "css-module",
@@ -967,7 +960,7 @@
       "type": "endof-event-mask",
       "name": "endof-event-mask",
       "settings": {
-        "event_end_date": "2026-09-21 23:00",
+        "event_end_date": "2026-09-22 23:00",
         "tle": "ご好評につき、本キャンペーンは終了致しました。",
         "des": "<p>他にも役立つ情報やサービスをご用意しています。ぜひ引き続きご覧ください。<\/p>",
         "button_txt": "ホームページに戻る",

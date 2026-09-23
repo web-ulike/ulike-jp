@@ -1,18 +1,18 @@
 {
-    "name": "ulike-jp",
-    "version": "1.0.0",
-    "description": "",
+  "name": "ulike-jp",
+  "version": "1.0.0",
+  "description": "",
   "scripts": {
     "dev": "theme get --list",
-    "pagespeed:api": "node scripts/pagespeed-api.mjs",
-        "watch": "theme watch --allow-live",
-        "open": "theme open",
-        "deploy": "theme deploy",
-        "download": "theme download"
-    },
-    "keywords": [],
-    "author": "",
-    "devDependencies": {
-        "lighthouse": "^13.4.1"
-    }
+    "pagespeed:api": "node pagespeed-api.mjs",
+    "watch": "theme watch --allow-live",
+    "open": "theme open",
+    "deploy": "theme deploy",
+    "download": "theme download"
+  },
+  "keywords": [],
+  "author": "",
+  "devDependencies": {
+    "lighthouse": "^13.4.1"
+  }
 }
