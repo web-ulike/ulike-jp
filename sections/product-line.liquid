@@ -234,10 +234,7 @@
       background:#F9F9F9;
   }
   .discount-pri-inner{
-  display: flex;
-      gap: 20px;
-      align-items: center;
-          margin-bottom: 30px;
+      margin-bottom: 30px;
   }
   .discount-pri-inner .price-wrapper {
       flex-wrap: wrap;
@@ -257,36 +254,6 @@
   text-transform: uppercase;
   }
 
-  .discount-pri-inner .discount-cnt-box{
-    display: flex;
-      background: linear-gradient(134deg, #FF7C9C 16.43%, #D01455 74.37%);
-      border-radius: 50%;
-      width: 77px;
-      height: 77px;
-      flex-shrink: 0;
-      align-items: center;
-          justify-content: center;
-        color: #FFFFFC;
-  }
-  .discount-pri-inner .discount-cnt{
-
-  font-size: 36px;
-  font-style: normal;
-  font-weight: 300;
-  line-height: 130%;
-  text-transform: capitalize;
-  }
-  .discount-pri-inner .discount-cnt1{
-  font-size: 18px;
-  }
-
-  .discount-pri-inner  .discount-cnt2{
-  font-size: 8.381px;
-  }
-  .discount-pri-inner .discount-cnt-txt{
-      display: flex;
-      flex-direction: column;
-  }
   .tag-txt-animate{
     display: inline-flex;
         align-items: center;
@@ -414,19 +381,6 @@
     margin-bottom: 8px;
         font-size: 12px;
     }
-    .discount-pri-inner {
-      gap: 17px;
-  }
-  .discount-pri-inner .discount-cnt-box{
-  width: 71px;
-  height: 71px;
-  }
-  .discount-pri-inner .discount-cnt{
-  font-size: 30px;
-  }
-  .discount-pri-inner .discount-cnt1{
-        font-size: 15px;
-  }
     .discount-pri-inner .discount-pri-txt{
       font-size: 15px;
     }
@@ -457,12 +411,6 @@
     align-items: baseline;
     column-gap: 12px;
     row-gap: 3px;
-  }
-  .product-line.valentine-sale-2026 .discount-pri-inner {
-    display: block;
-  }
-  .product-line.valentine-sale-2026 .discount-pri-inner .discount-cnt-box {
-    display: none;
   }
   .product-line.valentine-sale-2026 .discount-pri-inner .discount-pri-txt {
     grid-column: 1 / -1;
@@ -551,16 +499,8 @@
                 <div class="des">
                   {{ block.settings.des }}
                 </div>
-                {% if block.settings.discount != blank %}
+                {% if block.settings.discount_txt != blank %}
                   <div class="discount-pri-inner">
-                {% endif %}
-                {% if block.settings.discount != blank %}
-                  <div class="discount-cnt-box">
-                    <div class="discount-cnt">{{ block.settings.discount }}</div>
-                    <div class="discount-cnt-txt">
-                      <span class="discount-cnt1">%</span> <span class="discount-cnt2">OFF</span>
-                    </div>
-                  </div>
                 {% endif %}
                 {% if block.settings.price_notice_text != blank %}
                   <div class="price-notice">{{ block.settings.price_notice_text }}</div>
@@ -602,7 +542,7 @@
                     {{- compare_price_suffix -}}
                   </div>
                 </div>
-                {% if block.settings.discount != blank %}
+                {% if block.settings.discount_txt != blank %}
                   </div>
                 {% endif %}
                 <div class="btn-wrapper">
@@ -906,11 +846,6 @@
           "type": "richtext",
           "id": "des",
           "label": "Descripte"
-        },
-        {
-          "type": "text",
-          "id": "discount",
-          "label": "Discount"
         },
         {
           "type": "text",
