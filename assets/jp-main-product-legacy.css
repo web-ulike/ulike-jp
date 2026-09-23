@@ -112,6 +112,60 @@
   margin-top: 0;
 }
 
+.jp-main-product-legacy__purchase-primary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+}
+
+.jp-main-product-legacy__purchase-primary--with-quantity {
+  grid-template-columns: 132px minmax(0, 1fr);
+}
+
+.jp-main-product-legacy__purchase-primary .product-form__quantity {
+  min-width: 0;
+}
+
+.jp-main-product-legacy__purchase-primary .product-form__quantity-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.jp-main-product-legacy__purchase-primary .quantity-selector {
+  --quantity-selector-height: 44px;
+  display: flex;
+  width: 100%;
+  height: 46px;
+  border-color: #190a0a;
+  border-radius: 22px 0 0 22px;
+}
+
+.jp-main-product-legacy__purchase-primary .quantity-selector__button {
+  flex: 0 0 40px;
+  width: 40px;
+}
+
+.jp-main-product-legacy__purchase-primary .quantity-selector__input {
+  flex: 1 1 auto;
+  width: 20px;
+  min-width: 0;
+  color: #190a0a;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.jp-main-product-legacy__purchase-primary .product-form__quantity-rules {
+  margin-top: 6px;
+}
+
+.jp-main-product-legacy .product__info .jp-main-product-legacy__purchase-primary--with-quantity .product-form__add-button {
+  border-radius: 0 999px 999px 0;
+}
+
 .jp-main-product-legacy .product__info .product-form__add-button,
 .jp-main-product-legacy .product__info .shopify-payment-button__button--unbranded {
   min-height: 46px;
@@ -203,6 +257,26 @@
     gap: 6px;
   }
 
+  .jp-main-product-legacy__purchase-primary--with-quantity {
+    grid-template-columns: 90px minmax(0, 1fr);
+  }
+
+  .jp-main-product-legacy__purchase-primary .quantity-selector {
+    --quantity-selector-height: 46px;
+    height: 48px;
+    border-radius: 4px 0 0 4px;
+  }
+
+  .jp-main-product-legacy__purchase-primary .quantity-selector__button {
+    flex-basis: 34px;
+    width: 34px;
+  }
+
+  .jp-main-product-legacy__purchase-primary .quantity-selector__input {
+    width: 20px;
+    font-size: 16px;
+  }
+
   .jp-main-product-legacy .product__info .product-form__add-button,
   .jp-main-product-legacy .product__info .shopify-payment-button__button--unbranded {
     min-height: 48px;
@@ -211,6 +285,10 @@
 
   .jp-main-product-legacy .product__info .shopify-payment-button__button--unbranded {
     border-radius: 4px !important;
+  }
+
+  .jp-main-product-legacy .product__info .jp-main-product-legacy__purchase-primary--with-quantity .product-form__add-button {
+    border-radius: 0 4px 4px 0;
   }
 
   .jp-main-product-legacy .product__info shopify-accelerated-checkout {
