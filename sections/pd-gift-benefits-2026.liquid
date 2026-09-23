@@ -17,10 +17,13 @@
       {%- endif -%}
       <div class="pd-gift-benefits-2026__gift-copy">
         <p class="pd-gift-benefits-2026__index">01</p>
-        <p class="pd-gift-benefits-2026__gift-text">
-          {{ st.gift_intro | escape }}<span class="pd-gift-benefits-2026__mobile-break">{{ st.gift_continuation | escape }}</span><br>
+        <p class="pd-gift-benefits-2026__gift-text pd-gift-benefits-2026__gift-text--pc">
+          {{ st.gift_intro | escape }}{{ st.gift_continuation | escape }}<br>
           <span class="pd-gift-benefits-2026__highlight">{{ st.gift_highlight | escape }}</span>{{ st.gift_outro | escape }}
         </p>
+        <div class="pd-gift-benefits-2026__gift-text pd-gift-benefits-2026__gift-text--mobile">
+          {{ st.gift_text_mobile }}
+        </div>
       </div>
       <div class="pd-gift-benefits-2026__gift-mobile-media">
         {%- if st.gift_image_mobile != blank -%}
@@ -84,6 +87,7 @@
   #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__gift-copy { position: absolute; left: 12.83%; top: 22%; z-index: 1; }
   #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__index { font-family: 'Saans', 'Noto Sans JP', sans-serif; font-size: 36px; font-weight: 400; line-height: 1.2; letter-spacing: .1em; }
   #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__gift-text { font-family: 'Noto Sans JP', sans-serif; font-size: 20px; font-weight: 500; line-height: 1.5; margin-top: 30px; }
+  #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__gift-text--mobile { display: none; }
   #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__highlight { background: #a87f58; color: #fff; }
   #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__gift-mobile-media { display: none; }
   #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__prizes { margin-top: 80px; }
@@ -110,9 +114,9 @@
     #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__gift { display: flex; flex-direction: column; align-items: center; aspect-ratio: auto; padding-top: 30px; }
     #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__gift-pc { display: none; }
     #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__gift-copy { position: static; width: 100%; padding: 0 12px; text-align: center; }
-    #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__gift-text { font-size: 16px; margin-top: 20px; }
-    #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__mobile-break { display: block; }
-    #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__gift-text br { display: none; }
+    #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__gift-text--pc { display: none; }
+    #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__gift-text--mobile { display: block; max-width: 309px; font-size: 16px; margin: 20px auto 0; }
+    #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__gift-text--mobile strong { background: #a87f58; color: #fff; font-weight: inherit; }
     #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__gift-mobile-media { display: block; position: relative; width: 100%; height: 251px; overflow: hidden; }
     #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__gift-mobile { position: absolute; display: block; width: 133%; max-width: none; height: auto; left: 50%; top: -26px; transform: translateX(-50%); }
     #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__prizes { margin-top: 40px; }
@@ -144,6 +148,7 @@
     { "type": "text", "id": "gift_continuation", "label": "赠品文案接续", "default": "もれなく" },
     { "type": "text", "id": "gift_highlight", "label": "赠品高亮文案", "default": "「オリジナルトラベルポーチ」" },
     { "type": "text", "id": "gift_outro", "label": "赠品文案结尾", "default": "をプレゼント！" },
+    { "type": "richtext", "id": "gift_text_mobile", "label": "M 端赠品文案（加粗文字显示高亮）", "default": "<p>期間中にご購入いただいた方全員に、</p><p>もれなく<strong>「オリジナルトラベルポーチ」</strong>をプレゼント！</p>" },
     { "type": "header", "content": "02 返现" },
     { "type": "text", "id": "prizes_heading", "label": "返现说明", "default": "ご購入いただいた方全員がキャッシュバックが当たるチャンス！" },
     { "type": "header", "content": "活动说明" },
