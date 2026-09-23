@@ -257,6 +257,12 @@
     }
   }
 
+  @media screen and (min-width: 900px) and (max-width: 1600px) {
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__title {
+      font-size: clamp(24px, 2.0833vw, 40px);
+    }
+  }
+
   @media screen and (max-width: 767px) {
     .jp-brand-story-hero--{{ sid }} {
       padding-top: {{ st.mobile_padding_top }}px;
