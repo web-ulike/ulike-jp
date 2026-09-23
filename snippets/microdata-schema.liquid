@@ -10,8 +10,12 @@
     omit it when the product has no published reviews.
   {%- endcomment -%}
   {%- assign judgeme_badge = product.metafields.judgeme.badge -%}
-  {%- assign judgeme_review_count = judgeme_badge | split: "data-number-of-reviews='" | last | split: "'" | first | plus: 0 -%}
-  {%- assign judgeme_rating_value = judgeme_badge | split: "data-average-rating='" | last | split: "'" | first | plus: 0 -%}
+  {%- assign judgeme_review_count = 0 -%}
+  {%- assign judgeme_rating_value = 0 -%}
+  {%- if judgeme_badge != blank -%}
+    {%- assign judgeme_review_count = judgeme_badge | split: "data-number-of-reviews='" | last | split: "'" | first | plus: 0 -%}
+    {%- assign judgeme_rating_value = judgeme_badge | split: "data-average-rating='" | last | split: "'" | first | plus: 0 -%}
+  {%- endif -%}
   {%- comment -%}
     Shopify's structured_data filter does not expose Offer-level shipping.
     The values below mirror the Japan shipping information published on the
