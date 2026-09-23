@@ -243,13 +243,20 @@
 
 .header-2026__rating {
   display: flex;
-  height: 15px;
+  flex: 0 0 15px;
   align-items: center;
   gap: 8px;
   color: #e0004d;
   font-size: 10px;
   line-height: 15px;
   letter-spacing: 1px;
+}
+
+.header-2026__rating-stars {
+  background: linear-gradient(to right, #e0004d var(--header-2026-rating-fill), #d1c9cc var(--header-2026-rating-fill));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .header-2026__rating small {

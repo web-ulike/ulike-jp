@@ -1,0 +1,16 @@
+{%- liquid
+  assign judgeme_badge = product.metafields.judgeme.badge
+  assign review_count = 0
+  assign rating_value = 0
+
+  if judgeme_badge != blank
+    assign review_count = judgeme_badge | split: "data-number-of-reviews='" | last | split: "'" | first | plus: 0
+    assign rating_value = judgeme_badge | split: "data-average-rating='" | last | split: "'" | first | plus: 0
+  endif
+-%}
+<span class="header-2026__rating"{% if review_count > 0 and rating_value > 0 %} aria-label="{{ rating_value | round: 1 }} / 5"{% else %} aria-hidden="true"{% endif %}>
+  {%- if review_count > 0 and rating_value > 0 -%}
+    <span class="header-2026__rating-stars" aria-hidden="true" style="--header-2026-rating-fill: {{ rating_value | times: 20 }}%">★★★★★</span>
+    <small>{{ rating_value | round: 1 }}/5</small>
+  {%- endif -%}
+</span>
