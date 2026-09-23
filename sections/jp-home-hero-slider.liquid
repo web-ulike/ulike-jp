@@ -595,6 +595,11 @@
 
   {% comment %} 900px - 1600px 中间屏幕适配 {% endcomment %}
   @media screen and (min-width: 900px) and (max-width: 1600px) {
+    .jp-home-hero--{{ sid }} .jp-home-hero__subheading-logo {
+      height: clamp(40px, calc(10.82vw - 67.12px), 106px);
+      max-width: 100%;
+    }
+
     .jp-home-hero--{{ sid }} .jp-home-hero__content {
       width: calc(30vw + 107.14px);
     }
@@ -608,7 +613,7 @@
     }
 
     .jp-home-hero--{{ sid }} .jp-home-hero__title {
-      font-size: clamp(42px, calc(2.571vw + 18.86px), 60px);
+      font-size: clamp(28px, calc(1vw + 18px), 60px);
     }
 
     .jp-home-hero--{{ sid }} .jp-home-hero__desc {
@@ -626,7 +631,7 @@
     .jp-home-hero--{{ sid }} .jp-home-hero__item2 .jp-home-hero__title,
     .jp-home-hero--{{ sid }} .jp-home-hero__item2 .jp-home-hero__desc,
     .jp-home-hero--{{ sid }} .jp-home-hero__item3 .jp-home-hero__title {
-      font-size: clamp(40px, calc(2.143vw + 20.71px), 55px);
+      font-size: clamp(30px, calc(2vw + 10px), 55px);
     }
 
     .jp-home-hero--{{ sid }} .jp-home-hero__item2 .jp-home-hero__title span {
@@ -820,7 +825,7 @@
         {
           "type": "textarea",
           "id": "info_text",
-          "label": "Info text",
+          "label": "Info text"
         }
       ]
     }

@@ -44,6 +44,12 @@
     white-space: nowrap;
   }
 
+  @media screen and (min-width: 900px) and (max-width: 1600px) {
+    #shopify-section-{{ section.id }} .scrolling-text__group {
+      gap: 9.375vw;
+    }
+  }
+
   #shopify-section-{{ section.id }} .scrolling-text__item {
     flex: 0 0 auto;
   }
@@ -81,8 +87,8 @@
     }
 
     #shopify-section-{{ section.id }} .scrolling-text__group {
-      gap: clamp(28px, 9vw, 42px);
-      padding-inline-end: clamp(28px, 9vw, 42px);
+      gap: clamp(20px, 6vw, 32px);
+      padding-inline-end: clamp(20px, 6vw, 32px);
     }
   }
 

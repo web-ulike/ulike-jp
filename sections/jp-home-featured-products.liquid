@@ -435,6 +435,16 @@
     color: var(--jp-home-featured-products-title);
   }
 
+  @media screen and (min-width: 900px) and (max-width: 1600px) {
+    .jp-home-featured-products--{{ sid }} .jp-home-featured-products__product-title {
+      font-size: 1.0417vw;
+    }
+
+    .jp-home-featured-products--{{ sid }} .jp-home-featured-products__text {
+      font-size: 0.8333vw;
+    }
+  }
+
   .jp-home-featured-products--{{ sid }} .jp-home-featured-products__product-title a {
     color: inherit;
     text-decoration: none;
@@ -632,18 +642,6 @@
     color: var(--jp-home-featured-products-btn-color);
   }
 
-  {% comment %} .jp-home-featured-products--{{ sid }} .jp-home-featured-products__btn--tab2-primary {
-    background: #ffffff;
-    color: #000000;
-    border-color: #000000;
-  }
-
-  .jp-home-featured-products--{{ sid }} .jp-home-featured-products__btn--tab2-primary:hover {
-    background: #000000;
-    color: #ffffff;
-    border-color: #000000;
-    opacity: 1;
-  } {% endcomment %}
 
   .jp-home-featured-products--{{ sid }} .jp-home-featured-products__btn--secondary {
     background: var(--jp-home-featured-products-btn-secondary-bg);

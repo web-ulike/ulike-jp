@@ -49,7 +49,9 @@
 
 {%- capture product_form_id -%}product-form-main-{{ product.id }}-{{ section.id }}{%- endcapture -%}
 
-<section>
+{{ 'jp-main-product-legacy.css' | asset_url | stylesheet_tag }}
+
+<section class="jp-main-product-legacy">
   {%- if section.settings.show_sticky_add_to_cart and product.available -%}
     {%- render 'product-sticky-form', product: product, product_form_id: product_form_id -%}
   {%- endif -%}
@@ -78,7 +80,7 @@
     <product-rerender id="product-info-{{ product.id }}-{{ section.id }}" observe-form="{{ product_form_id }}" allow-partial-rerender>
       <div class="product product--thumbnails-{{ section.settings.desktop_thumbnails_position }}">
         {%- render 'product-media', product: product, product_form_id: product_form_id -%}
-        {%- render 'product-info', product: product, product_form_id: product_form_id, update_url: true -%}
+        {%- render 'product-info', product: product, product_form_id: product_form_id, update_url: true, main_product: true -%}
       </div>
     </product-rerender>
   </div>
@@ -189,6 +191,12 @@ quite differently, as it is in a drawer on tablet/desktop, and a popover on mobi
       "name": "Buy buttons",
       "limit": 1,
       "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_quantity_selector",
+          "label": "显示数量选择器",
+          "default": true
+        },
         {
           "type": "checkbox",
           "id": "show_payment_button",

@@ -153,13 +153,17 @@
     <div class="p-aps-hero__media">
       <picture>
         {% if section.settings.image_mobile != blank %}
-          <source media="(max-width: 749px)" srcset="{{ section.settings.image_mobile | image_url: width: 1000 }}">
+          <source
+            media="(max-width: 749px)"
+            srcset="{{ section.settings.image_mobile | image_url: width: 750 }} 750w, {{ section.settings.image_mobile | image_url: width: 1200 }} 1200w, {{ section.settings.image_mobile | image_url: width: 1600 }} 1600w, {{ section.settings.image_mobile | image_url: width: 2000 }} 2000w"
+            sizes="100vw"
+          >
         {% endif %}
         {% if section.settings.image != blank -%}
           {{-
             section.settings.image
-            | image_url: width: 2400
-            | image_tag: class: 'p-aps-hero__image', loading: 'eager', widths: '750, 1100, 1500, 1920, 2400'
+            | image_url: width: 3840
+            | image_tag: class: 'p-aps-hero__image', loading: 'eager', widths: '750, 1100, 1500, 1920, 2400, 3000, 3840', sizes: '100vw'
           -}}
         {%- endif %}
       </picture>

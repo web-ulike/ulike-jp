@@ -133,6 +133,12 @@
     text-underline-offset: 3px;
   }
 
+  #shopify-section-{{ section.id }} .faq-reference__footer {
+    display: flex;
+    justify-content: center;
+    margin-top: clamp(24px, 2.5vw, 40px);
+  }
+
   #shopify-section-{{ section.id }} .faq-reference__item--text {
     padding: 28px clamp(24px, 3vw, 48px);
   }
@@ -227,6 +233,15 @@
               {%- endcase -%}
             {%- endfor -%}
       </div>
+
+      {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+        <div class="faq-reference__footer to-top">
+          <a class="button button--primary button--fixed" href="{{ section.settings.button_link }}" is="hover-link">
+            <span class="btn-fill" data-fill></span>
+            <span class="btn-text">{{ section.settings.button_label | escape }}</span>
+          </a>
+        </div>
+      {%- endif -%}
 
       {%- if contact != blank -%}
           {%- assign form_id = 'ContactForm-' | append: section.id -%}

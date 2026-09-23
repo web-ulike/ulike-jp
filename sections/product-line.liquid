@@ -41,17 +41,15 @@
     .product-line{
     }
     .product-line h2{
-     color: #000;
-    font-size: 48px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    text-align: center;
-    margin-bottom: 53px;
+      color: #000;
+      font-size: 45px;
+      font-weight: 500;
+      text-align: center;
+      margin: 0px 0px 100px;
     }
     .product-line .product__slide-inner{
       display: flex;
-      align-items: center;
+      align-items: stretch;
       background: #F4F9FF;
     }
 
@@ -60,20 +58,37 @@
     }
     .product__slide-inner .product__image-wrapper,.product__slide-inner .product__content-wrapper{
       width: 50%;
+      min-width: 0;
       position: relative;
+    }
+    .product__slide-inner .product__image-wrapper{
+      flex: 0 0 50%;
+      aspect-ratio: var(--product-image-ratio, auto);
+      overflow: hidden;
+    }
+    .product__slide-inner .product__image-wrapper picture{
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
     }
     .product__slide-inner .product__image-wrapper .product-img{
       display: block;
       width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     .product__content-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       padding: 20px 140px 20px 116px;
     }
     .product__content-wrapper .tag-img{
       margin-bottom: 18px;
     }
     .product__content-wrapper h3{
-  font-family: var(--font-heading-family);
       font-weight: 400;
       color: #000;
     font-size: 32px;
@@ -92,14 +107,15 @@
     }
     .product__content-wrapper .des{
       color: rgba(0, 0, 0, 0.70);
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 180%;
-    padding-top: 23px;
-    padding-bottom: 29px;
-    border-bottom: 1px solid #3F3636;
-    margin-bottom: 31px;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 180%;
+      padding-top: 23px;
+      padding-bottom: 29px;
+      border-bottom: 1px solid #3F3636;
+      margin-bottom: 31px;
+      padding-left: 20px;
     }
     .product__content-wrapper .price-wrapper{
     display: flex;
@@ -167,13 +183,15 @@
     .product__content-wrapper .btn-link.btn-buy-now{
       background:  #190A0A;
       color: #fff;
+      width: 100%;
+      box-sizing: border-box;
     }
     .product__content-wrapper .btn-link.btn-buy-now:hover{
       background:  #fff;
       color: #190A0A;
     }
     .product-line .product__slide-list:not(:last-child){
-      margin-bottom: 80px;
+      margin-bottom: var(--product-line-block-gap-desktop, 80px);
     }
     .product__image-wrapper .tag-box{
       font-family: var(--font-sans-family);
@@ -194,6 +212,20 @@
     gap: 8px;
     background:  #E0004D;
     overflow: hidden;
+    }
+    .product__image-wrapper .product__discount-tag {
+      position: absolute;
+      z-index: 1;
+      top: 10px;
+      left: 10px;
+      padding: 11px 14px;
+      background: #E0004D;
+      color: #fff;
+      font-family: var(--font-sans-family);
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1;
+      white-space: nowrap;
     }
     .product__image-wrapper .tag-box::before {
         position: absolute;
@@ -231,10 +263,7 @@
       background:#F9F9F9;
   }
   .discount-pri-inner{
-  display: flex;
-      gap: 20px;
-      align-items: center;
-          margin-bottom: 30px;
+      margin-bottom: 30px;
   }
   .discount-pri-inner .price-wrapper {
       flex-wrap: wrap;
@@ -245,47 +274,18 @@
   }
   .discount-pri-inner .discount-pri-txt{
     width: 100%;
-  color:  #3F3636;
-  font-size: 18px;
-  font-style: normal;
-  {% comment %} font-weight: 300; {% endcomment %}
-  line-height: 150%;
-  {% comment %} letter-spacing: 0.36px; {% endcomment %}
-  text-transform: uppercase;
+    color:  #3F3636;
+    font-size: 18px;
+    font-style: normal;
+    line-height: 150%;
+    text-transform: uppercase;
   }
 
-  .discount-pri-inner .discount-cnt-box{
-    display: flex;
-      background: linear-gradient(134deg, #FF7C9C 16.43%, #D01455 74.37%);
-      border-radius: 50%;
-      width: 77px;
-      height: 77px;
-      flex-shrink: 0;
-      align-items: center;
-          justify-content: center;
-        color: #FFFFFC;
-  }
-  .discount-pri-inner .discount-cnt{
-
-  font-size: 36px;
-  font-style: normal;
-  font-weight: 300;
-  line-height: 130%;
-  text-transform: capitalize;
-  }
-  .discount-pri-inner .discount-cnt1{
-  font-size: 18px;
-  }
-
-  .discount-pri-inner  .discount-cnt2{
-  font-size: 8.381px;
-  }
-  .discount-pri-inner .discount-cnt-txt{
-      display: flex;
-      flex-direction: column;
-  }
   .tag-txt-animate{
     display: inline-flex;
+    align-self: flex-start;
+    width: fit-content;
+    max-width: 100%;
         align-items: center;
           justify-content: center;
           padding:3px 13px;
@@ -343,6 +343,21 @@
     .product__slide-inner .product__image-wrapper, .product__slide-inner .product__content-wrapper{
       width: 100%;
     }
+    .product__slide-inner .product__image-wrapper{
+      flex: none;
+      aspect-ratio: auto;
+    }
+    .product__slide-inner .product__image-wrapper picture{
+      position: static;
+      height: auto;
+    }
+    .product__slide-inner .product__image-wrapper .product-img{
+      height: auto;
+      object-fit: contain;
+    }
+    .product__content-wrapper{
+      display: block;
+    }
     .product__content-wrapper {
         padding: 40px 20px;
     }
@@ -377,6 +392,10 @@
     width:50%;
       font-size: 14px;
     }
+    .product__content-wrapper .btn-wrapper > a.btn-link.btn-buy-now{
+      flex: 1;
+      width: auto;
+    }
     .product-line .product__slide-inner.product__slide-inner_reverse {
         flex-direction: column;
     }
@@ -385,8 +404,12 @@
       padding: 7px 10px;
       gap: 5px;
     }
+    .product__image-wrapper .product__discount-tag {
+      font-size: 12px;
+      padding: 7px 10px;
+    }
     .product-line .product__slide-list:not(:last-child) {
-        margin-bottom: 25px;
+        margin-bottom: var(--product-line-block-gap-mobile, 25px);
     }
     .product-note {
         font-size: 8px;
@@ -411,19 +434,6 @@
     margin-bottom: 8px;
         font-size: 12px;
     }
-    .discount-pri-inner {
-      gap: 17px;
-  }
-  .discount-pri-inner .discount-cnt-box{
-  width: 71px;
-  height: 71px;
-  }
-  .discount-pri-inner .discount-cnt{
-  font-size: 30px;
-  }
-  .discount-pri-inner .discount-cnt1{
-        font-size: 15px;
-  }
     .discount-pri-inner .discount-pri-txt{
       font-size: 15px;
     }
@@ -447,6 +457,60 @@
       font-size: 24px;
     }
   }
+  .product-line.valentine-sale-2026 .discount-pri-inner .price-wrapper {
+    display: grid;
+    width: 100%;
+    grid-template-columns: max-content max-content;
+    align-items: baseline;
+    column-gap: 12px;
+    row-gap: 3px;
+  }
+  .product-line.valentine-sale-2026 .discount-pri-inner .discount-pri-txt {
+    grid-column: 1 / -1;
+  }
+  @media (min-width: 993px) {
+    .product-line.valentine-sale-2026 .discount-pri-inner .discount-pri-txt {
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 1.5;
+      text-transform: none;
+    }
+    .product-line.valentine-sale-2026 .discount-pri-inner .price {
+      padding-right: 0;
+      font-size: 32px;
+      font-weight: 400;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+    .product-line.valentine-sale-2026 .discount-pri-inner .price-suffix {
+      margin-left: 0px;
+      font-size: 20px;
+    }
+    .product-line.valentine-sale-2026 .discount-pri-inner .oriprice {
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+  }
+  @media (max-width: 992px) {
+    .product-line.valentine-sale-2026 .discount-pri-inner .price-wrapper {
+      grid-template-columns: max-content minmax(0, 1fr);
+      column-gap: 8px;
+    }
+    .product-line.valentine-sale-2026 .discount-pri-inner .discount-pri-txt {
+      grid-column: 1 / -1;
+    }
+    .product-line.valentine-sale-2026 .discount-pri-inner .price {
+      padding-right: 0;
+      font-size: clamp(20px, 6vw, 24px);
+      white-space: nowrap;
+    }
+    .product-line.valentine-sale-2026 .discount-pri-inner .oriprice {
+      font-size: clamp(10px, 3.2vw, 12px);
+      white-space: nowrap;
+    }
+  }
 </style>
 <section class="section-{{ section.id }}-padding">
   <div class="product-line{% if section.settings.custom_class %} {{ section.settings.custom_class }}{% endif %}">
@@ -454,16 +518,17 @@
       <h2 class="to-top">{{ section.settings.tle }}</h2>
 
       {%- for block in section.blocks -%}
-        <div class="product__slide-list">
+        <div class="product__slide-list" style="--product-line-block-gap-desktop: {{ block.settings.block_gap_desktop | default: 80 }}px; --product-line-block-gap-mobile: {{ block.settings.block_gap_mobile | default: 25 }}px;">
           <div class="product__slide">
             <div class="product__slide-inner {% if block.settings.image_position == 'right' %}product__slide-inner_reverse{% endif %}">
-              <div class="product__image-wrapper slide-to-right">
+              <div class="product__image-wrapper slide-to-right"{% if block.settings.product_image != blank %} style="--product-image-ratio: {{ block.settings.product_image.aspect_ratio }};"{% endif %}>
                 <picture>
                   {%- if block.settings.mb_product_image -%}
                     <source media="(max-width: 767px)" srcset="{{ block.settings.mb_product_image | image_url }}">
                   {%- endif -%}
                   {%- if block.settings.product_image -%}
                     <img
+                      class="product-img"
                       src="{{ block.settings.product_image | image_url }}"
                       alt="{{ block.settings.product_image.alt }}"
                     >
@@ -477,8 +542,11 @@
                     {%- endif -%}
                   </div>
                 {%- endif -%}
+                {%- if block.settings.discount != blank -%}
+                  <div class="product__discount-tag">{{ block.settings.discount | escape }}</div>
+                {%- endif -%}
               </div>
-              <div class="product__content-wrapper  to-top">
+              <div class="product__content-wrapper to-top" style="background-color: {{ block.settings.content_background | default: '#F4F9FF' }};">
                 {%- if block.settings.tag_image -%}
                   <div class="tag-img">
                     <img src="{{ block.settings.tag_image | image_url }}" alt="">
@@ -496,50 +564,49 @@
                 <div class="des">
                   {{ block.settings.des }}
                 </div>
-                {% if block.settings.discount != blank %}
+                {% if block.settings.discount_txt != blank %}
                   <div class="discount-pri-inner">
-                {% endif %}
-                {% if block.settings.discount != blank %}
-                  <div class="discount-cnt-box">
-                    <div class="discount-cnt">{{ block.settings.discount }}</div>
-                    <div class="discount-cnt-txt">
-                      <span class="discount-cnt1">%</span> <span class="discount-cnt2">OFF</span>
-                    </div>
-                  </div>
                 {% endif %}
                 {% if block.settings.price_notice_text != blank %}
                   <div class="price-notice">{{ block.settings.price_notice_text }}</div>
                 {% endif %}
                 <div class="price-wrapper">
-                  {% comment %}
-                    <div class="price">{{ block.settings.price }}</div>
-                    <div class="oriprice">{{ block.settings.ori_price }}</div>
-                  {% endcomment %}
                   {% if block.settings.discount_txt != blank %}
                     <div class="discount-pri-txt">{{ block.settings.discount_txt }}</div>
                   {% endif %}
                   {%- liquid
                     assign product = block.settings.product
                     assign compare_price_label = block.settings.compare_price_label | default: '定価'
+                    assign price_suffix = block.settings.price_suffix
+                    assign compare_price_suffix = block.settings.compare_price_suffix
+                    if section.settings.custom_class contains 'valentine-sale-2026'
+                      if block.settings.compare_price_label == blank or block.settings.compare_price_label == '定価'
+                        assign compare_price_label = '通常価格：'
+                      endif
+                      if price_suffix == blank
+                        assign price_suffix = '(税込)'
+                      endif
+                      if compare_price_suffix == blank
+                        assign compare_price_suffix = '(税込)'
+                      endif
+                    endif
                   -%}
                   <div class="price">
                     {{ product.price | money }}
-                    {%- if block.settings.price_suffix != blank -%}
-                      <span class="price-suffix">{{ block.settings.price_suffix }}</span>
+                    {%- if price_suffix != blank -%}
+                      <span class="price-suffix">{{ price_suffix }}</span>
                     {%- endif -%}
                   </div>
                   <div class="oriprice">
-                    {{ compare_price_label }}
-                    {{ product.compare_at_price | money -}}
-                    {{- block.settings.compare_price_suffix }}
+                    {{- compare_price_label -}}
+                    {{- product.compare_at_price | money -}}
+                    {{- compare_price_suffix -}}
                   </div>
                 </div>
-                {% if block.settings.discount != blank %}
+                {% if block.settings.discount_txt != blank %}
                   </div>
                 {% endif %}
                 <div class="btn-wrapper">
-                  <!-- <a href="javascript:;" class="btn-link">{{ block.settings.buy_txt }}</a> -->
-
                   {%- if block.settings.add_bt_txt != blank -%}
                     <div class="product-form-wrapper product-form-wrapper-cus" {{ block.shopify_attributes }}>
                       {%- liquid
@@ -726,6 +793,32 @@
       "name": "item",
       "settings": [
         {
+          "type": "range",
+          "id": "block_gap_desktop",
+          "label": "PC 模块下方间距",
+          "min": 0,
+          "max": 200,
+          "step": 5,
+          "unit": "px",
+          "default": 80
+        },
+        {
+          "type": "range",
+          "id": "block_gap_mobile",
+          "label": "M 模块下方间距",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "px",
+          "default": 25
+        },
+        {
+          "type": "color",
+          "id": "content_background",
+          "label": "内容区域背景色",
+          "default": "#F4F9FF"
+        },
+        {
           "type": "product",
           "id": "product",
           "label": "Product"
@@ -816,7 +909,7 @@
         {
           "type": "text",
           "id": "discount",
-          "label": "Discount"
+          "label": "图片左上角折扣数字"
         },
         {
           "type": "text",
