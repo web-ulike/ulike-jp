@@ -409,3 +409,169 @@ window.UlikeCommon = window.UlikeCommon || {};
   namespace.addToCartPromise = addToCartPromise;
 
 })(window.UlikeCommon);
+
+
+
+
+class VideoCard extends HTMLElement {
+  connectedCallback() {
+    const button = this.querySelector('.brand-link');
+    const video = this.querySelector('.deferred-poster');
+    if (button) {
+
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
+        video.click();
+      });
+    }
+  }
+}
+
+window.customElements.define('video-card', VideoCard);
+
+
+class TextCollapse extends HTMLElement {
+  constructor() {
+    super();
+    this.isExpanded = false;
+    this.maxLength = parseInt(this.getAttribute('max-length')) || 50;
+  }
+
+  connectedCallback() {
+    const textEl = this.querySelector('.doctor-des');
+    const svgEl = this.querySelector('.doctor-svg');
+
+    if (!textEl || !svgEl) return;
+
+    this.fullText = textEl.textContent.trim();
+    this.textEl = textEl;
+    this.svgEl = svgEl;
+
+    this.svgEl.style.cursor = 'pointer';
+    this.svgEl.addEventListener('click', () => this.toggleText());
+
+    this.render();
+  }
+
+  render() {
+    if (this.isExpanded || this.fullText.length <= this.maxLength) {
+      this.textEl.textContent = this.fullText;
+    } else {
+      this.textEl.textContent = this.fullText.slice(0, this.maxLength) + '...';
+    }
+  }
+
+  toggleText() {
+    this.isExpanded = !this.isExpanded;
+    this.render();
+  }
+}
+
+window.customElements.define('text-collapse', TextCollapse);
+
+
+
+class TextCollapseNew extends HTMLElement {
+  constructor() {
+    super();
+    this.isExpanded = false;
+  }
+
+  connectedCallback() {
+    this.desEl = this.querySelector('.doctor-des');
+    this.des1El = this.querySelector('.doctor-des1');
+    this.svgEl = this.querySelector('.doctor-svg');
+
+    if (!this.desEl || !this.des1El || !this.svgEl) return;
+
+    this.svgEl.style.cursor = 'pointer';
+    this.svgEl.addEventListener('click', () => this.toggle());
+
+    this.render();
+  }
+
+  render() {
+    if (this.isExpanded) {
+      this.desEl.style.display = 'none';
+      this.des1El.style.display = '';
+    } else {
+      this.desEl.style.display = '';
+      this.des1El.style.display = 'none';
+    }
+  }
+
+  toggle() {
+    this.isExpanded = !this.isExpanded;
+    this.render();
+  }
+}
+
+window.customElements.define('text-collapse-new', TextCollapseNew);
+
+
+
+class CustomSwiperNew extends HTMLElement {
+  constructor() {
+    super();
+  }
+
+  connectedCallback() {
+    this.initSwiper();
+  }
+
+  initSwiper() {
+    const swiperContainer = this.querySelector('.swiper-container');
+    if (!swiperContainer) {
+      console.error('Swiper container not found');
+      return;
+    }
+
+    //是否禁用 Swiper**
+    const disableOn = this.getAttribute('disable-on'); // 'mobile' 或 'desktop'
+    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+    if ((disableOn === 'mobile' && isMobile) || (disableOn === 'desktop' && !isMobile)) {
+      console.log(`Swiper disabled on ${disableOn}`);
+      return;
+    }
+
+    const slidesPerView = parseFloat(this.getAttribute('slides-per-view')) || 1.3;
+    const spaceBetween = parseFloat(this.getAttribute('space-between')) || 10;
+    const autoplayEnabled = this.getAttribute('autoplay') === 'true';
+    const autoplayDelay = parseInt(this.getAttribute('autoplay-delay')) || 3000;
+
+    const loop = this.getAttribute('loop') !== 'false';
+    const centeredSlides = this.getAttribute('centered-slides') !== 'false';
+    const paginationEnabled = this.getAttribute('pagination') === 'true';
+    const navigationEnabled = this.getAttribute('navigation') === 'true';
+    let breakpoints = {};
+    try {
+      breakpoints = JSON.parse(this.getAttribute('breakpoints') || '{}');
+    } catch (error) {
+      console.error('Invalid breakpoints format. Expected JSON.');
+    }
+
+    // **动态控制 navigation 和 pagination**
+    const prevButton = navigationEnabled ? this.querySelector('.swiper-prev') : null;
+    const nextButton = navigationEnabled ? this.querySelector('.swiper-next') : null;
+    const paginationEl = paginationEnabled ? { el: this.querySelector('.swiper-pagination'), clickable: true } : false;
+
+    this.swiper = new Swiper(swiperContainer, {
+      slidesPerView,
+      spaceBetween,
+      loop,
+      centeredSlides,
+      navigation: navigationEnabled ? { prevEl: prevButton, nextEl: nextButton } : false,
+      pagination: paginationEl,
+      breakpoints,
+      autoplay: autoplayEnabled
+        ? {
+          delay: autoplayDelay,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        }
+        : false
+    });
+  }
+}
+
+window.customElements.define('custom-swiper', CustomSwiperNew);
