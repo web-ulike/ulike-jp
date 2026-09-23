@@ -56,8 +56,9 @@
                 {%- endif -%}
               </div>
               <p class="pd-gift-benefits-2026__prize-caption">
-                <span class="pd-gift-benefits-2026__prize-label">{{ block.settings.label | escape }}</span><span class="pd-gift-benefits-2026__prize-label-mobile">{{ block.settings.mobile_label | default: block.settings.label | escape }}</span>
-                {{ block.settings.amount | escape }}<span class="pd-gift-benefits-2026__divider" aria-hidden="true"></span>{{ block.settings.winners | escape }}
+                <span><span class="pd-gift-benefits-2026__prize-label">{{ block.settings.label | escape }}</span><span class="pd-gift-benefits-2026__prize-label-mobile">{{ block.settings.mobile_label | default: block.settings.label | escape }}</span>{{ block.settings.amount | escape }}</span>
+                <span class="pd-gift-benefits-2026__divider" aria-hidden="true"></span>
+                <span>{{ block.settings.winners | escape }}</span>
               </p>
             </article>
           {%- endif -%}
