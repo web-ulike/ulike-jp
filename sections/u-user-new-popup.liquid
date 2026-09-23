@@ -2,6 +2,913 @@
   assign se_id = section.id
   assign se_stts = section.settings
 -%}
+<style>
+    .email_svg-box{
+          position:relative;
+    }
+          #u-user-popup input[type=checkbox]:not(.switch):after {
+            border: 0px;
+            width: 0px;
+            height: 0px;
+          }
+          #u-user-popup, #u-user-coupon-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            display: none;
+          }
+
+          #u-user-popup .overlay,#u-user-coupon-popup .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+
+          #u-user-popup .popup-content {
+            display: flex;
+            max-width: 980px;
+            width: 90%;
+            border-radius: 0px;
+            background: #fff;
+            padding: 0;
+            position: relative;
+            height: 561px;
+            border-radius: 5px;
+          }
+
+          #u-user-coupon-popup .popup-code-content{
+           display: flex;
+            max-width: 490px;
+            width: 90%;
+            border-radius: 0px;
+            background: #fff;
+            padding: 0;
+            position: relative;
+            height: 448px;
+            border-radius: 5px;
+          }
+
+          #u-user-popup .popup-container {
+            display: flex;
+            width: 100%;
+                {% comment %} display: grid;
+          grid-template-columns: 1fr 1fr; {% endcomment %}
+          }
+
+          #u-user-popup .popup-left {
+            {% comment %} position: absolute;
+            left: -20%;
+            bottom: 0px;
+            width: 475px; {% endcomment %}
+            width:50%;
+          }
+
+          #u-user-popup .popup-left img {
+            max-width: 100%;
+            height: auto;
+            user-drag: none;
+            pointer-events: none;
+                border-top-left-radius: 5px;
+                    border-bottom-left-radius: 5px;
+          }
+
+          #u-user-popup .popup-detail-discount{
+            position: absolute;
+            display: flex;
+            width: 100%;
+            font-size: 12px;
+            color: #FFFFFF;
+            top: 40.5%;
+            left: 19%;
+            font-family: var(--font-heading-family);
+            font-weight: 500;
+            width: 180px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+          }
+
+          .icon-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+          }
+
+          .icon-item img{
+            width: 28px;
+          }
+
+          #u-user-popup .popup-right {
+            flex: 1;
+            padding: 60px 50px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            {% comment %} text-align: center; {% endcomment %}
+            {% comment %} padding-left: 44%; {% endcomment %}
+          }
+
+          #u-user-popup .popup-right h2 {
+            font-family: var(--font-heading-family);
+            margin-bottom: 0px;
+            width: 100%;
+            {% comment %} height: 56px; {% endcomment %}
+            font-weight: 500;
+            {% comment %} font-size: 32px; {% endcomment %}
+            color: #190A0A;
+            line-height: 56px;
+            font-size: 28px;
+        line-height: 1.3;
+          }
+          #u-user-popup .popup-right h2 strong{
+          font-style: normal;
+          font-weight: 500;
+          color: #E0004D;
+          }
+          #u-user-popup .popup-right .popup-right-txt {
+            font-size: 14px;
+            color: #000;
+            line-height: normal;
+            margin-top: 20px;
+            line-height: 1.3;
+            font-weight:300;
+            display: flex;
+            {% comment %} justify-content: center; {% endcomment %}
+            align-items: center;
+            gap: 15px;
+          }
+          #u-user-popup .popup-right .popup-right-txt .item{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+          }
+
+          #u-user-popup #login-form {
+            margin-top: 20px;
+          }
+
+          #u-user-popup .form-group {
+            position: relative;
+          }
+
+          #u-user-popup .form-group .input-msg-error{
+            text-align: left;
+            margin: 4px 0px 0px 0px;
+            font-size: 12px;
+            height: 20px;
+            line-height: 20px;
+          }
+
+          #u-user-popup .form-group input {
+            width: 100%;
+            padding: 9px 20px 9px 48px;
+            outline: none;
+            text-align: left;
+            color: #000;
+            font-size: 16px;
+            background: #FFFFFF;
+            border: 1px solid #3F3636;
+            border-radius: 6px;
+                background: #F6F6F6;
+          }
+
+          #u-user-popup .form-group input::placeholder {
+            color: #9C9C9C;
+          }
+
+          #u-user-popup .form-group-error {
+            color: #E0004D;
+          }
+
+          #u-user-popup .form-group-error input {
+            border-color: #E0004D;
+            color: #E0004D;
+          }
+          #u-user-popup .form-group-error .input-msg-error {
+            display: block;
+            text-align: left;
+            margin: 4px 0px 0px 0px;
+            font-size: 12px;
+          }
+          #login-form .login-msg-error{
+            color: rgba(224, 0, 77, 1);
+            font-size: 14px;
+            font-weight: 300;
+            {% comment %} margin-bottom: 4px; {% endcomment %}
+            display: flex;
+            text-align: center;
+            {% comment %} margin-top: 10px; {% endcomment %}
+            justify-content: center;
+                margin-top: 15px;
+          }
+
+          #login-form .login-msg-error .notification-icon {
+            width: 20px;
+            margin-right: 4px;
+          }
+          #login-form .login-msg-error .notification-text {
+            font-size: 12px;
+            color: #190A0A;
+          }
+
+          #u-user-popup .verification-group {
+            display: none;
+            margin-bottom: 20px;
+          }
+
+          #u-user-popup .send-code-btn {
+            margin-left: 10px;
+            border: none;
+            color: #2194FF;
+            border-radius: 20px;
+            padding: 5px 20px;
+            cursor: pointer;
+            white-space: nowrap;
+            position: absolute;
+            right: 0px;
+            top: 10px;
+            font-size: 14px;
+          }
+
+          #u-user-popup .btn-primary {
+            width: 100%;
+            background: #e7004c;
+            color: #fff;
+            height: 47px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius:6px;
+            margin-top:20px;
+            overflow: hidden;
+            position: relative;
+            text-align: center;
+
+          }
+            #u-user-popup .btn-primary:before{
+                position: absolute;
+      content: '';
+      display: block;
+      width: 200%;
+      height: 200%;
+      z-index: 2;
+      background: linear-gradient(-45deg, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 60%);
+      animation: scanning 3s
+  linear infinite;
+            }
+            @keyframes scanning {
+
+            0% {
+      transform: translate(-100%, -100%);
+  }
+  100% {
+      transform: translate(100%, 100%);
+  }
+            }
+
+          .social-login {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+            gap: 20px;
+          }
+
+          #u-user-popup .social-login img{
+            width: 46px;
+            height: 46px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 90px 90px 90px 90px;
+            border: 1px solid #C4C4C4;
+          }
+          #u-user-popup .social-login img:hover{
+            border: 1px solid #190A0A;
+          }
+
+          #u-user-popup .alternative-login a {
+            color: #888;
+            font-size: 12px;
+            text-decoration: none;
+            text-align: center;
+            display: inline;
+            margin-left: 5px;
+          }
+          #u-user-popup .policy-agreement {
+            display: flex;
+            align-items: center;
+            margin-bottom: 37px;
+                margin-top: 16px;
+          }
+
+          #u-user-popup .policy-agreement input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
+            background-color: #F5F8FC; /* 未选中时的背景色 */
+            border: none;
+            display: inline-block;
+            margin-right: 10px;
+            {% comment %} background-image: url('https://cdn.shopify.com/s/files/1/0740/5882/6015/files/item_unit_checkbox_2x_1.png?v=1743584872'); /* 未选中的图片 */ {% endcomment %}
+            background-size: cover; /* 使图片覆盖整个框 */
+            cursor: pointer;
+            border:1px solid #0D0E1C;
+
+          }
+
+          #u-user-popup .policy-agreement input[type="checkbox"]:checked {
+            border:1px solid transparent;
+            appearance: none; /* 去掉默认样式 */
+            background-image: url('https://cdn.shopify.com/s/files/1/0740/5882/6015/files/item_unit_checkbox_2x_7710c7af-5c86-4cf1-82bc-35ab3de50d3a.png?v=1743584872'); /* 选中的图片 */
+            background-size: cover; /* 确保图片充满整个框 */
+          }
+
+          #u-user-popup .policy-agreement label {
+            font-size: 12px;
+            color: #A2A2A2;
+            text-align: left;
+            cursor: pointer;
+            width: 90%;
+          }
+
+          .policy-agreement a {
+              text-decoration: underline;
+              color: #A2A2A2;
+          }
+
+          .policy-agreement a:hover {
+              color: #190A0A;
+          }
+
+          #u-user-popup .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: #626262;
+          }
+
+
+          #floating-box {
+            position: fixed;
+            height: 46px;
+            bottom: 97px;
+            right: 50px;
+            width: 46px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 17;
+            user-select: none;
+            display:none;
+          }
+          .g-floating-box {
+            display:none;
+          }
+
+          #floating-box .circle-tag {
+              width: 100%;
+              height: 100%;
+              border-radius: 50%;
+              background: linear-gradient(to bottom, #E91E63, #FFA4B9);
+              font-family: Arial, sans-serif;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              text-align: center;
+              cursor: pointer;
+              user-select: none;
+              box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            }
+
+            #floating-box .circle-tag .extra {
+              font-size: 14px;
+              line-height: 16px;
+              /* 使用你给定的渐变效果 */
+              background: linear-gradient(180deg, #FFF 32.17%, #EFDDC3 100%);
+              background-clip: text;
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              font-weight: 500;
+            }
+
+            #floating-box .circle-tag .text-num {
+              font-size: 14px;
+              line-height: 16px;
+              font-weight: 500;
+              color: #fff;
+              letter-spacing: 1px;
+            }
+      svg.email_logo-svg {
+          position: absolute;
+          left: 14px;
+          top: 50%;
+          transform: translateY(-50%);
+      }
+          /* 倒计时 start */
+                    .countdown-inner{
+                    }
+                 .popup  .countdown-inner .countdown-wrapper{
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      flex-direction: column;
+                    }
+                 .popup  .countdown-inner .countdown-ulike {
+                      display: flex;
+                      align-items: center;
+                      font-size: 21px;
+                      gap: 12px;
+                      justify-content: center;
+                    }
+
+                 .popup  .countdown-inner  .countdown-label {
+                      font-size: 15px;
+                      color: #040D15;
+                      {% comment %} padding-right: 10px; {% endcomment %}
+                    }
+
+                  .popup   .countdown-inner .countdown-box {
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      width: 46px;
+                      height: 46px;
+                      background: #FFFFFC;
+                       color: #E0004D;
+                      border-radius: 5px;
+                      border:1px solid #BFBFBF;
+                    }
+
+                   .popup  .countdown-inner .countdown-separator {
+                      font-size: 24px;
+                      color: #0D0E1C
+                    }
+                   .popup  .countdown-inner .countdown-label-wrapper{
+                      display: flex;
+                      {% comment %} gap: 6px; {% endcomment %}
+                      margin-top: 5px;
+                          width: 70%;
+                    }
+                  .popup .countdown-inner  .countdown-fx{
+                      display: flex;
+                      flex-direction: column;
+                      align-items: flex-end;
+                    }
+                  .popup  .countdown-inner .time-label{
+                      display: block;
+                      font-size: 15px;
+                      color: #000;
+                      width: 46px;
+                      text-align: center;
+                    }
+                  .popup   .countdown-inner .time-label-sep{
+                      display: block;
+                      width: 30px;
+                    }
+
+                      .popup  .countdown-inner .countdown-label-bix .countdown-label-wrapper{
+                          width: 100%;
+                          flex: 1;
+                          display: flex;
+      gap: 12px;
+                    }
+                         .popup  .countdown-inner .countdown-label-bix .countdown-separator{
+                            visibility: hidden;
+                        }
+         /* 倒计时 end */
+      @keyframes  rotateBg {
+
+      0% {
+          transform: translate(-50%, -50%) rotate(0);
+      }
+      100% {
+          transform: translate(-50%, -50%) rotate(360deg);
+      }
+      }
+
+         .popup-code-content .subscribe-module-gs{
+            position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+              z-index: 0;
+          overflow: hidden;
+              border-radius: 5px;
+        }
+      .popup-code-content .subscribe-module-gs img{
+      height: 100%;
+          object-fit: cover;
+          width: 150%;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          max-width: none;
+          animation: rotateBg 25s infinite linear;
+      }
+         .popup-code-content .close-code-btn{
+          position: absolute;
+          right: 20px;
+          top: 20px;
+          z-index: 11;
+        }
+         .popup-code-content .popup-code-container{
+            width: 100%;
+          height: 100%;
+          padding: 50px 40px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+              position: relative;
+          z-index: 1;
+        }
+         .popup-code-content  .popup-code-tle{
+            display: flex;
+          gap: 10px;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 20px;
+          color: #000;
+          font-size: 30px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: normal;
+        }
+
+        .popup-code-content .popup-code-note{
+            color: #5B5B5B;
+          font-size: 20px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 25px;
+          margin-top: 50px;
+        }
+        .popup-code-content  .popup-code-box{
+            display: flex;
+          {% comment %} background: linear-gradient(180deg, #E0004D 2.42%, #FF7595 100%); {% endcomment %}
+          width: 100%;
+          text-align: center;
+          border-radius: 10px;
+          align-items: center;
+              color: #FFF;
+              position:relative;
+        }
+        .popup-code-content  .popup-code-box::before {
+          content: '';
+          --wm-num: 10px;
+          --wm-num1: 11px;
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          z-index: 0;
+          display: block;
+             border-radius: 10px;
+          transform: none;
+          background: linear-gradient(180deg, #E0004D 5%, #FF7595 95%);
+          -webkit-mask-image:
+            radial-gradient(circle at 60% 0,
+          transparent 0,
+          transparent var(--wm-num),
+          black var(--wm-num1),
+          black 100%
+        ),
+
+        radial-gradient(circle at 60% 100%,
+          transparent 0,
+          transparent var(--wm-num),
+          black var(--wm-num1),
+          black 100%
+        ),
+
+        radial-gradient(circle at 0 50%,
+          transparent 0,
+          transparent var(--wm-num),
+          black var(--wm-num1),
+          black 100%
+        ),
+        radial-gradient(circle at 100% 50%,
+          transparent 0,
+          transparent var(--wm-num),
+          black var(--wm-num1),
+          black 100%
+        );
+          -webkit-mask-composite: destination-in;
+        mask-image:
+        radial-gradient(circle at 60% 0,
+          transparent 0,
+          transparent var(--wm-num),
+          black var(--wm-num1),
+          black 100%
+        ),
+
+        radial-gradient(circle at 60% 100%,
+          transparent 0,
+          transparent var(--wm-num),
+          black var(--wm-num1),
+          black 100%
+        ),
+
+        radial-gradient(circle at 0 50%,
+          transparent 0,
+          transparent var(--wm-num),
+          black var(--wm-num1),
+          black 100%
+        ),
+        radial-gradient(circle at 100% 50%,
+          transparent 0,
+          transparent var(--wm-num),
+          black var(--wm-num1),
+          black 100%
+        );
+          mask-composite: intersect;
+      }
+       .popup-code-content  .popup-code-left{
+          width: 60%;
+          padding: 30px 20px;
+          position:relative;
+      }
+      .popup-code-content .popup-code-left:after{
+          content: '';
+          display: block;
+          width: 1px;
+          height: calc(100% - 20px);
+          position: absolute;
+          top: 10px;
+          right: 0;
+          border: 1px dashed #fff;
+      }
+       .popup-code-content  .code-left-txt1{
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+      }
+       .popup-code-content  .code-left-txt2{
+          font-size: 28px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+          text-decoration: underline;
+      }
+       .popup-code-content  .popup-code-right{
+      flex: 1;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+          position:relative;
+      }
+      .popup .countdown-label-bix{
+          width: 100%;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      }
+      .popup .countdown-label-bix .countdown-label{
+      visibility: hidden;
+      }
+      .popup countdown-label-bix .countdown-label-wrapper {
+      width: 100%;
+  }
+          @media (max-width: 1025px) {
+            #u-user-popup .popup-content {
+              flex-direction: column;
+              width: 90%;
+              height: auto;
+              border-radius: 5px;
+            }
+
+            #u-user-popup .popup-left {
+              {% comment %} left: initial;
+              top: -10%;
+              height: 395px;
+              width: inherit; {% endcomment %}
+                      width: 100%;
+            }
+
+            #u-user-popup .popup-right {
+              width: 100%;
+              {% comment %} padding: 92% 20px 0px; {% endcomment %}
+               padding:23px 30px;
+            }
+
+            #u-user-popup .popup-right h2 {
+              font-size: 18px;
+              margin-bottom:10px;
+              line-height:1.5
+            }
+            #u-user-popup .popup-right .popup-right-txt {
+              font-size: 12px;
+              color: #190A0A;
+              line-height: 14px;
+              text-align: left;
+              font-style: normal;
+              text-transform: none;
+              margin:0 0 10px;
+            }
+
+            #u-user-popup #login-form {
+              margin-top: 10px;
+            }
+
+            #login-form .login-msg-error{
+              font-size: 12px;
+            }
+
+            .icon-item img{
+              width: 22px;
+            }
+
+            #u-user-popup .close-btn {
+              color:#fff;
+              z-index: 2;
+              width: 39px;
+              right: 0px;
+              left: 50%;
+              border: 1px solid #fff;
+              height: 39px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              border-radius: 50%;
+              top: auto;
+              bottom: -60px;
+              transform: translateX(-50%);
+            }
+
+            #u-user-popup .verification-group {
+              flex-direction: column;
+            }
+            #u-user-popup .form-group input {
+              font-size: 14px;
+              {% comment %} padding: 10px 20px; {% endcomment %}
+            }
+
+            #u-user-popup  .send-code-btn {
+              margin-left: 0;
+              width: 134px;
+              font-size: 12px;
+              padding: 11px 10px;
+              top: 2px;
+            }
+            #u-user-popup .popop-left-benefits {
+              bottom: initial;
+              top: 10px;
+              font-size: 0.6em;
+            }
+            #u-user-popup .policy-agreement label {
+              text-align: left;
+              font-size: 12px;
+              width: 80%;
+            }
+            .notification_{{ se_id }}{
+              font-size: 10px;
+              width: 90%;
+              padding: 10px 10px;
+            }
+            #u-user-popup .btn-primary {
+              padding: 6px;
+              height: 40px;
+            }
+            #floating-box {
+             bottom: 110px;
+             right: 42px;
+            }
+            .or-divider {
+              margin: 4px 0;
+            }
+            #u-user-popup .popup-detail-discount {
+              width: 110px;
+              text-align: center;
+              top: 37%;
+              left: 22%;
+              line-height: 16px;
+            }
+
+            #u-user-popup .social-login  img{
+              width: 36px;
+              height: 36px;
+            }
+            #u-user-popup .popup-container {
+      flex-direction: column;
+      }
+      #u-user-popup .policy-agreement{
+          margin-bottom: 12px;
+          margin-top: 10px;
+      }
+       .popup .countdown-inner .countdown-ulike {
+          font-size: 16px;
+          gap: 7px;
+      }
+       .popup .countdown-inner .countdown-label {
+          font-size: 12px;
+      }
+       .popup .countdown-inner .countdown-box{
+          width: 32px;
+          height: 32px;
+          border-radius: 3px;
+      }
+       .popup .countdown-inner .countdown-separator {
+          font-size: 18px;
+      }
+       .popup .countdown-inner .time-label{
+      font-size: 10px;
+          width: 33px;
+
+      }
+       .popup .countdown-inner .time-label-sep {
+          display: block;
+          width: 18px;
+      }
+       .popup .countdown-inner .countdown-label-wrapper {
+          {% comment %} width: 73%; {% endcomment %}
+      }
+      #u-user-popup .popup-code-content {
+          max-width: 350px;
+          width: 90%;
+          height: 300px;
+          border-radius: 5px;
+      }
+      .popup-code-content .close-code-btn {
+          right: 10px;
+          top: 10px;
+      }
+      .popup-code-content .popup-code-container{
+          padding: 25px 20px;
+      }
+      .popup-code-content .popup-code-tle{
+        gap: 5px;
+          font-size: 22px;
+              flex-direction: column;
+                  margin-bottom: 10px;
+      }
+
+      .popup-code-content .popup-code-note {
+              font-size: 16px;
+              margin-top: 26px;
+              line-height: 1.3;
+      }
+      .popup-code-content .popup-code-left{
+          padding: 30px 10px;
+      }
+      .popup-code-content .code-left-txt1 {
+          font-size: 12px;
+      }
+      .popup-code-content .code-left-txt2 {
+          font-size: 18px;
+      }
+      .popup-code-content .popup-code-right{
+      font-size: 12px;
+      }
+     .popup .countdown-label-bix{
+        gap: 7px;
+      }
+      #u-user-popup .popup-left img {
+        border-radius: 0;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+      }
+      .popup  .countdown-inner .countdown-label-bix .countdown-label-wrapper{
+          gap: 7px;
+        }
+   }
+
+      @media (max-width: 400px) {
+        #u-user-popup .popop-left-benefits {
+          font-size: 0.5em;
+        }
+      }
+</style>
 
 {% if customer %}
 {% else %}
@@ -244,7 +1151,10 @@
       function showLoginError(message) {
         const $error = thatLogin.find('.login-msg-error');
         clearTimeout(errorTimeout);
-        $error.stop(true, true).text(message || errorMessages.system_err).show();
+        $error
+          .stop(true, true)
+          .text(message || errorMessages.system_err)
+          .show();
         errorTimeout = setTimeout(function () {
           $error.fadeOut(200);
         }, 6000);
@@ -276,26 +1186,28 @@
         if (stepBtn === 1 && isEmailValid) {
           commonGtmEvent('vip_subscribe', 'click', '');
           // 显示code code框
-          sendUlikeApi('/user/userSubscribe', data).then(function (res) {
-            if (res.code == 0) {
-              thatLogin.fadeOut();
-              thatLoginCoupon.fadeIn();
-              localStorage.setItem('ulike-subscribed', 'true');
-            } else if (res.code == 99998) {
-              // 定义一个常量对象，用于存储订阅成功的消息
-              const messages = {
-                user_subscribe_email_repeat:
-                  'このメールアドレスは既に登録されています。別のメールアドレスをご利用ください。',
-              };
-              // 检查响应消息是否存在于 messages 对象中
-              showLoginError(messages[res.message] || res.message || errorMessages.system_err);
-            } else {
-              showLoginError(res.message || errorMessages.system_err);
-            }
-          }).catch(function (error) {
-            console.error('Subscription failed:', error);
-            showLoginError(errorMessages.system_err);
-          });
+          sendUlikeApi('/user/userSubscribe', data)
+            .then(function (res) {
+              if (res.code == 0) {
+                thatLogin.fadeOut();
+                thatLoginCoupon.fadeIn();
+                localStorage.setItem('ulike-subscribed', 'true');
+              } else if (res.code == 99998) {
+                // 定义一个常量对象，用于存储订阅成功的消息
+                const messages = {
+                  user_subscribe_email_repeat:
+                    'このメールアドレスは既に登録されています。別のメールアドレスをご利用ください。',
+                };
+                // 检查响应消息是否存在于 messages 对象中
+                showLoginError(messages[res.message] || res.message || errorMessages.system_err);
+              } else {
+                showLoginError(res.message || errorMessages.system_err);
+              }
+            })
+            .catch(function (error) {
+              console.error('Subscription failed:', error);
+              showLoginError(errorMessages.system_err);
+            });
         }
       });
 
@@ -674,913 +1586,6 @@
     .hide-plug-diy {
       display: none !important;
     }
-  </style>
-  <style>
-            .email_svg-box{
-            position:relative;
-            }
-            #u-user-popup input[type=checkbox]:not(.switch):after {
-              border: 0px;
-              width: 0px;
-              height: 0px;
-            }
-            #u-user-popup, #u-user-coupon-popup {
-              position: fixed;
-              top: 0;
-              left: 0;
-              width: 100%;
-              height: 100%;
-              z-index: 1001;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              display: none;
-            }
-
-            #u-user-popup .overlay,#u-user-coupon-popup .overlay {
-              position: absolute;
-              top: 0;
-              left: 0;
-              width: 100%;
-              height: 100%;
-              background: rgba(0, 0, 0, 0.5);
-              z-index: 999;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            }
-
-
-            #u-user-popup .popup-content {
-              display: flex;
-              max-width: 980px;
-              width: 90%;
-              border-radius: 0px;
-              background: #fff;
-              padding: 0;
-              position: relative;
-              height: 561px;
-              border-radius: 5px;
-            }
-
-            #u-user-coupon-popup .popup-code-content{
-             display: flex;
-              max-width: 490px;
-              width: 90%;
-              border-radius: 0px;
-              background: #fff;
-              padding: 0;
-              position: relative;
-              height: 448px;
-              border-radius: 5px;
-            }
-
-            #u-user-popup .popup-container {
-              display: flex;
-              width: 100%;
-                  {% comment %} display: grid;
-            grid-template-columns: 1fr 1fr; {% endcomment %}
-            }
-
-            #u-user-popup .popup-left {
-              {% comment %} position: absolute;
-              left: -20%;
-              bottom: 0px;
-              width: 475px; {% endcomment %}
-              width:50%;
-            }
-
-            #u-user-popup .popup-left img {
-              max-width: 100%;
-              height: auto;
-              user-drag: none;
-              pointer-events: none;
-                  border-top-left-radius: 5px;
-                      border-bottom-left-radius: 5px;
-            }
-
-            #u-user-popup .popup-detail-discount{
-              position: absolute;
-              display: flex;
-              width: 100%;
-              font-size: 12px;
-              color: #FFFFFF;
-              top: 40.5%;
-              left: 19%;
-              font-family: var(--font-heading-family);
-              font-weight: 500;
-              width: 180px;
-              text-align: center;
-              display: flex;
-              justify-content: center;
-            }
-
-            .icon-item {
-              display: flex;
-              align-items: center;
-              gap: 4px;
-            }
-
-            .icon-item img{
-              width: 28px;
-            }
-
-            #u-user-popup .popup-right {
-              flex: 1;
-              padding: 60px 50px;
-              text-align: left;
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-              {% comment %} text-align: center; {% endcomment %}
-              {% comment %} padding-left: 44%; {% endcomment %}
-            }
-
-            #u-user-popup .popup-right h2 {
-              font-family: var(--font-heading-family);
-              margin-bottom: 0px;
-              width: 100%;
-              {% comment %} height: 56px; {% endcomment %}
-              font-weight: 500;
-              {% comment %} font-size: 32px; {% endcomment %}
-              color: #190A0A;
-              line-height: 56px;
-              font-size: 28px;
-          line-height: 1.3;
-            }
-            #u-user-popup .popup-right h2 strong{
-            font-style: normal;
-            font-weight: 500;
-            color: #E0004D;
-            }
-            #u-user-popup .popup-right .popup-right-txt {
-              font-size: 14px;
-              color: #000;
-              line-height: normal;
-              margin-top: 20px;
-              line-height: 1.3;
-              font-weight:300;
-              display: flex;
-              {% comment %} justify-content: center; {% endcomment %}
-              align-items: center;
-              gap: 15px;
-            }
-            #u-user-popup .popup-right .popup-right-txt .item{
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              gap: 4px;
-            }
-
-            #u-user-popup #login-form {
-              margin-top: 20px;
-            }
-
-            #u-user-popup .form-group {
-              position: relative;
-            }
-
-            #u-user-popup .form-group .input-msg-error{
-              text-align: left;
-              margin: 4px 0px 0px 0px;
-              font-size: 12px;
-              height: 20px;
-              line-height: 20px;
-            }
-
-            #u-user-popup .form-group input {
-              width: 100%;
-              padding: 9px 20px 9px 48px;
-              outline: none;
-              text-align: left;
-              color: #000;
-              font-size: 16px;
-              background: #FFFFFF;
-              border: 1px solid #3F3636;
-              border-radius: 6px;
-                  background: #F6F6F6;
-            }
-
-            #u-user-popup .form-group input::placeholder {
-              color: #9C9C9C;
-            }
-
-            #u-user-popup .form-group-error {
-              color: #E0004D;
-            }
-
-            #u-user-popup .form-group-error input {
-              border-color: #E0004D;
-              color: #E0004D;
-            }
-            #u-user-popup .form-group-error .input-msg-error {
-              display: block;
-              text-align: left;
-              margin: 4px 0px 0px 0px;
-              font-size: 12px;
-            }
-            #login-form .login-msg-error{
-              color: rgba(224, 0, 77, 1);
-              font-size: 14px;
-              font-weight: 300;
-              {% comment %} margin-bottom: 4px; {% endcomment %}
-              display: flex;
-              text-align: center;
-              {% comment %} margin-top: 10px; {% endcomment %}
-              justify-content: center;
-                  margin-top: 15px;
-            }
-
-            #login-form .login-msg-error .notification-icon {
-              width: 20px;
-              margin-right: 4px;
-            }
-            #login-form .login-msg-error .notification-text {
-              font-size: 12px;
-              color: #190A0A;
-            }
-
-            #u-user-popup .verification-group {
-              display: none;
-              margin-bottom: 20px;
-            }
-
-            #u-user-popup .send-code-btn {
-              margin-left: 10px;
-              border: none;
-              color: #2194FF;
-              border-radius: 20px;
-              padding: 5px 20px;
-              cursor: pointer;
-              white-space: nowrap;
-              position: absolute;
-              right: 0px;
-              top: 10px;
-              font-size: 14px;
-            }
-
-            #u-user-popup .btn-primary {
-              width: 100%;
-              background: #e7004c;
-              color: #fff;
-              height: 47px;
-              border: none;
-              cursor: pointer;
-              font-size: 16px;
-              border-radius:6px;
-              margin-top:20px;
-              overflow: hidden;
-              position: relative;
-              text-align: center;
-
-            }
-              #u-user-popup .btn-primary:before{
-                  position: absolute;
-        content: '';
-        display: block;
-        width: 200%;
-        height: 200%;
-        z-index: 2;
-        background: linear-gradient(-45deg, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 60%);
-        animation: scanning 3s
-    linear infinite;
-              }
-              @keyframes scanning {
-
-              0% {
-        transform: translate(-100%, -100%);
-    }
-    100% {
-        transform: translate(100%, 100%);
-    }
-              }
-
-            .social-login {
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              margin-top: 10px;
-              gap: 20px;
-            }
-
-            #u-user-popup .social-login img{
-              width: 46px;
-              height: 46px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              margin: 0 5px;
-              cursor: pointer;
-              border-radius: 90px 90px 90px 90px;
-              border: 1px solid #C4C4C4;
-            }
-            #u-user-popup .social-login img:hover{
-              border: 1px solid #190A0A;
-            }
-
-            #u-user-popup .alternative-login a {
-              color: #888;
-              font-size: 12px;
-              text-decoration: none;
-              text-align: center;
-              display: inline;
-              margin-left: 5px;
-            }
-            #u-user-popup .policy-agreement {
-              display: flex;
-              align-items: center;
-              margin-bottom: 37px;
-                  margin-top: 16px;
-            }
-
-            #u-user-popup .policy-agreement input[type="checkbox"] {
-              width: 20px;
-              height: 20px;
-              pointer-events: none;
-              background-color: #F5F8FC; /* 未选中时的背景色 */
-              border: none;
-              display: inline-block;
-              margin-right: 10px;
-              {% comment %} background-image: url('https://cdn.shopify.com/s/files/1/0740/5882/6015/files/item_unit_checkbox_2x_1.png?v=1743584872'); /* 未选中的图片 */ {% endcomment %}
-              background-size: cover; /* 使图片覆盖整个框 */
-              cursor: pointer;
-              border:1px solid #0D0E1C;
-
-            }
-
-            #u-user-popup .policy-agreement input[type="checkbox"]:checked {
-              border:1px solid transparent;
-              appearance: none; /* 去掉默认样式 */
-              background-image: url('https://cdn.shopify.com/s/files/1/0740/5882/6015/files/item_unit_checkbox_2x_7710c7af-5c86-4cf1-82bc-35ab3de50d3a.png?v=1743584872'); /* 选中的图片 */
-              background-size: cover; /* 确保图片充满整个框 */
-            }
-
-            #u-user-popup .policy-agreement label {
-              font-size: 12px;
-              color: #A2A2A2;
-              text-align: left;
-              cursor: pointer;
-              width: 90%;
-            }
-
-            .policy-agreement a {
-                text-decoration: underline;
-                color: #A2A2A2;
-            }
-
-            .policy-agreement a:hover {
-                color: #190A0A;
-            }
-
-            #u-user-popup .close-btn {
-              position: absolute;
-              top: 10px;
-              right: 10px;
-              font-size: 20px;
-              cursor: pointer;
-              background: none;
-              border: none;
-              color: #626262;
-            }
-
-
-            #floating-box {
-              position: fixed;
-              height: 46px;
-              bottom: 97px;
-              right: 50px;
-              width: 46px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              cursor: pointer;
-              z-index: 17;
-              user-select: none;
-              display:none;
-            }
-            .g-floating-box {
-              display:none;
-            }
-
-            #floating-box .circle-tag {
-                width: 100%;
-                height: 100%;
-                border-radius: 50%;
-                background: linear-gradient(to bottom, #E91E63, #FFA4B9);
-                font-family: Arial, sans-serif;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                text-align: center;
-                cursor: pointer;
-                user-select: none;
-                box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-              }
-
-              #floating-box .circle-tag .extra {
-                font-size: 14px;
-                line-height: 16px;
-                /* 使用你给定的渐变效果 */
-                background: linear-gradient(180deg, #FFF 32.17%, #EFDDC3 100%);
-                background-clip: text;
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                font-weight: 500;
-              }
-
-              #floating-box .circle-tag .text-num {
-                font-size: 14px;
-                line-height: 16px;
-                font-weight: 500;
-                color: #fff;
-                letter-spacing: 1px;
-              }
-        svg.email_logo-svg {
-            position: absolute;
-            left: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-            /* 倒计时 start */
-                      .countdown-inner{
-                      }
-                   .popup  .countdown-inner .countdown-wrapper{
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        flex-direction: column;
-                      }
-                   .popup  .countdown-inner .countdown-ulike {
-                        display: flex;
-                        align-items: center;
-                        font-size: 21px;
-                        gap: 12px;
-                        justify-content: center;
-                      }
-
-                   .popup  .countdown-inner  .countdown-label {
-                        font-size: 15px;
-                        color: #040D15;
-                        {% comment %} padding-right: 10px; {% endcomment %}
-                      }
-
-                    .popup   .countdown-inner .countdown-box {
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        width: 46px;
-                        height: 46px;
-                        background: #FFFFFC;
-                         color: #E0004D;
-                        border-radius: 5px;
-                        border:1px solid #BFBFBF;
-                      }
-
-                     .popup  .countdown-inner .countdown-separator {
-                        font-size: 24px;
-                        color: #0D0E1C
-                      }
-                     .popup  .countdown-inner .countdown-label-wrapper{
-                        display: flex;
-                        {% comment %} gap: 6px; {% endcomment %}
-                        margin-top: 5px;
-                            width: 70%;
-                      }
-                    .popup .countdown-inner  .countdown-fx{
-                        display: flex;
-                        flex-direction: column;
-                        align-items: flex-end;
-                      }
-                    .popup  .countdown-inner .time-label{
-                        display: block;
-                        font-size: 15px;
-                        color: #000;
-                        width: 46px;
-                        text-align: center;
-                      }
-                    .popup   .countdown-inner .time-label-sep{
-                        display: block;
-                        width: 30px;
-                      }
-
-                        .popup  .countdown-inner .countdown-label-bix .countdown-label-wrapper{
-                            width: 100%;
-                            flex: 1;
-                            display: flex;
-        gap: 12px;
-                      }
-                           .popup  .countdown-inner .countdown-label-bix .countdown-separator{
-                              visibility: hidden;
-                          }
-           /* 倒计时 end */
-        @keyframes  rotateBg {
-
-        0% {
-            transform: translate(-50%, -50%) rotate(0);
-        }
-        100% {
-            transform: translate(-50%, -50%) rotate(360deg);
-        }
-        }
-
-           .popup-code-content .subscribe-module-gs{
-              position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-                z-index: 0;
-            overflow: hidden;
-                border-radius: 5px;
-          }
-        .popup-code-content .subscribe-module-gs img{
-        height: 100%;
-            object-fit: cover;
-            width: 150%;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            max-width: none;
-            animation: rotateBg 25s infinite linear;
-        }
-           .popup-code-content .close-code-btn{
-            position: absolute;
-            right: 20px;
-            top: 20px;
-            z-index: 11;
-          }
-           .popup-code-content .popup-code-container{
-              width: 100%;
-            height: 100%;
-            padding: 50px 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-                position: relative;
-            z-index: 1;
-          }
-           .popup-code-content  .popup-code-tle{
-              display: flex;
-            gap: 10px;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 20px;
-            color: #000;
-            font-size: 30px;
-            font-style: normal;
-            font-weight: 500;
-            line-height: normal;
-          }
-
-          .popup-code-content .popup-code-note{
-              color: #5B5B5B;
-            font-size: 20px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: 25px;
-            margin-top: 50px;
-          }
-          .popup-code-content  .popup-code-box{
-              display: flex;
-            {% comment %} background: linear-gradient(180deg, #E0004D 2.42%, #FF7595 100%); {% endcomment %}
-            width: 100%;
-            text-align: center;
-            border-radius: 10px;
-            align-items: center;
-                color: #FFF;
-                position:relative;
-          }
-          .popup-code-content  .popup-code-box::before {
-            content: '';
-            --wm-num: 10px;
-            --wm-num1: 11px;
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 0;
-            display: block;
-               border-radius: 10px;
-            transform: none;
-            background: linear-gradient(180deg, #E0004D 5%, #FF7595 95%);
-            -webkit-mask-image:
-              radial-gradient(circle at 60% 0,
-            transparent 0,
-            transparent var(--wm-num),
-            black var(--wm-num1),
-            black 100%
-          ),
-
-          radial-gradient(circle at 60% 100%,
-            transparent 0,
-            transparent var(--wm-num),
-            black var(--wm-num1),
-            black 100%
-          ),
-
-          radial-gradient(circle at 0 50%,
-            transparent 0,
-            transparent var(--wm-num),
-            black var(--wm-num1),
-            black 100%
-          ),
-          radial-gradient(circle at 100% 50%,
-            transparent 0,
-            transparent var(--wm-num),
-            black var(--wm-num1),
-            black 100%
-          );
-            -webkit-mask-composite: destination-in;
-          mask-image:
-          radial-gradient(circle at 60% 0,
-            transparent 0,
-            transparent var(--wm-num),
-            black var(--wm-num1),
-            black 100%
-          ),
-
-          radial-gradient(circle at 60% 100%,
-            transparent 0,
-            transparent var(--wm-num),
-            black var(--wm-num1),
-            black 100%
-          ),
-
-          radial-gradient(circle at 0 50%,
-            transparent 0,
-            transparent var(--wm-num),
-            black var(--wm-num1),
-            black 100%
-          ),
-          radial-gradient(circle at 100% 50%,
-            transparent 0,
-            transparent var(--wm-num),
-            black var(--wm-num1),
-            black 100%
-          );
-            mask-composite: intersect;
-        }
-         .popup-code-content  .popup-code-left{
-            width: 60%;
-            padding: 30px 20px;
-            position:relative;
-        }
-        .popup-code-content .popup-code-left:after{
-            content: '';
-            display: block;
-            width: 1px;
-            height: calc(100% - 20px);
-            position: absolute;
-            top: 10px;
-            right: 0;
-            border: 1px dashed #fff;
-        }
-         .popup-code-content  .code-left-txt1{
-            font-size: 18px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: normal;
-        }
-         .popup-code-content  .code-left-txt2{
-            font-size: 28px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: normal;
-            text-decoration: underline;
-        }
-         .popup-code-content  .popup-code-right{
-        flex: 1;
-            font-size: 16px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: normal;
-            position:relative;
-        }
-        .popup .countdown-label-bix{
-            width: 100%;
-        display: flex;
-        gap: 12px;
-        align-items: center;
-        }
-        .popup .countdown-label-bix .countdown-label{
-        visibility: hidden;
-        }
-        .popup countdown-label-bix .countdown-label-wrapper {
-        width: 100%;
-    }
-            @media (max-width: 1025px) {
-              #u-user-popup .popup-content {
-                flex-direction: column;
-                width: 90%;
-                height: auto;
-                border-radius: 5px;
-              }
-
-              #u-user-popup .popup-left {
-                {% comment %} left: initial;
-                top: -10%;
-                height: 395px;
-                width: inherit; {% endcomment %}
-                        width: 100%;
-              }
-
-              #u-user-popup .popup-right {
-                width: 100%;
-                {% comment %} padding: 92% 20px 0px; {% endcomment %}
-                 padding:23px 30px;
-              }
-
-              #u-user-popup .popup-right h2 {
-                font-size: 18px;
-                margin-bottom:10px;
-                line-height:1.5
-              }
-              #u-user-popup .popup-right .popup-right-txt {
-                font-size: 12px;
-                color: #190A0A;
-                line-height: 14px;
-                text-align: left;
-                font-style: normal;
-                text-transform: none;
-                margin:0 0 10px;
-              }
-
-              #u-user-popup #login-form {
-                margin-top: 10px;
-              }
-
-              #login-form .login-msg-error{
-                font-size: 12px;
-              }
-
-              .icon-item img{
-                width: 22px;
-              }
-
-              #u-user-popup .close-btn {
-                color:#fff;
-                z-index: 2;
-                width: 39px;
-                right: 0px;
-                left: 50%;
-                border: 1px solid #fff;
-                height: 39px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                border-radius: 50%;
-                top: auto;
-                bottom: -60px;
-                transform: translateX(-50%);
-              }
-
-              #u-user-popup .verification-group {
-                flex-direction: column;
-              }
-              #u-user-popup .form-group input {
-                font-size: 14px;
-                {% comment %} padding: 10px 20px; {% endcomment %}
-              }
-
-              #u-user-popup  .send-code-btn {
-                margin-left: 0;
-                width: 134px;
-                font-size: 12px;
-                padding: 11px 10px;
-                top: 2px;
-              }
-              #u-user-popup .popop-left-benefits {
-                bottom: initial;
-                top: 10px;
-                font-size: 0.6em;
-              }
-              #u-user-popup .policy-agreement label {
-                text-align: left;
-                font-size: 12px;
-                width: 80%;
-              }
-              .notification_{{ se_id }}{
-                font-size: 10px;
-                width: 90%;
-                padding: 10px 10px;
-              }
-              #u-user-popup .btn-primary {
-                padding: 6px;
-                height: 40px;
-              }
-              #floating-box {
-               bottom: 110px;
-               right: 42px;
-              }
-              .or-divider {
-                margin: 4px 0;
-              }
-              #u-user-popup .popup-detail-discount {
-                width: 110px;
-                text-align: center;
-                top: 37%;
-                left: 22%;
-                line-height: 16px;
-              }
-
-              #u-user-popup .social-login  img{
-                width: 36px;
-                height: 36px;
-              }
-              #u-user-popup .popup-container {
-        flex-direction: column;
-        }
-        #u-user-popup .policy-agreement{
-            margin-bottom: 12px;
-            margin-top: 10px;
-        }
-         .popup .countdown-inner .countdown-ulike {
-            font-size: 16px;
-            gap: 7px;
-        }
-         .popup .countdown-inner .countdown-label {
-            font-size: 12px;
-        }
-         .popup .countdown-inner .countdown-box{
-            width: 32px;
-            height: 32px;
-            border-radius: 3px;
-        }
-         .popup .countdown-inner .countdown-separator {
-            font-size: 18px;
-        }
-         .popup .countdown-inner .time-label{
-        font-size: 10px;
-            width: 33px;
-
-        }
-         .popup .countdown-inner .time-label-sep {
-            display: block;
-            width: 18px;
-        }
-         .popup .countdown-inner .countdown-label-wrapper {
-            {% comment %} width: 73%; {% endcomment %}
-        }
-        #u-user-popup .popup-code-content {
-            max-width: 350px;
-            width: 90%;
-            height: 300px;
-            border-radius: 5px;
-        }
-        .popup-code-content .close-code-btn {
-            right: 10px;
-            top: 10px;
-        }
-        .popup-code-content .popup-code-container{
-            padding: 25px 20px;
-        }
-        .popup-code-content .popup-code-tle{
-          gap: 5px;
-            font-size: 22px;
-                flex-direction: column;
-                    margin-bottom: 10px;
-        }
-
-        .popup-code-content .popup-code-note {
-                font-size: 16px;
-                margin-top: 26px;
-                line-height: 1.3;
-        }
-        .popup-code-content .popup-code-left{
-            padding: 30px 10px;
-        }
-        .popup-code-content .code-left-txt1 {
-            font-size: 12px;
-        }
-        .popup-code-content .code-left-txt2 {
-            font-size: 18px;
-        }
-        .popup-code-content .popup-code-right{
-        font-size: 12px;
-        }
-       .popup .countdown-label-bix{
-          gap: 7px;
-        }
-        #u-user-popup .popup-left img {
-          border-radius: 0;
-          border-top-left-radius: 5px;
-          border-top-right-radius: 5px;
-        }
-        .popup  .countdown-inner .countdown-label-bix .countdown-label-wrapper{
-            gap: 7px;
-          }
-     }
-
-        @media (max-width: 400px) {
-          #u-user-popup .popop-left-benefits {
-            font-size: 0.5em;
-          }
-        }
   </style>
 {% endif %}
 
