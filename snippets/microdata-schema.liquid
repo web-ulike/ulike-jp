@@ -1,3 +1,8 @@
+{%- if shop.refund_policy.body != blank and shop.refund_policy.url != blank -%}
+  {%- assign merchant_return_policy_url = shop.url | append: shop.refund_policy.url -%}
+  {%- assign merchant_return_policy_id = merchant_return_policy_url | append: '#merchant-return-policy' -%}
+{%- endif -%}
+
 {%- if request.page_type == 'product' -%}
   {%- comment -%}
     Shopify's structured_data filter does not expose Offer-level shipping.
@@ -31,6 +36,9 @@
             "price": {{ variant.price | divided_by: 100.0 | json }},
             "availability": "https://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}",
             "itemCondition": "https://schema.org/NewCondition",
+            {%- if merchant_return_policy_id != blank -%}
+              "hasMerchantReturnPolicy": { "@id": {{ merchant_return_policy_id | json }} },
+            {%- endif -%}
             "shippingDetails": {
               "@type": "OfferShippingDetails",
               "shippingDestination": {
@@ -63,6 +71,22 @@
       ]
     }
   </script>
+  {%- if merchant_return_policy_id != blank -%}
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "@id": {{ shop.url | append: '#organization' | json }},
+        "name": {{ shop.name | json }},
+        "url": {{ shop.url | json }},
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "@id": {{ merchant_return_policy_id | json }},
+          "merchantReturnLink": {{ merchant_return_policy_url | json }}
+        }
+      }
+    </script>
+  {%- endif -%}
 {%- elsif request.page_type == 'article' -%}
   <script type="application/ld+json">
     {{- article | structured_data -}}
@@ -165,7 +189,15 @@
     {
       "@context": "https://schema.org",
       "@type": "Organization",
+      "@id": {{ shop.url | append: '#organization' | json }},
       "name": {{ shop.name | json }},
+      {%- if merchant_return_policy_id != blank -%}
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "@id": {{ merchant_return_policy_id | json }},
+          "merchantReturnLink": {{ merchant_return_policy_url | json }}
+        },
+      {%- endif -%}
       {%- if shop.brand.logo -%}
         "logo": {{ shop.brand.logo | image_url: width: shop.brand.logo.width | prepend: "https:" | json }},
       {%- endif -%}
