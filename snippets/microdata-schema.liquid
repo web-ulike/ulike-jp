@@ -5,6 +5,14 @@
 
 {%- if request.page_type == 'product' -%}
   {%- comment -%}
+    Judge.me uses the product @id to connect its review JSON-LD to this Product.
+    Read the aggregate from the same Judge.me badge shown on the product page;
+    omit it when the product has no published reviews.
+  {%- endcomment -%}
+  {%- assign judgeme_badge = product.metafields.judgeme.badge -%}
+  {%- assign judgeme_review_count = judgeme_badge | split: "data-number-of-reviews='" | last | split: "'" | first | plus: 0 -%}
+  {%- assign judgeme_rating_value = judgeme_badge | split: "data-average-rating='" | last | split: "'" | first | plus: 0 -%}
+  {%- comment -%}
     Shopify's structured_data filter does not expose Offer-level shipping.
     The values below mirror the Japan shipping information published on the
     storefront: free domestic shipping, 1–3 business days to dispatch, and
@@ -15,6 +23,7 @@
     {
       "@context": "https://schema.org",
       "@type": "Product",
+      "@id": {{ canonical_url | append: '#product' | json }},
       "name": {{ product.title | json }},
       "url": {{ canonical_url | json }},
       "description": {{ product.description | strip_html | strip_newlines | json }},
@@ -25,6 +34,14 @@
         "brand": {
           "@type": "Brand",
           "name": {{ product.vendor | json }}
+        },
+      {%- endif -%}
+      {%- if judgeme_review_count > 0 and judgeme_rating_value > 0 -%}
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": {{ judgeme_rating_value | json }},
+          "ratingCount": {{ judgeme_review_count | json }},
+          "bestRating": 5
         },
       {%- endif -%}
       "offers": [
