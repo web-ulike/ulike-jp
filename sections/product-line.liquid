@@ -65,15 +65,21 @@
     }
     .product__slide-inner .product__image-wrapper{
       flex: 0 0 50%;
+      aspect-ratio: var(--product-image-ratio, auto);
+      overflow: hidden;
     }
     .product__slide-inner .product__image-wrapper picture{
+      position: absolute;
+      inset: 0;
       display: block;
       width: 100%;
+      height: 100%;
     }
     .product__slide-inner .product__image-wrapper .product-img{
       display: block;
       width: 100%;
-      height: auto;
+      height: 100%;
+      object-fit: cover;
     }
     .product__content-wrapper {
       display: flex;
@@ -325,6 +331,15 @@
     }
     .product__slide-inner .product__image-wrapper{
       flex: none;
+      aspect-ratio: auto;
+    }
+    .product__slide-inner .product__image-wrapper picture{
+      position: static;
+      height: auto;
+    }
+    .product__slide-inner .product__image-wrapper .product-img{
+      height: auto;
+      object-fit: contain;
     }
     .product__content-wrapper{
       display: block;
@@ -474,7 +489,7 @@
         <div class="product__slide-list" style="--product-line-block-gap-desktop: {{ block.settings.block_gap_desktop | default: 80 }}px; --product-line-block-gap-mobile: {{ block.settings.block_gap_mobile | default: 25 }}px;">
           <div class="product__slide">
             <div class="product__slide-inner {% if block.settings.image_position == 'right' %}product__slide-inner_reverse{% endif %}">
-              <div class="product__image-wrapper slide-to-right">
+              <div class="product__image-wrapper slide-to-right"{% if block.settings.product_image != blank %} style="--product-image-ratio: {{ block.settings.product_image.aspect_ratio }};"{% endif %}>
                 <picture>
                   {%- if block.settings.mb_product_image -%}
                     <source media="(max-width: 767px)" srcset="{{ block.settings.mb_product_image | image_url }}">
