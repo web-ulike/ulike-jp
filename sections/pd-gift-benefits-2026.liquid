@@ -1,0 +1,174 @@
+{%- liquid
+  assign sid = section.id
+  assign st = section.settings
+-%}
+
+<section id="pd-gift-benefits-2026-{{ sid }}" class="pd-gift-benefits-2026">
+  <div class="pd-gift-benefits-2026__inner">
+    {%- if st.heading != blank -%}
+      <h2 class="pd-gift-benefits-2026__heading">{{ st.heading | escape }}</h2>
+    {%- endif -%}
+
+    <div class="pd-gift-benefits-2026__gift">
+      {%- if st.gift_image_pc != blank -%}
+        {{ st.gift_image_pc | image_url: width: 1600 | image_tag: class: 'pd-gift-benefits-2026__gift-pc', loading: 'lazy', widths: '750, 1200, 1600' }}
+      {%- else -%}
+        <img class="pd-gift-benefits-2026__gift-pc" src="{{ 'pd-gifts-pouch-pc-2026.png' | asset_url }}" alt="" loading="lazy" width="1024" height="421">
+      {%- endif -%}
+      <div class="pd-gift-benefits-2026__gift-copy">
+        <p class="pd-gift-benefits-2026__index">01</p>
+        <p class="pd-gift-benefits-2026__gift-text">
+          {{ st.gift_intro | escape }}<span class="pd-gift-benefits-2026__mobile-break">{{ st.gift_continuation | escape }}</span><br>
+          <span class="pd-gift-benefits-2026__highlight">{{ st.gift_highlight | escape }}</span>{{ st.gift_outro | escape }}
+        </p>
+      </div>
+      <div class="pd-gift-benefits-2026__gift-mobile-media">
+        {%- if st.gift_image_mobile != blank -%}
+          {{ st.gift_image_mobile | image_url: width: 1000 | image_tag: class: 'pd-gift-benefits-2026__gift-mobile', loading: 'lazy', widths: '375, 750, 1000' }}
+        {%- else -%}
+          <img class="pd-gift-benefits-2026__gift-mobile" src="{{ 'pd-gifts-pouch-mobile-2026.png' | asset_url }}" alt="オリジナルトラベルポーチ" loading="lazy" width="4096" height="2730">
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="pd-gift-benefits-2026__prizes">
+      <div class="pd-gift-benefits-2026__prizes-heading">
+        <p class="pd-gift-benefits-2026__index">02</p>
+        <h3>{{ st.prizes_heading | escape }}</h3>
+      </div>
+      <div class="pd-gift-benefits-2026__grid">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'prize' -%}
+            <article class="pd-gift-benefits-2026__prize" {{ block.shopify_attributes }}>
+              <div class="pd-gift-benefits-2026__prize-media">
+                {%- if block.settings.image != blank -%}
+                  {{ block.settings.image | image_url: width: 1200 | image_tag: class: 'pd-gift-benefits-2026__prize-image', loading: 'lazy', widths: '375, 750, 1200' }}
+                {%- elsif forloop.first -%}
+                  <img class="pd-gift-benefits-2026__prize-image" src="{{ 'pd-gifts-coupon-10000-2026.png' | asset_url }}" alt="10,000円キャッシュバック" loading="lazy" width="1024" height="612">
+                {%- else -%}
+                  <img class="pd-gift-benefits-2026__prize-image" src="{{ 'pd-gifts-coupon-5000-2026.png' | asset_url }}" alt="5,000円キャッシュバック" loading="lazy" width="1024" height="675">
+                {%- endif -%}
+                {%- if block.settings.badge_number != blank -%}
+                  <div class="pd-gift-benefits-2026__badge">
+                    <img src="{{ 'pd-gifts-badge-2026.svg' | asset_url }}" alt="" width="84" height="96">
+                    <span><strong>{{ block.settings.badge_number | escape }}</strong><small>{{ block.settings.badge_label | escape }}</small></span>
+                  </div>
+                {%- endif -%}
+              </div>
+              <p class="pd-gift-benefits-2026__prize-caption">
+                <span class="pd-gift-benefits-2026__prize-label">{{ block.settings.label | escape }}</span><span class="pd-gift-benefits-2026__prize-label-mobile">{{ block.settings.mobile_label | default: block.settings.label | escape }}</span>
+                {{ block.settings.amount | escape }}<span class="pd-gift-benefits-2026__divider" aria-hidden="true"></span>{{ block.settings.winners | escape }}
+              </p>
+            </article>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+
+    {%- if st.legal_text != blank -%}
+      <div class="pd-gift-benefits-2026__legal">{{ st.legal_text | escape | newline_to_br }}</div>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  #pd-gift-benefits-2026-{{ sid }} { background: #fffaf4; color: #000; padding: 115px 24px 134px; }
+  #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__inner { max-width: 1200px; margin: 0 auto; }
+  #pd-gift-benefits-2026-{{ sid }} p,
+  #pd-gift-benefits-2026-{{ sid }} h2,
+  #pd-gift-benefits-2026-{{ sid }} h3 { margin: 0; }
+  #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__heading { color: #190a0a; font-size: 40px; font-weight: 500; line-height: 1.3; text-align: center; margin-bottom: 76px; }
+  #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__gift { position: relative; aspect-ratio: 1200 / 408; overflow: hidden; background: #ede1d2; }
+  #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__gift-pc { display: block; width: 100%; height: 100%; object-fit: cover; }
+  #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__gift-copy { position: absolute; left: 12.83%; top: 22%; z-index: 1; }
+  #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__index { font-family: 'Saans', 'Noto Sans JP', sans-serif; font-size: 36px; font-weight: 400; line-height: 1.2; letter-spacing: .1em; }
+  #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__gift-text { font-family: 'Noto Sans JP', sans-serif; font-size: 20px; font-weight: 500; line-height: 1.5; margin-top: 30px; }
+  #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__highlight { background: #a87f58; color: #fff; }
+  #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__gift-mobile-media { display: none; }
+  #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__prizes { margin-top: 80px; }
+  #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__prizes-heading { display: grid; justify-items: center; gap: 15px; text-align: center; }
+  #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__prizes-heading h3 { font-family: 'Noto Sans JP', sans-serif; font-size: 20px; font-weight: 500; line-height: 1.3; }
+  #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px; margin-top: 49px; }
+  #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__prize-media { position: relative; aspect-ratio: 585 / 344; overflow: hidden; background: #efe4d6; }
+  #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__prize-image { display: block; width: 100%; height: 100%; object-fit: cover; }
+  #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__badge { position: absolute; top: 12.7%; right: 8.2%; width: 96px; height: 96px; }
+  #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__badge img { display: block; width: 100%; height: 100%; }
+  #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__badge span { position: absolute; top: 20%; left: 0; right: 0; display: grid; justify-items: center; color: #fff; line-height: 1.1; }
+  #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__badge strong { font-family: 'Saans', sans-serif; font-size: 24px; font-weight: 400; letter-spacing: .05em; }
+  #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__badge small { font-family: 'Noto Sans JP', sans-serif; font-size: 12px; }
+  #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__prize-caption { display: flex; align-items: center; justify-content: center; gap: 20px; color: #1a1a1a; font-size: 20px; font-weight: 500; line-height: 1.5; margin-top: 20px; white-space: nowrap; }
+  #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__prize-label-mobile { display: none; }
+  #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__divider { display: block; height: 16px; width: 1px; background: #1a1a1a; }
+  #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__legal { color: rgba(0, 0, 0, .5); font-family: 'Noto Sans JP', sans-serif; font-size: 12px; font-weight: 400; line-height: 1.3; margin-top: 80px; }
+
+  @media screen and (max-width: 749px) {
+    #pd-gift-benefits-2026-{{ sid }} { padding: 50px 16px; }
+    #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__heading { max-width: 283px; font-size: 28px; line-height: 1.3; margin: 0 auto 30px; }
+    #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__gift { display: flex; flex-direction: column; align-items: center; aspect-ratio: auto; padding-top: 30px; }
+    #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__gift-pc { display: none; }
+    #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__gift-copy { position: static; width: 100%; padding: 0 12px; text-align: center; }
+    #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__gift-text { font-size: 16px; margin-top: 20px; }
+    #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__mobile-break { display: block; }
+    #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__gift-text br { display: none; }
+    #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__gift-mobile-media { display: block; position: relative; width: 100%; height: 251px; overflow: hidden; }
+    #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__gift-mobile { position: absolute; display: block; width: 133%; max-width: none; height: auto; left: 50%; top: -26px; transform: translateX(-50%); }
+    #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__prizes { margin-top: 40px; }
+    #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__prizes-heading { gap: 20px; }
+    #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__prizes-heading h3 { max-width: 320px; font-size: 16px; line-height: 1.3; }
+    #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__grid { grid-template-columns: 1fr; gap: 20px; margin-top: 40px; }
+    #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__prize-media { aspect-ratio: auto; height: 251px; }
+    #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__prize-image { width: 100%; height: 100%; object-fit: cover; }
+    #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__badge { top: 17px; right: 14px; width: 72px; height: 72px; }
+    #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__badge strong { font-size: 18px; }
+    #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__badge small { font-size: 9px; }
+    #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__prize-caption { gap: 20px; font-size: 16px; margin-top: 20px; }
+    #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__prize-label { display: none; }
+    #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__prize-label-mobile { display: inline; }
+    #pd-gift-benefits-2026-{{ sid }} .pd-gift-benefits-2026__legal { font-size: 8px; margin-top: 30px; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "PD Gift Benefits 2026",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "主标题", "default": "どなたでも参加できるチャンス！" },
+    { "type": "header", "content": "01 赠品" },
+    { "type": "image_picker", "id": "gift_image_pc", "label": "赠品图片 PC（含背景）" },
+    { "type": "image_picker", "id": "gift_image_mobile", "label": "赠品图片 M（透明底）" },
+    { "type": "text", "id": "gift_intro", "label": "赠品文案前段", "default": "期間中にご購入いただいた方全員に、" },
+    { "type": "text", "id": "gift_continuation", "label": "赠品文案接续", "default": "もれなく" },
+    { "type": "text", "id": "gift_highlight", "label": "赠品高亮文案", "default": "「オリジナルトラベルポーチ」" },
+    { "type": "text", "id": "gift_outro", "label": "赠品文案结尾", "default": "をプレゼント！" },
+    { "type": "header", "content": "02 返现" },
+    { "type": "text", "id": "prizes_heading", "label": "返现说明", "default": "ご購入いただいた方全員がキャッシュバックが当たるチャンス！" },
+    { "type": "header", "content": "活动说明" },
+    { "type": "textarea", "id": "legal_text", "label": "说明文字（每行一条）", "default": "・本キャンペーンは、Ulike株式会社が主催・運営しております。\n・各賞品の提供元企業は、本キャンペーンのスポンサーではなく、一切関与しておりません。\n・賞品の換金、転売、および第三者への譲渡は禁止されています。\n・本キャンペーン内容の最終的な解釈権および変更権は、Ulike株式会社に帰属します。\n・賞品発送またはキャッシュバックの時点で、ご注文がキャンセルまたは返金されている場合は対象外となります。\n・当選したキャッシュバック金額が実際の決済金額を上回る場合は、決済金額を上限として払い戻しいたします。" }
+  ],
+  "blocks": [
+    {
+      "type": "prize",
+      "name": "返现奖项",
+      "limit": 2,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "奖项图片" },
+        { "type": "text", "id": "label", "label": "PC 奖项名称" },
+        { "type": "text", "id": "mobile_label", "label": "M 奖项名称（留空沿用 PC）" },
+        { "type": "text", "id": "amount", "label": "金额" },
+        { "type": "text", "id": "winners", "label": "获奖人数" },
+        { "type": "text", "id": "badge_number", "label": "叶片人数数字" },
+        { "type": "text", "id": "badge_label", "label": "叶片人数单位", "default": "名様" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PD Gift Benefits 2026",
+      "blocks": [
+        { "type": "prize", "settings": { "label": "特賞", "mobile_label": "特賞", "amount": "10,000円", "winners": "10名様", "badge_number": "10" } },
+        { "type": "prize", "settings": { "label": "1等", "mobile_label": "特賞", "amount": "5,000円", "winners": "20名様", "badge_number": "20" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
