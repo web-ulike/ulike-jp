@@ -491,10 +491,20 @@
   }
   @media (max-width: 992px) {
     .product-line.valentine-sale-2026 .discount-pri-inner .price-wrapper {
-      grid-template-columns: minmax(0, 1fr);
+      grid-template-columns: max-content minmax(0, 1fr);
+      column-gap: 8px;
     }
     .product-line.valentine-sale-2026 .discount-pri-inner .discount-pri-txt {
-      grid-column: 1;
+      grid-column: 1 / -1;
+    }
+    .product-line.valentine-sale-2026 .discount-pri-inner .price {
+      padding-right: 0;
+      font-size: clamp(20px, 6vw, 24px);
+      white-space: nowrap;
+    }
+    .product-line.valentine-sale-2026 .discount-pri-inner .oriprice {
+      font-size: clamp(10px, 3.2vw, 12px);
+      white-space: nowrap;
     }
   }
 </style>
