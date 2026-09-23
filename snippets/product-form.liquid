@@ -429,7 +429,7 @@
             {%- assign recipient_feature_active = true -%}
           {%- endif -%}
 
-          <div data-block-type="buy-buttons" data-block-id="{{ block.id }}" class="product-form__buy-buttons" {{ block.shopify_attributes }}>
+          <div data-block-type="buy-buttons" data-block-id="{{ block.id }}" class="product-form__buy-buttons jp-main-product-legacy__buy-buttons" {{ block.shopify_attributes }}>
             {%- form 'product', product, is: 'product-form', id: product_form_id -%}
               {%- if recipient_feature_active -%}
                 <gift-card-recipient class="gift-card-recipient">

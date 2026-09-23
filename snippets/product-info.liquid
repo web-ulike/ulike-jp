@@ -22,11 +22,12 @@
       </h2>
     {% endunless %}
 
-    <div class="product-meta__price-list-container">
+    <div class="product-meta__price-list-container jp-main-product-legacy__price-block">
       {%- if product.selected_or_first_available_variant != nil -%}
-        <div class="price-list">
+        <div class="price-list jp-main-product-legacy__price-row">
           {%- if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price -%}
-            <span class="price price--highlight price--large">
+            <span class="price price--highlight price--large jp-main-product-legacy__price-item jp-main-product-legacy__price-item--sale">
+              <span class="jp-main-product-legacy__price-label">期間限定</span>
               <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
 
               {%- if settings.currency_code_enabled -%}
@@ -34,9 +35,11 @@
               {%- else -%}
                 {{- product.selected_or_first_available_variant.price | money -}}
               {%- endif -%}
+              <span class="jp-main-product-legacy__tax-label">（税込）</span>
             </span>
 
-            <span class="price price--compare">
+            <span class="price price--compare jp-main-product-legacy__price-item jp-main-product-legacy__price-item--compare">
+              <span class="jp-main-product-legacy__price-label">定価</span>
               <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
 
               {%- if settings.currency_code_enabled -%}
@@ -44,15 +47,18 @@
               {%- else -%}
                 {{- product.selected_or_first_available_variant.compare_at_price | money -}}
               {%- endif -%}
+              <span class="jp-main-product-legacy__tax-label">（税込）</span>
             </span>
           {%- else -%}
-            <span class="price price--large">
+            <span class="price price--large jp-main-product-legacy__price-item jp-main-product-legacy__price-item--sale">
+              <span class="jp-main-product-legacy__price-label">価格</span>
               <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
               {%- if settings.currency_code_enabled -%}
                 {{- product.selected_or_first_available_variant.price | money_with_currency -}}
               {%- else -%}
                 {{- product.selected_or_first_available_variant.price | money -}}
               {%- endif -%}
+              <span class="jp-main-product-legacy__tax-label">（税込）</span>
             </span>
           {%- endif -%}
 
