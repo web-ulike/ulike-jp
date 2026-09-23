@@ -595,6 +595,11 @@
 
   {% comment %} 900px - 1600px 中间屏幕适配 {% endcomment %}
   @media screen and (min-width: 900px) and (max-width: 1600px) {
+    .jp-home-hero--{{ sid }} .jp-home-hero__subheading-logo {
+      height: clamp(40px, calc(10.82vw - 67.12px), 106px);
+      max-width: 100%;
+    }
+
     .jp-home-hero--{{ sid }} .jp-home-hero__content {
       width: calc(30vw + 107.14px);
     }
