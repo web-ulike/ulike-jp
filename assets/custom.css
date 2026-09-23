@@ -3,6 +3,14 @@ h1,h2,h3,h4,h5,h6 {
  padding: 0;
 }
 
+@media screen and (max-width: 740px) {
+  #shopify-section-{{ section.id }} .container {
+    max-width: 1200px;
+    width: 100%;
+    margin-inline: auto;
+  }
+}
+
 /* Product vendor is intentionally hidden across product detail/featured product blocks. */
 .product-meta__vendor {
   display: none;
