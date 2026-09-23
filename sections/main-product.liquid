@@ -80,7 +80,7 @@
     <product-rerender id="product-info-{{ product.id }}-{{ section.id }}" observe-form="{{ product_form_id }}" allow-partial-rerender>
       <div class="product product--thumbnails-{{ section.settings.desktop_thumbnails_position }}">
         {%- render 'product-media', product: product, product_form_id: product_form_id -%}
-        {%- render 'product-info', product: product, product_form_id: product_form_id, update_url: true -%}
+        {%- render 'product-info', product: product, product_form_id: product_form_id, update_url: true, main_product: true -%}
       </div>
     </product-rerender>
   </div>

@@ -4,7 +4,7 @@
 {%- assign buy_buttons_block = section.blocks | where: 'type', 'buy_buttons' | first -%}
 {%- assign is_main_product_form = false -%}
 {%- assign quantity_in_purchase_row = false -%}
-{%- if section.type == 'main-product' and context != 'quick-buy' -%}
+{%- if main_product and context != 'quick-buy' -%}
   {%- assign is_main_product_form = true -%}
 {%- endif -%}
 {%- if is_main_product_form and buy_buttons_block.settings.show_quantity_selector -%}
