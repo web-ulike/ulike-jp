@@ -10,26 +10,30 @@
     box-sizing: border-box; padding: 24px; background: rgba(0, 0, 0, .7);
   }
   #shopify-section-{{ section.id }} .endof-overlay-content {
-    box-sizing: border-box; display: grid; grid-template-columns: 232px 1fr; column-gap: 47px; align-items: center;
-    width: min(100%, 751px); min-height: 491px; padding: 70px 70px 70px 71px; overflow: auto; border-radius: 15px; background: #fff;
+    box-sizing: border-box; display: grid;
+     grid-template-columns: 232px 1fr;
+     column-gap: 47px;
+    align-items: center;
+    width: min(100%, 750px); min-height: 491px; padding: 70px 60px; overflow: auto;
+    border-radius: 15px; background: #fff;
   }
   #shopify-section-{{ section.id }} .endof-overlay__image { display: block; width: 232px; height: auto; }
   #shopify-section-{{ section.id }} .endof-overlay__body { min-width: 0; }
-  #shopify-section-{{ section.id }} .endof-overlay__title { 
-    margin: 0; color: #000; font-size: 28px; font-weight: 500; line-height: 1.3; 
+  #shopify-section-{{ section.id }} .endof-overlay__title {
+    margin: 0; color: #000; font-size: 28px; font-weight: 500; line-height: 1.3;
   }
   #shopify-section-{{ section.id }} .endof-overlay__description {
-     margin-top: 38px; color: #000; font-size: 18px; font-weight: 400; line-height: 1.5; 
+     margin-top: 38px; color: #000; font-size: 18px; font-weight: 400; line-height: 1.5;
     }
   #shopify-section-{{ section.id }} .endof-overlay__description p { margin: 0; }
   #shopify-section-{{ section.id }} .endof-overlay__button {
-    display: flex; flex-direction: column; 
+    display: flex; flex-direction: column;
     align-items: center; justify-content: center; gap: 80px; box-sizing: border-box;
     width: 200px;
-    margin-top: 43px; 
+    margin-top: 43px;
     padding: 14px 24px;
     color: #fff;
-    font-size: 14px; 
+    font-size: 14px;
     font-weight: 500; line-height: normal; text-align: center;
     text-decoration: none; border: 0; border-radius: 0; box-shadow: none; cursor: pointer; appearance: none;
     background: linear-gradient(96deg, #e0004d 17.3%, #ff508c 49.8%, #e0004d 77.3%);
@@ -70,20 +74,50 @@
 
 <section>
   <activity-end-overlay data-section-id="{{ section.id }}">
-    <div class="endof-overlay" id="activityOverlay-{{ section.id }}" role="dialog" aria-modal="true" aria-labelledby="activityOverlayTitle-{{ section.id }}">
+    <div
+      class="endof-overlay"
+      id="activityOverlay-{{ section.id }}"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="activityOverlayTitle-{{ section.id }}"
+    >
       <div class="endof-overlay-content">
         {%- if section.settings.character_image != blank -%}
-          <img class="endof-overlay__image" src="{{ section.settings.character_image | image_url: width: 464 }}" width="{{ section.settings.character_image.width }}" height="{{ section.settings.character_image.height }}" alt="{{ section.settings.character_image.alt | escape }}" loading="eager">
+          <img
+            class="endof-overlay__image"
+            src="{{ section.settings.character_image | image_url: width: 464 }}"
+            width="{{ section.settings.character_image.width }}"
+            height="{{ section.settings.character_image.height }}"
+            alt="{{ section.settings.character_image.alt | escape }}"
+            loading="eager"
+          >
         {%- else -%}
-          <img class="endof-overlay__image" src="{{ 'endof-event-mask-character.png' | asset_url }}" width="232" height="218" alt="" loading="eager">
+          <img
+            class="endof-overlay__image"
+            src="{{ 'endof-event-mask-character.png' | asset_url }}"
+            width="232"
+            height="218"
+            alt=""
+            loading="eager"
+          >
         {%- endif -%}
         <div class="endof-overlay__body">
-          <h2 class="endof-overlay__title" id="activityOverlayTitle-{{ section.id }}">{{ section.settings.tle | default: default_title }}</h2>
+          <h2 class="endof-overlay__title" id="activityOverlayTitle-{{ section.id }}">
+            {{ section.settings.tle | default: default_title }}
+          </h2>
           <div class="endof-overlay__description">{{ section.settings.des | default: default_description }}</div>
           <a class="endof-overlay__button" href="{{ section.settings.link_url | default: routes.root_url }}">
             <span class="endof-overlay__button-content">
               <span>{{ section.settings.button_txt | default: default_button_text }}</span>
-              <svg class="endof-overlay__button-icon" xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+              <svg
+                class="endof-overlay__button-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                fill="none"
+                aria-hidden="true"
+              >
                 <path d="M0.227931 8.10708L3.6754 4.65921L0.227931 1.21106C-0.055849 0.92728 0.227931 0.182922 0.227931 0.182922L4.70408 4.65975L0.227931 9.13576C0.227931 9.13576 -0.055849 8.39142 0.227931 8.10708Z" fill="white"/>
                 <path d="M5.21571 8.10708L8.66372 4.65921L5.21571 1.21106C4.93193 0.92728 5.21571 0.182922 5.21571 0.182922L9.69301 4.65975L5.21571 9.13576C5.21571 9.13576 4.93193 8.39142 5.21571 8.10708Z" fill="white"/>
                 <path d="M0.227931 8.10708L3.6754 4.65921L0.227931 1.21106C-0.055849 0.92728 0.227931 0.182922 0.227931 0.182922L4.70408 4.65975L0.227931 9.13576C0.227931 9.13576 -0.055849 8.39142 0.227931 8.10708Z" stroke="white" stroke-width="0.203388"/>
@@ -101,7 +135,7 @@
   class ActivityEndOverlay extends HTMLElement {
     constructor() {
       super();
-      this.shopifyEventEndTime = "{{ section.settings.event_end_date }}";
+      this.shopifyEventEndTime = '{{ section.settings.event_end_date }}';
       this.checkActivityStatus();
       this.intervalId = setInterval(() => this.checkActivityStatus(), 60000);
     }
@@ -126,7 +160,9 @@
       const endTime = new Date(endTimeValue);
       if (!Number.isNaN(endTime.getTime()) && new Date() >= endTime) this.endActivity();
     }
-    disconnectedCallback() { clearInterval(this.intervalId); }
+    disconnectedCallback() {
+      clearInterval(this.intervalId);
+    }
   }
   if (!customElements.get('activity-end-overlay')) customElements.define('activity-end-overlay', ActivityEndOverlay);
 </script>
@@ -136,8 +172,19 @@
   "name": "endof-event-mask",
   "class": "endof-event-mask",
   "settings": [
-    { "type": "text", "id": "event_end_date", "label": "Event end date", "default": "2025-08-31 23:59", "info": "支持 YYYY-MM-DD（当天 23:59:59 结束）或 YYYY-MM-DD HH:MM。" },
-    { "type": "image_picker", "id": "character_image", "label": "Character image", "info": "未上传时将使用 Figma 默认插画。" },
+    {
+      "type": "text",
+      "id": "event_end_date",
+      "label": "Event end date",
+      "default": "2025-08-31 23:59",
+      "info": "支持 YYYY-MM-DD（当天 23:59:59 结束）或 YYYY-MM-DD HH:MM。"
+    },
+    {
+      "type": "image_picker",
+      "id": "character_image",
+      "label": "Character image",
+      "info": "未上传时将使用 Figma 默认插画。"
+    },
     { "type": "text", "id": "tle", "label": "Title" },
     { "type": "richtext", "id": "des", "label": "Description" },
     { "type": "text", "id": "button_txt", "label": "Button Text" },
