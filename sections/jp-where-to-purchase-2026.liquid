@@ -102,7 +102,12 @@
   </div>
 
   <div class="where-to-purchase__stores-shell">
-    <div id="store-list-{{ section.id }}" class="where-to-purchase__stores" data-store-list aria-live="polite"></div>
+    <div class="where-to-purchase__stores-frame">
+      <div id="store-list-{{ section.id }}" class="where-to-purchase__stores" data-store-list aria-live="polite"></div>
+      <div class="where-to-purchase__stores-scrollbar" data-store-scrollbar aria-hidden="true">
+        <div class="where-to-purchase__stores-scrollbar-thumb" data-store-scrollbar-thumb></div>
+      </div>
+    </div>
   </div>
 
   <div class="where-to-purchase__online">
@@ -210,8 +215,13 @@
   #where-to-purchase-{{ section.id }} .where-to-purchase__select-option { width:100%; height:28px; padding:0 18px; display:block; overflow:hidden; border:0; background:#fff; color:#000; font:inherit; font-size:14px; line-height:28px; text-align:left; text-overflow:ellipsis; white-space:nowrap; cursor:pointer; }
   #where-to-purchase-{{ section.id }} .where-to-purchase__select-option:hover,#where-to-purchase-{{ section.id }} .where-to-purchase__select-option:focus-visible { background:#f5f5f5; outline:0; }
   #where-to-purchase-{{ section.id }} .where-to-purchase__stores-shell { padding:0 20px 120px; background:#fff; }
-  #where-to-purchase-{{ section.id }} .where-to-purchase__stores { width:min(1020px,100%); max-height:635px; margin:0 auto; padding:70px 140px; overflow-y:auto; background:#f9f9f9; scrollbar-width:none; }
+  #where-to-purchase-{{ section.id }} .where-to-purchase__stores-frame { width:min(1020px,100%); max-height:635px; margin:0 auto; position:relative; }
+  #where-to-purchase-{{ section.id }} .where-to-purchase__stores { width:100%; max-height:635px; padding:70px 140px; overflow-y:auto; background:#f9f9f9; scrollbar-width:none; }
   #where-to-purchase-{{ section.id }} .where-to-purchase__stores::-webkit-scrollbar { display:none; }
+  #where-to-purchase-{{ section.id }} .where-to-purchase__stores-scrollbar { position:absolute; top:0; right:0; bottom:0; width:8px; background:#e5e5e5; }
+  #where-to-purchase-{{ section.id }} .where-to-purchase__stores-scrollbar[hidden] { display:none; }
+  #where-to-purchase-{{ section.id }} .where-to-purchase__stores-scrollbar-thumb { position:absolute; top:0; left:1px; width:6px; min-height:40px; background:#999; cursor:grab; }
+  #where-to-purchase-{{ section.id }} .where-to-purchase__stores-scrollbar-thumb:active { cursor:grabbing; }
   #where-to-purchase-{{ section.id }} .where-to-purchase__store { width:100%; padding:40px 0; border-bottom:1px solid #d8d8d8; }
   #where-to-purchase-{{ section.id }} .where-to-purchase__store:first-child { border-top:1px solid #d8d8d8; }
   #where-to-purchase-{{ section.id }} .where-to-purchase__store h4 { font-size:20px; font-weight:500; line-height:1.5; }
@@ -252,7 +262,9 @@
     #where-to-purchase-{{ section.id }} .where-to-purchase__select-arrow:after { width:7px; height:7px; }
     #where-to-purchase-{{ section.id }} .where-to-purchase__select-menu { top:28px; height:198px; }
     #where-to-purchase-{{ section.id }} .where-to-purchase__stores-shell { padding:0 0 30px; }
+    #where-to-purchase-{{ section.id }} .where-to-purchase__stores-frame { width:296px; max-height:none; }
     #where-to-purchase-{{ section.id }} .where-to-purchase__stores { width:296px; max-height:none; padding:0; overflow:visible; background:#fff; }
+    #where-to-purchase-{{ section.id }} .where-to-purchase__stores-scrollbar { display:none; }
     #where-to-purchase-{{ section.id }} .where-to-purchase__store { padding:20px 0; border-bottom-width:.5px; }
     #where-to-purchase-{{ section.id }} .where-to-purchase__store:first-child { border-top-width:.5px; }
     #where-to-purchase-{{ section.id }} .where-to-purchase__store h4 { font-size:12px; }
@@ -441,6 +453,8 @@
     const menu = root.querySelector('[data-store-menu]');
     const options = root.querySelector('[data-store-options]');
     const list = root.querySelector('[data-store-list]');
+    const scrollbar = root.querySelector('[data-store-scrollbar]');
+    const scrollbarThumb = root.querySelector('[data-store-scrollbar-thumb]');
     const closeMenu = () => {
       menu.hidden = true;
       trigger.setAttribute('aria-expanded', 'false');
@@ -493,7 +507,35 @@
       });
       list.replaceChildren(fragment);
       list.scrollTop = 0;
+      requestAnimationFrame(updateScrollbar);
     };
+    const updateScrollbar = () => {
+      const scrollable = list.scrollHeight > list.clientHeight;
+      scrollbar.hidden = !scrollable;
+      if (!scrollable) return;
+      const trackHeight = scrollbar.clientHeight;
+      const thumbHeight = Math.max(40, (list.clientHeight / list.scrollHeight) * trackHeight);
+      const maxThumbTop = trackHeight - thumbHeight;
+      const maxScrollTop = list.scrollHeight - list.clientHeight;
+      scrollbarThumb.style.height = `${thumbHeight}px`;
+      scrollbarThumb.style.transform = `translateY(${maxScrollTop ? (list.scrollTop / maxScrollTop) * maxThumbTop : 0}px)`;
+    };
+    list.addEventListener('scroll', updateScrollbar, { passive: true });
+    window.addEventListener('resize', updateScrollbar);
+    let dragStartY = 0;
+    let dragStartScrollTop = 0;
+    scrollbarThumb.addEventListener('pointerdown', (event) => {
+      event.preventDefault();
+      dragStartY = event.clientY;
+      dragStartScrollTop = list.scrollTop;
+      scrollbarThumb.setPointerCapture(event.pointerId);
+    });
+    scrollbarThumb.addEventListener('pointermove', (event) => {
+      if (!scrollbarThumb.hasPointerCapture(event.pointerId)) return;
+      const travel = scrollbar.clientHeight - scrollbarThumb.clientHeight;
+      if (travel <= 0) return;
+      list.scrollTop = dragStartScrollTop + ((event.clientY - dragStartY) / travel) * (list.scrollHeight - list.clientHeight);
+    });
     const updateSelection = (prefecture) => {
       selectedLabel.textContent = prefecture;
       options
