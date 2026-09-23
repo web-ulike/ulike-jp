@@ -2,8 +2,12 @@
 {%- assign color_white_label = 'general.label.white' | t | downcase -%}
 {%- assign size_label_list = 'general.label.size' | t | replace: ', ', ',' | downcase | split: ',' -%}
 {%- assign buy_buttons_block = section.blocks | where: 'type', 'buy_buttons' | first -%}
+{%- assign is_main_product_form = false -%}
 {%- assign quantity_in_purchase_row = false -%}
-{%- if section.type == 'main-product' and context != 'quick-buy' and buy_buttons_block != blank -%}
+{%- if section.type == 'main-product' and context != 'quick-buy' -%}
+  {%- assign is_main_product_form = true -%}
+{%- endif -%}
+{%- if is_main_product_form and buy_buttons_block.settings.show_quantity_selector -%}
   {%- assign quantity_in_purchase_row = true -%}
 {%- endif -%}
 
@@ -316,7 +320,7 @@
       ----------------------------------------------------------------------------------------------------------------
       {%- endcomment -%}
       {%- when 'quantity_selector' -%}
-        {%- unless quantity_in_purchase_row -%}
+        {%- unless is_main_product_form -%}
           {%- render 'product-form-quantity-selector', block: block, product: product, product_form_id: product_form_id -%}
         {%- endunless -%}
 
