@@ -214,6 +214,20 @@
     background:  #E0004D;
     overflow: hidden;
     }
+    .product__image-wrapper .product__discount-tag {
+      position: absolute;
+      z-index: 1;
+      top: 10px;
+      right: 10px;
+      padding: 11px 14px;
+      background: #E0004D;
+      color: #fff;
+      font-family: var(--font-sans-family);
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1;
+      white-space: nowrap;
+    }
     .product__image-wrapper .tag-box::before {
         position: absolute;
         content: '';
@@ -384,6 +398,10 @@
       padding: 7px 10px;
       gap: 5px;
     }
+    .product__image-wrapper .product__discount-tag {
+      font-size: 12px;
+      padding: 7px 10px;
+    }
     .product-line .product__slide-list:not(:last-child) {
         margin-bottom: var(--product-line-block-gap-mobile, 25px);
     }
@@ -507,6 +525,9 @@
                       <img src="{{ block.settings.active_image | image_url }}" alt="" width="16" height="18">
                     {%- endif -%}
                   </div>
+                {%- endif -%}
+                {%- if block.settings.discount != blank -%}
+                  <div class="product__discount-tag">{{ block.settings.discount | escape }}% OFF</div>
                 {%- endif -%}
               </div>
               <div class="product__content-wrapper to-top" style="background-color: {{ block.settings.content_background | default: '#F4F9FF' }};">
@@ -872,6 +893,11 @@
           "type": "richtext",
           "id": "des",
           "label": "Descripte"
+        },
+        {
+          "type": "text",
+          "id": "discount",
+          "label": "Discount"
         },
         {
           "type": "text",
