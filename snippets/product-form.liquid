@@ -1,6 +1,12 @@
 {%- assign color_label_list = 'general.label.color' | t | replace: ', ', ',' | downcase | split: ',' -%}
 {%- assign color_white_label = 'general.label.white' | t | downcase -%}
 {%- assign size_label_list = 'general.label.size' | t | replace: ', ', ',' | downcase | split: ',' -%}
+{%- assign quantity_selector_block = section.blocks | where: 'type', 'quantity_selector' | first -%}
+{%- assign buy_buttons_block = section.blocks | where: 'type', 'buy_buttons' | first -%}
+{%- assign quantity_in_purchase_row = false -%}
+{%- if section.type == 'main-product' and context != 'quick-buy' and buy_buttons_block != blank -%}
+  {%- assign quantity_in_purchase_row = true -%}
+{%- endif -%}
 
 <div class="product-form">
   {%- for block in section.blocks -%}
@@ -311,49 +317,9 @@
       ----------------------------------------------------------------------------------------------------------------
       {%- endcomment -%}
       {%- when 'quantity_selector' -%}
-        {%- if request.page_type != 'password' and product.available -%}
-          <div data-block-type="quantity-selector" data-block-id="{{ block.id }}" class="product-form__quantity" {{ block.shopify_attributes }}>
-            <span class="product-form__quantity-label">{{ 'product.form.quantity' | t }}:</span>
-
-            <quantity-selector class="quantity-selector">
-              <button type="button" class="quantity-selector__button">
-                <span class="visually-hidden">{{ 'cart.general.decrease_quantity' | t }}</span>
-                {%- render 'icon' with 'minus-big' -%}
-              </button>
-
-              <input type="number" form="{{ product_form_id }}" is="input-number" class="quantity-selector__input" inputmode="numeric" name="quantity" autocomplete="off" value="{{ product.selected_or_first_available_variant.quantity_rule.min | default: 1 }}" step="{{ product.selected_or_first_available_variant.quantity_rule.increment }}" min="{{ product.selected_or_first_available_variant.quantity_rule.min }}" {% if product.selected_or_first_available_variant.quantity_rule.max != nil %}max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"{% endif %} aria-label="{{ 'product.form.quantity' | t | escape }}">
-
-              <button type="button" class="quantity-selector__button">
-                <span class="visually-hidden">{{ 'cart.general.increase_quantity' | t }}</span>
-                {%- render 'icon' with 'plus-big' -%}
-              </button>
-            </quantity-selector>
-
-            {%- liquid
-              assign variant = product.selected_or_first_available_variant
-              assign quantity_rules = ''
-
-              if variant.quantity_rule.min > 1
-                assign rule = 'product.quantity.minimum_of' | t: min: variant.quantity_rule.min
-                assign quantity_rules = quantity_rules | append: ' / ' | append: rule
-              endif
-
-              if variant.quantity_rule.max != nil
-                assign rule = 'product.quantity.maximum_of' | t: max: variant.quantity_rule.max
-                assign quantity_rules = quantity_rules | append: ' / ' | append: rule
-              endif
-
-              if variant.quantity_rule.increment > 1
-                assign rule = 'product.quantity.increment_of' | t: step: variant.quantity_rule.increment
-                assign quantity_rules = quantity_rules | append: ' / ' | append: rule
-              endif
-            -%}
-
-            {%- if quantity_rules != blank -%}
-              <p class="product-form__quantity-rules text--subdued text--small">{{ quantity_rules | remove_first: ' / ' | capitalize }}</p>
-            {%- endif -%}
-          </div>
-        {%- endif -%}
+        {%- unless quantity_in_purchase_row -%}
+          {%- render 'product-form-quantity-selector', block: block, product: product, product_form_id: product_form_id -%}
+        {%- endunless -%}
 
       {%- comment -%}
       ----------------------------------------------------------------------------------------------------------------
@@ -468,6 +434,10 @@
               <input type="hidden" disabled name="id" value="{{ product.selected_or_first_available_variant.id }}">
 
               <product-payment-container {% if update_url %}id="MainPaymentContainer"{% endif %} class="product-form__payment-container" {{ block.shopify_attributes }}>
+                {%- if quantity_in_purchase_row -%}<div class="jp-main-product-legacy__purchase-primary">{%- endif -%}
+                {%- if quantity_in_purchase_row and quantity_selector_block != blank -%}
+                  {%- render 'product-form-quantity-selector', block: quantity_selector_block, product: product, product_form_id: product_form_id -%}
+                {%- endif -%}
                 <button id="AddToCart" type="submit" is="loader-button" {% unless block.settings.show_payment_button and template.suffix != 'quick-buy-popover' %}data-use-primary{% endunless %} data-product-add-to-cart-button data-button-content="{% if product.template_suffix == 'pre-order' %}{{ 'product.form.pre_order' | t | escape }}{% else %}{{ 'product.form.add_to_cart' | t | escape }}{% endif %}" class="product-form__add-button button {% unless product.selected_or_first_available_variant.available %}button--ternary{% else %}{% if block.settings.show_payment_button and template.suffix != 'quick-buy-popover' %}button--secondary{% else %}button--primary{% endif %}{% endunless %} button--full" {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}>
                   {%- if product.selected_or_first_available_variant == nil -%}
                     {{- 'product.form.unavailable' | t -}}
@@ -481,6 +451,7 @@
                     {{- 'product.form.sold_out' | t -}}
                   {%- endif -%}
                 </button>
+                {%- if quantity_in_purchase_row -%}</div>{%- endif -%}
 
                 {%- if block.settings.show_payment_button and recipient_feature_active == false and template.suffix != 'quick-buy-popover' -%}
                   {{ form | payment_button }}
@@ -510,8 +481,6 @@
   IMPLEMENTATION NOTE: under rare circumstances, merchant may want to show selectors but hide the add to cart button. This
   is however problematic as elements changed based on this. So if we detect there is no buy buttons block, we add an empty one
   {%- endcomment -%}
-
-  {%- assign buy_buttons_block = section.blocks | where: 'type', 'buy_buttons' | first -%}
 
   {%- if buy_buttons_block == blank -%}
     {%- form 'product', product, is: 'product-form', id: product_form_id -%}
