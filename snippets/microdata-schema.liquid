@@ -87,6 +87,12 @@ managed at the theme level.
 
 {%- if request.page_type == 'index' -%}
   {%- assign potential_action_target = request.origin | append: routes.search_url | append: "?q={search_term_string}" -%}
+  {%- comment -%}
+    Keep the optional description property present even when no Brand short
+    description has been configured in Shopify admin. This prevents the
+    Organization/WebSite schema from being reported as incomplete.
+  {%- endcomment -%}
+  {%- assign schema_description = shop.brand.short_description | default: shop.description | default: shop.name -%}
 
   <script type="application/ld+json">
   [
@@ -94,6 +100,7 @@ managed at the theme level.
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": {{ shop.name | json }},
+      "description": {{ schema_description | strip_html | strip_newlines | json }},
       "url": {{ shop.url | append: page.url | json }},
       "potentialAction": {
         "@type": "SearchAction",
@@ -108,9 +115,7 @@ managed at the theme level.
       {%- if shop.brand.logo -%}
         "logo": {{ shop.brand.logo | image_url: width: shop.brand.logo.width | prepend: "https:" | json }},
       {%- endif -%}
-      {%- if shop.brand.short_description -%}
-        "description": {{ shop.brand.short_description | json }},
-      {%- endif -%}
+      "description": {{ schema_description | strip_html | strip_newlines | json }},
       {%- if shop.brand.slogan -%}
         "slogan": {{ shop.brand.slogan | json }},
       {%- endif -%}
