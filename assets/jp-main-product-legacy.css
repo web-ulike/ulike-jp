@@ -35,6 +35,10 @@
   gap: 16px;
 }
 
+.jp-main-product-legacy .jp-main-product-legacy__price-row > .price:not(:last-child) {
+  margin-right: 0;
+}
+
 .jp-main-product-legacy .jp-main-product-legacy__price-item {
   display: inline-flex;
   align-items: baseline;
@@ -50,6 +54,7 @@
 }
 
 .jp-main-product-legacy .jp-main-product-legacy__price-item--compare {
+  opacity: 1;
   color: #3f3636;
   font-size: 26px;
   font-weight: 400;
