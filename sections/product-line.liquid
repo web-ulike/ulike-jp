@@ -529,7 +529,7 @@
                   </div>
                 {%- endif -%}
                 {%- if block.settings.discount != blank -%}
-                  <div class="product__discount-tag">{{ block.settings.discount | escape }}% OFF</div>
+                  <div class="product__discount-tag">{{ block.settings.discount | escape }}</div>
                 {%- endif -%}
               </div>
               <div class="product__content-wrapper to-top" style="background-color: {{ block.settings.content_background | default: '#F4F9FF' }};">
