@@ -1,4 +1,21 @@
+{%- if shop.refund_policy.body != blank and shop.refund_policy.url != blank -%}
+  {%- assign merchant_return_policy_url = shop.url | append: shop.refund_policy.url -%}
+  {%- assign merchant_return_policy_id = merchant_return_policy_url | append: '#merchant-return-policy' -%}
+{%- endif -%}
+
 {%- if request.page_type == 'product' -%}
+  {%- comment -%}
+    Judge.me uses the product @id to connect its review JSON-LD to this Product.
+    Read the aggregate from the same Judge.me badge shown on the product page;
+    omit it when the product has no published reviews.
+  {%- endcomment -%}
+  {%- assign judgeme_badge = product.metafields.judgeme.badge -%}
+  {%- assign judgeme_review_count = 0 -%}
+  {%- assign judgeme_rating_value = 0 -%}
+  {%- if judgeme_badge != blank -%}
+    {%- assign judgeme_review_count = judgeme_badge | split: "data-number-of-reviews='" | last | split: "'" | first | plus: 0 -%}
+    {%- assign judgeme_rating_value = judgeme_badge | split: "data-average-rating='" | last | split: "'" | first | plus: 0 -%}
+  {%- endif -%}
   {%- comment -%}
     Shopify's structured_data filter does not expose Offer-level shipping.
     The values below mirror the Japan shipping information published on the
@@ -10,6 +27,7 @@
     {
       "@context": "https://schema.org",
       "@type": "Product",
+      "@id": {{ canonical_url | append: '#product' | json }},
       "name": {{ product.title | json }},
       "url": {{ canonical_url | json }},
       "description": {{ product.description | strip_html | strip_newlines | json }},
@@ -22,6 +40,14 @@
           "name": {{ product.vendor | json }}
         },
       {%- endif -%}
+      {%- if judgeme_review_count > 0 and judgeme_rating_value > 0 -%}
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": {{ judgeme_rating_value | json }},
+          "reviewCount": {{ judgeme_review_count | json }},
+          "bestRating": 5
+        },
+      {%- endif -%}
       "offers": [
         {%- for variant in product.variants -%}
           {
@@ -31,6 +57,9 @@
             "price": {{ variant.price | divided_by: 100.0 | json }},
             "availability": "https://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}",
             "itemCondition": "https://schema.org/NewCondition",
+            {%- if merchant_return_policy_id != blank -%}
+              "hasMerchantReturnPolicy": { "@id": {{ merchant_return_policy_id | json }} },
+            {%- endif -%}
             "shippingDetails": {
               "@type": "OfferShippingDetails",
               "shippingDestination": {
@@ -63,6 +92,22 @@
       ]
     }
   </script>
+  {%- if merchant_return_policy_id != blank -%}
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "@id": {{ shop.url | append: '#organization' | json }},
+        "name": {{ shop.name | json }},
+        "url": {{ shop.url | json }},
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "@id": {{ merchant_return_policy_id | json }},
+          "merchantReturnLink": {{ merchant_return_policy_url | json }}
+        }
+      }
+    </script>
+  {%- endif -%}
 {%- elsif request.page_type == 'article' -%}
   <script type="application/ld+json">
     {{- article | structured_data -}}
@@ -165,7 +210,15 @@
     {
       "@context": "https://schema.org",
       "@type": "Organization",
+      "@id": {{ shop.url | append: '#organization' | json }},
       "name": {{ shop.name | json }},
+      {%- if merchant_return_policy_id != blank -%}
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "@id": {{ merchant_return_policy_id | json }},
+          "merchantReturnLink": {{ merchant_return_policy_url | json }}
+        },
+      {%- endif -%}
       {%- if shop.brand.logo -%}
         "logo": {{ shop.brand.logo | image_url: width: shop.brand.logo.width | prepend: "https:" | json }},
       {%- endif -%}
