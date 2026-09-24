@@ -204,21 +204,21 @@
 
 <div class="section section--padding{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded relative{% endif %}"{% if section.settings.transparent_header and article_image != blank %} allow-transparent-header{% endif %}>
   <div class="{% unless section.settings.full_width %}container {% endunless %}relative">
-    <article class="article banner relative{% if article_image != blank %} media--{{ section.settings.image_height }} mobile:media--{{ section.settings.image_height_mobile }}{% endif %}" itemscope itemtype="http://schema.org/BlogPosting">
+    <article class="article banner article-banner{% if article_image != blank %} article-banner--has-image{% endif %}" itemscope itemtype="http://schema.org/BlogPosting">
       {%- if article_image != blank -%}
-        <media-element class="banner__media block w-full h-full overflow-hidden"{% if section.settings.enable_parallax %} data-parallax="0.3" data-parallax-dir="{{ section.settings.parallax_direction }}"{% endif %}>
-          <animate-element data-animate="zoom-out" class="media media--height block w-full h-full relative overflow-hidden" itemprop="image">
+        <media-element class="banner__media article-banner__media"{% if section.settings.enable_parallax %} data-parallax="0.3" data-parallax-dir="{{ section.settings.parallax_direction }}"{% endif %}>
+          <animate-element data-animate="zoom-out" class="media media--height article-banner__image" itemprop="image">
             {%- capture sizes -%}{% if section.settings.full_width %}100vw{% else %}min({{ settings.page_width }}px, 100vw){% endif %}{%- endcapture -%}
             {{- article_image | image_url: width: article_image.width | image_tag: loading: 'eager', widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200', sizes: sizes, is: 'lazy-image', alt: article_alt -}}
           </animate-element>
         </media-element>
-        <span class="banner__overlay absolute top-0 left-0 w-full h-full pointer-events-none"></span>
+        <span class="banner__overlay article-banner__overlay"></span>
       {%- endif -%}
     
       {%- if section.blocks.size > 0 -%}
-        <div class="banner__content overflow-hidden{% if article_image != blank %} absolute z-1 top-0 left-0 w-full h-full{% endif %}">
-          <div class="container w-full h-full flex {{ section.settings.content_position }} {{ section.settings.content_position_mobile }}">
-            <div class="banner__box md:text-{{ section.settings.text_alignment }} text-{{ section.settings.text_alignment_mobile }}">
+        <div class="banner__content article-banner__content">
+          <div class="container article-banner__inner">
+            <div class="banner__box article-banner__box">
               {%- assign delay = 0 -%}
               {%- for block in section.blocks -%}
                 {%- liquid
@@ -228,11 +228,11 @@
                 -%}
                 {%- case block.type -%}
                   {%- when 'spacing' -%}
-                    <empty-element class="block spacing-section{% if block.settings.height_mobile == 0 %} hidden md:block{% endif %}{% if block.settings.height == 0 %} md:hidden{% endif %}" style="--spacing-height-desktop: {{ block.settings.height }}px; --spacing-height-mobile: {{ block.settings.height_mobile }}px;" {{ block.shopify_attributes }}></empty-element>
+                    <empty-element class="spacing-section article-banner__spacing" style="--spacing-height-desktop: {{ block.settings.height }}px; --spacing-height-mobile: {{ block.settings.height_mobile }}px;" {{ block.shopify_attributes }}></empty-element>
 
                   {%- when 'breadcrumb' -%}
-                    <animate-element class="block" data-animate="fade-up" data-animate-delay="{{ delay | times: 250 }}" {{ block.shopify_attributes }}>
-                      <nav class="breadcrumb" role="navigation" aria-label="breadcrumbs">
+                    <animate-element class="article-banner__breadcrumb" data-animate="fade-up" data-animate-delay="{{ delay | times: 250 }}" {{ block.shopify_attributes }}>
+                      <nav class="breadcrumb" aria-label="breadcrumbs">
                         <ul class="inline-flex gap-4 md:gap-6">
                           <li class="flex items-center gap-4 md:gap-6">
                             <a class="block" href="{{ routes.root_url }}" title="{{ 'general.breadcrumbs.home_link_title' | t | escape }}" is="magnet-link">
