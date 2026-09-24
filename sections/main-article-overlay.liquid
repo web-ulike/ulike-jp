@@ -49,7 +49,7 @@
 
           {%- when 'next_previous_posts' -%}
             {%- if blog.next_article or blog.previous_article -%}
-              <ul class="comments-section__navigation grid md:grid-cols-2 gap-5" {{ block.shopify_attributes }}>
+              <ul class="comments-section__navigation grid gap-8" {{ block.shopify_attributes }}>
                 {%- if blog.previous_article -%}
                   <li class="article-card article-card--previous">
                     <div class="article-card__content">
