@@ -216,8 +216,8 @@
   }
 </style>
 
-<div class="section section--padding{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded relative{% endif %}"{% if section.settings.transparent_header and article_image != blank %} allow-transparent-header{% endif %}>
-  <div class="{% unless section.settings.full_width %}container {% endunless %}relative">
+<div class="section section--padding{% if section.settings.divider %} section--divider{% endif %}{% if section.settings.rounded %} section--rounded{% endif %}"{% if section.settings.transparent_header and article_image != blank %} allow-transparent-header{% endif %}>
+  <div class="{% unless section.settings.full_width %}container{% endunless %}">
     <article class="article banner article-banner{% if article_image != blank %} article-banner--has-image{% endif %}" itemscope itemtype="http://schema.org/BlogPosting">
       {%- if article_image != blank -%}
         <media-element class="banner__media article-banner__media"{% if section.settings.enable_parallax %} data-parallax="0.3" data-parallax-dir="{{ section.settings.parallax_direction }}"{% endif %}>
@@ -247,16 +247,16 @@
                   {%- when 'breadcrumb' -%}
                     <animate-element class="article-banner__breadcrumb" data-animate="fade-up" data-animate-delay="{{ delay | times: 250 }}" {{ block.shopify_attributes }}>
                       <nav class="breadcrumb" aria-label="breadcrumbs">
-                        <ul class="inline-flex gap-4 md:gap-6">
-                          <li class="flex items-center gap-4 md:gap-6">
-                            <a class="block" href="{{ routes.root_url }}" title="{{ 'general.breadcrumbs.home_link_title' | t | escape }}" is="magnet-link">
+                        <ul>
+                          <li>
+                            <a href="{{ routes.root_url }}" title="{{ 'general.breadcrumbs.home_link_title' | t | escape }}" is="magnet-link">
                               {%- render 'icon', icon: 'home', size: 'sm' -%}
                             </a>
                           </li>
-                          <li class="flex items-center gap-4 md:gap-6">
-                            <a class="block" href="{{ blog.url }}" is="magnet-link">{{ blog.title }}</a>
+                          <li>
+                            <a href="{{ blog.url }}" is="magnet-link">{{ blog.title }}</a>
                           </li>
-                          <li class="flex items-center gap-4 md:gap-6">{{ article.title }}</li>
+                          <li>{{ article.title }}</li>
                         </ul>
                       </nav>
                     </animate-element>
