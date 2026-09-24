@@ -159,7 +159,7 @@
                   {%- endif -%}
                   
                   <div id="comments">
-                    {%- form 'new_comment', article, class: 'new-comment grid gap-8' -%}
+                    {%- form 'new_comment', article, class: 'new-comment' -%}
                       {%- liquid
                         if form.errors
                           assign form_errors = form.errors | default_errors
@@ -176,28 +176,28 @@
                         endif
                       -%}
 
-                      <div class="grid gap-2">
-                        <h3 class="heading lg:text-3xl text-2xl font-bold leading-none tracking-tight">{{ 'blogs.comments.title' | t }}</h3>
+                      <div class="new-comment__intro">
+                        <h3 class="new-comment__title">{{ 'blogs.comments.title' | t }}</h3>
                         {%- if blog.moderated? -%}
-                          <p class="text-sm">{{ 'blogs.comments.moderated' | t }}</p>
+                          <p>{{ 'blogs.comments.moderated' | t }}</p>
                         {%- endif -%}
                       </div>
-                      <div class="grid gap-3d5 md:gap-4">
-                        <div class="grid md:grid-cols-2 gap-3d5 md:gap-4">
-                          <div class="field">
-                            <input required class="input is-floating" type="text" name="comment[author]" id="CommentAuthor" value="{{ form.author }}" placeholder="{{ 'blogs.comments.name' | t | escape }}" autocapitalize="words" />
-                            <label class="label is-floating" for="CommentAuthor">{{ 'blogs.comments.name' | t }}</label>
+                      <div class="new-comment__fields">
+                        <div class="new-comment__contact">
+                          <div class="new-comment__field">
+                            <label for="CommentAuthor">{{ 'blogs.comments.name' | t }}</label>
+                            <input required type="text" name="comment[author]" id="CommentAuthor" value="{{ form.author }}" autocomplete="name" autocapitalize="words" />
                           </div>
-                          <div class="field">
-                            <input required class="input is-floating" type="email" name="comment[email]" id="CommentEmail" value="{{ form.email }}" placeholder="{{ 'blogs.comments.email' | t | escape }}" autocorrect="off" autocapitalize="off" />
-                            <label class="label is-floating" for="CommentEmail">{{ 'blogs.comments.email' | t }}</label>
+                          <div class="new-comment__field">
+                            <label for="CommentEmail">{{ 'blogs.comments.email' | t }}</label>
+                            <input required type="email" name="comment[email]" id="CommentEmail" value="{{ form.email }}" autocomplete="email" autocorrect="off" autocapitalize="off" />
                           </div>
                         </div>
-                        <div class="field">
-                          <textarea required class="textarea is-floating" name="comment[body]" id="CommentBody" placeholder=" " rows="5">{{ form.body }}</textarea>
-                          <label class="label is-floating" for="CommentBody">{{ 'blogs.comments.message' | t }}</label>
+                        <div class="new-comment__field">
+                          <label for="CommentBody">{{ 'blogs.comments.message' | t }}</label>
+                          <textarea required name="comment[body]" id="CommentBody" rows="5">{{ form.body }}</textarea>
                         </div>
-                        <div class="field">
+                        <div class="new-comment__actions">
                           <button type="submit" class="button button--primary button--fixed" is="hover-button">
                             <span class="btn-fill" data-fill></span>
                             <span class="btn-text">{{ 'blogs.comments.post' | t }}</span>
@@ -209,7 +209,7 @@
                           By removing it, the small reCAPTCHA widget will appear in the
                           bottom right corner of the page.
                         {%- endcomment -%}
-                        <div class="rte text-sm">
+                        <div class="new-comment__disclaimer rte">
                           {{- 'shopify.online_store.spam_detection.disclaimer_html' | t -}}
                         </div>
                       </div>
