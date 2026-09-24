@@ -123,7 +123,6 @@
 
 .comments-section > .container {
   max-width: 1232px;
-  gap: 0;
 }
 
 .comments-section__share {
@@ -176,7 +175,6 @@
 }
 
 .comments-section__navigation {
-  margin-block-start: 28px;
   align-items: stretch;
 }
 
@@ -266,6 +264,9 @@
 }
 
 .comments-wrapper {
+  width: 100%;
+  max-width: 930px;
+  margin-inline: auto;
   padding-block-start: clamp(40px, 5vw, 64px);
 }
 
@@ -285,10 +286,6 @@
   .comments-section__share {
     align-items: flex-start;
     padding-block-end: 20px;
-  }
-
-  .comments-section__navigation {
-    margin-block-start: 20px;
   }
 
   .comments-section__navigation .article-card {
