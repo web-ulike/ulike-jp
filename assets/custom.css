@@ -3,6 +3,54 @@ h1,h2,h3,h4,h5,h6 {
  padding: 0;
 }
 
+.social-sharing {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.social-sharing__label {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+.social-sharing__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.social-sharing__link {
+  display: inline-flex;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  line-height: 0;
+  text-decoration: none;
+}
+
+.social-sharing__link svg {
+  width: 18px;
+  height: 18px;
+}
+
+.social-sharing__link:hover {
+  opacity: 0.65;
+}
+
+.social-sharing__link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
 @media screen and (min-width: 900px) and (max-width: 1600px) {
   :root{
     --container-max-width: 1400px;
