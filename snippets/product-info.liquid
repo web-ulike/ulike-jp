@@ -131,9 +131,8 @@
     </product-payment-terms>
 
     {%- capture product_meta_reference -%}
-      {%- if section.settings.show_product_rating -%}
-        <span class="product-meta__reviews-badge hidden-lap-and-up">{%- render 'product-rating', product: product -%}</span>
-        <span class="product-meta__reviews-badge hidden-pocket">{%- render 'product-rating', product: product -%}</span>
+      {%- if section.settings.show_product_rating and product.metafields.judgeme.badge != blank -%}
+        <div class="product-meta__reviews-badge">{{ product.metafields.judgeme.badge }}</div>
       {%- endif -%}
 
       {%- if section.settings.show_sku and product.selected_or_first_available_variant.sku != blank -%}
