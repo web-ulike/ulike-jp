@@ -34,7 +34,7 @@
             <empty-element class="block spacing-section{% if block.settings.height_mobile == 0 %} hidden lg:block{% endif %}{% if block.settings.height == 0 %} lg:hidden{% endif %}" style="--spacing-height-desktop: {{ block.settings.height }}px; --spacing-height-mobile: {{ block.settings.height_mobile }}px;" {{ block.shopify_attributes }}></empty-element>
 
           {%- when 'share' -%}
-            <div class="flex flex-wrap items-center justify-between" {{ block.shopify_attributes }}>
+            <div class="comments-section__share flex flex-wrap items-center justify-between" {{ block.shopify_attributes }}>
               {%- render 'social-sharing', section_id: section.id, share_label: block.settings.share_label, share_title: article.title, share_permalink: article.url, share_image: article.image -%}
 
               {%- if block.settings.show_comments -%}
@@ -49,11 +49,10 @@
 
           {%- when 'next_previous_posts' -%}
             {%- if blog.next_article or blog.previous_article -%}
-              <ul class="grid md:grid-cols-2 gap-5" {{ block.shopify_attributes }}>
+              <ul class="comments-section__navigation grid md:grid-cols-2 gap-5" {{ block.shopify_attributes }}>
                 {%- if blog.previous_article -%}
-                  <li class="article-card flex gap-5">
-                    {%- render 'icon', icon: 'arrow-left', class: 'transform flex-auto' -%}
-                    <div class="flex flex-col gap-3 grow">
+                  <li class="article-card article-card--previous">
+                    <div class="article-card__content">
                       {%- if block.settings.show_date or block.settings.show_comments or block.settings.show_author -%}
                         <ul class="article-card__top flex flex-wrap gap-4">
                           {%- if block.settings.show_date -%}
@@ -80,18 +79,17 @@
                           {%- endif -%}
                         </ul>
                       {%- endif -%}
-                      <p>
-                        <a class="article-card__title reversed-link text-lg-2xl font-bold leading-tight tracking-tight" href="{{ blog.previous_article.url }}">
-                          {{- blog.previous_article.title -}}
-                        </a>
-                      </p>
+                      <a class="article-card__main" href="{{ blog.previous_article.url }}">
+                        <span class="article-card__arrow" aria-hidden="true">{%- render 'icon', icon: 'nav-arrow-left' -%}</span>
+                        <span class="article-card__title">{{- blog.previous_article.title -}}</span>
+                      </a>
                     </div>
                   </li>
                 {%- endif -%}
   
                 {%- if blog.next_article -%}
-                  <li class="article-card flex gap-5">
-                    <div class="flex flex-col gap-3 grow">
+                  <li class="article-card article-card--next">
+                    <div class="article-card__content">
                       {%- if block.settings.show_date or block.settings.show_comments or block.settings.show_author -%}
                         <ul class="article-card__top flex flex-wrap gap-4">
                           {%- if block.settings.show_date -%}
@@ -118,13 +116,11 @@
                           {%- endif -%}
                         </ul>
                       {%- endif -%}
-                      <p>
-                        <a class="article-card__title reversed-link text-lg-2xl font-bold leading-tight tracking-tight" href="{{ blog.next_article.url }}">
-                          {{- blog.next_article.title -}}
-                        </a>
-                      </p>
+                      <a class="article-card__main" href="{{ blog.next_article.url }}">
+                        <span class="article-card__title">{{- blog.next_article.title -}}</span>
+                        <span class="article-card__arrow" aria-hidden="true">{%- render 'icon', icon: 'nav-arrow-right' -%}</span>
+                      </a>
                     </div>
-                    {%- render 'icon', icon: 'arrow-right', class: 'transform flex-auto' -%}
                   </li>
                 {%- endif -%}
               </ul>
