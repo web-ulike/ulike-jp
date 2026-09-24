@@ -248,68 +248,51 @@
                     </animate-element>
 
                   {%- when 'title' -%}
-                    <div class="grid gap-5" {{ block.shopify_attributes }}>
-                      {%- if block.settings.show_tags or block.settings.show_date or block.settings.show_comments or block.settings.show_author -%}
-                        <div>
-                          <animate-element class="inline-flex flex-wrap items-center gap-6" data-animate="fade-up" data-animate-delay="{{ delay | times: 250 }}">
-                            {%- if block.settings.show_tags and article.tags.size > 0 -%}
-                              {%- if article.metafields.theme.tag_color.value != blank and article.metafields.theme.tag_background.value != blank -%}
-                                {%- capture badge_style -%}
-                                  --badge-foreground: rgb({{ article.metafields.theme.tag_color.value.rgb }}); --badge-background: rgb({{ article.metafields.theme.tag_background.value.rgb }});
-                                {%- endcapture -%}
-                              {%- endif -%}
-
-                              {%- for tag in article.tags -%}
-                                {% if tag contains "_" %}{%- assign tag_starts_with = tag | slice: 0 -%}{% if tag_starts_with == "_" %}{% if tag_count %}{%- assign tag_count = tag_count | minus: 1 | at_least: 0 -%}{% endif %}{% continue %}{% endif %}{% endif %}
-                                <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="badge{% if badge_style %} badge--custom{% endif %} font-medium leading-none rounded-full"{% if badge_style %} style="{{ badge_style }}"{% endif %}>{{ tag }}</a>
-                              {%- endfor -%}
-                            {%- endif -%}
-                  
-                            {%- if block.settings.show_date or block.settings.show_comments or block.settings.show_author -%}
-                              {%- capture article_meta -%}
-                                {%- if block.settings.show_date -%}
-                                  <li class="inline-flex items-center gap-2 text-sm relative" itemprop="dateCreated pubdate datePublished">
-                                    {%- render 'icon', icon: 'calendar', size: 'xs', class: 'stroke-1' -%}
-                                    {{- article.published_at | time_tag: format: 'month_day_year' -}}
-                                  </li>
-                                {%- endif -%}
-                                {%- if block.settings.show_comments -%}
-                                  <li class="inline-flex items-center gap-2 text-sm relative">
-                                    {%- render 'icon', icon: 'comment', size: 'xs', class: 'stroke-1' -%}
-                                    <a class="reversed-link" href="#comments">
-                                      {{- 'blogs.comments.with_count' | t: count: number_of_comments -}}
-                                    </a>
-                                  </li>
-                                {%- endif -%}
-                                {%- if block.settings.show_author -%}
-                                  <li class="italic text-sm relative" itemprop="author" itemscope itemtype="http://schema.org/Person">
-                                    {%- capture author -%}<span class="font-medium not-italic" itemprop="name">{{ article.author }}</span>{%- endcapture -%}
-                                    {{- 'blogs.article.written_by_html' | t: author: author -}}
-                                  </li>
-                                {%- endif -%}
-                              {%- endcapture -%}
-
-                              <ul class="article__top hidden md:flex flex-wrap gap-4">
-                                {{- article_meta -}}
-                              </ul>
-                            {%- endif -%}
-                          </animate-element>
-                        </div>
+                    <div class="article-banner__title-group" {{ block.shopify_attributes }}>
+                      {%- if block.settings.show_tags and article.tags.size > 0 -%}
+                        <animate-element class="article-banner__tags" data-animate="fade-up" data-animate-delay="{{ delay | times: 250 }}">
+                          {%- if article.metafields.theme.tag_color.value != blank and article.metafields.theme.tag_background.value != blank -%}
+                            {%- capture badge_style -%}
+                              --badge-foreground: rgb({{ article.metafields.theme.tag_color.value.rgb }}); --badge-background: rgb({{ article.metafields.theme.tag_background.value.rgb }});
+                            {%- endcapture -%}
+                          {%- endif -%}
+                          {%- for tag in article.tags -%}
+                            {% if tag contains "_" %}{%- assign tag_starts_with = tag | slice: 0 -%}{% if tag_starts_with == "_" %}{% continue %}{% endif %}{% endif %}
+                            <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="badge{% if badge_style %} badge--custom{% endif %}"{% if badge_style %} style="{{ badge_style }}"{% endif %}>{{ tag }}</a>
+                          {%- endfor -%}
+                        </animate-element>
                         {%- assign delay = delay | plus: 1 -%}
                       {%- endif -%}
 
-                      <h1 class="banner__title heading font-bold leading-none {{ block.settings.title_size }}{% if block.settings.title_size == 'title-xl' %} tracking-heading{% endif %}{% unless article_image %} relative{% endunless %}" itemprop="headline">
-                        <split-words class="split-words flex flex-wrap" data-animate="fade-up-large" data-animate-delay="{{ delay | times: 250 }}">{{ article.title }}</split-words>
-                      </h1>
-
-                      {%- if article_meta -%}
-                        {%- assign delay = delay | plus: 1 -%}
-                        <animate-element class="block" data-animate="fade-up" data-animate-delay="{{ delay | times: 250 }}">
-                          <ul class="article__top inline-flex flex-wrap gap-4 md:hidden">
-                            {{- article_meta -}}
+                      {%- if block.settings.show_date or block.settings.show_comments or block.settings.show_author -%}
+                        <animate-element class="article-banner__meta" data-animate="fade-up" data-animate-delay="{{ delay | times: 250 }}">
+                          <ul class="article__top article-banner__meta-list">
+                            {%- if block.settings.show_date -%}
+                              <li itemprop="dateCreated pubdate datePublished">
+                                {%- render 'icon', icon: 'calendar', size: 'xs', class: 'stroke-1' -%}
+                                {{- article.published_at | time_tag: format: 'month_day_year' -}}
+                              </li>
+                            {%- endif -%}
+                            {%- if block.settings.show_comments -%}
+                              <li>
+                                {%- render 'icon', icon: 'comment', size: 'xs', class: 'stroke-1' -%}
+                                <a class="reversed-link" href="#comments">{{- 'blogs.comments.with_count' | t: count: number_of_comments -}}</a>
+                              </li>
+                            {%- endif -%}
+                            {%- if block.settings.show_author -%}
+                              <li itemprop="author" itemscope itemtype="http://schema.org/Person">
+                                {%- capture author -%}<span itemprop="name">{{ article.author }}</span>{%- endcapture -%}
+                                {{- 'blogs.article.written_by_html' | t: author: author -}}
+                              </li>
+                            {%- endif -%}
                           </ul>
                         </animate-element>
+                        {%- assign delay = delay | plus: 1 -%}
                       {%- endif -%}
+
+                      <h1 class="banner__title heading article-banner__title {{ block.settings.title_size }}" itemprop="headline">
+                        <split-words class="split-words" data-animate="fade-up-large" data-animate-delay="{{ delay | times: 250 }}">{{ article.title }}</split-words>
+                      </h1>
                     </div>
                 {%- endcase -%}
               {%- endfor -%}
