@@ -24,7 +24,7 @@
 
 {%- if section.blocks.size > 0 -%}
   <div class="comments-section section{% if section.settings.rounded %} section--rounded relative{% endif %}">
-    <div class="container{% if section.settings.narrow %} container--small{% endif %} relative grid gap-8">
+    <div class="container{% if section.settings.narrow %} container--small{% endif %} relative comments-section__content">
       {%- for block in section.blocks -%}
         {%- case block.type -%}
           {%- when '@app' -%}
@@ -34,7 +34,7 @@
             <empty-element class="block spacing-section{% if block.settings.height_mobile == 0 %} hidden lg:block{% endif %}{% if block.settings.height == 0 %} lg:hidden{% endif %}" style="--spacing-height-desktop: {{ block.settings.height }}px; --spacing-height-mobile: {{ block.settings.height_mobile }}px;" {{ block.shopify_attributes }}></empty-element>
 
           {%- when 'share' -%}
-            <div class="comments-section__share flex flex-wrap items-center justify-between" {{ block.shopify_attributes }}>
+            <div class="comments-section__share" {{ block.shopify_attributes }}>
               {%- render 'social-sharing', section_id: section.id, share_label: block.settings.share_label, share_title: article.title, share_permalink: article.url, share_image: article.image -%}
 
               {%- if block.settings.show_comments -%}
@@ -49,7 +49,7 @@
 
           {%- when 'next_previous_posts' -%}
             {%- if blog.next_article or blog.previous_article -%}
-              <ul class="comments-section__navigation grid gap-8" {{ block.shopify_attributes }}>
+              <ul class="comments-section__navigation" {{ block.shopify_attributes }}>
                 {%- if blog.previous_article -%}
                   <li class="article-card article-card--previous">
                     <div class="article-card__content">
@@ -128,7 +128,7 @@
 
           {%- when 'comments' -%}
             {%- if blog.comments_enabled? -%}
-              <div class="comments-wrapper grid gap-5 md:gap-12">
+              <div class="comments-wrapper">
                 {%- paginate article.comments by 5 -%}
                   {%- if number_of_comments > 0 -%}
                     <div class="flex flex-col gap-5 md:gap-12">
