@@ -132,7 +132,7 @@
 
     {%- capture product_meta_reference -%}
       {%- if section.settings.show_product_rating and product.metafields.judgeme.badge != blank -%}
-        <div class="product-meta__reviews-badge">{{ product.metafields.judgeme.badge }}</div>
+        <a href="#judgeme_product_reviews" class="product-meta__reviews-badge">{{ product.metafields.judgeme.badge }}</a>
       {%- endif -%}
 
       {%- if section.settings.show_sku and product.selected_or_first_available_variant.sku != blank -%}
