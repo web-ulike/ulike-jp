@@ -63,6 +63,9 @@
 </style>
 
 <section class="search-page-2026">
+  <a class="search-page-2026__mobile-close" href="{{ routes.root_url }}" aria-label="検索ページを閉じる">
+    <img src="{{ 'search-close-icon.svg' | asset_url }}" width="18" height="18" alt="">
+  </a>
   {%- if search.performed -%}
     {%- assign first_matching_type = search.results.first.object_type -%}
     {%- assign complete_for = '' -%}
@@ -290,9 +293,9 @@
         <div class="search-page-2026__keywords">
           <p>よく検索されるキーワード</p>
           <ul role="list">
-            <li><a href="{{ section.settings.delivery_link | default: '/pages/track-my-order' }}">配送状況の確認</a></li>
-            <li><a href="{{ section.settings.returns_link | default: '/policies/refund-policy' }}">返品・返金について</a></li>
-            <li><a href="{{ section.settings.warranty_link | default: '/pages/extended-warranty-service' }}">保証サービス</a></li>
+            <li><a href="{{ section.settings.delivery_link | default: '/pages/track-my-order' }}"><img src="{{ 'search-keyword-arrow.svg' | asset_url }}" width="14" height="7" alt="">配送状況の確認</a></li>
+            <li><a href="{{ section.settings.returns_link | default: '/policies/refund-policy' }}"><img src="{{ 'search-keyword-arrow.svg' | asset_url }}" width="14" height="7" alt="">返品・返金について</a></li>
+            <li><a href="{{ section.settings.warranty_link | default: '/pages/extended-warranty-service' }}"><img src="{{ 'search-keyword-arrow.svg' | asset_url }}" width="14" height="7" alt="">保証サービス</a></li>
           </ul>
         </div>
       </div>
