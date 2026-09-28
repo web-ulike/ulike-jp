@@ -1,4 +1,4 @@
-{%- if blog.handle != 'article' -%}
+{%- if blog.handle != 'article' and blog.handle != 'news' -%}
 <section>
   {%- if blog.articles_count == 0 -%}
     <div class="empty-state text-container">
@@ -61,16 +61,19 @@
 {%- else -%}
 {{ 'blog-list-2026.css' | asset_url | stylesheet_tag }}
 {%- liquid
-  assign featured_article = section.settings.featured_article
-  if featured_article == blank
-    assign featured_article = articles['article/at-home-hair-remover-ranking']
-  endif
-  if featured_article == blank
-    assign featured_article = blog.articles.first
+  assign featured_article = blank
+  if blog.handle == 'article'
+    assign featured_article = section.settings.featured_article
+    if featured_article == blank
+      assign featured_article = articles['article/at-home-hair-remover-ranking']
+    endif
+    if featured_article == blank
+      assign featured_article = blog.articles.first
+    endif
   endif
 -%}
 
-<section class="blog-2026" id="Blog2026-{{ section.id }}" data-blog-section="{{ section.id }}" data-article-count="{{ blog.articles_count }}" data-featured-count="{% if featured_article != blank %}1{% else %}0{% endif %}" data-pagination-arrow="{{ 'blog-pagination-arrow.svg' | asset_url }}">
+<section class="blog-2026{% if section.settings.show_image_caption %} blog-2026--with-image-caption{% endif %}" id="Blog2026-{{ section.id }}" data-blog-section="{{ section.id }}" data-article-count="{{ blog.articles_count }}" data-featured-count="{% if featured_article != blank %}1{% else %}0{% endif %}" data-pagination-arrow="{{ 'blog-pagination-arrow.svg' | asset_url }}">
   {%- if blog.articles_count == 0 -%}
     <div class="blog-2026__empty">
       <h1>{{ blog.title | escape }}</h1>
@@ -103,19 +106,21 @@
         </div>
       </link-bar>
     {%- endif -%}
-    <div class="blog-2026__inner">
+    <div class="blog-2026__inner container">
       {%- paginate blog.articles by 9 -%}
-        {%- if paginate.current_page == 1 and featured_article != blank -%}
+        {%- if blog.handle == 'article' and paginate.current_page == 1 and featured_article != blank -%}
           <div class="blog-2026__featured" data-blog-featured>
             <h1 class="blog-2026__heading">{{ section.settings.heading | default: '人気記事' | escape }}</h1>
-            {%- render 'blog-2026-card', article: featured_article, featured: true -%}
+            {%- render 'blog-2026-card', article: featured_article, featured: true, show_image_caption: section.settings.show_image_caption -%}
           </div>
+        {%- elsif paginate.current_page == 1 -%}
+          <h1 class="blog-2026__heading">{{ blog.title | escape }}</h1>
         {%- else -%}
           <h1 class="visually-hidden">{{ blog.title | escape }}</h1>
         {%- endif -%}
         <div class="blog-2026__grid" id="BlogArticleList-{{ section.id }}" data-server-page="{{ paginate.current_page }}">
           {%- for article in blog.articles -%}
-            {%- render 'blog-2026-card', article: article -%}
+            {%- render 'blog-2026-card', article: article, show_image_caption: section.settings.show_image_caption -%}
           {%- endfor -%}
         </div>
         {%- if paginate.pages > 1 -%}
@@ -166,6 +171,12 @@
       "type": "article",
       "id": "featured_article",
       "label": "Featured article"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image_caption",
+      "label": "Show text on article images",
+      "default": false
     },
     {
       "type": "checkbox",
