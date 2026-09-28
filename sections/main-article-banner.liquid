@@ -45,7 +45,7 @@
   #shopify-section-{{ section.id }} .article-banner__media {
     display: block;
     position: relative;
-    min-height: {% if section.settings.image_height != 'adapt' %}min({{ section.settings.image_height }}, 420px){% else %}360px{% endif %};
+    min-height: {% if section.settings.image_height != 'adapt' %}min({{ section.settings.image_height }}, 420px){% else %}400px{% endif %};
     height: 100%;
     overflow: hidden;
     background: #eceeef;
@@ -72,6 +72,7 @@
 
   #shopify-section-{{ section.id }} .article-banner__image img {
     object-fit: contain;
+    object-position: right center;
   }
 
   #shopify-section-{{ section.id }} .article-banner__overlay {
