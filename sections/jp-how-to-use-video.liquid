@@ -22,16 +22,16 @@
           <a class="jp-how-to-use-video__link" target="_blank" href="{{ st.link_url }}" download>
             <span>{{ st.link_text }}</span>
             <svg class="jp-how-to-use-video__link-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13" fill="none" aria-hidden="true">
-              <path d="M0.17357 10.9051L4.91791 6.16017L0.17357 1.4149C-0.216962 1.02437 0.17357 0 0.17357 0L6.33355 6.16091L0.17357 12.3207C0.17357 12.3207 -0.216962 11.2964 0.17357 10.9051Z" fill="black"/>
-              <path d="M7.03765 10.9051L11.7827 6.16017L7.03765 1.4149C6.64712 1.02437 7.03765 0 7.03765 0L13.1992 6.16091L7.03765 12.3207C7.03765 12.3207 6.64712 11.2964 7.03765 10.9051Z" fill="black"/>
+              <path d="M0.17357 10.9051L4.91791 6.16017L0.17357 1.4149C-0.216962 1.02437 0.17357 0 0.17357 0L6.33355 6.16091L0.17357 12.3207C0.17357 12.3207 -0.216962 11.2964 0.17357 10.9051Z" fill="currentColor"/>
+              <path d="M7.03765 10.9051L11.7827 6.16017L7.03765 1.4149C6.64712 1.02437 7.03765 0 7.03765 0L13.1992 6.16091L7.03765 12.3207C7.03765 12.3207 6.64712 11.2964 7.03765 10.9051Z" fill="currentColor"/>
             </svg>
           </a>
         {% else %}
           <div class="jp-how-to-use-video__link jp-how-to-use-video__link--no-url">
             <span>{{ st.link_text }}</span>
             <svg class="jp-how-to-use-video__link-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13" fill="none" aria-hidden="true">
-              <path d="M0.17357 10.9051L4.91791 6.16017L0.17357 1.4149C-0.216962 1.02437 0.17357 0 0.17357 0L6.33355 6.16091L0.17357 12.3207C0.17357 12.3207 -0.216962 11.2964 0.17357 10.9051Z" fill="black"/>
-              <path d="M7.03765 10.9051L11.7827 6.16017L7.03765 1.4149C6.64712 1.02437 7.03765 0 7.03765 0L13.1992 6.16091L7.03765 12.3207C7.03765 12.3207 6.64712 11.2964 7.03765 10.9051Z" fill="black"/>
+              <path d="M0.17357 10.9051L4.91791 6.16017L0.17357 1.4149C-0.216962 1.02437 0.17357 0 0.17357 0L6.33355 6.16091L0.17357 12.3207C0.17357 12.3207 -0.216962 11.2964 0.17357 10.9051Z" fill="currentColor"/>
+              <path d="M7.03765 10.9051L11.7827 6.16017L7.03765 1.4149C6.64712 1.02437 7.03765 0 7.03765 0L13.1992 6.16091L7.03765 12.3207C7.03765 12.3207 6.64712 11.2964 7.03765 10.9051Z" fill="currentColor"/>
             </svg>
           </div>
         {% endif %}
@@ -156,7 +156,7 @@
     font-size: 48px;
     line-height: 1.2;
     font-weight: 400;
-    color: #190A0A;
+    color: {{ st.heading_color | default: '#190A0A' }};
   }
 
   #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__link {
@@ -164,7 +164,7 @@
     align-items: center;
     gap: 8px;
     margin-bottom: 48px;
-    color: #000;
+    color: {{ st.link_color | default: '#000000' }};
     font-size: 18px;
     line-height: 1.5;
     text-decoration: none;
@@ -187,7 +187,7 @@
   }
 
   #jp-how-to-use-video-{{ sid }} .jp-how-to-use-video__note {
-    color: rgba(0, 0, 0, 0.50);
+    color: {{ st.note_color | default: 'rgba(0, 0, 0, 0.50)' }};
     font-size: 12px;
     line-height: 1.5;
     font-weight: 400;
@@ -446,6 +446,21 @@
       "id": "heading",
       "label": "Heading",
       "default": "使い方動画"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading text color"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link text and icon color"
+    },
+    {
+      "type": "color",
+      "id": "note_color",
+      "label": "Notice text color"
     },
     {
       "type": "text",
