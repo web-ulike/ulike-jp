@@ -1,6 +1,7 @@
 {{ 'blog-list-2026.css' | asset_url | stylesheet_tag }}
 {%- liquid
   assign featured_article = blank
+  assign featured_in_feed = false
   if blog.handle == 'article'
     assign featured_article = section.settings.featured_article
     if featured_article == blank
@@ -9,6 +10,9 @@
     if featured_article == blank
       assign featured_article = blog.articles.first
     endif
+  elsif blog.handle == 'news'
+    assign featured_article = blog.articles.first
+    assign featured_in_feed = true
   endif
 
   assign list_heading = blog.title
@@ -21,7 +25,7 @@
   endif
 -%}
 
-<section class="blog-2026{% if section.settings.show_image_caption %} blog-2026--with-image-caption{% endif %}" id="Blog2026-{{ section.id }}" data-blog-section="{{ section.id }}" data-article-count="{{ blog.articles_count }}" data-featured-count="{% if featured_article != blank %}1{% else %}0{% endif %}" data-pagination-arrow="{{ 'blog-pagination-arrow.svg' | asset_url }}">
+<section class="blog-2026{% if section.settings.show_image_caption %} blog-2026--with-image-caption{% endif %}" id="Blog2026-{{ section.id }}" data-blog-section="{{ section.id }}" data-article-count="{{ blog.articles_count }}" data-featured-count="{% if featured_article != blank %}1{% else %}0{% endif %}" data-featured-in-feed="{{ featured_in_feed }}" data-pagination-arrow="{{ 'blog-pagination-arrow.svg' | asset_url }}">
   {%- if blog.articles_count == 0 -%}
     <div class="blog-2026__empty">
       <h1{% unless section.settings.show_blog_title %} class="visually-hidden"{% endunless %}>{{ list_heading | escape }}</h1>
@@ -56,7 +60,7 @@
     {%- endif -%}
     <div class="blog-2026__inner container">
       {%- paginate blog.articles by 9 -%}
-        {%- if blog.handle == 'article' and paginate.current_page == 1 and featured_article != blank -%}
+        {%- if paginate.current_page == 1 and featured_article != blank -%}
           <div class="blog-2026__featured" data-blog-featured>
             <h1 class="blog-2026__heading{% unless section.settings.show_blog_title %} visually-hidden{% endunless %}">{{ list_heading | escape }}</h1>
             {%- render 'blog-2026-card', article: featured_article, featured: true, show_image_caption: section.settings.show_image_caption, default_cover_style: section.settings.default_cover_style -%}
@@ -68,6 +72,9 @@
         {%- endif -%}
         <div class="blog-2026__grid" id="BlogArticleList-{{ section.id }}" data-server-page="{{ paginate.current_page }}">
           {%- for article in blog.articles -%}
+            {%- if featured_in_feed and paginate.current_page == 1 and forloop.first -%}
+              {%- continue -%}
+            {%- endif -%}
             {%- render 'blog-2026-card', article: article, show_image_caption: section.settings.show_image_caption, default_cover_style: section.settings.default_cover_style -%}
           {%- endfor -%}
         </div>

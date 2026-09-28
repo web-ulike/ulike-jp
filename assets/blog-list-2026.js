@@ -13,11 +13,12 @@
     const serverPage = Number(grid.dataset.serverPage) || 1;
     const articleCount = Number(section.dataset.articleCount) || 0;
     const featuredCount = Number(section.dataset.featuredCount) || 0;
-    const pageCount = Math.ceil((articleCount + featuredCount) / 4);
+    const featuredInFeed = section.dataset.featuredInFeed === 'true';
+    const feedOffset = featuredInFeed ? featuredCount : 0;
+    const pageCount = Math.ceil((articleCount + featuredCount - feedOffset) / 4);
     const initialMarkup = grid.innerHTML;
     const initialFeatured = section.querySelector('[data-blog-featured]');
     const cache = new Map([[serverPage, Array.from(grid.children).map(card => card.cloneNode(true))]]);
-    let currentPage = 1;
     let requestNumber = 0;
 
     function mobileUrl(page) {
@@ -88,19 +89,20 @@
       const request = ++requestNumber;
       grid.setAttribute('aria-busy', 'true');
       try {
-        const firstFeedIndex = page === 1 ? 0 : (page - 1) * 4 - featuredCount;
+        const firstFeedIndex = page === 1 ? feedOffset : (page - 1) * 4 - featuredCount + feedOffset;
         const feedCount = page === 1 ? 4 - featuredCount : 4;
         const cards = [];
         for (let index = firstFeedIndex; index < Math.min(firstFeedIndex + feedCount, articleCount); index += 1) {
-          const batch = await getServerPage(Math.floor(index / 9) + 1);
-          const card = batch[index % 9];
+          const serverPage = Math.floor(index / 9) + 1;
+          const batch = await getServerPage(serverPage);
+          const cardIndex = index % 9 - (featuredInFeed && serverPage === 1 ? 1 : 0);
+          const card = batch[cardIndex];
           if (card) cards.push(card.cloneNode(true));
         }
         if (request !== requestNumber) return;
         const featured = section.querySelector('[data-blog-featured]');
         if (featured) featured.hidden = page !== 1;
         grid.replaceChildren(...cards);
-        currentPage = page;
         renderNavigation(page);
         section.classList.add('blog-2026--mobile-ready');
         if (pushHistory) {
