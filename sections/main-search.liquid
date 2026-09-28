@@ -1,5 +1,7 @@
 {%- assign search_sort_by = search.sort_by | default: search.default_sort_by -%}
 {%- assign active_filters_count = 0 -%}
+{{ 'search-page-2026.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'search-page-2026.js' | asset_url }}" defer></script>
 
 {%- for filter in search.filters -%}
   {%- if filter.type == 'list' -%}
@@ -60,7 +62,7 @@
   {%- endif -%}
 </style>
 
-<section>
+<section class="search-page-2026">
   {%- if search.performed -%}
     {%- assign first_matching_type = search.results.first.object_type -%}
     {%- assign complete_for = '' -%}
@@ -81,16 +83,10 @@
 
     <div class="page-header {% if search.results_count == 0 %}page-header--clear{% endif %} page-header--secondary">
       <div class="page-header__text-wrapper container">
-        <h1 class="heading h2">{{ 'search.general.terms' | t: terms: search.terms }}</h1>
+        <h1 class="heading h2">検索結果</h1>
+        {%- render 'search-page-2026-form', terms: search.terms, result_type: search.results.first.object_type -%}
 
-        <form class="main-search__form" action="{{ routes.search_url }}" method="get">
-          <input type="hidden" name="type" value="{{ search.results.first.object_type | default: 'product' }}">
-
-          <button class="main-search__submit tap-area" type="submit">{%- render 'icon' with 'header-search' -%}</button>
-          <input class="main-search__input input__field" type="text" name="q" autocomplete="off" autocorrect="off" aria-label="{{ 'search.general.title' | t }}" placeholder="{{ 'search.general.search_placeholder' | t }}" value="{{ search.terms | escape }}">
-        </form>
-
-        {%- if search.results_count > 0 or search.filters != empty -%}
+        {%- if search.results_count > 0 or active_filters_count > 0 -%}
           <tabs-nav id="search-tabs-nav" class="tabs-nav tabs-nav--center tabs-nav--no-border tabs-nav--edge2edge">
             <scrollable-content class="tabs-nav__scroller hide-scrollbar">
               <div class="tabs-nav__scroller-inner">
@@ -105,7 +101,7 @@
     </div>
 
     <div class="container">
-      {%- if search.results_count > 0 or search.filters != empty -%}
+      {%- if search.results_count > 0 or active_filters_count > 0 -%}
         <div class="page-content page-content--fluid">
           <search-page section-id="{{ section.id }}" terms="{{ search.terms | escape }}" complete-for="{{ complete_for }}" class="main-search__results">
             {%- comment -%}
@@ -276,20 +272,29 @@
           </search-page>
         </div>
       {%- else -%}
-        <div class="empty-state empty-state--bottom-only">
-          <p class="text--large">{{ 'search.general.no_results' | t }}</p>
+        <div class="search-page-2026__no-results" role="status">
+          <img src="{{ 'search-no-results.svg' | asset_url }}" width="90" height="79" alt="" loading="eager">
+          <p class="search-page-2026__no-results-title">「{{ search.terms | escape }}」に一致する結果は見つかりませんでした。</p>
+          <p class="search-page-2026__no-results-help">スペルを確認するか、別の単語やフレーズを使用してください。</p>
         </div>
       {%- endif -%}
     </div>
+    {%- if search.results_count == 0 and active_filters_count == 0 -%}
+      {%- render 'search-page-2026-recommendations', section: section -%}
+    {%- endif -%}
   {%- else -%}
-    <div class="container">
-      <div class="empty-state">
-        <h1 class="heading h2">{{ 'search.general.title' | t }}</h1>
-
-        <form class="main-search__form" action="{{ routes.search_url }}" method="get">
-          <button class="main-search__submit tap-area" type="submit">{%- render 'icon' with 'header-search' -%}</button>
-          <input class="main-search__input input__field" type="text" name="q" autocomplete="off" autocorrect="off" aria-label="{{ 'search.general.title' | t }}" placeholder="{{ 'search.general.search_placeholder' | t }}">
-        </form>
+    <div class="search-page-2026__intro">
+      <div class="search-page-2026__intro-inner">
+        <h1 class="heading h2">検索</h1>
+        {%- render 'search-page-2026-form' -%}
+        <div class="search-page-2026__keywords">
+          <p>よく検索されるキーワード</p>
+          <ul role="list">
+            <li><a href="{{ section.settings.delivery_link | default: '/pages/track-my-order' }}">配送状況の確認</a></li>
+            <li><a href="{{ section.settings.returns_link | default: '/policies/refund-policy' }}">返品・返金について</a></li>
+            <li><a href="{{ section.settings.warranty_link | default: '/pages/extended-warranty-service' }}">保証サービス</a></li>
+          </ul>
+        </div>
       </div>
     </div>
   {%- endif -%}
@@ -300,6 +305,23 @@
   "name": "Search",
   "class": "shopify-section--main-search",
   "settings": [
+    {
+      "type": "header",
+      "content": "Search suggestions"
+    },
+    { "type": "url", "id": "delivery_link", "label": "Delivery status link" },
+    { "type": "url", "id": "returns_link", "label": "Returns and refunds link" },
+    { "type": "url", "id": "warranty_link", "label": "Warranty link" },
+    {
+      "type": "header",
+      "content": "No results recommendations"
+    },
+    { "type": "image_picker", "id": "recommend_products_image", "label": "Products image" },
+    { "type": "url", "id": "recommend_products_link", "label": "Products link" },
+    { "type": "image_picker", "id": "recommend_faq_image", "label": "FAQ image" },
+    { "type": "url", "id": "recommend_faq_link", "label": "FAQ link" },
+    { "type": "image_picker", "id": "recommend_contact_image", "label": "Contact image" },
+    { "type": "url", "id": "recommend_contact_link", "label": "Contact link" },
     {
       "type": "header",
       "content": "Product results"
