@@ -7,7 +7,8 @@
 
 .search-page-2026 .page-header--secondary { background: #fff; }
 .search-page-2026 .page-header__text-wrapper {
-  max-width: 800px;
+  width: min(800px, calc(100% - 40px));
+  max-width: none;
   margin: 0 auto;
   padding: 130px 0 0;
 }
