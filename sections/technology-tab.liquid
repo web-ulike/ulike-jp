@@ -1,8 +1,11 @@
 <style>
 #shopify-section-{{ section.id }}{
   position: sticky;
-  top: calc((var(--sticky-header-height)) * (var(--sticky-header-vis)));
-  z-index: 2;
+  top: calc(var(--header-height, 0px) * var(--enable-sticky-header, 0) + var(--announcement-bar-height, 0px) * var(--enable-sticky-announcement-bar, 0));
+  z-index: 10;
+}
+body:has(.header-2026--scroll-hidden) #shopify-section-{{ section.id }}{
+  top: calc(var(--announcement-bar-height, 0px) * var(--enable-sticky-announcement-bar, 0));
 }
 .technology-tab {
   border-top: 1px solid #dbdbdb;
