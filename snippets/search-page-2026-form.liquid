@@ -1,5 +1,7 @@
 <form class="main-search__form search-page-2026__form" action="{{ routes.search_url }}" method="get" role="search">
-  <input type="hidden" name="type" value="{{ result_type | default: 'product' | escape }}">
+  {%- if result_type != blank -%}
+    <input type="hidden" name="type" value="{{ result_type | escape }}">
+  {%- endif -%}
   <button class="main-search__submit search-page-2026__submit" type="submit" aria-label="検索">
     <img src="{{ 'search-page-icon.svg' | asset_url }}" width="38" height="38" alt="">
   </button>
