@@ -1,0 +1,10 @@
+<form class="main-search__form search-page-2026__form" action="{{ routes.search_url }}" method="get" role="search">
+  <input type="hidden" name="type" value="{{ result_type | default: 'product' | escape }}">
+  <button class="main-search__submit search-page-2026__submit" type="submit" aria-label="検索">
+    <img src="{{ 'search-page-icon.svg' | asset_url }}" width="38" height="38" alt="">
+  </button>
+  <input class="main-search__input search-page-2026__input" type="search" name="q" autocomplete="off" autocorrect="off" aria-label="検索" placeholder="何をお探しですか?" value="{{ terms | escape }}" required>
+  <button class="search-page-2026__clear" type="button" aria-label="検索語を消去" {% if terms == blank %}hidden{% endif %}>
+    <img src="{{ 'search-clear-icon.svg' | asset_url }}" width="36" height="36" alt="">
+  </button>
+</form>
