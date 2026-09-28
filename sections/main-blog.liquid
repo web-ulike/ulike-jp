@@ -24,7 +24,7 @@
 <section class="blog-2026{% if section.settings.show_image_caption %} blog-2026--with-image-caption{% endif %}" id="Blog2026-{{ section.id }}" data-blog-section="{{ section.id }}" data-article-count="{{ blog.articles_count }}" data-featured-count="{% if featured_article != blank %}1{% else %}0{% endif %}" data-pagination-arrow="{{ 'blog-pagination-arrow.svg' | asset_url }}">
   {%- if blog.articles_count == 0 -%}
     <div class="blog-2026__empty">
-      <h1>{{ blog.title | escape }}</h1>
+      <h1{% unless section.settings.show_blog_title %} class="visually-hidden"{% endunless %}>{{ list_heading | escape }}</h1>
       <p>{{ 'blog.general.empty' | t }}</p>
     </div>
   {%- else -%}
@@ -128,7 +128,7 @@
     {
       "type": "article",
       "id": "featured_article",
-      "label": "Featured article"
+      "label": "Article blog featured post"
     },
     {
       "type": "checkbox",
@@ -141,29 +141,6 @@
       "id": "show_tags",
       "label": "Show tags",
       "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_category",
-      "label": "Show category",
-      "info": "The first article's tag will be shown as category.",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_excerpt",
-      "label": "Show excerpt",
-      "info": "Change excerpts by editing your blog posts. [Learn more](https://help.shopify.com/en/manual/online-store/blogs/writing-blogs#display-an-excerpt-from-a-blog-post)",
-      "default": true
-    },
-    {
-      "type": "range",
-      "id": "articles_per_page",
-      "label": "Blog posts per page",
-      "min": 3,
-      "max": 48,
-      "step": 3,
-      "default": 9
     }
   ]
 }
