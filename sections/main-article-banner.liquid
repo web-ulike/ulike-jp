@@ -23,13 +23,15 @@
   }
 
   #shopify-section-{{ section.id }} .article-banner {
+    --heading-color: {{ section.settings.color_text.rgb }};
+    --text-color: {{ section.settings.color_text.rgb }};
     display: grid;
     grid-template-columns: minmax(0, 44%) minmax(0, 1fr);
     position: relative;
     min-height: 0;
     padding: 0;
     overflow: hidden;
-    color: #202124;
+    color: {{ section.settings.color_text }};
     background: #f7f7f8;
     margin: 0;
   }
@@ -100,7 +102,7 @@
   #shopify-section-{{ section.id }} .article-banner__box {
     width: 100%;
     max-width: 720px;
-    text-align: left;
+    text-align: {{ section.settings.text_alignment }};
   }
 
   #shopify-section-{{ section.id }} .article-banner:not(.article-banner--has-image) .article-banner__box {
@@ -124,7 +126,7 @@
   }
 
   #shopify-section-{{ section.id }} .article-banner__meta-list {
-    justify-content: flex-start;
+    justify-content: {{ section.settings.text_alignment | replace: 'left', 'flex-start' | replace: 'right', 'flex-end' }};
     margin: 0;
     padding: 0;
     list-style: none;
@@ -218,6 +220,19 @@
 
     #shopify-section-{{ section.id }} .article-banner__box {
       width: 100%;
+      text-align: {{ section.settings.text_alignment_mobile }};
+    }
+
+    #shopify-section-{{ section.id }} .article-banner__meta-list {
+      justify-content: {{ section.settings.text_alignment_mobile | replace: 'left', 'flex-start' | replace: 'right', 'flex-end' }};
+    }
+
+    #shopify-section-{{ section.id }} .article-banner:not(.article-banner--has-image) .article-banner__box {
+      text-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .article-banner:not(.article-banner--has-image) .article-banner__meta-list {
+      justify-content: center;
     }
 
     #shopify-section-{{ section.id }} .article-banner__title-group { gap: 14px; }
@@ -561,7 +576,7 @@
       "type": "color",
       "id": "color_text",
       "label": "t:sections.global.settings.color_text.label",
-      "default": "#ffffff"
+      "default": "#202124"
     },
     {
       "type": "color",
