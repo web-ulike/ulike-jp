@@ -1,0 +1,15 @@
+<article class="blog-2026__card{% if featured %} blog-2026__card--featured{% endif %}" data-article-id="{{ article.id }}">
+  <a class="blog-2026__image-link" href="{{ article.url }}" aria-label="{{ article.title | escape }}">
+    {%- if article.image != blank -%}
+      {{ article.image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '334,366,668,714,900,1200', sizes: '(max-width: 767px) 100vw, (max-width: 1200px) 33vw, 366px', class: 'blog-2026__image' }}
+    {%- endif -%}
+    <span class="blog-2026__image-caption">{{ article.title | escape }}</span>
+  </a>
+  <div class="blog-2026__card-content">
+    <div class="blog-2026__card-main">
+      <p class="blog-2026__meta"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%Y.%-m.%-d' }}</time><span class="blog-2026__meta-rule" aria-hidden="true"></span><span>{{ article.author | escape }} が執筆</span></p>
+      <h2 class="blog-2026__title"><a href="{{ article.url }}">{{ article.title | escape }}</a></h2>
+    </div>
+    <a class="blog-2026__view" href="{{ article.url }}">見る<img src="{{ 'blog-card-arrow.svg' | asset_url }}" alt="" width="5" height="7"></a>
+  </div>
+</article>
