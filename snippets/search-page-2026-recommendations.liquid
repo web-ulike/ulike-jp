@@ -1,35 +1,53 @@
+{%- assign products_text = section.settings.recommend_products_text | default: '人気製品一覧' -%}
+{%- assign faq_text = section.settings.recommend_faq_text | default: 'よくある質問' -%}
+{%- assign contact_text = section.settings.recommend_contact_text | default: 'お問い合わせ' -%}
 <div class="search-page-2026__recommendations">
   <h2>おすすめ検索</h2>
   <div class="search-page-2026__recommendation-grid">
     <a class="search-page-2026__recommendation" href="{{ section.settings.recommend_products_link | default: '/collections/all' }}">
       <span class="search-page-2026__recommendation-image search-page-2026__recommendation-image--products">
-        {%- if section.settings.recommend_products_image != blank -%}
-          {{ section.settings.recommend_products_image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: 'Ulikeの人気製品' }}
-        {%- else -%}
-          <img src="{{ 'search-recommend-products.png' | asset_url }}" width="1799" height="1866" loading="lazy" alt="Ulikeの人気製品">
-        {%- endif -%}
+        <picture>
+          {%- if section.settings.recommend_products_image_mobile != blank -%}
+            <source media="(max-width: 740px)" srcset="{{ section.settings.recommend_products_image_mobile | image_url: width: 750 }}">
+          {%- endif -%}
+          {%- if section.settings.recommend_products_image != blank -%}
+            {{ section.settings.recommend_products_image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: products_text }}
+          {%- else -%}
+            <img src="{{ 'search-recommend-products.png' | asset_url }}" width="1799" height="1866" loading="lazy" alt="{{ products_text | escape }}">
+          {%- endif -%}
+        </picture>
       </span>
-      <span class="search-page-2026__recommendation-label">人気製品一覧 <img src="{{ 'search-recommend-arrow.svg' | asset_url }}" width="10" height="16" alt=""></span>
+      <span class="search-page-2026__recommendation-label">{{ products_text | escape }} <img src="{{ 'search-recommend-arrow.svg' | asset_url }}" width="10" height="16" alt=""></span>
     </a>
     <a class="search-page-2026__recommendation" href="{{ section.settings.recommend_faq_link | default: '/pages/faq' }}">
       <span class="search-page-2026__recommendation-image search-page-2026__recommendation-image--photo">
-        {%- if section.settings.recommend_faq_image != blank -%}
-          {{ section.settings.recommend_faq_image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: 'よくある質問' }}
-        {%- else -%}
-          <img src="{{ 'search-recommend-faq.png' | asset_url }}" width="1608" height="978" loading="lazy" alt="よくある質問">
-        {%- endif -%}
+        <picture>
+          {%- if section.settings.recommend_faq_image_mobile != blank -%}
+            <source media="(max-width: 740px)" srcset="{{ section.settings.recommend_faq_image_mobile | image_url: width: 750 }}">
+          {%- endif -%}
+          {%- if section.settings.recommend_faq_image != blank -%}
+            {{ section.settings.recommend_faq_image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: faq_text }}
+          {%- else -%}
+            <img src="{{ 'search-recommend-faq.png' | asset_url }}" width="1608" height="978" loading="lazy" alt="{{ faq_text | escape }}">
+          {%- endif -%}
+        </picture>
       </span>
-      <span class="search-page-2026__recommendation-label">よくある質問 <img src="{{ 'search-recommend-arrow.svg' | asset_url }}" width="10" height="16" alt=""></span>
+      <span class="search-page-2026__recommendation-label">{{ faq_text | escape }} <img src="{{ 'search-recommend-arrow.svg' | asset_url }}" width="10" height="16" alt=""></span>
     </a>
     <a class="search-page-2026__recommendation" href="{{ section.settings.recommend_contact_link | default: '/pages/contact-us' }}">
       <span class="search-page-2026__recommendation-image search-page-2026__recommendation-image--photo">
-        {%- if section.settings.recommend_contact_image != blank -%}
-          {{ section.settings.recommend_contact_image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: 'お問い合わせ' }}
-        {%- else -%}
-          <img src="{{ 'search-recommend-contact.png' | asset_url }}" width="1608" height="978" loading="lazy" alt="お問い合わせ">
-        {%- endif -%}
+        <picture>
+          {%- if section.settings.recommend_contact_image_mobile != blank -%}
+            <source media="(max-width: 740px)" srcset="{{ section.settings.recommend_contact_image_mobile | image_url: width: 750 }}">
+          {%- endif -%}
+          {%- if section.settings.recommend_contact_image != blank -%}
+            {{ section.settings.recommend_contact_image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: contact_text }}
+          {%- else -%}
+            <img src="{{ 'search-recommend-contact.png' | asset_url }}" width="1608" height="978" loading="lazy" alt="{{ contact_text | escape }}">
+          {%- endif -%}
+        </picture>
       </span>
-      <span class="search-page-2026__recommendation-label">お問い合わせ <img src="{{ 'search-recommend-arrow.svg' | asset_url }}" width="10" height="16" alt=""></span>
+      <span class="search-page-2026__recommendation-label">{{ contact_text | escape }} <img src="{{ 'search-recommend-arrow.svg' | asset_url }}" width="10" height="16" alt=""></span>
     </a>
   </div>
 </div>
