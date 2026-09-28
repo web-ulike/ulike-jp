@@ -28,10 +28,9 @@
     <link rel="preconnect" href="https://cdn.shopify.com">
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
-    {%- unless settings.heading_font.system? and settings.text_font.system? -%}
+    {% comment %} {%- unless settings.heading_font.system? and settings.text_font.system? -%}
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
-    {%- endunless -%}
-
+    {%- endunless -%} {% endcomment %}
 
     <!-- Google Tag Manager -->
       <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
