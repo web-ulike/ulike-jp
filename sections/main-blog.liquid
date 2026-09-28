@@ -9,7 +9,7 @@
   endif
 -%}
 
-<section class="blog-2026" id="Blog2026-{{ section.id }}" data-blog-section="{{ section.id }}" data-article-count="{{ blog.articles_count }}" data-featured-count="{% if featured_article != blank %}1{% else %}0{% endif %}">
+<section class="blog-2026" id="Blog2026-{{ section.id }}" data-blog-section="{{ section.id }}" data-article-count="{{ blog.articles_count }}" data-featured-count="{% if featured_article != blank %}1{% else %}0{% endif %}" data-pagination-arrow="{{ 'blog-pagination-arrow.svg' | asset_url }}">
   {%- if blog.articles_count == 0 -%}
     <div class="blog-2026__empty">
       <h1>{{ blog.title | escape }}</h1>

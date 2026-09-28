@@ -102,6 +102,7 @@
         grid.replaceChildren(...cards);
         currentPage = page;
         renderNavigation(page);
+        section.classList.add('blog-2026--mobile-ready');
         if (pushHistory) {
           window.history.pushState({ mobileBlogPage: page }, '', mobileUrl(page));
           section.scrollIntoView({ block: 'start' });
@@ -120,6 +121,7 @@
       if (featured && featured !== initialFeatured) featured.remove();
       if (initialFeatured) initialFeatured.hidden = false;
       mobileNav.hidden = true;
+      section.classList.remove('blog-2026--mobile-ready');
     }
 
     mobileNav.addEventListener('click', event => {
