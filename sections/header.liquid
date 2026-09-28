@@ -278,7 +278,8 @@ IMPLEMENTATION NOTE: the header in Focal is pretty complex as it allows a lot of
           </button>
 
           {%- if section.settings.header_layout != 'logo_center_search_open' -%}
-            <a href="{{ routes.search_url }}" is="toggle-link" class="header__icon-wrapper tap-area hidden-pocket hidden-lap {% unless section.settings.show_icons %}hidden-desk{% endunless %}" aria-label="{{ 'search.general.title' | t | escape }}" aria-controls="search-drawer" aria-expanded="false">
+            {% comment %}  aria-controls="search-drawer" aria-expanded="false" {% endcomment %}
+            <a href="{{ routes.search_url }}" class="header__icon-wrapper tap-area hidden-pocket hidden-lap {% unless section.settings.show_icons %}hidden-desk{% endunless %}" aria-label="{{ 'search.general.title' | t | escape }}">
               {%- render 'icon' with 'header-search' -%}
             </a>
           {%- endif -%}
