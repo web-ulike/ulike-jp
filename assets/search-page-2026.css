@@ -1,6 +1,6 @@
 .search-page-2026 {
   position: relative;
-  font-family: var(--text-font-family);
+  font-family: 'Noto Sans JP', sans-serif;
   color: #000;
 }
 
@@ -16,9 +16,10 @@
 .search-page-2026 h1,
 .search-page-2026__recommendations h2 {
   margin: 0;
+  font-family: 'Noto Sans JP', sans-serif;
   font-size: 40px;
   font-weight: 500;
-  line-height: 1.25;
+  line-height: normal;
   text-align: center;
   text-transform: none;
 }
@@ -39,6 +40,7 @@
   background: transparent;
   box-shadow: none;
   color: #000;
+  font-family: 'Noto Sans JP', sans-serif;
   font-size: 28px;
   font-weight: 400;
   outline-offset: 3px;
@@ -91,9 +93,10 @@
 .search-page-2026__recommendation { display: flex; flex-direction: column; align-items: center; gap: 50px; color: #000; text-decoration: none; }
 .search-page-2026__recommendation-image { display: block; width: 100%; aspect-ratio: 480 / 344; overflow: hidden; }
 .search-page-2026__recommendation-image--products { display: flex; align-items: center; justify-content: center; background: linear-gradient(243deg,#d4dde9 3%,#f7f9fc 42%,#d7dce7 100%); }
+.search-page-2026__recommendation-image picture { display: flex; width: 100%; height: 100%; align-items: center; justify-content: center; }
 .search-page-2026__recommendation-image--products img { width: 54%; height: 78%; object-fit: contain; }
 .search-page-2026__recommendation-image--photo img { width: 100%; height: 100%; object-fit: cover; }
-.search-page-2026__recommendation-label { display: inline-flex; align-items: center; gap: 21px; font-size: 24px; font-weight: 500; line-height: 1.4; text-align: center; }
+.search-page-2026__recommendation-label { display: inline-flex; align-items: center; gap: 21px; font-size: 24px; font-weight: 500; line-height: normal; text-align: center; }
 .search-page-2026__recommendation-label img { width: 10px; height: 16px; flex: none; }
 .search-page-2026__recommendation:hover .search-page-2026__recommendation-label { color: #e0004d; }
 
@@ -102,7 +105,7 @@
   .search-page-2026__mobile-close img { width: 18px; height: 18px; }
   .search-page-2026 .page-header__text-wrapper { width: min(334px, calc(100% - 40px)); padding: 72px 0 0; }
   .search-page-2026 h1,
-  .search-page-2026__recommendations h2 { font-size: 24px; line-height: 1.25; }
+  .search-page-2026__recommendations h2 { font-size: 24px; }
   .search-page-2026__form.main-search__form { height: 32px; margin-top: 30px; }
   .search-page-2026__input.main-search__input { padding: 0 38px 0 60px; font-size: 14px; }
   .search-page-2026__submit.main-search__submit { top: 6px; left: 30px; width: 20px; height: 20px; }
