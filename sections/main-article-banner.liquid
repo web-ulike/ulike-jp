@@ -235,12 +235,12 @@
     <article class="article banner article-banner{% if article_image != blank %} article-banner--has-image{% endif %}" itemscope itemtype="http://schema.org/BlogPosting">
       {%- if article_image != blank -%}
         <media-element class="banner__media article-banner__media"{% if section.settings.enable_parallax %} data-parallax="0.3" data-parallax-dir="{{ section.settings.parallax_direction }}"{% endif %}>
-          <animate-element data-animate="zoom-out" class="media media--height article-banner__image" itemprop="image">
-            {%- capture sizes -%}{% if section.settings.full_width %}100vw{% else %}min({{ settings.page_width }}px, 100vw){% endif %}{%- endcapture -%}
+          <animate-element data-animate="zoom-out" class="media article-banner__image" itemprop="image">
+            {%- capture sizes -%}(max-width: 767px) 100vw, 44vw{%- endcapture -%}
             {{- article_image | image_url: width: article_image.width | image_tag: loading: 'eager', widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200', sizes: sizes, is: 'lazy-image', alt: article_alt -}}
           </animate-element>
+          <span class="banner__overlay article-banner__overlay"></span>
         </media-element>
-        <span class="banner__overlay article-banner__overlay"></span>
       {%- endif -%}
     
       {%- if section.blocks.size > 0 -%}
