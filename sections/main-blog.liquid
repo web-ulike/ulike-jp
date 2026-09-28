@@ -59,7 +59,7 @@
         {%- if blog.handle == 'article' and paginate.current_page == 1 and featured_article != blank -%}
           <div class="blog-2026__featured" data-blog-featured>
             <h1 class="blog-2026__heading{% unless section.settings.show_blog_title %} visually-hidden{% endunless %}">{{ list_heading | escape }}</h1>
-            {%- render 'blog-2026-card', article: featured_article, featured: true, show_image_caption: section.settings.show_image_caption -%}
+            {%- render 'blog-2026-card', article: featured_article, featured: true, show_image_caption: section.settings.show_image_caption, default_cover_style: section.settings.default_cover_style -%}
           </div>
         {%- elsif paginate.current_page == 1 -%}
           <h1 class="blog-2026__heading{% unless section.settings.show_blog_title %} visually-hidden{% endunless %}">{{ list_heading | escape }}</h1>
@@ -68,7 +68,7 @@
         {%- endif -%}
         <div class="blog-2026__grid" id="BlogArticleList-{{ section.id }}" data-server-page="{{ paginate.current_page }}">
           {%- for article in blog.articles -%}
-            {%- render 'blog-2026-card', article: article, show_image_caption: section.settings.show_image_caption -%}
+            {%- render 'blog-2026-card', article: article, show_image_caption: section.settings.show_image_caption, default_cover_style: section.settings.default_cover_style -%}
           {%- endfor -%}
         </div>
         {%- if paginate.pages > 1 -%}
@@ -135,6 +135,16 @@
       "id": "show_image_caption",
       "label": "Show text on article images",
       "default": false
+    },
+    {
+      "type": "select",
+      "id": "default_cover_style",
+      "label": "Default cover color",
+      "options": [
+        { "value": "light", "label": "Light" },
+        { "value": "dark", "label": "Dark" }
+      ],
+      "default": "light"
     },
     {
       "type": "checkbox",
