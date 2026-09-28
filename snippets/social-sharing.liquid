@@ -5,24 +5,32 @@
   endunless
   assign encoded_url = share_url | url_param_escape
   assign encoded_title = share_title | strip_html | url_param_escape
+  if share_image != blank
+    assign encoded_image = share_image | image_url: width: 1200 | prepend: 'https:' | url_param_escape
+  endif
 -%}
 
-<div class="social-sharing flex flex-wrap items-center gap-3">
-  <p class="leading-none">{{ share_label | default: 'Share' | escape }}:</p>
-  <ul class="flex flex-wrap items-center gap-3" role="list">
+<div class="social-sharing">
+  <p class="social-sharing__label">{{ share_label | default: 'Share' | escape }}:</p>
+  <ul class="social-sharing__list" role="list">
     <li>
-      <a target="_blank" rel="noopener noreferrer" class="social-sharing__link block" is="magnet-link" href="https://www.facebook.com/sharer/sharer.php?u={{ encoded_url }}" aria-label="{{ 'general.social.facebook_share' | t | escape }}">
+      <a target="_blank" rel="noopener noreferrer" class="social-sharing__link" is="magnet-link" href="https://www.facebook.com/sharer/sharer.php?u={{ encoded_url }}" aria-label="{{ 'general.social.facebook_share' | t | escape }}">
         {%- render 'icon', icon: 'facebook', size: 'sm' -%}
       </a>
     </li>
     <li>
-      <a target="_blank" rel="noopener noreferrer" class="social-sharing__link block" is="magnet-link" href="https://twitter.com/intent/tweet?text={{ encoded_title }}%20{{ encoded_url }}" aria-label="{{ 'general.social.twitter_tweet' | t | escape }}">
+      <a target="_blank" rel="noopener noreferrer" class="social-sharing__link" is="magnet-link" href="https://twitter.com/intent/tweet?text={{ encoded_title }}%20{{ encoded_url }}" aria-label="{{ 'general.social.twitter_tweet' | t | escape }}">
         {%- render 'icon', icon: 'twitter', size: 'sm' -%}
       </a>
     </li>
     <li>
-      <a class="social-sharing__link block text-sm" href="mailto:?subject={{ encoded_title }}&amp;body={{ encoded_url }}" aria-label="{{ 'general.social.email_share' | t | escape }}">
-        {{- 'general.social.email_label' | t -}}
+      <a target="_blank" rel="noopener noreferrer" class="social-sharing__link" href="https://www.pinterest.com/pin/create/button/?url={{ encoded_url }}&amp;description={{ encoded_title }}{% if encoded_image != blank %}&amp;media={{ encoded_image }}{% endif %}" aria-label="{{ 'general.social.pinterest_pin' | t | escape }}">
+        {%- render 'icon', icon: 'pinterest', size: 'sm' -%}
+      </a>
+    </li>
+    <li>
+      <a class="social-sharing__link" href="mailto:?subject={{ encoded_title }}&amp;body={{ encoded_url }}" aria-label="{{ 'general.social.email_share' | t | escape }}">
+        {%- render 'icon', icon: 'header-email' -%}
       </a>
     </li>
   </ul>
