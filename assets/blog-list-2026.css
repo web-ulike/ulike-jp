@@ -80,6 +80,13 @@
   min-height: 0;
 }
 
+@media (min-width: 768px) {
+  .blog-2026__card--featured:not(.blog-2026__card--default-cover) .blog-2026__image {
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
 .blog-2026__card--featured .blog-2026__image-caption {
   font-size: 23.8px;
   bottom: 10%;
