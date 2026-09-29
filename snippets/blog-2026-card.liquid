@@ -13,7 +13,7 @@
     endif
   -%}
 <article class="blog-2026__card{% if featured %} blog-2026__card--featured{% endif %}{% if card_image == blank %} blog-2026__card--default-cover blog-2026__card--default-cover-{{ default_cover_style | default: 'light' }}{% endif %}" data-article-id="{{ article.id }}">
-  <a class="blog-2026__image-link" href="{{ article.url }}" aria-label="{{ article.title | escape }}">
+  <a class="blog-2026__image-link" href="{{ article.url }}" aria-label="{{ article.title | escape }}" target="_blank" rel="noopener noreferrer">
     {%- if card_image != blank -%}
       {{ card_image | image_url: width: card_image.width | image_tag: loading: 'lazy', widths: '334,480,668,750,960,1200,1500,1840,2200,2400', sizes: image_sizes, class: 'blog-2026__image' }}
       {%- if show_image_caption -%}
@@ -26,8 +26,8 @@
   <div class="blog-2026__card-content">
     <div class="blog-2026__card-main">
       <p class="blog-2026__meta"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%Y.%-m.%-d' }}</time><span class="blog-2026__meta-rule" aria-hidden="true"></span><span>{{ article.author | escape }} が執筆</span></p>
-      <h2 class="blog-2026__title"><a href="{{ article.url }}">{{ article.title | escape }}</a></h2>
+      <h2 class="blog-2026__title"><a href="{{ article.url }}" target="_blank" rel="noopener noreferrer">{{ article.title | escape }}</a></h2>
     </div>
-    <a class="blog-2026__view" href="{{ article.url }}">見る<img src="{{ 'blog-card-arrow.svg' | asset_url }}" alt="" width="5" height="7"></a>
+    <a class="blog-2026__view" href="{{ article.url }}" target="_blank" rel="noopener noreferrer">見る<img src="{{ 'blog-card-arrow.svg' | asset_url }}" alt="" width="5" height="7"></a>
   </div>
 </article>
