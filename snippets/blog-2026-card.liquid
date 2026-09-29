@@ -1,5 +1,5 @@
   {%- liquid
-     assign card_image = cover_image | default: article.image
+     assign card_image = cover_image | default: article.image | default: default_image
     if featured
       assign image_sizes = '(max-width: 767px) 100vw, (max-width: 1599px) 56vw, 920px'
     else

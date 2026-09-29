@@ -13,15 +13,8 @@
   elsif blog.handle == 'news'
     assign featured_article = blog.articles.first
     assign featured_in_feed = true
-    assign featured_cover = section.settings.news_featured_image
-    if featured_cover == blank
-      for block in section.blocks
-        if block.type == 'news_cover' and block.settings.article.id == featured_article.id
-          assign featured_cover = block.settings.image
-          break
-        endif
-      endfor
-    endif
+    assign featured_cover = featured_article.metafields.custom.news_list_image.value
+    assign news_default_image = section.settings.news_default_image
   endif
 
   assign list_heading = blog.title
@@ -72,7 +65,7 @@
         {%- if paginate.current_page == 1 and featured_article != blank -%}
           <div class="blog-2026__featured" data-blog-featured>
             <h1 class="blog-2026__heading{% unless section.settings.show_blog_title %} visually-hidden{% endunless %}">{{ list_heading | escape }}</h1>
-            {%- render 'blog-2026-card', article: featured_article, featured: true, cover_image: featured_cover, show_image_caption: section.settings.show_image_caption, default_cover_style: section.settings.default_cover_style -%}
+            {%- render 'blog-2026-card', article: featured_article, featured: true, cover_image: featured_cover, default_image: news_default_image, show_image_caption: section.settings.show_image_caption, default_cover_style: section.settings.default_cover_style -%}
           </div>
         {%- elsif paginate.current_page == 1 -%}
           <h1 class="blog-2026__heading{% unless section.settings.show_blog_title %} visually-hidden{% endunless %}">{{ list_heading | escape }}</h1>
@@ -86,14 +79,9 @@
             {%- endif -%}
             {%- assign card_cover = blank -%}
             {%- if blog.handle == 'news' -%}
-              {%- for block in section.blocks -%}
-                {%- if block.type == 'news_cover' and block.settings.article.id == article.id -%}
-                  {%- assign card_cover = block.settings.image -%}
-                  {%- break -%}
-                {%- endif -%}
-              {%- endfor -%}
+              {%- assign card_cover = article.metafields.custom.news_list_image.value -%}
             {%- endif -%}
-            {%- render 'blog-2026-card', article: article, cover_image: card_cover, show_image_caption: section.settings.show_image_caption, default_cover_style: section.settings.default_cover_style -%}
+            {%- render 'blog-2026-card', article: article, cover_image: card_cover, default_image: news_default_image, show_image_caption: section.settings.show_image_caption, default_cover_style: section.settings.default_cover_style -%}
           {%- endfor -%}
         </div>
         {%- if paginate.pages > 1 -%}
@@ -157,8 +145,9 @@
     },
     {
       "type": "image_picker",
-      "id": "news_featured_image",
-      "label": "News featured image"
+      "id": "news_default_image",
+      "label": "News default list image",
+      "info": "Used when a news post has no custom.news_list_image or article image."
     },
     {
       "type": "checkbox",
@@ -182,25 +171,6 @@
       "label": "Show tags",
       "default": true
     }
-  ],
-  "blocks": [
-    {
-      "type": "news_cover",
-      "name": "News post image",
-      "settings": [
-        {
-          "type": "article",
-          "id": "article",
-          "label": "News post"
-        },
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "List image"
-        }
-      ]
-    }
-  ],
-  "max_blocks": 50
+  ]
 }
 {% endschema %}
