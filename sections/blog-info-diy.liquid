@@ -409,7 +409,7 @@
         {%- for block in section.blocks -%}
           {% case block.type %}
             {% when 'image' %}
-              <a href="{{ block.settings.link }}" target="_blank" class="blog-info-left to-top" style="transition-delay: 0.{{forloop.index}}s">
+              <a href="{{ block.settings.link }}" target="_blank" rel="noopener noreferrer" class="blog-info-left to-top" style="transition-delay: 0.{{forloop.index}}s">
                 {%- if block.settings.image != blank -%}
                   <img loading="lazy" class="img" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" {%
                     render 'image-attributes' , image: block.settings.image %} alt="{{ block.settings.image.alt | escape }}">
@@ -436,7 +436,7 @@
           {%- for block in section.blocks -%}
             {% case block.type %}
               {% when 'text' %}
-              <a href="{{ block.settings.link }}" target="_blank" class="blog-info-item to-top" style="transition-delay: 0.{{forloop.index}}s">
+              <a href="{{ block.settings.link }}" target="_blank" rel="noopener noreferrer" class="blog-info-item to-top" style="transition-delay: 0.{{forloop.index}}s">
                 <div class="blog-info-item-time">
                   <div class="blog-info-item-num text-top">{{ block.settings.text }}</div>
                   <div class="blog-info-item-m text-top">{{ block.settings.text1 }}</div>
