@@ -1019,7 +1019,8 @@ window.customElements.define('shopify-buy-now', ShopifyBuyNow);
         url.search === window.location.search && url.hash) return;
 
     link.setAttribute('target', '_blank');
-    link.relList.add('noopener', 'noreferrer');
+    if (link.relList) link.relList.add('noopener', 'noreferrer');
+    else link.setAttribute('rel', `${link.getAttribute('rel') || ''} noopener noreferrer`.trim());
   }
 
   function markPageLinks(root) {
