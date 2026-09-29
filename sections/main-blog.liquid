@@ -1,45 +1,56 @@
-<section>
+{{ 'blog-list-2026.css' | asset_url | stylesheet_tag }}
+{%- liquid
+   assign featured_article = blank
+  assign featured_in_feed = false
+  if blog.handle == 'article'
+    assign featured_article = section.settings.featured_article
+    if featured_article == blank
+      assign featured_article = articles['article/at-home-hair-remover-ranking']
+    endif
+    if featured_article == blank
+      assign featured_article = blog.articles.first
+    endif
+  elsif blog.handle == 'news'
+    assign featured_article = blog.articles.first
+    assign featured_in_feed = true
+    assign featured_cover = featured_article.metafields.custom.news_list_image.value
+    assign news_default_image = section.settings.news_default_image
+  endif
+
+  assign list_heading = blog.title
+  if blog.handle == 'article'
+    assign list_heading = section.settings.heading | default: blog.title
+  elsif blog.handle == 'news'
+    assign list_heading = section.settings.news_heading | default: blog.title
+  elsif section.settings.other_heading != blank
+    assign list_heading = section.settings.other_heading
+  endif
+-%}
+
+<section class="blog-2026{% if section.settings.show_image_caption %} blog-2026--with-image-caption{% endif %}" id="Blog2026-{{ section.id }}" data-blog-section="{{ section.id }}" data-article-count="{{ blog.articles_count }}" data-featured-count="{% if featured_article != blank %}1{% else %}0{% endif %}" data-featured-in-feed="{{ featured_in_feed }}" data-pagination-arrow="{{ 'blog-pagination-arrow.svg' | asset_url }}">
   {%- if blog.articles_count == 0 -%}
-    <div class="empty-state text-container">
-      <h1 class="heading h1">{{ blog.title }}</h1>
-
-      <p class="text--large">{{ 'blog.general.empty' | t }}</p>
-
-      <div class="button-wrapper">
-        <a href="{{ routes.root_url }}" class="button button--primary">{{ 'blog.general.back_to_home' | t }}</a>
-      </div>
+    <div class="blog-2026__empty">
+      <h1{% unless section.settings.show_blog_title %} class="visually-hidden"{% endunless %}>{{ list_heading | escape }}</h1>
+      <p>{{ 'blog.general.empty' | t }}</p>
     </div>
   {%- else -%}
-    {%- if section.settings.show_blog_title -%}
-      <div class="container">
-        <div class="page-header">
-          <div class="page-header__text-wrapper text-container">
-            <h1 class="heading h1">{{ blog.title }}</h1>
-          </div>
-        </div>
-      </div>
-    {%- endif -%}
-
     {%- if section.settings.show_tags and blog.all_tags.size > 0 -%}
       <link-bar class="link-bar">
         <div class="container">
           <div class="link-bar__wrapper">
             <span class="link-bar__title heading heading--small text--subdued">{{ 'blog.general.view' | t }}</span>
-
             <div class="link-bar__scroller hide-scrollbar">
               <ul class="link-bar__linklist list--unstyled" role="list">
                 <li class="link-bar__link-item {% if current_tags == blank %}link-bar__link-item--selected{% endif %}">
                   <a href="{{ blog.url }}" class="link-bar__link link--animated {% if current_tags == blank %}text--underlined{% endif %}">{{ 'blog.general.all_posts' | t }}</a>
                 </li>
-
                 {%- for tag in blog.all_tags -%}
                   <li class="link-bar__link-item {% if current_tags contains tag %}link-bar__link-item--selected{% endif %}">
                     {%- capture link_to_tag_replacement -%}class="link-bar__link link--animated {% if current_tags contains tag %}text--underlined{% endif %}" title={%- endcapture -%}
-
                     {%- if current_tags contains tag -%}
                       {{ tag | link_to_remove_tag: tag | replace: 'title=', link_to_tag_replacement }}
                     {%- else -%}
-                      {{- tag | link_to_tag: tag | replace: 'title=', link_to_tag_replacement -}}
+                      {{ tag | link_to_tag: tag | replace: 'title=', link_to_tag_replacement }}
                     {%- endif -%}
                   </li>
                 {%- endfor -%}
@@ -49,22 +60,55 @@
         </div>
       </link-bar>
     {%- endif -%}
-
-    <div class="vertical-breather vertical-breather--margin vertical-breather--extra-tight">
-      <div class="container">
-        {%- paginate blog.articles by section.settings.articles_per_page -%}
-          <article-list {% if settings.stagger_blog_posts_apparition %}stagger-apparition{% endif %} class="article-list article-list--stacked">
-            {%- for article in blog.articles -%}
-              {%- render 'article-item', article: article, heading_size: 'h4' -%}
-            {%- endfor -%}
-          </article-list>
-
-          {%- render 'pagination', paginate: paginate -%}
-        {%- endpaginate -%}
-      </div>
+    <div class="blog-2026__inner container">
+      {%- paginate blog.articles by 9 -%}
+        {%- if paginate.current_page == 1 and featured_article != blank -%}
+          <div class="blog-2026__featured" data-blog-featured>
+            <h1 class="blog-2026__heading{% unless section.settings.show_blog_title %} visually-hidden{% endunless %}">{{ list_heading | escape }}</h1>
+            {%- render 'blog-2026-card', article: featured_article, featured: true, cover_image: featured_cover, default_image: news_default_image, show_image_caption: section.settings.show_image_caption, default_cover_style: section.settings.default_cover_style -%}
+          </div>
+        {%- elsif paginate.current_page == 1 -%}
+          <h1 class="blog-2026__heading{% unless section.settings.show_blog_title %} visually-hidden{% endunless %}">{{ list_heading | escape }}</h1>
+        {%- else -%}
+          <h1 class="visually-hidden">{{ list_heading | escape }}</h1>
+        {%- endif -%}
+        <div class="blog-2026__grid" id="BlogArticleList-{{ section.id }}" data-server-page="{{ paginate.current_page }}">
+          {%- for article in blog.articles -%}
+            {%- if featured_in_feed and paginate.current_page == 1 and forloop.first -%}
+              {%- continue -%}
+            {%- endif -%}
+            {%- assign card_cover = blank -%}
+            {%- if blog.handle == 'news' -%}
+              {%- assign card_cover = article.metafields.custom.news_list_image.value -%}
+            {%- endif -%}
+            {%- render 'blog-2026-card', article: article, cover_image: card_cover, default_image: news_default_image, show_image_caption: section.settings.show_image_caption, default_cover_style: section.settings.default_cover_style -%}
+          {%- endfor -%}
+        </div>
+        {%- if paginate.pages > 1 -%}
+          <nav class="blog-2026__pagination" aria-label="ページ切り替え" data-desktop-pagination>
+            {%- if paginate.previous -%}
+              <a class="blog-2026__page-direction blog-2026__page-direction--prev" href="{{ paginate.previous.url }}" rel="prev"><img src="{{ 'blog-pagination-arrow.svg' | asset_url }}" alt="" width="5" height="9">前のページ</a>
+            {%- endif -%}
+            <div class="blog-2026__page-numbers">
+              {%- for part in paginate.parts -%}
+                {%- if part.is_link -%}
+                  <a href="{{ part.url }}" aria-label="{{ part.title }} ページへ">{{ part.title }}</a>
+                {%- else -%}
+                  <span {% if part.title == paginate.current_page %}aria-current="page"{% endif %}>{{ part.title }}</span>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+            {%- if paginate.next -%}
+              <a class="blog-2026__page-direction" href="{{ paginate.next.url }}" rel="next">次のページ<img src="{{ 'blog-pagination-arrow.svg' | asset_url }}" alt="" width="5" height="9"></a>
+            {%- endif -%}
+          </nav>
+        {%- endif -%}
+        <nav class="blog-2026__pagination blog-2026__pagination--mobile" aria-label="ページ切り替え" data-mobile-pagination hidden></nav>
+      {%- endpaginate -%}
     </div>
   {%- endif -%}
 </section>
+<script src="{{ 'blog-list-2026.js' | asset_url }}" defer></script>
 
 {% schema %}
 {
@@ -78,33 +122,53 @@
       "default": true
     },
     {
+      "type": "text",
+      "id": "heading",
+      "label": "Article blog heading",
+      "default": "人気記事"
+    },
+    {
+      "type": "text",
+      "id": "news_heading",
+      "label": "News blog heading",
+      "default": "お知らせ"
+    },
+    {
+      "type": "text",
+      "id": "other_heading",
+      "label": "Other blogs heading (optional)"
+    },
+    {
+      "type": "article",
+      "id": "featured_article",
+      "label": "Article blog featured post"
+    },
+    {
+      "type": "image_picker",
+      "id": "news_default_image",
+      "label": "News default list image"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image_caption",
+      "label": "Show text on article images",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "default_cover_style",
+      "label": "Default cover color",
+      "options": [
+        { "value": "light", "label": "Light" },
+        { "value": "dark", "label": "Dark" }
+      ],
+      "default": "light"
+    },
+    {
       "type": "checkbox",
       "id": "show_tags",
       "label": "Show tags",
       "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_category",
-      "label": "Show category",
-      "info": "The first article's tag will be shown as category.",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_excerpt",
-      "label": "Show excerpt",
-      "info": "Change excerpts by editing your blog posts. [Learn more](https://help.shopify.com/en/manual/online-store/blogs/writing-blogs#display-an-excerpt-from-a-blog-post)",
-      "default": true
-    },
-    {
-      "type": "range",
-      "id": "articles_per_page",
-      "label": "Blog posts per page",
-      "min": 3,
-      "max": 48,
-      "step": 3,
-      "default": 9
     }
   ]
 }

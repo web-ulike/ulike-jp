@@ -1,0 +1,33 @@
+  {%- liquid
+     assign card_image = cover_image | default: article.image | default: default_image
+    if featured
+      assign image_sizes = '(max-width: 767px) 100vw, (max-width: 1599px) 56vw, 920px'
+    else
+      assign image_sizes = '(max-width: 767px) calc(100vw - 48px), (max-width: 1599px) 31vw, 480px'
+    endif
+
+    if default_cover_style == 'dark'
+      assign default_cover_asset = 'blog-default-cover-dark.png'
+    else
+      assign default_cover_asset = 'blog-default-cover-light.png'
+    endif
+  -%}
+<article class="blog-2026__card{% if featured %} blog-2026__card--featured{% endif %}{% if card_image == blank %} blog-2026__card--default-cover blog-2026__card--default-cover-{{ default_cover_style | default: 'light' }}{% endif %}" data-article-id="{{ article.id }}">
+  <a class="blog-2026__image-link" href="{{ article.url }}" aria-label="{{ article.title | escape }}">
+    {%- if card_image != blank -%}
+      {{ card_image | image_url: width: card_image.width | image_tag: loading: 'lazy', widths: '334,480,668,750,960,1200,1500,1840,2200,2400', sizes: image_sizes, class: 'blog-2026__image' }}
+      {%- if show_image_caption -%}
+        <span class="blog-2026__image-caption">{{ article.title | escape }}</span>
+      {%- endif -%}
+    {%- else -%}
+      <img src="{{ default_cover_asset | asset_url }}" alt="" width="366" height="230" loading="lazy" class="blog-2026__image blog-2026__image--default">
+    {%- endif -%}
+  </a>
+  <div class="blog-2026__card-content">
+    <div class="blog-2026__card-main">
+      <p class="blog-2026__meta"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%Y.%-m.%-d' }}</time><span class="blog-2026__meta-rule" aria-hidden="true"></span><span>{{ article.author | escape }} が執筆</span></p>
+      <h2 class="blog-2026__title"><a href="{{ article.url }}">{{ article.title | escape }}</a></h2>
+    </div>
+    <a class="blog-2026__view" href="{{ article.url }}">見る<img src="{{ 'blog-card-arrow.svg' | asset_url }}" alt="" width="5" height="7"></a>
+  </div>
+</article>

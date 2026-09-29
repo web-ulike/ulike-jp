@@ -26,26 +26,39 @@
   #shopify-section-{{ section.id }} {
     --section-padding-top: {{ section.settings.padding_top }}px;
     --section-padding-bottom: {{ section.settings.padding_bottom }}px;
-    {%- if article_image != blank %}
-      {%- render 'section-variables', section: section -%}
-      {%- if section.settings.image_height == 'adapt' %}
-        --ratio-percent: {{ 1 | divided_by: article_image.aspect_ratio | times: 100 }}%;
-      {% endif -%}
-    {% endif -%}
   }
 
   #shopify-section-{{ section.id }} .article-banner {
-    display: block;
+    --heading-color: {{ section.settings.color_text.rgb }};
+    --text-color: {{ section.settings.color_text.rgb }};
+    display: grid;
+    grid-template-columns: minmax(0, 44%) minmax(0, 1fr);
     position: relative;
-    min-height: {% if article_image != blank and section.settings.image_height != 'adapt' %}{{ section.settings.image_height }}{% elsif article_image != blank %}min(56.25vw, 760px){% else %}0{% endif %};
+    min-height: 0;
     padding: 0;
     overflow: hidden;
-    color: {% if article_image != blank %}{{ section.settings.color_text }}{% else %}#202124{% endif %};
-    background: {% if article_image != blank %}#1f1f1f{% else %}#f7f7f8{% endif %};
+    color: {{ section.settings.color_text }};
+    background: #f7f7f8;
     margin: 0;
   }
 
-  #shopify-section-{{ section.id }} .article-banner__media,
+  @media screen and (min-width: 768px) {
+    #shopify-section-{{ section.id }} .article-banner {
+      max-width: 1200px;
+      margin-inline: auto;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .article-banner__media {
+    display: block;
+    position: relative;
+    min-height: {% if section.settings.image_height != 'adapt' %}min({{ section.settings.image_height }}, 420px){% else %}400px{% endif %};
+    height: 100%;
+    overflow: hidden;
+    background: #eceeef;
+  }
+
+  #shopify-section-{{ section.id }} .article-banner__image,
   #shopify-section-{{ section.id }} .article-banner__overlay {
     position: absolute;
     inset: 0;
@@ -53,7 +66,6 @@
     height: 100%;
   }
 
-  #shopify-section-{{ section.id }} .article-banner__media,
   #shopify-section-{{ section.id }} .article-banner__image {
     display: block;
     overflow: hidden;
@@ -65,18 +77,14 @@
     height: 100%;
   }
 
-  #shopify-section-{{ section.id }} .article-banner__image img {
-    object-fit: cover;
-  }
-
   #shopify-section-{{ section.id }} .article-banner__overlay {
     background: rgba({{ section.settings.color_overlay.rgb }}, {{ section.settings.overlay_opacity | divided_by: 100.0 }});
     pointer-events: none;
   }
 
   #shopify-section-{{ section.id }} .article-banner__content {
-    position: relative;
-    z-index: 1;
+    display: flex;
+    align-items: center;
     width: 100%;
     margin: 0;
   }
@@ -85,18 +93,30 @@
     display: flex;
     align-items: {{ desktop_items }};
     justify-content: {{ desktop_justify }};
-    min-height: {% if article_image != blank and section.settings.image_height != 'adapt' %}{{ section.settings.image_height }}{% elsif article_image != blank %}min(56.25vw, 760px){% else %}0{% endif %};
-    padding-block: clamp(48px, 6vw, 96px);
+    min-height: 0;
+    max-width: none;
+    padding: 32px clamp(24px, 4vw, 72px);
+  }
+
+  #shopify-section-{{ section.id }} .article-banner:not(.article-banner--has-image) {
+    display: flex;
+    justify-content: center;
   }
 
   #shopify-section-{{ section.id }} .article-banner:not(.article-banner--has-image) .article-banner__inner {
-    padding-block: 32px 48px;
+    justify-content: center;
+    padding-block: 48px;
   }
 
   #shopify-section-{{ section.id }} .article-banner__box {
-    width: fit-content;
-    max-width: min(900px, 100%);
+    width: 100%;
+    max-width: 720px;
     text-align: {{ section.settings.text_alignment }};
+  }
+
+  #shopify-section-{{ section.id }} .article-banner:not(.article-banner--has-image) .article-banner__box {
+    max-width: 900px;
+    text-align: center;
   }
 
   #shopify-section-{{ section.id }} .article-banner__title-group {
@@ -133,18 +153,29 @@
     content: none;
   }
 
+  #shopify-section-{{ section.id }} .article-banner:not(.article-banner--has-image) .article-banner__tags,
+  #shopify-section-{{ section.id }} .article-banner:not(.article-banner--has-image) .article-banner__meta-list,
+  #shopify-section-{{ section.id }} .article-banner:not(.article-banner--has-image) .article-banner__breadcrumb ul {
+    justify-content: center;
+  }
+
   #shopify-section-{{ section.id }} .article-banner__title {
     order: 3;
     margin: 0;
     font-size: clamp(34px, 4.2vw, 64px);
-    font-weight: 700;
-    line-height: 1.25;
+    font-weight: 500;
+    line-height: 1.5;
     overflow-wrap: anywhere;
   }
 
-  #shopify-section-{{ section.id }} .article-banner__title.title-sm { font-size: clamp(32px, 3vw, 44px); }
-  #shopify-section-{{ section.id }} .article-banner__title.title-md { font-size: clamp(36px, 3.5vw, 52px); }
-  #shopify-section-{{ section.id }} .article-banner__title.title-xl { font-size: clamp(42px, 5vw, 72px); }
+  #shopify-section-{{ section.id }} .article-banner__title.title-sm { 
+    font-size: clamp(24px, 3vw, 36px); 
+  }
+  #shopify-section-{{ section.id }} .article-banner__title.title-md { 
+    font-size: clamp(36px, 3.5vw, 52px); }
+  #shopify-section-{{ section.id }} .article-banner__title.title-xl { 
+    font-size: clamp(42px, 5vw, 72px);
+  }
 
   #shopify-section-{{ section.id }} .article-banner__title split-words {
     display: block;
@@ -184,24 +215,45 @@
   }
 
   @media screen and (max-width: 767px) {
-    #shopify-section-{{ section.id }} .article-banner,
-    #shopify-section-{{ section.id }} .article-banner__inner {
-      min-height: {% if article_image != blank and section.settings.image_height_mobile != 'auto' and section.settings.image_height_mobile != 'adapt' %}{{ section.settings.image_height_mobile }}{% elsif article_image != blank and section.settings.image_height_mobile == 'adapt' %}{{ 100 | divided_by: article_image.aspect_ratio }}vw{% elsif article_image != blank %}clamp(360px, 100vw, 520px){% else %}0{% endif %};
+    #shopify-section-{{ section.id }} .article-banner {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    #shopify-section-{{ section.id }} .article-banner__media {
+      height: auto;
+      min-height: 0;
+      aspect-ratio: {{ article_image.aspect_ratio | default: 1 }};
+    }
+
+    #shopify-section-{{ section.id }} .article-banner__image img {
+      object-position: center;
     }
 
     #shopify-section-{{ section.id }} .article-banner__inner {
       align-items: {{ mobile_items }};
       justify-content: {{ mobile_justify }};
-      padding-block: 40px;
+      padding: 28px var(--container-gutter) 36px;
     }
 
     #shopify-section-{{ section.id }} .article-banner:not(.article-banner--has-image) .article-banner__inner {
-      padding-block: 32px;
+      padding-block: 36px;
     }
 
     #shopify-section-{{ section.id }} .article-banner__box {
       width: 100%;
       text-align: {{ section.settings.text_alignment_mobile }};
+    }
+
+    #shopify-section-{{ section.id }} .article-banner__meta-list {
+      justify-content: {{ section.settings.text_alignment_mobile | replace: 'left', 'flex-start' | replace: 'right', 'flex-end' }};
+    }
+
+    #shopify-section-{{ section.id }} .article-banner:not(.article-banner--has-image) .article-banner__box {
+      text-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .article-banner:not(.article-banner--has-image) .article-banner__meta-list {
+      justify-content: center;
     }
 
     #shopify-section-{{ section.id }} .article-banner__title-group { gap: 14px; }
@@ -210,9 +262,6 @@
     #shopify-section-{{ section.id }} .article-banner__title.title-md { font-size: 32px; }
     #shopify-section-{{ section.id }} .article-banner__title.title-xl { font-size: 40px; }
     #shopify-section-{{ section.id }} .article-banner__meta { order: 3; }
-    #shopify-section-{{ section.id }} .article-banner__meta-list {
-      justify-content: {{ section.settings.text_alignment_mobile | replace: 'left', 'flex-start' | replace: 'right', 'flex-end' }};
-    }
     #shopify-section-{{ section.id }} .article-banner__spacing { height: var(--spacing-height-mobile); }
   }
 </style>
@@ -222,12 +271,12 @@
     <article class="article banner article-banner{% if article_image != blank %} article-banner--has-image{% endif %}" itemscope itemtype="http://schema.org/BlogPosting">
       {%- if article_image != blank -%}
         <media-element class="banner__media article-banner__media"{% if section.settings.enable_parallax %} data-parallax="0.3" data-parallax-dir="{{ section.settings.parallax_direction }}"{% endif %}>
-          <animate-element data-animate="zoom-out" class="media media--height article-banner__image" itemprop="image">
-            {%- capture sizes -%}{% if section.settings.full_width %}100vw{% else %}min({{ settings.page_width }}px, 100vw){% endif %}{%- endcapture -%}
+          <animate-element data-animate="zoom-out" class="media article-banner__image" itemprop="image">
+            {%- capture sizes -%}(max-width: 767px) 100vw, 44vw{%- endcapture -%}
             {{- article_image | image_url: width: article_image.width | image_tag: loading: 'eager', widths: '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200', sizes: sizes, is: 'lazy-image', alt: article_alt -}}
           </animate-element>
+          <span class="banner__overlay article-banner__overlay"></span>
         </media-element>
-        <span class="banner__overlay article-banner__overlay"></span>
       {%- endif -%}
     
       {%- if section.blocks.size > 0 -%}
@@ -548,7 +597,7 @@
       "type": "color",
       "id": "color_text",
       "label": "t:sections.global.settings.color_text.label",
-      "default": "#ffffff"
+      "default": "#202124"
     },
     {
       "type": "color",
