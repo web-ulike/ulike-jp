@@ -101,7 +101,7 @@
 
                       {%- if block.settings.button_text != blank -%}
                         <div class="button-wrapper">
-                          <a href="{{ block.settings.button_link }}" class="button button--primary">{{ block.settings.button_text | escape }}</a>
+                          <a href="{{ block.settings.button_link }}" class="button button--primary" target="_blank" rel="noopener noreferrer">{{ block.settings.button_text | escape }}</a>
                         </div>
                       {%- endif -%}
                     </div>

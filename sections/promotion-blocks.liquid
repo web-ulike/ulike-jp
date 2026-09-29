@@ -122,7 +122,7 @@
                 {%- endcapture -%}
 
                 {%- if block.settings.link_url != blank -%}
-                  <a id="block-{{ section.id }}-{{ block.id }}" href="{{ block.settings.link_url }}" class="promotion-block {% if block.settings.highlight %}promotion-block--highlight{% endif %} {% if section.blocks.size == 3 %}promotion-block--compact{% endif %} promotion-block--{{ section.settings.section_size }} image-zoom" {{ block.shopify_attributes }}>
+                  <a id="block-{{ section.id }}-{{ block.id }}" href="{{ block.settings.link_url }}" class="promotion-block {% if block.settings.highlight %}promotion-block--highlight{% endif %} {% if section.blocks.size == 3 %}promotion-block--compact{% endif %} promotion-block--{{ section.settings.section_size }} image-zoom" {{ block.shopify_attributes }} target="_blank" rel="noopener noreferrer">
                     {{- block_content -}}
                   </a>
                 {%- else -%}
