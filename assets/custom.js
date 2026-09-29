@@ -997,3 +997,49 @@ class ShopifyBuyNow extends HTMLElement {
 
 // 注册自定义元素
 window.customElements.define('shopify-buy-now', ShopifyBuyNow);
+
+// Open page links in a new tab across both the standard and PageFly layouts.
+(() => {
+  function markPageLink(link) {
+    if (!link || link.hasAttribute('download')) return;
+
+    const href = link.getAttribute('href')?.trim();
+    if (!href || href.startsWith('#')) return;
+
+    let url;
+    try {
+      url = new URL(href, window.location.href);
+    } catch (_) {
+      return;
+    }
+
+    if (url.protocol !== 'http:' && url.protocol !== 'https:') return;
+    if (url.origin === window.location.origin &&
+        url.pathname === window.location.pathname &&
+        url.search === window.location.search && url.hash) return;
+
+    link.setAttribute('target', '_blank');
+    link.relList.add('noopener', 'noreferrer');
+  }
+
+  function markPageLinks(root) {
+    root.querySelectorAll('a[href]').forEach(markPageLink);
+  }
+
+  function init() {
+    markPageLinks(document);
+    document.addEventListener('shopify:section:load', event => markPageLinks(event.target));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init, { once: true });
+  } else {
+    init();
+  }
+
+  // Theme sections and apps can insert links after the initial scan.
+  document.addEventListener('click', event => {
+    const target = event.target instanceof Element ? event.target : event.target?.parentElement;
+    markPageLink(target?.closest('a[href]'));
+  }, true);
+})();
