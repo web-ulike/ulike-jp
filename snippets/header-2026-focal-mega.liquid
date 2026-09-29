@@ -93,16 +93,16 @@
           assign widget_links = '/pages/payment|/pages/order-tracking|/pages/warranty|/pages/contact' | split: '|'
           assign widget_images = 'header-2026-support-payment.svg|header-2026-support-tracking.svg|header-2026-support-warranty.svg|header-2026-support-contact.svg' | split: '|'
         when 'topics'
-          assign widget_titles = '人気記事一覧|お知らせ|ドン・キホーテ限定品|湘南美容 × Ulike' | split: '|'
+           assign widget_titles = '人気記事一覧|お知らせ|ドン・キホーテ限定品|湘南美容 × Ulike' | split: '|'
           assign widget_links = '/blogs/article|/blogs/news|/pages/donki-2025|/pages/brandambassador' | split: '|'
           assign widget_images = 'header-2026-topic-popular.png|header-2026-topic-news.png|header-2026-topic-pickup.png|header-2026-topic-pickup.png' | split: '|'
       endcase
     -%}
     <div class="header-2026__mega-panel header-2026__icon-panel">
       {%- if has_configured_links -%}
-        {%- for block in section.blocks -%}{%- if block.type == 'nav_link' and block.settings.menu_item == menu_item -%}<a class="header-2026__icon-tile mega-menu__column" href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>{% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 120 | image_tag: width: 60, height: 60, loading: 'lazy', alt: block.settings.title }}{% elsif block.settings.asset_image != blank %}<img src="{{ block.settings.asset_image | asset_url }}" width="60" height="60" alt="{{ block.settings.title | escape }}">{% endif %}<span>{{ block.settings.title | escape }} {% render 'header-2026-arrow-right' %}</span></a>{%- endif -%}{%- endfor -%}
+        {%- for block in section.blocks -%}{%- if block.type == 'nav_link' and block.settings.menu_item == menu_item -%}<a class="header-2026__icon-tile mega-menu__column" href="{{ block.settings.link | default: '#' }}"{% if block.settings.link contains '/blogs/article' or block.settings.link contains '/blogs/news' %} target="_blank" rel="noopener noreferrer"{% endif %} {{ block.shopify_attributes }}>{% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 120 | image_tag: width: 60, height: 60, loading: 'lazy', alt: block.settings.title }}{% elsif block.settings.asset_image != blank %}<img src="{{ block.settings.asset_image | asset_url }}" width="60" height="60" alt="{{ block.settings.title | escape }}">{% endif %}<span>{{ block.settings.title | escape }} {% render 'header-2026-arrow-right' %}</span></a>{%- endif -%}{%- endfor -%}
       {%- else -%}{%- for title in widget_titles -%}
-        <a class="header-2026__icon-tile mega-menu__column" href="{{ widget_links[forloop.index0] }}"><img src="{{ widget_images[forloop.index0] | asset_url }}" width="60" height="60" alt="{{ title | escape }}"><span>{{ title | escape }} {% render 'header-2026-arrow-right' %}</span></a>
+        <a class="header-2026__icon-tile mega-menu__column" href="{{ widget_links[forloop.index0] }}"{% if kind == 'topics' and forloop.index0 < 2 %} target="_blank" rel="noopener noreferrer"{% endif %}><img src="{{ widget_images[forloop.index0] | asset_url }}" width="60" height="60" alt="{{ title | escape }}"><span>{{ title | escape }} {% render 'header-2026-arrow-right' %}</span></a>
       {%- endfor -%}{%- endif -%}
     </div>
 {%- endcase -%}
