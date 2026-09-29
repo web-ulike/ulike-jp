@@ -1,6 +1,6 @@
 <div {% if settings.stagger_blog_posts_apparition %}reveal{% endif %} class="article-item {% if use_featured_layout %}{% if is_first %}article-item--featured{% else %}article-item--horizontal{% endif %}{% endif %} image-zoom">
   {%- if article.image -%}
-    <a href="{{ article.url }}" class="article-item__image-container">
+    <a href="{{ article.url }}" target="_blank" rel="noopener noreferrer" class="article-item__image-container">
       {{- article.image | image_url: width: article.image.width | image_tag: loading: 'lazy', sizes: '(max-width: 740px) 81vw, (max-width: 999px) 37vw, 425px', sizes: '600,700,800,1000,1200,1400,1600,1800,2000', class: 'article-item__image' -}}
 
       {%- if use_featured_layout and is_first -%}
@@ -22,11 +22,11 @@
         {%- endunless -%}
       {%- endfor -%}
 
-      <a href="{{ blog_url | remove_first: '/' }}/tagged/{{ article.tags.first | handle }}" class="article-item__category heading heading--xsmall">{{ article.tags.first }}</a>
+      <a href="{{ blog_url | remove_first: '/' }}/tagged/{{ article.tags.first | handle }}" target="_blank" rel="noopener noreferrer" class="article-item__category heading heading--xsmall">{{ article.tags.first }}</a>
     {%- endif -%}
 
     <h3 class="article-item__title heading {{ heading_size }}">
-      <a href="{{ article.url }}">{{ article.title }}</a>
+      <a href="{{ article.url }}" target="_blank" rel="noopener noreferrer">{{ article.title }}</a>
     </h3>
 
     {%- if section.settings.show_excerpt and article.excerpt_or_content != blank -%}

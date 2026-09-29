@@ -19,7 +19,7 @@
     {%- capture view_all -%}
       {%- if section.settings.show_view_all and blog != blank and section.settings.post_limit < blog.articles_count -%}
         <p>
-          <a class="button button--secondary icon-with-text" href="{{ blog.url }}" is="hover-link">
+          <a class="button button--secondary icon-with-text" href="{{ blog.url }}" target="_blank" rel="noopener noreferrer" is="hover-link">
             <span class="btn-fill" data-fill></span>
             <span class="btn-text">
               {%- liquid

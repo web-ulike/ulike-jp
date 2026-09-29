@@ -311,7 +311,7 @@
             <h3 class="blog-new-h3">{{ section.settings.title }}</h3>
           {%- endif -%}
           {%- if section.settings.text != blank -%}
-            <a href="{{ section.settings.link }}" class="blog-new-top-btn" target="_blank" rel="noopener noreferrer">
+            <a href="{{ section.settings.link }}" target="_blank" rel="noopener noreferrer" class="blog-new-top-btn">
               {{ section.settings.text }}
             </a>
           {%- endif -%}
@@ -320,7 +320,7 @@
       <div class="blog-new-cont">
         {%- for block in section.blocks -%}
           {%- if forloop.index == 1 -%}
-            <a href="{{ block.settings.link }}" class="blog-new-left" target="_blank" rel="noopener noreferrer">
+            <a href="{{ block.settings.link }}" target="_blank" rel="noopener noreferrer" class="blog-new-left">
               {%- if block.settings.image != blank -%}
                   <img
                     loading="lazy"
@@ -355,7 +355,7 @@
           <div class="blog-new-list swiper-wrapper">
             {%- for block in section.blocks -%}
               {%- if forloop.index != 1 -%}
-                <a href="{{ block.settings.link }}" class="blog-new-item swiper-slide" target="_blank" rel="noopener noreferrer">
+                <a href="{{ block.settings.link }}" target="_blank" rel="noopener noreferrer" class="blog-new-item swiper-slide">
                   {%- if block.settings.image != blank -%}
                     <div class="blog-new-img">
                       <img

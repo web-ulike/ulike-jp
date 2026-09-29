@@ -42,7 +42,7 @@
             <div class="link-bar__scroller hide-scrollbar">
               <ul class="link-bar__linklist list--unstyled" role="list">
                 <li class="link-bar__link-item {% if current_tags == blank %}link-bar__link-item--selected{% endif %}">
-                  <a href="{{ blog.url }}" class="link-bar__link link--animated {% if current_tags == blank %}text--underlined{% endif %}">{{ 'blog.general.all_posts' | t }}</a>
+                  <a href="{{ blog.url }}" target="_blank" rel="noopener noreferrer" class="link-bar__link link--animated {% if current_tags == blank %}text--underlined{% endif %}">{{ 'blog.general.all_posts' | t }}</a>
                 </li>
                 {%- for tag in blog.all_tags -%}
                   <li class="link-bar__link-item {% if current_tags contains tag %}link-bar__link-item--selected{% endif %}">
@@ -92,7 +92,7 @@
             <div class="blog-2026__page-numbers">
               {%- for part in paginate.parts -%}
                 {%- if part.is_link -%}
-                  <a href="{{ part.url }}" aria-label="{{ part.title }} ページへ">{{ part.title }}</a>
+                  <a href="{{ part.url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ part.title }} ページへ">{{ part.title }}</a>
                 {%- else -%}
                   <span {% if part.title == paginate.current_page %}aria-current="page"{% endif %}>{{ part.title }}</span>
                 {%- endif -%}

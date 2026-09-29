@@ -20,7 +20,7 @@
       </li>
       {%- else -%}
       <li class="header__linklist-item header-2026__nav-item" data-item-title="{{ link.title | escape }}">
-        <a class="header__linklist-link header-2026__nav-link" href="{{ link.url }}">{{- link.title -}}</a>
+        <a class="header__linklist-link header-2026__nav-link" href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{- link.title -}}</a>
       </li>
       {%- endif -%}
     {%- endfor -%}

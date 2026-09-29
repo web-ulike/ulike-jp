@@ -299,12 +299,12 @@
                       <nav class="breadcrumb" aria-label="breadcrumbs">
                         <ul>
                           <li>
-                            <a href="{{ routes.root_url }}" title="{{ 'general.breadcrumbs.home_link_title' | t | escape }}" is="magnet-link" target="_blank" rel="noopener noreferrer">
+                            <a href="{{ routes.root_url }}" target="_blank" rel="noopener noreferrer" title="{{ 'general.breadcrumbs.home_link_title' | t | escape }}" is="magnet-link">
                               {%- render 'icon', icon: 'home', size: 'sm' -%}
                             </a>
                           </li>
                           <li>
-                            <a href="{{ blog.url }}" is="magnet-link" target="_blank" rel="noopener noreferrer">{{ blog.title }}</a>
+                            <a href="{{ blog.url }}" target="_blank" rel="noopener noreferrer" is="magnet-link">{{ blog.title }}</a>
                           </li>
                           <li>{{ article.title }}</li>
                         </ul>
@@ -322,7 +322,7 @@
                           {%- endif -%}
                           {%- for tag in article.tags -%}
                             {% if tag contains "_" %}{%- assign tag_starts_with = tag | slice: 0 -%}{% if tag_starts_with == "_" %}{% continue %}{% endif %}{% endif %}
-                            <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="badge{% if badge_style %} badge--custom{% endif %}"{% if badge_style %} style="{{ badge_style }}"{% endif %} target="_blank" rel="noopener noreferrer">{{ tag }}</a>
+                            <a href="{{ blog.url }}/tagged/{{ tag | handle }}" target="_blank" rel="noopener noreferrer" class="badge{% if badge_style %} badge--custom{% endif %}"{% if badge_style %} style="{{ badge_style }}"{% endif %}>{{ tag }}</a>
                           {%- endfor -%}
                         </animate-element>
                         {%- assign delay = delay | plus: 1 -%}
