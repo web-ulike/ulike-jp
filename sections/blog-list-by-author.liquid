@@ -159,7 +159,7 @@
       <p class="text--large">{{ 'blog.general.empty' | t }}</p>
 
       <div class="button-wrapper">
-        <a href="{{ routes.root_url }}" class="button button--primary">{{ 'blog.general.back_to_home' | t }}</a>
+        <a href="{{ routes.root_url }}" class="button button--primary" target="_blank" rel="noopener noreferrer">{{ 'blog.general.back_to_home' | t }}</a>
       </div>
     </div>
   {%- else -%}
@@ -196,7 +196,7 @@
                   <a
                     href="{{ blog.url }}"
                     class="link-bar__link link--animated {% if current_tags == blank %}text--underlined{% endif %}"
-                  >
+                   target="_blank" rel="noopener noreferrer">
                     {{- 'blog.general.all_posts' | t -}}
                   </a>
                 </li>
