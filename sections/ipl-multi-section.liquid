@@ -88,7 +88,7 @@ margin-top: 22px;
         {%- endif -%}
         <div class="ipl__multi-wrapper">
             {%- for block in section.blocks -%}
-          <a href="{{ block.settings.button_link }}" class="ipl__multi-item to-top">
+          <a href="{{ block.settings.button_link }}" class="ipl__multi-item to-top" target="_blank" rel="noopener noreferrer">
              {%- if block.settings.image -%}
                 <img src="{{block.settings.image | image_url }}" alt="" width="{{  block.settings.image.width  | divided_by: 2  }}" height="{{  block.settings.image.height  | divided_by: 2  }}">
             {%- endif -%}
