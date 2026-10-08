@@ -928,6 +928,8 @@
   function initJudgeMeReviewScroll() {
     if (document.documentElement.dataset.judgeMeReviewScrollInitialized === 'true') return;
 
+    var correctionController = null;
+
     document.addEventListener('click', function (event) {
       var badge = event.target.closest('.jp-product-info__block--review .jdgm-prev-badge');
 
@@ -939,17 +941,20 @@
       event.preventDefault();
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-      var scrollCancelled = false;
-      var cancelScroll = function () { scrollCancelled = true; };
+      if (correctionController) correctionController.abort();
+      correctionController = new AbortController();
+      var controller = correctionController;
+      var cancelScroll = function () { controller.abort(); };
       ['wheel', 'touchstart', 'keydown'].forEach(function (type) {
-        window.addEventListener(type, cancelScroll, { once: true, passive: true });
+        window.addEventListener(type, cancelScroll, { passive: true, signal: controller.signal });
       });
 
       [600, 1600, 3000].forEach(function (delay) {
         window.setTimeout(function () {
-          if (!scrollCancelled && target.isConnected) {
-            target.scrollIntoView({ behavior: 'instant', block: 'start' });
+          if (!controller.signal.aborted && target.isConnected) {
+            target.scrollIntoView({ behavior: 'auto', block: 'start' });
           }
+          if (delay === 3000) controller.abort();
         }, delay);
       });
     });
