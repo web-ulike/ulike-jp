@@ -39,6 +39,9 @@
                 <div class="jp-air10-voice-2026__copy jp-air10-voice-2026__copy--mobile">
                   {{ block.settings.quote_mobile | default: block.settings.quote | default: default_quote_mobile }}
                 </div>
+                {%- if block.settings.quote_note != blank -%}
+                  <p class="jp-air10-voice-2026__quote-note">{{ block.settings.quote_note | escape }}</p>
+                {%- endif -%}
               </div>
 
               <div class="jp-air10-voice-2026__profile">
@@ -112,6 +115,7 @@
   #{{ section_id }} .jp-air10-voice-2026__copy--mobile { display: none; }
   #{{ section_id }} .jp-air10-voice-2026__copy p { margin: 0; }
   #{{ section_id }} .jp-air10-voice-2026__copy-gap { display: block; margin-top: 16px; }
+  #{{ section_id }} .jp-air10-voice-2026__quote-note { font-size: 16px; line-height: 1.4; margin: 12px 0 0; position: relative; z-index: 1; }
   #{{ section_id }} .jp-air10-voice-2026__profile { flex: 0 0 281px; padding-top: 0; }
   #{{ section_id }} .jp-air10-voice-2026__avatar { background: #e9e9e9; border-radius: 50%; height: 281px; overflow: hidden; width: 281px; }
   #{{ section_id }} .jp-air10-voice-2026__avatar-image, #{{ section_id }} .jp-air10-voice-2026__avatar-placeholder { display: block; height: 100%; object-fit: cover; width: 100%; }
@@ -146,6 +150,7 @@
     #{{ section_id }} .jp-air10-voice-2026__quote { border-radius: 9.375px; height: 220.379px; padding: 20.65px 7.709px 20px 139.52px; width: 330.331px; }
     #{{ section_id }} .jp-air10-voice-2026__copy { font-size: 10px; letter-spacing: {{ section.settings.mobile_copy_letter_spacing }}px; line-height: 1.3; }
     #{{ section_id }} .jp-air10-voice-2026__copy-gap { margin-top: 6.25px; }
+    #{{ section_id }} .jp-air10-voice-2026__quote-note { font-size: 9px; margin-top: 6px; }
     #{{ section_id }} .jp-air10-voice-2026__copy--desktop { display: none; }
     #{{ section_id }} .jp-air10-voice-2026__copy--mobile { display: block; }
     #{{ section_id }} .jp-air10-voice-2026__profile { left: 16.57px; padding: 0; position: absolute; top: 10%; width: 100px; z-index: 2; }
@@ -270,6 +275,7 @@
           "label": "M 推荐文案（HTML）",
           "default": "<div>医療脱毛は昔やってるんだけど、やっぱり何年か経つとチョコチョコ気になるところは出てくる...</div><div class=\"jp-air10-voice-2026__copy-gap\"></div><div>だから最近はおうちケア派。</div><div class=\"jp-air10-voice-2026__copy-gap\"></div><div>Ulikeの光美容器はジェルが不要なのに、ひんやりしながら照射できるので「熱っ!」ってなりにくくて、かなり快適に使えています。サファイア冷感技術、本当にすごい!</div>"
         },
+        { "type": "text", "id": "quote_note", "label": "推荐文案下方注记" },
         { "type": "image_picker", "id": "avatar", "label": "KOL 头像" },
         { "type": "text", "id": "name", "label": "账号名称", "default": "@march16mさん" },
         { "type": "text", "id": "pr_note", "label": "PR 注记", "default": "※ PR" }
