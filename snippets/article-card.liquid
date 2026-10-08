@@ -11,12 +11,12 @@
           
           {%- for tag in article.tags -%}
             {% if tag contains "_" %}{%- assign tag_starts_with = tag | slice: 0 -%}{% if tag_starts_with == "_" %}{% if tag_count %}{%- assign tag_count = tag_count | minus: 1 | at_least: 0 -%}{% endif %}{% continue %}{% endif %}{% endif %}
-            <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="badge{% if badge_style %} badge--custom{% endif %} font-medium leading-none rounded-full"{% if badge_style %} style="{{ badge_style }}"{% endif %}>{{ tag }}</a>
+            <a href="{{ blog.url }}/tagged/{{ tag | handle }}" target="_blank" rel="noopener noreferrer" class="badge{% if badge_style %} badge--custom{% endif %} font-medium leading-none rounded-full"{% if badge_style %} style="{{ badge_style }}"{% endif %}>{{ tag }}</a>
           {%- endfor -%}
         </div>
       {%- endif -%}
 
-      <a href="{{ article.url }}" class="article-card__link block relative media media--{{ image_ratio }}" aria-label="{{ article.title | escape }}" tabindex="-1">
+      <a href="{{ article.url }}" target="_blank" rel="noopener noreferrer" class="article-card__link block relative media media--{{ image_ratio }}" aria-label="{{ article.title | escape }}" tabindex="-1">
         {{- article.image | image_url: width: article.image.width | image_tag: loading: 'lazy', widths: '180,360,540,720,900,1080,1600', is: 'lazy-image', class: 'article-card__image' -}}
       </a>
     </div>
@@ -36,7 +36,7 @@
           {%- if show_comments -%}
             <li class="inline-flex gap-2 text-xs relative">
               {%- render 'icon', icon: 'comment', size: 'xs', class: 'stroke-1' -%}
-              <a class="reversed-link" href="{{ article.url }}#comments">
+              <a class="reversed-link" href="{{ article.url }}#comments" target="_blank" rel="noopener noreferrer">
                 {{- 'blogs.comments.with_count' | t: count: article.comments_count -}}
               </a>
             </li>
@@ -52,7 +52,7 @@
       {%- endif -%}
 
       <p>
-        <a class="article-card__title reversed-link text-lg-2xl font-bold leading-tight tracking-tight" href="{{ article.url }}">
+        <a class="article-card__title reversed-link text-lg-2xl font-bold leading-tight tracking-tight" href="{{ article.url }}" target="_blank" rel="noopener noreferrer">
           {{- article.title -}}
         </a>
       </p>
@@ -71,7 +71,7 @@
     </div>
 
     <p>
-      <a class="link text-sm font-medium leading-tight" href="{{ article.url }}">
+      <a class="link text-sm font-medium leading-tight" href="{{ article.url }}" target="_blank" rel="noopener noreferrer">
         {{- 'blogs.article.read_more' | t -}}
       </a>
     </p>

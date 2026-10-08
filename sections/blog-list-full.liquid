@@ -263,7 +263,7 @@
       <div class="latest-blog-inner">
         <div class="latest-blog-carousel" id="latest-blog-carousels-1">
           {%- for block in section.blocks -%}
-            <a href="{{ block.settings.link_url }}" class="latest-blog-item">
+            <a href="{{ block.settings.link_url }}" target="_blank" rel="noopener noreferrer" class="latest-blog-item">
               <div class="latest-blog-bg">
                 {%- if block.settings.image != blank -%}
                   {%- if block.settings.link_url != blank -%}

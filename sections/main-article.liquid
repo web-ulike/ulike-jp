@@ -322,7 +322,7 @@
           <div class="container">
             <div class="article__nav-wrapper">
               {%- if blog.previous_article -%}
-                <a href="{{ blog.previous_article.url }}" class="article__nav-item article__nav-item--prev hidden-phone">
+                <a href="{{ blog.previous_article.url }}" target="_blank" rel="noopener noreferrer" class="article__nav-item article__nav-item--prev hidden-phone">
                   <span class="article__nav-arrow">{%- render 'icon' with 'nav-arrow-left', direction_aware: true -%}</span>
                   <span class="article__nav-item-title hidden-tablet">{{ blog.previous_article.title }}</span>
                 </a>
@@ -339,7 +339,7 @@
               </span>
 
               {%- if blog.next_article -%}
-                <a href="{{ blog.next_article.url }}" class="article__nav-item article__nav-item--next">
+                <a href="{{ blog.next_article.url }}" target="_blank" rel="noopener noreferrer" class="article__nav-item article__nav-item--next">
                   <span class="article__nav-item-label text--strong hidden-tablet-and-up">{{ 'article.general.next' | t }}</span>
                   <span class="article__nav-item-title hidden-tablet">{{ blog.next_article.title }}</span>
                   <span class="article__nav-arrow tap-area">{%- render 'icon' with 'nav-arrow-right', direction_aware: true -%}</span>
@@ -357,13 +357,13 @@
           <div class="article__hero-grid">
             <div class="article__hero-copy">
               <nav class="article__breadcrumb" aria-label="{{ 'general.breadcrumb.title' | t }}">
-                <a href="{{ routes.root_url }}">{{ 'general.breadcrumb.home' | t }}</a>
+                <a href="{{ routes.root_url }}" target="_blank" rel="noopener noreferrer">{{ 'general.breadcrumb.home' | t }}</a>
                 <span aria-hidden="true">/</span>
-                <a href="{{ blog.url }}">{{ blog.title }}</a>
+                <a href="{{ blog.url }}" target="_blank" rel="noopener noreferrer">{{ blog.title }}</a>
               </nav>
 
               {%- if article.tags.size > 0 -%}
-                <a href="{{ blog.url }}/tagged/{{ article.tags.first | handle }}" class="article__category">{{ article.tags.first }}</a>
+                <a href="{{ blog.url }}/tagged/{{ article.tags.first | handle }}" target="_blank" rel="noopener noreferrer" class="article__category">{{ article.tags.first }}</a>
               {%- endif -%}
 
               <h1 class="article__title">{{ article.title }}</h1>
@@ -403,7 +403,7 @@
                 <ul class="article__tags-list list--unstyled" role="list">
                   {%- for tag in article.tags -%}
                     <li class="article__tags-item" role="listitem">
-                      <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="text--subdued link">{{ tag }}</a>
+                      <a href="{{ blog.url }}/tagged/{{ tag | handle }}" target="_blank" rel="noopener noreferrer" class="text--subdued link">{{ tag }}</a>
                     </li>
                   {%- endfor -%}
                 </ul>

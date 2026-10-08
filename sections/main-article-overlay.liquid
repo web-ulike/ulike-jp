@@ -65,7 +65,7 @@
                           {%- if block.settings.show_comments -%}
                             <li class="inline-flex gap-2 text-xs relative">
                               {%- render 'icon', icon: 'comment', size: 'xs', class: 'stroke-1' -%}
-                              <a class="reversed-link" href="{{ blog.previous_article.url }}#comments">
+                              <a class="reversed-link" href="{{ blog.previous_article.url }}#comments" target="_blank" rel="noopener noreferrer">
                                 {{- 'blogs.comments.with_count' | t: count: blog.previous_article.comments_count -}}
                               </a>
                             </li>
@@ -79,7 +79,7 @@
                           {%- endif -%}
                         </ul>
                       {%- endif -%}
-                      <a class="article-card__main" href="{{ blog.previous_article.url }}">
+                      <a class="article-card__main" href="{{ blog.previous_article.url }}" target="_blank" rel="noopener noreferrer">
                         <span class="article-card__arrow" aria-hidden="true">{%- render 'icon', icon: 'nav-arrow-left' -%}</span>
                         <span class="article-card__title">{{- blog.previous_article.title -}}</span>
                       </a>
@@ -102,7 +102,7 @@
                           {%- if block.settings.show_comments -%}
                             <li class="inline-flex gap-2 text-xs relative">
                               {%- render 'icon', icon: 'comment', size: 'xs', class: 'stroke-1' -%}
-                              <a class="reversed-link" href="{{ blog.next_article.url }}#comments">
+                              <a class="reversed-link" href="{{ blog.next_article.url }}#comments" target="_blank" rel="noopener noreferrer">
                                 {{- 'blogs.comments.with_count' | t: count: blog.next_article.comments_count -}}
                               </a>
                             </li>
@@ -116,7 +116,7 @@
                           {%- endif -%}
                         </ul>
                       {%- endif -%}
-                      <a class="article-card__main" href="{{ blog.next_article.url }}">
+                      <a class="article-card__main" href="{{ blog.next_article.url }}" target="_blank" rel="noopener noreferrer">
                         <span class="article-card__title">{{- blog.next_article.title -}}</span>
                         <span class="article-card__arrow" aria-hidden="true">{%- render 'icon', icon: 'nav-arrow-right' -%}</span>
                       </a>

@@ -10,7 +10,7 @@
     endif
   endif
 -%}
-<a class="header-2026__product-card" href="{{ card_url }}">
+<a class="header-2026__product-card" href="{{ card_url }}" target="_blank" rel="noopener noreferrer">
   <span class="header-2026__product-media">
     {%- if card_product.featured_image != blank -%}
       {{- card_product.featured_image | image_url: width: 240 | image_tag: loading: 'lazy', widths: '100,160,200,240', sizes: '100px', alt: card_title -}}

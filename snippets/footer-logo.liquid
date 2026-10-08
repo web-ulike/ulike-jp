@@ -17,7 +17,7 @@
         }
       </style>
       <p class="inline-flex leading-none">
-        <a href="{{ routes.root_url }}">
+        <a href="{{ routes.root_url }}" target="_blank" rel="noopener noreferrer">
           <span class="sr-only">{{ shop.name }}</span>
           {%- capture sizes -%}{{ block.settings.logo_height | times: block.settings.logo.aspect_ratio }}px{%- endcapture -%}
           {%- capture widths -%}{{ block.settings.logo_height | times: block.settings.logo.aspect_ratio }}, {{ block.settings.logo_height | times: block.settings.logo.aspect_ratio | times: 2 | at_most: block.settings.logo.width }}{%- endcapture -%}

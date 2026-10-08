@@ -14,7 +14,7 @@
       <ul class="flex flex-col gap-3">
         {%- for link in block.settings.menu.links -%}
           <li class="inline-flex">
-            <a href="{{ link.url }}" class="block reversed-link text-sm-lg leading-tight">{{ link.title }}</a>
+            <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" class="block reversed-link text-sm-lg leading-tight">{{ link.title }}</a>
           </li>
         {%- endfor -%}
       </ul>

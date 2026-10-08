@@ -42,11 +42,11 @@
             <div class="link-bar__scroller hide-scrollbar">
               <ul class="link-bar__linklist list--unstyled" role="list">
                 <li class="link-bar__link-item {% if current_tags == blank %}link-bar__link-item--selected{% endif %}">
-                  <a href="{{ blog.url }}" class="link-bar__link link--animated {% if current_tags == blank %}text--underlined{% endif %}">{{ 'blog.general.all_posts' | t }}</a>
+                  <a href="{{ blog.url }}" target="_blank" rel="noopener noreferrer" class="link-bar__link link--animated {% if current_tags == blank %}text--underlined{% endif %}">{{ 'blog.general.all_posts' | t }}</a>
                 </li>
                 {%- for tag in blog.all_tags -%}
                   <li class="link-bar__link-item {% if current_tags contains tag %}link-bar__link-item--selected{% endif %}">
-                    {%- capture link_to_tag_replacement -%}class="link-bar__link link--animated {% if current_tags contains tag %}text--underlined{% endif %}" title={%- endcapture -%}
+                    {%- capture link_to_tag_replacement -%}class="link-bar__link link--animated {% if current_tags contains tag %}text--underlined{% endif %}" target="_blank" rel="noopener noreferrer" title={%- endcapture -%}
                     {%- if current_tags contains tag -%}
                       {{ tag | link_to_remove_tag: tag | replace: 'title=', link_to_tag_replacement }}
                     {%- else -%}
@@ -146,7 +146,8 @@
     {
       "type": "image_picker",
       "id": "news_default_image",
-      "label": "News default list image"
+      "label": "News default list image",
+      "info": "Used when a news post has no custom.news_list_image or article image."
     },
     {
       "type": "checkbox",
