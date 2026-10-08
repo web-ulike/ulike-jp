@@ -4,7 +4,7 @@
 <div class="search-page-2026__recommendations">
   <h2>おすすめ検索</h2>
   <div class="search-page-2026__recommendation-grid">
-    <a class="search-page-2026__recommendation" href="{{ section.settings.recommend_products_link | default: '/collections/all' }}">
+    <a class="search-page-2026__recommendation" href="{{ section.settings.recommend_products_link | default: '/collections/all' }}" target="_blank" rel="noopener noreferrer">
       <span class="search-page-2026__recommendation-image search-page-2026__recommendation-image--products">
         <picture>
           {%- if section.settings.recommend_products_image_mobile != blank -%}
@@ -19,7 +19,7 @@
       </span>
       <span class="search-page-2026__recommendation-label">{{ products_text | escape }} <img src="{{ 'search-recommend-arrow.svg' | asset_url }}" width="10" height="16" alt=""></span>
     </a>
-    <a class="search-page-2026__recommendation" href="{{ section.settings.recommend_faq_link | default: '/pages/faq' }}">
+    <a class="search-page-2026__recommendation" href="{{ section.settings.recommend_faq_link | default: '/pages/faq' }}" target="_blank" rel="noopener noreferrer">
       <span class="search-page-2026__recommendation-image search-page-2026__recommendation-image--photo">
         <picture>
           {%- if section.settings.recommend_faq_image_mobile != blank -%}
@@ -34,7 +34,7 @@
       </span>
       <span class="search-page-2026__recommendation-label">{{ faq_text | escape }} <img src="{{ 'search-recommend-arrow.svg' | asset_url }}" width="10" height="16" alt=""></span>
     </a>
-    <a class="search-page-2026__recommendation" href="{{ section.settings.recommend_contact_link | default: '/pages/contact-us' }}">
+    <a class="search-page-2026__recommendation" href="{{ section.settings.recommend_contact_link | default: '/pages/contact-us' }}" target="_blank" rel="noopener noreferrer">
       <span class="search-page-2026__recommendation-image search-page-2026__recommendation-image--photo">
         <picture>
           {%- if section.settings.recommend_contact_image_mobile != blank -%}
