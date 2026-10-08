@@ -148,6 +148,15 @@
   row-gap: 50px;
 }
 
+.blog-2026__grid .blog-2026__image {
+  aspect-ratio: 366 / 285;
+  object-fit: cover;
+}
+
+.blog-2026__grid .blog-2026__image--default {
+  object-fit: contain;
+}
+
 .blog-2026__pagination {
   display: flex;
   justify-content: center;
@@ -214,6 +223,10 @@
 }
 
 @media (max-width: 767px) {
+  .shopify-section--main-blog .blog-2026 {
+    padding: 40px 0;
+  }
+
   .blog-2026__heading {
     font-size: 24px;
     margin: 0 0 20px;
