@@ -931,6 +931,7 @@
     var correctionController = null;
     var findReviewTarget = function () {
       return document.querySelector('#judgeme_product_reviews .jdgm-widget, #judgeme_product_reviews.jdgm-widget, .jdgm-widget.jdgm-review-widget')
+        || document.querySelector('.jdgm-widget:not(.jdgm-preview-badge)')
         || document.querySelector('#judgeme_product_reviews');
     };
 
