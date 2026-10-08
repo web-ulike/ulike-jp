@@ -56,6 +56,7 @@
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
+            "show_quantity_selector": true,
             "show_payment_button": true,
             "show_gift_card_recipient": false,
             "atc_button_background": "rgba(0,0,0,0)",
@@ -131,6 +132,7 @@
         "complementary",
         "sticky_buy_button"
       ],
+      "disabled": true,
       "settings": {
         "show_vendor": true,
         "show_sku": false,
@@ -146,6 +148,82 @@
         "show_thumbnails_on_mobile": false,
         "desktop_thumbnails_position": "bottom",
         "transition_effect": "slide"
+      }
+    },
+    "jp_main_product_drnGPr": {
+      "type": "jp-main-product",
+      "blocks": {
+        "title_6q4K9Q": {
+          "type": "title",
+          "settings": {}
+        },
+        "review_badge_wNUjTj": {
+          "type": "review_badge",
+          "settings": {}
+        },
+        "product_description_wQaRL9": {
+          "type": "product_description",
+          "settings": {}
+        },
+        "price_WEmYPc": {
+          "type": "price",
+          "settings": {
+            "label": "期間限定",
+            "price_text": "",
+            "original_price_label": "定価",
+            "original_price": "",
+            "discount_information": ""
+          }
+        },
+        "discount_code_nRpxT7": {
+          "type": "discount_code",
+          "disabled": true,
+          "settings": {
+            "discount_text": "30%OFF",
+            "copy_text": "Copy:",
+            "code_text": "AIR10MAX",
+            "tip_text": "決済画面でコードを入力すると、表示価格からさらに割引されます。",
+            "success_text": "コピーしました",
+            "is_auto_apply": false
+          }
+        },
+        "quantity_selector_NJDHRt": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons_W6xRpD": {
+          "type": "buy_buttons",
+          "settings": {
+            "add_to_cart_text": "カートに追加する",
+            "show_buy_button": true,
+            "buy_now_text": "今すぐ注文"
+          }
+        },
+        "aftermarket_G8FHmx": {
+          "type": "aftermarket",
+          "settings": {
+            "text": "",
+            "text1": "",
+            "text2": "",
+            "text3": "",
+            "text4": "",
+            "note_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "title_6q4K9Q",
+        "review_badge_wNUjTj",
+        "product_description_wQaRL9",
+        "price_WEmYPc",
+        "discount_code_nRpxT7",
+        "quantity_selector_NJDHRt",
+        "buy_buttons_W6xRpD",
+        "aftermarket_G8FHmx"
+      ],
+      "name": "JP Main Product New",
+      "settings": {
+        "product": ""
       }
     },
     "css_module_PcRaqK": {
@@ -317,115 +395,6 @@
         "text_color": "rgba(0,0,0,0)",
         "button_background": "rgba(0,0,0,0)",
         "button_text_color": "rgba(0,0,0,0)"
-      }
-    },
-    "multicolumn_bXT9x4": {
-      "type": "multicolumn",
-      "blocks": {
-        "column_XTxkYP": {
-          "type": "column",
-          "settings": {
-            "show_border": false,
-            "text_alignment": "left",
-            "text_alignment_mobile": "left",
-            "image": "shopify://shop_images/AB03_7ac9915d-acc9-4dbd-9f65-d52c5b72f2d1.webp",
-            "image_ratio": "adapt",
-            "heading": "",
-            "heading_size": "text-lg-2xl",
-            "text": "",
-            "button_label": "",
-            "button_link": "",
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle"
-          }
-        },
-        "column_dVYKFh": {
-          "type": "column",
-          "settings": {
-            "show_border": false,
-            "text_alignment": "left",
-            "text_alignment_mobile": "left",
-            "image": "shopify://shop_images/AB02_719acded-1f79-4549-b0e7-d2fc00d47d46.webp",
-            "image_ratio": "adapt",
-            "heading": "",
-            "heading_size": "text-lg-2xl",
-            "text": "",
-            "button_label": "",
-            "button_link": "",
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle"
-          }
-        },
-        "column_BLUKzj": {
-          "type": "column",
-          "settings": {
-            "show_border": false,
-            "text_alignment": "left",
-            "text_alignment_mobile": "left",
-            "image": "shopify://shop_images/AB01_0b860e2d-c12a-4ff2-b379-bc4c4500ed45.webp",
-            "image_ratio": "adapt",
-            "heading": "",
-            "heading_size": "text-lg-2xl",
-            "text": "",
-            "button_label": "",
-            "button_link": "",
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle"
-          }
-        },
-        "column_39jfA8": {
-          "type": "column",
-          "disabled": true,
-          "settings": {
-            "show_border": false,
-            "text_alignment": "left",
-            "text_alignment_mobile": "left",
-            "image": "shopify://shop_images/c19302a47b9d7901de51cbb8204f55f7.jpg",
-            "image_ratio": "adapt",
-            "heading": "",
-            "heading_size": "text-lg-2xl",
-            "text": "",
-            "button_label": "",
-            "button_link": "",
-            "highlighted_text": "none",
-            "highlighted_scribble": "circle"
-          }
-        }
-      },
-      "block_order": [
-        "column_XTxkYP",
-        "column_dVYKFh",
-        "column_BLUKzj",
-        "column_39jfA8"
-      ],
-      "disabled": true,
-      "settings": {
-        "columns": 3,
-        "columns_mobile": "1",
-        "swipe_on_mobile": true,
-        "heading": "",
-        "heading_size": "title-sm",
-        "heading_alignment": "text-center md:items-center",
-        "heading_tag": "h2",
-        "subheading": "",
-        "description": "",
-        "button_label": "",
-        "button_link": "",
-        "highlighted_text": "none",
-        "highlighted_scribble": "circle",
-        "color_text": "",
-        "color_background": "",
-        "gradient_background": "",
-        "color_highlight": "",
-        "gradient_highlight": "",
-        "color_button_text": "",
-        "color_button_background": "",
-        "color_button_gradient": "",
-        "padding_top": 0,
-        "padding_bottom": 40,
-        "divider": false,
-        "full_width": false,
-        "rounded": false
       }
     },
     "jp_men_highlights_2026_z3M8DT": {
@@ -1219,11 +1188,11 @@
   },
   "order": [
     "main-product",
+    "jp_main_product_drnGPr",
     "css_module_PcRaqK",
     "help-drawer",
     "jp_anchor_tabs_nagiiK",
     "rich_text_ME6Dqq",
-    "multicolumn_bXT9x4",
     "jp_men_highlights_2026_z3M8DT",
     "jp_men_offline_comparison_2026_LFBiiB",
     "jp_men_kv_2026_VkNDgw",
