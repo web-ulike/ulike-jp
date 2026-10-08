@@ -929,13 +929,17 @@
     if (document.documentElement.dataset.judgeMeReviewScrollInitialized === 'true') return;
 
     var correctionController = null;
+    var findReviewTarget = function () {
+      return document.querySelector('#judgeme_product_reviews .jdgm-widget, #judgeme_product_reviews.jdgm-widget, .jdgm-widget.jdgm-review-widget')
+        || document.querySelector('#judgeme_product_reviews');
+    };
 
     document.addEventListener('click', function (event) {
       var badge = event.target.closest('.jp-product-info__block--review .jdgm-prev-badge');
 
       if (!badge) return;
 
-      var target = document.querySelector('#judgeme_product_reviews .jdgm-widget, #judgeme_product_reviews.jdgm-widget, .jdgm-widget.jdgm-review-widget');
+      var target = findReviewTarget();
       if (!target) return;
 
       event.preventDefault();
@@ -951,8 +955,9 @@
 
       [600, 1600, 3000].forEach(function (delay) {
         window.setTimeout(function () {
-          if (!controller.signal.aborted && target.isConnected) {
-            target.scrollIntoView({ behavior: 'auto', block: 'start' });
+          var currentTarget = findReviewTarget();
+          if (!controller.signal.aborted && currentTarget) {
+            currentTarget.scrollIntoView({ behavior: 'auto', block: 'start' });
           }
           if (delay === 3000) controller.abort();
         }, delay);
