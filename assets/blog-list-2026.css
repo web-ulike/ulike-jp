@@ -22,15 +22,15 @@
 .blog-2026__card--featured {
   display: grid;
   grid-template-columns: 714fr 466fr;
-  height: 520px;
-  max-height: 520px;
+}
+
+.blog-2026__card--featured .blog-2026__image-link {
+  align-self: start;
 }
 
 .blog-2026__image-link {
   display: block;
   position: relative;
-  overflow: hidden;
-  aspect-ratio: 366 / 285;
 }
 
 .blog-2026--with-image-caption .blog-2026__card:not(.blog-2026__card--default-cover) .blog-2026__image-link::after {
@@ -42,11 +42,8 @@
 }
 
 .blog-2026__image {
-  position: absolute;
-  inset: 0;
   width: 100%;
-  height: 100%;
-  object-fit: contain;
+  height: auto;
   display: block;
 }
 
@@ -66,11 +63,6 @@
   overflow: hidden;
 }
 
-.blog-2026__card--featured .blog-2026__image-link {
-  aspect-ratio: auto;
-  min-height: 0;
-}
-
 .blog-2026__card--featured .blog-2026__image-caption {
   font-size: 23.8px;
   bottom: 10%;
@@ -88,6 +80,7 @@
 .blog-2026__card--featured .blog-2026__card-content {
   justify-content: center;
   background: #f9f9f9;
+  min-height: 520px;
   padding: 40px 55px;
 }
 
@@ -234,13 +227,9 @@
 
   .blog-2026__card--featured {
     display: block;
-    height: auto;
-    max-height: none;
-    min-height: 0;
   }
 
   .blog-2026__card--featured .blog-2026__image-link {
-    aspect-ratio: 375 / 292;
     margin-inline: calc(-1 * var(--container-gutter));
   }
 
@@ -250,6 +239,7 @@
   }
 
   .blog-2026__card--featured .blog-2026__card-content {
+    min-height: 0;
     padding: 30px 0 50px;
     background: #fff;
   }
