@@ -115,6 +115,7 @@
         "complementary",
         "sticky_buy_button"
       ],
+      "disabled": true,
       "settings": {
         "show_vendor": true,
         "show_sku": false,
@@ -130,6 +131,81 @@
         "show_thumbnails_on_mobile": false,
         "desktop_thumbnails_position": "bottom",
         "transition_effect": "slide"
+      }
+    },
+    "jp_main_product_F7ik4f": {
+      "type": "jp-main-product",
+      "blocks": {
+        "title_wagmRk": {
+          "type": "title",
+          "settings": {}
+        },
+        "review_badge_naCkHn": {
+          "type": "review_badge",
+          "settings": {}
+        },
+        "product_description_g6deTa": {
+          "type": "product_description",
+          "settings": {}
+        },
+        "price_WKQbbA": {
+          "type": "price",
+          "settings": {
+            "label": "期間限定",
+            "price_text": "",
+            "original_price_label": "定価",
+            "original_price": "",
+            "discount_information": ""
+          }
+        },
+        "discount_code_FK47Vr": {
+          "type": "discount_code",
+          "settings": {
+            "discount_text": "30%OFF",
+            "copy_text": "Copy:",
+            "code_text": "AIR10MAX",
+            "tip_text": "決済画面でコードを入力すると、表示価格からさらに割引されます。",
+            "success_text": "コピーしました",
+            "is_auto_apply": false
+          }
+        },
+        "quantity_selector_TMMxn7": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons_bbdYr8": {
+          "type": "buy_buttons",
+          "settings": {
+            "add_to_cart_text": "カートに追加する",
+            "show_buy_button": true,
+            "buy_now_text": "今すぐ注文"
+          }
+        },
+        "aftermarket_KGxCC4": {
+          "type": "aftermarket",
+          "settings": {
+            "text": "",
+            "text1": "",
+            "text2": "",
+            "text3": "",
+            "text4": "",
+            "note_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "title_wagmRk",
+        "review_badge_naCkHn",
+        "product_description_g6deTa",
+        "price_WKQbbA",
+        "discount_code_FK47Vr",
+        "quantity_selector_TMMxn7",
+        "buy_buttons_bbdYr8",
+        "aftermarket_KGxCC4"
+      ],
+      "name": "JP Main Product New",
+      "settings": {
+        "product": ""
       }
     },
     "help-drawer": {
@@ -437,6 +513,7 @@
   },
   "order": [
     "main-product",
+    "jp_main_product_F7ik4f",
     "help-drawer",
     "ulike_slideshow_xffenV",
     "rich_text_ME6Dqq",
