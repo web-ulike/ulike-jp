@@ -929,20 +929,29 @@
     if (document.documentElement.dataset.judgeMeReviewScrollInitialized === 'true') return;
 
     document.addEventListener('click', function (event) {
-      var badge = event.target.closest('.jdgm-prev-badge');
+      var badge = event.target.closest('.jp-product-info__block--review .jdgm-prev-badge');
 
       if (!badge) return;
 
+      var target = document.querySelector('#judgeme_product_reviews .jdgm-widget, #judgeme_product_reviews.jdgm-widget, .jdgm-widget.jdgm-review-widget');
+      if (!target) return;
+
       event.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-      var target = document.querySelector('#judgeme_product_reviews');
+      var scrollCancelled = false;
+      var cancelScroll = function () { scrollCancelled = true; };
+      ['wheel', 'touchstart', 'keydown'].forEach(function (type) {
+        window.addEventListener(type, cancelScroll, { once: true, passive: true });
+      });
 
-      if (target) {
-        target.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }
+      [600, 1600, 3000].forEach(function (delay) {
+        window.setTimeout(function () {
+          if (!scrollCancelled && target.isConnected) {
+            target.scrollIntoView({ behavior: 'instant', block: 'start' });
+          }
+        }, delay);
+      });
     });
 
     document.documentElement.dataset.judgeMeReviewScrollInitialized = 'true';
