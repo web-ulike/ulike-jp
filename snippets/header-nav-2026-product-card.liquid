@@ -1,6 +1,6 @@
 {%- liquid
   assign card_product = menu_link.object
-  assign judgeme_badge = card_product.metafields.judgeme.badge
+  assign judgeme_badge = card_product.metafields.judgeme.badge | append: ''
   assign review_count = 0
   assign rating_value = 0
   if judgeme_badge contains "data-number-of-reviews='" and judgeme_badge contains "data-average-rating='"
