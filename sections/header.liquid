@@ -167,10 +167,10 @@ IMPLEMENTATION NOTE: the header in Focal is pretty complex as it allows a lot of
           {%- if section.settings.logo != blank -%}
             {%- assign logo_size = section.settings.logo_max_width | at_least: section.settings.mobile_logo_max_width | times: 2 %}
             <span class="visually-hidden">{{ shop.name }}</span>
-            <img class="header__logo-image" width="{{ section.settings.logo.width }}" height="{{ section.settings.logo.height }}" src="{{ section.settings.logo | image_url: width: logo_size }}" alt="{{ section.settings.logo.alt | escape }}">
+            <img class="header__logo-image" width="{{ section.settings.logo.width }}" height="{{ section.settings.logo.height }}" src="{{ section.settings.logo | image_url }}" alt="{{ section.settings.logo.alt | escape }}">
 
             {%- if request.page_type == 'index' and section.settings.enable_transparent_header and section.settings.transparent_logo != blank -%}
-              <img class="header__logo-image header__logo-image--transparent" width="{{ section.settings.transparent_logo.width }}" height="{{ section.settings.transparent_logo.height }}" src="{{ section.settings.transparent_logo | image_url: width: logo_size }}" alt="{{ section.settings.transparent_logo.alt | escape }}">
+              <img class="header__logo-image header__logo-image--transparent" width="{{ section.settings.transparent_logo.width }}" height="{{ section.settings.transparent_logo.height }}" src="{{ section.settings.transparent_logo | image_url }}" alt="{{ section.settings.transparent_logo.alt | escape }}">
             {%- endif -%}
           {%- else -%}
             <span class="header__logo-text heading h5">{{ shop.name }}</span>
