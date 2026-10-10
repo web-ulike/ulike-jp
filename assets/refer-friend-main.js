@@ -2,6 +2,8 @@
 (function () {
     // 页面加载完成后初始化逻辑
     document.addEventListener('DOMContentLoaded', () => {
+        const copy = window.referFriendMainCopy || {};
+        const escapeHtml = (value) => $('<div>').text(value ?? '').html();
         // 复制成功提示的隐藏定时器
         let hideTimer = null;
         // let getLoginStatus = false//登录状态
@@ -68,7 +70,7 @@
         }
         const showError = (error) => {
             clearTimeout(hideTimer);
-            $('.dlio-error').text("error:" + error)
+            $('.dlio-error').text(copy.error_prefix + error)
             $('.dlio-error').show()
             hideTimer = setTimeout(() => {
                 $('#referfriend-invitation-content .dlio-error').fadeOut(300);
@@ -140,7 +142,7 @@
             if (Number(emailVal) > 0) {
                 $('.modal-mask,.modal-container').fadeIn(200);
             } else {
-                showError('The current amount does not support withdrawal')
+                showError(copy.insufficient_balance)
             }
 
         });
@@ -166,11 +168,11 @@
             isCooldown = true;
             $button.prop('disabled', true);
             const countdownTimer = setInterval(() => {
-                $button.text(`sent（${timeLeft}）`);
+                $button.text(`${copy.code_sent}（${timeLeft}）`);
                 if (timeLeft-- <= 0) {
                     clearInterval(countdownTimer);
                     isCooldown = false; // 倒计时结束，允许再次点击
-                    $button.text('Get code').prop('disabled', false);
+                    $button.text(copy.get_code).prop('disabled', false);
                 }
             }, 1000);
         }
@@ -318,7 +320,7 @@
             if (!inviteList.data || inviteList.data.length == 0) {
                 $list.append(`
                 <p class="no-record">
-                    There is no record for the moment.
+                    ${escapeHtml(copy.no_records)}
                 </p>`);
                 if (!$('.tabs').is(':visible')) {
                     $('#referfriend-invitation-content .invitation-record-batch').hide();
@@ -331,7 +333,7 @@
                 <div class="render-area ${extraClass}">
                     <div class="description-text">
                         <div class="description-title">
-                            <p class="order-num">Orders</p><p>Settlement time</p><p>Purchase Time</p><p>Subscribers</p><p>Order Status</p>
+                            <p class="order-num">${escapeHtml(copy.orders_label)}</p><p>${escapeHtml(copy.settlement_time_label)}</p><p>${escapeHtml(copy.purchase_time_label)}</p><p>${escapeHtml(copy.subscribers_label)}</p><p>${escapeHtml(copy.order_status_label)}</p>
                         </div>
                         <div class="description-data">
                             <p class="order-num">${order.extend.orderInfo.orderName}</p><p>${timeToYear(order.endTime)}</p><p>${timeToYear(order.extend.orderInfo.createTime)}</p>
@@ -339,12 +341,12 @@
                         </div>
                     </div>
                     <div class="description-product">
-                        <div class="description-title"><img src="${order.extend.orderInfo.orderItem[0].variant.image.url}" alt="Ulike Air 10" width="100%" height="100%"></div>
+                        <div class="description-title"><img src="${order.extend.orderInfo.orderItem[0].variant.image.url}" alt="${escapeHtml(order.extend.orderInfo.orderItem[0].title)}" width="100%" height="100%"></div>
                         <div class="description-data">
                             <p class="order-num">${order.extend.orderInfo.orderItem[0].title}</p>
                             <div class="price-detail">
-                                <div class="order-amount"><span>Order Amount<a class="show-symbol">:</a></span><br class="hidden-br"/><span class="order-status-red">${order.extend.orderInfo.totalPrice}</span></div>
-                                <div class="order-commission"><span>Commission<a class="show-symbol">:</a></span><br class="hidden-br"/><span class="order-status-red">${order.extend.commissionAmount}</span></div>
+                                <div class="order-amount"><span>${escapeHtml(copy.order_amount_label)}<a class="show-symbol">:</a></span><br class="hidden-br"/><span class="order-status-red">${order.extend.orderInfo.totalPrice}</span></div>
+                                <div class="order-commission"><span>${escapeHtml(copy.commission_label)}<a class="show-symbol">:</a></span><br class="hidden-br"/><span class="order-status-red">${order.extend.commissionAmount}</span></div>
                             </div>
                         </div>
                     </div>
@@ -356,22 +358,22 @@
         const invivtStatusText = (benefitStatus) => {
             switch (benefitStatus) {
                 case 'SUCCESS':
-                    return 'Commission settled';
+                    return copy.commission_settled;
                 case 'PENDING':
-                    return 'Payment successful, commission to be settled';
+                    return copy.commission_pending;
                 default:
-                    return 'Order refund, invalid';
+                    return copy.order_refunded;
             }
         };
         //提现记录状态转换
         const WithdStatusText = (benefitStatus) => {
             switch (benefitStatus) {
                 case 'SUCCESS':
-                    return 'Withdrawal successful';
+                    return copy.withdrawal_successful;
                 case 'PENDING':
-                    return 'Withdrawing';
+                    return copy.withdrawing;
                 default:
-                    return 'Withdrawal failed';
+                    return copy.withdrawal_failed;
             }
         };
         //时间转换器
@@ -405,7 +407,7 @@
                 //提现状态
                 $list.append(`
                 <p class="no-record">
-                    There is no record for the moment.
+                    ${escapeHtml(copy.no_records)}
                 </p>`);
                 return
             }
@@ -419,7 +421,7 @@
             withdrawalRecord.data.forEach(item => {
                 //判断提现类型
                 if (item.flowType == 'WITHDRAW_SUBMITTED') {
-                    withdrawType = "Withdraw, account:" + item.extend.userFundWithdrawDto.withdrawAccountId
+                    withdrawType = copy.withdraw_account_prefix + item.extend.userFundWithdrawDto.withdrawAccountId
                     withdrawStatus = WithdStatusText(item.extend.userFundWithdrawDto.withdrawStatus)
                     if (item.extend.userFundWithdrawDto.withdrawStatus != 'FAILED') {
                         withdrawAmount = item.amount
@@ -429,15 +431,15 @@
                     }
                 }
                 if (item.flowType == 'INVITE_REWARD_RECEIVED') {
-                    withdrawType = "Commission settlement"
+                    withdrawType = copy.commission_settlement
                     withdrawAmount = '+' + Math.abs(item.amount)
                     withdrawStatus = ""
                 }
                 //提现状态
                 $list.append(`
                 <div class="table-content">
-                    <div class="base-information"><p>${withdrawType}</p><p>${timeToYear(item.createTime)}</p></div>
-                    <div class="base-price"><p>${withdrawAmount}</p><p id="${extraClass}">${withdrawStatus}</p></div>
+                    <div class="base-information"><p>${escapeHtml(withdrawType)}</p><p>${timeToYear(item.createTime)}</p></div>
+                    <div class="base-price"><p>${withdrawAmount}</p><p id="${extraClass}">${escapeHtml(withdrawStatus)}</p></div>
                 </div>`);
             });
         }
@@ -559,14 +561,14 @@
             if (email === '') {
                 window.UlikeCommon.commonGtmEvent('老带新，登录，邮箱不能为空')
                 $('.form-group').eq(0).addClass('error');
-                $('#emailError').text('Email cannot be empty');
+                $('#emailError').text(copy.email_required);
             }
 
             // 错误邮箱地址，显示错误提示信息
             if (!validateEmail(email) && email !== '') {
                 window.UlikeCommon.commonGtmEvent('老带新，登录，邮箱错误')
                 $('.form-group').eq(0).addClass('error');
-                $('#emailError').text('Invalid email address');
+                $('#emailError').text(copy.email_invalid);
             }
         });
 
@@ -587,10 +589,10 @@
             if (!isValidPassword(password)) {
                 if(password === ''){
                     window.UlikeCommon.commonGtmEvent('老带新，登录，密码不能为空')
-                    $('#passwordError').text('Please enter the correct password');
+                    $('#passwordError').text(copy.password_invalid);
                 }else{
                     window.UlikeCommon.commonGtmEvent('老带新，登录，密码格式错误')
-                    $('#passwordError').text('Your password requires 6-16 digits, and must contain letters and numbers');
+                    $('#passwordError').text(copy.password_rule);
                 }
                 $('.form-group').eq(1).addClass('error');
                 
@@ -644,21 +646,21 @@
             // 邮箱地址为空,显示错误提示信息
             if (email === '') {
                 $('.form-group').eq(0).addClass('error');
-                $('#emailError').text('Email cannot be empty');
+                $('#emailError').text(copy.email_required);
                 valid = false;
             }
 
             // 错误邮箱地址，显示错误提示信息
             if (!validateEmail(email) && email !== '') {
                 $('.form-group').eq(0).addClass('error');
-                $('#emailError').text('Invalid email address');
+                $('#emailError').text(copy.email_invalid);
                 valid = false;
             }
 
             //密码校验
             if (!isValidPassword(password)) {
                 $('.form-group').eq(1).addClass('error');
-                $('#passwordError').text('Your password requires 6-16 digits, and must contain letters and numbers');
+                $('#passwordError').text(copy.password_rule);
                 valid = false;
             }
 
@@ -686,7 +688,7 @@
                     location.href = data.loginUrl
                 }else{
                     $('.form-group').eq(1).addClass('error');
-                    $('#passwordError').text('Please enter the correct password');
+                    $('#passwordError').text(copy.password_invalid);
                     hideLoading()
                 }
                 
