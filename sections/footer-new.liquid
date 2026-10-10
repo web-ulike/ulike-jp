@@ -27,7 +27,7 @@
   }
 
   .footer-new_{{ se_id }} {
-    background: #2E2E2E;
+    background: #000000;
     color: #fff;
   }
 
@@ -219,7 +219,7 @@
   }
 
   .footer-new_{{ se_id }} .footer__inner {
-    background: #2E2E2E;
+    background: #000000;
     padding: 46px 0 40px;
     display: flex;
     color: #919191;
@@ -356,6 +356,8 @@
 
   .footer-new_{{ se_id }} .footer-brand-image img {
     width: 100%;
+    filter: brightness(0) invert(1);
+    opacity: 0.18;
     pointer-events: none;
     /* Disables dragging */
     user-drag: none;
@@ -506,7 +508,7 @@
 
   @media (max-width: 768px) {
     .footer-new_{{ se_id }} {
-      background: #2E2E2E;
+      background: #000000;
     }
 
     .footer-new_{{ se_id }} .footer-new__newsletter {
@@ -904,11 +906,11 @@
                               <a href="{{ link.url }}" title="{{ link.title | escape  }}" aria-label="{{ link.title }}"  {% if link.title == 'Blogs' %}target="_blank"{% endif %} class="link--faded">{{ link.title }}</a>
                             {%- else -%}
                               {%- if link.title == 'Account' or link.title == 'Help Center' -%}
-                                <a href="{{ link.url }}"   title="{{ link.title | escape  }}" aria-label="{{ link.title }}" class="link--faded">{{ link.title }}</a>
+                                <a href="{{ link.url }}"   title="{{ link.title | escape  }}" aria-label="{{ link.title }}" class="link--faded" target="_blank" rel="noopener noreferrer">{{ link.title }}</a>
                                 {%- elsif link.title == 'Track My Order' -%}
                                 <a href="{{ link.url }}"  target="_blank"  title="{{ link.title | escape  }}" aria-label="{{ link.title }}" class="link--faded">{{ link.title }}</a>
                               {%- else -%}
-                                  <a href="{{ link.url }}" title="{{ link.title | escape }}" aria-label="{{ link.title | escape }}" class="link--faded">{{ link.title  }}</a>
+                                  <a href="{{ link.url }}" title="{{ link.title | escape }}" aria-label="{{ link.title | escape }}" class="link--faded" target="_blank" rel="noopener noreferrer">{{ link.title  }}</a>
                                 {%- endif -%}
                             {%- endif -%}
 
@@ -943,7 +945,7 @@
                       -%}
                       {%- if email_url != blank -%}
                         <div class="linklist__item">
-                          <a href="{{ email_url | escape }}" class="link--faded">
+                          <a href="{{ email_url | escape }}" class="link--faded" target="_blank" rel="noopener noreferrer">
                             {{- email_name | default: email_url | escape -}}
                           </a>
                         </div>
@@ -963,7 +965,7 @@
                         assign social_label = block.settings[label_key] | default: block.settings.title
                       -%}
                       {%- if social_image != blank -%}
-                        {%- if social_link != blank -%}<a href="{{ social_link }}" aria-label="{{ social_label | escape }}">{%- endif -%}
+                        {%- if social_link != blank -%}<a href="{{ social_link }}" aria-label="{{ social_label | escape }}" target="_blank" rel="noopener noreferrer">{%- endif -%}
                           {{ social_image | image_url: width: 80 | image_tag: loading: 'lazy', widths: '40,80', alt: social_label }}
                         {%- if social_link != blank -%}</a>{%- endif -%}
                       {%- endif -%}
@@ -1028,19 +1030,19 @@
                         +1 833-206-6933
                       </div>
                       <div class="icon-wrapper pc">
-                        <a href="https://www.facebook.com/ulikeglobal" aria-label="Ulike on Facebook">
+                        <a href="https://www.facebook.com/ulikeglobal" aria-label="Ulike on Facebook" target="_blank" rel="noopener noreferrer">
                           <svg width="48" height="49" viewbox="0 0 48 49" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect y="0.419922" width="48" height="48" rx="24" fill="#ffffff"></rect>
                             <path d="M25.5601 34.4379V25.3074H28.6236L29.0832 21.7481H25.5601V19.4759C25.5601 18.4457 25.845 17.7437 27.324 17.7437L29.2072 17.7429V14.5593C28.8815 14.517 27.7636 14.4199 26.4624 14.4199C23.7454 14.4199 21.8853 16.0784 21.8853 19.1234V21.7481H18.8125V25.3074H21.8853V34.4379H25.5601Z" fill="#000000"></path>
                             </svg>
                         </a>
-                        <a href="https://twitter.com/ulikeglobal" aria-label="Ulike on X (Twitter)">
+                        <a href="https://twitter.com/ulikeglobal" aria-label="Ulike on X (Twitter)" target="_blank" rel="noopener noreferrer">
                           <svg width="48" height="49" viewbox="0 0 48 49" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect y="0.419922" width="48" height="48" rx="24" fill="#ffffff"></rect>
                             <path d="M25.9047 22.8895L33.3513 14.4199H31.5873L25.1187 21.7725L19.956 14.4199H14L21.8087 25.5393L14 34.4199H15.764L22.5907 26.6537L28.044 34.4199H34M16.4007 15.7215H19.1107L31.586 33.1823H28.8753" fill="#000000"></path>
                           </svg>
                         </a>
-                        <a href="https://www.instagram.com/ulikeglobal" aria-label="Ulike on Instagram">
+                        <a href="https://www.instagram.com/ulikeglobal" aria-label="Ulike on Instagram" target="_blank" rel="noopener noreferrer">
                           <svg width="48" height="49" viewbox="0 0 48 49" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect y="0.419922" width="48" height="48" rx="24" fill="#ffffff"></rect>
                             <mask id="mask0_1005_8929" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="14" y="14" width="20" height="21">
@@ -1054,13 +1056,13 @@
                             </svg>
                         </a>
 
-                        <a href="https://www.tiktok.com/@ulikeglobal" aria-label="Ulike on TikTok">
+                        <a href="https://www.tiktok.com/@ulikeglobal" aria-label="Ulike on TikTok" target="_blank" rel="noopener noreferrer">
                           <svg width="48" height="49" viewbox="0 0 48 49" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect y="0.419922" width="48" height="48" rx="24" fill="#ffffff"></rect>
                             <path d="M30.7598 22.8294C30.6237 22.8427 30.4869 22.8496 30.3501 22.8502C28.8492 22.8503 27.4495 22.0939 26.6274 20.8382V27.6893C26.6274 30.4859 24.3603 32.753 21.5637 32.753C18.7671 32.753 16.5 30.4859 16.5 27.6894C16.5 24.8929 18.767 22.6258 21.5636 22.6258C21.6694 22.6258 21.7727 22.6353 21.8766 22.6419V25.1372C21.7727 25.1247 21.6706 25.1058 21.5636 25.1058C20.1363 25.1058 18.9792 26.2628 18.9792 27.6902C18.9792 29.1175 20.1363 30.2745 21.5636 30.2745C22.991 30.2745 24.2519 29.1498 24.2519 27.7223L24.2768 16.0864H26.6641C26.8892 18.2272 28.6154 19.8993 30.7622 20.0563V22.8295" fill="#000000"></path>
                             </svg>
                         </a>
-                        <a href="https://www.youtube.com/channel/UCR5GSUNp0G6DG9sE9jtnfGA" aria-label="Ulike on YouTube">
+                        <a href="https://www.youtube.com/channel/UCR5GSUNp0G6DG9sE9jtnfGA" aria-label="Ulike on YouTube" target="_blank" rel="noopener noreferrer">
                           <svg width="48" height="49" viewbox="0 0 48 49" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect y="0.419922" width="48" height="48" rx="24" fill="#ffffff"></rect>
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M31.0325 18.6019C31.807 18.8052 32.4168 19.4042 32.6238 20.1648C33 21.5434 33 24.4199 33 24.4199C33 24.4199 33 27.2963 32.6238 28.6751C32.4168 29.4357 31.807 30.0347 31.0325 30.238C29.6288 30.6074 24 30.6074 24 30.6074C24 30.6074 18.3712 30.6074 16.9675 30.238C16.1931 30.0347 15.5832 29.4357 15.3762 28.6751C15 27.2963 15 24.4199 15 24.4199C15 24.4199 15 21.5434 15.3762 20.1648C15.5832 19.4042 16.1931 18.8052 16.9675 18.6019C18.3712 18.2324 24 18.2324 24 18.2324C24 18.2324 29.6288 18.2324 31.0325 18.6019ZM26.8636 24.42L22.1591 27.0316V21.8083L26.8636 24.42Z" fill="#000000"></path>
@@ -1077,19 +1079,19 @@
           {% endif %}
         {%- endfor -%}
         <div class="icon-wrapper mobile">
-          <a href="https://www.facebook.com/ulikeglobal" aria-label="Ulike on Facebook"  >
+          <a href="https://www.facebook.com/ulikeglobal" aria-label="Ulike on Facebook"   target="_blank" rel="noopener noreferrer">
             <svg width="48" height="49" viewbox="0 0 48 49" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect y="0.419922" width="48" height="48" rx="24" fill="#ffffff"></rect>
               <path d="M25.5601 34.4379V25.3074H28.6236L29.0832 21.7481H25.5601V19.4759C25.5601 18.4457 25.845 17.7437 27.324 17.7437L29.2072 17.7429V14.5593C28.8815 14.517 27.7636 14.4199 26.4624 14.4199C23.7454 14.4199 21.8853 16.0784 21.8853 19.1234V21.7481H18.8125V25.3074H21.8853V34.4379H25.5601Z" fill="#000000"></path>
             </svg>
           </a>
-          <a href="https://twitter.com/ulikeglobal" aria-label="Ulike on Twitter"  >
+          <a href="https://twitter.com/ulikeglobal" aria-label="Ulike on Twitter"   target="_blank" rel="noopener noreferrer">
             <svg width="48" height="49" viewbox="0 0 48 49" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect y="0.419922" width="48" height="48" rx="24" fill="#ffffff"></rect>
               <path d="M25.9047 22.8895L33.3513 14.4199H31.5873L25.1187 21.7725L19.956 14.4199H14L21.8087 25.5393L14 34.4199H15.764L22.5907 26.6537L28.044 34.4199H34M16.4007 15.7215H19.1107L31.586 33.1823H28.8753" fill="#000000"></path>
             </svg>
           </a>
-          <a href="https://www.instagram.com/ulikeglobal" aria-label="Ulike on Instagram"  >
+          <a href="https://www.instagram.com/ulikeglobal" aria-label="Ulike on Instagram"   target="_blank" rel="noopener noreferrer">
             <svg width="48" height="49" viewbox="0 0 48 49" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect y="0.419922" width="48" height="48" rx="24" fill="#ffffff"></rect>
               <mask id="mask0_1005_8929" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="14" y="14" width="20" height="21">
@@ -1103,13 +1105,13 @@
             </svg>
           </a>
 
-          <a href="https://www.tiktok.com/@ulikeglobal"  aria-label="Ulike on TikTok"  >
+          <a href="https://www.tiktok.com/@ulikeglobal"  aria-label="Ulike on TikTok"   target="_blank" rel="noopener noreferrer">
             <svg width="48" height="49" viewbox="0 0 48 49" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect y="0.419922" width="48" height="48" rx="24" fill="#ffffff"></rect>
               <path d="M30.7598 22.8294C30.6237 22.8427 30.4869 22.8496 30.3501 22.8502C28.8492 22.8503 27.4495 22.0939 26.6274 20.8382V27.6893C26.6274 30.4859 24.3603 32.753 21.5637 32.753C18.7671 32.753 16.5 30.4859 16.5 27.6894C16.5 24.8929 18.767 22.6258 21.5636 22.6258C21.6694 22.6258 21.7727 22.6353 21.8766 22.6419V25.1372C21.7727 25.1247 21.6706 25.1058 21.5636 25.1058C20.1363 25.1058 18.9792 26.2628 18.9792 27.6902C18.9792 29.1175 20.1363 30.2745 21.5636 30.2745C22.991 30.2745 24.2519 29.1498 24.2519 27.7223L24.2768 16.0864H26.6641C26.8892 18.2272 28.6154 19.8993 30.7622 20.0563V22.8295" fill="#000000"></path>
             </svg>
           </a>
-          <a href="https://www.youtube.com/channel/UCR5GSUNp0G6DG9sE9jtnfGA" aria-label="Ulike on YouTube"  >
+          <a href="https://www.youtube.com/channel/UCR5GSUNp0G6DG9sE9jtnfGA" aria-label="Ulike on YouTube"   target="_blank" rel="noopener noreferrer">
             <svg width="48" height="49" viewbox="0 0 48 49" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect y="0.419922" width="48" height="48" rx="24" fill="#ffffff"></rect>
               <path fill-rule="evenodd" clip-rule="evenodd" d="M31.0325 18.6019C31.807 18.8052 32.4168 19.4042 32.6238 20.1648C33 21.5434 33 24.4199 33 24.4199C33 24.4199 33 27.2963 32.6238 28.6751C32.4168 29.4357 31.807 30.0347 31.0325 30.238C29.6288 30.6074 24 30.6074 24 30.6074C24 30.6074 18.3712 30.6074 16.9675 30.238C16.1931 30.0347 15.5832 29.4357 15.3762 28.6751C15 27.2963 15 24.4199 15 24.4199C15 24.4199 15 21.5434 15.3762 20.1648C15.5832 19.4042 16.1931 18.8052 16.9675 18.6019C18.3712 18.2324 24 18.2324 24 18.2324C24 18.2324 29.6288 18.2324 31.0325 18.6019ZM26.8636 24.42L22.1591 27.0316V21.8083L26.8636 24.42Z" fill="#000000"></path>
@@ -1125,17 +1127,17 @@
           {%- if se_stts.policy_menu != blank -%}
             <ul class="footer-new__policy-links" role="list">
               {%- for link in se_stts.policy_menu.links -%}
-                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                <li><a href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.title }}</a></li>
               {%- endfor -%}
             </ul>
           {%- else -%}
             <ul class="footer-new__policy-links" role="list">
-              <li><a href="{{ shop.refund_policy.url | default: '/policies/refund-policy' }}">返金ポリシー</a></li>
-              <li><a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">プライバシーポリシー</a></li>
-              <li><a href="{{ shop.terms_of_service.url | default: '/policies/terms-of-service' }}">利用規約</a></li>
-              <li><a href="{{ shop.shipping_policy.url | default: '/policies/shipping-policy' }}">配送ポリシー</a></li>
-              <li><a href="/pages/contact">連絡先情報</a></li>
-              <li><a href="/pages/legal-notice">特定商取引法に基づく表記</a></li>
+              <li><a href="{{ shop.refund_policy.url | default: '/policies/refund-policy' }}" target="_blank" rel="noopener noreferrer">返金ポリシー</a></li>
+              <li><a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}" target="_blank" rel="noopener noreferrer">プライバシーポリシー</a></li>
+              <li><a href="{{ shop.terms_of_service.url | default: '/policies/terms-of-service' }}" target="_blank" rel="noopener noreferrer">利用規約</a></li>
+              <li><a href="{{ shop.shipping_policy.url | default: '/policies/shipping-policy' }}" target="_blank" rel="noopener noreferrer">配送ポリシー</a></li>
+              <li><a href="/pages/contact" target="_blank" rel="noopener noreferrer">連絡先情報</a></li>
+              <li><a href="/pages/legal-notice" target="_blank" rel="noopener noreferrer">特定商取引法に基づく表記</a></li>
             </ul>
           {%- endif -%}
         </div>
@@ -1201,705 +1203,6 @@
     });
   })();
 </script>
-
-{% comment %} 优化速度首页不加载弹出框 {% endcomment %}
-{% if request.path != '/' %}
-  <div class="match-box" style="display: none;">
-    <div class="match-cont">
-      <div class="match-top">
-        <div class="match-back match-top-item">
-          <img src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/back.png" alt="">
-        </div>
-        <div class="match-close match-top-item">
-          <img src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/close.png" alt="">
-        </div>
-      </div>
-      <div class="match-bottom">
-        <!-- 进度条 -->
-        <div class="match-progressbar">
-          <div class="match-progressbar-item active"></div>
-          <div class="match-progressbar-item"></div>
-          <div class="match-progressbar-item"></div>
-        </div>
-        <!-- 选择条件 -->
-        <div class="match-step active">
-          <div class="match-step-box active">
-            <div class="match-step-title">{{ 'footer.general.text1' | t }}</div>
-            <div class="match-step-list">
-              <div class="match-step-item" data-index="1">
-                <img loading="lazy" src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/0Skin.jpg" alt="Fair">
-                <div class="match-step-txt">{{ 'footer.general.text2' | t }}</div>
-              </div>
-              <div class="match-step-item" data-index="2">
-                <img loading="lazy" src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/1Skin.jpg" alt="Light">
-                <div class="match-step-txt">{{ 'footer.general.text3' | t }}</div>
-              </div>
-              <div class="match-step-item" data-index="3">
-                <img loading="lazy" src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/2Skin.jpg" alt="">
-                <div class="match-step-txt">{{ 'footer.general.text4' | t }}</div>
-              </div>
-              <div class="match-step-item" data-index="4">
-                <img loading="lazy" src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/3Skin.jpg" alt="Tan">
-                <div class="match-step-txt">{{ 'footer.general.text5' | t }}</div>
-              </div>
-              <div class="match-step-item" data-index="5">
-                <img
-                  loading="lazy"
-                  src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/4Skin.jpg"
-                  alt="Tan-Deep"
-                >
-                <div class="match-step-txt">{{ 'footer.general.text6' | t }}</div>
-              </div>
-              <div class="match-step-item" data-index="6">
-                <img loading="lazy" src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/5Skin.jpg" alt="Deep">
-                <div class="match-step-txt">{{ 'footer.general.text7' | t }}</div>
-              </div>
-            </div>
-          </div>
-          <div class="match-step-box">
-            <div class="match-step-title">{{ 'footer.general.page_text1' | t }}</div>
-            <div class="match-step-list">
-              <div class="match-step-item" data-index="1">
-                <img loading="lazy" src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/0Hair.jpg" alt="">
-                <div class="match-step-txt">{{ 'footer.general.page_text2' | t }}</div>
-              </div>
-              <div class="match-step-item" data-index="2">
-                <img src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/1Hair.jpg" alt="" loading="lazy">
-                <div class="match-step-txt">{{ 'footer.general.page_text3' | t }}</div>
-              </div>
-              <div class="match-step-item" data-index="3">
-                <img src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/2Hair.jpg" alt="" loading="lazy">
-                <div class="match-step-txt">{{ 'footer.general.page_text4' | t }}</div>
-              </div>
-              <div class="match-step-item" data-index="4">
-                <img src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/3Hair.jpg" alt="" loading="lazy">
-                <div class="match-step-txt">{{ 'footer.general.page_text5' | t }}</div>
-              </div>
-              <div class="match-step-item" data-index="5">
-                <img src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/4Hair.jpg" alt="" loading="lazy">
-                <div class="match-step-txt">{{ 'footer.general.page_text6' | t }}</div>
-              </div>
-              <div class="match-step-item" data-index="6">
-                <img src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/5Hair.jpg" alt="" loading="lazy">
-                <div class="match-step-txt">{{ 'footer.general.page_text7' | t }}</div>
-              </div>
-              <div class="match-step-item" data-index="7">
-                <img src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/6Hair.jpg" alt="" loading="lazy">
-                <div class="match-step-txt">{{ 'footer.general.page_text8' | t }}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="match-last">
-          <!-- 结果 -->
-          <div class="match-result">
-            <div class="match-result-item">
-              <img
-                src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/Result1.png"
-                class="img"
-                alt=""
-                loading="lazy"
-              >
-              <div class="match-result-title">{{ 'footer.general.page2_text1' | t }}</div>
-              <div class="match-result-p">
-                {{ 'footer.general.page2_text2' | t }}
-              </div>
-            </div>
-            <div class="match-result-item">
-              <img
-                src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/Result2.png"
-                class="img"
-                alt=""
-                loading="lazy"
-              >
-              <div class="match-result-title">{{ 'footer.general.page2_text3' | t }}</div>
-              <div class="match-result-p">
-                {{ 'footer.general.page2_text4' | t }}
-              </div>
-              <div class="match-result-flex">
-                <div class="match-result-left">
-                  <img src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/Result2-1.jpg" alt="" loading="lazy">
-                </div>
-                <div class="match-result-right">
-                  <div class="match-result-p">
-                    {{ 'footer.general.page2_text5' | t }}
-                  </div>
-                  <br>
-                  <div class="match-result-p">
-                    {{ 'footer.general.page2_text6' | t }}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="match-result-item">
-              <img
-                src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/Result2.png"
-                class="img"
-                alt=""
-                loading="lazy"
-              >
-              <div class="match-result-title">{{ 'footer.general.page3_text1' | t }}</div>
-              <div class="match-result-p">
-                {{ 'footer.general.page3_text2' | t }}
-              </div>
-              <div class="match-result-flex">
-                <div class="match-result-left">
-                  <img src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/Result3-1.jpg" alt="" loading="lazy">
-                </div>
-                <div class="match-result-right">
-                  <div class="match-result-p">
-                    {{ 'footer.general.page3_text3' | t }}
-                  </div>
-                  <br>
-                  <div class="match-result-p">
-                    {{ 'footer.general.page3_text4' | t }}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="match-result-item">
-              <img
-                src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/Result2.png"
-                class="img"
-                alt="Not Recommended"
-                loading="lazy"
-              >
-              <div class="match-result-title">{{ 'footer.general.page3_text1' | t }}</div>
-              <div class="match-result-p">
-                {{ 'footer.general.page3_text5' | t }}
-              </div>
-              <div class="match-result-flex">
-                <div class="match-result-left">
-                  <img
-                    src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/Result3-1.jpg"
-                    alt="However"
-                    loading="lazy"
-                  >
-                </div>
-                <div class="match-result-right">
-                  <div class="match-result-p">
-                    {{ 'footer.general.page3_text6' | t }}
-                  </div>
-                </div>
-              </div>
-              <div class="match-result-p mt-40">
-                {{ 'footer.general.page3_text7' | t }}
-              </div>
-            </div>
-          </div>
-          <!-- 按钮 -->
-          <div class="match-btn">
-            <div class="match-btn-item">{{ 'footer.general.page4_text1' | t }}</div>
-            <a href="{{ section.settings.learn_url }}" class="match-btn-item">{{ 'footer.general.page4_text2' | t }}</a>
-            <div class="match-btn-item">{{ 'footer.general.page4_text3' | t }}</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <script>
-    function matchInit() {
-      let $p = $('.match-box');
-      let num1 = 0;
-      let num2 = 0;
-      let lastNum = -1;
-      let currentNum = 0;
-      $p.find('.match-step-item').click(function () {
-        let pIndex = $(this).closest('.match-step-box').index();
-        let num = $(this).data('index');
-        $(this).addClass('active').siblings().removeClass('active');
-        if (pIndex === 0) {
-          num1 = num;
-          currentNum = 1;
-          setTimeout(() => {
-            $(this).closest('.match-step-box').removeClass('active').siblings().addClass('active');
-            $p.find('.match-progressbar-item').eq(1).addClass('active');
-            $p.find('.match-top').addClass('active');
-            $(this).closest('.match-step-box').siblings().find('.match-step-item').removeClass('active');
-          }, 500);
-        } else {
-          num2 = num;
-          currentNum = 2;
-          if ([1, 2, 3, 4].includes(num1)) {
-            if ([1, 2, 3, 4].includes(num2)) {
-              lastNum = 0;
-            } else {
-              lastNum = 1;
-            }
-          } else {
-            if ([1, 2, 3, 4].includes(num2)) {
-              lastNum = 2;
-            } else {
-              lastNum = 3;
-            }
-          }
-          setTimeout(() => {
-            if (lastNum != 0) {
-              $p.find('.match-cont').addClass('move-box');
-            }
-            $p.find('.match-progressbar-item').eq(2).addClass('active');
-            $(this).closest('.match-step').removeClass('active');
-            $p.find('.match-last').addClass('active');
-            $p.find('.match-last .match-result-item').removeClass('active').eq(lastNum).addClass('active');
-            if (lastNum === 0) {
-              $p.find('.match-btn-item').eq(0).css({ display: 'flex' });
-              $p.find('.match-btn-item').eq(1).css({ display: 'none' });
-            } else {
-              $p.find('.match-btn-item').eq(1).css({ display: 'flex' });
-              $p.find('.match-btn-item').eq(0).css({ display: 'none' });
-            }
-          }, 500);
-        }
-      });
-      $p.find('.match-back,.match-btn-item,.match-close').click(function () {
-        let index = $(this).index();
-        if ($(this).hasClass('match-btn-item') && index === 1) return;
-        $p.find('.match-step').addClass('active');
-        $p.find('.match-last').removeClass('active');
-        $p.find('.match-progressbar-item').eq(2).removeClass('active');
-        $p.find('.match-cont').removeClass('move-box');
-        if (currentNum === 2 && !$(this).hasClass('match-btn-item') && !$(this).hasClass('match-close')) {
-          console.log(1);
-          currentNum = 1;
-        } else {
-          currentNum = 0;
-          $p.find('.match-top').removeClass('active');
-          $p.find('.match-progressbar-item').eq(1).removeClass('active');
-          $p.find('.match-step-box').removeClass('active').eq(0).addClass('active');
-          if ($(this).hasClass('match-btn-item')) {
-            $p.find('.match-step-item').removeClass('active');
-            if (index === 0) {
-              $p.fadeOut(300);
-            }
-          }
-          if ($(this).hasClass('match-close')) {
-            $p.find('.match-step-item').removeClass('active');
-            $p.fadeOut(300);
-          }
-        }
-      });
-      $('html').on('click', '.show-match-box', function (e) {
-        e.preventDefault();
-        $('.match-box').fadeIn(300);
-      });
-    }
-
-    window.addEventListener('load', function () {
-      matchInit();
-    });
-  </script>
-
-  <style>
-    .match-box {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      background: rgba(0, 0, 0, 0.6);
-      z-index: 99;
-      overflow-y: auto;
-      display: none;
-    }
-
-    .match-box .match-cont {
-      position: absolute;
-      width: calc(100% - 40px);
-      max-width: 1000px;
-      background: #fff;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-    .match-box .move-box {
-      margin-top: 80px;
-    }
-    .match-box .match-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .match-box .match-top .match-top-item {
-      width: 45px;
-      height: 45px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-
-    .match-box .match-top .match-top-item img {
-      width: 22px;
-      display: block;
-    }
-
-    .match-box .match-top .match-back {
-      pointer-events: none;
-      opacity: 0;
-    }
-
-    .match-box .match-top.active .match-back {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .match-box .match-bottom {
-      padding: 0 60px;
-      margin-top: 10px;
-    }
-
-    .match-box .match-progressbar {
-      display: flex;
-      align-items: center;
-    }
-
-    .match-box .match-progressbar-item {
-      flex: 1;
-      height: 1px;
-      margin-right: 5px;
-      background: #efefef;
-      position: relative;
-    }
-
-    .match-box .match-progressbar-item:last-child {
-      margin-right: 0;
-    }
-
-    .match-box .match-progressbar-item::before {
-      position: absolute;
-      content: '';
-      display: block;
-      height: 100%;
-      width: 0;
-      left: 0;
-      top: 0;
-      background: #000;
-      transition: all 0.4s ease;
-    }
-
-    .match-box .match-progressbar-item.active::before {
-      width: 100%;
-    }
-
-    .match-box .match-step {
-      padding: 90px 0;
-      display: none;
-    }
-
-    .match-box .match-step.active {
-      display: block;
-    }
-
-    .match-box .match-step .match-step-box {
-      display: none;
-    }
-
-    .match-box .match-step .match-step-box.active {
-      display: block;
-    }
-
-    .match-box .match-step .match-step-title {
-      font-family: var(--heading-font-family);
-      font-size: 24px;
-      color: #000;
-      line-height: 1.2;
-    }
-
-    .match-box .match-step .match-bottom {
-      padding: 60px 0;
-    }
-
-    .match-box .match-step-list {
-      display: flex;
-      margin-top: 40px;
-    }
-
-    .match-box .match-step-item {
-      flex: 1;
-      margin-right: 15px;
-      cursor: pointer;
-      position: relative;
-    }
-
-    .match-box .match-step-item img {
-      display: block;
-      width: 100%;
-      border: 1px solid transparent;
-      position: relative;
-      z-index: 1;
-      transition: all 0.4s ease;
-    }
-
-    .match-box .match-step-item:hover img {
-      transform: scale(1.03);
-      border-color: #000;
-    }
-
-    .match-box .match-step-item.active img {
-      border-color: #000;
-    }
-
-    .match-box .match-step-item.active::before {
-      position: absolute;
-      content: '';
-      display: block;
-      width: 20px;
-      height: 20px;
-      background: url(https://cdn.shopify.com/s/files/1/0656/9079/6273/files/suc.svg) no-repeat;
-      background-size: 100% 100%;
-      z-index: 2;
-      left: 50%;
-      top: calc(50% - 8.5px);
-      transform: translate(-50%, -50%);
-    }
-
-    .match-box .match-step-txt {
-      font-size: 16px;
-      color: #000;
-      font-family: var(--heading-font-family);
-      line-height: 1.2;
-      margin-top: 10px;
-    }
-
-    .match-box .match-step-item:last-child {
-      margin-right: 0;
-    }
-
-    @media (max-width: 991px) {
-      .match-box .match-bottom {
-        padding: 0 30px;
-      }
-
-      .match-box .match-step {
-        padding: 60px 0;
-      }
-
-      .match-box .match-step-list {
-        margin-top: 30px;
-      }
-
-      .match-box .match-step .match-step-title {
-        font-size: 21px;
-      }
-
-      .match-box .match-step-txt {
-        font-size: 14px;
-      }
-    }
-
-    @media (max-width: 785px) {
-      .match-box {
-        padding-bottom: 40px;
-      }
-
-      .match-box .match-cont {
-        position: static;
-        width: calc(100% - 40px);
-        max-width: 1000px;
-        background: #fff;
-        top: 0;
-        left: 0;
-        transform: translate(0, 0);
-        margin: 0 auto;
-        margin-top: 40px;
-      }
-
-      .match-box .match-step-list {
-        flex-wrap: wrap;
-      }
-
-      .match-box .match-step-item {
-        width: calc(33.33% - 6.7px);
-        margin-right: 10px;
-        margin-bottom: 23px;
-        flex: none;
-      }
-
-      .match-box .match-step-item:nth-child(3n) {
-        margin-right: 0;
-      }
-
-      .match-box .match-step {
-        padding-bottom: 37px;
-      }
-
-      .match-box .match-step-item.active::before {
-        right: auto;
-        bottom: auto;
-        left: 50%;
-        top: calc(50% - 8.5px);
-        transform: translate(-50%, -50%);
-      }
-    }
-
-    .match-box .match-last {
-      display: none;
-    }
-
-    .match-box .match-last.active {
-      display: block;
-    }
-
-    .match-box .match-result-item {
-      display: none;
-    }
-
-    .match-box .match-result-item.active {
-      display: block;
-    }
-
-    .match-box .match-result-item .img {
-      display: block;
-      margin: 0 auto;
-      max-width: 190px;
-    }
-
-    .match-box .match-result-title {
-      font-size: 24px;
-      line-height: 1.2;
-      text-align: center;
-      color: #000;
-      font-family: var(--heading-font-family);
-      margin-top: 40px;
-      margin-bottom: 15px;
-    }
-
-    .match-box .match-result-p {
-      font-size: 16px;
-      color: #000;
-      line-height: 1.5;
-      text-align: center;
-    }
-
-    .match-box .match-result {
-      padding: 0 40px;
-      padding-top: 60px;
-    }
-
-    .match-box .match-result-flex {
-      display: flex;
-      margin-top: 40px;
-    }
-
-    .match-box .match-result-left {
-      width: 38.5%;
-      margin-right: 30px;
-    }
-
-    .match-box .match-result-left img {
-      width: 100%;
-      display: block;
-    }
-
-    .match-box .match-result-right {
-      flex: 1;
-    }
-
-    .match-box .match-result-right .match-result-p {
-      text-align: left;
-    }
-
-    .match-box .mt-40 {
-      margin-top: 40px;
-    }
-
-    .match-box .match-btn {
-      display: flex;
-      justify-content: center;
-      padding: 40px 0 60px 0;
-    }
-
-    .match-box .match-btn-item {
-      width: 240px;
-      height: 52px;
-      background: #000;
-      color: #fff;
-      font-size: 14px;
-      line-height: 16px;
-      font-family: var(--heading-font-family);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-right: 10px;
-      text-decoration: none;
-      cursor: pointer;
-    }
-
-    .show-match-box {
-      cursor: pointer;
-    }
-
-    .match-box .match-btn-item:last-child {
-      margin-right: 0;
-      background: none;
-      border: 1px solid #000;
-      color: #000;
-    }
-
-    @media (max-width: 991px) {
-      .match-box .match-result {
-        padding: 0;
-        padding-top: 50px;
-      }
-
-      .match-box .match-result-p {
-        font-size: 14px;
-      }
-    }
-
-    @media (max-width: 785px) {
-      .match-box .match-result-item .img {
-        max-width: 152px;
-      }
-
-      .match-box .match-result-title {
-        margin-top: 30px;
-        font-size: 21px;
-      }
-
-      .match-box .match-result-flex {
-        display: block;
-        margin-top: 15px;
-      }
-
-      .match-box .match-result-left {
-        width: 100%;
-        margin-right: 0;
-        margin-bottom: 15px;
-      }
-
-      .match-box .match-result-right .match-result-p {
-        text-align: center;
-      }
-
-      .match-box .mt-40 {
-        margin-top: 20px;
-      }
-
-      .match-box .match-btn {
-        padding-top: 30px;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .match-box .match-btn {
-        display: block;
-      }
-
-      .match-box .match-btn-item {
-        width: 234px;
-        height: 38px;
-        margin: 0 auto;
-        margin-bottom: 10px;
-      }
-
-      .match-box .match-btn-item:last-child {
-        margin: 0 auto;
-      }
-  }
-</style>
-{%- endif -%}
 
 <script>
   window.addEventListener('load', function() {
