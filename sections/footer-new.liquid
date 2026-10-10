@@ -1144,7 +1144,6 @@
 
         <div class="pay-list">
           <div class="pay-image">
-            <span class="hidden-desk">{{ se_stts.text2 }}</span>
             {%- assign pay_image = se_stts.image | default: se_stts.m_image -%}
             {%- if pay_image != blank -%}
               {%- assign pay_image_alt = pay_image.alt | default: 'ご利用可能なお支払い方法' -%}
