@@ -1502,7 +1502,7 @@
           loading="lazy"
         >
       </div>
-      <p class="success-des">{{ section.settings.withdrawal_success_message | escape }}</p>
+      <p class="success-des">{{ section.settings.withdrawal_success_text | escape }}</p>
       <button class="success-btn">{{ section.settings.view_withdrawal_details | escape }}</button>
       <!-- <button class="modal-button modal-error"></button> -->
     </div>
@@ -1553,7 +1553,7 @@
             <div class="error" id="emailError"></div>
           </div>
           <div class="form-group">
-            <input type="password" class="login-password" name="password" placeholder="{{ section.settings.login_password_placeholder | escape }}" required>
+            <input type="password" class="login-password" name="password" placeholder="{{ section.settings.login_password_prompt | escape }}" required>
             <div class="error" id="passwordError"></div>
           </div>
           <button class="form-submit" type="submit">
@@ -1666,14 +1666,14 @@
     { "type": "text", "id": "code_error", "label": "Code verification error", "default": "Verification code error." },
     { "type": "text", "id": "submit_label", "label": "Submit button", "default": "Submit" },
     { "type": "image_picker", "id": "success_image", "label": "Success image" },
-    { "type": "text", "id": "withdrawal_success_message", "label": "Withdrawal success message", "default": "The application has been submitted and it is expected to arrive within one hour." },
+    { "type": "text", "id": "withdrawal_success_text", "label": "Withdrawal success message", "default": "The application has been submitted and it is expected to arrive within one hour." },
     { "type": "text", "id": "view_withdrawal_details", "label": "Withdrawal details button", "default": "View withdrawal details" },
     { "type": "header", "content": "Login dialog" },
     { "type": "image_picker", "id": "login_header_image", "label": "Login header image" },
     { "type": "text", "id": "login_title", "label": "Login title", "default": "Earn Big Cash Rewards" },
     { "type": "text", "id": "login_description", "label": "Login description", "default": "Sign up or log in to get your invite link" },
     { "type": "text", "id": "login_email_placeholder", "label": "Login email placeholder", "default": "Please enter your email" },
-    { "type": "text", "id": "login_password_placeholder", "label": "Login password placeholder", "default": "Set Password" },
+    { "type": "text", "id": "login_password_prompt", "label": "Login password placeholder", "default": "Set Password" },
     { "type": "text", "id": "email_required", "label": "Email required error", "default": "Email cannot be empty" },
     { "type": "text", "id": "email_invalid", "label": "Invalid email error", "default": "Invalid email address" },
     { "type": "text", "id": "password_invalid", "label": "Invalid password error", "default": "Please enter the correct password" },
