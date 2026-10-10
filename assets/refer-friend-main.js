@@ -337,7 +337,7 @@
                         </div>
                         <div class="description-data">
                             <p class="order-num">${order.extend.orderInfo.orderName}</p><p>${timeToYear(order.endTime)}</p><p>${timeToYear(order.extend.orderInfo.createTime)}</p>
-                            <p>${order.userEmail}</p><p class="order-status-red">${invivtStatusText(order.benefitStatus)}</p>
+                            <p>${order.userEmail}</p><p class="order-status-red">${escapeHtml(invivtStatusText(order.benefitStatus))}</p>
                         </div>
                     </div>
                     <div class="description-product">
