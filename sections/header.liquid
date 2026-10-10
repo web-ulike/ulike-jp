@@ -145,7 +145,7 @@ IMPLEMENTATION NOTE: the header in Focal is pretty complex as it allows a lot of
           {%- endif -%}
 
           <a href="{{ routes.search_url }}" is="toggle-link" class="header__icon-wrapper tap-area {% if section.settings.header_layout == 'logo_center_search_open' %}hidden-lap{% endif %} hidden-desk" aria-controls="search-drawer" aria-expanded="false" aria-label="{{ 'search.general.title' | t | escape }}">
-            {%- render 'icon' with 'header-search' -%}
+            <img class="header__custom-icon" src="https://cdn.shopify.com/s/files/1/0553/7392/2352/files/search.svg?v=1791601813" width="18" height="18" alt="" aria-hidden="true">
           </a>
         </div>
 
@@ -280,27 +280,18 @@ IMPLEMENTATION NOTE: the header in Focal is pretty complex as it allows a lot of
           {%- if section.settings.header_layout != 'logo_center_search_open' -%}
             {% comment %}  aria-controls="search-drawer" aria-expanded="false" {% endcomment %}
             <a href="{{ routes.search_url }}" class="header__icon-wrapper tap-area hidden-pocket hidden-lap {% unless section.settings.show_icons %}hidden-desk{% endunless %}" aria-label="{{ 'search.general.title' | t | escape }}">
-              {%- render 'icon' with 'header-search' -%}
+              <img class="header__custom-icon" src="https://cdn.shopify.com/s/files/1/0553/7392/2352/files/search.svg?v=1791601813" width="18" height="18" alt="" aria-hidden="true">
             </a>
           {%- endif -%}
 
           {%- if shop.customer_accounts_enabled -%}
             <a href="{% if customer %}https://account.ulike.com/account?site=jp{% else %}https://account.ulike.com/login?site=jp{% endif %}" class="header__icon-wrapper tap-area hidden-phone {% unless section.settings.show_icons %}hidden-desk{% endunless %}" aria-label="{% if customer %}{{ 'header.general.account' | t | escape }}{% else %}{{ 'header.general.login' | t | escape }}{% endif %}" data-no-instant>
-              {%- render 'icon' with 'header-customer' -%}
+              <img class="header__custom-icon" src="https://cdn.shopify.com/s/files/1/0553/7392/2352/files/head-user.svg?v=1791601825" width="18" height="18" alt="" aria-hidden="true">
             </a>
           {%- endif -%}
 
           <a href="{{ routes.cart_url }}" {% unless settings.cart_type == 'page' or request.page_type == 'cart' %}is="toggle-link" aria-controls="mini-cart" aria-expanded="false"{% endunless %} class="header__icon-wrapper tap-area {% unless section.settings.show_icons %}hidden-desk{% endunless %}" aria-label="{{ 'header.general.cart' | t | escape }}" data-no-instant>
-            {%- case settings.cart_icon -%}
-              {%- when 'shopping_bag' -%}
-                {%- render 'icon' with 'header-cart' -%}
-
-              {%- when 'shopping_cart' -%}
-                {%- render 'icon' with 'header-shopping-cart' -%}
-
-              {%- when 'tote_bag' -%}
-                {%- render 'icon' with 'header-tote-bag' -%}
-            {%- endcase -%}
+            <img class="header__custom-icon" src="https://cdn.shopify.com/s/files/1/0553/7392/2352/files/cart.svg?v=1791601799" width="18" height="18" alt="" aria-hidden="true">
 
             <cart-count class="header__cart-count header__cart-count--floating bubble-count" aria-hidden="true">{{ cart.item_count }}</cart-count>
           </a>
