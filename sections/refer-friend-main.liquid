@@ -1281,11 +1281,11 @@
         <div class="invitation-product__pricing">
           <div class="invitation-product__price">
             <div class="invitation-product__label">{{ section.settings.price_label | escape }}</div>
-            <div class="invitation-product__value invitation-product__value--highlight">$349</div>
+            <div class="invitation-product__value invitation-product__value--highlight">{{ section.settings.product_price | escape }}</div>
           </div>
           <div class="invitation-product__commission">
             <div class="invitation-product__label">{{ section.settings.commission_label | escape }}</div>
-            <div class="invitation-product__value">$50</div>
+            <div class="invitation-product__value">{{ section.settings.product_commission | escape }}</div>
           </div>
         </div>
         <button class="invitation-product__copy-btn">{{ section.settings.copy_link_label | escape }}</button>
@@ -1460,9 +1460,9 @@
 
   <div class="modal-copysuccess">
     <span class="circle-check"> ✓ </span>
-    Copied Success
+    {{ section.settings.copied_success | escape }}
   </div>
-  <div class="dlio-error">error</div>
+  <div class="dlio-error">{{ section.settings.error_prefix | escape }}</div>
   <!-- 修改后的弹窗结构 -->
   <div class="modal-mask"></div>
   <div class="modal-container">
@@ -1471,39 +1471,39 @@
       <img
         class="windows-bg"
         loading="lazy"
-        src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/closed-img.png?v=1746619125"
+        src="{% if section.settings.modal_close_image != blank %}{{ section.settings.modal_close_image | image_url: width: 100 }}{% else %}https://cdn.shopify.com/s/files/1/0656/9079/6273/files/closed-img.png?v=1746619125{% endif %}"
         alt=""
         width="100%"
       >
     </div>
     <div class="modal-header">
-      <p class="modal-title">Withdrawal</p>
+      <p class="modal-title">{{ section.settings.withdrawal_title | escape }}</p>
       <p class="modal-price">$50</p>
-      <p class="iput-email-title">Email<span class="order-status-red asterisk">&nbsp;*</span></p>
-      <input class="withdrawal-email" type="text" placeholder="Enter email">
-      <p class="email-default">Please enter your PayPal email address for withdrawal</p>
-      <p class="email-error">The email format is incorrect.</p>
+      <p class="iput-email-title">{{ section.settings.email_label | escape }}<span class="order-status-red asterisk">&nbsp;*</span></p>
+      <input class="withdrawal-email" type="text" placeholder="{{ section.settings.email_placeholder | escape }}">
+      <p class="email-default">{{ section.settings.paypal_email_hint | escape }}</p>
+      <p class="email-error">{{ section.settings.email_format_error | escape }}</p>
 
-      <p class="iput-code-title">Code<span class="order-status-red asterisk">&nbsp;*</span></p>
+      <p class="iput-code-title">{{ section.settings.code_label | escape }}<span class="order-status-red asterisk">&nbsp;*</span></p>
       <div class="code-wrapper">
-        <input class="withdrawal-code" type="text" placeholder="Enter code" maxlength="6">
-        <span class="getcode">Get code</span>
+        <input class="withdrawal-code" type="text" placeholder="{{ section.settings.code_placeholder | escape }}" maxlength="6">
+        <span class="getcode">{{ section.settings.get_code | escape }}</span>
       </div>
-      <p class="code-error">Verification code error.</p>
-      <button class="submit-btn">Submit</button>
+      <p class="code-error">{{ section.settings.code_error | escape }}</p>
+      <button class="submit-btn">{{ section.settings.submit_label | escape }}</button>
     </div>
     <div class="modal-body">
       <div class="success-img">
         <img
-          src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/cycle-success.png?v=1746619125"
+          src="{% if section.settings.success_image != blank %}{{ section.settings.success_image | image_url: width: 160 }}{% else %}https://cdn.shopify.com/s/files/1/0656/9079/6273/files/cycle-success.png?v=1746619125{% endif %}"
           alt=""
           width="77px"
           height="77px"
           loading="lazy"
         >
       </div>
-      <p class="success-des">The application has been submitted and it is expected to arrive within one hour.</p>
-      <button class="success-btn">View withdrawal details</button>
+      <p class="success-des">{{ section.settings.withdrawal_success_message | escape }}</p>
+      <button class="success-btn">{{ section.settings.view_withdrawal_details | escape }}</button>
       <!-- <button class="modal-button modal-error"></button> -->
     </div>
   </div>
@@ -1512,7 +1512,7 @@
   <div class="login-modal">
     <div class="login-modal-container">
       <div class="login-modal-top">
-        <div class="login-modal-title">Earn Big Cash Rewards</div>
+        <div class="login-modal-title">{{ section.settings.login_title | escape }}</div>
         <div class="login-modal-close">
           {% comment %} pc端图标 {% endcomment %}
           <svg
@@ -1546,18 +1546,18 @@
         </div>
       </div>
       <div class="login-modal-content">
-        <div class="login-modal-desc">Sign up or log in to get your invite link</div>
+        <div class="login-modal-desc">{{ section.settings.login_description | escape }}</div>
         <form id="loginForm" novalidate>
           <div class="form-group">
-            <input type="email" class="login-email" name="email" placeholder="Please enter your email" required>
+            <input type="email" class="login-email" name="email" placeholder="{{ section.settings.login_email_placeholder | escape }}" required>
             <div class="error" id="emailError"></div>
           </div>
           <div class="form-group">
-            <input type="password" class="login-password" name="password" placeholder="Set Password" required>
+            <input type="password" class="login-password" name="password" placeholder="{{ section.settings.login_password_placeholder | escape }}" required>
             <div class="error" id="passwordError"></div>
           </div>
           <button class="form-submit" type="submit">
-            <span>Submit</span>
+            <span>{{ section.settings.submit_label | escape }}</span>
             <svg
               t="1750071730678"
               class="icon loading-icon"
@@ -1573,9 +1573,9 @@
           </button>
         </form>
         <div class="login-modal-text">
-          <span>9,874</span>
-          <div>people have already claimed</div>
-          <span>$100</span>
+          <span>{{ section.settings.claim_count | escape }}</span>
+          <div>{{ section.settings.claimed_text | escape }}</div>
+          <span>{{ section.settings.claim_amount | escape }}</span>
           <svg class width="32" height="18" viewBox="0 0 32 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="Frame 457393804">
               <path id="Vector" d="M0 0V14.8115H29.8181V0H0ZM28.1681 9.86249C28.0797 9.84475 27.9733 9.84475 27.8666 9.84475C25.9331 9.84475 24.3544 11.406 24.3369 13.3392H5.1441C5.12636 11.4057 3.54766 9.84475 1.61418 9.84475V4.82481C3.51218 4.82481 5.05541 3.31706 5.1441 1.45454H24.3369C24.4253 3.3348 25.9688 4.82481 27.8666 4.82481C27.9733 4.82481 28.0797 4.82481 28.1681 4.80708V9.86249Z" fill="#87C596"/>
