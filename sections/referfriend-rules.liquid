@@ -34,58 +34,9 @@
 </style>
 
 <div class="container activity-rules">
-  <h1 class="rules-title">User Reward Program Agreement</h1>
+  <h1 class="rules-title">{{ section.settings.title }}</h1>
   <div class="desc">
-    <p>
-      1. Acceptance of the Agreement<br>
-      By participating in this Reward Program ("Program"), you agree to be bound by this Agreement. Please read it
-      carefully before joining. Participation in the Program is deemed as full acceptance of the terms.
-    </p>
-    <p>
-      2. Program Overview<br>
-      After registering an account on the Ulike official website, you can participate in this Program. Full
-      participation rules are available on the activity page.
-    </p>
-    <p>
-      3. Reward Calculation and Payment<br>
-      Reward: Earn $50 for each friend you invite who places an order. The reward is cumulative and settled in USD. Orders that are refunded or returned within 15 days of receiving the package by the referred friend are not eligible for the reward.<br>
-      Payment method: PayPal.<br>
-      Ulike reserves the right to verify eligibility for reward payment. If conditions are not met, rewards may not be
-      issued.<br>
-      Ulike may fulfill tax reporting obligations and withhold taxes as required. Any penalties or compensation arising
-      from non-compliance by the referrer will be their responsibility.
-    </p>
-    <p>
-      4. User Obligations<br>
-      Honest Participation: You agree to participate honestly and follow the rules, without engaging in fraudulent or
-      inappropriate methods (e.g., cheating, fake registrations).<br>
-      Ulike reserves the right to monitor participation and take action against cheating (e.g., falsifying links,
-      manipulating user behavior, disrupting data processes).<br>
-      If rewards reach taxable amounts, you must fulfill tax obligations; failure to do so may result in reward
-      suspension.
-    </p>
-    <p>
-      5. Data Collection<br>
-      Ulike collects only necessary information for the Program, including but not limited to: name, email, contact
-      info, account ID, referral code usage, order data, and tax identification number.
-      <a href="https://www.ulike.com/pages/privacy-policy">[Privacy Policy]</a>.<br>
-      Ulike will not share your personal data without consent, except as required by law. You may request deletion of
-      your data at any time.
-    </p>
-    <p>
-      6. Disclaimer<br>
-      Ulike does not guarantee the continuation of rewards.<br>
-      Ulike is not responsible for losses caused by third parties or changes in law that might end the Program early.[+1
-      833-206-6933].<br>
-      Participation carries risks, including but not limited to cybersecurity and data privacy risks.
-    </p>
-    <p>
-      7. Liability<br>
-      If your actions cause harm to Ulike or third parties, you are fully liable, including compensating for damages and
-      legal fees.<br>
-      This Agreement is governed by Hong Kong law. Disputes should be resolved through negotiation or submitted to the
-      Hong Kong International Arbitration Centre for final arbitration.
-    </p>
+    {{ section.settings.rules_html }}
   </div>
 </div>
 <script>
@@ -100,9 +51,16 @@
   "blocks": [],
   "settings": [
     {
-      "type": "text",
+      "type": "html",
       "id": "title",
-      "label": "Title"
+      "label": "Title HTML",
+      "default": "User Reward Program Agreement"
+    },
+    {
+      "type": "html",
+      "id": "rules_html",
+      "label": "Rules HTML",
+      "default": "<p>\n  1. Acceptance of the Agreement<br>\n  By participating in this Reward Program (\"Program\"), you agree to be bound by this Agreement. Please read it\n  carefully before joining. Participation in the Program is deemed as full acceptance of the terms.\n</p>\n<p>\n  2. Program Overview<br>\n  After registering an account on the Ulike official website, you can participate in this Program. Full\n  participation rules are available on the activity page.\n</p>\n<p>\n  3. Reward Calculation and Payment<br>\n  Reward: Earn $50 for each friend you invite who places an order. The reward is cumulative and settled in USD. Orders that are refunded or returned within 15 days of receiving the package by the referred friend are not eligible for the reward.<br>\n  Payment method: PayPal.<br>\n  Ulike reserves the right to verify eligibility for reward payment. If conditions are not met, rewards may not be\n  issued.<br>\n  Ulike may fulfill tax reporting obligations and withhold taxes as required. Any penalties or compensation arising\n  from non-compliance by the referrer will be their responsibility.\n</p>\n<p>\n  4. User Obligations<br>\n  Honest Participation: You agree to participate honestly and follow the rules, without engaging in fraudulent or\n  inappropriate methods (e.g., cheating, fake registrations).<br>\n  Ulike reserves the right to monitor participation and take action against cheating (e.g., falsifying links,\n  manipulating user behavior, disrupting data processes).<br>\n  If rewards reach taxable amounts, you must fulfill tax obligations; failure to do so may result in reward\n  suspension.\n</p>\n<p>\n  5. Data Collection<br>\n  Ulike collects only necessary information for the Program, including but not limited to: name, email, contact\n  info, account ID, referral code usage, order data, and tax identification number.\n  <a href=\"https://www.ulike.com/pages/privacy-policy\">[Privacy Policy]</a>.<br>\n  Ulike will not share your personal data without consent, except as required by law. You may request deletion of\n  your data at any time.\n</p>\n<p>\n  6. Disclaimer<br>\n  Ulike does not guarantee the continuation of rewards.<br>\n  Ulike is not responsible for losses caused by third parties or changes in law that might end the Program early.[+1\n  833-206-6933].<br>\n  Participation carries risks, including but not limited to cybersecurity and data privacy risks.\n</p>\n<p>\n  7. Liability<br>\n  If your actions cause harm to Ulike or third parties, you are fully liable, including compensating for damages and\n  legal fees.<br>\n  This Agreement is governed by Hong Kong law. Disputes should be resolved through negotiation or submitted to the\n  Hong Kong International Arbitration Centre for final arbitration.\n</p>"
     },
     {
       "type": "text",
