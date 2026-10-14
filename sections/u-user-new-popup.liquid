@@ -1162,111 +1162,49 @@
             });
       });
 
-      /**
-       * 验证邮箱字段的合法性
-       *
-       * 此函数用于验证用户输入的邮箱地址是否有效首先检查邮箱字段是否为空，
-       * 如果为空，则设置相应的错误消息如果邮箱格式不正确，则设置格式错误消息
-       * 如果存在任何错误，函数将打印错误消息并更新HTML以显示错误，然后返回false，
-       * 表示验证失败如果没有错误，函数返回true，表示验证成功
-       *
-       * @return {boolean} 如果邮箱字段验证成功，则返回true；否则返回false
-       */
-      function validateEmailField() {
-        // 初始化邮箱错误消息为空字符串
-        let emailError = '';
-        // 获取用户输入的邮箱地址，并去除前后空格
-        let userEmail = $('.j_popup_email').val().trim();
-
-        // 检查邮箱字段
-        if (userEmail == '') {
-          // 如果邮箱字段为空，则设置错误消息为“邮箱无效”
-          emailError = errorMessages.emailInvalid;
-        } else if (!validateEmail(userEmail)) {
-          // 如果邮箱格式不正确，则设置错误消息为“邮箱格式错误”
-          emailError = errorMessages.emailFormat;
-        }
-
-        // 如果存在邮箱错误
-        if (emailError) {
-          // 更新HTML以显示错误消息
-          $('#login-form .form-group').eq(0).find('.input-msg-error').text(emailError);
-          // 为错误字段的表单组添加错误类
-          $('#login-form .form-group').eq(0).addClass('form-group-error');
-          // 返回false表示验证失败
-          return false;
-        }
-        // 如果没有错误，返回true表示验证成功
-        return true;
+      function validateEmailField(email) {
+        const message = !email ? errorMessages.emailInvalid :
+          !validateEmail(email) ? errorMessages.emailFormat : '';
+        const $group = $email.closest('.form-group');
+        $group.toggleClass('form-group-error', Boolean(message))
+          .find('.input-msg-error').text(message);
+        return !message;
       }
 
-      function validateCodeField() {
-        // 初始化邮箱错误消息为空字符串
-        let codeError = '';
-        // 获取用户输入的邮箱地址，并去除前后空格
-        let userCode = $('.verification-code').val().trim();
-
-        // 检查邮箱字段
-        if (!userCode) {
-          // 如果邮箱字段为空，则设置错误消息为“邮箱无效”
-          codeError = errorMessages.codeInvalid;
-        }
-
-        // 如果存在邮箱错误
-        if (codeError) {
-          // 更新HTML以显示错误消息
-          $('#login-form .form-group').eq(1).find('.input-msg-error').text(codeError);
-          // 为错误字段的表单组添加错误类
-          $('#login-form .form-group').eq(1).addClass('form-group-error');
-          // 返回false表示验证失败
-          return false;
-        }
-        // 如果没有错误，返回true表示验证成功
-        return true;
-      }
-
-      // 监听政策协议区域的点击事件
-      $('.policy-agreement').on('click', function (e) {
-        // 确保点击事件不是由<a>标签或政策复选框本身冒泡上来的
-        if (!$(e.target).is('a') || !$(e.target).is('#policy-checkbox')) {
-          // 获取政策复选框
-          let checkbox = $('#policy-checkbox');
-          // 反转复选框的选中状态
-          checkbox.prop('checked', !checkbox.prop('checked'));
-        }
+      thatLogin.on('click', '.policy-agreement', function (event) {
+        // Links, labels, and the checkbox keep their native click behavior.
+        if ($(event.target).closest('a, label, input').length) return;
+        const $checkbox = thatLogin.find('#policy-checkbox');
+        $checkbox.prop('checked', !$checkbox.prop('checked'));
       });
 
       $(document).on('click', '.g-floating-box', function () {
         window.UlikeCommon.commonGtmEvent('vip_Teaser', 'click', '');
         const isSubscribed = localStorage.getItem('ulike-subscribed') === 'true';
         if (isSubscribed) {
-          // 已订阅：不弹登录弹窗（你也可以改成直接弹优惠码弹窗）
-          $('#u-user-popup').hide();
-          $('#u-user-coupon-popup').show();
+          thatLogin.hide();
+          thatLoginCoupon.show();
           return;
         }
-        // 未订阅：正常弹窗（用 flex 更稳）
-        $('#u-user-popup').show();
+        thatLogin.show();
       });
 
-      let popupDelay = 1000 * 4; // 倒计时（10秒），可动态设置
-      let timerEnded = false; // 倒计时是否结束
-      let hasScrolled = false; // 用户是否滚动过页面
-      let popupShown = false; // 防止重复触发弹窗
-      let popupCookieName = 'ulike_popup_login';
+      const popupDelay = 4000;
+      let timerEnded = false;
+      let hasScrolled = false;
+      let popupShown = false;
 
       // 显示弹窗
       function showPopup() {
         if (popupShown) return;
         popupShown = true;
         window.UlikeCommon.commonGtmEvent('vip_impressions', 'show', '');
-        $('#u-user-popup').show();
+        thatLogin.show();
         window.removeEventListener('scroll', onUserScroll);
       }
 
-      // 公共检查方法（你要的提取方法）
       function checkAndShowPopup() {
-        const today = new Date().toISOString().split('T')[0]; // 当前日期（如 2025-04-22）
+        const today = new Date().toLocaleDateString('en-CA');
         const popupData = JSON.parse(localStorage.getItem('ulike-popupData')) || {};
         const sessionShown = sessionStorage.getItem('ulike-popupShown');
 
@@ -1293,27 +1231,23 @@
         checkAndShowPopup();
       }
 
-      let isSubscribed = localStorage.getItem('ulike-subscribed') === 'true'; // 判断是否已订阅
-      // 监听滚动   如果用户已经订阅，直接不弹窗
+      const isSubscribed = localStorage.getItem('ulike-subscribed') === 'true';
       if (isSubscribed) {
         thatLogin.hide();
-        // Keep the teaser available so subscribed visitors can reopen their coupon.
-        $('.g-floating-box').show();
       } else {
-        // 倒计时结束
         setTimeout(() => {
           timerEnded = true;
-          checkAndShowPopup(); // 提取调用
+          checkAndShowPopup();
         }, popupDelay);
-        $('.g-floating-box').show();
         window.addEventListener('scroll', onUserScroll);
       }
+      $('.g-floating-box').show();
 
-      $(document).one('focus', '#login-form .j_popup_email', function () {
+      thatLogin.one('focus', '#login-form .j_popup_email', function () {
         window.UlikeCommon.commonGtmEvent('vip_enter email', 'focus', '');
       });
 
-      $(document).one('focus', '#login-form .verification-code', function () {
+      thatLogin.one('focus', '#login-form .verification-code', function () {
         window.UlikeCommon.commonGtmEvent('vip_enter code', 'focus', '');
       });
     });
