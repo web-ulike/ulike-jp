@@ -1077,7 +1077,6 @@
       const $subscribeButton = thatLogin.find('.btn-primary');
       let isSubmitting = false;
 
-
       function trackPopupEvent(name, operating) {
         try {
           window.UlikeCommon.commonGtmEvent(name, operating, '');
@@ -1214,7 +1213,12 @@
           String(now.getMonth() + 1).padStart(2, '0'),
           String(now.getDate()).padStart(2, '0'),
         ].join('-');
-        const popupData = JSON.parse(localStorage.getItem('ulike-popupData')) || {};
+        let popupData = {};
+        try {
+          popupData = JSON.parse(localStorage.getItem('ulike-popupData')) || {};
+        } catch (error) {
+          // Reset malformed popup data so it cannot block the modal.
+        }
         const sessionShown = sessionStorage.getItem('ulike-popupShown');
 
         // 如果是新的一天，重置计数
