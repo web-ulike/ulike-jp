@@ -1134,32 +1134,27 @@
         $subscribeButton.prop('disabled', true);
         window.UlikeCommon.commonGtmEvent('vip_subscribe', 'click', '');
         window.UlikeCommon.sendUlikeApi('/user/userSubscribe', data)
-            .then(function (res) {
-              if (res.code == 0) {
-                thatLogin.fadeOut();
-                thatLoginCoupon.fadeIn();
-                localStorage.setItem('ulike-subscribed', 'true');
-                window.UlikeCommon.commonGtmEvent('vip_subscribe_success', 'success', '');
-              } else if (res.code == 99998) {
-                // 定义一个常量对象，用于存储订阅成功的消息
-                const messages = {
-                  user_subscribe_email_repeat:
-                    'このメールアドレスは既に登録されています。別のメールアドレスをご利用ください。',
-                };
-                // 检查响应消息是否存在于 messages 对象中
-                showLoginError(messages[res.message] || res.message || errorMessages.system_err);
-              } else {
-                showLoginError(res.message || errorMessages.system_err);
-              }
-            })
-            .catch(function (error) {
-              console.error('Subscription failed:', error);
-              showLoginError(errorMessages.system_err);
-            })
-            .finally(function () {
-              isSubmitting = false;
-              $subscribeButton.prop('disabled', false);
-            });
+          .then(function (res) {
+            if (res.code == 0) {
+              thatLogin.fadeOut();
+              thatLoginCoupon.fadeIn();
+              localStorage.setItem('ulike-subscribed', 'true');
+              window.UlikeCommon.commonGtmEvent('vip_subscribe_success', 'success', '');
+            } else if (res.code == 99998) {
+              const repeatEmailMessage = 'このメールアドレスは既に登録されています。別のメールアドレスをご利用ください。';
+              showLoginError(res.message === 'user_subscribe_email_repeat' ? repeatEmailMessage : res.message);
+            } else {
+              showLoginError(res.message);
+            }
+          })
+          .catch(function (error) {
+            console.error('Subscription failed:', error);
+            showLoginError(errorMessages.system_err);
+          })
+          .finally(function () {
+            isSubmitting = false;
+            $subscribeButton.prop('disabled', false);
+          });
       });
 
       function validateEmailField(email) {
@@ -1204,7 +1199,12 @@
       }
 
       function checkAndShowPopup() {
-        const today = new Date().toLocaleDateString('en-CA');
+        const now = new Date();
+        const today = [
+          now.getFullYear(),
+          String(now.getMonth() + 1).padStart(2, '0'),
+          String(now.getDate()).padStart(2, '0'),
+        ].join('-');
         const popupData = JSON.parse(localStorage.getItem('ulike-popupData')) || {};
         const sessionShown = sessionStorage.getItem('ulike-popupShown');
 
