@@ -262,9 +262,9 @@
             content: '';
             position: absolute;
             top: 0;
+            bottom: 0;
             left: -45%;
             width: 35%;
-            height: 100%;
             pointer-events: none;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
             transform: skewX(-25deg);
@@ -303,6 +303,11 @@
             #u-user-popup .btn-primary::before {
               animation: none;
               transition: none;
+            }
+
+            #u-user-popup .btn-primary:hover,
+            #u-user-popup .btn-primary:active {
+              transform: none;
             }
           }
 
