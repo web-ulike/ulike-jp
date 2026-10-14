@@ -1081,6 +1081,8 @@
         try {
           window.UlikeCommon.commonGtmEvent(name, operating, '');
         } catch (error) {
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({ event: name, operating: operating, label: '' });
           console.warn('Popup tracking failed:', error);
         }
       }
