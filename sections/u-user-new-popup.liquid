@@ -1077,6 +1077,15 @@
       const $subscribeButton = thatLogin.find('.btn-primary');
       let isSubmitting = false;
 
+
+      function trackPopupEvent(name, operating) {
+        try {
+          window.UlikeCommon.commonGtmEvent(name, operating, '');
+        } catch (error) {
+          console.warn('Popup tracking failed:', error);
+        }
+      }
+
       thatLogin.on('click', '.close-btn', function () {
         thatLogin.fadeOut(1000);
       });
@@ -1115,7 +1124,7 @@
 
       thatLogin.on('click', '.btn-primary', function () {
         if (isSubmitting) return;
-        window.UlikeCommon.commonGtmEvent('vip_subscribe_all', 'click', '');
+        trackPopupEvent('vip_subscribe_all', 'click');
         const email = String($email.val() || '').replace(/\s+/g, '');
         $email.val(email);
         const data = {
@@ -1132,14 +1141,14 @@
 
         isSubmitting = true;
         $subscribeButton.prop('disabled', true);
-        window.UlikeCommon.commonGtmEvent('vip_subscribe', 'click', '');
+        trackPopupEvent('vip_subscribe', 'click');
         window.UlikeCommon.sendUlikeApi('/user/userSubscribe', data)
           .then(function (res) {
             if (res.code == 0) {
               thatLogin.fadeOut();
               thatLoginCoupon.fadeIn();
               localStorage.setItem('ulike-subscribed', 'true');
-              window.UlikeCommon.commonGtmEvent('vip_subscribe_success', 'success', '');
+              trackPopupEvent('vip_subscribe_success', 'success');
             } else if (res.code == 99998) {
               const repeatEmailMessage = 'このメールアドレスは既に登録されています。別のメールアドレスをご利用ください。';
               showLoginError(res.message === 'user_subscribe_email_repeat' ? repeatEmailMessage : res.message);
@@ -1174,7 +1183,7 @@
       });
 
       $(document).on('click', '.g-floating-box', function () {
-        window.UlikeCommon.commonGtmEvent('vip_Teaser', 'click', '');
+        trackPopupEvent('vip_Teaser', 'click');
         const isSubscribed = localStorage.getItem('ulike-subscribed') === 'true';
         if (isSubscribed) {
           thatLogin.hide();
@@ -1193,7 +1202,7 @@
       function showPopup() {
         if (popupShown) return;
         popupShown = true;
-        window.UlikeCommon.commonGtmEvent('vip_impressions', 'show', '');
+        trackPopupEvent('vip_impressions', 'show');
         thatLogin.show();
         window.removeEventListener('scroll', onUserScroll);
       }
@@ -1244,11 +1253,11 @@
       $('.g-floating-box').show();
 
       thatLogin.one('focus', '#login-form .j_popup_email', function () {
-        window.UlikeCommon.commonGtmEvent('vip_enter email', 'focus', '');
+        trackPopupEvent('vip_enter email', 'focus');
       });
 
       thatLogin.one('focus', '#login-form .verification-code', function () {
-        window.UlikeCommon.commonGtmEvent('vip_enter code', 'focus', '');
+        trackPopupEvent('vip_enter code', 'focus');
       });
     });
     document.addEventListener('DOMContentLoaded', function () {
