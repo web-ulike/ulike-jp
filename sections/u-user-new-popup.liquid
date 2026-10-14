@@ -1164,7 +1164,7 @@
 
       function validateEmailField(email) {
         const message = !email ? errorMessages.emailInvalid :
-          !validateEmail(email) ? errorMessages.emailFormat : '';
+          !window.UlikeCommon.validateEmail(email) ? errorMessages.emailFormat : '';
         const $group = $email.closest('.form-group');
         $group.toggleClass('form-group-error', Boolean(message))
           .find('.input-msg-error').text(message);
@@ -1400,60 +1400,6 @@
       window.customElements.define('countdown-timer-today', CountdownTimerToday);
     });
 
-    /**
-     * 验证邮箱格式是否正确
-     * @param {string} email - 待验证的邮箱地址
-     * @returns {boolean} - 返回true表示邮箱格式正确，返回false表示邮箱格式错误
-     */
-    function validateEmail(email) {
-      // 邮箱正则表达式
-      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      // 使用正则表达式测试邮箱格式是否正确
-      return emailRegex.test(email);
-    }
-
-    function sendUlikeApi(url, data) {
-      data.siteCode = 'JP'; // Ensure the site code is set to 'UK'
-      data.merchantCode = 'ULIKE'; // Ensure the merchant code is set to 'ULIKE'
-
-      var _url = 'https://api.ulike.com' + url;
-      data.language = window.Shopify.locale;
-
-      data.requestId = generateGUID();
-      // Set up the AJAX settings
-      var settings = {
-        url: _url,
-        method: 'POST', // POST is used as the request method
-        headers: {
-          'Content-Type': 'application/json', // Request payload is in JSON format
-        },
-        data: JSON.stringify(data), // Convert data object to JSON string
-        xhrFields: {
-          withCredentials: true, // Allow cookies and credentials to be sent
-        },
-      };
-
-      // Return a new Promise
-      return new Promise((resolve, reject) => {
-        $.ajax(settings)
-          .done(function (response) {
-            resolve(response); // Resolve the promise with the response
-          })
-          .fail(function (error) {
-            console.error('Error during API call:', error); // Log the error
-            reject(error); // Reject the promise with the error
-          });
-      });
-    }
-
-    function generateGUID() {
-      function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000)
-          .toString(16)
-          .substring(1);
-      }
-      return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-    }
   </script>
   <style>
     .hide-plug-diy {
