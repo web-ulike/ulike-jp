@@ -95,9 +95,14 @@
 
     <script src="{{ 'scroll-animation.js' | asset_url }}" defer="defer"></script>
 
-    {% unless template.name == 'index' %}
+    {% comment %} {% unless template.name == 'index' %}
       {% include 'pagefly-app-header' %}
-    {% endunless %}
+    {% endunless %} {% endcomment %}
+    {% if request.page_type == 'product' %}
+      {% if product.handle == 'air10-ipl-hair-removal' or product.handle == 'air10-pro-ipl-hair-removal' %}
+        {% include 'pagefly-app-header' %}
+      {% endif %}
+    {% endif %}
 
 </head>
 
