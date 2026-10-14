@@ -1,5 +1,4 @@
 {%- liquid
-  assign se_id = section.id
   assign se_stts = section.settings
 -%}
 <style>
@@ -915,7 +914,6 @@
                 alt="VIP Benefits"
                 fetchpriority="high"
                 src="{{ se_stts.image | img_url: 'master' }}"
-                alt="{{ se_stts.alt_text | escape }}"
               >
             </picture>
           </div>
@@ -1069,59 +1067,39 @@
   <script>
     window.addEventListener('load', function () {
       const errorMessages = {
-        emailRequiredWithPhone:
-          'Du kannst dich nicht nur mit deiner Telefonnummer anmelden. Bitte gib sowohl deine E-Mail-Adresse als auch deine Telefonnummer ein.',
         emailInvalid: 'メールアドレスを入力してください',
         emailFormat: '有効なメールアドレスを入力してください！',
-        codeInvalid: '認証コードを入力してください。',
         system_err: 'システム異常です。しばらくしてからもう一度お試しください。',
       };
       const thatLogin = $('#u-user-popup');
-
       const thatLoginCoupon = $('#u-user-coupon-popup');
+      const $email = thatLogin.find('.j_popup_email');
+      const $subscribeButton = thatLogin.find('.btn-primary');
+      let isSubmitting = false;
 
-      $(document).on('click', '#u-user-popup .close-btn', function (e) {
-        // 去掉错误提示
-        $('#u-user-popup').fadeOut(1000);
+      thatLogin.on('click', '.close-btn', function () {
+        thatLogin.fadeOut(1000);
       });
 
-      $(document).on('click', '#u-user-coupon-popup .close-code-btn', function (e) {
-        // 去掉错误提示
-        $('#u-user-coupon-popup').fadeOut(1000);
+      thatLoginCoupon.on('click', '.close-code-btn', function () {
+        thatLoginCoupon.fadeOut(1000);
       });
 
-      $(document).on('focus', '.j_popup_email, .verification-code', function () {
-        try {
-          const $input = $(this);
-          const $formGroup = $input.closest('.form-group');
-
-          if ($formGroup.length === 0) {
-            console.error('Form group not found');
-            return;
-          }
-          // 去掉错误提示
-          $formGroup.removeClass('form-group-error').find('.input-msg-error').text('');
-
-          if (!$input.val()) {
-            const $popupContent = $input.closest('.popup-content');
-            if ($popupContent.length === 0) {
-              return;
-            }
-            $popupContent.addClass('popup-active');
-          }
-        } catch (error) {
-          console.error('An error occurred:', error);
+      thatLogin.on('focus', '.j_popup_email, .verification-code', function () {
+        const $input = $(this);
+        $input.closest('.form-group').removeClass('form-group-error').find('.input-msg-error').text('');
+        if (!$input.val()) {
+          $input.closest('.popup-content').addClass('popup-active');
         }
       });
 
-      // Blur event using jQuery
-      $(document).on('blur', '.j_popup_email,.verification-code', function () {
+      thatLogin.on('blur', '.j_popup_email, .verification-code', function () {
         if (!$(this).val()) {
           $(this).closest('.popup-content').removeClass('popup-active');
         }
       });
 
-      let errorTimeout; // 存储定时器
+      let errorTimeout;
 
       function showLoginError(message) {
         const $error = thatLogin.find('.login-msg-error');
@@ -1135,33 +1113,27 @@
         }, 6000);
       }
 
-      let stepBtn = 1;
-
-      $(document).on('click', '.btn-primary', function () {
-        let $this = $(this); // 缓存按钮对象
+      thatLogin.on('click', '.btn-primary', function () {
+        if (isSubmitting) return;
         window.UlikeCommon.commonGtmEvent('vip_subscribe_all', 'click', '');
-        let data = {
-          userEmail: '',
+        const email = String($email.val() || '').replace(/\s+/g, '');
+        $email.val(email);
+        const data = {
+          userEmail: email,
           since: 'USER_SUBSCRIBE',
           tags: ['pop_up_subscribe'],
         };
 
-        data.userEmail = thatLogin.find('.j_popup_email').val().replace(/\s+/g, '').trim();
-        thatLogin.find('.j_popup_email').val(data.userEmail);
-
-        const isEmailValid = validateEmailField();
-
-        const isPolicyChecked = $('#policy-checkbox').is(':checked');
-
-        if (!isPolicyChecked) {
-          // 请勾选同意服务条款
+        if (!thatLogin.find('#policy-checkbox').is(':checked')) {
           showLoginError('プライバシーポリシーに同意してください');
           return;
         }
-        if (stepBtn === 1 && isEmailValid) {
-          window.UlikeCommon.commonGtmEvent('vip_subscribe', 'click', '');
-          // 显示code code框
-          sendUlikeApi('/user/userSubscribe', data)
+        if (!validateEmailField(email)) return;
+
+        isSubmitting = true;
+        $subscribeButton.prop('disabled', true);
+        window.UlikeCommon.commonGtmEvent('vip_subscribe', 'click', '');
+        window.UlikeCommon.sendUlikeApi('/user/userSubscribe', data)
             .then(function (res) {
               if (res.code == 0) {
                 thatLogin.fadeOut();
@@ -1183,8 +1155,11 @@
             .catch(function (error) {
               console.error('Subscription failed:', error);
               showLoginError(errorMessages.system_err);
+            })
+            .finally(function () {
+              isSubmitting = false;
+              $subscribeButton.prop('disabled', false);
             });
-        }
       });
 
       /**
