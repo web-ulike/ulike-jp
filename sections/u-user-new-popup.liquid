@@ -244,33 +244,67 @@
             border: none;
             cursor: pointer;
             font-size: 16px;
-            border-radius:6px;
-            margin-top:20px;
+            border-radius: 6px;
+            margin-top: 20px;
             overflow: hidden;
             position: relative;
             text-align: center;
-
+            isolation: isolate;
+            transition: background-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
           }
-            #u-user-popup .btn-primary:before{
-                position: absolute;
-      content: '';
-      display: block;
-      width: 200%;
-      height: 200%;
-      z-index: 2;
-      background: linear-gradient(-45deg, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 60%);
-      animation: scanning 3s
-  linear infinite;
-            }
-            @keyframes scanning {
 
-            0% {
-      transform: translate(-100%, -100%);
-  }
-  100% {
-      transform: translate(100%, 100%);
-  }
+          #u-user-popup .btn-primary__label {
+            position: relative;
+            z-index: 1;
+          }
+
+          #u-user-popup .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -45%;
+            width: 35%;
+            height: 100%;
+            pointer-events: none;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+            transform: skewX(-25deg);
+            animation: u-popup-button-sheen 3.5s ease-in-out infinite;
+          }
+
+          #u-user-popup .btn-primary:hover:not(:disabled) {
+            background: #ce0044;
+            box-shadow: 0 5px 14px rgba(224, 0, 77, 0.22);
+            transform: translateY(-1px);
+          }
+
+          #u-user-popup .btn-primary:active:not(:disabled) {
+            box-shadow: none;
+            transform: translateY(0);
+          }
+
+          #u-user-popup .btn-primary:disabled {
+            cursor: wait;
+            opacity: 0.7;
+            transform: none;
+          }
+
+          #u-user-popup .btn-primary:disabled::before {
+            animation: none;
+            opacity: 0;
+          }
+
+          @keyframes u-popup-button-sheen {
+            0%, 12% { left: -45%; }
+            45%, 100% { left: 115%; }
+          }
+
+          @media (prefers-reduced-motion: reduce) {
+            #u-user-popup .btn-primary,
+            #u-user-popup .btn-primary::before {
+              animation: none;
+              transition: none;
             }
+          }
 
           .social-login {
             display: flex;
@@ -973,7 +1007,7 @@
                 <div class="input-msg-error"></div>
               </div>
 
-              <button type="button" class="btn-primary">{{ se_stts.btn_text }}</button>
+              <button type="button" class="btn-primary"><span class="btn-primary__label">{{ se_stts.btn_text }}</span></button>
               <div class="login-msg-error"></div>
               {% comment %}
                 <div class="social-login">
@@ -1312,7 +1346,7 @@
           this.sSep = s('countdown-separator', ':');
           this.secs = d('seconds-box');
 
-          this.append(this.labelEl, this.days, this.daysSep, this.hours, this.mSep, this.mins, this.sSep, this.secs);
+          this.replaceChildren(this.labelEl, this.days, this.daysSep, this.hours, this.mSep, this.mins, this.sSep, this.secs);
           // This design does not show days
           this.days.style.display = 'none';
           this.daysSep.style.display = 'none';
@@ -1370,7 +1404,7 @@
             return Number(cache.endTs);
           }
 
-          // 今天随机：范围 = (现在 + 1分钟) ~ 今天 23:59:59
+          // Pick an end time at least eight hours away, within the current day.
           const MIN_LEFT_MS = 8 * 60 * 60 * 1000;
           let endTs = this._genRandomEndTsForDay(now, Date.now() + MIN_LEFT_MS);
 
@@ -1411,8 +1445,9 @@
           this.secs.textContent = this.f(s);
         }
       }
-      // ✅ 2) JS 里 define 的名字必须和上面标签一致：countdown-timer-today
-      window.customElements.define('countdown-timer-today', CountdownTimerToday);
+      if (!window.customElements.get('countdown-timer-today')) {
+        window.customElements.define('countdown-timer-today', CountdownTimerToday);
+      }
     });
 
   </script>
