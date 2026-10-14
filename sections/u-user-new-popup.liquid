@@ -1164,7 +1164,7 @@
 
       $(document).on('click', '.btn-primary', function () {
         let $this = $(this); // 缓存按钮对象
-        commonGtmEvent('vip_subscribe_all', 'click', '');
+        window.UlikeCommon.commonGtmEvent('vip_subscribe_all', 'click', '');
         let data = {
           userEmail: '',
           since: 'USER_SUBSCRIBE',
@@ -1184,7 +1184,7 @@
           return;
         }
         if (stepBtn === 1 && isEmailValid) {
-          commonGtmEvent('vip_subscribe', 'click', '');
+          window.UlikeCommon.commonGtmEvent('vip_subscribe', 'click', '');
           // 显示code code框
           sendUlikeApi('/user/userSubscribe', data)
             .then(function (res) {
@@ -1192,6 +1192,7 @@
                 thatLogin.fadeOut();
                 thatLoginCoupon.fadeIn();
                 localStorage.setItem('ulike-subscribed', 'true');
+                window.UlikeCommon.commonGtmEvent('vip_subscribe_success', 'success', '');
               } else if (res.code == 99998) {
                 // 定义一个常量对象，用于存储订阅成功的消息
                 const messages = {
@@ -1286,7 +1287,7 @@
       });
 
       $(document).on('click', '.g-floating-box', function () {
-        commonGtmEvent('vip_Teaser', 'click', '');
+        window.UlikeCommon.commonGtmEvent('vip_Teaser', 'click', '');
         const isSubscribed = localStorage.getItem('ulike-subscribed') === 'true';
         if (isSubscribed) {
           // 已订阅：不弹登录弹窗（你也可以改成直接弹优惠码弹窗）
@@ -1308,7 +1309,7 @@
       function showPopup() {
         if (popupShown) return;
         popupShown = true;
-        commonGtmEvent('vip_impressions', 'show', '');
+        window.UlikeCommon.commonGtmEvent('vip_impressions', 'show', '');
         $('#u-user-popup').show();
         window.removeEventListener('scroll', onUserScroll);
       }
@@ -1359,11 +1360,11 @@
       }
 
       $(document).one('focus', '#login-form .j_popup_email', function () {
-        commonGtmEvent('vip_enter email', 'focus', '');
+        window.UlikeCommon.commonGtmEvent('vip_enter email', 'focus', '');
       });
 
       $(document).one('focus', '#login-form .verification-code', function () {
-        commonGtmEvent('vip_enter code', 'focus', '');
+        window.UlikeCommon.commonGtmEvent('vip_enter code', 'focus', '');
       });
     });
     document.addEventListener('DOMContentLoaded', function () {
@@ -1515,18 +1516,6 @@
       window.customElements.define('countdown-timer-today', CountdownTimerToday);
     });
 
-    /**
-     * GTM 增加GA事件
-     * @param {*} category
-     * @param {*} operating
-     * @param {*} label
-     */
-    function commonGtmEvent(category, operating, label) {
-      gtag('event', category, {
-        operating: operating,
-        label: label,
-      });
-    }
     /**
      * 验证邮箱格式是否正确
      * @param {string} email - 待验证的邮箱地址
