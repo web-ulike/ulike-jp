@@ -74,6 +74,16 @@
   #me-sensitive-skin-{{ sid }} .me-sensitive-skin__desktop-note { position: absolute; bottom: 4.17%; left: 50%; width: min(35.2vw, 676px); color: #737577; }
   #me-sensitive-skin-{{ sid }} .me-sensitive-skin__desktop-note p { margin: 0; font-size: 10px; line-height: 1.5; letter-spacing: -0.03em; }
 
+  @media (min-width: 999px) and (max-width: 1600px) {
+    /* Scale desktop typography and spacing from the 1920px design. */
+    #me-sensitive-skin-{{ sid }} .me-sensitive-skin__desktop { min-height: calc(640 * 100vw / 1920); }
+    #me-sensitive-skin-{{ sid }} .me-sensitive-skin__desktop .me-sensitive-skin__title > :first-child { font-size: calc(48 * 100vw / 1920); }
+    #me-sensitive-skin-{{ sid }} .me-sensitive-skin__desktop .me-sensitive-skin__copy > :first-child { margin-top: calc(64 * 100vw / 1920); font-size: calc(22 * 100vw / 1920); }
+    #me-sensitive-skin-{{ sid }} .me-sensitive-skin__desktop .me-sensitive-skin__copy > :not(:first-child) { margin-top: calc(28 * 100vw / 1920); font-size: calc(14 * 100vw / 1920); }
+    #me-sensitive-skin-{{ sid }} .me-sensitive-skin__desktop .me-sensitive-skin__copy .me-sensitive-skin__closing { margin-top: calc(21 * 100vw / 1920); }
+    #me-sensitive-skin-{{ sid }} .me-sensitive-skin__desktop-note p { font-size: calc(10 * 100vw / 1920); }
+  }
+
   @media (max-width: 749px) {
     #me-sensitive-skin-{{ sid }} .me-sensitive-skin__desktop { display: none; }
     #me-sensitive-skin-{{ sid }} .me-sensitive-skin__mobile { display: block; }
