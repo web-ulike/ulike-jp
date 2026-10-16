@@ -918,7 +918,7 @@
     height: 146px;
     display: flex;
     align-items: center;
-    background: url('https://cdn.shopify.com/s/files/1/0746/7168/5655/files/Frame_457393619_2x_8a72289d-993a-452b-8265-6d3c699efc4e.png?v=1750042701') no-repeat center center;
+    background: url('{% if section.settings.login_header_image != blank %}{{ section.settings.login_header_image | image_url: width: 800 }}{% else %}https://cdn.shopify.com/s/files/1/0746/7168/5655/files/Frame_457393619_2x_8a72289d-993a-452b-8265-6d3c699efc4e.png?v=1750042701{% endif %}') no-repeat center center;
     background-size: cover;
     top: -1px;
     border-top-left-radius:10px;
@@ -1193,19 +1193,45 @@
 <script>
   {% comment %} var getLoginStatus = '{{ customer.email }}' ? true : false; {% endcomment %}
   var getLoginStatus = '{{ customer.log_in }}' ? true : false;
+  window.referFriendMainCopy = {
+    error_prefix: {{ section.settings.error_prefix | json }},
+    insufficient_balance: {{ section.settings.insufficient_balance | json }},
+    code_sent: {{ section.settings.code_sent | json }},
+    get_code: {{ section.settings.get_code | json }},
+    no_records: {{ section.settings.no_records | json }},
+    orders_label: {{ section.settings.orders_label | json }},
+    settlement_time_label: {{ section.settings.settlement_time_label | json }},
+    purchase_time_label: {{ section.settings.purchase_time_label | json }},
+    subscribers_label: {{ section.settings.subscribers_label | json }},
+    order_status_label: {{ section.settings.order_status_label | json }},
+    order_amount_label: {{ section.settings.order_amount_label | json }},
+    commission_label: {{ section.settings.commission_label | json }},
+    commission_settled: {{ section.settings.commission_settled | json }},
+    commission_pending: {{ section.settings.commission_pending | json }},
+    order_refunded: {{ section.settings.order_refunded | json }},
+    withdrawal_successful: {{ section.settings.withdrawal_successful | json }},
+    withdrawing: {{ section.settings.withdrawing | json }},
+    withdrawal_failed: {{ section.settings.withdrawal_failed | json }},
+    withdraw_account_prefix: {{ section.settings.withdraw_account_prefix | json }},
+    commission_settlement: {{ section.settings.commission_settlement | json }},
+    email_required: {{ section.settings.email_required | json }},
+    email_invalid: {{ section.settings.email_invalid | json }},
+    password_invalid: {{ section.settings.password_invalid | json }},
+    password_rule: {{ section.settings.password_rule | json }}
+  };
 </script>
 {{ 'refer-friend-main.js' | asset_url | script_tag }}
 
 <div class="container" id="referfriend-invitation-content">
   <div class="gameplay-box gameplay-box-top  gameplay-box-info">
-    <p class="title">Program Introduction</p>
+    <p class="title">{{ section.settings.intro_title | escape }}</p>
     <div class="gameplay-description">
-      <p>Invite your friends, and earn $50 cash per order!</p>
-      <p>Your cash can be withdrawn via PayPal.</p>
+      <p>{{ section.settings.intro_line_1 | escape }}</p>
+      <p>{{ section.settings.intro_line_2 | escape }}</p>
 
-      <p>How to invite:</p>
-      <p>1. Share your invite code - your friends use it to get a discount when they place an order.</p>
-      <p>2. Share your invite link - friends click, order with a discount, and your commision will be paid out.</p>
+      <p>{{ section.settings.invite_heading | escape }}</p>
+      <p>{{ section.settings.invite_step_1 | escape }}</p>
+      <p>{{ section.settings.invite_step_2 | escape }}</p>
     </div>
   </div>
   <div
@@ -1217,7 +1243,7 @@
     <div class="copy-code-top">
       <div>
         <div class="code-wrap">
-          <div class="code-text">Air 10 Invitation Code：</div>
+          <div class="code-text">{{ section.settings.invitation_code_label | escape }}</div>
           <div class="code-top">------</div>
         </div>
       </div>
@@ -1235,34 +1261,34 @@
             </g>
           </svg>
         </div>
-        <div class="copy-btn-top">Copy</div>
+        <div class="copy-btn-top">{{ section.settings.copy_label | escape }}</div>
       </div>
     </div>
-    <div class="code-disscount">Share with a friend and they can get <span></span> off</div>
+    <div class="code-disscount">{{ section.settings.discount_prefix | escape }} <span></span> {{ section.settings.discount_suffix | escape }}</div>
 
     <div class="invitation-product">
       <div class="invitation-product__image">
         <img
-          src="https://cdn.shopify.com/s/files/1/0632/6275/2833/files/product1.png?v=1749714535"
-          alt="Ulike Air 10"
+          src="{% if section.settings.product_image != blank %}{{ section.settings.product_image | image_url: width: 600 }}{% else %}https://cdn.shopify.com/s/files/1/0632/6275/2833/files/product1.png?v=1749714535{% endif %}"
+          alt="{{ section.settings.product_title | escape }}"
         >
       </div>
       <div class="invitation-product__info">
         <div>
-          <p class="invitation-product__title">Ulike Air 10</p>
-          <p class="invitation-product__desc">The next-generation in simple, lasting hair removal</p>
+          <p class="invitation-product__title">{{ section.settings.product_title | escape }}</p>
+          <p class="invitation-product__desc">{{ section.settings.product_description | escape }}</p>
         </div>
         <div class="invitation-product__pricing">
           <div class="invitation-product__price">
-            <div class="invitation-product__label">Price</div>
-            <div class="invitation-product__value invitation-product__value--highlight">$349</div>
+            <div class="invitation-product__label">{{ section.settings.price_label | escape }}</div>
+            <div class="invitation-product__value invitation-product__value--highlight">{{ section.settings.product_price | escape }}</div>
           </div>
           <div class="invitation-product__commission">
-            <div class="invitation-product__label">Commission</div>
-            <div class="invitation-product__value">$50</div>
+            <div class="invitation-product__label">{{ section.settings.commission_label | escape }}</div>
+            <div class="invitation-product__value">{{ section.settings.product_commission | escape }}</div>
           </div>
         </div>
-        <button class="invitation-product__copy-btn">Copy Link</button>
+        <button class="invitation-product__copy-btn">{{ section.settings.copy_link_label | escape }}</button>
       </div>
     </div>
     {% comment %} 第二个 {% endcomment %}
@@ -1341,7 +1367,7 @@
     <div class="copy-code-top">
       <div>
         <div class="code-wrap">
-          <div class="code-text">ReGlow Invitation Code：</div>
+          <div class="code-text">{{ section.settings.reglow_code_label | escape }}</div>
           <div class="code-top">------</div>
         </div>
       </div>
@@ -1359,65 +1385,65 @@
             </g>
           </svg>
         </div>
-        <div class="copy-btn-top">Copy</div>
+        <div class="copy-btn-top">{{ section.settings.copy_label | escape }}</div>
       </div>
     </div>
-    <div class="code-disscount">Share with a friend and they can get <span></span> off</div>
+    <div class="code-disscount">{{ section.settings.discount_prefix | escape }} <span></span> {{ section.settings.discount_suffix | escape }}</div>
 
     <div class="invitation-product">
       <div class="invitation-product__image">
         <img
-          src="https://cdn.shopify.com/s/files/1/0632/6275/2833/files/product2.png?v=1749714534"
-          alt="Ulike ReGlow"
+          src="{% if section.settings.reglow_image != blank %}{{ section.settings.reglow_image | image_url: width: 600 }}{% else %}https://cdn.shopify.com/s/files/1/0632/6275/2833/files/product2.png?v=1749714534{% endif %}"
+          alt="{{ section.settings.reglow_title | escape }}"
         >
       </div>
       <div class="invitation-product__info">
         <div>
-          <p class="invitation-product__title">Ulike ReGlow</p>
-          <p class="invitation-product__desc">The breakthrough skin renewalmask powered by advanced LEDs</p>
+          <p class="invitation-product__title">{{ section.settings.reglow_title | escape }}</p>
+          <p class="invitation-product__desc">{{ section.settings.reglow_description | escape }}</p>
         </div>
         <div class="invitation-product__pricing">
           <div class="invitation-product__price">
-            <div class="invitation-product__label">Price</div>
-            <div class="invitation-product__value invitation-product__value--highlight">$399</div>
+            <div class="invitation-product__label">{{ section.settings.price_label | escape }}</div>
+            <div class="invitation-product__value invitation-product__value--highlight">{{ section.settings.reglow_price | escape }}</div>
           </div>
           <div class="invitation-product__commission">
-            <div class="invitation-product__label">Commission</div>
-            <div class="invitation-product__value">$50</div>
+            <div class="invitation-product__label">{{ section.settings.commission_label | escape }}</div>
+            <div class="invitation-product__value">{{ section.settings.reglow_commission | escape }}</div>
           </div>
         </div>
-        <button class="invitation-product__copy-btn" data-url>Copy Link</button>
+        <button class="invitation-product__copy-btn" data-url>{{ section.settings.copy_link_label | escape }}</button>
       </div>
     </div>
   </div>
 
   <div class="gameplay-box">
-    <div class="title">My Rewards<span class="rewards-more">More&nbsp;&nbsp;></span></div>
+    <div class="title">{{ section.settings.rewards_title | escape }}<span class="rewards-more">{{ section.settings.more_label | escape }}&nbsp;&nbsp;></span></div>
     <div class="price-area">
       <div class="pending">
         <p class="ped-price-total">$0</p>
-        <p class="ped-price-des">Pending Rewards</p>
+        <p class="ped-price-des">{{ section.settings.pending_rewards_label | escape }}</p>
       </div>
       <div class="withdraw">
         <p class="ped-price-total">$0</p>
-        <p class="ped-price-des">Cash Available for Withdrawal</p>
-        <button class="withdraw-btn">Withdraw</button>
+        <p class="ped-price-des">{{ section.settings.available_cash_label | escape }}</p>
+        <button class="withdraw-btn">{{ section.settings.withdraw_label | escape }}</button>
       </div>
     </div>
   </div>
-  <div class="gameplay-box title tabs-title">Invitation record</div>
+  <div class="gameplay-box title tabs-title">{{ section.settings.records_title | escape }}</div>
   <!-- 标签区域 -->
   <div class="tabs">
-    <div class="tab" data-tab="1">Invitation Records</div>
-    <div class="tab" data-tab="2">Commission Details</div>
+    <div class="tab" data-tab="1">{{ section.settings.invitation_records_label | escape }}</div>
+    <div class="tab" data-tab="2">{{ section.settings.commission_details_label | escape }}</div>
   </div>
 
   <!-- 内容区域 -->
   <div id="tab-content-1" class="tab-content">
     <div class="gameplay-box invitation-record-batch">
       <div class="title">
-        Invitation record
-        <span class="rewards-more">More&nbsp;&nbsp;></span>
+        {{ section.settings.records_title | escape }}
+        <span class="rewards-more">{{ section.settings.more_label | escape }}&nbsp;&nbsp;></span>
       </div>
       <div class="invitation-detail" id="invitation-record-list">
         <!-- 订单项会在这里渲染 -->
@@ -1426,17 +1452,17 @@
   </div>
   <div id="tab-content-2" class="tab-content">
     <div class="table-header">
-      <span>Type</span>
-      <span>Amount</span>
+      <span>{{ section.settings.type_label | escape }}</span>
+      <span>{{ section.settings.amount_label | escape }}</span>
     </div>
     <div class="amount-record-list"></div>
   </div>
 
   <div class="modal-copysuccess">
     <span class="circle-check"> ✓ </span>
-    Copied Success
+    {{ section.settings.copied_success | escape }}
   </div>
-  <div class="dlio-error">error</div>
+  <div class="dlio-error">{{ section.settings.error_prefix | escape }}</div>
   <!-- 修改后的弹窗结构 -->
   <div class="modal-mask"></div>
   <div class="modal-container">
@@ -1445,39 +1471,39 @@
       <img
         class="windows-bg"
         loading="lazy"
-        src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/closed-img.png?v=1746619125"
+        src="{% if section.settings.modal_close_image != blank %}{{ section.settings.modal_close_image | image_url: width: 100 }}{% else %}https://cdn.shopify.com/s/files/1/0656/9079/6273/files/closed-img.png?v=1746619125{% endif %}"
         alt=""
         width="100%"
       >
     </div>
     <div class="modal-header">
-      <p class="modal-title">Withdrawal</p>
+      <p class="modal-title">{{ section.settings.withdrawal_title | escape }}</p>
       <p class="modal-price">$50</p>
-      <p class="iput-email-title">Email<span class="order-status-red asterisk">&nbsp;*</span></p>
-      <input class="withdrawal-email" type="text" placeholder="Enter email">
-      <p class="email-default">Please enter your PayPal email address for withdrawal</p>
-      <p class="email-error">The email format is incorrect.</p>
+      <p class="iput-email-title">{{ section.settings.email_label | escape }}<span class="order-status-red asterisk">&nbsp;*</span></p>
+      <input class="withdrawal-email" type="text" placeholder="{{ section.settings.email_placeholder | escape }}">
+      <p class="email-default">{{ section.settings.paypal_email_hint | escape }}</p>
+      <p class="email-error">{{ section.settings.email_format_error | escape }}</p>
 
-      <p class="iput-code-title">Code<span class="order-status-red asterisk">&nbsp;*</span></p>
+      <p class="iput-code-title">{{ section.settings.code_label | escape }}<span class="order-status-red asterisk">&nbsp;*</span></p>
       <div class="code-wrapper">
-        <input class="withdrawal-code" type="text" placeholder="Enter code" maxlength="6">
-        <span class="getcode">Get code</span>
+        <input class="withdrawal-code" type="text" placeholder="{{ section.settings.code_placeholder | escape }}" maxlength="6">
+        <span class="getcode">{{ section.settings.get_code | escape }}</span>
       </div>
-      <p class="code-error">Verification code error.</p>
-      <button class="submit-btn">Submit</button>
+      <p class="code-error">{{ section.settings.code_error | escape }}</p>
+      <button class="submit-btn">{{ section.settings.submit_label | escape }}</button>
     </div>
     <div class="modal-body">
       <div class="success-img">
         <img
-          src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/cycle-success.png?v=1746619125"
+          src="{% if section.settings.success_image != blank %}{{ section.settings.success_image | image_url: width: 160 }}{% else %}https://cdn.shopify.com/s/files/1/0656/9079/6273/files/cycle-success.png?v=1746619125{% endif %}"
           alt=""
           width="77px"
           height="77px"
           loading="lazy"
         >
       </div>
-      <p class="success-des">The application has been submitted and it is expected to arrive within one hour.</p>
-      <button class="success-btn">View withdrawal details</button>
+      <p class="success-des">{{ section.settings.withdrawal_success_text | escape }}</p>
+      <button class="success-btn">{{ section.settings.view_withdrawal_details | escape }}</button>
       <!-- <button class="modal-button modal-error"></button> -->
     </div>
   </div>
@@ -1486,7 +1512,7 @@
   <div class="login-modal">
     <div class="login-modal-container">
       <div class="login-modal-top">
-        <div class="login-modal-title">Earn Big Cash Rewards</div>
+        <div class="login-modal-title">{{ section.settings.login_title | escape }}</div>
         <div class="login-modal-close">
           {% comment %} pc端图标 {% endcomment %}
           <svg
@@ -1520,18 +1546,18 @@
         </div>
       </div>
       <div class="login-modal-content">
-        <div class="login-modal-desc">Sign up or log in to get your invite link</div>
+        <div class="login-modal-desc">{{ section.settings.login_description | escape }}</div>
         <form id="loginForm" novalidate>
           <div class="form-group">
-            <input type="email" class="login-email" name="email" placeholder="Please enter your email" required>
+            <input type="email" class="login-email" name="email" placeholder="{{ section.settings.login_email_placeholder | escape }}" required>
             <div class="error" id="emailError"></div>
           </div>
           <div class="form-group">
-            <input type="password" class="login-password" name="password" placeholder="Set Password" required>
+            <input type="password" class="login-password" name="password" placeholder="{{ section.settings.login_password_prompt | escape }}" required>
             <div class="error" id="passwordError"></div>
           </div>
           <button class="form-submit" type="submit">
-            <span>Submit</span>
+            <span>{{ section.settings.submit_label | escape }}</span>
             <svg
               t="1750071730678"
               class="icon loading-icon"
@@ -1547,9 +1573,9 @@
           </button>
         </form>
         <div class="login-modal-text">
-          <span>9,874</span>
-          <div>people have already claimed</div>
-          <span>$100</span>
+          <span>{{ section.settings.claim_count | escape }}</span>
+          <div>{{ section.settings.claimed_text | escape }}</div>
+          <span>{{ section.settings.claim_amount | escape }}</span>
           <svg class width="32" height="18" viewBox="0 0 32 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="Frame 457393804">
               <path id="Vector" d="M0 0V14.8115H29.8181V0H0ZM28.1681 9.86249C28.0797 9.84475 27.9733 9.84475 27.8666 9.84475C25.9331 9.84475 24.3544 11.406 24.3369 13.3392H5.1441C5.12636 11.4057 3.54766 9.84475 1.61418 9.84475V4.82481C3.51218 4.82481 5.05541 3.31706 5.1441 1.45454H24.3369C24.4253 3.3348 25.9688 4.82481 27.8666 4.82481C27.9733 4.82481 28.0797 4.82481 28.1681 4.80708V9.86249Z" fill="#87C596"/>
@@ -1570,11 +1596,94 @@
   "name": "Refer Friend Main",
   "settings": [
     {
-      "type": "text",
-      "id": "title",
-      "label": "Section Title",
-      "default": "How It Works"
-    }
+      "type": "header",
+      "content": "Referral copy"
+    },
+    { "type": "text", "id": "intro_title", "label": "Introduction title", "default": "Program Introduction" },
+    { "type": "textarea", "id": "intro_line_1", "label": "Introduction text 1", "default": "Invite your friends, and earn $50 cash per order!" },
+    { "type": "textarea", "id": "intro_line_2", "label": "Introduction text 2", "default": "Your cash can be withdrawn via PayPal." },
+    { "type": "text", "id": "invite_heading", "label": "Invitation instructions heading", "default": "How to invite:" },
+    { "type": "textarea", "id": "invite_step_1", "label": "Invitation instruction 1", "default": "1. Share your invite code - your friends use it to get a discount when they place an order." },
+    { "type": "textarea", "id": "invite_step_2", "label": "Invitation instruction 2", "default": "2. Share your invite link - friends click, order with a discount, and your commision will be paid out." },
+    { "type": "header", "content": "Air 10 card" },
+    { "type": "text", "id": "invitation_code_label", "label": "Invitation code label", "default": "Air 10 Invitation Code：" },
+    { "type": "text", "id": "copy_label", "label": "Copy label", "default": "Copy" },
+    { "type": "text", "id": "discount_prefix", "label": "Discount text before amount", "default": "Share with a friend and they can get" },
+    { "type": "text", "id": "discount_suffix", "label": "Discount text after amount", "default": "off" },
+    { "type": "text", "id": "product_title", "label": "Product title", "default": "Ulike Air 10" },
+    { "type": "textarea", "id": "product_description", "label": "Product description", "default": "The next-generation in simple, lasting hair removal" },
+    { "type": "image_picker", "id": "product_image", "label": "Air 10 image" },
+    { "type": "text", "id": "product_price", "label": "Air 10 displayed price", "default": "$349" },
+    { "type": "text", "id": "product_commission", "label": "Air 10 displayed commission", "default": "$50" },
+    { "type": "header", "content": "ReGlow card" },
+    { "type": "text", "id": "reglow_code_label", "label": "ReGlow invitation code label", "default": "ReGlow Invitation Code：" },
+    { "type": "image_picker", "id": "reglow_image", "label": "ReGlow image" },
+    { "type": "text", "id": "reglow_title", "label": "ReGlow title", "default": "Ulike ReGlow" },
+    { "type": "textarea", "id": "reglow_description", "label": "ReGlow description", "default": "The breakthrough skin renewalmask powered by advanced LEDs" },
+    { "type": "text", "id": "reglow_price", "label": "ReGlow displayed price", "default": "$399" },
+    { "type": "text", "id": "reglow_commission", "label": "ReGlow displayed commission", "default": "$50" },
+    { "type": "text", "id": "price_label", "label": "Price label", "default": "Price" },
+    { "type": "text", "id": "commission_label", "label": "Commission label", "default": "Commission" },
+    { "type": "text", "id": "copy_link_label", "label": "Copy link label", "default": "Copy Link" },
+    { "type": "header", "content": "Rewards and records" },
+    { "type": "text", "id": "rewards_title", "label": "Rewards title", "default": "My Rewards" },
+    { "type": "text", "id": "more_label", "label": "More link label", "default": "More" },
+    { "type": "text", "id": "pending_rewards_label", "label": "Pending rewards label", "default": "Pending Rewards" },
+    { "type": "text", "id": "available_cash_label", "label": "Available cash label", "default": "Cash Available for Withdrawal" },
+    { "type": "text", "id": "withdraw_label", "label": "Withdraw button label", "default": "Withdraw" },
+    { "type": "text", "id": "records_title", "label": "Records title", "default": "Invitation record" },
+    { "type": "text", "id": "invitation_records_label", "label": "Invitation records tab", "default": "Invitation Records" },
+    { "type": "text", "id": "commission_details_label", "label": "Commission details tab", "default": "Commission Details" },
+    { "type": "text", "id": "type_label", "label": "Type column label", "default": "Type" },
+    { "type": "text", "id": "amount_label", "label": "Amount column label", "default": "Amount" },
+    { "type": "header", "content": "Record details" },
+    { "type": "text", "id": "no_records", "label": "No records message", "default": "There is no record for the moment." },
+    { "type": "text", "id": "orders_label", "label": "Orders label", "default": "Orders" },
+    { "type": "text", "id": "settlement_time_label", "label": "Settlement time label", "default": "Settlement time" },
+    { "type": "text", "id": "purchase_time_label", "label": "Purchase time label", "default": "Purchase Time" },
+    { "type": "text", "id": "subscribers_label", "label": "Subscribers label", "default": "Subscribers" },
+    { "type": "text", "id": "order_status_label", "label": "Order status label", "default": "Order Status" },
+    { "type": "text", "id": "order_amount_label", "label": "Order amount label", "default": "Order Amount" },
+    { "type": "text", "id": "commission_settled", "label": "Commission settled status", "default": "Commission settled" },
+    { "type": "text", "id": "commission_pending", "label": "Commission pending status", "default": "Payment successful, commission to be settled" },
+    { "type": "text", "id": "order_refunded", "label": "Order refunded status", "default": "Order refund, invalid" },
+    { "type": "text", "id": "withdrawal_successful", "label": "Withdrawal successful status", "default": "Withdrawal successful" },
+    { "type": "text", "id": "withdrawing", "label": "Withdrawing status", "default": "Withdrawing" },
+    { "type": "text", "id": "withdrawal_failed", "label": "Withdrawal failed status", "default": "Withdrawal failed" },
+    { "type": "text", "id": "withdraw_account_prefix", "label": "Withdrawal account prefix", "default": "Withdraw, account:" },
+    { "type": "text", "id": "commission_settlement", "label": "Commission settlement type", "default": "Commission settlement" },
+    { "type": "header", "content": "Withdrawal dialog" },
+    { "type": "text", "id": "copied_success", "label": "Copy success message", "default": "Copied Success" },
+    { "type": "text", "id": "error_prefix", "label": "Error prefix", "default": "error:" },
+    { "type": "text", "id": "insufficient_balance", "label": "Insufficient balance message", "default": "The current amount does not support withdrawal" },
+    { "type": "image_picker", "id": "modal_close_image", "label": "Close icon" },
+    { "type": "text", "id": "withdrawal_title", "label": "Withdrawal title", "default": "Withdrawal" },
+    { "type": "text", "id": "email_label", "label": "Email label", "default": "Email" },
+    { "type": "text", "id": "email_placeholder", "label": "Email placeholder", "default": "Enter email" },
+    { "type": "text", "id": "paypal_email_hint", "label": "PayPal email hint", "default": "Please enter your PayPal email address for withdrawal" },
+    { "type": "text", "id": "email_format_error", "label": "Email format error", "default": "The email format is incorrect." },
+    { "type": "text", "id": "code_label", "label": "Code label", "default": "Code" },
+    { "type": "text", "id": "code_placeholder", "label": "Code placeholder", "default": "Enter code" },
+    { "type": "text", "id": "get_code", "label": "Get code button", "default": "Get code" },
+    { "type": "text", "id": "code_sent", "label": "Code sent countdown", "default": "sent" },
+    { "type": "text", "id": "code_error", "label": "Code verification error", "default": "Verification code error." },
+    { "type": "text", "id": "submit_label", "label": "Submit button", "default": "Submit" },
+    { "type": "image_picker", "id": "success_image", "label": "Success image" },
+    { "type": "textarea", "id": "withdrawal_success_text", "label": "Withdrawal success message", "default": "The application has been submitted and it is expected to arrive within one hour." },
+    { "type": "text", "id": "view_withdrawal_details", "label": "Withdrawal details button", "default": "View withdrawal details" },
+    { "type": "header", "content": "Login dialog" },
+    { "type": "image_picker", "id": "login_header_image", "label": "Login header image" },
+    { "type": "text", "id": "login_title", "label": "Login title", "default": "Earn Big Cash Rewards" },
+    { "type": "text", "id": "login_description", "label": "Login description", "default": "Sign up or log in to get your invite link" },
+    { "type": "text", "id": "login_email_placeholder", "label": "Login email placeholder", "default": "Please enter your email" },
+    { "type": "text", "id": "login_password_prompt", "label": "Login password placeholder", "default": "Set Password" },
+    { "type": "text", "id": "email_required", "label": "Email required error", "default": "Email cannot be empty" },
+    { "type": "text", "id": "email_invalid", "label": "Invalid email error", "default": "Invalid email address" },
+    { "type": "text", "id": "password_invalid", "label": "Invalid password error", "default": "Please enter the correct password" },
+    { "type": "text", "id": "password_rule", "label": "Password format error", "default": "Your password requires 6-16 digits, and must contain letters and numbers" },
+    { "type": "text", "id": "claim_count", "label": "Claim count", "default": "9,874" },
+    { "type": "text", "id": "claimed_text", "label": "Claimed text", "default": "people have already claimed" },
+    { "type": "text", "id": "claim_amount", "label": "Claim amount", "default": "$100" }
   ],
   "blocks": [],
   "presets": [

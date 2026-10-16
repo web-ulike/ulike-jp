@@ -46,7 +46,7 @@
               {%- if link.links != blank or enable_mega_menu -%}
                 {%- render 'header-nav-drawer', link: link, enable_mega_menu: enable_mega_menu, block: mega_menu_block, section: section -%}
               {%- else -%}
-                <a class="drawer__menu-item block text-2xl font-bold leading-none tracking-tight" href="{{ link.url }}">{{ link.title | escape }}</a>
+                <a class="drawer__menu-item block text-2xl font-bold leading-none tracking-tight" href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.title | escape }}</a>
               {%- endif -%}
             </li>
           {%- endfor -%}

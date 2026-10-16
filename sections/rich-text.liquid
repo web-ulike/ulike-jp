@@ -93,7 +93,7 @@
                       <a
                         {% if block.settings.button_link != blank %}href="{{ block.settings.button_link }}"{% else %}role="link" aria-disabled="true"{% endif %}
                         class="button button--{{ block.settings.button_size | default: 'md' }} {% if block.settings.button_secondary_style %}button--secondary{% else %}button--primary{% endif %}"
-                      >
+                       target="_blank" rel="noopener noreferrer">
                         {{- block.settings.button_label | escape -}}
                       </a>
                     </div>
@@ -128,7 +128,7 @@
 
             {%- if section.settings.button_text != blank -%}
               <div class="button-wrapper">
-                <a href="{{ section.settings.button_link }}" class="button button--primary">{{ section.settings.button_text | escape }}</a>
+                <a href="{{ section.settings.button_link }}" class="button button--primary" target="_blank" rel="noopener noreferrer">{{ section.settings.button_text | escape }}</a>
               </div>
             {%- endif -%}
           {%- endif -%}

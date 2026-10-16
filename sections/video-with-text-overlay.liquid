@@ -124,7 +124,7 @@
                     
                   {%- when 'button' -%}
                     {%- if block.settings.button_label != blank -%}
-                      <a class="button{% if block.settings.button_secondary_style %} button--secondary{% else %} button--primary{% endif %} button--fixed button--{{ block.settings.button_size }} icon-with-text"{% if block.settings.button_link != blank %} href="{{ block.settings.button_link }}"{% else %} role="link" aria-disabled="true"{% endif %} is="hover-link" {{ block.shopify_attributes }}>
+                      <a class="button{% if block.settings.button_secondary_style %} button--secondary{% else %} button--primary{% endif %} button--fixed button--{{ block.settings.button_size }} icon-with-text"{% if block.settings.button_link != blank %} href="{{ block.settings.button_link }}"{% else %} role="link" aria-disabled="true"{% endif %} is="hover-link" {{ block.shopify_attributes }} target="_blank" rel="noopener noreferrer">
                         <span class="btn-fill" data-fill></span>
                         <span class="btn-text">
                           {%- liquid
@@ -137,7 +137,7 @@
 
                   {%- when 'link' -%}
                     {%- if block.settings.label != blank -%}
-                      <a class="link"{% if block.settings.link != blank %} href="{{ block.settings.link }}"{% else %} role="link" aria-disabled="true"{% endif %} {{ block.shopify_attributes }}>
+                      <a class="link"{% if block.settings.link != blank %} href="{{ block.settings.link }}"{% else %} role="link" aria-disabled="true"{% endif %} {{ block.shopify_attributes }} target="_blank" rel="noopener noreferrer">
                         {{- block.settings.label -}}
                       </a>
                     {%- endif -%}

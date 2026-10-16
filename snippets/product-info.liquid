@@ -7,9 +7,9 @@
         {%- assign vendor_collection = collections[vendor_handle] -%}
 
         {%- if vendor_collection != blank -%}
-          <a href="{{ vendor_collection.url }}">{{ product.vendor }}</a>
+          <a href="{{ vendor_collection.url }}" target="_blank" rel="noopener noreferrer">{{ product.vendor }}</a>
         {%- else -%}
-          <a href="{{ product.vendor | url_for_vendor }}">{{ product.vendor }}</a>
+          <a href="{{ product.vendor | url_for_vendor }}" target="_blank" rel="noopener noreferrer">{{ product.vendor }}</a>
         {%- endif -%}
       </h2>
     {%- endif -%}
@@ -18,7 +18,7 @@
       <h1 class="product-meta__title heading h3">{{ product.title }}</h1>
     {% else %}
       <h2 class="product-meta__title heading h3">
-        <a href="{{ product.url }}">{{ product.title }}</a>
+        <a href="{{ product.url }}" target="_blank" rel="noopener noreferrer">{{ product.title }}</a>
       </h2>
     {% endunless %}
 

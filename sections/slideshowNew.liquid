@@ -851,7 +851,7 @@
                   <a
                     class="slideshow__image"
                     href="{{ block.settings.button_1_link }}"
-                  >
+                   target="_blank" rel="noopener noreferrer">
                     {{- slide_img -}}
                   </a>
                 {%- else -%}
@@ -968,11 +968,11 @@
          
          {%- capture buttons -%}
            {%- if block.settings.button_1_text != blank -%}
-             <a href="{{ block.settings.button_1_link }}" class="button button--primary home-btn button--animate">{{ block.settings.button_1_text | escape }}</a>
+             <a href="{{ block.settings.button_1_link }}" class="button button--primary home-btn button--animate" target="_blank" rel="noopener noreferrer">{{ block.settings.button_1_text | escape }}</a>
            {%- endif -%}
 
            {%- if block.settings.button_2_text != blank -%}
-             <a href="{{ block.settings.button_2_link }}" class="button button--primary home-btn button--animate">{{ block.settings.button_2_text | escape }}</a>
+             <a href="{{ block.settings.button_2_link }}" class="button button--primary home-btn button--animate" target="_blank" rel="noopener noreferrer">{{ block.settings.button_2_text | escape }}</a>
            {%- endif -%}
            
            {%- if block.settings.custom_icon_start != blank -%}
@@ -1099,7 +1099,7 @@
               {{ section.settings.market_txt }}
             </div>
             {%- if section.settings.link_txt != blank -%}
-              <a href="{{ section.settings.link }}" class="market-tip-link">{{ section.settings.link_txt }}</a>
+              <a href="{{ section.settings.link }}" class="market-tip-link" target="_blank" rel="noopener noreferrer">{{ section.settings.link_txt }}</a>
             {%- endif -%}
           </div>
         </div>

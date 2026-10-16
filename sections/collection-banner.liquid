@@ -90,7 +90,7 @@
             <ul class="link-bar__linklist list--unstyled" role="list">
               {%- for link in quick_links_menu.links -%}
                 <li class="link-bar__link-item {% if link.active %}link-bar__link-item--selected{% endif %}">
-                  <a href="{{ link.url }}" class="link-bar__link link--animated {% if link.active %}text--underlined{% endif %}">{{ link.title }}</a>
+                  <a href="{{ link.url }}" class="link-bar__link link--animated {% if link.active %}text--underlined{% endif %}" target="_blank" rel="noopener noreferrer">{{ link.title }}</a>
                 </li>
               {%- endfor -%}
             </ul>

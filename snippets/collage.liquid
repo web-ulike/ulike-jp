@@ -28,7 +28,7 @@
 
             {%- if block.settings.heading != blank -%}
               <p class="heading text-3xl font-bold leading-none tracking-tight">
-                <a class="reversed-link"{% if block.settings.link != blank %} href="{{ block.settings.link }}"{% else %} role="link" aria-disabled="true"{% endif %}>
+                <a class="reversed-link"{% if block.settings.link != blank %} href="{{ block.settings.link }}"{% else %} role="link" aria-disabled="true"{% endif %} target="_blank" rel="noopener noreferrer">
                   {%- render 'highlighted-text', content: block.settings.heading, style: block.settings.highlighted_text, scribble: block.settings.highlighted_scribble, gradient: withGradient -%}
                 </a>
               </p>

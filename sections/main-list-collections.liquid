@@ -24,7 +24,7 @@
         <p class="text--large">{{ 'list_collections.general.empty' | t }}</p>
 
         <div class="button-wrapper">
-          <a href="{{ routes.root_url }}" class="button button--primary">{{ 'list_collections.general.back_to_home' | t }}</a>
+          <a href="{{ routes.root_url }}" class="button button--primary" target="_blank" rel="noopener noreferrer">{{ 'list_collections.general.back_to_home' | t }}</a>
         </div>
       </div>
     {%- else -%}
@@ -52,7 +52,7 @@
                 {%- assign collection_image = item.settings.image | default: collection.featured_image -%}
               {%- endif -%}
 
-              <a id="block-{{ section.id }}-{{ item.id }}" href="{{ collection.url }}" class="list-collections__item image-zoom {% if section.settings.show_collection_title %}has-overlay{% endif %}">
+              <a id="block-{{ section.id }}-{{ item.id }}" href="{{ collection.url }}" class="list-collections__item image-zoom {% if section.settings.show_collection_title %}has-overlay{% endif %}" target="_blank" rel="noopener noreferrer">
                 {%- if collection_image != blank -%}
                   <div class="list-collections__item-image-wrapper">
                     {%- comment -%}

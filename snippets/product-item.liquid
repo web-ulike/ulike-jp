@@ -46,7 +46,7 @@
       </div>
     {%- endif -%}
 
-    <a href="{{ product.url }}" data-instant class="product-item__aspect-ratio aspect-ratio {% if settings.product_image_size != 'natural' %}aspect-ratio--{{ settings.product_image_size }}{% endif %}" style="padding-bottom: {{ 100.0 | divided_by: product.featured_media.preview_image.aspect_ratio }}%; --aspect-ratio: {{ product.featured_media.preview_image.aspect_ratio }}">
+    <a href="{{ product.url }}" data-instant class="product-item__aspect-ratio aspect-ratio {% if settings.product_image_size != 'natural' %}aspect-ratio--{{ settings.product_image_size }}{% endif %}" style="padding-bottom: {{ 100.0 | divided_by: product.featured_media.preview_image.aspect_ratio }}%; --aspect-ratio: {{ product.featured_media.preview_image.aspect_ratio }}" target="_blank" rel="noopener noreferrer">
       {%- if product.featured_media -%}
         {{ product.featured_media | image_url: width: product.featured_media.width | image_tag: loading: 'lazy', sizes: sizes_attribute, widths: '200,300,400,500,600,700,800,900,1000,1100,1200', class: 'product-item__primary-image', data-media-id: product.featured_media.id }}
       {%- endif -%}
@@ -117,13 +117,13 @@
         {%- assign collection_for_vendor = collections[vendor_handle] -%}
 
         {%- unless collection_for_vendor.empty? -%}
-          <a class="product-item-meta__vendor heading heading--xsmall" href="{{ collection_for_vendor.url }}" data-instant>{{ product.vendor }}</a>
+          <a class="product-item-meta__vendor heading heading--xsmall" href="{{ collection_for_vendor.url }}" data-instant target="_blank" rel="noopener noreferrer">{{ product.vendor }}</a>
         {%- else -%}
-          <a class="product-item-meta__vendor heading heading--xsmall" href="{{ product.vendor | url_for_vendor }}" data-instant>{{ product.vendor }}</a>
+          <a class="product-item-meta__vendor heading heading--xsmall" href="{{ product.vendor | url_for_vendor }}" data-instant target="_blank" rel="noopener noreferrer">{{ product.vendor }}</a>
         {%- endunless -%}
       {%- endif -%}
 
-      <a href="{{ product.url }}" data-instant class="product-item-meta__title">{{ product.title }}</a>
+      <a href="{{ product.url }}" data-instant class="product-item-meta__title" target="_blank" rel="noopener noreferrer">{{ product.title }}</a>
 
       <div class="product-item-meta__price-list-container">
         <div class="price-list price-list--centered">
@@ -229,7 +229,7 @@
       </div>
 
       {%- if settings.show_product_rating and reduced_content != true -%}
-        <a class="product-item-meta__reviews-badge text--small" href="{{ product.url }}" data-instant>
+        <a class="product-item-meta__reviews-badge text--small" href="{{ product.url }}" data-instant target="_blank" rel="noopener noreferrer">
           {%- render 'product-rating', product: product -%}
         </a>
       {%- endif -%}

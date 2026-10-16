@@ -44,11 +44,11 @@
   </div>
 
   <div class="page-404__actions">
-    <a class="page-404__button page-404__button--primary" href="{{ primary_url }}">
+    <a class="page-404__button page-404__button--primary" href="{{ primary_url }}" target="_blank" rel="noopener noreferrer">
       <span>{{ primary_label | escape }}</span>
       <img class="page-404__button-icon" src="{{ '404-arrow-light.svg' | asset_url }}" alt="" width="10" height="9">
     </a>
-    <a class="page-404__button" href="{{ secondary_url }}">
+    <a class="page-404__button" href="{{ secondary_url }}" target="_blank" rel="noopener noreferrer">
       <span>{{ secondary_label | escape }}</span>
       <img class="page-404__button-icon" src="{{ '404-arrow-pink.svg' | asset_url }}" alt="" width="10" height="9">
     </a>

@@ -1,3 +1,106 @@
+{%- if section.settings.air10_max_layout -%}
+
+<section id="a10-max-{{ section.id }}" class="a10-2026 to-top a10-2026__app">
+<div class="a10-2026__inner">
+<header class="a10-2026__app-intro">{% if section.settings.title != blank %}
+<h2 class="a10-2026__title">{{ section.settings.title | escape | newline_to_br }}</h2>
+{% endif %}{% if section.settings.subtitle != blank %}
+<div class="a10-2026__body">{{ section.settings.subtitle | escape | newline_to_br }}</div>
+{% endif %}</header>
+
+<div class="a10-2026__app-grid">
+<div class="a10-2026__app-card a10-2026__app-card--hero">{%- assign a10_image = section.settings.hero_image | default: section.settings.hero_image_mobile -%}{%- if a10_image != blank -%}
+<picture class="a10-2026__media ">{% if section.settings.hero_image_mobile != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.hero_image_mobile | image_url: width: 375 }} 375w, {{ section.settings.hero_image_mobile | image_url: width: 750 }} 750w, {{ section.settings.hero_image_mobile | image_url: width: 1100 }} 1100w" sizes="100vw">{% endif %}{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: a10_image.alt }}</picture>
+{%- endif -%}</div>
+{% for block in section.blocks %}
+<article class="a10-2026__app-card a10-2026__app-card--{{ block.settings.layout_role | default: 'side' }}" {{ block.shopify_attributes }}>
+<div class="a10-2026__app-copy">{% if block.settings.title != blank %}
+<h3 class="a10-2026__app-title">{{ block.settings.title | escape | newline_to_br }}</h3>
+{% endif %}{% if block.settings.text != blank %}
+<div class="a10-2026__body">{{ block.settings.text | escape | newline_to_br }}</div>
+{% endif %}</div>
+
+<div class="a10-2026__app-visual">{%- assign a10_image = block.settings.image | default: block.settings.image_mobile -%}{%- if a10_image != blank -%}
+<picture class="a10-2026__media ">{% if block.settings.image_mobile != blank %}<source media="(max-width: 749px)" srcset="{{ block.settings.image_mobile | image_url: width: 375 }} 375w, {{ block.settings.image_mobile | image_url: width: 750 }} 750w, {{ block.settings.image_mobile | image_url: width: 1100 }} 1100w" sizes="100vw">{% endif %}{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: a10_image.alt }}</picture>
+{%- endif -%}</div>
+</article>
+{% endfor %}</div>
+{% if section.settings.note != blank %}
+<div class="a10-2026__note">{{ section.settings.note | escape | newline_to_br }}</div>
+{% endif %}</div>
+</section>
+
+<style>
+#a10-max-{{ section.id }}{ color: #190a0a;  overflow: hidden; }
+#a10-max-{{ section.id }} *, #a10-max-{{ section.id }} *::before, #a10-max-{{ section.id }} *::after{ box-sizing: border-box; }
+#a10-max-{{ section.id }} h2, #a10-max-{{ section.id }} h3, #a10-max-{{ section.id }} p{ margin: 0; }
+#a10-max-{{ section.id }} .a10-2026__inner{ width: min(1220px, calc(100% - 80px)); margin: 0 auto; }
+#a10-max-{{ section.id }} .a10-2026__wide{ width: min(1600px, calc(100% - 80px)); margin: 0 auto; }
+#a10-max-{{ section.id }} .a10-2026__title{ font-size: 40px; line-height: 1.3; font-weight: 400; overflow-wrap: anywhere; }
+#a10-max-{{ section.id }} .a10-2026__subtitle{ font-size: 32px; line-height: 1.5; font-weight: 400; }
+#a10-max-{{ section.id }} .a10-2026__body{ color: #3f3636; font-size: 16px; line-height: 1.5; overflow-wrap: anywhere; }
+#a10-max-{{ section.id }} .a10-2026__body p + p{ margin-top: 0; }
+#a10-max-{{ section.id }} .a10-2026__note{ color: rgba(0,0,0,.5); font-size: 10px; line-height: 1.5; overflow-wrap: anywhere; }
+#a10-max-{{ section.id }} .a10-2026__note p{ margin: 0; }
+#a10-max-{{ section.id }} .a10-2026__media{ display: block; min-width: 0; }
+#a10-max-{{ section.id }} .a10-2026__media img{ display: block; width: 100%; height: auto; }
+#a10-max-{{ section.id }} .a10-2026__center{ text-align: center; }
+#a10-max-{{ section.id }} .a10-2026__mobile{ display: none; }
+#a10-max-{{ section.id }} .a10-2026__body :is(a, strong, em), #a10-max-{{ section.id }} .a10-2026__note a{ color: inherit; }
+#a10-max-{{ section.id }} sup{ font-size: .645em; line-height: 0; vertical-align: super; }
+#a10-max-{{ section.id }}.a10-2026__app{ padding: 90px 0 100px; background: #fff; }
+#a10-max-{{ section.id }} .a10-2026__app-intro{ text-align: center; max-width: 920px; margin: 0 auto 50px; }
+#a10-max-{{ section.id }} .a10-2026__app-intro .a10-2026__body{ font-size: 22px; margin-top: 40px; }
+#a10-max-{{ section.id }} .a10-2026__app-grid{ display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+#a10-max-{{ section.id }} .a10-2026__app-card{ position: relative; background: #f5f5f8; overflow: hidden; border-radius: 8px; }
+#a10-max-{{ section.id }} .a10-2026__app-card--hero{ grid-row: span 2; }
+#a10-max-{{ section.id }} .a10-2026__app-card--hero .a10-2026__media{ height: 100%; }
+#a10-max-{{ section.id }} .a10-2026__app-card--hero img{ height: 100%; object-fit: cover; }
+#a10-max-{{ section.id }} .a10-2026__app-card--side{ min-height: 400px; }
+#a10-max-{{ section.id }} .a10-2026__app-card--side .a10-2026__app-copy{ position: relative; z-index: 1; width: 57%; padding: 110px 0 100px 50px; }
+#a10-max-{{ section.id }} .a10-2026__app-card--side > .a10-2026__media{ position: absolute; right: 0; bottom: 0; width: 55%; }
+#a10-max-{{ section.id }} .a10-2026__app-copy h3{ font-size: 22px; line-height: 1.5; font-weight: 400; }
+#a10-max-{{ section.id }} .a10-2026__app-copy .a10-2026__body{ font-size: 14px; margin-top: 18px; }
+#a10-max-{{ section.id }} .a10-2026__app-card--bottom .a10-2026__app-copy{ padding: 45px 42px 25px; }
+#a10-max-{{ section.id }} .a10-2026__app-card--bottom > .a10-2026__media{ width: 100%; }
+#a10-max-{{ section.id }}.a10-2026__app .a10-2026__note{ margin-top: 60px; }
+@media (min-width:750px) and (max-width:1400px){#a10-max-{{ section.id }} .a10-2026__title{ font-size: 32px; }
+#a10-max-{{ section.id }} .a10-2026__subtitle{ font-size: 26px; }
+#a10-max-{{ section.id }} .a10-2026__app-card--side .a10-2026__app-copy{ padding: 55px 0 55px 25px; }
+}@media (max-width:749px){#a10-max-{{ section.id }} .a10-2026__inner, #a10-max-{{ section.id }} .a10-2026__wide{ width: calc(100% - 40px); }
+#a10-max-{{ section.id }} .a10-2026__desktop{ display: none !important; }
+#a10-max-{{ section.id }} .a10-2026__mobile{ display: block; }
+#a10-max-{{ section.id }} .a10-2026__title{ font-size: 24px; line-height: 1.3; }
+#a10-max-{{ section.id }} .a10-2026__subtitle{ font-size: 24px; line-height: 1.5; }
+#a10-max-{{ section.id }} .a10-2026__body{ font-size: 14px; line-height: 1.5; }
+#a10-max-{{ section.id }} .a10-2026__note{ font-size: 10px; line-height: 1.5; }
+#a10-max-{{ section.id }}.a10-2026__app{ padding: 50px 0 25px; }
+#a10-max-{{ section.id }}.a10-2026__app > .a10-2026__inner{ width: 100%; }
+#a10-max-{{ section.id }} .a10-2026__app-intro{ padding: 0 20px; margin-bottom: 40px; }
+#a10-max-{{ section.id }} .a10-2026__app-intro .a10-2026__title{ font-size: 20px; font-weight: 500; }
+#a10-max-{{ section.id }} .a10-2026__app-intro .a10-2026__body{ font-size: 12px; margin-top: 24px; }
+#a10-max-{{ section.id }} .a10-2026__app-grid{ display: flex; flex-direction: column; gap: 0; }
+#a10-max-{{ section.id }} .a10-2026__app-card{ border-radius: 0; }
+#a10-max-{{ section.id }} .a10-2026__app-card--hero{ order: 0; }
+#a10-max-{{ section.id }} .a10-2026__app-card--side{ min-height: 0; background: #fff; }
+#a10-max-{{ section.id }} .a10-2026__app-card--side .a10-2026__app-copy, #a10-max-{{ section.id }} .a10-2026__app-card--bottom .a10-2026__app-copy{ width: 100%; padding: 42px 20px; }
+#a10-max-{{ section.id }} .a10-2026__app-card--side > .a10-2026__media{ position: static; width: 100%; }
+#a10-max-{{ section.id }} .a10-2026__app-card--side:first-of-type{ order: 1; }
+#a10-max-{{ section.id }} .a10-2026__app-card--bottom{ background: #fff; }
+#a10-max-{{ section.id }} .a10-2026__app-card--family{ background: #f7f8fa; }
+#a10-max-{{ section.id }} .a10-2026__app-copy h3{ font-size: 20px; font-weight: 500; }
+#a10-max-{{ section.id }} .a10-2026__app-copy .a10-2026__body{ font-size: 12px; margin-top: 22px; }
+#a10-max-{{ section.id }}.a10-2026__app .a10-2026__note{ margin: 15px 20px 0; }
+}#a10-max-{{ section.id }} .a10-2026__app-card--side > .a10-2026__app-visual{ position:absolute; right:0; bottom:0; width:55%; }
+#a10-max-{{ section.id }} .a10-2026__app-card--bottom > .a10-2026__app-visual{ width:100%; }
+#a10-max-{{ section.id }} .a10-2026__app-card--family{ background:#f5f5f8; }
+#a10-max-{{ section.id }} .a10-2026__app-card--family .a10-2026__app-copy{ padding:45px 42px 25px; }
+@media(max-width:749px){#a10-max-{{ section.id }} .a10-2026__app-card--side > .a10-2026__app-visual{ position:static; width:100%; }
+#a10-max-{{ section.id }} .a10-2026__app-card--family .a10-2026__app-copy{ padding:42px 20px 15px; }
+#a10-max-{{ section.id }} .a10-2026__app-card--family{ background:#f7f8fa; }
+}
+</style>
+{%- else -%}
 {%- liquid
   assign section_id = 'jp-air10-smart-app-2026-' | append: section.id
 -%}
@@ -247,19 +350,61 @@
   })();
 </script>
 
+
+{%- endif -%}
 {% schema %}
 {
   "name": "jp-air10-smart-app-2026",
   "settings": [
-    { "type": "color", "id": "background_color", "label": "背景颜色", "default": "#FFFFFF" },
-    { "type": "color", "id": "text_color", "label": "字体颜色", "default": "#000000" },
-    { "type": "image_picker", "id": "app_icon", "label": "App 标识图片（上传）" },
-    { "type": "text", "id": "title", "label": "标题", "default": "美肌習慣を、もっと簡単に。" },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "背景颜色",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "字体颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "image_picker",
+      "id": "app_icon",
+      "label": "App 标识图片（上传）"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "标题",
+      "default": "美肌習慣を、もっと簡単に。"
+    },
     {
       "type": "text",
       "id": "subtitle",
       "label": "副标题",
       "default": "専属トレーナーのようにアプリが、毎日のケアをスマートにサポート。"
+    },
+    {
+      "type": "checkbox",
+      "id": "air10_max_layout",
+      "label": "使用 Air 10 Max 2026 设计",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "PC 首张人物图"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image_mobile",
+      "label": "M 首张人物图"
+    },
+    {
+      "type": "textarea",
+      "id": "note",
+      "label": "底部脚注"
     }
   ],
   "blocks": [
@@ -267,21 +412,76 @@
       "type": "feature",
       "name": "App 功能卡",
       "settings": [
-        { "type": "image_picker", "id": "image", "label": "图片" },
-        { "type": "image_picker", "id": "icon", "label": "图标" },
-        { "type": "text", "id": "title", "label": "标题", "default": "AIがあなただけの美肌プログラムを自動生成" },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "图片"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "图标"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "标题",
+          "default": "AIがあなただけの美肌プログラムを自動生成"
+        },
         {
           "type": "textarea",
           "id": "text",
           "label": "说明",
           "default": "初回のAI撮影により、部位ごとの肌状態や毛質にあわせて、あなたに最適なケアプランを提案。"
         },
-        { "type": "textarea", "id": "note", "label": "备注（显示在说明下方）" }
+        {
+          "type": "textarea",
+          "id": "note",
+          "label": "备注（显示在说明下方）"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "M 功能图"
+        },
+        {
+          "type": "select",
+          "id": "layout_role",
+          "label": "卡片布局",
+          "options": [
+            {
+              "value": "side",
+              "label": "右侧横向卡片"
+            },
+            {
+              "value": "bottom",
+              "label": "底部卡片"
+            },
+            {
+              "value": "family",
+              "label": "家庭卡片"
+            }
+          ],
+          "default": "side"
+        }
       ]
     }
   ],
   "presets": [
-    { "name": "jp-air10-smart-app-2026", "blocks": [{ "type": "feature" }, { "type": "feature" }, { "type": "feature" }] }
+    {
+      "name": "jp-air10-smart-app-2026",
+      "blocks": [
+        {
+          "type": "feature"
+        },
+        {
+          "type": "feature"
+        },
+        {
+          "type": "feature"
+        }
+      ]
+    }
   ]
 }
 {% endschema %}

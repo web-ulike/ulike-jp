@@ -106,7 +106,7 @@
             <qr-code class="gift-card__qr" identifier="{{ gift_card.qr_identifier }}"></qr-code>
 
             {%- if gift_card.pass_url -%}
-              <a href="{{ gift_card.pass_url }}" class="gift-card__wallet">
+              <a href="{{ gift_card.pass_url }}" class="gift-card__wallet" target="_blank" rel="noopener noreferrer">
                 <img class="apple-wallet-image" src="{{ 'gift-card/add-to-apple-wallet.svg' | shopify_asset_url }}" width="150" height="46" alt="{{ 'gift_card.issued.add_to_apple_wallet' | t }}">
               </a>
             {%- endif -%}
@@ -114,7 +114,7 @@
         {%- endunless -%}
 
         <div class="gift-card__button-wrapper button-wrapper hidden-print">
-          <a href="{{ shop.url }}" class="button button--primary">{{ 'gift_card.issued.go_to_store' | t }}</a>
+          <a href="{{ shop.url }}" class="button button--primary" target="_blank" rel="noopener noreferrer">{{ 'gift_card.issued.go_to_store' | t }}</a>
         </div>
       </div>
     </div>

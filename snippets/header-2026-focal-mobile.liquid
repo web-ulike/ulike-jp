@@ -24,7 +24,7 @@
       {%- endfor -%}
       {%- if shop.customer_accounts_enabled -%}
         <a class="header-2026__mobile-account" href="{% if customer %}https://account.ulike.com/account?site=jp{% else %}https://account.ulike.com/login?site=jp{% endif %}" data-no-instant>
-          {%- render 'icon' with 'header-customer' -%}
+          <img src="https://cdn.shopify.com/s/files/1/0553/7392/2352/files/head-user.svg?v=1791601825" width="24" height="24" alt="" aria-hidden="true">
           <span>{% if customer %}{{ 'header.general.account' | t }}{% else %}{{ 'header.general.login' | t }}{% endif %}</span>
         </a>
       {%- endif -%}

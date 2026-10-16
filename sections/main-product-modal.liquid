@@ -252,7 +252,7 @@
                         {%- render 'icon', icon: 'question' -%}
                         <a class="link text-sm leading-tight cursor-pointer"
                           {%- if block.settings.help_page != blank %} href="{{ block.settings.help_page.url }}"{% else %} role="link" aria-disabled="true"{% endif -%}
-                        >
+                         target="_blank" rel="noopener noreferrer">
                           {{- block.settings.help_label | escape -}}
                         </a>
                       </div>
@@ -264,7 +264,7 @@
                     {%- render 'icon', icon: 'question' -%}
                     <a class="link text-sm leading-tight cursor-pointer"
                       {%- if block.settings.help_page != blank %} href="{{ block.settings.help_page.url }}"{% else %} role="link" aria-disabled="true"{% endif -%}
-                    >
+                     target="_blank" rel="noopener noreferrer">
                       {{- block.settings.help_label | escape -}}
                     </a>
                   </div>
@@ -464,7 +464,7 @@
                 assign product_url = product.url
               endif
             -%}
-            <a class="product__more flex items-center justify-between z-1 sticky left-0 bottom-0" href="{{ product_url }}" {{ first_read_more.shopify_attributes }}>
+            <a class="product__more flex items-center justify-between z-1 sticky left-0 bottom-0" href="{{ product_url }}" {{ first_read_more.shopify_attributes }} target="_blank" rel="noopener noreferrer">
               <span class="text-sm-base font-medium leading-none">
                 {{- 'products.product.read_more' | t -}}
               </span>

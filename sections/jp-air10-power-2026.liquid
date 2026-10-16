@@ -1,3 +1,99 @@
+{%- if section.settings.air10_max_layout -%}
+
+<section id="a10-max-{{ section.id }}" class="a10-2026 to-top a10-2026__power">
+<div class="a10-2026__inner a10-2026__power-grid">
+<div class="a10-2026__power-copy">
+<div class="a10-2026__eyebrow">{%- assign a10_image = section.settings.label_icon | default: section.settings.label_icon -%}{%- if a10_image != blank -%}
+<picture class="a10-2026__media ">{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: a10_image.alt }}</picture>
+{%- endif -%}{{ section.settings.label | escape | newline_to_br }}</div>
+{% if section.settings.heading_html != blank %}
+<h2 class="a10-2026__title a10-2026__power-title">{{ section.settings.heading_html }}</h2>
+{% endif %}{% if section.settings.description != blank %}
+<div class="a10-2026__body">{{ section.settings.description | escape | newline_to_br }}</div>
+{% endif %}{% if section.settings.note != blank %}
+<div class="a10-2026__note">{{ section.settings.note | escape | newline_to_br }}</div>
+{% endif %}</div>
+
+<div class="a10-2026__power-art">
+<div class="a10-2026__power-arrow">{%- assign a10_image = section.settings.arrow_image | default: section.settings.arrow_image_mobile -%}{%- if a10_image != blank -%}
+<picture class="a10-2026__media ">{% if section.settings.arrow_image_mobile != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.arrow_image_mobile | image_url: width: 375 }} 375w, {{ section.settings.arrow_image_mobile | image_url: width: 750 }} 750w, {{ section.settings.arrow_image_mobile | image_url: width: 1100 }} 1100w" sizes="100vw">{% endif %}{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: '' }}</picture>
+{%- endif -%}</div>
+
+<div class="a10-2026__power-product">{%- assign a10_image = section.settings.product_image | default: section.settings.product_image_mobile -%}{%- if a10_image != blank -%}
+<picture class="a10-2026__media ">{% if section.settings.product_image_mobile != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.product_image_mobile | image_url: width: 375 }} 375w, {{ section.settings.product_image_mobile | image_url: width: 750 }} 750w, {{ section.settings.product_image_mobile | image_url: width: 1100 }} 1100w" sizes="100vw">{% endif %}{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: a10_image.alt }}</picture>
+{%- endif -%}</div>
+
+<div class="a10-2026__power-badge">{%- assign a10_image = section.settings.badge_icon | default: section.settings.badge_icon -%}{%- if a10_image != blank -%}
+<picture class="a10-2026__media ">{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: '' }}</picture>
+{%- endif -%}
+<div><strong>{{ section.settings.power_number | escape | newline_to_br }}</strong><span>{{ section.settings.power_label | escape | newline_to_br }}</span></div>
+</div>
+</div>
+</div>
+</section>
+
+<style>
+#a10-max-{{ section.id }}{ color: #190a0a;  overflow: hidden; }
+#a10-max-{{ section.id }} *, #a10-max-{{ section.id }} *::before, #a10-max-{{ section.id }} *::after{ box-sizing: border-box; }
+#a10-max-{{ section.id }} h2, #a10-max-{{ section.id }} h3, #a10-max-{{ section.id }} p{ margin: 0; }
+#a10-max-{{ section.id }} .a10-2026__inner{ width: min(1220px, calc(100% - 80px)); margin: 0 auto; }
+#a10-max-{{ section.id }} .a10-2026__wide{ width: min(1600px, calc(100% - 80px)); margin: 0 auto; }
+#a10-max-{{ section.id }} .a10-2026__title{ font-size: 40px; line-height: 1.3; font-weight: 400; overflow-wrap: anywhere; }
+#a10-max-{{ section.id }} .a10-2026__subtitle{ font-size: 32px; line-height: 1.5; font-weight: 400; }
+#a10-max-{{ section.id }} .a10-2026__body{ color: #3f3636; font-size: 16px; line-height: 1.5; overflow-wrap: anywhere; }
+#a10-max-{{ section.id }} .a10-2026__body p + p{ margin-top: 0; }
+#a10-max-{{ section.id }} .a10-2026__note{ color: rgba(0,0,0,.5); font-size: 10px; line-height: 1.5; overflow-wrap: anywhere; }
+#a10-max-{{ section.id }} .a10-2026__note p{ margin: 0; }
+#a10-max-{{ section.id }} .a10-2026__media{ display: block; min-width: 0; }
+#a10-max-{{ section.id }} .a10-2026__media img{ display: block; width: 100%; height: auto; }
+#a10-max-{{ section.id }} .a10-2026__center{ text-align: center; }
+#a10-max-{{ section.id }} .a10-2026__mobile{ display: none; }
+#a10-max-{{ section.id }} .a10-2026__body :is(a, strong, em), #a10-max-{{ section.id }} .a10-2026__note a{ color: inherit; }
+#a10-max-{{ section.id }}.a10-2026__power{ background: linear-gradient(212deg,#fbfbfb 9.77%,#e3e6f0 158.84%); }
+#a10-max-{{ section.id }} .a10-2026__power-grid{ min-height: 910px; display: grid; grid-template-columns: 40% 60%; position: relative; align-items: center; }
+#a10-max-{{ section.id }} .a10-2026__power-copy{ position: relative; z-index: 2; align-self: start; margin-top: 271px; }
+#a10-max-{{ section.id }} .a10-2026__eyebrow{ display: flex; align-items: center; gap: 15px; font-size: 22px; line-height: 1.2; margin-bottom: 14px; }
+#a10-max-{{ section.id }} .a10-2026__eyebrow .a10-2026__media{ width: 47px; }
+#a10-max-{{ section.id }} .a10-2026__power-title{ margin-bottom: 32px !important; white-space: nowrap; }
+#a10-max-{{ section.id }} sup{ font-size: .645em; line-height: 0; vertical-align: super; }
+#a10-max-{{ section.id }} .a10-2026__power-copy .a10-2026__note{ margin-top: 207px; }
+#a10-max-{{ section.id }} .a10-2026__power-art{ position: relative; min-width: 0; aspect-ratio: 793 / 850; align-self: center; margin-left: -3px; }
+#a10-max-{{ section.id }} .a10-2026__power-product{ position: absolute; width: 108%; left: 0; top: 27.3%; }
+#a10-max-{{ section.id }} .a10-2026__power-arrow{ position: absolute; width: 85%; left: 4%; top: -1%; }
+#a10-max-{{ section.id }} .a10-2026__power-badge{ position: absolute; top: 18%; left: 50%; transform: translateX(-50%); text-align: center; }
+#a10-max-{{ section.id }} .a10-2026__power-badge .a10-2026__media{ width: 74px; margin: 0 auto 16px; }
+#a10-max-{{ section.id }} .a10-2026__power-badge strong{ display: block;  font-size: 64px; line-height: 1.2; font-weight: 600; }
+#a10-max-{{ section.id }} .a10-2026__power-badge span{ font-size: 22px; line-height: 1.6; white-space: nowrap; }
+@media (min-width:750px) and (max-width:1400px){#a10-max-{{ section.id }} .a10-2026__title{ font-size: 32px; }
+#a10-max-{{ section.id }} .a10-2026__subtitle{ font-size: 26px; }
+#a10-max-{{ section.id }} .a10-2026__power-grid{ min-height: 720px; }
+#a10-max-{{ section.id }} .a10-2026__power-copy{ margin-top: 180px; }
+#a10-max-{{ section.id }} .a10-2026__power-copy .a10-2026__note{ margin-top: 110px; }
+}@media (max-width:749px){#a10-max-{{ section.id }} .a10-2026__inner, #a10-max-{{ section.id }} .a10-2026__wide{ width: calc(100% - 40px); }
+#a10-max-{{ section.id }} .a10-2026__desktop{ display: none !important; }
+#a10-max-{{ section.id }} .a10-2026__mobile{ display: block; }
+#a10-max-{{ section.id }} .a10-2026__title{ font-size: 24px; line-height: 1.3; }
+#a10-max-{{ section.id }} .a10-2026__subtitle{ font-size: 24px; line-height: 1.5; }
+#a10-max-{{ section.id }} .a10-2026__body{ font-size: 14px; line-height: 1.5; }
+#a10-max-{{ section.id }} .a10-2026__note{ font-size: 10px; line-height: 1.5; }
+#a10-max-{{ section.id }}.a10-2026__power{ background: #f5f5f8; padding: 35px 0 30px; }
+#a10-max-{{ section.id }} .a10-2026__power-grid{ min-height: 0; display: flex; flex-direction: column; }
+#a10-max-{{ section.id }} .a10-2026__power-copy{ margin: 0; display: contents; }
+#a10-max-{{ section.id }} .a10-2026__eyebrow{ font-size: 14px; gap: 7px; justify-content: center; margin-bottom: 8px; order: 0; }
+#a10-max-{{ section.id }} .a10-2026__eyebrow .a10-2026__media{ width: 26px; }
+#a10-max-{{ section.id }} .a10-2026__power-title{ order: 1; margin: 0 !important; font-size: 24px; }
+#a10-max-{{ section.id }} .a10-2026__power-copy .a10-2026__body{ order: 3; font-size: 12px; }
+#a10-max-{{ section.id }} .a10-2026__power-copy .a10-2026__note{ order: 4; margin-top: 22px; }
+#a10-max-{{ section.id }} .a10-2026__power-art{ order: 2; width: calc(100% + 40px); margin: 30px -20px 18px; aspect-ratio: 375 / 360; }
+#a10-max-{{ section.id }} .a10-2026__power-product{ width: 100%; top: 32%; }
+#a10-max-{{ section.id }} .a10-2026__power-arrow{ width: 78%; top: 0; left: 3%; }
+#a10-max-{{ section.id }} .a10-2026__power-badge{ top: 16%; left: 50%; }
+#a10-max-{{ section.id }} .a10-2026__power-badge .a10-2026__media{ width: 35px; margin-bottom: 10px; }
+#a10-max-{{ section.id }} .a10-2026__power-badge strong{ font-size: 34px; }
+#a10-max-{{ section.id }} .a10-2026__power-badge span{ font-size: 12px; }
+}
+</style>
+{%- else -%}
 {%- liquid
   assign section_id = 'jp-air10-power-2026-' | append: section.id
   assign default_description = '出力エネルギーが28J*1へとアップグレード。たった週3回*2の新習慣が、目に見える肌の変化をいち早く体験いただけます*。'
@@ -94,21 +190,120 @@
   }
 </style>
 
+
+{%- endif -%}
 {% schema %}
 {
   "name": "jp-air10-power-2026",
   "settings": [
-    { "type": "image_picker", "id": "background_image", "label": "PC 背景图片" },
-    { "type": "image_picker", "id": "background_image_mobile", "label": "M 背景图片" },
-    { "type": "image_picker", "id": "power_image", "label": "28J 功率视觉图" },
-    { "type": "textarea", "id": "description", "label": "说明文案", "default": "出力エネルギーが28J*1へとアップグレード。たった週3回*2の新習慣が、目に見える肌の変化をいち早く体験いただけます*。" },
-    { "type": "text", "id": "result_prefix", "label": "效果标题前缀", "default": "たった" },
-    { "type": "text", "id": "result_number", "label": "效果标题数字", "default": "3" },
-    { "type": "text", "id": "result_suffix", "label": "效果标题后缀", "default": "で効果を実感" },
-    { "type": "text", "id": "power_number", "label": "功率数值", "default": "28J" },
-    { "type": "text", "id": "power_label", "label": "功率标题", "default": "ハイパワー" },
-    { "type": "textarea", "id": "note", "label": "脚注文案", "default": "*1.国際認証機関SGSによる報告：GZCPCH24001216-01S1_CN。トリートメントスケジュールに従って週3回使用した場合、効果を実感し始めます。効果には個人差及び部位差があります。\n*2.国際認証機関CVCにより：WTS2024-15864、最大出力エネルギーはUSHRモード使用時に限られている、結果はテスト条件による異なる可能性もあります。" }
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "PC 背景图片"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image_mobile",
+      "label": "M 背景图片"
+    },
+    {
+      "type": "image_picker",
+      "id": "power_image",
+      "label": "28J 功率视觉图"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "说明文案",
+      "default": "出力エネルギーが28J*1へとアップグレード。たった週3回*2の新習慣が、目に見える肌の変化をいち早く体験いただけます*。"
+    },
+    {
+      "type": "text",
+      "id": "result_prefix",
+      "label": "效果标题前缀",
+      "default": "たった"
+    },
+    {
+      "type": "text",
+      "id": "result_number",
+      "label": "效果标题数字",
+      "default": "3"
+    },
+    {
+      "type": "text",
+      "id": "result_suffix",
+      "label": "效果标题后缀",
+      "default": "で効果を実感"
+    },
+    {
+      "type": "text",
+      "id": "power_number",
+      "label": "功率数值",
+      "default": "28J"
+    },
+    {
+      "type": "text",
+      "id": "power_label",
+      "label": "功率标题",
+      "default": "ハイパワー"
+    },
+    {
+      "type": "textarea",
+      "id": "note",
+      "label": "脚注文案",
+      "default": "*1.国際認証機関SGSによる報告：GZCPCH24001216-01S1_CN。トリートメントスケジュールに従って週3回使用した場合、効果を実感し始めます。効果には個人差及び部位差があります。\n*2.国際認証機関CVCにより：WTS2024-15864、最大出力エネルギーはUSHRモード使用時に限られている、結果はテスト条件による異なる可能性もあります。"
+    },
+    {
+      "type": "checkbox",
+      "id": "air10_max_layout",
+      "label": "使用 Air 10 Max 2026 设计",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "PC 灯头产品图"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image_mobile",
+      "label": "M 灯头产品图"
+    },
+    {
+      "type": "image_picker",
+      "id": "arrow_image",
+      "label": "PC 上升箭头"
+    },
+    {
+      "type": "image_picker",
+      "id": "arrow_image_mobile",
+      "label": "M 上升箭头"
+    },
+    {
+      "type": "image_picker",
+      "id": "label_icon",
+      "label": "双灯管标签图标"
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_icon",
+      "label": "28J 上方图标"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "标签文案"
+    },
+    {
+      "type": "html",
+      "id": "heading_html",
+      "label": "标题 HTML"
+    }
   ],
-  "presets": [{ "name": "jp-air10-power-2026" }]
+  "presets": [
+    {
+      "name": "jp-air10-power-2026"
+    }
+  ]
 }
 {% endschema %}

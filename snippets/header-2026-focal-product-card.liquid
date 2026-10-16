@@ -1,5 +1,12 @@
 {%- liquid
   assign card_product = product | default: all_products[product_handle]
+  assign judgeme_badge = card_product.metafields.judgeme.badge | append: ''
+  assign review_count = 0
+  assign rating_value = 0
+  if judgeme_badge contains "data-number-of-reviews='" and judgeme_badge contains "data-average-rating='"
+    assign review_count = judgeme_badge | split: "data-number-of-reviews='" | last | split: "'" | first | plus: 0
+    assign rating_value = judgeme_badge | split: "data-average-rating='" | last | split: "'" | first | plus: 0
+  endif
   assign card_title = title | default: card_product.title
   assign card_badge = badge
   assign card_url = fallback_url | default: routes.all_products_collection_url
@@ -23,7 +30,12 @@
       <span class="header-2026__product-title">{{ card_title | escape }}</span>
       {%- if card_badge != blank -%}<span class="header-2026__product-badge">{{ card_badge | escape }}</span>{%- endif -%}
     </span>
-    <span class="header-2026__rating" aria-label="4.9 / 5"><span aria-hidden="true">★★★★★</span><small>4.9/5</small></span>
+    {%- if review_count > 0 and rating_value > 0 -%}
+      <span class="header-2026__rating" aria-label="{{ rating_value | round: 1 }} / 5">
+        <span class="header-2026__rating-stars" aria-hidden="true" style="--header-2026-rating-fill: {{ rating_value | times: 20 }}%">★★★★★</span>
+        <small>{{ rating_value | round: 1 }}/5</small>
+      </span>
+    {%- endif -%}
     {%- if card_product != blank -%}<span class="header-2026__product-price">{{ card_product.price | money_without_trailing_zeros }} <small>（税込）</small></span>{%- endif -%}
     <span class="header-2026__product-more">詳しく見る <span aria-hidden="true">→</span></span>
   </span>

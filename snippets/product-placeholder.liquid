@@ -120,7 +120,7 @@
           <nav class="product__breadcrumb breadcrumb hidden lg:flex" role="navigation" aria-label="breadcrumbs" {{ block.shopify_attributes }}>
             <ul class="inline-flex gap-4 md:gap-6">
               <li class="flex items-center gap-4 md:gap-6">
-                <a class="block" href="{{ routes.root_url }}" title="{{ 'general.breadcrumbs.home_link_title' | t | escape }}">
+                <a class="block" href="{{ routes.root_url }}" title="{{ 'general.breadcrumbs.home_link_title' | t | escape }}" target="_blank" rel="noopener noreferrer">
                   {%- render 'icon', icon: 'home', size: 'sm' -%}
                 </a>
               </li>
@@ -270,7 +270,7 @@
                 <a class="link text-sm leading-tight cursor-pointer"
                   {%- if block.settings.help_page != blank %} href="{{ block.settings.help_page.url }}"{% else %} role="link" aria-disabled="true"{% endif -%}
                   {%- if block.settings.help_type == 'drawer' %} aria-controls="HelpDrawer"{% endif -%}
-                >
+                 target="_blank" rel="noopener noreferrer">
                   {{- block.settings.help_label | escape -}}
                 </a>
               </div>
@@ -283,7 +283,7 @@
             <a class="link text-sm leading-tight cursor-pointer"
               {%- if block.settings.help_page != blank %} href="{{ block.settings.help_page.url }}"{% else %} role="link" aria-disabled="true"{% endif -%}
               {%- if block.settings.help_type == 'drawer' %} aria-controls="HelpDrawer"{% endif -%}
-            >
+             target="_blank" rel="noopener noreferrer">
               {{- block.settings.help_label | escape -}}
             </a>
           </div>

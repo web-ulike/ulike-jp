@@ -161,7 +161,7 @@
 
             {%- if block.settings.button_text != blank -%}
               <div class="section__footer">
-                <a class="button button--primary" href="{{ block.settings.button_url | default: collection.url }}">{{ block.settings.button_text }}</a>
+                <a class="button button--primary" href="{{ block.settings.button_url | default: collection.url }}" target="_blank" rel="noopener noreferrer">{{ block.settings.button_text }}</a>
               </div>
             {%- endif -%}
           </product-list>

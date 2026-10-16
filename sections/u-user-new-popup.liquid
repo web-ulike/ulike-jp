@@ -1,5 +1,4 @@
 {%- liquid
-  assign se_id = section.id
   assign se_stts = section.settings
 -%}
 <style>
@@ -218,15 +217,6 @@
                 margin-top: 15px;
           }
 
-          #login-form .login-msg-error .notification-icon {
-            width: 20px;
-            margin-right: 4px;
-          }
-          #login-form .login-msg-error .notification-text {
-            font-size: 12px;
-            color: #190A0A;
-          }
-
           #u-user-popup .verification-group {
             display: none;
             margin-bottom: 20px;
@@ -254,33 +244,72 @@
             border: none;
             cursor: pointer;
             font-size: 16px;
-            border-radius:6px;
-            margin-top:20px;
+            border-radius: 6px;
+            margin-top: 20px;
             overflow: hidden;
             position: relative;
             text-align: center;
-
+            isolation: isolate;
+            transition: background-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
           }
-            #u-user-popup .btn-primary:before{
-                position: absolute;
-      content: '';
-      display: block;
-      width: 200%;
-      height: 200%;
-      z-index: 2;
-      background: linear-gradient(-45deg, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 60%);
-      animation: scanning 3s
-  linear infinite;
-            }
-            @keyframes scanning {
 
-            0% {
-      transform: translate(-100%, -100%);
-  }
-  100% {
-      transform: translate(100%, 100%);
-  }
+          #u-user-popup .btn-primary__label {
+            position: relative;
+            z-index: 1;
+          }
+
+          #u-user-popup .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: -45%;
+            width: 35%;
+            pointer-events: none;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+            transform: skewX(-25deg);
+            animation: u-popup-button-sheen 3.5s ease-in-out infinite;
+          }
+
+          #u-user-popup .btn-primary:hover:not(:disabled) {
+            background: #ce0044;
+            box-shadow: 0 5px 14px rgba(224, 0, 77, 0.22);
+            transform: translateY(-1px);
+          }
+
+          #u-user-popup .btn-primary:active:not(:disabled) {
+            box-shadow: none;
+            transform: translateY(0);
+          }
+
+          #u-user-popup .btn-primary:disabled {
+            cursor: wait;
+            opacity: 0.7;
+            transform: none;
+          }
+
+          #u-user-popup .btn-primary:disabled::before {
+            animation: none;
+            opacity: 0;
+          }
+
+          @keyframes u-popup-button-sheen {
+            0%, 12% { left: -45%; }
+            45%, 100% { left: 115%; }
+          }
+
+          @media (prefers-reduced-motion: reduce) {
+            #u-user-popup .btn-primary,
+            #u-user-popup .btn-primary::before {
+              animation: none;
+              transition: none;
             }
+
+            #u-user-popup .btn-primary:hover,
+            #u-user-popup .btn-primary:active {
+              transform: none;
+            }
+          }
 
           .social-login {
             display: flex;
@@ -791,11 +820,6 @@
               font-size: 12px;
               width: 80%;
             }
-            .notification_{{ se_id }}{
-              font-size: 10px;
-              width: 90%;
-              padding: 10px 10px;
-            }
             #u-user-popup .btn-primary {
               padding: 6px;
               height: 40px;
@@ -929,7 +953,6 @@
                 alt="VIP Benefits"
                 fetchpriority="high"
                 src="{{ se_stts.image | img_url: 'master' }}"
-                alt="{{ se_stts.alt_text | escape }}"
               >
             </picture>
           </div>
@@ -989,7 +1012,7 @@
                 <div class="input-msg-error"></div>
               </div>
 
-              <button type="button" class="btn-primary">{{ se_stts.btn_text }}</button>
+              <button type="button" class="btn-primary"><span class="btn-primary__label">{{ se_stts.btn_text }}</span></button>
               <div class="login-msg-error"></div>
               {% comment %}
                 <div class="social-login">
@@ -1080,73 +1103,52 @@
     </div>
   </div>
 
-  <div class="notification_{{ se_id }}" style="display:none;">
-    <div class="notification-icon">
-      <img
-        src="https://cdn.shopify.com/s/files/1/0740/5882/6015/files/color-success.svg?v=1741931573"
-        loading="lazy"
-        alt="Notification"
-      >
-    </div>
-    <div class="notification-text">Der Verifizierungscode wurde versandt - bitte prüfe Deinen Posteingang.</div>
-  </div>
-
   <script>
     window.addEventListener('load', function () {
       const errorMessages = {
-        emailRequiredWithPhone:
-          'Du kannst dich nicht nur mit deiner Telefonnummer anmelden. Bitte gib sowohl deine E-Mail-Adresse als auch deine Telefonnummer ein.',
         emailInvalid: 'メールアドレスを入力してください',
         emailFormat: '有効なメールアドレスを入力してください！',
-        codeInvalid: '認証コードを入力してください。',
         system_err: 'システム異常です。しばらくしてからもう一度お試しください。',
       };
       const thatLogin = $('#u-user-popup');
-
       const thatLoginCoupon = $('#u-user-coupon-popup');
+      const $email = thatLogin.find('.j_popup_email');
+      const $subscribeButton = thatLogin.find('.btn-primary');
+      let isSubmitting = false;
 
-      $(document).on('click', '#u-user-popup .close-btn', function (e) {
-        // 去掉错误提示
-        $('#u-user-popup').fadeOut(1000);
-      });
-
-      $(document).on('click', '#u-user-coupon-popup .close-code-btn', function (e) {
-        // 去掉错误提示
-        $('#u-user-coupon-popup').fadeOut(1000);
-      });
-
-      $(document).on('focus', '.j_popup_email, .verification-code', function () {
+      function trackPopupEvent(name, operating) {
         try {
-          const $input = $(this);
-          const $formGroup = $input.closest('.form-group');
-
-          if ($formGroup.length === 0) {
-            console.error('Form group not found');
-            return;
-          }
-          // 去掉错误提示
-          $formGroup.removeClass('form-group-error').find('.input-msg-error').text('');
-
-          if (!$input.val()) {
-            const $popupContent = $input.closest('.popup-content');
-            if ($popupContent.length === 0) {
-              return;
-            }
-            $popupContent.addClass('popup-active');
-          }
+          window.UlikeCommon.commonGtmEvent(name, operating, '');
         } catch (error) {
-          console.error('An error occurred:', error);
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({ event: name, operating: operating, label: '' });
+          console.warn('Popup tracking failed:', error);
+        }
+      }
+
+      thatLogin.on('click', '.close-btn', function () {
+        thatLogin.fadeOut(1000);
+      });
+
+      thatLoginCoupon.on('click', '.close-code-btn', function () {
+        thatLoginCoupon.fadeOut(1000);
+      });
+
+      thatLogin.on('focus', '.j_popup_email, .verification-code', function () {
+        const $input = $(this);
+        $input.closest('.form-group').removeClass('form-group-error').find('.input-msg-error').text('');
+        if (!$input.val()) {
+          $input.closest('.popup-content').addClass('popup-active');
         }
       });
 
-      // Blur event using jQuery
-      $(document).on('blur', '.j_popup_email,.verification-code', function () {
+      thatLogin.on('blur', '.j_popup_email, .verification-code', function () {
         if (!$(this).val()) {
           $(this).closest('.popup-content').removeClass('popup-active');
         }
       });
 
-      let errorTimeout; // 存储定时器
+      let errorTimeout;
 
       function showLoginError(message) {
         const $error = thatLogin.find('.login-msg-error');
@@ -1160,163 +1162,104 @@
         }, 6000);
       }
 
-      let stepBtn = 1;
-
-      $(document).on('click', '.btn-primary', function () {
-        let $this = $(this); // 缓存按钮对象
-        commonGtmEvent('vip_subscribe_all', 'click', '');
-        let data = {
-          userEmail: '',
+      thatLogin.on('click', '.btn-primary', function () {
+        if (isSubmitting) return;
+        trackPopupEvent('vip_subscribe_all', 'click');
+        const email = String($email.val() || '').replace(/\s+/g, '');
+        $email.val(email);
+        const data = {
+          userEmail: email,
           since: 'USER_SUBSCRIBE',
           tags: ['pop_up_subscribe'],
         };
 
-        data.userEmail = thatLogin.find('.j_popup_email').val().replace(/\s+/g, '').trim();
-        thatLogin.find('.j_popup_email').val(data.userEmail);
-
-        const isEmailValid = validateEmailField();
-
-        const isPolicyChecked = $('#policy-checkbox').is(':checked');
-
-        if (!isPolicyChecked) {
-          // 请勾选同意服务条款
+        if (!thatLogin.find('#policy-checkbox').is(':checked')) {
           showLoginError('プライバシーポリシーに同意してください');
           return;
         }
-        if (stepBtn === 1 && isEmailValid) {
-          commonGtmEvent('vip_subscribe', 'click', '');
-          // 显示code code框
-          sendUlikeApi('/user/userSubscribe', data)
-            .then(function (res) {
-              if (res.code == 0) {
-                thatLogin.fadeOut();
-                thatLoginCoupon.fadeIn();
-                localStorage.setItem('ulike-subscribed', 'true');
-              } else if (res.code == 99998) {
-                // 定义一个常量对象，用于存储订阅成功的消息
-                const messages = {
-                  user_subscribe_email_repeat:
-                    'このメールアドレスは既に登録されています。別のメールアドレスをご利用ください。',
-                };
-                // 检查响应消息是否存在于 messages 对象中
-                showLoginError(messages[res.message] || res.message || errorMessages.system_err);
-              } else {
-                showLoginError(res.message || errorMessages.system_err);
-              }
-            })
-            .catch(function (error) {
-              console.error('Subscription failed:', error);
-              showLoginError(errorMessages.system_err);
-            });
-        }
+        if (!validateEmailField(email)) return;
+
+        isSubmitting = true;
+        $subscribeButton.prop('disabled', true);
+        trackPopupEvent('vip_subscribe', 'click');
+        window.UlikeCommon.sendUlikeApi('/user/userSubscribe', data)
+          .then(function (res) {
+            if (res.code == 0) {
+              thatLogin.fadeOut();
+              thatLoginCoupon.fadeIn();
+              localStorage.setItem('ulike-subscribed', 'true');
+              trackPopupEvent('vip_subscribe_success', 'success');
+            } else if (res.code == 99998) {
+              const repeatEmailMessage = 'このメールアドレスは既に登録されています。別のメールアドレスをご利用ください。';
+              showLoginError(res.message === 'user_subscribe_email_repeat' ? repeatEmailMessage : res.message);
+            } else {
+              showLoginError(res.message);
+            }
+          })
+          .catch(function (error) {
+            console.error('Subscription failed:', error);
+            showLoginError(errorMessages.system_err);
+          })
+          .finally(function () {
+            isSubmitting = false;
+            $subscribeButton.prop('disabled', false);
+          });
       });
 
-      /**
-       * 验证邮箱字段的合法性
-       *
-       * 此函数用于验证用户输入的邮箱地址是否有效首先检查邮箱字段是否为空，
-       * 如果为空，则设置相应的错误消息如果邮箱格式不正确，则设置格式错误消息
-       * 如果存在任何错误，函数将打印错误消息并更新HTML以显示错误，然后返回false，
-       * 表示验证失败如果没有错误，函数返回true，表示验证成功
-       *
-       * @return {boolean} 如果邮箱字段验证成功，则返回true；否则返回false
-       */
-      function validateEmailField() {
-        // 初始化邮箱错误消息为空字符串
-        let emailError = '';
-        // 获取用户输入的邮箱地址，并去除前后空格
-        let userEmail = $('.j_popup_email').val().trim();
-
-        // 检查邮箱字段
-        if (userEmail == '') {
-          // 如果邮箱字段为空，则设置错误消息为“邮箱无效”
-          emailError = errorMessages.emailInvalid;
-        } else if (!validateEmail(userEmail)) {
-          // 如果邮箱格式不正确，则设置错误消息为“邮箱格式错误”
-          emailError = errorMessages.emailFormat;
-        }
-
-        // 如果存在邮箱错误
-        if (emailError) {
-          // 更新HTML以显示错误消息
-          $('#login-form .form-group').eq(0).find('.input-msg-error').text(emailError);
-          // 为错误字段的表单组添加错误类
-          $('#login-form .form-group').eq(0).addClass('form-group-error');
-          // 返回false表示验证失败
-          return false;
-        }
-        // 如果没有错误，返回true表示验证成功
-        return true;
+      function validateEmailField(email) {
+        const message = !email ? errorMessages.emailInvalid :
+          !window.UlikeCommon.validateEmail(email) ? errorMessages.emailFormat : '';
+        const $group = $email.closest('.form-group');
+        $group.toggleClass('form-group-error', Boolean(message))
+          .find('.input-msg-error').text(message);
+        return !message;
       }
 
-      function validateCodeField() {
-        // 初始化邮箱错误消息为空字符串
-        let codeError = '';
-        // 获取用户输入的邮箱地址，并去除前后空格
-        let userCode = $('.verification-code').val().trim();
-
-        // 检查邮箱字段
-        if (!userCode) {
-          // 如果邮箱字段为空，则设置错误消息为“邮箱无效”
-          codeError = errorMessages.codeInvalid;
-        }
-
-        // 如果存在邮箱错误
-        if (codeError) {
-          // 更新HTML以显示错误消息
-          $('#login-form .form-group').eq(1).find('.input-msg-error').text(codeError);
-          // 为错误字段的表单组添加错误类
-          $('#login-form .form-group').eq(1).addClass('form-group-error');
-          // 返回false表示验证失败
-          return false;
-        }
-        // 如果没有错误，返回true表示验证成功
-        return true;
-      }
-
-      // 监听政策协议区域的点击事件
-      $('.policy-agreement').on('click', function (e) {
-        // 确保点击事件不是由<a>标签或政策复选框本身冒泡上来的
-        if (!$(e.target).is('a') || !$(e.target).is('#policy-checkbox')) {
-          // 获取政策复选框
-          let checkbox = $('#policy-checkbox');
-          // 反转复选框的选中状态
-          checkbox.prop('checked', !checkbox.prop('checked'));
-        }
+      thatLogin.on('click', '.policy-agreement', function (event) {
+        // Links, labels, and the checkbox keep their native click behavior.
+        if ($(event.target).closest('a, label, input').length) return;
+        const $checkbox = thatLogin.find('#policy-checkbox');
+        $checkbox.prop('checked', !$checkbox.prop('checked'));
       });
 
       $(document).on('click', '.g-floating-box', function () {
-        commonGtmEvent('vip_Teaser', 'click', '');
+        trackPopupEvent('vip_Teaser', 'click');
         const isSubscribed = localStorage.getItem('ulike-subscribed') === 'true';
         if (isSubscribed) {
-          // 已订阅：不弹登录弹窗（你也可以改成直接弹优惠码弹窗）
-          $('#u-user-popup').hide();
-          $('#u-user-coupon-popup').show();
+          thatLogin.hide();
+          thatLoginCoupon.show();
           return;
         }
-        // 未订阅：正常弹窗（用 flex 更稳）
-        $('#u-user-popup').show();
+        thatLogin.show();
       });
 
-      let popupDelay = 1000 * 4; // 倒计时（10秒），可动态设置
-      let timerEnded = false; // 倒计时是否结束
-      let hasScrolled = false; // 用户是否滚动过页面
-      let popupShown = false; // 防止重复触发弹窗
-      let popupCookieName = 'ulike_popup_login';
+      const popupDelay = 4000;
+      let timerEnded = false;
+      let hasScrolled = false;
+      let popupShown = false;
 
       // 显示弹窗
       function showPopup() {
         if (popupShown) return;
         popupShown = true;
-        commonGtmEvent('vip_impressions', 'show', '');
-        $('#u-user-popup').show();
+        trackPopupEvent('vip_impressions', 'show');
+        thatLogin.show();
         window.removeEventListener('scroll', onUserScroll);
       }
 
-      // 公共检查方法（你要的提取方法）
       function checkAndShowPopup() {
-        const today = new Date().toISOString().split('T')[0]; // 当前日期（如 2025-04-22）
-        const popupData = JSON.parse(localStorage.getItem('ulike-popupData')) || {};
+        const now = new Date();
+        const today = [
+          now.getFullYear(),
+          String(now.getMonth() + 1).padStart(2, '0'),
+          String(now.getDate()).padStart(2, '0'),
+        ].join('-');
+        let popupData = {};
+        try {
+          popupData = JSON.parse(localStorage.getItem('ulike-popupData')) || {};
+        } catch (error) {
+          // Reset malformed popup data so it cannot block the modal.
+        }
         const sessionShown = sessionStorage.getItem('ulike-popupShown');
 
         // 如果是新的一天，重置计数
@@ -1342,28 +1285,24 @@
         checkAndShowPopup();
       }
 
-      let isSubscribed = localStorage.getItem('ulike-subscribed') === 'true'; // 判断是否已订阅
-      // 监听滚动   如果用户已经订阅，直接不弹窗
+      const isSubscribed = localStorage.getItem('ulike-subscribed') === 'true';
       if (isSubscribed) {
         thatLogin.hide();
-        // Keep the teaser available so subscribed visitors can reopen their coupon.
-        $('.g-floating-box').show();
       } else {
-        // 倒计时结束
         setTimeout(() => {
           timerEnded = true;
-          checkAndShowPopup(); // 提取调用
+          checkAndShowPopup();
         }, popupDelay);
-        $('.g-floating-box').show();
         window.addEventListener('scroll', onUserScroll);
       }
+      $('.g-floating-box').show();
 
-      $(document).one('focus', '#login-form .j_popup_email', function () {
-        commonGtmEvent('vip_enter email', 'focus', '');
+      thatLogin.one('focus', '#login-form .j_popup_email', function () {
+        trackPopupEvent('vip_enter email', 'focus');
       });
 
-      $(document).one('focus', '#login-form .verification-code', function () {
-        commonGtmEvent('vip_enter code', 'focus', '');
+      thatLogin.one('focus', '#login-form .verification-code', function () {
+        trackPopupEvent('vip_enter code', 'focus');
       });
     });
     document.addEventListener('DOMContentLoaded', function () {
@@ -1412,7 +1351,7 @@
           this.sSep = s('countdown-separator', ':');
           this.secs = d('seconds-box');
 
-          this.append(this.labelEl, this.days, this.daysSep, this.hours, this.mSep, this.mins, this.sSep, this.secs);
+          this.replaceChildren(this.labelEl, this.days, this.daysSep, this.hours, this.mSep, this.mins, this.sSep, this.secs);
           // This design does not show days
           this.days.style.display = 'none';
           this.daysSep.style.display = 'none';
@@ -1470,7 +1409,7 @@
             return Number(cache.endTs);
           }
 
-          // 今天随机：范围 = (现在 + 1分钟) ~ 今天 23:59:59
+          // Pick an end time at least eight hours away, within the current day.
           const MIN_LEFT_MS = 8 * 60 * 60 * 1000;
           let endTs = this._genRandomEndTsForDay(now, Date.now() + MIN_LEFT_MS);
 
@@ -1511,76 +1450,11 @@
           this.secs.textContent = this.f(s);
         }
       }
-      // ✅ 2) JS 里 define 的名字必须和上面标签一致：countdown-timer-today
-      window.customElements.define('countdown-timer-today', CountdownTimerToday);
+      if (!window.customElements.get('countdown-timer-today')) {
+        window.customElements.define('countdown-timer-today', CountdownTimerToday);
+      }
     });
 
-    /**
-     * GTM 增加GA事件
-     * @param {*} category
-     * @param {*} operating
-     * @param {*} label
-     */
-    function commonGtmEvent(category, operating, label) {
-      gtag('event', category, {
-        operating: operating,
-        label: label,
-      });
-    }
-    /**
-     * 验证邮箱格式是否正确
-     * @param {string} email - 待验证的邮箱地址
-     * @returns {boolean} - 返回true表示邮箱格式正确，返回false表示邮箱格式错误
-     */
-    function validateEmail(email) {
-      // 邮箱正则表达式
-      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      // 使用正则表达式测试邮箱格式是否正确
-      return emailRegex.test(email);
-    }
-
-    function sendUlikeApi(url, data) {
-      data.siteCode = 'JP'; // Ensure the site code is set to 'UK'
-      data.merchantCode = 'ULIKE'; // Ensure the merchant code is set to 'ULIKE'
-
-      var _url = 'https://api.ulike.com' + url;
-      data.language = window.Shopify.locale;
-
-      data.requestId = generateGUID();
-      // Set up the AJAX settings
-      var settings = {
-        url: _url,
-        method: 'POST', // POST is used as the request method
-        headers: {
-          'Content-Type': 'application/json', // Request payload is in JSON format
-        },
-        data: JSON.stringify(data), // Convert data object to JSON string
-        xhrFields: {
-          withCredentials: true, // Allow cookies and credentials to be sent
-        },
-      };
-
-      // Return a new Promise
-      return new Promise((resolve, reject) => {
-        $.ajax(settings)
-          .done(function (response) {
-            resolve(response); // Resolve the promise with the response
-          })
-          .fail(function (error) {
-            console.error('Error during API call:', error); // Log the error
-            reject(error); // Reject the promise with the error
-          });
-      });
-    }
-
-    function generateGUID() {
-      function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000)
-          .toString(16)
-          .substring(1);
-      }
-      return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-    }
   </script>
   <style>
     .hide-plug-diy {

@@ -60,12 +60,12 @@
     {% comment %} <nav aria-label="{{ 'general.breadcrumb.title' | t }}" class="breadcrumb text--xsmall text--subdued hidden-phone">
       <ol class="breadcrumb__list" role="list">
         <li class="breadcrumb__item">
-          <a class="breadcrumb__link" href="{{ routes.root_url }}">{{ 'general.breadcrumb.home' | t }}</a>
+          <a class="breadcrumb__link" href="{{ routes.root_url }}" target="_blank" rel="noopener noreferrer">{{ 'general.breadcrumb.home' | t }}</a>
         </li>
 
         {%- if collection -%}
           <li class="breadcrumb__item">
-            <a class="breadcrumb__link" href="{{ collection.url }}">{{- collection.title -}}</a>
+            <a class="breadcrumb__link" href="{{ collection.url }}" target="_blank" rel="noopener noreferrer">{{- collection.title -}}</a>
           </li>
         {%- endif -%}
 

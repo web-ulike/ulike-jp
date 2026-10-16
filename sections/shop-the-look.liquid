@@ -184,13 +184,13 @@
                       {%- assign collection_for_vendor = collections[vendor_handle] -%}
 
                       {%- unless collection_for_vendor.empty? -%}
-                        <a class="shop-the-look__product-vendor heading heading--xsmall" href="{{ collection_for_vendor.url }}">{{ product.vendor }}</a>
+                        <a class="shop-the-look__product-vendor heading heading--xsmall" href="{{ collection_for_vendor.url }}" target="_blank" rel="noopener noreferrer">{{ product.vendor }}</a>
                       {%- else -%}
-                        <a class="shop-the-look__product-vendor heading heading--xsmall" href="{{ product.vendor | url_for_vendor }}">{{ product.vendor }}</a>
+                        <a class="shop-the-look__product-vendor heading heading--xsmall" href="{{ product.vendor | url_for_vendor }}" target="_blank" rel="noopener noreferrer">{{ product.vendor }}</a>
                       {%- endunless -%}
                     {%- endif -%}
 
-                    <a href="{{ product.url }}" class="shop-the-look__product-title">{{ product.title }}</a>
+                    <a href="{{ product.url }}" class="shop-the-look__product-title" target="_blank" rel="noopener noreferrer">{{ product.title }}</a>
 
                     <div class="shop-the-look__product-bottom-wrapper">
                       {%- if product.price_varies -%}

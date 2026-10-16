@@ -1,3 +1,83 @@
+{%- if section.settings.air10_max_layout -%}
+
+<section id="a10-max-{{ section.id }}" class="a10-2026 to-top a10-2026__cooling a10-2026__system">
+<div class="a10-2026__inner">
+<article class="a10-2026__cooling-row">
+<div class="a10-2026__cooling-copy">{% if section.settings.title != blank %}
+<h2 class="a10-2026__subtitle">{{ section.settings.title | escape | newline_to_br }}</h2>
+{% endif %}
+<div class="a10-2026__body a10-2026__desktop">{{ section.settings.description | escape | newline_to_br }}</div>
+
+<div class="a10-2026__body a10-2026__mobile">{{ section.settings.description_mobile | default: section.settings.description | escape | newline_to_br }}</div>
+
+<div class="a10-2026__cooling-chart">{%- assign a10_image = section.settings.chart | default: section.settings.chart_mobile -%}{%- if a10_image != blank -%}
+<picture class="a10-2026__media ">{% if section.settings.chart_mobile != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.chart_mobile | image_url: width: 375 }} 375w, {{ section.settings.chart_mobile | image_url: width: 750 }} 750w, {{ section.settings.chart_mobile | image_url: width: 1100 }} 1100w" sizes="100vw">{% endif %}{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: a10_image.alt }}</picture>
+{%- endif -%}</div>
+</div>
+
+<div class="a10-2026__cooling-visual">{%- assign a10_image = section.settings.image | default: section.settings.image_mobile -%}{%- if a10_image != blank -%}
+<picture class="a10-2026__media ">{% if section.settings.image_mobile != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.image_mobile | image_url: width: 375 }} 375w, {{ section.settings.image_mobile | image_url: width: 750 }} 750w, {{ section.settings.image_mobile | image_url: width: 1100 }} 1100w" sizes="100vw">{% endif %}{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: a10_image.alt }}</picture>
+{%- endif -%}</div>
+</article>
+{% if section.settings.note != blank %}
+<div class="a10-2026__note">{{ section.settings.note | escape | newline_to_br }}</div>
+{% endif %}</div>
+</section>
+
+<style>
+#a10-max-{{ section.id }}{ color: #190a0a;  overflow: hidden; }
+#a10-max-{{ section.id }} *, #a10-max-{{ section.id }} *::before, #a10-max-{{ section.id }} *::after{ box-sizing: border-box; }
+#a10-max-{{ section.id }} h2, #a10-max-{{ section.id }} h3, #a10-max-{{ section.id }} p{ margin: 0; }
+#a10-max-{{ section.id }} .a10-2026__inner{ width: min(1220px, calc(100% - 80px)); margin: 0 auto; }
+#a10-max-{{ section.id }} .a10-2026__wide{ width: min(1600px, calc(100% - 80px)); margin: 0 auto; }
+#a10-max-{{ section.id }} .a10-2026__title{ font-size: 40px; line-height: 1.3; font-weight: 400; overflow-wrap: anywhere; }
+#a10-max-{{ section.id }} .a10-2026__subtitle{ font-size: 32px; line-height: 1.5; font-weight: 400; }
+#a10-max-{{ section.id }} .a10-2026__body{ color: #3f3636; font-size: 16px; line-height: 1.5; overflow-wrap: anywhere; }
+#a10-max-{{ section.id }} .a10-2026__body p + p{ margin-top: 0; }
+#a10-max-{{ section.id }} .a10-2026__note{ color: rgba(0,0,0,.5); font-size: 10px; line-height: 1.5; overflow-wrap: anywhere; }
+#a10-max-{{ section.id }} .a10-2026__note p{ margin: 0; }
+#a10-max-{{ section.id }} .a10-2026__media{ display: block; min-width: 0; }
+#a10-max-{{ section.id }} .a10-2026__media img{ display: block; width: 100%; height: auto; }
+#a10-max-{{ section.id }} .a10-2026__center{ text-align: center; }
+#a10-max-{{ section.id }} .a10-2026__mobile{ display: none; }
+#a10-max-{{ section.id }} .a10-2026__body :is(a, strong, em), #a10-max-{{ section.id }} .a10-2026__note a{ color: inherit; }
+#a10-max-{{ section.id }} sup{ font-size: .645em; line-height: 0; vertical-align: super; }
+#a10-max-{{ section.id }}.a10-2026__cooling{ padding: 120px 0 140px; background: #fff; }
+#a10-max-{{ section.id }}.a10-2026__cooling .a10-2026__title{ text-align: center; margin-bottom: 70px; }
+#a10-max-{{ section.id }} .a10-2026__cooling-row{ display: grid; grid-template-columns: 1fr 1fr; background: #fafafb; margin-bottom: 20px; }
+#a10-max-{{ section.id }} .a10-2026__cooling-copy{ padding: 100px 65px; align-self: center; }
+#a10-max-{{ section.id }} .a10-2026__cooling-copy .a10-2026__body{ font-size: 22px; margin-top: 18px; }
+#a10-max-{{ section.id }} .a10-2026__cooling-row:nth-child(odd) .a10-2026__cooling-visual{ order: -1; }
+#a10-max-{{ section.id }} .a10-2026__cooling-visual{ display: flex; align-items: center; }
+#a10-max-{{ section.id }} .a10-2026__cooling-chart{ margin-top: 25px; }
+#a10-max-{{ section.id }}.a10-2026__cooling .a10-2026__note{ margin-top: 60px; max-width: 650px; }
+@media (min-width:750px) and (max-width:1400px){#a10-max-{{ section.id }} .a10-2026__title{ font-size: 32px; }
+#a10-max-{{ section.id }} .a10-2026__subtitle{ font-size: 26px; }
+#a10-max-{{ section.id }} .a10-2026__cooling-copy{ padding: 55px 35px; }
+#a10-max-{{ section.id }} .a10-2026__cooling-copy .a10-2026__body{ font-size: 18px; }
+}@media (max-width:749px){#a10-max-{{ section.id }} .a10-2026__inner, #a10-max-{{ section.id }} .a10-2026__wide{ width: calc(100% - 40px); }
+#a10-max-{{ section.id }} .a10-2026__desktop{ display: none !important; }
+#a10-max-{{ section.id }} .a10-2026__mobile{ display: block; }
+#a10-max-{{ section.id }} .a10-2026__title{ font-size: 24px; line-height: 1.3; }
+#a10-max-{{ section.id }} .a10-2026__subtitle{ font-size: 24px; line-height: 1.5; }
+#a10-max-{{ section.id }} .a10-2026__body{ font-size: 14px; line-height: 1.5; }
+#a10-max-{{ section.id }} .a10-2026__note{ font-size: 10px; line-height: 1.5; }
+#a10-max-{{ section.id }}.a10-2026__cooling{ padding: 40px 0 20px; }
+#a10-max-{{ section.id }}.a10-2026__cooling > .a10-2026__inner{ width: 100%; }
+#a10-max-{{ section.id }}.a10-2026__cooling .a10-2026__title{ font-size: 20px; font-weight: 500; line-height: 1.6; margin: 0 20px 36px; }
+#a10-max-{{ section.id }} .a10-2026__cooling-row{ display: flex; flex-direction: column; background: #f7f8fa; margin: 0; }
+#a10-max-{{ section.id }} .a10-2026__cooling-copy{ padding: 46px 20px 38px; width: 100%; }
+#a10-max-{{ section.id }} .a10-2026__cooling-copy .a10-2026__body{ font-size: 14px; margin-top: 22px; }
+#a10-max-{{ section.id }} .a10-2026__cooling-row:nth-child(odd) .a10-2026__cooling-visual{ order: initial; }
+#a10-max-{{ section.id }} .a10-2026__cooling-chart{ margin-top: 35px; }
+#a10-max-{{ section.id }} .a10-2026__cooling-visual{ width: 100%; }
+#a10-max-{{ section.id }}.a10-2026__cooling .a10-2026__note{ margin: 30px 20px 0; }
+}#a10-max-{{ section.id }}.a10-2026__system{ padding-top:0; }
+#a10-max-{{ section.id }}.a10-2026__system .a10-2026__cooling-visual{ order:initial !important; }
+@media(max-width:749px){#a10-max-{{ section.id }}.a10-2026__system{ padding-top:0; }
+}
+</style>
+{%- else -%}
 {%- liquid
   assign section_id = 'jp-air10-cooling-system-2026-' | append: section.id
   assign default_description = 'Ulike独自の「ダブルパイプ」と「VC液冷システム」が安定した放熱性能を実現し、30分間連続使用しても照射時の肌の表面温度を16℃以下*にキープ。'
@@ -51,17 +131,72 @@
   }
 </style>
 
+
+{%- endif -%}
 {% schema %}
 {
   "name": "jp-air10-cooling-system",
   "settings": [
-    { "type": "color", "id": "background_color", "label": "背景颜色", "default": "#F4F4F2" },
-    { "type": "image_picker", "id": "image", "label": "PC 右侧散热系统大图" },
-    { "type": "image_picker", "id": "image_mobile", "label": "M 散热系统大图" },
-    { "type": "text", "id": "title", "label": "标题", "default": "冷感、長時間キープ" },
-    { "type": "textarea", "id": "description", "label": "说明文案", "default": "Ulike独自の「ダブルパイプ」と「VC液冷システム」が安定した放熱性能を実現し、30分間連続使用しても照射時の肌の表面温度を16℃以下*にキープ。" },
-    { "type": "textarea", "id": "note", "label": "脚注文案", "default": "*国際認証機関CVCによる試験結果：NO: GJW2024-1748、結果はテスト条件により異なる可能性もあります。" }
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "背景颜色",
+      "default": "#F4F4F2"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "PC 右侧散热系统大图"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "M 散热系统大图"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "标题",
+      "default": "冷感、長時間キープ"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "说明文案",
+      "default": "Ulike独自の「ダブルパイプ」と「VC液冷システム」が安定した放熱性能を実現し、30分間連続使用しても照射時の肌の表面温度を16℃以下*にキープ。"
+    },
+    {
+      "type": "textarea",
+      "id": "note",
+      "label": "脚注文案",
+      "default": "*国際認証機関CVCによる試験結果：NO: GJW2024-1748、結果はテスト条件により異なる可能性もあります。"
+    },
+    {
+      "type": "checkbox",
+      "id": "air10_max_layout",
+      "label": "使用 Air 10 Max 2026 设计",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "chart",
+      "label": "PC 温度对比图"
+    },
+    {
+      "type": "image_picker",
+      "id": "chart_mobile",
+      "label": "M 温度对比图"
+    },
+    {
+      "type": "textarea",
+      "id": "description_mobile",
+      "label": "M 说明（留空沿用 PC）"
+    }
   ],
-  "presets": [{ "name": "jp-air10-cooling-system" }]
+  "presets": [
+    {
+      "name": "jp-air10-cooling-system"
+    }
+  ]
 }
 {% endschema %}

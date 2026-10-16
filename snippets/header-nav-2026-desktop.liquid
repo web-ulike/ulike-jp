@@ -43,14 +43,14 @@
             <div class="dropdown__container relative">
               <ul class="dropdown__nav grid gap-1d5 xl:gap-2" role="list">
                 {%- for childlink in link.links -%}
-                  <li class="opacity-0"><a href="{{ childlink.url }}" class="reversed-link text-sm-base">{{ childlink.title | escape }}</a></li>
+                  <li class="opacity-0"><a href="{{ childlink.url }}" class="reversed-link text-sm-base" target="_blank" rel="noopener noreferrer">{{ childlink.title | escape }}</a></li>
                 {%- endfor -%}
               </ul>
             </div>
           </div>
         </details>
       {%- else -%}
-        <a class="header-2026__nav-link{% if link.current %} is-current{% endif %}" href="{{ link.url }}">{{ link.title | escape }}</a>
+        <a class="header-2026__nav-link{% if link.current %} is-current{% endif %}" href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.title | escape }}</a>
       {%- endif -%}
     </li>
   {%- endfor -%}

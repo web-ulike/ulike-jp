@@ -323,6 +323,15 @@
   display: flex !important;
   align-items: center;
   gap: 6px;
+  cursor: pointer;
+}
+
+#judgeme_product_reviews .jdgm-widget,
+#judgeme_product_reviews.jdgm-widget,
+.jdgm-widget.jdgm-review-widget,
+.jdgm-widget:not(.jdgm-preview-badge),
+#judgeme_product_reviews {
+  scroll-margin-top: 80px;
 }
 
 .jp-product-info__description {

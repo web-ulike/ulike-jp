@@ -61,7 +61,7 @@
 						{%- if is_size -%}
               <div class="flex items-center gap-2">
 								{%- render 'icon', icon: 'ruler', size: 'xs', class: 'stroke-1' -%}
-								<a class="link text-sm leading-tight cursor-pointer" href="{{ block.settings.size_chart.url }}">
+								<a class="link text-sm leading-tight cursor-pointer" href="{{ block.settings.size_chart.url }}" target="_blank" rel="noopener noreferrer">
                   {{- 'products.general.size_chart' | t -}}
                 </a>
 							</div>
@@ -182,7 +182,7 @@
 						{%- if is_size -%}
 							<div class="flex items-center gap-2">
 								{%- render 'icon', icon: 'ruler', size: 'xs', class: 'stroke-1' -%}
-								<a class="link text-sm leading-tight cursor-pointer" href="{{ block.settings.size_chart.url }}">
+								<a class="link text-sm leading-tight cursor-pointer" href="{{ block.settings.size_chart.url }}" target="_blank" rel="noopener noreferrer">
                   {{- 'products.general.size_chart' | t -}}
                 </a>
 							</div>

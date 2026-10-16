@@ -401,7 +401,7 @@ padding:8px 20px;
 
 
              {%- if section.settings.button_txt != blank  and  section.settings.link_url != blank -%}
-              <a  href="{{ section.settings.link_url }}" class="kv_button-box" style="transition-delay: 0.3s;">{{ section.settings.button_txt }}</a>
+              <a  href="{{ section.settings.link_url }}" class="kv_button-box" style="transition-delay: 0.3s;" target="_blank" rel="noopener noreferrer">{{ section.settings.button_txt }}</a>
             {%- endif -%}
 
              {%- if section.settings.button_txt != blank  and  section.settings.link_url == blank  -%}
@@ -533,7 +533,7 @@ padding:8px 20px;
 
 
  {%- if section.settings.link_url != blank and  section.settings.button_txt == blank -%}
-            <a href="{{ section.settings.link_url }}" class="kv_box custom_banner">
+            <a href="{{ section.settings.link_url }}" class="kv_box custom_banner" target="_blank" rel="noopener noreferrer">
               {{- slide_content -}}
             </a>
           {%- else -%}

@@ -9,7 +9,7 @@
 {%- endcomment -%}
 
 <div class="horizontal-product flex items-center gap-4 md:gap-6 w-full">
-  <a class="horizontal-product__media media media--square relative overflow-hidden flex-auto" href="{{ product.url }}" tabindex="-1">
+  <a class="horizontal-product__media media media--square relative overflow-hidden flex-auto" href="{{ product.url }}" tabindex="-1" target="_blank" rel="noopener noreferrer">
     {%- liquid
       if product.featured_media
         echo product.featured_media | image_url: width: product.featured_media.width | image_tag: loading: 'lazy', widths: '180,360,540', is: 'lazy-image'
@@ -24,7 +24,7 @@
         {%- if show_vendor -%}
           <p class="text-xs text-opacity">{{ product.vendor }}</p>
         {%- endif -%}
-        <a href="{{ product.url }}" class="horizontal-product__title reversed-link font-medium text-base leading-tight">{{ product.title | escape }}</a>
+        <a href="{{ product.url }}" class="horizontal-product__title reversed-link font-medium text-base leading-tight" target="_blank" rel="noopener noreferrer">{{ product.title | escape }}</a>
       </div>
     </div>
     
@@ -79,7 +79,7 @@
                 </div>
               </quick-view>
             {%- else -%}
-              <a href="{{ product.url }}" class="button button--primary button--small icon-with-text" is="hover-link">
+              <a href="{{ product.url }}" class="button button--primary button--small icon-with-text" is="hover-link" target="_blank" rel="noopener noreferrer">
                 <span class="btn-fill" data-fill></span>
                 <span class="btn-text">
                   {%- liquid

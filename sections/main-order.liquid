@@ -69,7 +69,7 @@
                   <div class="grid gap-2">
                     {%- if line_item.product.url != blank -%}
                       <p>
-                        <a class="link font-medium leading-none" href="{{ line_item.product.url }}">{{ line_item.title }}</a>
+                        <a class="link font-medium leading-none" href="{{ line_item.product.url }}" target="_blank" rel="noopener noreferrer">{{ line_item.title }}</a>
                       </p>
                     {%- else -%}
                       <p class="font-medium leading-none">{{ line_item.title }}</p>
@@ -127,7 +127,7 @@
     
                           {%- if line_item.fulfillment.tracking_url -%}
                             <p>
-                              <a class="link" href="{{ line_item.fulfillment.tracking_url }}">{{ 'customer.order.track_shipment' | t }}</a>
+                              <a class="link" href="{{ line_item.fulfillment.tracking_url }}" target="_blank" rel="noopener noreferrer">{{ 'customer.order.track_shipment' | t }}</a>
                             </p>
                           {%- endif -%}
                         </div>
