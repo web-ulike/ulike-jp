@@ -1,0 +1,19 @@
+{% comment %}PC/mobile uploads override the bundled Figma media for this slot.{% endcomment %}
+{% liquid
+  assign desktop_image = image | default: image_mobile
+  assign mobile_image = image_mobile | default: image
+  assign desktop_asset = 'a10-app-' | append: fallback | append: '-2026.png'
+  assign mobile_asset = 'a10-app-' | append: fallback_mobile | append: '-2026.png'
+%}
+<picture class="a10-2026__media">
+  {% if mobile_image != blank %}
+    <source media="(max-width: 749px)" srcset="{{ mobile_image | image_url: width: 375 }} 375w, {{ mobile_image | image_url: width: 750 }} 750w, {{ mobile_image | image_url: width: 1100 }} 1100w" sizes="100vw">
+  {% else %}
+    <source media="(max-width: 749px)" srcset="{{ mobile_asset | asset_url }}">
+  {% endif %}
+  {% if desktop_image != blank %}
+    {{ desktop_image | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1600', sizes: '(max-width: 749px) 100vw, (max-width: 1300px) 46vw, 602px', alt: desktop_image.alt }}
+  {% else %}
+    <img src="{{ desktop_asset | asset_url }}" alt="" width="{{ image_width }}" height="{{ image_height }}" loading="lazy">
+  {% endif %}
+</picture>
