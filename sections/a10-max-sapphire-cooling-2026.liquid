@@ -1,0 +1,153 @@
+{% comment %}
+  Air 10 Max 2026: sapphire-cooling. PC and mobile share this standalone section.
+  Copy and media are configured in the theme editor; typography inherits the theme.
+{% endcomment %}
+
+<section id="a10-max-sapphire-cooling-2026-{{ section.id }}" class="a10-2026 to-top a10-2026__cooling">
+<div class="a10-2026__inner">{% if section.settings.heading != blank %}
+<h2 class="a10-2026__title">{{ section.settings.heading | escape | newline_to_br }}</h2>
+{% endif %}
+<article class="a10-2026__cooling-row">
+<div class="a10-2026__cooling-copy">{% if section.settings.row_1_title != blank %}
+<h3 class="a10-2026__subtitle">{{ section.settings.row_1_title | escape | newline_to_br }}</h3>
+{% endif %}{% if section.settings.row_1_body != blank %}
+<div class="a10-2026__body">{{ section.settings.row_1_body | escape | newline_to_br }}</div>
+{% endif %}</div>
+
+<div class="a10-2026__cooling-visual">{%- assign a10_image = section.settings.row_1_image | default: section.settings.row_1_image_mobile -%}{%- if a10_image != blank -%}
+<picture class="a10-2026__media ">{% if section.settings.row_1_image_mobile != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.row_1_image_mobile | image_url: width: 375 }} 375w, {{ section.settings.row_1_image_mobile | image_url: width: 750 }} 750w, {{ section.settings.row_1_image_mobile | image_url: width: 1100 }} 1100w" sizes="100vw">{% endif %}{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: a10_image.alt }}</picture>
+{%- endif -%}</div>
+</article>
+
+<article class="a10-2026__cooling-row">
+<div class="a10-2026__cooling-copy">{% if section.settings.row_2_title != blank %}
+<h3 class="a10-2026__subtitle">{{ section.settings.row_2_title | escape | newline_to_br }}</h3>
+{% endif %}{% if section.settings.row_2_body != blank %}
+<div class="a10-2026__body">{{ section.settings.row_2_body | escape | newline_to_br }}</div>
+{% endif %}</div>
+
+<div class="a10-2026__cooling-visual">{%- assign a10_image = section.settings.row_2_image | default: section.settings.row_2_image_mobile -%}{%- if a10_image != blank -%}
+<picture class="a10-2026__media ">{% if section.settings.row_2_image_mobile != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.row_2_image_mobile | image_url: width: 375 }} 375w, {{ section.settings.row_2_image_mobile | image_url: width: 750 }} 750w, {{ section.settings.row_2_image_mobile | image_url: width: 1100 }} 1100w" sizes="100vw">{% endif %}{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: a10_image.alt }}</picture>
+{%- endif -%}</div>
+</article>
+</div>
+</section>
+
+<style>
+#a10-max-sapphire-cooling-2026-{{ section.id }} { color: #190a0a;  overflow: hidden; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} *, #a10-max-sapphire-cooling-2026-{{ section.id }} *::before, #a10-max-sapphire-cooling-2026-{{ section.id }} *::after { box-sizing: border-box; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} h2, #a10-max-sapphire-cooling-2026-{{ section.id }} h3, #a10-max-sapphire-cooling-2026-{{ section.id }} p { margin: 0; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__inner { width: min(1220px, calc(100% - 80px)); margin: 0 auto; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__wide { width: min(1600px, calc(100% - 80px)); margin: 0 auto; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__title { font-size: 40px; line-height: 1.3; font-weight: 400; overflow-wrap: anywhere; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__subtitle { font-size: 32px; line-height: 1.5; font-weight: 400; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__body { color: #3f3636; font-size: 16px; line-height: 1.5; overflow-wrap: anywhere; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__body p + p { margin-top: 0; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__note { color: rgba(0,0,0,.5); font-size: 10px; line-height: 1.5; overflow-wrap: anywhere; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__note p { margin: 0; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__media { display: block; min-width: 0; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__media img { display: block; width: 100%; height: auto; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__center { text-align: center; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__mobile { display: none; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__body :is(a, strong, em), #a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__note a { color: inherit; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} sup { font-size: .645em; line-height: 0; vertical-align: super; }
+#a10-max-sapphire-cooling-2026-{{ section.id }}.a10-2026__cooling { padding: 120px 0 140px; background: #fff; }
+#a10-max-sapphire-cooling-2026-{{ section.id }}.a10-2026__cooling .a10-2026__title { text-align: center; margin-bottom: 70px; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-row { display: grid; grid-template-columns: 1fr 1fr; background: #fafafb; margin-bottom: 20px; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-copy { padding: 100px 65px; align-self: center; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-copy .a10-2026__body { font-size: 22px; margin-top: 18px; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-row:nth-child(odd) .a10-2026__cooling-visual { order: -1; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-visual { display: flex; align-items: center; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-chart { margin-top: 25px; }
+#a10-max-sapphire-cooling-2026-{{ section.id }}.a10-2026__cooling .a10-2026__note { margin-top: 60px; max-width: 650px; }
+@media (min-width:750px) and (max-width:1400px) {
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__title { font-size: 32px; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__subtitle { font-size: 26px; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-copy { padding: 55px 35px; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-copy .a10-2026__body { font-size: 18px; }
+}
+@media (max-width:749px) {
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__inner, #a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__wide { width: calc(100% - 40px); }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__desktop { display: none !important; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__mobile { display: block; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__title { font-size: 24px; line-height: 1.3; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__subtitle { font-size: 24px; line-height: 1.5; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__body { font-size: 14px; line-height: 1.5; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__note { font-size: 10px; line-height: 1.5; }
+#a10-max-sapphire-cooling-2026-{{ section.id }}.a10-2026__cooling { padding: 40px 0 20px; }
+#a10-max-sapphire-cooling-2026-{{ section.id }}.a10-2026__cooling > .a10-2026__inner { width: 100%; }
+#a10-max-sapphire-cooling-2026-{{ section.id }}.a10-2026__cooling .a10-2026__title { font-size: 20px; font-weight: 500; line-height: 1.6; margin: 0 20px 36px; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-row { display: flex; flex-direction: column; background: #f7f8fa; margin: 0; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-copy { padding: 46px 20px 38px; width: 100%; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-copy .a10-2026__body { font-size: 14px; margin-top: 22px; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-row:nth-child(odd) .a10-2026__cooling-visual { order: initial; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-chart { margin-top: 35px; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-visual { width: 100%; }
+#a10-max-sapphire-cooling-2026-{{ section.id }}.a10-2026__cooling .a10-2026__note { margin: 30px 20px 0; }
+}
+
+</style>
+
+{% schema %}
+{
+  "name": "A10 Max 冷感技术",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "顶部标题",
+      "default": "ハイパワー × サファイア冷感技術\n刺激レスな体験を*1"
+    },
+    {
+      "type": "text",
+      "id": "row_1_title",
+      "label": "冷感标题",
+      "default": "わずか3分でマイナス5℃"
+    },
+    {
+      "type": "textarea",
+      "id": "row_1_body",
+      "label": "冷感说明",
+      "default": "特許取得済みのサファイア冷感技術*2を搭載。\n電源オンからわずか3分でマイナス5℃に冷却*3。"
+    },
+    {
+      "type": "text",
+      "id": "row_2_title",
+      "label": "能量标题",
+      "default": "28Jハイパワー"
+    },
+    {
+      "type": "textarea",
+      "id": "row_2_body",
+      "label": "能量说明",
+      "default": "28Jのハイパワーが肌に届く前に、肌表面をマイナス5℃まで冷却できるため、保冷剤など手間がかかる準備も不要。"
+    },
+    {
+      "type": "image_picker",
+      "id": "row_1_image",
+      "label": "PC 冷感产品图"
+    },
+    {
+      "type": "image_picker",
+      "id": "row_1_image_mobile",
+      "label": "M 冷感产品图"
+    },
+    {
+      "type": "image_picker",
+      "id": "row_2_image",
+      "label": "PC 毛囊图"
+    },
+    {
+      "type": "image_picker",
+      "id": "row_2_image_mobile",
+      "label": "M 毛囊图"
+    }
+  ],
+  "presets": [
+    {
+      "name": "A10 Max 冷感技术"
+    }
+  ]
+}
+{% endschema %}

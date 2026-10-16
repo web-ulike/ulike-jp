@@ -1,0 +1,312 @@
+{% comment %}
+  Air 10 Max 2026: upgrade. PC and mobile share this standalone section.
+  Copy and media are configured in the theme editor; typography inherits the theme.
+{% endcomment %}
+
+<section id="a10-max-upgrade-2026-{{ section.id }}" class="a10-2026 to-top a10-2026__upgrade">
+<div class="a10-2026__upgrade-grid">
+<div class="a10-2026__upgrade-arrow">{%- assign a10_image = section.settings.arrow_image | default: section.settings.arrow_image -%}{%- if a10_image != blank -%}
+<picture class="a10-2026__media ">{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: '' }}</picture>
+{%- endif -%}</div>
+
+<div class="a10-2026__upgrade-column a10-2026__upgrade-column--old">
+<div class="a10-2026__upgrade-product">{%- assign a10_image = section.settings.old_model_image | default: section.settings.old_model_image_mobile -%}{%- if a10_image != blank -%}
+<picture class="a10-2026__media ">{% if section.settings.old_model_image_mobile != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.old_model_image_mobile | image_url: width: 375 }} 375w, {{ section.settings.old_model_image_mobile | image_url: width: 750 }} 750w, {{ section.settings.old_model_image_mobile | image_url: width: 1100 }} 1100w" sizes="100vw">{% endif %}{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: a10_image.alt }}</picture>
+{%- endif -%}</div>
+
+<div class="a10-2026__upgrade-panel">
+<div class="a10-2026__upgrade-logo">{% if section.settings.old_model_logo != blank or section.settings.old_model_logo_mobile != blank %}{%- assign a10_image = section.settings.old_model_logo | default: section.settings.old_model_logo_mobile -%}{%- if a10_image != blank -%}
+<picture class="a10-2026__media ">{% if section.settings.old_model_logo_mobile != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.old_model_logo_mobile | image_url: width: 375 }} 375w, {{ section.settings.old_model_logo_mobile | image_url: width: 750 }} 750w, {{ section.settings.old_model_logo_mobile | image_url: width: 1100 }} 1100w" sizes="100vw">{% endif %}{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: a10_image.alt }}</picture>
+{%- endif -%}{% else %}
+<h2 class="a10-2026__upgrade-name">{{ section.settings.old_model_name | escape | newline_to_br }}</h2>
+{% endif %}</div>
+
+<dl class="a10-2026__upgrade-row">
+<dt>{{ section.settings.compare_row_1_label | escape | newline_to_br }}</dt>
+
+<dd>{{ section.settings.old_row_1_value | escape | newline_to_br }}</dd>
+</dl>
+
+<dl class="a10-2026__upgrade-row">
+<dt>{{ section.settings.compare_row_2_label | escape | newline_to_br }}</dt>
+
+<dd>{{ section.settings.old_row_2_value | escape | newline_to_br }}</dd>
+</dl>
+
+<dl class="a10-2026__upgrade-row">
+<dt>{{ section.settings.compare_row_3_label | escape | newline_to_br }}</dt>
+
+<dd>{{ section.settings.old_row_3_value | escape | newline_to_br }}</dd>
+</dl>
+
+<dl class="a10-2026__upgrade-row">
+<dt>{{ section.settings.compare_row_4_label | escape | newline_to_br }}</dt>
+
+<dd>{{ section.settings.old_row_4_value | escape | newline_to_br }}</dd>
+</dl>
+</div>
+</div>
+
+<div class="a10-2026__upgrade-column a10-2026__upgrade-column--new">
+<div class="a10-2026__upgrade-product">{%- assign a10_image = section.settings.new_model_image | default: section.settings.new_model_image_mobile -%}{%- if a10_image != blank -%}
+<picture class="a10-2026__media ">{% if section.settings.new_model_image_mobile != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.new_model_image_mobile | image_url: width: 375 }} 375w, {{ section.settings.new_model_image_mobile | image_url: width: 750 }} 750w, {{ section.settings.new_model_image_mobile | image_url: width: 1100 }} 1100w" sizes="100vw">{% endif %}{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: a10_image.alt }}</picture>
+{%- endif -%}</div>
+
+<div class="a10-2026__upgrade-panel">
+<div class="a10-2026__upgrade-texture">{%- assign a10_image = section.settings.new_background | default: section.settings.new_background_mobile -%}{%- if a10_image != blank -%}
+<picture class="a10-2026__media ">{% if section.settings.new_background_mobile != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.new_background_mobile | image_url: width: 375 }} 375w, {{ section.settings.new_background_mobile | image_url: width: 750 }} 750w, {{ section.settings.new_background_mobile | image_url: width: 1100 }} 1100w" sizes="100vw">{% endif %}{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: '' }}</picture>
+{%- endif -%}</div>
+
+<div class="a10-2026__upgrade-logo">{% if section.settings.new_model_logo != blank or section.settings.new_model_logo_mobile != blank %}{%- assign a10_image = section.settings.new_model_logo | default: section.settings.new_model_logo_mobile -%}{%- if a10_image != blank -%}
+<picture class="a10-2026__media ">{% if section.settings.new_model_logo_mobile != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.new_model_logo_mobile | image_url: width: 375 }} 375w, {{ section.settings.new_model_logo_mobile | image_url: width: 750 }} 750w, {{ section.settings.new_model_logo_mobile | image_url: width: 1100 }} 1100w" sizes="100vw">{% endif %}{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: a10_image.alt }}</picture>
+{%- endif -%}{% else %}
+<h2 class="a10-2026__upgrade-name">{{ section.settings.new_model_name | escape | newline_to_br }}</h2>
+{% endif %}</div>
+
+<dl class="a10-2026__upgrade-row">
+<dt>{{ section.settings.compare_row_1_label | escape | newline_to_br }}</dt>
+
+<dd>{{ section.settings.new_row_1_value | escape | newline_to_br }}</dd>
+</dl>
+
+<dl class="a10-2026__upgrade-row">
+<dt>{{ section.settings.compare_row_2_label | escape | newline_to_br }}</dt>
+
+<dd>{{ section.settings.new_row_2_value | escape | newline_to_br }}</dd>
+</dl>
+
+<dl class="a10-2026__upgrade-row">
+<dt>{{ section.settings.compare_row_3_label | escape | newline_to_br }}</dt>
+
+<dd>{{ section.settings.new_row_3_value | escape | newline_to_br }}</dd>
+</dl>
+
+<dl class="a10-2026__upgrade-row">
+<dt>{{ section.settings.compare_row_4_label | escape | newline_to_br }}</dt>
+
+<dd>{{ section.settings.new_row_4_value | escape | newline_to_br }}</dd>
+</dl>
+</div>
+</div>
+</div>
+</section>
+
+<style>
+#a10-max-upgrade-2026-{{ section.id }} { color: #190a0a;  overflow: hidden; }
+#a10-max-upgrade-2026-{{ section.id }} *, #a10-max-upgrade-2026-{{ section.id }} *::before, #a10-max-upgrade-2026-{{ section.id }} *::after { box-sizing: border-box; }
+#a10-max-upgrade-2026-{{ section.id }} h2, #a10-max-upgrade-2026-{{ section.id }} h3, #a10-max-upgrade-2026-{{ section.id }} p { margin: 0; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__inner { width: min(1220px, calc(100% - 80px)); margin: 0 auto; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__wide { width: min(1600px, calc(100% - 80px)); margin: 0 auto; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__title { font-size: 40px; line-height: 1.3; font-weight: 400; overflow-wrap: anywhere; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__subtitle { font-size: 32px; line-height: 1.5; font-weight: 400; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__body { color: #3f3636; font-size: 16px; line-height: 1.5; overflow-wrap: anywhere; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__body p + p { margin-top: 0; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__note { color: rgba(0,0,0,.5); font-size: 10px; line-height: 1.5; overflow-wrap: anywhere; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__note p { margin: 0; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__media { display: block; min-width: 0; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__media img { display: block; width: 100%; height: auto; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__center { text-align: center; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__mobile { display: none; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__body :is(a, strong, em), #a10-max-upgrade-2026-{{ section.id }} .a10-2026__note a { color: inherit; }
+#a10-max-upgrade-2026-{{ section.id }} sup { font-size: .645em; line-height: 0; vertical-align: super; }
+#a10-max-upgrade-2026-{{ section.id }}.a10-2026__upgrade { background: linear-gradient(180deg,#c4d5e5,#f8fbff); padding: 160px 0 220px; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-grid { position: relative; display: grid; grid-template-columns: 1fr 1.13fr; width: min(1012px,calc(100% - 80px)); margin: 0 auto; align-items: center; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-arrow { position: absolute; width: 75%; top: 6%; left: 2%; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-product { height: 420px; position: relative; z-index: 1; display: flex; justify-content: center; align-items: end; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-product .a10-2026__media { max-width: 70%; max-height: 100%; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-product img { max-height: 420px; object-fit: contain; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-panel { border-radius: 8px; background: #fff; padding: 50px 65px 0; text-align: center; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-column--new .a10-2026__upgrade-product { height: 350px; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-column--new .a10-2026__upgrade-panel { background: #2594ce; background-size: cover; color: #fff; padding: 90px 65px 30px; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-logo { margin: 0 auto 65px; max-width: 290px; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-name { font-size: 30px; margin-bottom: 65px !important; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-row { border-top: 1px solid rgba(100,100,100,.24); padding: 58px 0; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-column--new .a10-2026__upgrade-row { border-color: rgba(255,255,255,.5); }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-row dt { font-size: 17px; line-height: 1.5; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-row dd { margin: 12px 0 0; font-size: 28px; line-height: 1.3; font-weight: 500; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-column--new dd { font-size: 40px; }
+@media (min-width:750px) and (max-width:1400px) {
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__title { font-size: 32px; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__subtitle { font-size: 26px; }
+}
+@media (max-width:749px) {
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__inner, #a10-max-upgrade-2026-{{ section.id }} .a10-2026__wide { width: calc(100% - 40px); }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__desktop { display: none !important; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__mobile { display: block; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__title { font-size: 24px; line-height: 1.3; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__subtitle { font-size: 24px; line-height: 1.5; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__body { font-size: 14px; line-height: 1.5; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__note { font-size: 10px; line-height: 1.5; }
+#a10-max-upgrade-2026-{{ section.id }}.a10-2026__upgrade { padding: 50px 0 40px; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-grid { width: calc(100% - 78px); grid-template-columns: 1fr 1.13fr; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-product { height: 125px; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-product img { max-height: 125px; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-column--new .a10-2026__upgrade-product { height: 104px; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-panel { padding: 18px 19px 0; border-radius: 3px; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-column--new .a10-2026__upgrade-panel { padding: 28px 19px 0; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-logo { margin-bottom: 18px; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-name { font-size: 13px; margin-bottom: 18px !important; white-space: nowrap; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-row { padding: 18px 0; margin: 0; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-row dt { font-size: 10px; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-row dd, #a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-column--new dd { font-size: 20px; margin-top: 9px; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-column--new .a10-2026__upgrade-row:nth-of-type(3) dd { font-size: 12px; line-height: 1.5; }
+}
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-panel { position:relative; overflow:hidden; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-texture { position:absolute; inset:0; z-index:0; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-texture picture, #a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-texture img { width:100%; height:100%; object-fit:cover; }
+#a10-max-upgrade-2026-{{ section.id }} .a10-2026__upgrade-panel > :not(.a10-2026__upgrade-texture) { position:relative; z-index:1; }
+
+</style>
+
+{% schema %}
+{
+  "name": "A10 Max 新旧款对比",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "old_model_name",
+      "label": "Old model logo fallback text",
+      "default": "Ulike Air 10"
+    },
+    {
+      "type": "image_picker",
+      "id": "old_model_logo",
+      "label": "Old model logo image (PC)"
+    },
+    {
+      "type": "image_picker",
+      "id": "old_model_logo_mobile",
+      "label": "Old model logo image (Mobile)"
+    },
+    {
+      "type": "image_picker",
+      "id": "old_model_image",
+      "label": "Old model product image"
+    },
+    {
+      "type": "image_picker",
+      "id": "old_model_image_mobile",
+      "label": "Old model product image (Mobile)"
+    },
+    {
+      "type": "text",
+      "id": "new_model_name",
+      "label": "New model logo fallback text",
+      "default": "Ulike Air 10 Max"
+    },
+    {
+      "type": "image_picker",
+      "id": "new_model_logo",
+      "label": "New model logo image (PC)"
+    },
+    {
+      "type": "image_picker",
+      "id": "new_model_logo_mobile",
+      "label": "New model logo image (Mobile)"
+    },
+    {
+      "type": "image_picker",
+      "id": "new_model_image",
+      "label": "New model product image"
+    },
+    {
+      "type": "image_picker",
+      "id": "new_model_image_mobile",
+      "label": "New model product image (Mobile)"
+    },
+    {
+      "type": "textarea",
+      "id": "compare_row_1_label",
+      "label": "Row 1 label",
+      "default": "最大パワー\n(USHRモード時)"
+    },
+    {
+      "type": "text",
+      "id": "compare_row_2_label",
+      "label": "Row 2 label",
+      "default": "エネルギー密度"
+    },
+    {
+      "type": "text",
+      "id": "compare_row_3_label",
+      "label": "Row 3 label",
+      "default": "肌色識別機能"
+    },
+    {
+      "type": "text",
+      "id": "compare_row_4_label",
+      "label": "Row 4 label",
+      "default": "アプリ機能"
+    },
+    {
+      "type": "text",
+      "id": "old_row_1_value",
+      "label": "Old row 1 value",
+      "default": "26J"
+    },
+    {
+      "type": "text",
+      "id": "old_row_2_value",
+      "label": "Old row 2 value",
+      "default": "6.6 J/cm²"
+    },
+    {
+      "type": "text",
+      "id": "old_row_3_value",
+      "label": "Old row 3 value",
+      "default": "なし"
+    },
+    {
+      "type": "text",
+      "id": "old_row_4_value",
+      "label": "Old row 4 value",
+      "default": "なし"
+    },
+    {
+      "type": "text",
+      "id": "new_row_1_value",
+      "label": "New row 1 value",
+      "default": "28J"
+    },
+    {
+      "type": "text",
+      "id": "new_row_2_value",
+      "label": "New row 2 value",
+      "default": "7.1 J/cm²"
+    },
+    {
+      "type": "textarea",
+      "id": "new_row_3_value",
+      "label": "New row 3 value",
+      "default": "●ホワイト\n●ベージュ\n●ライトブラウン\n●ミドルブラウン\n●ダークブラウン"
+    },
+    {
+      "type": "image_picker",
+      "id": "arrow_image",
+      "label": "升级箭头素材"
+    },
+    {
+      "type": "text",
+      "id": "new_row_4_value",
+      "label": "新款 App 功能",
+      "default": "あり"
+    },
+    {
+      "type": "image_picker",
+      "id": "new_background",
+      "label": "PC 新款卡片纹理"
+    },
+    {
+      "type": "image_picker",
+      "id": "new_background_mobile",
+      "label": "M 新款卡片纹理"
+    }
+  ],
+  "presets": [
+    {
+      "name": "A10 Max 新旧款对比"
+    }
+  ]
+}
+{% endschema %}
