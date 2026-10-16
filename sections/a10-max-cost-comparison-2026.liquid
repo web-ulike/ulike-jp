@@ -6,7 +6,7 @@
 <section id="a10-max-cost-comparison-2026-{{ section.id }}" class="a10-2026 a10-2026__cost">
 <div class="container a10-2026__container">
 <div class="a10-2026__inner">{% if section.settings.title != blank %}
-<h2 class="a10-2026__title a10-2026__center to-top" style="transition-delay: 0.1s;">{{ section.settings.title | escape | newline_to_br }}</h2>
+<h2 class="a10-2026__title a10-2026__center to-top" style="transition-delay: 0.1s;">{{ section.settings.title | escape | newline_to_br | replace: 'より', 'より<br class="a10-2026__cost-title-break">' }}</h2>
 {% endif %}{% if section.settings.subtitle != blank %}<p class="a10-2026__subtitle to-top" style="transition-delay: 0.2s;">{{ section.settings.subtitle | escape | newline_to_br }}</p>{% endif %}
 <table class="a10-2026__cost-table to-top" style="transition-delay: 0.3s;">
 <caption class="visually-hidden">{{ section.settings.subtitle | escape | newline_to_br }}</caption>
@@ -150,7 +150,7 @@
   background: #ffeff5;
 }
 #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-table tr:first-child th {
-  background: linear-gradient(to right, #fff var(--cost-inset), #ffeff5 var(--cost-inset));
+  background: #fff;
   color: #000;
   font-size: calc(28 * var(--cost-unit));
 }
@@ -216,7 +216,20 @@
   line-height: 1.5;
   overflow-wrap: anywhere;
 }
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-title-break { display: none; }
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-table tr:first-child .a10-2026__cost-label::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 0 var(--cost-inset);
+  background: #ffeff5;
+  border-top-left-radius: calc(12.147 * var(--cost-unit));
+}
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-label > span { position: relative; }
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-table tr:first-child td:last-child { border-radius: 0 calc(12.147 * var(--cost-unit)) calc(12.147 * var(--cost-unit)) 0; }
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-table tr:nth-child(2) td:last-child { border-top-right-radius: calc(8 * var(--cost-unit)); }
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-table tr:last-child td:last-child { border-bottom-right-radius: calc(8 * var(--cost-unit)); }
 @media (max-width: 749px) {
+  #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-title-break { display: initial; }
   #a10-max-cost-comparison-2026-{{ section.id }} {
     --cost-image: 40.154px;
     --cost-inset: 20.077px;
