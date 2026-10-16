@@ -7,7 +7,7 @@
 <div class="container a10-2026__container">
 <div class="a10-2026__inner a10-2026__bodycare-grid">
 <div class="a10-2026__bodycare-copy">{% if section.settings.title != blank %}
-<h2 class="a10-2026__title to-top" style="transition-delay: 0.1s;">{{ section.settings.title | escape | newline_to_br }}</h2>
+<h2 class="a10-2026__title to-top" style="transition-delay: 0.1s;">{{ section.settings.title | escape | replace: 'まで、1台', 'まで、<br class="a10-2026__bodycare-break">1台' | newline_to_br }}</h2>
 {% endif %}{% if section.settings.description != blank %}
 <div class="a10-2026__body to-top" style="transition-delay: 0.2s;">{{ section.settings.description | escape | newline_to_br }}</div>
 {% endif %}{% if section.settings.note != blank %}
@@ -71,6 +71,21 @@
 #a10-max-full-body-care-2026-{{ section.id }} .a10-2026__bodycare-photo { width: 100%; }
 @media (max-width:749px) {
 #a10-max-full-body-care-2026-{{ section.id }} .a10-2026__bodycare-art { width: auto; margin: 0 20px; }
+}
+
+/* Desktop copy coordinates follow Figma node 8104:1967 (1920px frame). */
+@media (min-width:750px) {
+#a10-max-full-body-care-2026-{{ section.id }} { --a10-bodycare-unit: min(1px, calc((100vw - 80px) / 1225.92)); }
+#a10-max-full-body-care-2026-{{ section.id }} > .a10-2026__container { width: 100%; max-width: 1305.92px; padding-inline: 40px; margin-inline: auto; }
+#a10-max-full-body-care-2026-{{ section.id }} .a10-2026__bodycare-grid { grid-template-columns: calc(479.69 * var(--a10-bodycare-unit)) minmax(0,1fr); align-items: start; min-height: calc(697.116 * var(--a10-bodycare-unit)); }
+#a10-max-full-body-care-2026-{{ section.id }} .a10-2026__bodycare-copy { display: flex; flex-direction: column; width: calc(412.5 * var(--a10-bodycare-unit)); min-height: calc(686.225 * var(--a10-bodycare-unit)); padding: calc(187.516 * var(--a10-bodycare-unit)) 0 0; }
+#a10-max-full-body-care-2026-{{ section.id }} .a10-2026__bodycare-copy .a10-2026__title { font-size: calc(40 * var(--a10-bodycare-unit)); line-height: 1.3; font-weight: 400; color: #000; }
+#a10-max-full-body-care-2026-{{ section.id }} .a10-2026__bodycare-copy .a10-2026__body { width: calc(403.664 * var(--a10-bodycare-unit)); margin: calc(29.216 * var(--a10-bodycare-unit)) 0 0 calc(1.418 * var(--a10-bodycare-unit)); font-size: max(12px, calc(16 * var(--a10-bodycare-unit))); line-height: 1.5; color: rgba(0,0,0,.8); }
+#a10-max-full-body-care-2026-{{ section.id }} .a10-2026__bodycare-copy .a10-2026__note { width: calc(325 * var(--a10-bodycare-unit)); margin: auto 0 0 calc(4.418 * var(--a10-bodycare-unit)); font-size: max(8px, calc(10 * var(--a10-bodycare-unit))); line-height: 1.3; }
+#a10-max-full-body-care-2026-{{ section.id }} .a10-2026__bodycare-visual { width: 100%; max-width: calc(739.5 * var(--a10-bodycare-unit)); }
+}
+@media (max-width:749px) {
+#a10-max-full-body-care-2026-{{ section.id }} .a10-2026__bodycare-break { display: none; }
 }
 
 /* Keep short copy inside clipped cards while it enters the viewport. */
