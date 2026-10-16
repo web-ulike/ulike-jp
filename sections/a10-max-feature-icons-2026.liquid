@@ -4,7 +4,6 @@
 {% endcomment %}
 
 <section id="a10-max-feature-icons-2026-{{ section.id }}" class="a10-2026 a10-2026__icons">
-<div class="container a10-2026__container">
 <div class="a10-2026__icon-grid">{% for block in section.blocks %}
 <article class="a10-2026__feature to-top" style="transition-delay: {{ forloop.index | times: 0.1 | round: 1 }}s;" {{ block.shopify_attributes }}>
 <div class="a10-2026__feature-icon">{%- assign a10_image = block.settings.icon | default: block.settings.icon -%}{%- if a10_image != blank -%}
@@ -14,7 +13,6 @@
 <h3 class="a10-2026__feature-title">{{ block.settings.title | escape | newline_to_br }}</h3>
 {% endif %}{% if block.settings.text != blank %}<p class="a10-2026__feature-text">{{ block.settings.text | escape | newline_to_br }}</p>{% endif %}</article>
 {% endfor %}</div>
-</div>
 </section>
 
 <style>
@@ -33,7 +31,7 @@
 #a10-max-feature-icons-2026-{{ section.id }} .a10-2026__mobile { display: none; }
 #a10-max-feature-icons-2026-{{ section.id }} .a10-2026__body :is(a, strong, em), #a10-max-feature-icons-2026-{{ section.id }} .a10-2026__note a { color: inherit; }
 #a10-max-feature-icons-2026-{{ section.id }}.a10-2026__icons { padding: 77px 0; background: #fff; }
-#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__icon-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 18px; width: 100%; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__icon-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 18px; width: 88.125%; max-width: 1692px; margin-inline: auto; }
 #a10-max-feature-icons-2026-{{ section.id }} .a10-2026__feature { text-align: center; min-width: 0; }
 #a10-max-feature-icons-2026-{{ section.id }} .a10-2026__feature-icon { height: 50px; width: 78px; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; }
 #a10-max-feature-icons-2026-{{ section.id }} .a10-2026__feature-icon img { max-height: 55px; width: auto; max-width: 78px; }
@@ -52,7 +50,7 @@
 #a10-max-feature-icons-2026-{{ section.id }} .a10-2026__body { font-size: 14px; line-height: 1.5; }
 #a10-max-feature-icons-2026-{{ section.id }} .a10-2026__note { font-size: 10px; line-height: 1.5; }
 #a10-max-feature-icons-2026-{{ section.id }}.a10-2026__icons { padding: 50px 0 20px; }
-#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__icon-grid { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 32px 8px; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__icon-grid { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 32px 2px; width: 100%; max-width: none; }
 #a10-max-feature-icons-2026-{{ section.id }} .a10-2026__feature-icon { height: 26px; width: 42px; margin-bottom: 10px; }
 #a10-max-feature-icons-2026-{{ section.id }} .a10-2026__feature-icon img { max-height: 28px; max-width: 40px; }
 #a10-max-feature-icons-2026-{{ section.id }} .a10-2026__feature h3 { font-size: 10px; line-height: 1.5; white-space: nowrap; }
