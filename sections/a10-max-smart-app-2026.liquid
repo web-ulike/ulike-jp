@@ -48,6 +48,13 @@
           endif
           assign title_mobile = block.settings.title_mobile | default: block.settings.title
           assign text_mobile = block.settings.text_mobile | default: block.settings.text
+          if block.settings.title_mobile == blank
+            if block.settings.title == 'AIがあなただけの美肌プログラムを自動生成'
+              assign title_mobile = 'AIがあなただけの美肌|プログラムを自動生成' | replace: '|', '<br>'
+            elsif block.settings.title == '解説動画で、プロのケア手順を自宅で簡単に実現'
+              assign title_mobile = '解説動画で、プロのケア手順を|自宅で簡単に実現' | replace: '|', '<br>'
+            endif
+          endif
           if role == 'side' and side_index == 1 and block.settings.text_mobile == blank
             assign text_mobile = text_mobile | replace: '脚・ワキ・VIO', 'ヒゲ・胸元・脚'
           endif
@@ -56,7 +63,7 @@
           <div class="a10-2026__app-copy">
             {% if block.settings.title != blank %}
               <h3 class="a10-2026__app-title a10-2026__desktop to-top">{{ block.settings.title | escape | newline_to_br }}</h3>
-              <h3 class="a10-2026__app-title a10-2026__mobile to-top">{{ title_mobile | escape | newline_to_br }}</h3>
+              <h3 class="a10-2026__app-title a10-2026__mobile to-top">{{ title_mobile | escape | replace: '&lt;br&gt;', '<br>' | newline_to_br }}</h3>
             {% endif %}
             {% if block.settings.text != blank %}
               <div class="a10-2026__body a10-2026__desktop to-top">{{ block.settings.text | escape | replace: '*2', '<sup>*2</sup>' | newline_to_br }}</div>
