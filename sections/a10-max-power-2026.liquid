@@ -4,6 +4,15 @@
 {% endcomment %}
 
 <section id="a10-max-power-2026-{{ section.id }}" class="a10-2026 a10-2026__power">
+{%- assign a10_background = section.settings.product_image | default: section.settings.product_image_mobile -%}
+{%- if a10_background != blank -%}
+<picture class="a10-2026__power-background" aria-hidden="true">
+  {% if section.settings.product_image_mobile != blank %}
+    <source media="(max-width: 749px)" srcset="{{ section.settings.product_image_mobile | image_url: width: 375 }} 375w, {{ section.settings.product_image_mobile | image_url: width: 750 }} 750w, {{ section.settings.product_image_mobile | image_url: width: 1100 }} 1100w" sizes="100vw">
+  {% endif %}
+  {{ a10_background | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: '' }}
+</picture>
+{%- endif -%}
 <div class="container a10-2026__container">
 <div class="a10-2026__inner a10-2026__power-grid">
 <div class="a10-2026__power-copy">
@@ -16,21 +25,7 @@
 <div class="a10-2026__body to-top" style="transition-delay: 0.3s;">{{ section.settings.description | escape | replace: '*1', '<sup>*1</sup>' | replace: '*2', '<sup>*2</sup>' | newline_to_br }}</div>
 {% endif %}</div>
 
-<div class="a10-2026__power-art">
-<div class="a10-2026__power-arrow">{%- assign a10_image = section.settings.arrow_image | default: section.settings.arrow_image_mobile -%}{%- if a10_image != blank -%}
-<picture class="a10-2026__media ">{% if section.settings.arrow_image_mobile != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.arrow_image_mobile | image_url: width: 375 }} 375w, {{ section.settings.arrow_image_mobile | image_url: width: 750 }} 750w, {{ section.settings.arrow_image_mobile | image_url: width: 1100 }} 1100w" sizes="100vw">{% endif %}{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: '' }}</picture>
-{%- endif -%}</div>
-
-<div class="a10-2026__power-product">{%- assign a10_image = section.settings.product_image | default: section.settings.product_image_mobile -%}{%- if a10_image != blank -%}
-<picture class="a10-2026__media ">{% if section.settings.product_image_mobile != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.product_image_mobile | image_url: width: 375 }} 375w, {{ section.settings.product_image_mobile | image_url: width: 750 }} 750w, {{ section.settings.product_image_mobile | image_url: width: 1100 }} 1100w" sizes="100vw">{% endif %}{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: a10_image.alt }}</picture>
-{%- endif -%}</div>
-
-<div class="a10-2026__power-badge">{%- assign a10_image = section.settings.badge_icon | default: section.settings.badge_icon -%}{%- if a10_image != blank -%}
-<picture class="a10-2026__media ">{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: '' }}</picture>
-{%- endif -%}
-<div class="to-top" style="transition-delay: 0.4s;"><strong>{{ section.settings.power_number | escape | newline_to_br }}</strong><span>{{ section.settings.power_label | escape | newline_to_br }}</span></div>
-</div>
-</div>
+<div class="a10-2026__power-spacer" aria-hidden="true"></div>
 {% if section.settings.note != blank %}
 <div class="a10-2026__note to-top" style="transition-delay: 0.5s;">{{ section.settings.note | escape | newline_to_br }}</div>
 {% endif %}
@@ -39,7 +34,7 @@
 </section>
 
 <style>
-#a10-max-power-2026-{{ section.id }} { color: #190a0a;  overflow: hidden; }
+#a10-max-power-2026-{{ section.id }} { position: relative; color: #190a0a; overflow: hidden; }
 #a10-max-power-2026-{{ section.id }} *, #a10-max-power-2026-{{ section.id }} *::before, #a10-max-power-2026-{{ section.id }} *::after { box-sizing: border-box; }
 #a10-max-power-2026-{{ section.id }} h2, #a10-max-power-2026-{{ section.id }} h3, #a10-max-power-2026-{{ section.id }} p { margin: 0; }
 #a10-max-power-2026-{{ section.id }} .a10-2026__title { font-size: 40px; line-height: 1.3; font-weight: 400; overflow-wrap: anywhere; }
@@ -53,6 +48,10 @@
 #a10-max-power-2026-{{ section.id }} .a10-2026__center { text-align: center; }
 #a10-max-power-2026-{{ section.id }} .a10-2026__mobile { display: none; }
 #a10-max-power-2026-{{ section.id }} .a10-2026__body :is(a, strong, em), #a10-max-power-2026-{{ section.id }} .a10-2026__note a { color: inherit; }
+#a10-max-power-2026-{{ section.id }} .a10-2026__power-background { position: absolute; inset: 0; display: block; width: 100%; height: 100%; pointer-events: none; }
+#a10-max-power-2026-{{ section.id }} .a10-2026__power-background img { display: block; width: 100%; height: 100%; object-fit: fill; }
+#a10-max-power-2026-{{ section.id }} > .a10-2026__container { position: relative; z-index: 1; }
+#a10-max-power-2026-{{ section.id }} .a10-2026__power-spacer { display: none; }
 /* The 1920px design uses a 1220px content area and a 910px scene. */
 #a10-max-power-2026-{{ section.id }}.a10-2026__power { --a10-power-unit: min(1px, calc((100vw - 80px) / 1220)); background: linear-gradient(212deg,#fbfbfb 9.77%,#e3e6f0 158.84%); }
 
@@ -65,37 +64,18 @@
 #a10-max-power-2026-{{ section.id }} .a10-2026__power-copy .a10-2026__body { font-size: max(12px, calc(16 * var(--a10-power-unit))); line-height: 1.5; }
 #a10-max-power-2026-{{ section.id }} sup { font-size: .645em; line-height: 0; vertical-align: super; }
 #a10-max-power-2026-{{ section.id }} .a10-2026__power-grid > .a10-2026__note { grid-column: 1; grid-row: 2; position: relative; z-index: 2; }
-#a10-max-power-2026-{{ section.id }} .a10-2026__power-art { grid-column: 2; grid-row: 1 / 4; position: relative; min-width: 0; width: calc(793 * var(--a10-power-unit)); height: calc(910 * var(--a10-power-unit)); margin-left: calc(-8.5 * var(--a10-power-unit)); }
-#a10-max-power-2026-{{ section.id }} .a10-2026__power-product { position: absolute; width: 100%; left: 0; top: calc(277.49 * var(--a10-power-unit)); aspect-ratio: 1112.214 / 750.446; }
-#a10-max-power-2026-{{ section.id }} .a10-2026__power-product .a10-2026__media { position: relative; width: 100%; height: 100%; overflow: hidden; }
-#a10-max-power-2026-{{ section.id }} .a10-2026__power-product img { position: absolute; width: 119.95%; max-width: none; height: 100%; left: -7.75%; top: 0; }
-#a10-max-power-2026-{{ section.id }} .a10-2026__power-arrow { position: absolute; width: calc(621.7 * var(--a10-power-unit)); height: calc(913 * var(--a10-power-unit)); left: calc(20.14 * var(--a10-power-unit)); top: calc(60.26 * var(--a10-power-unit)); }
-#a10-max-power-2026-{{ section.id }} .a10-2026__power-arrow .a10-2026__media, #a10-max-power-2026-{{ section.id }} .a10-2026__power-arrow img { width: 100%; height: 100%; }
-#a10-max-power-2026-{{ section.id }} .a10-2026__power-badge { position: absolute; top: calc(195.5 * var(--a10-power-unit)); left: 51.77%; width: calc(288 * var(--a10-power-unit)); transform: translateX(-50%); color: #000; text-align: center; }
-#a10-max-power-2026-{{ section.id }} .a10-2026__power-badge .a10-2026__media { width: calc(74.45 * var(--a10-power-unit)); height: calc(66.9 * var(--a10-power-unit)); margin: 0 auto calc(10 * var(--a10-power-unit)); }
-#a10-max-power-2026-{{ section.id }} .a10-2026__power-badge img { height: 100%; object-fit: contain; }
-#a10-max-power-2026-{{ section.id }} .a10-2026__power-badge > .to-top { padding: calc(8 * var(--a10-power-unit)) calc(15 * var(--a10-power-unit)); border-radius: calc(71.285 * var(--a10-power-unit)); background: #f4f4f7; box-shadow: inset 0 3px 12px rgba(0,0,0,.06), 0 2.85px 1.43px rgba(102,33,8,.1); }
-#a10-max-power-2026-{{ section.id }} .a10-2026__power-badge strong { display: block; font-family: Roboto, Arial, sans-serif; font-size: calc(64 * var(--a10-power-unit)); line-height: 1.2; font-weight: 600; }
-#a10-max-power-2026-{{ section.id }} .a10-2026__power-badge span { display: block; font-size: calc(22 * var(--a10-power-unit)); line-height: 1.5; font-weight: 500; white-space: nowrap; }
 @media (max-width:749px) {
 #a10-max-power-2026-{{ section.id }}.a10-2026__power { --a10-power-unit: calc(100vw / 375); background: #f4f4f7; padding: 27.59px 0 30px; }
 #a10-max-power-2026-{{ section.id }} > .a10-2026__container { max-width: none; padding-inline: 20px; }
 #a10-max-power-2026-{{ section.id }} .a10-2026__power-grid { min-height: 0; display: flex; flex-direction: column; align-items: stretch; }
 #a10-max-power-2026-{{ section.id }} .a10-2026__power-copy { margin: 0; padding: 0; display: contents; }
+#a10-max-power-2026-{{ section.id }} .a10-2026__power-spacer { display: block; order: 2; height: calc(350 * var(--a10-power-unit)); margin: 32.68px 0 18px; }
 #a10-max-power-2026-{{ section.id }} .a10-2026__eyebrow { font-size: 12px; gap: 7px; min-height: 29.54px; justify-content: center; margin-bottom: -.89px; order: 0; }
 #a10-max-power-2026-{{ section.id }} .a10-2026__eyebrow .a10-2026__media { width: 26px; height: 14px; }
 #a10-max-power-2026-{{ section.id }} .a10-2026__power-title { order: 1; margin: 0 !important; font-size: 23.71px; text-align: center; white-space: normal; }
 #a10-max-power-2026-{{ section.id }} .a10-2026__power-copy .a10-2026__body { order: 3; font-size: 12px; }
 #a10-max-power-2026-{{ section.id }} .a10-2026__power-copy .a10-2026__body br { display: none; }
 #a10-max-power-2026-{{ section.id }} .a10-2026__power-grid > .a10-2026__note { order: 4; margin-top: 20px; }
-#a10-max-power-2026-{{ section.id }} .a10-2026__power-art { order: 2; width: calc(100% + 40px); height: calc(350 * var(--a10-power-unit)); margin: 32.68px -20px 18px; }
-#a10-max-power-2026-{{ section.id }} .a10-2026__power-product { width: 105.25%; left: -4.83%; top: calc(86.35 * var(--a10-power-unit)); }
-#a10-max-power-2026-{{ section.id }} .a10-2026__power-arrow { width: 68.67%; height: calc(377.8 * var(--a10-power-unit)); top: 0; left: .1%; }
-#a10-max-power-2026-{{ section.id }} .a10-2026__power-badge { width: 141.64px; top: calc(53.9 * var(--a10-power-unit)); left: 49.9%; }
-#a10-max-power-2026-{{ section.id }} .a10-2026__power-badge .a10-2026__media { width: 30.8px; height: 27.6px; margin-bottom: 9px; }
-#a10-max-power-2026-{{ section.id }} .a10-2026__power-badge > .to-top { padding: 2px 7px; border-radius: 34.518px; }
-#a10-max-power-2026-{{ section.id }} .a10-2026__power-badge strong { font-size: 33.137px; line-height: 1.025; }
-#a10-max-power-2026-{{ section.id }} .a10-2026__power-badge span { font-size: 11.046px; }
 }
 
 /* Keep short copy inside clipped cards while it enters the viewport. */
@@ -117,18 +97,6 @@
       "default": "出力エネルギーが28J*2へとアップグレード。たった週3回の新習慣が、目に見える肌の変化をいち早く体験いただけます*1。\nさらに「ダブルランプ」搭載で、高出力エネルギーを均一かつ精密に照射し、打ち漏れやムラを大幅に減少。\n従来のケアでは太刀打ちできなかった太くて硬い毛の根元まで強力にアプローチし、再生を効果的に抑制します。"
     },
     {
-      "type": "text",
-      "id": "power_number",
-      "label": "功率数值",
-      "default": "28J"
-    },
-    {
-      "type": "text",
-      "id": "power_label",
-      "label": "功率标题",
-      "default": "アップグレード"
-    },
-    {
       "type": "textarea",
       "id": "note",
       "label": "脚注文案",
@@ -137,32 +105,17 @@
     {
       "type": "image_picker",
       "id": "product_image",
-      "label": "PC 灯头产品图"
+      "label": "PC 整体背景图"
     },
     {
       "type": "image_picker",
       "id": "product_image_mobile",
-      "label": "M 灯头产品图"
-    },
-    {
-      "type": "image_picker",
-      "id": "arrow_image",
-      "label": "PC 上升箭头"
-    },
-    {
-      "type": "image_picker",
-      "id": "arrow_image_mobile",
-      "label": "M 上升箭头"
+      "label": "M 整体背景图"
     },
     {
       "type": "image_picker",
       "id": "label_icon",
       "label": "双灯管标签图标"
-    },
-    {
-      "type": "image_picker",
-      "id": "badge_icon",
-      "label": "28J 上方图标"
     },
     {
       "type": "text",
