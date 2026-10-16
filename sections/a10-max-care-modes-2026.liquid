@@ -15,7 +15,7 @@
 {%- endif -%}</div>
 <h3>{{ block.settings.text | escape | newline_to_br }}</h3>
 
-<div class="a10-2026__body">{{ block.settings.text1 }}</div>
+<div class="a10-2026__body">{{ block.settings.text1 | replace: 'ムダ毛ケア または', 'ムダ毛ケア<br>または' }}</div>
 </article>
 {% endfor %}
 <div class="a10-2026__mode-end">{% assign a10_label_lines = section.settings.strong_label | newline_to_br | split: '<br />' %}{% for line in a10_label_lines %}<span{% if forloop.first %} class="a10-2026__mode-strength"{% endif %}>{{ line | strip | escape }}</span>{% endfor %}</div>
