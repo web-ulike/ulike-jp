@@ -3,11 +3,12 @@
   Copy and media are configured in the theme editor; typography inherits the theme.
 {% endcomment %}
 
-<section id="a10-max-cost-comparison-2026-{{ section.id }}" class="a10-2026 to-top a10-2026__cost">
+<section id="a10-max-cost-comparison-2026-{{ section.id }}" class="a10-2026 a10-2026__cost">
+<div class="container a10-2026__container">
 <div class="a10-2026__inner">{% if section.settings.title != blank %}
-<h2 class="a10-2026__title a10-2026__center">{{ section.settings.title | escape | newline_to_br }}</h2>
-{% endif %}{% if section.settings.subtitle != blank %}<p class="a10-2026__subtitle">{{ section.settings.subtitle | escape | newline_to_br }}</p>{% endif %}
-<table class="a10-2026__cost-table">
+<h2 class="a10-2026__title a10-2026__center to-top" style="transition-delay: 0.1s;">{{ section.settings.title | escape | newline_to_br }}</h2>
+{% endif %}{% if section.settings.subtitle != blank %}<p class="a10-2026__subtitle to-top" style="transition-delay: 0.2s;">{{ section.settings.subtitle | escape | newline_to_br }}</p>{% endif %}
+<table class="a10-2026__cost-table to-top" style="transition-delay: 0.3s;">
 <caption class="visually-hidden">{{ section.settings.subtitle | escape | newline_to_br }}</caption>
 
 <tbody>{% for block in section.blocks %}
@@ -25,15 +26,15 @@
 {% endfor %}</tbody>
 </table>
 {% if section.settings.note != blank %}
-<div class="a10-2026__note">{{ section.settings.note }}</div>
+<div class="a10-2026__note to-top" style="transition-delay: 0.4s;">{{ section.settings.note }}</div>
 {% endif %}</div>
+</div>
 </section>
 
 <style>
 #a10-max-cost-comparison-2026-{{ section.id }} { color: #190a0a;  overflow: hidden; }
 #a10-max-cost-comparison-2026-{{ section.id }} *, #a10-max-cost-comparison-2026-{{ section.id }} *::before, #a10-max-cost-comparison-2026-{{ section.id }} *::after { box-sizing: border-box; }
 #a10-max-cost-comparison-2026-{{ section.id }} h2, #a10-max-cost-comparison-2026-{{ section.id }} h3, #a10-max-cost-comparison-2026-{{ section.id }} p { margin: 0; }
-#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__inner { width: min(1220px, calc(100% - 80px)); margin: 0 auto; }
 #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__wide { width: min(1600px, calc(100% - 80px)); margin: 0 auto; }
 #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__title { font-size: 40px; line-height: 1.3; font-weight: 400; overflow-wrap: anywhere; }
 #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__subtitle { font-size: 32px; line-height: 1.5; font-weight: 400; }
@@ -68,7 +69,6 @@
 #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-label { gap: 18px; }
 }
 @media (max-width:749px) {
-#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__inner, #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__wide { width: calc(100% - 40px); }
 #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__desktop { display: none !important; }
 #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__mobile { display: block; }
 #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__title { font-size: 24px; line-height: 1.3; }
@@ -95,6 +95,11 @@
 #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-vs {position:absolute;bottom:-35px;left:50px;z-index:1;display:flex;align-items:center;justify-content:center;width:72px;height:72px;border-radius:50%;background:#e0004d;color:#fff;font-size:35px;font-style:italic;}
 @media(max-width:749px) {
 #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-vs {width:24px;height:24px;bottom:-12px;left:25px;font-size:14px;}
+}
+
+/* Keep short copy inside clipped cards while it enters the viewport. */
+@media (prefers-reduced-motion: no-preference) {
+#a10-max-cost-comparison-2026-{{ section.id }} .to-top:not(.appear) { transform: translateY(20px); }
 }
 
 </style>

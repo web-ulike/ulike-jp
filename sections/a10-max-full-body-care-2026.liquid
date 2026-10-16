@@ -3,14 +3,15 @@
   Copy and media are configured in the theme editor; typography inherits the theme.
 {% endcomment %}
 
-<section id="a10-max-full-body-care-2026-{{ section.id }}" class="a10-2026 to-top a10-2026__bodycare">
+<section id="a10-max-full-body-care-2026-{{ section.id }}" class="a10-2026 a10-2026__bodycare">
+<div class="container a10-2026__container">
 <div class="a10-2026__inner a10-2026__bodycare-grid">
 <div class="a10-2026__bodycare-copy">{% if section.settings.title != blank %}
-<h2 class="a10-2026__title">{{ section.settings.title | escape | newline_to_br }}</h2>
+<h2 class="a10-2026__title to-top" style="transition-delay: 0.1s;">{{ section.settings.title | escape | newline_to_br }}</h2>
 {% endif %}{% if section.settings.description != blank %}
-<div class="a10-2026__body">{{ section.settings.description | escape | newline_to_br }}</div>
+<div class="a10-2026__body to-top" style="transition-delay: 0.2s;">{{ section.settings.description | escape | newline_to_br }}</div>
 {% endif %}{% if section.settings.note != blank %}
-<div class="a10-2026__note">{{ section.settings.note | escape | newline_to_br }}</div>
+<div class="a10-2026__note to-top" style="transition-delay: 0.3s;">{{ section.settings.note | escape | newline_to_br }}</div>
 {% endif %}</div>
 
 <div class="a10-2026__bodycare-visual">
@@ -29,13 +30,13 @@
 </div>
 </div>
 </div>
+</div>
 </section>
 
 <style>
 #a10-max-full-body-care-2026-{{ section.id }} { color: #190a0a;  overflow: hidden; }
 #a10-max-full-body-care-2026-{{ section.id }} *, #a10-max-full-body-care-2026-{{ section.id }} *::before, #a10-max-full-body-care-2026-{{ section.id }} *::after { box-sizing: border-box; }
 #a10-max-full-body-care-2026-{{ section.id }} h2, #a10-max-full-body-care-2026-{{ section.id }} h3, #a10-max-full-body-care-2026-{{ section.id }} p { margin: 0; }
-#a10-max-full-body-care-2026-{{ section.id }} .a10-2026__inner { width: min(1220px, calc(100% - 80px)); margin: 0 auto; }
 #a10-max-full-body-care-2026-{{ section.id }} .a10-2026__wide { width: min(1600px, calc(100% - 80px)); margin: 0 auto; }
 #a10-max-full-body-care-2026-{{ section.id }} .a10-2026__title { font-size: 40px; line-height: 1.3; font-weight: 400; overflow-wrap: anywhere; }
 #a10-max-full-body-care-2026-{{ section.id }} .a10-2026__subtitle { font-size: 32px; line-height: 1.5; font-weight: 400; }
@@ -59,7 +60,6 @@
 #a10-max-full-body-care-2026-{{ section.id }} .a10-2026__subtitle { font-size: 26px; }
 }
 @media (max-width:749px) {
-#a10-max-full-body-care-2026-{{ section.id }} .a10-2026__inner, #a10-max-full-body-care-2026-{{ section.id }} .a10-2026__wide { width: calc(100% - 40px); }
 #a10-max-full-body-care-2026-{{ section.id }} .a10-2026__desktop { display: none !important; }
 #a10-max-full-body-care-2026-{{ section.id }} .a10-2026__mobile { display: block; }
 #a10-max-full-body-care-2026-{{ section.id }} .a10-2026__title { font-size: 24px; line-height: 1.3; }
@@ -97,6 +97,11 @@
 #a10-max-full-body-care-2026-{{ section.id }} .a10-2026__area-total { padding:10px 2px; }
 #a10-max-full-body-care-2026-{{ section.id }} .a10-2026__area-total strong { font-size:24px; }
 #a10-max-full-body-care-2026-{{ section.id }} .a10-2026__area-total span { font-size:9px; }
+}
+
+/* Keep short copy inside clipped cards while it enters the viewport. */
+@media (prefers-reduced-motion: no-preference) {
+#a10-max-full-body-care-2026-{{ section.id }} .to-top:not(.appear) { transform: translateY(20px); }
 }
 
 </style>
