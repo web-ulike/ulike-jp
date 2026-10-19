@@ -67,7 +67,7 @@
             assign text_mobile = text_mobile | replace: '脚・ワキ・VIO', 'ヒゲ・胸元・脚'
           endif
         %}
-        <article class="a10-2026__app-card a10-2026__app-card--{{ role }} a10-2026__app-card--{{ variant }}" {{ block.shopify_attributes }}>
+        <article class="a10-2026__app-card a10-2026__app-card--{{ role }} a10-2026__app-card--{{ variant }}{% if has_second_image %} a10-2026__app-card--two-images{% endif %}" {{ block.shopify_attributes }}>
           <div class="a10-2026__app-copy">
             {% if block.settings.title != blank %}
               <h3 class="a10-2026__app-title a10-2026__desktop to-top">{{ block.settings.title | escape | newline_to_br }}</h3>
@@ -166,10 +166,10 @@
 #a10-max-smart-app-2026-{{ section.id }} .a10-2026__media-link { display: block; min-width: 0; color: inherit; }
 #a10-max-smart-app-2026-{{ section.id }} .a10-2026__media-link:focus-visible { outline: 2px solid #e0004d; outline-offset: -2px; }
 #a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--bottom .a10-2026__app-visual--two-images { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: calc(28.37 * var(--a10-app-unit)); width: auto; margin: calc(37.71 * var(--a10-app-unit)) calc(42 * var(--a10-app-unit)) 0; }
-#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--bottom:has(.a10-2026__app-visual--two-images) .a10-2026__app-copy { padding-top: calc(46 * var(--a10-app-unit)); }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--bottom.a10-2026__app-card--two-images .a10-2026__app-copy { padding-top: calc(46 * var(--a10-app-unit)); }
 @media (max-width: 749px) {
-#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--bottom .a10-2026__app-visual--two-images { grid-template-columns: minmax(0, 1fr); gap: 21px; margin: 22px 20px 20px; }
-#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--bottom:has(.a10-2026__app-visual--two-images) .a10-2026__app-copy { padding-top: 39.92px; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--bottom .a10-2026__app-visual--two-images { grid-template-columns: minmax(0, 1fr); gap: 21px; margin: 35px 20px 20px; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--bottom.a10-2026__app-card--two-images .a10-2026__app-copy { padding-top: 39.92px; }
 }
 @media (prefers-reduced-motion: no-preference) {
 #a10-max-smart-app-2026-{{ section.id }} .to-top:not(.appear) { transform: translateY(20px); }
