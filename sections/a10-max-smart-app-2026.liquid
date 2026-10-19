@@ -63,15 +63,22 @@
           <div class="a10-2026__app-copy">
             {% if block.settings.title != blank %}
               <h3 class="a10-2026__app-title a10-2026__desktop to-top">{{ block.settings.title | escape | newline_to_br }}</h3>
+            {% endif %}
+            {% if title_mobile != blank %}
               <h3 class="a10-2026__app-title a10-2026__mobile to-top">{{ title_mobile | escape | replace: '&lt;br&gt;', '<br>' | newline_to_br }}</h3>
             {% endif %}
             {% if block.settings.text != blank %}
               <div class="a10-2026__body a10-2026__desktop to-top">{{ block.settings.text | escape | replace: '*2', '<sup>*2</sup>' | newline_to_br }}</div>
+            {% endif %}
+            {% if text_mobile != blank %}
               <div class="a10-2026__body a10-2026__mobile to-top">{{ text_mobile | escape | replace: '*2', '<sup>*2</sup>' | newline_to_br }}</div>
             {% endif %}
           </div>
-          <div class="a10-2026__app-visual">
+          <div class="a10-2026__app-visual{% if block.settings.image_2 != blank or block.settings.image_2_mobile != blank %} a10-2026__app-visual--two-images{% endif %}">
             {% render 'a10-app-media-2026', image: block.settings.image, image_mobile: block.settings.image_mobile, fallback: fallback, fallback_mobile: fallback_mobile, image_width: image_width, image_height: image_height %}
+            {% if block.settings.image_2 != blank or block.settings.image_2_mobile != blank %}
+              {% render 'a10-app-media-2026', image: block.settings.image_2, image_mobile: block.settings.image_2_mobile %}
+            {% endif %}
           </div>
         </article>
       {% endfor %}
@@ -141,6 +148,10 @@
 #a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--family .a10-2026__app-visual { margin-top: 20px; }
 #a10-max-smart-app-2026-{{ section.id }} .a10-2026__note { margin: 15px 20px 0; }
 }
+/* Two configured images share the existing visual area in vertical order. */
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-visual--two-images { display: flex; flex-direction: column; aspect-ratio: auto; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-visual--two-images .a10-2026__media { width: 100%; height: auto; min-height: 0; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-visual--two-images img { width: 100%; height: auto; object-fit: contain; }
 @media (prefers-reduced-motion: no-preference) {
 #a10-max-smart-app-2026-{{ section.id }} .to-top:not(.appear) { transform: translateY(20px); }
 }
@@ -188,24 +199,34 @@
         {
           "type": "image_picker",
           "id": "image",
-          "label": "图片"
+          "label": "PC 图片 1"
         },
         {
           "type": "textarea",
           "id": "title",
-          "label": "标题",
+          "label": "PC 标题",
           "default": "AIがあなただけの美肌プログラムを自動生成"
         },
         {
           "type": "textarea",
           "id": "text",
-          "label": "说明",
+          "label": "PC 说明",
           "default": "初回のAI撮影により、部位ごとの肌状態や毛質にあわせて、あなたに最適なケアプランを提案。"
         },
         {
           "type": "image_picker",
           "id": "image_mobile",
-          "label": "M 功能图"
+          "label": "M 图片 1（留空沿用 PC）"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "PC 图片 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2_mobile",
+          "label": "M 图片 2（留空沿用 PC）"
         },
         {
           "type": "select",
