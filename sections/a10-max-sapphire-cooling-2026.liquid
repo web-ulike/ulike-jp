@@ -15,9 +15,8 @@
 <div class="a10-2026__body to-top" style="transition-delay: 0.3s;">{{ section.settings.row_1_body | escape | newline_to_br }}</div>
 {% endif %}</div>
 
-<div class="a10-2026__cooling-visual">{%- assign a10_image = section.settings.row_1_image | default: section.settings.row_1_image_mobile -%}{%- if a10_image != blank -%}
-<picture class="a10-2026__media ">{% if section.settings.row_1_image_mobile != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.row_1_image_mobile | image_url: width: 375 }} 375w, {{ section.settings.row_1_image_mobile | image_url: width: 750 }} 750w, {{ section.settings.row_1_image_mobile | image_url: width: 1100 }} 1100w" sizes="100vw">{% endif %}{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: a10_image.alt }}</picture>
-{%- endif -%}</div>
+<div class="a10-2026__cooling-visual">{%- assign a10_image = section.settings.row_1_image | default: section.settings.row_1_image_mobile -%}
+<picture class="a10-2026__media">{% if section.settings.row_1_image_mobile != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.row_1_image_mobile | image_url: width: 375 }} 375w, {{ section.settings.row_1_image_mobile | image_url: width: 750 }} 750w, {{ section.settings.row_1_image_mobile | image_url: width: 1100 }} 1100w" sizes="100vw">{% else %}<source media="(max-width: 749px)" srcset="{{ 'a10-max-sapphire-cooling-mobile-2026.png' | asset_url }}">{% endif %}{% if a10_image != blank %}{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: a10_image.alt }}{% else %}<img src="{{ 'a10-max-sapphire-cooling-mobile-2026.png' | asset_url }}" alt="" loading="lazy" width="375" height="463">{% endif %}</picture></div>
 </article>
 
 <article class="a10-2026__cooling-row">
@@ -27,9 +26,8 @@
 <div class="a10-2026__body to-top" style="transition-delay: 0.5s;">{{ section.settings.row_2_body | escape | newline_to_br }}</div>
 {% endif %}</div>
 
-<div class="a10-2026__cooling-visual">{%- assign a10_image = section.settings.row_2_image | default: section.settings.row_2_image_mobile -%}{%- if a10_image != blank -%}
-<picture class="a10-2026__media ">{% if section.settings.row_2_image_mobile != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.row_2_image_mobile | image_url: width: 375 }} 375w, {{ section.settings.row_2_image_mobile | image_url: width: 750 }} 750w, {{ section.settings.row_2_image_mobile | image_url: width: 1100 }} 1100w" sizes="100vw">{% endif %}{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: a10_image.alt }}</picture>
-{%- endif -%}</div>
+<div class="a10-2026__cooling-visual">{%- assign a10_image = section.settings.row_2_image | default: section.settings.row_2_image_mobile -%}
+<picture class="a10-2026__media">{% if section.settings.row_2_image_mobile != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.row_2_image_mobile | image_url: width: 375 }} 375w, {{ section.settings.row_2_image_mobile | image_url: width: 750 }} 750w, {{ section.settings.row_2_image_mobile | image_url: width: 1100 }} 1100w" sizes="100vw">{% else %}<source media="(max-width: 749px)" srcset="{{ 'a10-max-sapphire-power-mobile-2026.png' | asset_url }}">{% endif %}{% if a10_image != blank %}{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: a10_image.alt }}{% else %}<img src="{{ 'a10-max-sapphire-power-mobile-2026.png' | asset_url }}" alt="" loading="lazy" width="375" height="263">{% endif %}</picture></div>
 </article>
 </div>
 </div>
@@ -91,6 +89,21 @@
 
 @media (max-width:749px) {
 #a10-max-sapphire-cooling-2026-{{ section.id }} > .a10-2026__container { padding-inline: 0; }
+#a10-max-sapphire-cooling-2026-{{ section.id }}.a10-2026__cooling { padding: 0; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__inner { width: 100%; }
+#a10-max-sapphire-cooling-2026-{{ section.id }}.a10-2026__cooling .a10-2026__title { display: flex; align-items: center; justify-content: center; min-height: 131px; margin: 0; padding: 32px 12px 30px; font-size: 20px; font-weight: 500; line-height: 1.3; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-row { position: relative; width: 100%; margin: 0; background: #f7f8fa; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-row:first-of-type { height: calc(100vw * 463 / 375); min-height: 463px; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-row:first-of-type .a10-2026__cooling-copy { position: relative; z-index: 1; padding: 52px 20px 0; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-row:first-of-type .a10-2026__cooling-visual { position: absolute; inset: 0; height: 100%; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-row:last-of-type .a10-2026__cooling-copy { min-height: 200px; padding: 47px 20px 40px; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-copy { align-self: stretch; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-copy .a10-2026__subtitle { font-size: 24px; line-height: 1.3; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-copy .a10-2026__body { margin-top: 24px; color: #000; font-size: 14px; line-height: 1.3; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-visual { display: block; width: 100%; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-visual .a10-2026__media { width: 100%; height: 100%; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-visual img { width: 100%; height: 100%; object-fit: cover; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-row:last-of-type .a10-2026__cooling-visual { height: calc(100vw * 263 / 375); }
 }
 
 </style>
