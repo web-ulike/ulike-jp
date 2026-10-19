@@ -25,7 +25,11 @@
 <div class="a10-2026__body to-top" style="transition-delay: 0.3s;">{{ section.settings.description | escape | replace: '*1', '<sup>*1</sup>' | replace: '*2', '<sup>*2</sup>' | newline_to_br }}</div>
 {% endif %}</div>
 
-<div class="a10-2026__power-spacer" aria-hidden="true"></div>
+<div class="a10-2026__power-spacer">
+  {% if section.settings.scene_image_mobile != blank %}
+    {{ section.settings.scene_image_mobile | image_url: width: 1500 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500', sizes: '100vw', alt: section.settings.scene_image_mobile.alt }}
+  {% endif %}
+</div>
 {% if section.settings.note != blank %}
 <div class="a10-2026__note to-top" style="transition-delay: 0.5s;">{{ section.settings.note | escape | newline_to_br }}</div>
 {% endif %}
@@ -67,15 +71,21 @@
 @media (max-width:749px) {
 #a10-max-power-2026-{{ section.id }}.a10-2026__power { --a10-power-unit: calc(100vw / 375); background: #f4f4f7; padding: 27.59px 0 30px; }
 #a10-max-power-2026-{{ section.id }} > .a10-2026__container { max-width: none; padding-inline: 20px; }
+#a10-max-power-2026-{{ section.id }} .a10-2026__inner { width: 100%; max-width: none; margin: 0; }
 #a10-max-power-2026-{{ section.id }} .a10-2026__power-grid { min-height: 0; display: flex; flex-direction: column; align-items: stretch; }
 #a10-max-power-2026-{{ section.id }} .a10-2026__power-copy { margin: 0; padding: 0; display: contents; }
-#a10-max-power-2026-{{ section.id }} .a10-2026__power-spacer { display: block; order: 2; height: calc(350 * var(--a10-power-unit)); margin: 32.68px 0 18px; }
-#a10-max-power-2026-{{ section.id }} .a10-2026__eyebrow { font-size: 12px; gap: 7px; min-height: 29.54px; justify-content: center; margin-bottom: -.89px; order: 0; }
-#a10-max-power-2026-{{ section.id }} .a10-2026__eyebrow .a10-2026__media { width: 26px; height: 14px; }
-#a10-max-power-2026-{{ section.id }} .a10-2026__power-title { order: 1; margin: 0 !important; font-size: 23.71px; text-align: center; white-space: normal; }
-#a10-max-power-2026-{{ section.id }} .a10-2026__power-copy .a10-2026__body { order: 3; font-size: 12px; }
+#a10-max-power-2026-{{ section.id }} .a10-2026__power-background img { object-fit: cover; object-position: center top; }
+{% if section.settings.scene_image_mobile != blank %}
+#a10-max-power-2026-{{ section.id }} .a10-2026__power-background { display: none; }
+{% endif %}
+#a10-max-power-2026-{{ section.id }} .a10-2026__power-spacer { display: block; order: 2; height: calc(350 * var(--a10-power-unit)); margin: 32.68px -20px 18px; }
+#a10-max-power-2026-{{ section.id }} .a10-2026__power-spacer img { display: block; width: 100%; height: 100%; object-fit: contain; }
+#a10-max-power-2026-{{ section.id }} .a10-2026__eyebrow { font-size: 12px; line-height: 1.2; gap: 5.9px; min-height: 29.54px; justify-content: center; margin-bottom: -.89px; order: 0; }
+#a10-max-power-2026-{{ section.id }} .a10-2026__eyebrow .a10-2026__media { width: 25.85px; height: 12.78px; }
+#a10-max-power-2026-{{ section.id }} .a10-2026__power-title { order: 1; margin: 0 !important; font-size: 23.71px; line-height: 1.3; font-weight: 400; text-align: center; white-space: normal; }
+#a10-max-power-2026-{{ section.id }} .a10-2026__power-copy .a10-2026__body { order: 3; font-size: 12px; line-height: 1.5; font-weight: 400; letter-spacing: 0; }
 #a10-max-power-2026-{{ section.id }} .a10-2026__power-copy .a10-2026__body br { display: none; }
-#a10-max-power-2026-{{ section.id }} .a10-2026__power-grid > .a10-2026__note { order: 4; margin-top: 20px; }
+#a10-max-power-2026-{{ section.id }} .a10-2026__power-grid > .a10-2026__note { order: 4; margin-top: 20px; font-size: 10px; line-height: 1.5; font-weight: 400; letter-spacing: 0; text-align: justify; }
 }
 
 /* Keep short copy inside clipped cards while it enters the viewport. */
@@ -110,7 +120,14 @@
     {
       "type": "image_picker",
       "id": "product_image_mobile",
-      "label": "M 整体背景图"
+      "label": "M 整体背景图",
+      "info": "保留原整屏背景配置。上传下方 M 产品展示图后，移动端改用独立产品图。"
+    },
+    {
+      "type": "image_picker",
+      "id": "scene_image_mobile",
+      "label": "M 产品展示图",
+      "info": "建议 750 × 700 px，包含产品、箭头和28J标识，不含标题、正文和脚注。完整显示，不拉伸。"
     },
     {
       "type": "image_picker",
