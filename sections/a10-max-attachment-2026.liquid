@@ -55,16 +55,13 @@
 #a10-max-attachment-2026-{{ section.id }} .a10-2026__subtitle { font-size: 24px; line-height: 1.5; }
 #a10-max-attachment-2026-{{ section.id }} .a10-2026__body { font-size: 14px; line-height: 1.5; }
 #a10-max-attachment-2026-{{ section.id }} .a10-2026__note { font-size: 10px; line-height: 1.5; }
-#a10-max-attachment-2026-{{ section.id }} .a10-2026__scene-grid { width: 100%; min-height: 0; display: flex; flex-direction: column; }
-#a10-max-attachment-2026-{{ section.id }} .a10-2026__scene-background { position: static; order: 1; width: 100%; }
+#a10-max-attachment-2026-{{ section.id }} .a10-2026__scene-grid { width: 100%; min-height: 0; display: block; }
+#a10-max-attachment-2026-{{ section.id }} .a10-2026__scene-background { position: static; width: 100%; }
 #a10-max-attachment-2026-{{ section.id }} .a10-2026__scene-background .a10-2026__media, #a10-max-attachment-2026-{{ section.id }} .a10-2026__scene-background img { height: auto; }
-#a10-max-attachment-2026-{{ section.id }} .a10-2026__scene-copy { display: contents; width: auto; margin: 0; padding: 0; }
-#a10-max-attachment-2026-{{ section.id }} .a10-2026__scene-copy .a10-2026__title { order: 0; margin: 38px 20px 0; font-size: 20px; font-weight: 500; align-self: start; }
-#a10-max-attachment-2026-{{ section.id }} .a10-2026__scene-copy .a10-2026__body { order: 0; margin: 22px 20px 0; }
-#a10-max-attachment-2026-{{ section.id }} .a10-2026__scene-copy .a10-2026__stats { order: 0; margin: 30px 20px 25px; align-self: start; gap: 24px; }
-#a10-max-attachment-2026-{{ section.id }} .a10-2026__scene-copy .a10-2026__stat + .a10-2026__stat { padding-left: 24px; }
-#a10-max-attachment-2026-{{ section.id }} .a10-2026__scene-copy .a10-2026__note { order: 2; background: #fff; width: 100%; margin: 0; padding: 22px 20px; }
-#a10-max-attachment-2026-{{ section.id }}.a10-2026__scene--attachment .a10-2026__title { text-align: center; align-self: center; }
+#a10-max-attachment-2026-{{ section.id }} .a10-2026__scene-copy { display: block; position: absolute; inset: 0; width: 100%; margin: 0; padding: 30px 20px 0; }
+#a10-max-attachment-2026-{{ section.id }} .a10-2026__scene-copy .a10-2026__title { margin: 0; font-size: 20px; font-weight: 500; text-align: center; }
+#a10-max-attachment-2026-{{ section.id }} .a10-2026__scene-copy .a10-2026__body { margin: 15px 0 0; }
+#a10-max-attachment-2026-{{ section.id }} .a10-2026__scene-copy .a10-2026__note { position: absolute; bottom: 15px; left: 20px; right: 20px; margin: 0; padding: 0; background: transparent; font-size: 6px; }
 }
 
 /* Keep short copy inside clipped cards while it enters the viewport. */
