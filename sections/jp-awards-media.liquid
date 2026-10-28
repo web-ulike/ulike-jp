@@ -101,6 +101,10 @@
     gap: 18px;
   }
 
+  .jp-awards-media--{{ sid }} .jp-awards-media__media-nav[hidden] {
+    display: none;
+  }
+
   .jp-awards-media--{{ sid }} .jp-awards-media__arrow {
     width: 18px;
     height: 18px;
@@ -326,11 +330,21 @@
     var swiperEl = section.querySelector('.jp-awards-media__media');
     if (!swiperEl || typeof Swiper === 'undefined') return;
 
+    var mediaNav = section.querySelector('.jp-awards-media__media-nav');
+    var updateMediaNav = function (swiper) {
+      if (mediaNav) mediaNav.hidden = swiper.isLocked;
+    };
+
     new Swiper(swiperEl, {
       slidesPerView: 4,
       spaceBetween: 27,
       loop: false,
       watchOverflow: true,
+      on: {
+        init: updateMediaNav,
+        lock: updateMediaNav,
+        unlock: updateMediaNav
+      },
       navigation: {
         nextEl: section.querySelector('.jp-awards-media__arrow--next'),
         prevEl: section.querySelector('.jp-awards-media__arrow--prev')
