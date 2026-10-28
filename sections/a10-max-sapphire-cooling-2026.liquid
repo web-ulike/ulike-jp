@@ -54,11 +54,17 @@
 #a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-row { display: grid; grid-template-columns: 1fr 1fr; background: #fafafb; margin-bottom: 20px; }
 #a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-copy { padding: 100px 65px; align-self: center; }
 #a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-copy .a10-2026__body { font-size: 22px; margin-top: 18px; }
-#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-row:nth-child(odd) .a10-2026__cooling-visual { order: -1; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-row:nth-of-type(2) .a10-2026__cooling-visual { order: -1; }
 #a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-visual { display: flex; align-items: center; }
 #a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-chart { margin-top: 25px; }
 #a10-max-sapphire-cooling-2026-{{ section.id }}.a10-2026__cooling .a10-2026__note { margin-top: 60px; max-width: 650px; }
 @media (min-width:750px) {
+#a10-max-sapphire-cooling-2026-{{ section.id }}.a10-2026__cooling { padding-bottom: 0; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} > .a10-2026__container { width: 100%; max-width: 1300px; padding-inline: 40px; margin-inline: auto; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: 530px; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-visual { position: relative; min-width: 0; overflow: hidden; background: #f4f4f7; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-visual .a10-2026__media { position: absolute; inset: 0; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-visual img { width: 100%; height: 100%; object-fit: cover; }
 #a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__media--fallback { display: none; }
 }
 @media (min-width:750px) and (max-width:1400px) {
@@ -79,7 +85,7 @@
 #a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-row { display: flex; flex-direction: column; background: #f7f8fa; margin: 0; }
 #a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-copy { padding: 46px var(--container-gutter) 38px; width: 100%; }
 #a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-copy .a10-2026__body { font-size: 14px; margin-top: 22px; }
-#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-row:nth-child(odd) .a10-2026__cooling-visual { order: initial; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-row:nth-of-type(2) .a10-2026__cooling-visual { order: initial; }
 #a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-chart { margin-top: 35px; }
 #a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-visual { width: 100%; }
 #a10-max-sapphire-cooling-2026-{{ section.id }}.a10-2026__cooling .a10-2026__note { margin: 30px var(--container-gutter) 0; }

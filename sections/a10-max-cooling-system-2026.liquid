@@ -53,6 +53,11 @@
 #a10-max-cooling-system-2026-{{ section.id }} .a10-2026__cooling-chart { margin-top: 25px; }
 #a10-max-cooling-system-2026-{{ section.id }}.a10-2026__cooling .a10-2026__note { margin-top: 60px; max-width: 650px; }
 @media (min-width:750px) {
+#a10-max-cooling-system-2026-{{ section.id }} > .a10-2026__container { width: 100%; max-width: 1300px; padding-inline: 40px; margin-inline: auto; }
+#a10-max-cooling-system-2026-{{ section.id }} .a10-2026__cooling-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: 721px; }
+#a10-max-cooling-system-2026-{{ section.id }} .a10-2026__cooling-visual { position: relative; min-width: 0; overflow: hidden; }
+#a10-max-cooling-system-2026-{{ section.id }} .a10-2026__cooling-visual .a10-2026__media { position: absolute; inset: 0; }
+#a10-max-cooling-system-2026-{{ section.id }} .a10-2026__cooling-visual img { width: 100%; height: 100%; object-fit: cover; }
 #a10-max-cooling-system-2026-{{ section.id }} .a10-2026__media--fallback { display: none; }
 }
 @media (min-width:750px) and (max-width:1400px) {
