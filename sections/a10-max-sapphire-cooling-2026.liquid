@@ -6,13 +6,13 @@
 <section id="a10-max-sapphire-cooling-2026-{{ section.id }}" class="a10-2026 a10-2026__cooling">
 <div class="container a10-2026__container">
 <div class="a10-2026__inner">{% if section.settings.heading != blank %}
-<h2 class="a10-2026__title to-top" style="transition-delay: 0.1s;">{{ section.settings.heading | escape | newline_to_br }}</h2>
+<h2 class="a10-2026__title to-top" style="transition-delay: 0.1s;">{{ section.settings.heading | escape | replace: '*1', '<sup>*1</sup>' | replace: '*2', '<sup>*2</sup>' | replace: '*3', '<sup>*3</sup>' | replace: '*4', '<sup>*4</sup>' | newline_to_br }}</h2>
 {% endif %}
 <article class="a10-2026__cooling-row">
 <div class="a10-2026__cooling-copy">{% if section.settings.row_1_title != blank %}
 <h3 class="a10-2026__subtitle to-top" style="transition-delay: 0.2s;">{{ section.settings.row_1_title | escape | newline_to_br }}</h3>
 {% endif %}{% if section.settings.row_1_body != blank %}
-<div class="a10-2026__body to-top" style="transition-delay: 0.3s;">{{ section.settings.row_1_body | escape | newline_to_br }}</div>
+<div class="a10-2026__body to-top" style="transition-delay: 0.3s;">{{ section.settings.row_1_body | escape | replace: '*1', '<sup>*1</sup>' | replace: '*2', '<sup>*2</sup>' | replace: '*3', '<sup>*3</sup>' | replace: '*4', '<sup>*4</sup>' | newline_to_br }}</div>
 {% endif %}</div>
 
 <div class="a10-2026__cooling-visual">{%- assign a10_image = section.settings.row_1_image | default: section.settings.row_1_image_mobile -%}
@@ -23,7 +23,7 @@
 <div class="a10-2026__cooling-copy">{% if section.settings.row_2_title != blank %}
 <h3 class="a10-2026__subtitle to-top" style="transition-delay: 0.4s;">{{ section.settings.row_2_title | escape | newline_to_br }}</h3>
 {% endif %}{% if section.settings.row_2_body != blank %}
-<div class="a10-2026__body to-top" style="transition-delay: 0.5s;">{{ section.settings.row_2_body | escape | newline_to_br }}</div>
+<div class="a10-2026__body to-top" style="transition-delay: 0.5s;">{{ section.settings.row_2_body | escape | replace: '*1', '<sup>*1</sup>' | replace: '*2', '<sup>*2</sup>' | replace: '*3', '<sup>*3</sup>' | replace: '*4', '<sup>*4</sup>' | newline_to_br }}</div>
 {% endif %}</div>
 
 <div class="a10-2026__cooling-visual">{%- assign a10_image = section.settings.row_2_image | default: section.settings.row_2_image_mobile -%}
