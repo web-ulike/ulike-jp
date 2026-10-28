@@ -185,12 +185,11 @@
     }
 
     .jp-awards-media--{{ sid }} .jp-awards-media__section--media::after {
-      width: 18%;
-      height: calc(100% - 60px);
+      display: none;
     }
 
     .jp-awards-media--{{ sid }} .jp-awards-media__head::after {
-      width: 116px;
+      width: 58px;
     }
 
     .jp-awards-media--{{ sid }} .jp-awards-media__awards-list {
@@ -217,7 +216,7 @@
     }
 
     .jp-awards-media--{{ sid }} .jp-awards-media__progress {
-      display: block;
+      display: none;
     }
     .jp-awards-media--{{ sid }} .jp-awards-media__media-card img {
       display: block;
@@ -342,12 +341,12 @@
       },
       breakpoints: {
         0: {
-          slidesPerView: 3.5,
-          spaceBetween: 16
+          slidesPerView: 4,
+          spaceBetween: 10
         },
         768: {
-          slidesPerView: 3,
-          spaceBetween: 18
+          slidesPerView: 4,
+          spaceBetween: 10
         },
         990: {
           slidesPerView: 4,
