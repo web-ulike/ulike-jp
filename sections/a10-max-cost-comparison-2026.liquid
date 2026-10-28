@@ -24,7 +24,7 @@
 {%- assign a10_currency = a10_price | slice: 0, 1 -%}
 <span class="a10-2026__cost-amount">{%- if a10_currency == '¥' or a10_currency == '￥' -%}<span class="a10-2026__cost-currency">{{ a10_currency }}</span>{%- assign a10_price = a10_price | remove_first: a10_currency | strip -%}{%- endif -%}<span>{{ a10_price | escape | replace: '～', '<span class="a10-2026__cost-from">～</span>' }}</span></span></td>
 
-<td>{{ block.settings.detail | escape | newline_to_br }}</td>
+<td>{{ block.settings.detail | escape | replace: '*', '<sup>*</sup>' | newline_to_br }}</td>
 </tr>
 {% endfor %}</tbody>
 </table>
@@ -36,7 +36,7 @@
 
 <style>
 #a10-max-cost-comparison-2026-{{ section.id }} {
-  --cost-unit: min(1px, 0.0520833333vw);
+  --cost-unit: min(1px, calc((100vw - 80px) / 1218.484));
   --cost-image: calc(121.474 * var(--cost-unit));
   --cost-inset: calc(60.737 * var(--cost-unit));
   --cost-row: calc(151.843 * var(--cost-unit));
@@ -121,6 +121,7 @@
   color: #3f3636;
   font-size: calc(24 * var(--cost-unit));
 }
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-table sup { font-size: .645em; line-height: 0; vertical-align: super; }
 #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-label {
   margin-left: calc(197.188 * var(--cost-unit));
   width: calc(268.529 * var(--cost-unit));
@@ -231,6 +232,7 @@
 @media (max-width: 749px) {
   #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-title-break { display: initial; }
   #a10-max-cost-comparison-2026-{{ section.id }} {
+    --cost-unit: min(1px, 0.0520833333vw);
     --cost-image: 40.154px;
     --cost-inset: 20.077px;
     --cost-row: 39.994px;
