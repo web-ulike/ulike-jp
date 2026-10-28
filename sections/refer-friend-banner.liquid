@@ -12,7 +12,7 @@
       {{ desktop_image | image_url: width: 3840 | image_tag: widths: '960, 1440, 1920, 2560, 3840', sizes: '100vw', loading: 'eager', fetchpriority: 'high', alt: se_stts.alt_text }}
     </picture>
   {%- endif -%}
-  <div class="refer-friend-content">
+  <div class="refer-friend-content container">
     <div class="refer-friend-copy refer-friend-copy--desktop">
       {%- if se_stts.title != blank -%}<h1 class="refer-friend-title">{{ se_stts.title }}</h1>{%- endif -%}
       {%- if se_stts.description != blank -%}
@@ -68,14 +68,14 @@
     color: inherit;
     font-family: inherit;
     font-size: clamp(22px, {{ se_stts.title_size | divided_by: 19.2 }}vw, {{ se_stts.title_size | times: 2 }}px);
-    font-weight: 700;
+    font-weight: 500;
     line-height: 1.35;
     letter-spacing: normal;
   }
   #shopify-section-{{ section.id }} .refer-friend-description {
     margin-top: 1.1vw;
     font-size: clamp(12px, {{ se_stts.description_size | divided_by: 19.2 }}vw, {{ se_stts.description_size | times: 2 }}px);
-    font-weight: 400;
+    font-weight: 500;
     line-height: 1.75;
     letter-spacing: normal;
   }
@@ -96,7 +96,7 @@
     #shopify-section-{{ section.id }} .refer-friend-subtitle {
       margin: 3vw 0 0;
       font-size: clamp(12px, {{ se_stts.m_subtitle_size | divided_by: 3.75 }}vw, {{ se_stts.m_subtitle_size | times: 2 }}px);
-      font-weight: 400;
+      font-weight: 500;
       line-height: 1.5;
     }
     #shopify-section-{{ section.id }} .refer-friend-description { margin-top: 3vw; font-size: 14px; line-height: 1.6; }
