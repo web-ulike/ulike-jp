@@ -3,6 +3,8 @@
   Copy and media are configured in the theme editor; typography inherits the theme.
 {% endcomment %}
 
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@600&display=swap">
+
 <section id="a10-max-fast-flash-2026-{{ section.id }}" class="a10-2026 a10-2026__flash">
 <div class="container a10-2026__container">
 <div class="a10-2026__inner a10-2026__flash-grid">
@@ -11,7 +13,7 @@
 {%- endif -%}</div>
 
 <div class="a10-2026__flash-copy">{% if section.settings.title != blank %}
-<h2 class="a10-2026__subtitle to-top" style="transition-delay: 0.1s;">{{ section.settings.title | escape | newline_to_br }}</h2>
+<h2 class="a10-2026__subtitle to-top" style="transition-delay: 0.1s;">{{ section.settings.title | escape | replace: '*1', '<sup>*1</sup>' | newline_to_br }}</h2>
 {% endif %}{% if section.settings.body != blank %}
 <div class="a10-2026__body to-top" style="transition-delay: 0.2s;">{{ section.settings.body | escape | newline_to_br }}</div>
 {% endif %}
@@ -62,6 +64,13 @@
 #a10-max-fast-flash-2026-{{ section.id }} .a10-2026__scene-copy .a10-2026__stat + .a10-2026__stat { border-left: 1px solid #bbb; padding-left: 35px; }
 @media (min-width:750px) {
 #a10-max-fast-flash-2026-{{ section.id }} > .a10-2026__container { width: 100%; max-width: 1300px; padding-inline: 40px; margin-inline: auto; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__flash-copy .a10-2026__subtitle { color: #000; font-family: 'Noto Sans JP', sans-serif; font-size: 24px; font-weight: 400; line-height: 1.5; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__flash-copy .a10-2026__body { margin-top: 28px; font-family: 'Noto Sans JP', sans-serif; font-size: 16px; line-height: 1.5; text-align: justify; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__stat strong { color: #000; font-family: 'Roboto', sans-serif; font-size: 60px; font-weight: 600; line-height: 1.2; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__stat + .a10-2026__stat strong { font-size: 64px; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__stat .unit { font-family: 'Noto Sans JP', sans-serif; font-size: 24px; font-weight: 500; line-height: 1.2; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__stat .label { color: #000; font-family: 'Noto Sans JP', sans-serif; font-size: 16px; font-weight: 500; line-height: 1.5; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__note { font-family: 'Noto Sans JP', sans-serif; font-size: 10px; line-height: 1.5; }
 }
 @media (min-width:750px) and (max-width:1400px) {
 #a10-max-fast-flash-2026-{{ section.id }} .a10-2026__title { font-size: 32px; }
