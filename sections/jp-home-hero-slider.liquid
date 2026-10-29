@@ -12,6 +12,7 @@
             assign pc_image = block.settings.image_pc
             assign mobile_image = block.settings.image_mobile
             assign title = block.settings.title
+            assign title_mobile = block.settings.title_mobile
             assign subheading_logo = block.settings.subheading_logo
             assign feature_image = block.settings.feature_image
             assign desc = block.settings.desc
@@ -107,7 +108,10 @@
                       {% endif %}
 
                       {% if title != blank %}
-                        <div class="jp-home-hero__title rte">{{ title }}</div>
+                        <div class="jp-home-hero__title rte{% if title_mobile != blank %} jp-home-hero__title--pc{% endif %}">{{ title }}</div>
+                      {% endif %}
+                      {% if title_mobile != blank %}
+                        <div class="jp-home-hero__title jp-home-hero__title--mobile rte">{{ title_mobile }}</div>
                       {% endif %}
 
                       {% if desc != blank %}
@@ -736,6 +740,19 @@
       }
     {% endif %}
   {% endfor %}
+  .jp-home-hero--{{ sid }} .jp-home-hero__title--mobile {
+    display: none;
+  }
+
+  @media screen and (max-width: 989px) {
+    .jp-home-hero--{{ sid }} .jp-home-hero__title--pc {
+      display: none;
+    }
+
+    .jp-home-hero--{{ sid }} .jp-home-hero__title--mobile {
+      display: block;
+    }
+  }
 </style>
 
 <script>
@@ -915,6 +932,12 @@
           "id": "title",
           "label": "Title",
           "default": "<p>我が家の光美容器<br>効果も、やさしさも</p>"
+        },
+        {
+          "type": "html",
+          "id": "title_mobile",
+          "label": "移动端 Title（HTML）",
+          "info": "留空时使用上方 Title；填写后仅在移动端显示。"
         },
         {
           "type": "textarea",
