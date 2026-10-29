@@ -661,6 +661,12 @@
       }
     {% endif %}
     @media screen and (min-width: 990px) {
+      {% if block.settings.logo_height_pc > 0 %}
+        .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__subheading-logo {
+          height: {{ block.settings.logo_height_pc }}px;
+          width: auto;
+        }
+      {% endif %}
       {% if block.settings.subheading_font_size_pc > 0 %}
         .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__subheading {
           font-size: {{ block.settings.subheading_font_size_pc }}px;
@@ -680,11 +686,6 @@
           font-size: {{ block.settings.desc_font_size_pc }}px;
         }
       {% endif %}
-      {% if block.settings.button_font_size_pc > 0 %}
-        .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__btn {
-          font-size: {{ block.settings.button_font_size_pc }}px;
-        }
-      {% endif %}
       {% if block.settings.info_font_size_pc > 0 %}
         .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__info {
           font-size: {{ block.settings.info_font_size_pc }}px;
@@ -701,6 +702,12 @@
       {% endif %}
     }
     @media screen and (max-width: 989px) {
+      {% if block.settings.logo_height_mobile > 0 %}
+        .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__subheading-logo {
+          height: {{ block.settings.logo_height_mobile }}px;
+          width: auto;
+        }
+      {% endif %}
       {% if block.settings.subheading_font_size_mobile > 0 %}
         .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__subheading {
           font-size: {{ block.settings.subheading_font_size_mobile }}px;
@@ -718,11 +725,6 @@
       {% if block.settings.desc_font_size_mobile > 0 %}
         .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__desc {
           font-size: {{ block.settings.desc_font_size_mobile }}px;
-        }
-      {% endif %}
-      {% if block.settings.button_font_size_mobile > 0 %}
-        .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__btn {
-          font-size: {{ block.settings.button_font_size_mobile }}px;
         }
       {% endif %}
       {% if block.settings.info_font_size_mobile > 0 %}
@@ -905,6 +907,26 @@
           "label": "Subheading logo"
         },
         {
+          "type": "range",
+          "id": "logo_height_pc",
+          "label": "PC LOGO 高度（0 = 原有样式）",
+          "min": 0,
+          "max": 200,
+          "step": 2,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "logo_height_mobile",
+          "label": "移动端 LOGO 高度（0 = 原有样式）",
+          "min": 0,
+          "max": 200,
+          "step": 2,
+          "unit": "px",
+          "default": 0
+        },
+        {
           "type": "image_picker",
           "id": "feature_image",
           "label": "Feature image"
@@ -1073,27 +1095,7 @@
         },
         {
           "type": "header",
-          "content": "按钮文字样式"
-        },
-        {
-          "type": "range",
-          "id": "button_font_size_pc",
-          "label": "PC字号（0 = 原有样式）",
-          "min": 0,
-          "max": 100,
-          "step": 1,
-          "unit": "px",
-          "default": 0
-        },
-        {
-          "type": "range",
-          "id": "button_font_size_mobile",
-          "label": "移动端字号（0 = 原有样式）",
-          "min": 0,
-          "max": 100,
-          "step": 1,
-          "unit": "px",
-          "default": 0
+          "content": "按钮颜色"
         },
         {
           "type": "color",
