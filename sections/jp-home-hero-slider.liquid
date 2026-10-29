@@ -661,10 +661,10 @@
       }
     {% endif %}
     @media screen and (min-width: 990px) {
-      {% if block.settings.logo_height_pc > 0 %}
+      {% if block.settings.logo_width_pc > 0 %}
         .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__subheading-logo {
-          height: {{ block.settings.logo_height_pc }}px;
-          width: auto;
+          width: {{ block.settings.logo_width_pc }}px;
+          height: auto;
         }
       {% endif %}
       {% if block.settings.subheading_font_size_pc > 0 %}
@@ -702,10 +702,10 @@
       {% endif %}
     }
     @media screen and (max-width: 989px) {
-      {% if block.settings.logo_height_mobile > 0 %}
+      {% if block.settings.logo_width_mobile > 0 %}
         .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__subheading-logo {
-          height: {{ block.settings.logo_height_mobile }}px;
-          width: auto;
+          width: {{ block.settings.logo_width_mobile }}px;
+          height: auto;
         }
       {% endif %}
       {% if block.settings.subheading_font_size_mobile > 0 %}
@@ -908,8 +908,8 @@
         },
         {
           "type": "range",
-          "id": "logo_height_pc",
-          "label": "PC LOGO 高度（0 = 原有样式）",
+          "id": "logo_width_pc",
+          "label": "PC LOGO 宽度（0 = 原有样式）",
           "min": 0,
           "max": 200,
           "step": 2,
@@ -918,8 +918,8 @@
         },
         {
           "type": "range",
-          "id": "logo_height_mobile",
-          "label": "移动端 LOGO 高度（0 = 原有样式）",
+          "id": "logo_width_mobile",
+          "label": "移动端 LOGO 宽度（0 = 原有样式）",
           "min": 0,
           "max": 200,
           "step": 2,
