@@ -104,7 +104,10 @@
 #a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-row { position: relative; width: 100%; margin: 0; background: #f7f8fa; }
 #a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-row:first-of-type { height: calc(100vw * 463 / 375); }
 #a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-row:first-of-type .a10-2026__cooling-copy { position: relative; z-index: 1; padding: 56px 20px 0; }
-#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-row:first-of-type .a10-2026__cooling-visual { position: absolute; inset: 0; height: 100%; }
+#a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-row:first-of-type .a10-2026__cooling-visual {
+   {% comment %} position: absolute; {% endcomment %}
+   inset: 0; height: 100%; 
+  }
 #a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-row:last-of-type .a10-2026__cooling-copy { min-height: 200px; padding: 47px 20px 40px; }
 #a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-copy { align-self: stretch; }
 #a10-max-sapphire-cooling-2026-{{ section.id }} .a10-2026__cooling-copy .a10-2026__subtitle { font-size: 24px; line-height: 1.3; }
