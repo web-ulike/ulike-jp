@@ -66,14 +66,18 @@
   }
 
   #u-ews-conditions-{{ sid }} .u-ews-conditions__grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0;
+    --condition-gap: clamp(24px, 5vw, 76px);
+    display: flex;
+    justify-content: center;
+    gap: var(--condition-gap);
     margin: 0 auto;
   }
 
   #u-ews-conditions-{{ sid }} .u-ews-conditions__item {
-    padding: 0 38px;
+    flex: 0 1 auto;
+    width: max-content;
+    max-width: 220px;
+    min-width: 0;
     min-height: 150px;
     text-align: left;
     position: relative;
@@ -83,7 +87,7 @@
     content: "";
     position: absolute;
     top: 4px;
-    right: 0;
+    right: calc(var(--condition-gap) / -2);
     width: 1px;
     height: 96px;
     background: #d9d9de;
@@ -119,12 +123,14 @@
     }
 
     #u-ews-conditions-{{ sid }} .u-ews-conditions__grid {
-      grid-template-columns: 1fr;
+      display: block;
       max-width: 100%;
     }
 
     #u-ews-conditions-{{ sid }} .u-ews-conditions__item {
       min-height: auto;
+      width: auto;
+      max-width: none;
       padding: 0 0 20px;
       margin-bottom: 20px;
     }
