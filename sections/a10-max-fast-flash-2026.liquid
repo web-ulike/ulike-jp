@@ -1,0 +1,197 @@
+{% comment %}
+  Air 10 Max 2026: fast-flash. PC and mobile share this standalone section.
+  Copy and media are configured in the theme editor; typography inherits the theme.
+{% endcomment %}
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@600&display=swap">
+
+<section id="a10-max-fast-flash-2026-{{ section.id }}" class="a10-2026 a10-2026__flash">
+<div class="container a10-2026__container">
+<div class="a10-2026__inner a10-2026__flash-grid">
+<div class="a10-2026__flash-visual">{%- assign a10_image = section.settings.image | default: section.settings.image_mobile -%}{%- if a10_image != blank -%}
+<picture class="a10-2026__media ">{% if section.settings.image_mobile != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.image_mobile | image_url: width: 375 }} 375w, {{ section.settings.image_mobile | image_url: width: 750 }} 750w, {{ section.settings.image_mobile | image_url: width: 1100 }} 1100w" sizes="100vw">{% endif %}{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: a10_image.alt }}</picture>
+{%- endif -%}</div>
+
+<div class="a10-2026__flash-copy">{% if section.settings.title != blank %}
+<h2 class="a10-2026__subtitle to-top" style="transition-delay: 0.1s;">{{ section.settings.title | escape | replace: '*1', '<sup>*1</sup>' | newline_to_br }}</h2>
+{% endif %}{% if section.settings.body != blank %}
+<div class="a10-2026__body to-top" style="transition-delay: 0.2s;">{{ section.settings.body | escape | newline_to_br }}</div>
+{% endif %}
+<div class="a10-2026__stats">
+<div class="a10-2026__stat">{%- assign a10_image = section.settings.flash_icon | default: section.settings.flash_icon -%}{%- if a10_image != blank -%}
+<picture class="a10-2026__media ">{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: a10_image.alt }}</picture>
+{%- endif -%}<strong>{{ section.settings.flash_number | escape | newline_to_br }}</strong><span class="unit">{{ section.settings.flash_unit | escape | newline_to_br }}</span><span class="label">{{ section.settings.flash_label | escape | newline_to_br }}</span></div>
+
+<div class="a10-2026__stat">{%- assign a10_image = section.settings.time_icon | default: section.settings.time_icon -%}{%- if a10_image != blank -%}
+<picture class="a10-2026__media ">{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: a10_image.alt }}</picture>
+{%- endif -%}<strong>{{ section.settings.time_number | escape | newline_to_br }}</strong><span class="unit">{{ section.settings.time_unit | escape | newline_to_br }}</span><span class="label">{{ section.settings.time_label | escape | newline_to_br }}</span></div>
+</div>
+{% if section.settings.note != blank %}
+<div class="a10-2026__note to-top" style="transition-delay: 0.3s;">{{ section.settings.note | escape | newline_to_br }}</div>
+{% endif %}</div>
+</div>
+</div>
+</section>
+
+<style>
+#a10-max-fast-flash-2026-{{ section.id }} { color: #190a0a;  overflow: hidden; }
+#a10-max-fast-flash-2026-{{ section.id }} *, #a10-max-fast-flash-2026-{{ section.id }} *::before, #a10-max-fast-flash-2026-{{ section.id }} *::after { box-sizing: border-box; }
+#a10-max-fast-flash-2026-{{ section.id }} h2, #a10-max-fast-flash-2026-{{ section.id }} h3, #a10-max-fast-flash-2026-{{ section.id }} p { margin: 0; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__title { font-size: 40px; line-height: 1.3; font-weight: 400; overflow-wrap: anywhere; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__subtitle { font-size: 32px; line-height: 1.5; font-weight: 400; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__body { color: #3f3636; font-size: 16px; line-height: 1.5; overflow-wrap: anywhere; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__body p + p { margin-top: 0; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__note { color: rgba(0,0,0,.5); font-size: 10px; line-height: 1.5; overflow-wrap: anywhere; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__note p { margin: 0; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__media { display: block; min-width: 0; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__media img { display: block; width: 100%; height: auto; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__center { text-align: center; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__mobile { display: none; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__body :is(a, strong, em), #a10-max-fast-flash-2026-{{ section.id }} .a10-2026__note a { color: inherit; }
+#a10-max-fast-flash-2026-{{ section.id }} sup { font-size: .645em; line-height: 0; vertical-align: super; }
+#a10-max-fast-flash-2026-{{ section.id }}.a10-2026__flash { padding: 145px 0; background: #fff; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__flash-grid { 
+  display: grid; grid-template-columns: 42% 47%; justify-content: space-between; align-items: center; 
+}
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__flash-copy .a10-2026__subtitle { font-size: 26px; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__flash-copy .a10-2026__body { margin-top: 32px; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__stats { display: flex; gap: 55px; margin-top: 55px; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__stat { text-align: center; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__stat .a10-2026__media { width: 116px; margin: 0 auto 20px; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__stat strong {  font-size: 64px; line-height: 1.1; font-weight: 600; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__stat .unit { font-size: 24px; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__stat .label { display: block; font-size: 16px; margin-top: 8px; }
+#a10-max-fast-flash-2026-{{ section.id }}.a10-2026__flash .a10-2026__note { margin-top: 110px; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__scene-copy .a10-2026__stats { gap: 35px; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__scene-copy .a10-2026__stat + .a10-2026__stat { border-left: 1px solid #bbb; padding-left: 35px; }
+@media (min-width:750px) {
+#a10-max-fast-flash-2026-{{ section.id }} > .a10-2026__container { width: 100%; max-width: 1300px; padding-inline: 40px; margin-inline: auto; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__flash-copy .a10-2026__subtitle { color: #000; font-family: 'Noto Sans JP', sans-serif; font-size: 24px; font-weight: 400; line-height: 1.5; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__flash-copy .a10-2026__body { margin-top: 28px; font-family: 'Noto Sans JP', sans-serif; font-size: 16px; line-height: 1.5; text-align: justify; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__stat strong { color: #000;font-size: 60px; font-weight: 600; line-height: 1.2; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__stat + .a10-2026__stat strong { font-size: 64px; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__stat .unit { font-family: 'Noto Sans JP', sans-serif; font-size: 24px; font-weight: 500; line-height: 1.2; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__stat .label { color: #000; font-family: 'Noto Sans JP', sans-serif; font-size: 16px; font-weight: 500; line-height: 1.5; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__note { font-family: 'Noto Sans JP', sans-serif; font-size: 10px; line-height: 1.5; }
+}
+@media (min-width:750px) and (max-width:1400px) {
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__title { font-size: 32px; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__subtitle { font-size: 26px; }
+}
+@media (max-width:749px) {
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__desktop { display: none !important; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__mobile { display: block; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__title { font-size: 24px; line-height: 1.3; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__subtitle { font-size: 24px; line-height: 1.5; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__body { font-size: 14px; line-height: 1.5; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__note { font-size: 10px; line-height: 1.5; }
+#a10-max-fast-flash-2026-{{ section.id }}.a10-2026__flash { padding: 42px 0 20px; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__flash-grid { width: 100%; display: flex; flex-direction: column; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__flash-visual { order: 1; width: 100%; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__flash-copy { display: contents; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__flash-copy .a10-2026__subtitle { font-size: 20px; font-weight: 500; margin: 0; order: 0; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__flash-copy .a10-2026__body { margin: 24px 0 0; font-size: 12px; order: 0; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__stats { gap: 50px; justify-content: center; margin: 50px 0; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__stat .a10-2026__media { width: 68px; margin-bottom: 12px; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__stat strong { font-size: 40px; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__stat .unit { font-size: 14px; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__stat .label { font-size: 12px; }
+#a10-max-fast-flash-2026-{{ section.id }}.a10-2026__flash .a10-2026__note { order: 2; margin: 22px 0 0; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__scene-copy .a10-2026__stats { order: 0; margin: 30px 0 25px; align-self: start; gap: 24px; }
+#a10-max-fast-flash-2026-{{ section.id }} .a10-2026__scene-copy .a10-2026__stat + .a10-2026__stat { padding-left: 24px; }
+}
+
+/* Keep short copy inside clipped cards while it enters the viewport. */
+@media (prefers-reduced-motion: no-preference) {
+#a10-max-fast-flash-2026-{{ section.id }} .to-top:not(.appear) { transform: translateY(20px); }
+}
+
+</style>
+
+{% schema %}
+{
+  "name": "A10 Max 快速闪光",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "PC 连续闪光图片"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "M 连续闪光图片"
+    },
+    {
+      "type": "textarea",
+      "id": "title",
+      "label": "标题",
+      "default": "0.25 秒間隔の高速フラッシュにより、全身ケアもわずか約 8 分で完了*1。"
+    },
+    {
+      "type": "text",
+      "id": "flash_number",
+      "label": "闪光数值",
+      "default": "0.25"
+    },
+    {
+      "type": "text",
+      "id": "flash_unit",
+      "label": "闪光单位",
+      "default": "秒"
+    },
+    {
+      "type": "text",
+      "id": "flash_label",
+      "label": "闪光标题",
+      "default": "高速フラッシュ"
+    },
+    {
+      "type": "text",
+      "id": "time_number",
+      "label": "时间数值",
+      "default": "8"
+    },
+    {
+      "type": "text",
+      "id": "time_unit",
+      "label": "时间单位",
+      "default": "分"
+    },
+    {
+      "type": "text",
+      "id": "time_label",
+      "label": "时间标题",
+      "default": "全身ケア完了"
+    },
+    {
+      "type": "textarea",
+      "id": "note",
+      "label": "脚注文案",
+      "default": "*1.国際認証機関CVC：WTS2024-15491;160㎝の男女3名を対象とした試験結果。お手入れにかかる時間には個人差があります。"
+    },
+    {
+      "type": "image_picker",
+      "id": "flash_icon",
+      "label": "高速闪光图标"
+    },
+    {
+      "type": "image_picker",
+      "id": "time_icon",
+      "label": "全身护理图标"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "说明文案",
+      "default": "家庭用ケアの常識を覆すスピードを実現。入浴後のスキマ時間や深夜のひとときが、脚からVIOまでの全身トータルケアタイムに変わります。\nスピーディーかつ楽に終わるから、無理なく続けられる。"
+    }
+  ],
+  "presets": [
+    {
+      "name": "A10 Max 快速闪光"
+    }
+  ]
+}
+{% endschema %}

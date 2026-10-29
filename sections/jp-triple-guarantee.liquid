@@ -159,7 +159,7 @@
     flex: 0 0 auto;
     width: 26px;
     height: 15px;
-    color: #000;
+    {% comment %} color: #000; {% endcomment %}
     transition: transform 0.25s ease;
   }
 
@@ -240,7 +240,11 @@
     }
 
     #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__accordion {
-      background: #fff;
+      background: #f7f8fa;
+    }
+
+    #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__item:last-child {
+      border-bottom: 0;
     }
 
     #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__trigger {
@@ -249,6 +253,11 @@
       line-height: 1.45;
       font-weight: 500;
       gap: 16px;
+    }
+
+    #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__icon {
+      width: 14px;
+      height: 9px;
     }
 
     #jp-triple-guarantee-{{ sid }} .jp-triple-guarantee__panel-inner {

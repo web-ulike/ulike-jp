@@ -109,7 +109,7 @@
           "settings": {
             "title": "機能詳細",
             "target_ids": "",
-            "hide_target_ids": "shopify-section-template--23869225861168__p_guide_bawQmk,\nshopify-section-template--23869225861168__p_guide_bawQmk,\nshopify-section-template--23869225861168__jp_how_to_use_video_6YEd66"
+            "hide_target_ids": "shopify-section-template--23869225861168__p_guide_bawQmk,\nshopify-section-template--23869225861168__p_guide_bawQmk,\nshopify-section-template--23869225861168__jp_how_to_use_video_6YEd66,shopify-section-template--23869225861168__faq_ApejFA"
           }
         },
         "tab_h9UJAD": {
@@ -124,7 +124,7 @@
           "type": "tab",
           "settings": {
             "title": "よくある質問",
-            "target_ids": "shopify-section-template--23869225861168__rich_text_JHqhPN,shopify-section-template--23869225861168__1780454263addd15b8",
+            "target_ids": "shopify-section-template--23869225861168__rich_text_JHqhPN,shopify-section-template--23869225861168__1780454263addd15b8,shopify-section-template--23869225861168__faq_ApejFA",
             "hide_target_ids": ""
           }
         }
@@ -710,7 +710,6 @@
         "question_pPyEXB",
         "question_pTbNYK"
       ],
-      "disabled": true,
       "custom_css": [
         "@media screen and (min-width: 1024px) {.container.container--small {max-width: inherit; --page-padding: var(--sp-60); }}"
       ],
@@ -740,6 +739,48 @@
         "divider": false,
         "narrow": true,
         "rounded": false
+      }
+    },
+    "p_trust_y7mkfq": {
+      "type": "p-trust",
+      "blocks": {
+        "stat_8zA4nA": {
+          "type": "stat",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/Vector_4f8140ac-3c53-4a7f-bf1c-b733d4e14167.png",
+            "number": "1000<sup>+<\/sup>",
+            "label": "取得特許<sup>*2<\/sup>"
+          }
+        },
+        "stat_hbgGHJ": {
+          "type": "stat",
+          "settings": {
+            "number": "10年<sup>+<\/sup>",
+            "label": "IPL開発経験"
+          }
+        },
+        "stat_NMX8Cn": {
+          "type": "stat",
+          "settings": {
+            "icon_image": "shopify:\/\/shop_images\/Vector_1_659b0ae2-ac2e-4946-af0f-a3f33955c0d4.png",
+            "number": "1000万<sup>+<\/sup>",
+            "label": "販売台数<sup>*3<\/sup>"
+          }
+        }
+      },
+      "block_order": [
+        "stat_8zA4nA",
+        "stat_hbgGHJ",
+        "stat_NMX8Cn"
+      ],
+      "name": "P 信赖背书",
+      "settings": {
+        "heading_pc": "日本一だから、<br>安心して選べる。",
+        "heading_mobile": "日本一だから、<br>安心して選べる。",
+        "award_image": "shopify:\/\/shop_images\/logo_10b05c6a-c1f6-4e25-af7a-32a4ffa1b383.png",
+        "note": "*1.株式会社富士経済発行『美肌・美髪ケア家電トレンドデータ 2026』に基づく。光美容器とは、レーザーやIPLなどの技術を用いてムダ毛を処理する美容機器を指します。*2.当社調べ。2025年12月の自社統計情報に基づく。*3.社内集計。2026年7月時点、全販売チャネルにおける光美容器の累計販売台数。",
+        "background": "#ffffff",
+        "text_color": "#111111"
       }
     },
     "1780454263addd15b8": {
@@ -786,6 +827,7 @@
     "p_guide_bawQmk",
     "jp_how_to_use_video_6YEd66",
     "faq_ApejFA",
+    "p_trust_y7mkfq",
     "1780454263addd15b8"
   ]
 }

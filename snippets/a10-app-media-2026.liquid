@@ -1,0 +1,19 @@
+{% liquid
+  assign desktop_image = image | default: image_mobile
+  assign mobile_image = image_mobile | default: image
+  assign image_alt = desktop_image.alt | default: link_label
+%}
+{% if desktop_image != blank %}
+{% if link != blank %}
+  <a class="a10-2026__media-link" href="{{ link | escape }}" aria-label="{{ link_label | default: 'アプリの詳細を見る' | escape }}"{% if new_tab %} target="_blank" rel="noopener noreferrer"{% endif %}>
+{% endif %}
+<picture class="a10-2026__media">
+  {% if mobile_image != blank %}
+    <source media="(max-width: 749px)" srcset="{{ mobile_image | image_url: width: 375 }} 375w, {{ mobile_image | image_url: width: 750 }} 750w, {{ mobile_image | image_url: width: 1100 }} 1100w" sizes="100vw">
+  {% endif %}
+    {{ desktop_image | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1600', sizes: '(max-width: 749px) 100vw, (max-width: 1300px) 46vw, 602px', alt: image_alt }}
+</picture>
+{% if link != blank %}
+  </a>
+{% endif %}
+{% endif %}

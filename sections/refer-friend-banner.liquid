@@ -1,43 +1,102 @@
 {%- liquid
-  assign se_id = section.id
-  assign se_bks = section.blocks
   assign se_stts = section.settings
+  assign desktop_image = se_stts.image_desktop | default: se_stts.image_mobile
+  assign mobile_image = se_stts.image_mobile | default: desktop_image
+  assign mobile_title = se_stts.m_title | default: se_stts.title
 -%}
 
-<section class="refer-friend-banner_{{ se_id }}" id="refer-friend-banner">
-  <div class="refer-friend-content">
-    <div class="container">
-      <h1>
-        <span class="hidden-phone hidden-tablet">{{ section.settings.title }}</span>
-        <span class="hidden-lap hidden-desk">{{ section.settings.m_title }}</span>
-      </h1>
-      <p>{{ section.settings.description }}</p>
-      {% comment %} <a href="{{ section.settings.button_link }}" class="btn tracked-button" target="_blank" rel="noopener noreferrer">
-        {{ section.settings.button_text }}
-      </a> {% endcomment %}
+<section class="refer-friend-banner refer-friend-banner_{{ section.id }}" id="refer-friend-banner">
+  {%- if desktop_image != blank -%}
+    <picture class="refer-friend-image">
+      <source media="(max-width: 768px)" srcset="{{ mobile_image | image_url: width: 750 }} 750w, {{ mobile_image | image_url: width: 1500 }} 1500w" sizes="100vw">
+      {{ desktop_image | image_url: width: 3840 | image_tag: widths: '960, 1440, 1920, 2560, 3840', sizes: '100vw', loading: 'eager', fetchpriority: 'high', alt: se_stts.alt_text }}
+    </picture>
+  {%- endif -%}
+  <div class="refer-friend-content container">
+    <div class="refer-friend-copy refer-friend-copy--desktop">
+      {%- if se_stts.title != blank -%}<h1 class="refer-friend-title">{{ se_stts.title }}</h1>{%- endif -%}
+      {%- if se_stts.description != blank -%}
+        <div class="refer-friend-description">{{ se_stts.description | escape | newline_to_br }}</div>
+      {%- endif -%}
+    </div>
+    <div class="refer-friend-copy refer-friend-copy--mobile">
+      {%- if mobile_title != blank -%}<h1 class="refer-friend-title">{{ mobile_title }}</h1>{%- endif -%}
+      {%- if se_stts.m_subtitle != blank -%}<p class="refer-friend-subtitle">{{ se_stts.m_subtitle | escape }}</p>{%- endif -%}
+      {%- if se_stts.m_description != blank -%}
+        <div class="refer-friend-description">{{ se_stts.m_description | escape | newline_to_br }}</div>
+      {%- endif -%}
     </div>
   </div>
-  {% if section.settings.image_desktop != blank or section.settings.image_mobile != blank %}
-    <div class="refer-friend-image">
-      <picture>
-        <source media="(max-width: 768px)" srcset="{{ section.settings.image_mobile | img_url: '750x' }}">
-        <img
-          class="image"
-          alt="{{ section.settings.alt_text | escape }}"
-          src="{{ section.settings.image_desktop | img_url: '1920x' }}"
-        >
-      </picture>
-    </div>
-  {% endif %}
 </section>
-<script>
-    window.addEventListener('load', function() { 
-      $('.refer-friend-banner_{{ se_id }} .tracked-button').on('click', function() {
-        // 点击埋点代码
-        window.UlikeCommon.commonGtmEvent('老带新-头图点击加入', '', '');
-      });
-    });
- </script>
+
+<style>
+  #shopify-section-{{ section.id }} .refer-friend-banner {
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    min-height: calc(100vw * 1400 / 3840);
+    background: #eeedeb;
+    color: {{ se_stts.text_color }};
+  }
+  #shopify-section-{{ section.id }} .refer-friend-image {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+  }
+  #shopify-section-{{ section.id }} .refer-friend-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  #shopify-section-{{ section.id }} .refer-friend-content {
+    display: flex;
+    align-items: center;
+    min-height: inherit;
+    padding: 3.5vw 3.4vw;
+  }
+  #shopify-section-{{ section.id }} .refer-friend-copy {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  #shopify-section-{{ section.id }} .refer-friend-copy--desktop { width: {{ se_stts.content_width }}%; }
+  #shopify-section-{{ section.id }} .refer-friend-copy--mobile { display: none; }
+  #shopify-section-{{ section.id }} .refer-friend-title {
+    margin: 0;
+    font-size: clamp(22px, {{ se_stts.title_size | divided_by: 19.2 }}vw, {{ se_stts.title_size | times: 2 }}px);
+    font-weight: 500;
+    line-height: 1.35;
+  }
+  #shopify-section-{{ section.id }} .refer-friend-description {
+    margin-top: 1.1vw;
+    font-size: 22px;
+    line-height: 1.7;
+  }
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} .refer-friend-banner { min-height: calc(100vw * 1038 / 750); }
+    #shopify-section-{{ section.id }} .refer-friend-image img { object-position: 72% center; }
+    #shopify-section-{{ section.id }} .refer-friend-content {
+      display: block;
+      padding: {{ se_stts.m_text_top }}vw 5vw 92vw;
+      text-align: center;
+    }
+    #shopify-section-{{ section.id }} .refer-friend-copy--desktop { display: none; }
+    #shopify-section-{{ section.id }} .refer-friend-copy--mobile { display: block; width: 100%; }
+    #shopify-section-{{ section.id }} .refer-friend-title {
+      font-size: clamp(14px, {{ se_stts.m_title_size | divided_by: 3.75 }}vw, {{ se_stts.m_title_size | times: 2 }}px);
+      line-height: 1.4;
+    }
+    #shopify-section-{{ section.id }} .refer-friend-subtitle {
+      margin: 3vw 0 0;
+      font-size: clamp(12px, {{ se_stts.m_subtitle_size | divided_by: 3.75 }}vw, {{ se_stts.m_subtitle_size | times: 2 }}px);
+      font-weight: 500;
+      line-height: 1.5;
+    }
+    #shopify-section-{{ section.id }} .refer-friend-description { margin-top: 3vw; font-size: 14px; line-height: 1.6; }
+  }
+</style>
 
 {% schema %}
 {
@@ -46,20 +105,105 @@
     {
       "type": "html",
       "id": "title",
-      "label": "Title",
-      "default": "Share the Love, Reap the Rewards."
+      "label": "PC 标题",
+      "default": "友達紹介キャンペーン"
     },
     {
       "type": "html",
       "id": "m_title",
-      "label": "Title",
-      "default": "Share the Love, Reap the Rewards."
+      "label": "手机端标题（支持 HTML 换行）",
+      "default": "友達を紹介して5,000円ゲット！"
     },
     {
       "type": "textarea",
       "id": "description",
-      "label": "Description",
-      "default": "Send a friend $70 off their first order and earn a 10% commission after they make a purchase."
+      "label": "PC 说明（换行生效）",
+      "default": "友達を紹介すると、ご注文1件につき5,000円の報酬がもらえる！\n獲得した報酬はPayPalで受け取れます。\n紹介方法：\n1. 紹介コードを共有し、友達が注文時にコードを使うとスペシャル割引が受けられます。\n2. 紹介リンクを共有し、友達がリンクから割引価額で注文すると、あなたに報酬が入ります。"
+    },
+    {
+      "type": "text",
+      "id": "m_subtitle",
+      "label": "手机端副标题",
+      "default": "報酬上限なし"
+    },
+    {
+      "type": "textarea",
+      "id": "m_description",
+      "label": "手机端说明（可留空，换行生效）"
+    },
+    {
+      "type": "header",
+      "content": "文字样式与位置"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "文字颜色",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "PC 标题字号（1920px 屏宽）",
+      "min": 20,
+      "max": 96,
+      "step": 1,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "PC 说明字号（1920px 屏宽）",
+      "min": 12,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 26
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "label": "PC 文案宽度",
+      "min": 35,
+      "max": 70,
+      "step": 1,
+      "unit": "%",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "m_title_size",
+      "label": "手机端标题字号（375px 屏宽）",
+      "min": 14,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "default": 23
+    },
+    {
+      "type": "range",
+      "id": "m_subtitle_size",
+      "label": "手机端副标题字号（375px 屏宽）",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 21
+    },
+    {
+      "type": "range",
+      "id": "m_text_top",
+      "label": "手机端文案距顶部（相对屏宽）",
+      "min": 5,
+      "max": 40,
+      "step": 1,
+      "unit": "%",
+      "default": 25
+    },
+    {
+      "type": "header",
+      "content": "背景图片"
     },
     {
       "type": "text",
@@ -75,12 +219,14 @@
     {
       "type": "image_picker",
       "id": "image_desktop",
-      "label": "Desktop Image"
+      "label": "PC 背景图",
+      "info": "建议比例 3840 × 1400；使用不含文字的图片，避免与可配置文案重叠。"
     },
     {
       "type": "image_picker",
       "id": "image_mobile",
-      "label": "Mobile Image"
+      "label": "手机端背景图",
+      "info": "建议比例 750 × 1038；使用不含文字的图片，未配置时回退 PC 图片。"
     },
     {
       "type": "text",
@@ -97,103 +243,3 @@
   ]
 }
 {% endschema %}
-
-<style>
-  .refer-friend-banner_{{ se_id }} {
-    width: 100%;
-    position: relative;
-    text-align: center;
-    overflow: hidden;
-  }
-
-  .refer-friend-banner_{{ se_id }} .refer-friend-content {
-    position: absolute;
-    left: 0px;
-    right: 0px;
-    text-align: left;
-    z-index: 2;
-    width: 100%;
-    margin: 0 auto;
-    color: #000;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  .refer-friend-banner_{{ se_id }} .refer-friend-content h1 {
-    font-size: 50px;
-    font-weight: 500;
-    color: #000;
-    line-height: 52px;
-  }
-
-  .refer-friend-banner_{{ se_id }} .refer-friend-content p {
-    font-size: 20px;
-    margin: 10px 0;
-    width: 36%;
-    line-height: 1.3;
-  }
-
-  .refer-friend-banner_{{ se_id }} .refer-friend-content .btn {
-    display: inline-block;
-    padding: 8px 30px;
-    background: #000;
-    color: #FFF;
-    text-decoration: none;
-    transition: background 0.3s;
-    margin-top: 20px;
-    font-family: var(--heading-font-family);
-    border-radius: 2px;
-    font-size: 18px;
-    width: 180px;
-    text-align: center;
-  }
-
-  .refer-friend-banner_{{ se_id }} .refer-friend-content .btn:hover {
-    background: #3f3636;
-  }
-
-  .refer-friend-banner_{{ se_id }} .refer-friend-image {
-    width: 100%;
-    overflow: hidden;
-  }
-
-  .refer-friend-banner_{{ se_id }} .refer-friend-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* 保持图片比例同时填充整个屏幕 */
-  }
-
-  @media (max-width: 768px) {
-    .refer-friend-banner_{{ se_id }} .refer-friend-content {
-      top: 5%;
-      transform: none;
-      left: 0;
-    }
-    .refer-friend-banner_{{ se_id }} .refer-friend-content h1 {
-      font-size: 2em;
-      line-height: 1.2;
-    }
-
-    .refer-friend-banner_{{ se_id }} .refer-friend-content p {
-      font-size: 1em;
-      line-height: 1.2;
-      width: 90%;
-    }
-
-    .refer-friend-banner_{{ se_id }} .refer-friend-content .btn {
-      padding: 8px 20px;
-      margin-top: 10px;
-      font-size: 18px;
-      width: 160px;
-      text-align: center;
-    }
-
-    .refer-friend-banner_{{ se_id }} .refer-friend-image {
-        width: 100%;
-        height: inherit; /* 让图片全屏 */
-        overflow: inherit;
-    }
-  }
-</style>

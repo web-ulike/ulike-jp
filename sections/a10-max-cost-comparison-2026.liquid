@@ -1,0 +1,372 @@
+{% comment %}
+  Air 10 Max 2026: cost-comparison. PC and mobile share this standalone section.
+  Copy and media are configured in the theme editor; typography inherits the theme.
+{% endcomment %}
+
+<section id="a10-max-cost-comparison-2026-{{ section.id }}" class="a10-2026 a10-2026__cost">
+<div class="container a10-2026__container">
+<div class="a10-2026__inner">{% if section.settings.title != blank %}
+<h2 class="a10-2026__title a10-2026__center to-top" style="transition-delay: 0.1s;">{{ section.settings.title | escape | newline_to_br | replace: 'より', 'より<br class="a10-2026__cost-title-break">' }}</h2>
+{% endif %}{% if section.settings.subtitle != blank %}<p class="a10-2026__subtitle to-top" style="transition-delay: 0.2s;">{{ section.settings.subtitle | escape | newline_to_br }}</p>{% endif %}
+<table class="a10-2026__cost-table to-top" style="transition-delay: 0.3s;">
+<caption class="visually-hidden">{{ section.settings.subtitle | escape | newline_to_br }}</caption>
+
+<tbody>{% for block in section.blocks %}
+<tr  {{ block.shopify_attributes }}>
+<th scope="row">
+<div class="a10-2026__cost-label">{%- assign a10_image = block.settings.image -%}{%- if a10_image != blank -%}
+<picture class="a10-2026__media ">{{ a10_image | image_url: width: 244 | image_tag: loading: 'lazy', widths: '80, 122, 244', sizes: '(max-width: 749px) 40px, 122px', alt: a10_image.alt }}</picture>
+{%- endif -%}<span>{{ block.settings.label | escape | newline_to_br }}</span></div>
+{% if forloop.first and section.settings.vs_label != blank %}<span class="a10-2026__cost-vs">{{ section.settings.vs_label | escape }}</span>{% endif %}</th>
+
+<td class="a10-2026__cost-price">{% if forloop.first %}<small>{{ section.settings.price_label | escape | newline_to_br }}</small>{% endif %}
+{%- assign a10_price = block.settings.price | strip -%}
+{%- assign a10_currency = a10_price | slice: 0, 1 -%}
+<span class="a10-2026__cost-amount">{%- if a10_currency == '¥' or a10_currency == '￥' -%}<span class="a10-2026__cost-currency">{{ a10_currency }}</span>{%- assign a10_price = a10_price | remove_first: a10_currency | strip -%}{%- endif -%}<span>{{ a10_price | escape | replace: '～', '<span class="a10-2026__cost-from">～</span>' }}</span></span></td>
+
+<td>{{ block.settings.detail | escape | replace: '*', '<sup>*</sup>' | newline_to_br }}</td>
+</tr>
+{% endfor %}</tbody>
+</table>
+{% if section.settings.note != blank %}
+<div class="a10-2026__note to-top" style="transition-delay: 0.4s;">{{ section.settings.note }}</div>
+{% endif %}</div>
+</div>
+</section>
+
+<style>
+#a10-max-cost-comparison-2026-{{ section.id }} {
+  --cost-unit: min(1px, calc((100vw - 80px) / 1218.484));
+  --cost-image: calc(121.474 * var(--cost-unit));
+  --cost-inset: calc(60.737 * var(--cost-unit));
+  --cost-row: calc(151.843 * var(--cost-unit));
+  --cost-first-row: calc(182.211 * var(--cost-unit));
+  --cost-gap: calc(37.622 * var(--cost-unit));
+  color: #000;
+  background: #fff;
+  padding: calc(87.795 * var(--cost-unit)) 0 calc(46.336 * var(--cost-unit));
+  overflow: hidden;
+  font-family: 'Saans', 'Noto Sans JP', sans-serif;
+}
+#a10-max-cost-comparison-2026-{{ section.id }} *,
+#a10-max-cost-comparison-2026-{{ section.id }} *::before,
+#a10-max-cost-comparison-2026-{{ section.id }} *::after { box-sizing: border-box; }
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__container {
+  width: calc(1218.484 * var(--cost-unit));
+  max-width: none;
+  margin: 0 auto;
+  padding: 0;
+}
+#a10-max-cost-comparison-2026-{{ section.id }} :is(h2, p) { margin: 0; }
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__title {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: calc(40 * var(--cost-unit));
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 0;
+  text-align: center;
+}
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__subtitle {
+  display: flex;
+  align-items: center;
+  gap: calc(32 * var(--cost-unit));
+  margin: calc(41.361 * var(--cost-unit)) 0 calc(103.853 * var(--cost-unit));
+  color: rgba(0, 0, 0, .8);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: calc(32 * var(--cost-unit));
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+}
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__subtitle::before,
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__subtitle::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #aaa;
+}
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-table {
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+}
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-table :is(th, td) {
+  height: var(--cost-row);
+  padding: 0;
+  border: 0;
+  background: #f9f9f9;
+  vertical-align: middle;
+  text-align: center;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-table th {
+  position: relative;
+  width: 43.85%;
+  background: linear-gradient(to right, #fff var(--cost-inset), #f9f9f9 var(--cost-inset));
+  color: #3f3636;
+  font-size: calc(24 * var(--cost-unit));
+}
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-price {
+  width: 26.24%;
+  font-size: calc(40 * var(--cost-unit));
+  white-space: nowrap;
+}
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-table td:last-child {
+  padding: 0 calc(100 * var(--cost-unit)) 0 calc(58 * var(--cost-unit));
+  color: #3f3636;
+  font-size: calc(24 * var(--cost-unit));
+}
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-table sup { font-size: .645em; line-height: 0; vertical-align: super; }
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-label {
+  margin-left: calc(197.188 * var(--cost-unit));
+  width: calc(268.529 * var(--cost-unit));
+  text-align: center;
+}
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__media {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: calc((var(--cost-row) - var(--cost-image)) / 2);
+  width: var(--cost-image);
+  height: var(--cost-image);
+  padding: calc(7.592 * var(--cost-unit));
+  background: #fff;
+  border-radius: 50%;
+}
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-table tr:first-child :is(th, td) {
+  height: calc(var(--cost-first-row) + var(--cost-gap));
+  border-bottom: var(--cost-gap) solid #fff;
+  background: #ffeff5;
+}
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-table tr:first-child th {
+  background: #fff;
+  color: #000;
+  font-size: calc(28 * var(--cost-unit));
+}
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-table tr:first-child td:last-child {
+  color: #000;
+  font-size: calc(28 * var(--cost-unit));
+  font-weight: 500;
+}
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-table tr:first-child .a10-2026__media {
+  top: calc((var(--cost-first-row) - var(--cost-image)) / 2);
+}
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-table tr:first-child td:nth-child(2) {
+  color: #e0004d;
+  font-size: calc(60.737 * var(--cost-unit));
+  font-weight: 500;
+}
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-amount { display: inline-flex; align-items: baseline; line-height: 1.15; }
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-currency { font-size: .6em; }
+#a10-max-cost-comparison-2026-{{ section.id }} tr:first-child .a10-2026__cost-currency { font-size: .5em; }
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-price small {
+  display: block;
+  color: #000;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: calc(20 * var(--cost-unit));
+  font-weight: 400;
+  line-height: 1.3;
+}
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-table tr:nth-child(n+3) :is(th, td) { position: relative; }
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-table tr:nth-child(n+3) :is(th, td)::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #d5d5d5;
+}
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-table tr:nth-child(n+3) th::after { left: calc(197.188 * var(--cost-unit)); }
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-table tr:nth-child(n+3) td:last-child::after { right: calc(100 * var(--cost-unit)); }
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-vs {
+  position: absolute;
+  bottom: calc(-49.07 * var(--cost-unit));
+  left: calc(49.547 * var(--cost-unit));
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(72.125 * var(--cost-unit));
+  height: calc(72.125 * var(--cost-unit));
+  border-radius: 50%;
+  background: #e0004d;
+  color: #fff;
+  font-size: calc(35.183 * var(--cost-unit));
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1;
+}
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__note {
+  margin-top: calc(96.297 * var(--cost-unit));
+  max-width: 972.908px;
+  color: rgba(0, 0, 0, .5);
+  font-size: 10px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-title-break { display: none; }
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-table tr:first-child .a10-2026__cost-label::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 0 var(--cost-inset);
+  background: #ffeff5;
+  border-top-left-radius: calc(12.147 * var(--cost-unit));
+}
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-label > span { position: relative; }
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-table tr:first-child td:last-child { border-radius: 0 calc(12.147 * var(--cost-unit)) calc(12.147 * var(--cost-unit)) 0; }
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-table tr:nth-child(2) td:last-child { border-top-right-radius: calc(8 * var(--cost-unit)); }
+#a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-table tr:last-child td:last-child { border-bottom-right-radius: calc(8 * var(--cost-unit)); }
+@media (max-width: 749px) {
+  #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-title-break { display: initial; }
+  #a10-max-cost-comparison-2026-{{ section.id }} {
+    --cost-unit: min(1px, 0.0520833333vw);
+    --cost-image: 40.154px;
+    --cost-inset: 20.077px;
+    --cost-row: 39.994px;
+    --cost-first-row: 49.535px;
+    --cost-gap: 11.825px;
+    padding: 29.49px 0 30px;
+  }
+  #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__container { width: calc(100% - 40px); }
+  #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__title { max-width: 272.176px; margin: auto; font-size: 20px; font-weight: 500; }
+  #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__subtitle { margin: 15.46px 0 17.56px; gap: 8px; font-size: 14px; white-space: nowrap; }
+  #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-table th { width: 45.97%; font-size: 9px; }
+  #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-label { margin-left: 48px; width: calc(100% - 56px); white-space: nowrap; }
+  #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-price { width: 27.46%; font-size: 18px; }
+  #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-table td:last-child { padding: 0 4px; font-size: 10px; line-height: 1.3; }
+  #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__media { padding: 2.51px; }
+  #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-table tr:first-child th { font-size: 11px; }
+  #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-table tr:first-child td:nth-child(2) { font-size: 20px; }
+  #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-table tr:first-child td:last-child { font-size: 10px; letter-spacing: 1px; }
+  #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-price small { font-size: 10px; }
+  #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-currency { font-size: .45em; }
+  #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-from { font-size: .335em; }
+  #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-table tr:nth-child(n+3) th::after { left: 48px; }
+  #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-table tr:nth-child(n+3) td:last-child::after { right: 4px; }
+  #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__cost-vs { width: 23.842px; height: 23.842px; bottom: -19.15px; left: 31.68px; font-size: 11.63px; }
+  #a10-max-cost-comparison-2026-{{ section.id }} .a10-2026__note { margin-top: 23.8px; max-width: 328.589px; }
+}
+/* Preserve the theme's existing reveal behavior. */
+@media (prefers-reduced-motion: no-preference) {
+  #a10-max-cost-comparison-2026-{{ section.id }} .to-top:not(.appear) { transform: translateY(20px); }
+}
+</style>
+
+{% schema %}
+{
+  "name": "A10 Max 费用对比",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "html",
+      "id": "title",
+      "label": "标题",
+      "default": "エステ・医療脱毛より圧倒的なコスパ！"
+    },
+    {
+      "type": "html",
+      "id": "note",
+      "label": "脚注",
+      "default": "<p>*回数無制限：90w回15年。<br>*当社調べ（2026年3月時点）。公開されている各サービスの料金情報およびユーザー調査に基づき算出。実際の費用・回数・期間は個人差やプランにより異なる場合があります。</p>"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "对比副标题",
+      "default": "全身脱毛のコスト比較"
+    },
+    {
+      "type": "text",
+      "id": "price_label",
+      "label": "价格上方标签",
+      "default": "定価"
+    },
+    {
+      "type": "text",
+      "id": "vs_label",
+      "label": "对比标记",
+      "default": "VS"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "comparison",
+      "name": "费用对比行",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "缩略图"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "项目名称"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "金额"
+        },
+        {
+          "type": "textarea",
+          "id": "detail",
+          "label": "回数与期间"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "A10 Max 费用对比",
+      "blocks": [
+        {
+          "type": "comparison",
+          "settings": {
+            "label": "Ulike Air 10 Max",
+            "price": "¥69,800",
+            "detail": "回数無制限*"
+          }
+        },
+        {
+          "type": "comparison",
+          "settings": {
+            "label": "美容脱毛サロン（全身）",
+            "price": "¥150,000～",
+            "detail": "10～20回／1～2年"
+          }
+        },
+        {
+          "type": "comparison",
+          "settings": {
+            "label": "医療脱毛（全身）",
+            "price": "¥300,000～",
+            "detail": "5～8回／1年"
+          }
+        },
+        {
+          "type": "comparison",
+          "settings": {
+            "label": "カミソリ・シェーバー",
+            "price": "¥50,000～",
+            "detail": "生涯続く（時間・肌へのダメージ）"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

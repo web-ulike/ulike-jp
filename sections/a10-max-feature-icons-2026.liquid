@@ -1,0 +1,151 @@
+{% comment %}
+  Air 10 Max 2026: feature-icons. PC and mobile share this standalone section.
+  Copy and media are configured in the theme editor; typography inherits the theme.
+{% endcomment %}
+
+<section id="a10-max-feature-icons-2026-{{ section.id }}" class="a10-2026 a10-2026__icons">
+<div class="a10-2026__icon-grid">{% for block in section.blocks %}
+<article class="a10-2026__feature to-top" style="transition-delay: {{ forloop.index | times: 0.1 | round: 1 }}s;" {{ block.shopify_attributes }}>
+<div class="a10-2026__feature-icon">{%- assign a10_image = block.settings.icon | default: block.settings.icon -%}{%- if a10_image != blank -%}
+<picture class="a10-2026__media ">{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: a10_image.alt }}</picture>
+{%- endif -%}</div>
+{% if block.settings.title != blank %}
+<h3 class="a10-2026__feature-title">{{ block.settings.title | escape | newline_to_br }}</h3>
+{% endif %}{% if block.settings.text != blank %}<p class="a10-2026__feature-text">{{ block.settings.text | escape | newline_to_br }}</p>{% endif %}</article>
+{% endfor %}</div>
+</section>
+
+<style>
+#a10-max-feature-icons-2026-{{ section.id }} { color: #190a0a;  overflow: hidden; }
+#a10-max-feature-icons-2026-{{ section.id }} *, #a10-max-feature-icons-2026-{{ section.id }} *::before, #a10-max-feature-icons-2026-{{ section.id }} *::after { box-sizing: border-box; }
+#a10-max-feature-icons-2026-{{ section.id }} h2, #a10-max-feature-icons-2026-{{ section.id }} h3, #a10-max-feature-icons-2026-{{ section.id }} p { margin: 0; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__title { font-size: 40px; line-height: 1.3; font-weight: 400; overflow-wrap: anywhere; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__subtitle { font-size: 32px; line-height: 1.5; font-weight: 400; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__body { color: #3f3636; font-size: 16px; line-height: 1.5; overflow-wrap: anywhere; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__body p + p { margin-top: 0; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__note { color: rgba(0,0,0,.5); font-size: 10px; line-height: 1.5; overflow-wrap: anywhere; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__note p { margin: 0; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__media { display: block; min-width: 0; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__media img { display: block; width: 100%; height: auto; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__center { text-align: center; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__mobile { display: none; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__body :is(a, strong, em), #a10-max-feature-icons-2026-{{ section.id }} .a10-2026__note a { color: inherit; }
+#a10-max-feature-icons-2026-{{ section.id }}.a10-2026__icons { padding: 77px 0; background: #fff; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__icon-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 18px; width: 88.125%; max-width: 1692px; margin-inline: auto; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__feature { text-align: center; min-width: 0; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__feature-icon { height: 50px; width: 78px; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__feature-icon img { max-height: 55px; width: auto; max-width: 78px; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__feature h3 { font-size: clamp(15px, 1.25vw, 24px); line-height: 2; font-weight: 500; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__feature p { color: #3f3636; font-size: 14px; line-height: 2; }
+#a10-max-feature-icons-2026-{{ section.id }} sup { font-size: .645em; line-height: 0; vertical-align: super; }
+@media (min-width:750px) and (max-width:1400px) {
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__title { font-size: 32px; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__subtitle { font-size: 26px; }
+}
+@media (max-width:749px) {
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__desktop { display: none !important; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__mobile { display: block; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__title { font-size: 24px; line-height: 1.3; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__subtitle { font-size: 24px; line-height: 1.5; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__body { font-size: 14px; line-height: 1.5; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__note { font-size: 10px; line-height: 1.5; }
+#a10-max-feature-icons-2026-{{ section.id }}.a10-2026__icons { padding: 42px 0 33px; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__icon-grid { grid-template-columns: repeat(3,minmax(0,1fr)); column-gap: 0; row-gap: 22px; width: 100%; max-width: none; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__feature-icon { height: 22px; width: 32px; margin-bottom: 0; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__feature-icon img { max-height: 24px; max-width: 26px; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__feature:nth-child(2) .a10-2026__feature-icon img { max-width: 32px; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__feature h3 { font-size: 12px; line-height: 1.3; font-weight: 500; margin-top: 10px; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__feature p { font-size: 10px; line-height: 1.3; margin: 0 auto; max-width: 100%; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__feature:nth-child(1) p { max-width: 85px; }
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__feature:nth-child(3) p,
+#a10-max-feature-icons-2026-{{ section.id }} .a10-2026__feature:nth-child(4) p { max-width: 85px; }
+}
+
+/* Keep short copy inside clipped cards while it enters the viewport. */
+@media (prefers-reduced-motion: no-preference) {
+#a10-max-feature-icons-2026-{{ section.id }} .to-top:not(.appear) { transform: translateY(20px); }
+}
+
+</style>
+
+{% schema %}
+{
+  "name": "A10 Max 卖点图标",
+  "tag": "section",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "卖点",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "图标"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "标题",
+          "default": "28Jハイパワー"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "描述",
+          "default": "わずか3回で減毛実感"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "A10 Max 卖点图标",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "title": "28Jハイパワー",
+            "text": "わずか3回で減毛効果を実感"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "ダブルランプ搭載",
+            "text": "ムラなく均一にケア"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "サファイア冷感技術",
+            "text": "痛みレスでやさしくケア"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "スキンセンサー搭載",
+            "text": "誤照射を防ぎ、肌に配慮"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "アプリでスマート管理",
+            "text": "AIが最適プランを提案"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "最大90万回照射",
+            "text": "長寿命ランプ採用"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

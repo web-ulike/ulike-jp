@@ -1,0 +1,325 @@
+{% comment %}
+  Air 10 Max app: 1220px desktop grid; independent 375px mobile feature layouts.
+  Images and copy are configured in the theme editor.
+{% endcomment %}
+<section id="a10-max-smart-app-2026-{{ section.id }}" class="a10-2026 a10-2026__app">
+  <div class="container a10-2026__container">
+    <header class="a10-2026__app-intro">
+      {% if section.settings.title != blank %}
+        <h2 class="a10-2026__title to-top">{{ section.settings.title | escape | newline_to_br }}</h2>
+      {% endif %}
+      {% if section.settings.subtitle != blank %}
+        <div class="a10-2026__body to-top">{{ section.settings.subtitle | escape | replace: '「効果が見えにくい」', '<mark>「効果が見えにくい」</mark>' | replace: '「使い方が分からない」', '<mark>「使い方が分からない」</mark>' | replace: '「続かない」', '<mark>「続かない」</mark>' | newline_to_br }}</div>
+      {% endif %}
+    </header>
+    <div class="a10-2026__app-grid">
+      <div class="a10-2026__app-card a10-2026__app-card--hero">
+        {% render 'a10-app-media-2026', image: section.settings.hero_image, image_mobile: section.settings.hero_image_mobile %}
+      </div>
+      {% assign side_index = 0 %}
+      {% for block in section.blocks %}
+        {% liquid
+          assign role = block.settings.layout_role | default: 'side'
+          assign variant = role
+          if role == 'side'
+            assign side_index = side_index | plus: 1
+            if side_index == 1
+              assign variant = 'ai'
+            else
+              assign variant = 'tutorial'
+            endif
+          endif
+          assign has_second_image = false
+          if block.settings.image_2 != blank or block.settings.image_2_mobile != blank
+            assign has_second_image = true
+          endif
+          assign title_mobile = block.settings.title_mobile | default: block.settings.title
+          assign text_mobile = block.settings.text_mobile | default: block.settings.text
+          if block.settings.title_mobile == blank
+            if block.settings.title == 'AIがあなただけの美肌プログラムを自動生成'
+              assign title_mobile = 'AIがあなただけの美肌|プログラムを自動生成' | replace: '|', '<br>'
+            elsif block.settings.title == '解説動画で、プロのケア手順を自宅で簡単に実現'
+              assign title_mobile = '解説動画で、プロのケア手順を|自宅で簡単に実現' | replace: '|', '<br>'
+            endif
+          endif
+          if role == 'side' and side_index == 1 and block.settings.text_mobile == blank
+            assign text_mobile = text_mobile | replace: '脚・ワキ・VIO', 'ヒゲ・胸元・脚'
+          endif
+        %}
+        <article class="a10-2026__app-card a10-2026__app-card--{{ role }} a10-2026__app-card--{{ variant }}{% if has_second_image %} a10-2026__app-card--two-images{% endif %}" {{ block.shopify_attributes }}>
+          <div class="a10-2026__app-copy">
+            {% if block.settings.title != blank %}
+              <h3 class="a10-2026__app-title a10-2026__desktop to-top">{{ block.settings.title | escape | newline_to_br }}</h3>
+            {% endif %}
+            {% if title_mobile != blank %}
+              <h3 class="a10-2026__app-title a10-2026__mobile to-top">{{ title_mobile | escape | replace: '&lt;br&gt;', '<br>' | newline_to_br }}</h3>
+            {% endif %}
+            {% if block.settings.text != blank %}
+              <div class="a10-2026__body a10-2026__desktop to-top">{{ block.settings.text | escape | replace: '*2', '<sup>*2</sup>' | newline_to_br }}</div>
+            {% endif %}
+            {% if text_mobile != blank %}
+              <div class="a10-2026__body a10-2026__mobile to-top">{{ text_mobile | escape | replace: '*2', '<sup>*2</sup>' | newline_to_br }}</div>
+            {% endif %}
+          </div>
+          <div class="a10-2026__app-visual{% if has_second_image %} a10-2026__app-visual--two-images{% endif %}">
+            {% render 'a10-app-media-2026', image: block.settings.image, image_mobile: block.settings.image_mobile, link: block.settings.image_link, new_tab: block.settings.open_new_tab, link_label: block.settings.title %}
+            {% if has_second_image %}
+              {% render 'a10-app-media-2026', image: block.settings.image_2, image_mobile: block.settings.image_2_mobile, link: block.settings.image_2_link, new_tab: block.settings.open_new_tab, link_label: block.settings.title %}
+            {% endif %}
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+    {% if section.settings.note != blank %}
+      <div class="a10-2026__note to-top">{{ section.settings.note | escape | newline_to_br }}</div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+#a10-max-smart-app-2026-{{ section.id }} { --a10-app-unit: min(1px, calc((100vw - 80px) / 1220)); padding: calc(83.56 * var(--a10-app-unit)) 0 calc(100 * var(--a10-app-unit)); background: #fff; color: #000; overflow: hidden; }
+#a10-max-smart-app-2026-{{ section.id }} *, #a10-max-smart-app-2026-{{ section.id }} *::before, #a10-max-smart-app-2026-{{ section.id }} *::after { box-sizing: border-box; }
+#a10-max-smart-app-2026-{{ section.id }} > .a10-2026__container { width: 100%; max-width: 1300px; padding-inline: 40px; margin-inline: auto; }
+#a10-max-smart-app-2026-{{ section.id }} h2, #a10-max-smart-app-2026-{{ section.id }} h3, #a10-max-smart-app-2026-{{ section.id }} p { margin: 0; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-intro { text-align: center; margin-bottom: calc(53.91 * var(--a10-app-unit)); }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__title { font-size: calc(40 * var(--a10-app-unit)); line-height: 1.3; font-weight: 400; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-intro .a10-2026__body { max-width: calc(862.164 * var(--a10-app-unit)); margin: calc(35.03 * var(--a10-app-unit)) auto 0; font-size: calc(22 * var(--a10-app-unit)); line-height: 1.5; color: rgba(0,0,0,.8); }
+#a10-max-smart-app-2026-{{ section.id }} mark { padding-block: .08em; background: #fff1f6; color: inherit; font-weight: 500; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: calc(17 * var(--a10-app-unit)); }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card { position: relative; min-width: 0; overflow: hidden; border-radius: 8px; background: #f4f4f7; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--hero { grid-row: span 2; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__media { display: block; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__media img { display: block; width: 100%; height: auto; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--hero .a10-2026__media, #a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--hero img { width: 100%; height: 100%; object-fit: cover; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--side { min-height: calc(400 * var(--a10-app-unit)); display: flex; align-items: center; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-copy { position: relative; z-index: 1; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--side .a10-2026__app-copy { width: 48.5%; padding: calc(30 * var(--a10-app-unit)) 0 calc(30 * var(--a10-app-unit)) calc(51.35 * var(--a10-app-unit)); }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-title { font-size: calc(20 * var(--a10-app-unit)); font-weight: 400; line-height: 1.5; overflow-wrap: anywhere; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-copy .a10-2026__body { margin-top: calc(17 * var(--a10-app-unit)); font-size: calc(14 * var(--a10-app-unit)); line-height: 1.5; color: rgba(0,0,0,.6); overflow-wrap: anywhere; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-visual { position: relative; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--ai .a10-2026__app-visual { position: absolute; top: 1%; right: 3.495%; width: 51.844%; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--tutorial .a10-2026__app-copy { align-self: flex-start; padding-top: calc(53 * var(--a10-app-unit)); }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--tutorial .a10-2026__app-visual { position: absolute; inset: 0; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--tutorial .a10-2026__app-visual img { width: 100%; height: 100%; object-fit: contain; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--bottom, #a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--family { min-height: calc(486 * var(--a10-app-unit)); display: flex; flex-direction: column; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--bottom .a10-2026__app-copy, #a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--family .a10-2026__app-copy { padding: calc(43 * var(--a10-app-unit)) calc(42 * var(--a10-app-unit)) 0; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--bottom .a10-2026__app-visual { width: 86.212%; margin: auto auto 0; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--family .a10-2026__app-visual { width: 100%; margin-top: auto; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__note { margin-top: calc(57.2 * var(--a10-app-unit)); color: rgba(0,0,0,.5); font-size: 10px; line-height: 1.5; }
+#a10-max-smart-app-2026-{{ section.id }} sup { font-size: .645em; line-height: 0; vertical-align: super; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__mobile { display: none; }
+@media (max-width: 749px) {
+#a10-max-smart-app-2026-{{ section.id }} { --a10-app-unit: calc(100vw / 375); padding: 44px 0 25px; }
+#a10-max-smart-app-2026-{{ section.id }} > .a10-2026__container { max-width: none; padding-inline: 0; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__desktop { display: none; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__mobile { display: block; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-intro { padding-inline: 20px; margin-bottom: 40px; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__title { font-size: 20px; font-weight: 500; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-intro .a10-2026__body { max-width: none; font-size: 12px; margin-top: 21px; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-grid { display: flex; flex-direction: column; gap: 0; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card { border-radius: 0; background: #fff; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--hero .a10-2026__media, #a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--hero img { height: auto; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--side { min-height: 0; display: flex; flex-direction: column; align-items: stretch; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--side .a10-2026__app-copy, #a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--bottom .a10-2026__app-copy, #a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--family .a10-2026__app-copy { width: 100%; padding: 45px 20px 40px; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-title { font-size: 20px; font-weight: 500; line-height: 1.5; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-copy .a10-2026__body { font-size: 12px; line-height: 1.5; margin-top: 21px; color: #3f3636; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--ai .a10-2026__app-visual, #a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--tutorial .a10-2026__app-visual { position: relative; inset: auto; width: 100%; background: #f7f8fa; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--ai .a10-2026__app-visual { aspect-ratio: 375 / 275.548; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--tutorial .a10-2026__app-visual { aspect-ratio: 375 / 230; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--side .a10-2026__app-visual .a10-2026__media, #a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--side .a10-2026__app-visual img { width: 100%; height: 100%; object-fit: contain; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--bottom, #a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--family { min-height: 0; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--bottom .a10-2026__app-copy { padding: 39.92px 20px 0; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--bottom .a10-2026__body { margin-top: 17px; text-align: justify; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--bottom .a10-2026__app-visual { width: calc(100% - 34px); margin: 33px 17px 20px; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--family { background: #f7f8fa; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--family .a10-2026__app-copy { position: absolute; inset: 0 0 auto; padding: 39px 20px 0; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--family .a10-2026__body { margin-top: 6px; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--family .a10-2026__app-visual { margin-top: 0; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__note { margin: 15px 20px 0; text-align: justify; }
+}
+@media (min-width: 750px) {
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--side .a10-2026__app-visual--two-images { position: relative; inset: auto; width: 51.5%; margin-left: auto; }
+}
+/* The progress card uses two columns on PC and a vertical stack on mobile. */
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-visual--two-images { display: flex; flex-direction: column; aspect-ratio: auto; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-visual--two-images .a10-2026__media { width: 100%; height: auto; min-height: 0; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-visual--two-images img { width: 100%; height: auto; object-fit: contain; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__media-link { display: block; min-width: 0; color: inherit; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__media-link:focus-visible { outline: 2px solid #e0004d; outline-offset: -2px; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--bottom .a10-2026__app-visual--two-images { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: calc(28.37 * var(--a10-app-unit)); width: auto; margin: calc(37.71 * var(--a10-app-unit)) calc(42 * var(--a10-app-unit)) 0; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--bottom.a10-2026__app-card--two-images .a10-2026__app-copy { padding-top: calc(46 * var(--a10-app-unit)); }
+@media (max-width: 749px) {
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--bottom .a10-2026__app-visual--two-images { grid-template-columns: minmax(0, 1fr); gap: 21px; margin: 35px 20px 20px; }
+#a10-max-smart-app-2026-{{ section.id }} .a10-2026__app-card--bottom.a10-2026__app-card--two-images .a10-2026__app-copy { padding-top: 39.92px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+#a10-max-smart-app-2026-{{ section.id }} .to-top:not(.appear) { transform: translateY(20px); }
+}
+</style>
+
+{% schema %}
+{
+  "name": "A10 Max 智能App",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "title",
+      "label": "标题",
+      "default": "美肌習慣を、もっと簡単に。"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "副标题",
+      "default": "Ulike Smartアプリは「効果が見えにくい」「使い方が分からない」「続かない」という3つの悩みに対し、専属トレーナーのような、継続的なケアをサポートします。"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "PC 首张人物图"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image_mobile",
+      "label": "M 首张人物图"
+    },
+    {
+      "type": "textarea",
+      "id": "note",
+      "label": "底部脚注",
+      "default": "*1.〇はAI分析結果に基づき最適な頻度を提案。\n*2.特典内容および実施期間の詳細は公式サイトをご確認ください。最終的な解釈権はUlike Japanに帰属します。"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "App 功能卡",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "PC 图片 1"
+        },
+        {
+          "type": "textarea",
+          "id": "title",
+          "label": "PC 标题",
+          "default": "AIがあなただけの美肌プログラムを自動生成"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "PC 说明",
+          "default": "初回のAI撮影により、部位ごとの肌状態や毛質にあわせて、あなたに最適なケアプランを提案。"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "M 图片 1（留空沿用 PC）"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "PC 图片 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2_mobile",
+          "label": "M 图片 2（留空沿用 PC）"
+        },
+        {
+          "type": "url",
+          "id": "image_link",
+          "label": "图片 1 跳转链接",
+          "info": "PC / M 共用；留空不跳转。"
+        },
+        {
+          "type": "url",
+          "id": "image_2_link",
+          "label": "图片 2 跳转链接",
+          "info": "PC / M 共用；留空不跳转。"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_new_tab",
+          "label": "图片链接在新窗口打开",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "layout_role",
+          "label": "卡片布局",
+          "options": [
+            {
+              "value": "side",
+              "label": "右侧横向卡片"
+            },
+            {
+              "value": "bottom",
+              "label": "底部卡片"
+            },
+            {
+              "value": "family",
+              "label": "家庭卡片"
+            }
+          ],
+          "default": "side"
+        },
+        {
+          "type": "textarea",
+          "id": "title_mobile",
+          "label": "M 标题（留空沿用 PC）"
+        },
+        {
+          "type": "textarea",
+          "id": "text_mobile",
+          "label": "M 说明（留空沿用 PC）"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "A10 Max 智能App",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "title": "AIがあなただけの美肌プログラムを自動生成",
+            "text": "初回のAI撮影により、部位（脚・ワキ・VIOなど）ごとの肌状態や毛質にあわせて、あなたに最適なケアプランを提案。",
+            "layout_role": "side",
+            "title_mobile": "AIがあなただけの美肌\nプログラムを自動生成",
+            "text_mobile": "初回のAI撮影により、部位（ヒゲ・胸元・脚など）ごとの肌状態や毛質にあわせて、あなたに最適なケアプランを提案。"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "解説動画で、プロのケア手順を自宅で簡単に実現",
+            "text": "アプリ内の詳しい解説動画により、正しい持ち方や肌への当て方や部位別の基本的な照射方法まで確認でき、初めての方でもスムーズに正確で効果的な脱毛ケアを実現できます。",
+            "layout_role": "side",
+            "title_mobile": "解説動画で、プロのケア手順を\n自宅で簡単に実現"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "28日サイクルで、変化が「見える」",
+            "text": "1ヶ月ごとのケア経過をデータで記録し、肌のなめらかさや毛量の変化をグラフで表示。さらに特典*2と交換でき、目に見える肌の変化が、続けられる喜びと自信に変わる。",
+            "layout_role": "bottom"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "家族みんなの、輝きをかなえる一台",
+            "text": "1台で最大10アカウントの作成に対応し、一人ひとりに最適なケアを。",
+            "layout_role": "family"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
