@@ -19,7 +19,7 @@
             assign button_link = block.settings.button_link
             assign info_text = block.settings.info_text
           %}
-          <div class="swiper-slide jp-home-hero__item jp-home-hero__item{{ forloop.index }}" {{ block.shopify_attributes }}>
+          <div class="swiper-slide jp-home-hero__item jp-home-hero__item{{ forloop.index }}" data-slide-id="{{ block.id }}" {{ block.shopify_attributes }}>
             <div class="jp-home-hero__slide">
               <div class="jp-home-hero__media">
                 {% if pc_image != blank or mobile_image != blank %}
@@ -638,6 +638,113 @@
       font-size: clamp(18px, calc(0.857vw + 10.29px), 24px);
     }
   }
+
+  {% comment %} Per-slide settings override the original responsive styles only when configured. {% endcomment %}
+  {% for block in section.blocks %}
+    {% if block.settings.subheading_color != blank %}
+      .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__subheading {
+        color: {{ block.settings.subheading_color }};
+      }
+    {% endif %}
+    {% if block.settings.title_color != blank %}
+      .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__title {
+        color: {{ block.settings.title_color }};
+      }
+    {% endif %}
+    {% if block.settings.desc_color != blank %}
+      .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__desc {
+        color: {{ block.settings.desc_color }};
+      }
+    {% endif %}
+    {% if block.settings.button_color != blank %}
+      .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__btn {
+        color: {{ block.settings.button_color }};
+      }
+    {% endif %}
+    {% if block.settings.info_color != blank %}
+      .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__info {
+        color: {{ block.settings.info_color }};
+      }
+    {% endif %}
+    @media screen and (min-width: 990px) {
+      {% if block.settings.subheading_font_size_pc > 0 %}
+        .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__subheading {
+          font-size: {{ block.settings.subheading_font_size_pc }}px;
+        }
+      {% endif %}
+      {% if block.settings.title_font_size_pc > 0 %}
+        .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__title {
+          font-size: {{ block.settings.title_font_size_pc }}px;
+        }
+      {% endif %}
+      {% if block.settings.desc_font_size_pc > 0 %}
+        .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__desc {
+          font-size: {{ block.settings.desc_font_size_pc }}px;
+        }
+      {% endif %}
+      {% if block.settings.button_font_size_pc > 0 %}
+        .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__btn {
+          font-size: {{ block.settings.button_font_size_pc }}px;
+        }
+      {% endif %}
+      {% if block.settings.info_font_size_pc > 0 %}
+        .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__info {
+          font-size: {{ block.settings.info_font_size_pc }}px;
+        }
+      {% endif %}
+      {% if block.settings.button_align_pc != 'default' and block.settings.button_align_pc != blank %}
+        .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__buttons {
+          justify-content: {{ block.settings.button_align_pc }};
+        }
+        .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__btn {
+          margin-left: 0;
+          margin-right: 0;
+        }
+      {% endif %}
+    }
+    @media screen and (max-width: 989px) {
+      {% if block.settings.subheading_font_size_mobile > 0 %}
+        .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__subheading {
+          font-size: {{ block.settings.subheading_font_size_mobile }}px;
+        }
+      {% endif %}
+      {% if block.settings.title_font_size_mobile > 0 %}
+        .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__title {
+          font-size: {{ block.settings.title_font_size_mobile }}px;
+        }
+      {% endif %}
+      {% if block.settings.desc_font_size_mobile > 0 %}
+        .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__desc {
+          font-size: {{ block.settings.desc_font_size_mobile }}px;
+        }
+      {% endif %}
+      {% if block.settings.button_font_size_mobile > 0 %}
+        .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__btn {
+          font-size: {{ block.settings.button_font_size_mobile }}px;
+        }
+      {% endif %}
+      {% if block.settings.info_font_size_mobile > 0 %}
+        .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__info {
+          font-size: {{ block.settings.info_font_size_mobile }}px;
+        }
+      {% endif %}
+      {% if block.settings.button_align_mobile != 'default' and block.settings.button_align_mobile != blank %}
+        .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__buttons {
+          justify-content: {{ block.settings.button_align_mobile }};
+        }
+        .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__btn {
+          margin-left: 0;
+          margin-right: 0;
+        }
+      {% endif %}
+    }
+    {% if block.settings.button_background != blank %}
+      .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__btn--primary {
+        background: {{ block.settings.button_background }};
+        border-color: {{ block.settings.button_background }};
+      }
+    {% endif %}
+  {% endfor %}
 </style>
 
 <script>
@@ -826,6 +933,208 @@
           "type": "textarea",
           "id": "info_text",
           "label": "Info text"
+        },
+        {
+          "type": "paragraph",
+          "content": "字号设为 0、颜色留空、按钮对齐选择默认时，保留原有样式。按钮对齐以当前文字内容区域为基准。"
+        },
+        {
+          "type": "header",
+          "content": "副标题样式"
+        },
+        {
+          "type": "range",
+          "id": "subheading_font_size_pc",
+          "label": "PC字号（0 = 原有样式）",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "subheading_font_size_mobile",
+          "label": "移动端字号（0 = 原有样式）",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "color",
+          "id": "subheading_color",
+          "label": "副标题颜色"
+        },
+        {
+          "type": "header",
+          "content": "标题样式"
+        },
+        {
+          "type": "range",
+          "id": "title_font_size_pc",
+          "label": "PC字号（0 = 原有样式）",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "title_font_size_mobile",
+          "label": "移动端字号（0 = 原有样式）",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "标题颜色"
+        },
+        {
+          "type": "header",
+          "content": "描述样式"
+        },
+        {
+          "type": "range",
+          "id": "desc_font_size_pc",
+          "label": "PC字号（0 = 原有样式）",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "desc_font_size_mobile",
+          "label": "移动端字号（0 = 原有样式）",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "color",
+          "id": "desc_color",
+          "label": "描述颜色"
+        },
+        {
+          "type": "header",
+          "content": "按钮文字样式"
+        },
+        {
+          "type": "range",
+          "id": "button_font_size_pc",
+          "label": "PC字号（0 = 原有样式）",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "button_font_size_mobile",
+          "label": "移动端字号（0 = 原有样式）",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "color",
+          "id": "button_color",
+          "label": "按钮文字颜色"
+        },
+        {
+          "type": "header",
+          "content": "底部说明样式"
+        },
+        {
+          "type": "range",
+          "id": "info_font_size_pc",
+          "label": "PC字号（0 = 原有样式）",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "info_font_size_mobile",
+          "label": "移动端字号（0 = 原有样式）",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "color",
+          "id": "info_color",
+          "label": "底部说明颜色"
+        },
+        {
+          "type": "color",
+          "id": "button_background",
+          "label": "按钮背景颜色"
+        },
+        {
+          "type": "select",
+          "id": "button_align_pc",
+          "label": "PC按钮对齐",
+          "options": [
+            {
+              "value": "default",
+              "label": "默认"
+            },
+            {
+              "value": "flex-start",
+              "label": "左对齐"
+            },
+            {
+              "value": "center",
+              "label": "居中"
+            },
+            {
+              "value": "flex-end",
+              "label": "右对齐"
+            }
+          ],
+          "default": "default"
+        },
+        {
+          "type": "select",
+          "id": "button_align_mobile",
+          "label": "移动端按钮对齐",
+          "options": [
+            {
+              "value": "default",
+              "label": "默认"
+            },
+            {
+              "value": "flex-start",
+              "label": "左对齐"
+            },
+            {
+              "value": "center",
+              "label": "居中"
+            },
+            {
+              "value": "flex-end",
+              "label": "右对齐"
+            }
+          ],
+          "default": "default"
         }
       ]
     }
