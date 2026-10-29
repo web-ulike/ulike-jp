@@ -671,6 +671,10 @@
           font-size: {{ block.settings.title_font_size_pc }}px;
         }
       {% endif %}
+      .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__title {
+        padding-top: {{ block.settings.title_spacing_top_pc | default: 0 }}px;
+        padding-bottom: {{ block.settings.title_spacing_bottom_pc | default: 0 }}px;
+      }
       {% if block.settings.desc_font_size_pc > 0 %}
         .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__desc {
           font-size: {{ block.settings.desc_font_size_pc }}px;
@@ -707,6 +711,10 @@
           font-size: {{ block.settings.title_font_size_mobile }}px;
         }
       {% endif %}
+      .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__title {
+        padding-top: {{ block.settings.title_spacing_top_mobile | default: 0 }}px;
+        padding-bottom: {{ block.settings.title_spacing_bottom_mobile | default: 0 }}px;
+      }
       {% if block.settings.desc_font_size_mobile > 0 %}
         .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__desc {
           font-size: {{ block.settings.desc_font_size_mobile }}px;
@@ -989,6 +997,50 @@
           "type": "color",
           "id": "title_color",
           "label": "标题颜色"
+        },
+        {
+          "type": "paragraph",
+          "content": "标题上下间距在原有元素间距基础上增加，PC 和移动端分别设置。"
+        },
+        {
+          "type": "range",
+          "id": "title_spacing_top_pc",
+          "label": "PC标题上间距",
+          "min": 0,
+          "max": 200,
+          "step": 2,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "title_spacing_bottom_pc",
+          "label": "PC标题下间距",
+          "min": 0,
+          "max": 200,
+          "step": 2,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "title_spacing_top_mobile",
+          "label": "移动端标题上间距",
+          "min": 0,
+          "max": 200,
+          "step": 2,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "title_spacing_bottom_mobile",
+          "label": "移动端标题下间距",
+          "min": 0,
+          "max": 200,
+          "step": 2,
+          "unit": "px",
+          "default": 0
         },
         {
           "type": "header",
