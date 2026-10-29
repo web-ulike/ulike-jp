@@ -15,7 +15,7 @@
 <div class="a10-2026__body a10-2026__mobile to-top" style="transition-delay: 0.2s;">{{ section.settings.description_mobile | default: section.settings.description | escape | replace: '*1', '<sup>*1</sup>' | replace: '*2', '<sup>*2</sup>' | replace: '*3', '<sup>*3</sup>' | replace: '*4', '<sup>*4</sup>' | newline_to_br }}</div>
 
 <div class="a10-2026__cooling-chart">{%- assign a10_image = section.settings.chart | default: section.settings.chart_mobile -%}
-<picture class="a10-2026__media">{% if section.settings.chart_mobile != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.chart_mobile | image_url: width: 375 }} 375w, {{ section.settings.chart_mobile | image_url: width: 750 }} 750w, {{ section.settings.chart_mobile | image_url: width: 1100 }} 1100w" sizes="304px">{% endif %}{% if a10_image != blank %}{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: a10_image.alt }}{% endif %}</picture></div>
+<picture class="a10-2026__media">{% if section.settings.chart_mobile != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.chart_mobile | image_url: width: 375 }} 375w, {{ section.settings.chart_mobile | image_url: width: 750 }} 750w, {{ section.settings.chart_mobile | image_url: width: 1100 }} 1100w" sizes="(max-width: 420px) calc(100vw - 20px), 400px">{% endif %}{% if a10_image != blank %}{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: a10_image.alt }}{% endif %}</picture></div>
 </div>
 
 <div class="a10-2026__cooling-visual">{%- assign a10_image = section.settings.image | default: section.settings.image_mobile -%}
@@ -103,7 +103,7 @@
 #a10-max-cooling-system-2026-{{ section.id }} .a10-2026__cooling-copy .a10-2026__subtitle { font-size: 24px; line-height: 1.3; }
 #a10-max-cooling-system-2026-{{ section.id }} .a10-2026__cooling-copy .a10-2026__body { margin-top: 24px; color: #000; font-size: 14px; line-height: 1.3; }
 #a10-max-cooling-system-2026-{{ section.id }} .a10-2026__cooling-copy .a10-2026__mobile { width: 100%; white-space: normal; }
-#a10-max-cooling-system-2026-{{ section.id }} .a10-2026__cooling-chart { position: absolute; top: 188px; left: 50%; width: min(304px, calc(100% - 70px)); margin: 0; transform: translateX(-50%); }
+#a10-max-cooling-system-2026-{{ section.id }} .a10-2026__cooling-chart { position: absolute; top: 188px; left: 50%; width: min(400px, calc(100% - 20px)); margin: 0; transform: translateX(-50%); }
 #a10-max-cooling-system-2026-{{ section.id }} .a10-2026__cooling-chart img { width: 100%; height: auto; mix-blend-mode: multiply; }
 #a10-max-cooling-system-2026-{{ section.id }} .a10-2026__cooling-visual { position: absolute; top: 452px; left: 0; display: block; width: 100%; height: auto; }
 #a10-max-cooling-system-2026-{{ section.id }} .a10-2026__cooling-visual img { width: 100%; height: auto; mix-blend-mode: multiply; }
