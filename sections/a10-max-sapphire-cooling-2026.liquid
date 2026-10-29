@@ -16,7 +16,7 @@
 {% endif %}</div>
 
 <div class="a10-2026__cooling-visual">{%- assign a10_image = section.settings.row_1_image | default: section.settings.row_1_image_mobile -%}
-<picture class="a10-2026__media{% if a10_image == blank %} a10-2026__media--fallback{% endif %}">{% if section.settings.row_1_image_mobile != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.row_1_image_mobile | image_url: width: 375 }} 375w, {{ section.settings.row_1_image_mobile | image_url: width: 750 }} 750w, {{ section.settings.row_1_image_mobile | image_url: width: 1100 }} 1100w" sizes="100vw">{% else %}<source media="(max-width: 749px)" srcset="{{ 'a10-max-sapphire-cooling-mobile-2026.png' | asset_url }}">{% endif %}{% if a10_image != blank %}{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: a10_image.alt }}{% else %}<img src="{{ 'a10-max-sapphire-cooling-mobile-2026.png' | asset_url }}" alt="" loading="lazy" width="375" height="463">{% endif %}</picture></div>
+<picture class="a10-2026__media">{% if section.settings.row_1_image_mobile != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.row_1_image_mobile | image_url: width: 375 }} 375w, {{ section.settings.row_1_image_mobile | image_url: width: 750 }} 750w, {{ section.settings.row_1_image_mobile | image_url: width: 1100 }} 1100w" sizes="100vw">{% endif %}{% if a10_image != blank %}{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: a10_image.alt }}{% endif %}</picture></div>
 </article>
 
 <article class="a10-2026__cooling-row">
@@ -27,7 +27,7 @@
 {% endif %}</div>
 
 <div class="a10-2026__cooling-visual">{%- assign a10_image = section.settings.row_2_image | default: section.settings.row_2_image_mobile -%}
-<picture class="a10-2026__media{% if a10_image == blank %} a10-2026__media--fallback{% endif %}">{% if section.settings.row_2_image_mobile != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.row_2_image_mobile | image_url: width: 375 }} 375w, {{ section.settings.row_2_image_mobile | image_url: width: 750 }} 750w, {{ section.settings.row_2_image_mobile | image_url: width: 1100 }} 1100w" sizes="100vw">{% else %}<source media="(max-width: 749px)" srcset="{{ 'a10-max-sapphire-power-mobile-2026.png' | asset_url }}">{% endif %}{% if a10_image != blank %}{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: a10_image.alt }}{% else %}<img src="{{ 'a10-max-sapphire-power-mobile-2026.png' | asset_url }}" alt="" loading="lazy" width="375" height="263">{% endif %}</picture></div>
+<picture class="a10-2026__media">{% if section.settings.row_2_image_mobile != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.row_2_image_mobile | image_url: width: 375 }} 375w, {{ section.settings.row_2_image_mobile | image_url: width: 750 }} 750w, {{ section.settings.row_2_image_mobile | image_url: width: 1100 }} 1100w" sizes="100vw">{% endif %}{% if a10_image != blank %}{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: a10_image.alt }}{% endif %}</picture></div>
 </article>
 </div>
 </div>

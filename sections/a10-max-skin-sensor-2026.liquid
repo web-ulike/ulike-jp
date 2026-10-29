@@ -9,7 +9,7 @@
 <div class="a10-2026__sensor-copy">
 <div class="a10-2026__sensor-icon">{%- assign a10_image = section.settings.benefit_icon -%}{%- if a10_image != blank -%}
 <picture class="a10-2026__media ">{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: a10_image.alt }}</picture>
-{%- else -%}<img class="a10-2026__sensor-icon-fallback" src="{{ 'a10-max-skin-sensor-icon-mobile-2026.svg' | asset_url }}" alt="" width="46" height="44" loading="lazy">{%- endif -%}</div>
+{%- endif -%}</div>
 {% if section.settings.heading != blank %}
 <h2 class="a10-2026__title a10-2026__desktop to-top" style="transition-delay: 0.1s;">{{ section.settings.heading | escape | newline_to_br }}</h2>
 <h2 class="a10-2026__title a10-2026__mobile to-top" style="transition-delay: 0.1s;">{{ section.settings.heading_mobile | default: section.settings.heading | escape | newline_to_br }}</h2>
@@ -22,9 +22,9 @@
 {% endif %}</div>
 
 <div class="a10-2026__sensor-visual">{%- assign a10_image = section.settings.image | default: section.settings.image_mobile -%}{%- if a10_image != blank -%}
-<picture class="a10-2026__media">{% if section.settings.image_mobile != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.image_mobile | image_url: width: 375 }} 375w, {{ section.settings.image_mobile | image_url: width: 750 }} 750w, {{ section.settings.image_mobile | image_url: width: 1100 }} 1100w" sizes="100vw">{% else %}<source media="(max-width: 749px)" srcset="{{ 'a10-max-skin-sensor-mobile-2026.png' | asset_url }}">{% endif %}{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: a10_image.alt }}</picture>
-{%- else -%}<picture class="a10-2026__media a10-2026__sensor-visual-fallback"><img src="{{ 'a10-max-skin-sensor-mobile-2026.png' | asset_url }}" alt="スキンセンサーを搭載した脱毛器" loading="lazy" width="375" height="264"></picture>{%- endif -%}
-{% if section.settings.image_mobile == blank %}<img class="a10-2026__sensor-tone" src="{{ 'a10-max-skin-sensor-tone-mobile-2026.png' | asset_url }}" alt="肌色ごとの照射イメージ" loading="lazy" width="173" height="67">{% endif %}</div>
+<picture class="a10-2026__media">{% if section.settings.image_mobile != blank %}<source media="(max-width: 749px)" srcset="{{ section.settings.image_mobile | image_url: width: 375 }} 375w, {{ section.settings.image_mobile | image_url: width: 750 }} 750w, {{ section.settings.image_mobile | image_url: width: 1100 }} 1100w" sizes="100vw">{% endif %}{{ a10_image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '375, 550, 750, 1100, 1500, 1920, 2400', sizes: '100vw', alt: a10_image.alt }}</picture>
+{%- endif -%}
+</div>
 </div>
 </div>
 </section>

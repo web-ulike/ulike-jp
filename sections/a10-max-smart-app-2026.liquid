@@ -1,6 +1,6 @@
 {% comment %}
   Air 10 Max app: 1220px desktop grid; independent 375px mobile feature layouts.
-  Figma media is bundled as a fallback; all existing image and copy settings remain editable.
+  Images and copy are configured in the theme editor.
 {% endcomment %}
 <section id="a10-max-smart-app-2026-{{ section.id }}" class="a10-2026 a10-2026__app">
   <div class="container a10-2026__container">
@@ -14,45 +14,24 @@
     </header>
     <div class="a10-2026__app-grid">
       <div class="a10-2026__app-card a10-2026__app-card--hero">
-        {% render 'a10-app-media-2026', image: section.settings.hero_image, image_mobile: section.settings.hero_image_mobile, fallback: 'hero', fallback_mobile: 'hero', image_width: 602, image_height: 817 %}
+        {% render 'a10-app-media-2026', image: section.settings.hero_image, image_mobile: section.settings.hero_image_mobile %}
       </div>
       {% assign side_index = 0 %}
       {% for block in section.blocks %}
         {% liquid
           assign role = block.settings.layout_role | default: 'side'
-          assign fallback = 'progress'
-          assign fallback_mobile = 'progress-mobile'
-          assign image_width = 519
-          assign image_height = 293
           assign variant = role
           if role == 'side'
             assign side_index = side_index | plus: 1
             if side_index == 1
               assign variant = 'ai'
-              assign fallback = 'phone'
-              assign fallback_mobile = 'phone-mobile'
-              assign image_width = 313
-              assign image_height = 397
             else
               assign variant = 'tutorial'
-              assign fallback = 'tutorial'
-              assign fallback_mobile = 'tutorial-mobile'
-              assign image_width = 602
-              assign image_height = 400
             endif
-          elsif role == 'family'
-            assign fallback = 'family'
-            assign fallback_mobile = 'family'
-            assign image_width = 602
-            assign image_height = 354
           endif
           assign has_second_image = false
           if block.settings.image_2 != blank or block.settings.image_2_mobile != blank
             assign has_second_image = true
-          endif
-          if has_second_image
-            assign fallback = blank
-            assign fallback_mobile = blank
           endif
           assign title_mobile = block.settings.title_mobile | default: block.settings.title
           assign text_mobile = block.settings.text_mobile | default: block.settings.text
@@ -83,7 +62,7 @@
             {% endif %}
           </div>
           <div class="a10-2026__app-visual{% if has_second_image %} a10-2026__app-visual--two-images{% endif %}">
-            {% render 'a10-app-media-2026', image: block.settings.image, image_mobile: block.settings.image_mobile, fallback: fallback, fallback_mobile: fallback_mobile, image_width: image_width, image_height: image_height, link: block.settings.image_link, new_tab: block.settings.open_new_tab, link_label: block.settings.title %}
+            {% render 'a10-app-media-2026', image: block.settings.image, image_mobile: block.settings.image_mobile, link: block.settings.image_link, new_tab: block.settings.open_new_tab, link_label: block.settings.title %}
             {% if has_second_image %}
               {% render 'a10-app-media-2026', image: block.settings.image_2, image_mobile: block.settings.image_2_mobile, link: block.settings.image_2_link, new_tab: block.settings.open_new_tab, link_label: block.settings.title %}
             {% endif %}
