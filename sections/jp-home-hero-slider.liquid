@@ -14,6 +14,7 @@
             assign title = block.settings.title
             assign title_mobile = block.settings.title_mobile
             assign subheading_logo = block.settings.subheading_logo
+            assign subheading_logo_mobile = block.settings.subheading_logo_mobile
             assign feature_image = block.settings.feature_image
             assign desc = block.settings.desc
             assign button_text = block.settings.button_text
@@ -76,22 +77,34 @@
                 <div class="container">
                   <div class="jp-home-hero__content-inner">
                     <div class="jp-home-hero__content">
-                      {% if block.settings.subheading != blank or subheading_logo != blank %}
+                      {% if block.settings.subheading != blank or subheading_logo != blank or subheading_logo_mobile != blank %}
                         <div class="jp-home-hero__subheading-wrap">
                           {% if block.settings.subheading != blank %}
                             <div class="jp-home-hero__subheading">
                               <span class="jp-home-hero__subheading-text">{{ block.settings.subheading }}</span>
                             </div>
                           {% endif %}
-                          {% if subheading_logo != blank %}
-                            <img
-                              class="jp-home-hero__subheading-logo"
-                              src="{{ subheading_logo | image_url: width: 160 }}"
-                              alt="{{ subheading_logo.alt | default: block.settings.subheading | escape }}"
-                              loading="lazy"
-                              width="{{ subheading_logo.width }}"
-                              height="{{ subheading_logo.height }}"
-                            >
+                          {% if subheading_logo != blank or subheading_logo_mobile != blank %}
+                            <picture>
+                              {% if subheading_logo_mobile != blank %}
+                                <source
+                                  media="(max-width: 989px)"
+                                  srcset="{{ subheading_logo_mobile | image_url: width: 160 }} 160w, {{ subheading_logo_mobile | image_url: width: 320 }} 320w"
+                                  sizes="{{ block.settings.logo_width_mobile | default: 200 }}px"
+                                  width="{{ subheading_logo_mobile.width }}"
+                                  height="{{ subheading_logo_mobile.height }}"
+                                >
+                              {% endif %}
+                              {% assign logo_image = subheading_logo | default: subheading_logo_mobile %}
+                              <img
+                                class="jp-home-hero__subheading-logo"
+                                src="{{ logo_image | image_url: width: 320 }}"
+                                alt="{{ logo_image.alt | default: block.settings.subheading | escape }}"
+                                loading="lazy"
+                                width="{{ logo_image.width }}"
+                                height="{{ logo_image.height }}"
+                              >
+                            </picture>
                           {% endif %}
                         </div>
                       {% endif %}
@@ -905,6 +918,12 @@
           "type": "image_picker",
           "id": "subheading_logo",
           "label": "LOGO 图片"
+        },
+        {
+          "type": "image_picker",
+          "id": "subheading_logo_mobile",
+          "label": "移动端 LOGO 图片",
+          "info": "移动端使用；留空时回退使用 PC LOGO 图片。"
         },
         {
           "type": "number",
