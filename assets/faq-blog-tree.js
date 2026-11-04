@@ -161,14 +161,10 @@
         previous_feedback: previous || 'none',
         section_id: this.dataset.sectionId
       };
-      // Use exactly one transport; editor previews must not generate production analytics.
-      if (this.dataset.designMode !== 'true') {
+      // Use the existing Google tag only; editor previews must not generate analytics.
+      if (this.dataset.designMode !== 'true' && typeof window.gtag === 'function') {
         try {
-          if (typeof window.gtag === 'function') window.gtag('event', 'faq_feedback', params);
-          else {
-            window.dataLayer = window.dataLayer || [];
-            window.dataLayer.push({ event: 'faq_feedback', ...params });
-          }
+          window.gtag('event', 'faq_feedback', params);
         } catch (_) { /* Analytics must not interrupt the UI. */ }
       }
     }
