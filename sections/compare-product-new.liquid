@@ -483,6 +483,11 @@
     border-width: 0 1.5px 1.5px 0;
     transform: rotate(45deg);
     pointer-events: none;
+    transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  #shopify-section-{{ section.id }} .custom-display[aria-expanded='true']::after {
+    transform: translateY(4px) rotate(225deg);
   }
 
   #shopify-section-{{ section.id }} .custom-options {
@@ -535,6 +540,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     #shopify-section-{{ section.id }} .custom-display,
+    #shopify-section-{{ section.id }} .custom-display::after,
     #shopify-section-{{ section.id }} .custom-option {
       transition: none;
     }
@@ -1107,6 +1113,13 @@
       const display = wrapper.querySelector('.custom-display');
       const optsContainer = wrapper.querySelector('.custom-options');
 
+      // 面板与箭头共享同一开合状态。
+      function setOpen(isOpen) {
+        optsContainer.style.display = isOpen ? 'block' : 'none';
+        display.setAttribute('aria-expanded', String(isOpen));
+      }
+      setOpen(false);
+
       // 清空旧选项，防止重复添加
       optsContainer.innerHTML = '';
 
@@ -1119,7 +1132,7 @@
         div.addEventListener('click', () => {
           nativeSelect.value = div.dataset.value;
           display.textContent = opt.text;
-          optsContainer.style.display = 'none';
+          setOpen(false);
           nativeSelect.dispatchEvent(new Event('change'));
         });
         optsContainer.appendChild(div);
@@ -1130,13 +1143,12 @@
 
       // 展开/关闭
       display.addEventListener('click', () => {
-        optsContainer.style.display =
-          optsContainer.style.display === 'block' ? 'none' : 'block';
+        setOpen(display.getAttribute('aria-expanded') !== 'true');
       });
 
       // 点击外部收起
       document.addEventListener('click', e => {
-        if (!wrapper.contains(e.target)) optsContainer.style.display = 'none';
+        if (!wrapper.contains(e.target)) setOpen(false);
       });
     }
 
