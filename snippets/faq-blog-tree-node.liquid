@@ -1,0 +1,54 @@
+{% comment %}
+  Menu resource links supply article objects directly; no blog pagination or fetch is needed.
+  Each occurrence uses a unique path ID, including articles repeated in different categories.
+{% endcomment %}
+{%- liquid
+  assign has_children = false
+  if item.links.size > 0 and depth < 3
+    assign has_children = true
+  endif
+  assign has_article = false
+  if item.type == 'article_link' and item.object != blank
+    assign has_article = true
+  endif
+-%}
+<li class="faq-blog-tree__node" data-faq-node>
+  <div class="faq-blog-tree__row">
+    {%- if has_article -%}
+      <a
+        class="faq-blog-tree__label"
+        href="{{ item.url }}"
+        data-faq-article="{{ node_id }}"
+        data-article-id="{{ item.object.id }}"
+        aria-controls="FaqPanel-{{ panel_id }}"
+      >{{ item.title | escape }}</a>
+      <template data-faq-template="{{ node_id }}">
+        <article class="faq-blog-tree__article">
+          <h3 class="faq-blog-tree__article-title" tabindex="-1" data-faq-title>{{ item.object.title | escape }}</h3>
+          <div class="faq-blog-tree__body rte">{{ item.object.content }}</div>
+        </article>
+      </template>
+    {%- elsif has_children -%}
+      <button class="faq-blog-tree__label" type="button" data-faq-toggle aria-expanded="false" aria-controls="FaqChildren-{{ node_id }}">{{ item.title | escape }}</button>
+    {%- else -%}
+      <span class="faq-blog-tree__label faq-blog-tree__label--unavailable" aria-disabled="true">{{ item.title | escape }}</span>
+      {%- if request.design_mode -%}
+        <small class="faq-blog-tree__hint">请关联已发布的博客文章。</small>
+      {%- endif -%}
+    {%- endif -%}
+    {%- if has_children -%}
+      <button class="faq-blog-tree__toggle" type="button" data-faq-toggle aria-expanded="false" aria-controls="FaqChildren-{{ node_id }}" aria-label="{{ item.title | escape }}">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    {%- endif -%}
+  </div>
+  {%- if has_children -%}
+    <ul id="FaqChildren-{{ node_id }}" class="faq-blog-tree__list faq-blog-tree__children" data-faq-children>
+      {%- assign child_depth = depth | plus: 1 -%}
+      {%- for child in item.links -%}
+        {%- assign child_id = node_id | append: '-' | append: forloop.index -%}
+        {%- render 'faq-blog-tree-node', item: child, node_id: child_id, depth: child_depth, panel_id: panel_id -%}
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
+</li>
