@@ -45,6 +45,10 @@
     height: 100%;
   }
 
+  #shopify-section-{{ section.id }} #selectContainer.is-stuck {
+    box-shadow: 0 6px 12px -8px rgba(0, 0, 0, 0.24);
+  }
+
   #selectLeft,
   #selectRight {
     padding: 0 20px;
@@ -1136,6 +1140,24 @@
       });
     }
 
+    // 仅在选择栏贴住视口顶部时显示底部阴影。
+    function initStickyShadow() {
+      let framePending = false;
+      const updateShadow = () => {
+        const { top } = selectContainer.getBoundingClientRect();
+        selectContainer.classList.toggle('is-stuck', top >= -0.5 && top <= 0);
+        framePending = false;
+      };
+      const scheduleUpdate = () => {
+        if (framePending) return;
+        framePending = true;
+        window.requestAnimationFrame(updateShadow);
+      };
+      window.addEventListener('scroll', scheduleUpdate, { passive: true });
+      window.addEventListener('resize', scheduleUpdate);
+      scheduleUpdate();
+    }
+
     // 初始化
     function init() {
       if (!sectionBlocks.length) {
@@ -1149,6 +1171,7 @@
 
       selectLeft.addEventListener("change", onSelectChange);
       selectRight.addEventListener("change", onSelectChange);
+      initStickyShadow();
     }
 
     // 启动应用
