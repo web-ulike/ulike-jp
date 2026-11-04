@@ -89,10 +89,11 @@
      })(window,document,'script');
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.10.3/dist/gsap.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.10.3/dist/ScrollTrigger.min.js" defer></script>
-
-    <script src="{{ 'scroll-animation.js' | asset_url }}" defer="defer"></script>
+    {% if request.page_type != 'article' and request.page_type != 'blog' %}
+      <script src="https://cdn.jsdelivr.net/npm/gsap@3.10.3/dist/gsap.min.js" defer></script>
+      <script src="https://cdn.jsdelivr.net/npm/gsap@3.10.3/dist/ScrollTrigger.min.js" defer></script>
+      <script src="{{ 'scroll-animation.js' | asset_url }}" defer="defer"></script>
+    {% endif %}
 
     {% if request.page_type == 'product' %}
       {% if product.handle == 'air10-ipl-hair-removal' or product.handle == 'air10-pro-ipl-hair-removal' %}
