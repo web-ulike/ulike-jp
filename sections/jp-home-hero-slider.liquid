@@ -656,6 +656,11 @@
       }
     {% endif %}
     @media screen and (min-width: 990px) {
+      {% if block.settings.content_min_height_pc > 0 %}
+        .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__content {
+          min-height: {{ block.settings.content_min_height_pc }}px;
+        }
+      {% endif %}
       {% if block.settings.logo_width_pc > 0 %}
         .jp-home-hero--{{ sid }} [data-slide-id="{{ block.id }}"] .jp-home-hero__subheading-logo {
           width: {{ block.settings.logo_width_pc }}px;
@@ -979,6 +984,21 @@
         {
           "type": "paragraph",
           "content": "字号设为 0、颜色留空、按钮对齐选择默认时，保留原有样式。按钮对齐以当前文字内容区域为基准。"
+        },
+        {
+          "type": "header",
+          "content": "内容区域"
+        },
+        {
+          "type": "range",
+          "id": "content_min_height_pc",
+          "label": "PC内容最小高度",
+          "min": 0,
+          "max": 800,
+          "step": 10,
+          "unit": "px",
+          "default": 0,
+          "info": "0 为自然高度。内容区域整体垂直居中，增加最小高度可让文字起点上移；内容超出时自动撑开。"
         },
         {
           "type": "header",
