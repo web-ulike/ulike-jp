@@ -448,61 +448,92 @@
     text-align: left;
   }
 
-  /* 显示区域 */
-  .custom-display {
-    padding: 0 20px;
+  /* 下拉选择器样式，仅作用于当前组件 */
+  #shopify-section-{{ section.id }} .custom-display {
+    box-sizing: border-box;
+    padding: 0 40px 0 20px;
     height: 58px;
     line-height: 58px;
     background: #fff;
-    border: 1px solid #000;
-    border-radius: 29px;
+    color: #000;
+    border: 1px solid #cbcbcb;
+    border-radius: 16px;
     cursor: pointer;
     position: relative;
     z-index: 1;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    transition: border-color 300ms cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 300ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  /* 箭头 */
-  .custom-display::after {
-    content: '∨';
+  #shopify-section-{{ section.id }} .custom-display::after {
+    content: '';
     position: absolute;
-    right: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 14px;
-    color: #000;
+    right: 20px;
+    top: calc(50% - 6px);
+    width: 8px;
+    height: 8px;
+    border: solid currentColor;
+    border-width: 0 1.5px 1.5px 0;
+    transform: rotate(45deg);
+    pointer-events: none;
   }
 
-  /* 下拉面板 */
-  .custom-options {
+  #shopify-section-{{ section.id }} .custom-options {
+    box-sizing: border-box;
     position: absolute;
     top: 100%;
     left: 0;
     width: 100%;
+    padding: 8px;
+    margin-top: 8px;
     background: #fff;
-    border: 1px solid #000;
-    border-radius: 6px;
-    margin-top: 4px;
+    color: #000;
+    border: 1px solid #e5e5e5;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
     max-height: 40vh;
     overscroll-behavior: contain;
     overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #cbcbcb transparent;
     display: none;
     z-index: 10;
   }
 
-  /* 选项项 */
-  .custom-option {
-    padding: 10px;
+  #shopify-section-{{ section.id }} .custom-option {
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    line-height: 24px;
     cursor: pointer;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    transition: background-color 300ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .custom-option:hover {
-    background-color: #f0f0f0;
+  @media (hover: hover) {
+    #shopify-section-{{ section.id }} .custom-display:hover {
+      border-color: #000;
+      background-color: #f7f7f8;
+    }
+
+    #shopify-section-{{ section.id }} .custom-option:hover {
+      background-color: #f0f0f0;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .custom-option:active {
+    background-color: #e5e5e5;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ section.id }} .custom-display,
+    #shopify-section-{{ section.id }} .custom-option {
+      transition: none;
+    }
   }
 
   /* 响应式设计 */
@@ -607,9 +638,27 @@
       object-fit: contain;
     }
 
-    .custom-display {
+    #shopify-section-{{ section.id }} .custom-display {
       height: 45px;
       line-height: 45px;
+      padding: 0 32px 0 12px;
+      border-radius: 12px;
+      font-size: 14px;
+    }
+
+    #shopify-section-{{ section.id }} .custom-display::after {
+      right: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .custom-options {
+      padding: 4px;
+      border-radius: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .custom-option {
+      padding: 12px 8px;
+      font-size: 14px;
+      line-height: 20px;
     }
 
     #productDetailsContainer .product-area-img-list {
