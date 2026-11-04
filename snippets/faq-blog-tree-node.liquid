@@ -12,7 +12,7 @@
     assign has_article = true
   endif
 -%}
-<li class="faq-blog-tree__node" data-faq-node>
+<li class="faq-blog-tree__node" data-faq-node="{{ node_id }}" data-faq-label="{{ item.title | escape }}">
   <div class="faq-blog-tree__row">
     {%- if has_article -%}
       <a
