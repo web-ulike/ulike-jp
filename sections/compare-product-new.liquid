@@ -35,7 +35,7 @@
     background: #fff;
     padding: 20px 0;
     position: sticky;
-    top: 0;
+    top: calc(var(--header-height, 0px) * var(--enable-sticky-header, 0) + var(--announcement-bar-height, 0px) * var(--enable-sticky-announcement-bar, 0));
     z-index: 3;
     text-align: center;
   }
@@ -77,18 +77,6 @@
     outline: none;
     border-color: #3498db;
     box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
-  }
-
-  #selectContainer.fixed {
-    width: 100%;
-    position: fixed;
-    top: 27px;
-    left: 0;
-    right: 0;
-    border-top: 1px solid #cbcbcb;
-    border-bottom: 1px solid #eee;
-    box-shadow: 0 6px 12px -6px rgba(0, 0, 0, 0.1);
-     top: calc(var(--header-height, 0px) * var(--enable-sticky-header) + var(--announcement-bar-height, 0px) * var(--enable-sticky-announcement-bar) - 50px);
   }
 
   /* 产品详情容器样式 */
@@ -497,6 +485,8 @@
     border: 1px solid #000;
     border-radius: 6px;
     margin-top: 4px;
+    max-height: 40vh;
+    overscroll-behavior: contain;
     overflow-y: auto;
     display: none;
     z-index: 10;
@@ -570,10 +560,6 @@
       padding: 20px 0;
       margin-top: 20px;
     }
-    #selectContainer.fixed {
-      top: 8px;
-      gap: 10px;
-    }
 
     #productDetailsContainer .product-area-img-list {
       height: 240px;
@@ -596,12 +582,6 @@
     #productDetailsContainer .btn-diy {
       width: 100%;
       height: 40px;
-    }
-
-    #selectContainer.fixed {
-      top: 46px;
-      padding: 20px 0;
-      top: calc(var(--header-height, 0px) * var(--enable-sticky-header) + var(--announcement-bar-height, 0px) * var(--enable-sticky-announcement-bar) - 20px);
     }
 
     .fields-row .left_comp {
@@ -742,9 +722,8 @@
           {% unless forloop.last %}, {% endunless %}
           {% endif %}
         {% endfor %}
-      ];
-
-    console.log(sectionBlocks);
+      ].map((product, index) => ({ ...product, compareSort: index + 1 }))
+        .filter(product => product.id && typeof product.title === 'string' && product.title.trim());
     const groupConfigs = [
       {% for block in se_bks %}
         {% if block.type == 'item' %}
@@ -765,7 +744,6 @@
         {% endif %}
       {% endfor %}
     ];
-    console.log(groupConfigs);
 
 
     const selectLeft = document.getElementById("selectLeft");
@@ -794,8 +772,8 @@
 
     // 创建字段内容
     function createFieldContent(product, index, i) {
-      let _image = product[index][`module_image${i == 0? '' :i}`];
-      let _text = product[index][`module_text${i == 0? '' :i}`];
+      let _image = product[index]?.[`module_image${i == 0? '' :i}`];
+      let _text = product[index]?.[`module_text${i == 0? '' :i}`];
       if (!_image && !_text) return ''; // 如果没有图片和文本则不创建
       const container = document.createElement("div");
       container.className = "field-content-container";
@@ -824,8 +802,8 @@
     function renderCompare() {
       compareContainer.innerHTML = "";
 
-      const _leftProduct = groupConfigs.filter(item => item.module_sort === parseInt(selectLeft.value) + 1);
-      const _rightProduct = groupConfigs.filter(item => item.module_sort === parseInt(selectRight.value) + 1);
+      const _leftProduct = groupConfigs.filter(item => item.module_sort === sectionBlocks[Number(selectLeft.value)].compareSort);
+      const _rightProduct = groupConfigs.filter(item => item.module_sort === sectionBlocks[Number(selectRight.value)].compareSort);
 
       _leftProduct.forEach((group, index) => {
      
@@ -1049,7 +1027,7 @@
       const rightIndex = parseInt(selectRight.value);
 
       // 互斥处理
-      if (leftIndex === rightIndex) {
+      if (sectionBlocks.length > 1 && leftIndex === rightIndex) {
         if (this === selectLeft) {
           selectRight.value = leftIndex === 0 ? 1 : 0;
         } else {
@@ -1070,14 +1048,6 @@
       const display = wrapper.querySelector('.custom-display');
       const selectedOption = nativeSelect.options[nativeSelect.selectedIndex];
       display.textContent = selectedOption ? selectedOption.text : '';
-    }
-    // 固定选择容器
-    function handleScroll() {
-      if (window.scrollY > 100) {
-        selectContainer.classList.add('fixed');
-      } else {
-        selectContainer.classList.remove('fixed');
-      }
     }
     function initCustomSelect(nativeSelect) {
       const wrapper = nativeSelect.parentElement;
@@ -1119,6 +1089,10 @@
 
     // 初始化
     function init() {
+      if (!sectionBlocks.length) {
+        selectContainer.closest('.section-box').hidden = true;
+        return;
+      }
       initSelects(); // 先填充 option
       initCustomSelect(selectLeft);
       initCustomSelect(selectRight);
@@ -1126,7 +1100,6 @@
 
       selectLeft.addEventListener("change", onSelectChange);
       selectRight.addEventListener("change", onSelectChange);
-      window.addEventListener('scroll', handleScroll);
     }
 
     // 启动应用
