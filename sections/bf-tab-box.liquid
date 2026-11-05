@@ -7,7 +7,7 @@
 
   .bf-tab-box {
     display: block;
-    background: #000;
+    background: var(--bf-tab-box-background, var(--bf-tab-box-default-background, #000));
   }
   .bf-tab-box .bf-tab-cont {
     border-bottom: 1px solid #666666;
@@ -37,7 +37,7 @@
     border-bottom: 1px solid #DEB581;
   }
   .bf-2024.bf-tab-box {
-    background: linear-gradient(180deg, rgba(244, 52, 90, 1) -13.5%, #b4003e 113.5%);
+    --bf-tab-box-default-background: linear-gradient(180deg, rgba(244, 52, 90, 1) -13.5%, #b4003e 113.5%);
   }
   :where(.bf-tab-box).bf-2024 .bf-tab-cont {
     border: 0;
@@ -53,7 +53,7 @@
     font-family: var(--text-font-family);
   }
   .chr-2024.bf-tab-box {
-    background: linear-gradient(180deg, #E9EFF9 0.3%, #F3F4F7 99.48%);
+    --bf-tab-box-default-background: linear-gradient(180deg, #E9EFF9 0.3%, #F3F4F7 99.48%);
   }
   :where(.bf-tab-box).chr-2024 .bf-tab-item {
     color: #000;
@@ -69,7 +69,7 @@
     border: 0;
   }
   .bf-tab-box.results-diy {
-    background: #fff;
+    --bf-tab-box-default-background: #fff;
     border-top: 1px solid #EBEBEB;
     border-bottom: 1px solid #EBEBEB;
   }
@@ -97,13 +97,13 @@
   }
 
   .new-2025.bf-tab-box {
-    background: linear-gradient(0deg, #B00427 -25%, #8F1224 125%);
+    --bf-tab-box-default-background: linear-gradient(0deg, #B00427 -25%, #8F1224 125%);
   }
   :where(.bf-tab-box).new-2025 .bf-tab-item {
     color: #fff;
   }
   .seo-diy.bf-tab-box {
-    background: #F9F9F9;
+    --bf-tab-box-default-background: #F9F9F9;
   }
   :where(.bf-tab-box).seo-diy .bf-tab-item {
     color: #000;
@@ -208,7 +208,7 @@
   <bf-tab-box
     class="bf-tab-box {{ section.settings.text | escape }}"
     {% if section.settings.bg_color != blank %}
-      style="background: {{ section.settings.bg_color }};"
+      style="--bf-tab-box-background: {{ section.settings.bg_color }};"
     {% endif %}
   >
     <div class="container">
