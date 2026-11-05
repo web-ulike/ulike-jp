@@ -123,6 +123,10 @@
     display: block;
     width: 100%;
     overflow: hidden;
+    background: transparent;
+  }
+
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__media-inner--video.has-played {
     background: #000;
   }
 
@@ -606,6 +610,10 @@
     var playButton = section.querySelector('.jp-brand-story-hero__play');
 
     if (!video || !playButton) return;
+
+    video.addEventListener('playing', function () {
+      video.parentElement.classList.add('has-played');
+    }, { once: true });
 
     playButton.addEventListener('click', function () {
       video.play();
