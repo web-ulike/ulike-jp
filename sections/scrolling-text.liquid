@@ -7,6 +7,11 @@
     --image-height: {{ section.settings.image_size_pc }}px;
   }
 
+  #shopify-section-{{ section.id }} > .section--padding {
+    padding-top: var(--section-padding-top);
+    padding-bottom: var(--section-padding-bottom);
+  }
+
   #shopify-section-{{ section.id }} .scrolling-text__marquee {
     --scroll-duration: {{ 40.0 | divided_by: section.settings.speed }}s;
     overflow: hidden;
