@@ -45,12 +45,6 @@
     white-space: nowrap;
   }
 
-  @media screen and (min-width: 900px) and (max-width: 1600px) {
-    #shopify-section-{{ section.id }} .scrolling-text__group {
-      gap: 9.375vw;
-    }
-  }
-
   #shopify-section-{{ section.id }} .scrolling-text__item {
     flex: 0 0 auto;
   }
@@ -86,11 +80,7 @@
       --section-padding-top: min({{ section.settings.padding_top }}px, 20px);
       --section-padding-bottom: min({{ section.settings.padding_bottom }}px, 20px);
       --image-height: {{ section.settings.image_size_mobile }}px;
-    }
-
-    #shopify-section-{{ section.id }} .scrolling-text__group {
-      gap: clamp(20px, 6vw, 32px);
-      padding-inline-end: clamp(20px, 6vw, 32px);
+      --section-grid-gap: {{ section.settings.grid_horizontal_mobile }}px;
     }
   }
 
@@ -284,7 +274,17 @@
       "step": 5,
       "default": 70,
       "unit": "px",
-      "label": "t:sections.scrolling-text.settings.grid_horizontal.label"
+      "label": "元素间距 PC"
+    },
+    {
+      "type": "range",
+      "id": "grid_horizontal_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 24,
+      "unit": "px",
+      "label": "元素间距 M"
     },
     {
       "type": "checkbox",
