@@ -70,8 +70,8 @@
   }
   .bf-tab-box.results-diy {
     background: #fff;
-    border-top: 1px solid  #EBEBEB;
-    border-bottom: 1px solid  #EBEBEB;
+    border-top: 1px solid #EBEBEB;
+    border-bottom: 1px solid #EBEBEB;
   }
   :where(.bf-tab-box).results-diy .bf-tab-item {
     color: #190A0A;
@@ -134,13 +134,13 @@
   :where(.bf-tab-box) .bf-tab-item.active svg {
     display: block;
   }
-  @media (min-width:999px) {
+  @media (min-width: 999px) {
     :where(.bf-tab-box).chr-2024 .bf-tab-list {
       justify-content: center;
       gap: 90px;
     }
   }
-  @media (max-width:999px) {
+  @media (max-width: 999px) {
     .bf-tab-box .bf-tab-cont {
       border: 0;
     }
@@ -181,11 +181,11 @@
     :where(.bf-tab-box).new-2025 .bf-tab-item.active {
       color: #fff;
     }
-    :where(.bf-tab-box).results-diy  .bf-tab-item {
+    :where(.bf-tab-box).results-diy .bf-tab-item {
       color: #190A0A;
       font-size: 14px;
     }
-    :where(.bf-tab-box).results-diy  .bf-tab-item.active {
+    :where(.bf-tab-box).results-diy .bf-tab-item.active {
       color: #190A0A;
     }
     :where(.bf-tab-box).seo-diy .bf-tab-item.active {
@@ -195,7 +195,7 @@
       width: fit-content;
     }
   }
-  @media (max-width:740px) {
+  @media (max-width: 740px) {
     :where(.bf-tab-box) .bf-tab-item svg {
       padding-left: 5px;
       width: 13px;
@@ -205,13 +205,23 @@
 {% endstylesheet %}
 
 <section class="section-box">
-  <bf-tab-box class="bf-tab-box {{ section.settings.text | escape }}"{% if section.settings.bg_color != blank %} style="background: {{ section.settings.bg_color }};"{% endif %}>
+  <bf-tab-box
+    class="bf-tab-box {{ section.settings.text | escape }}"
+    {% if section.settings.bg_color != blank %}
+      style="background: {{ section.settings.bg_color }};"
+    {% endif %}
+  >
     <div class="container">
       <div class="bf-tab-cont">
         <div class="bf-tab-scroll">
           <div class="bf-tab-list">
             {%- for block in section.blocks -%}
-              <button type="button" class="bf-tab-item" data-rout="{{ block.settings.text1 | escape }}" {{ block.shopify_attributes }}>
+              <button
+                type="button"
+                class="bf-tab-item"
+                data-rout="{{ block.settings.text1 | escape }}"
+                {{ block.shopify_attributes }}
+              >
                 {{ block.settings.text }}
 
                 {% if section.settings.is_love %}
@@ -316,8 +326,8 @@
       activeItem.classList.add('active');
       if (window.innerWidth < 768) {
         const scroller = this.querySelector('.bf-tab-scroll');
-        const left = scroller.scrollLeft + activeItem.getBoundingClientRect().left - scroller.getBoundingClientRect().left;
-        scroller.scrollTo({ left, behavior: this.getScrollBehavior() });
+        const offset = activeItem.getBoundingClientRect().left - scroller.getBoundingClientRect().left;
+        scroller.scrollTo({ left: scroller.scrollLeft + offset, behavior: this.getScrollBehavior() });
       }
     }
   }
