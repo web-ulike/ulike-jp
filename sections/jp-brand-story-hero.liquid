@@ -28,7 +28,7 @@
     display: grid;
     grid-template-columns: 19% 29%;
     width: 100%;
-    padding: 180px 80px 70px 150px;
+    padding: 180px 0 70px;
   }
 
   .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__eyebrow {
@@ -112,9 +112,9 @@
   .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__media {
     position: absolute;
     top: 180px;
-    right: 0px;
+    right: var(--container-gutter);
     z-index: 4;
-    width: 48%;
+    width: calc((100% - var(--container-gutter) * 2) * 0.48);
     max-width: 920px;
   }
 
@@ -202,7 +202,7 @@
 
   .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stats {
     position: absolute;
-    left: 8%;
+    left: var(--container-gutter);
     bottom: 18%;
     z-index: 3;
     display: flex;
@@ -255,16 +255,12 @@
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__content {
       grid-template-columns: 18% 36%;
       width: 100%;
-      padding-left: 48px;
-      padding-right: 48px;
     }
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__media {
-      right: 48px;
-      width: 40%;
+      width: calc((100% - var(--container-gutter) * 2) * 0.4);
     }
 
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stats {
-      left: 48px;
       gap: 34px;
     }
 
@@ -296,14 +292,13 @@
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__inner {
       display: block;
       min-height: auto;
-      max-width: 100%;
     }
 
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__content {
       position: relative;
       display: block;
       width: 100%;
-      padding: 0 20px 0;
+      padding: 0;
     }
 
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__eyebrow {
@@ -349,7 +344,7 @@
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__note {
       position: relative;
       z-index: 4;
-      margin: 20px 20px 0;
+      margin: 20px 0 0;
       font-size: 10px;
       line-height: 1.55;
     }
@@ -430,7 +425,7 @@
 </style>
 
 <section class="jp-brand-story-hero jp-brand-story-hero--{{ sid }}">
-  <div class="jp-brand-story-hero__inner">
+  <div class="jp-brand-story-hero__inner container">
     <div class="jp-brand-story-hero__content">
       {%- if st.eyebrow != blank -%}
         <div class="jp-brand-story-hero__eyebrow to-top">
