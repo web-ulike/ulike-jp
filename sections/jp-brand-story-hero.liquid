@@ -294,6 +294,7 @@
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__inner {
       display: block;
       min-height: auto;
+      isolation: isolate;
     }
 
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__content {
@@ -390,7 +391,10 @@
     }
 
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__map {
-      position: relative;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      z-index: 0;
       width: 100%;
     }
 
@@ -413,17 +417,19 @@
 
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stat-number {
       justify-content: center;
-      font-size: 36px;
+      font-size: clamp(24px, 7.2vw, 36px);
     }
 
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stat-unit {
       margin-top: 5px;
-      font-size: 20px;
+      font-size: clamp(12px, 4vw, 20px);
     }
 
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stat-text {
       margin-top: 0px;
       font-size: 10px;
+      white-space: normal;
+      overflow-wrap: anywhere;
     }
   }
 </style>
