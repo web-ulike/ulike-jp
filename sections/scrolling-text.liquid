@@ -45,6 +45,12 @@
     white-space: nowrap;
   }
 
+  @media screen and (min-width: 900px) and (max-width: 1600px) {
+    #shopify-section-{{ section.id }} .scrolling-text__group {
+      gap: 9.375vw;
+    }
+  }
+
   #shopify-section-{{ section.id }} .scrolling-text__item {
     flex: 0 0 auto;
   }
@@ -77,17 +83,20 @@
 
   @media screen and (max-width: 740px) {
     #shopify-section-{{ section.id }} {
-      --section-padding-top: min({{ section.settings.padding_top }}px, 20px);
-      --section-padding-bottom: min({{ section.settings.padding_bottom }}px, 20px);
+      --section-padding-top: {{ section.settings.padding_top_mobile }}px;
+      --section-padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
       --image-height: {{ section.settings.image_size_mobile }}px;
-      --section-grid-gap: {{ section.settings.grid_horizontal_mobile }}px;
+    }
+
+    #shopify-section-{{ section.id }} .scrolling-text__group {
+      gap: clamp(20px, 6vw, 32px);
+      padding-inline-end: clamp(20px, 6vw, 32px);
     }
   }
 
   @media screen and (min-width: 741px) {
     #shopify-section-{{ section.id }} .section {
       display: flex;
-      min-height: 180px;
       align-items: center;
     }
 
@@ -274,17 +283,7 @@
       "step": 5,
       "default": 70,
       "unit": "px",
-      "label": "元素间距 PC"
-    },
-    {
-      "type": "range",
-      "id": "grid_horizontal_mobile",
-      "min": 0,
-      "max": 200,
-      "step": 4,
-      "default": 24,
-      "unit": "px",
-      "label": "元素间距 M"
+      "label": "t:sections.scrolling-text.settings.grid_horizontal.label"
     },
     {
       "type": "checkbox",
@@ -329,7 +328,7 @@
       "max": 120,
       "step": 4,
       "unit": "px",
-      "label": "t:sections.global.settings.padding_top.label",
+      "label": "模块上间距 PC",
       "default": 36
     },
     {
@@ -339,8 +338,28 @@
       "max": 120,
       "step": 4,
       "unit": "px",
-      "label": "t:sections.global.settings.padding_bottom.label",
+      "label": "模块下间距 PC",
       "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "模块上间距 M",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "模块下间距 M",
+      "default": 20
     },
     {
       "type": "checkbox",
