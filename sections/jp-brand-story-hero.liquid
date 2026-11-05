@@ -228,6 +228,14 @@
     {% comment %} font-weight: 600; {% endcomment %}
   }
 
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stat-unit sup {
+    position: relative;
+    top: -0.5em;
+    font-size: 50%;
+    line-height: 0;
+    vertical-align: baseline;
+  }
+
   .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stat:nth-child(3) .jp-brand-story-hero__stat-unit {
     margin-top: 16px;
   }
@@ -735,9 +743,10 @@
       "default": "1000"
     },
     {
-      "type": "text",
+      "type": "html",
       "id": "stat_1_unit",
-      "label": "Stat 1 unit",
+      "label": "Stat 1 unit (HTML)",
+      "info": "支持 HTML，例如：万人<sup>*2</sup>、+年、万台<sup>*2</sup>",
       "default": "+"
     },
     {
@@ -753,9 +762,10 @@
       "default": "10"
     },
     {
-      "type": "text",
+      "type": "html",
       "id": "stat_2_unit",
-      "label": "Stat 2 unit",
+      "label": "Stat 2 unit (HTML)",
+      "info": "支持 HTML，例如：万人<sup>*2</sup>、+年、万台<sup>*2</sup>",
       "default": "+"
     },
     {
@@ -771,9 +781,10 @@
       "default": "800"
     },
     {
-      "type": "text",
+      "type": "html",
       "id": "stat_3_unit",
-      "label": "Stat 3 unit",
+      "label": "Stat 3 unit (HTML)",
+      "info": "支持 HTML，例如：万人<sup>*2</sup>、+年、万台<sup>*2</sup>",
       "default": "万台+"
     },
     {
