@@ -1,0 +1,78 @@
+{% doc %}
+  Renders a referral product card with the product data used by the referral activity.
+
+  @param {object} settings - Shared section labels.
+  @param {object} [block] - Product block for the theme editor.
+  @param {string} product_id - Shopify product ID.
+  @param {string} [variant_id] - Shopify variant ID.
+  @param {string} product_url - Product URL.
+  @param {string} code_label - Invitation code label.
+  @param {string} title - Displayed product title.
+  @param {string} [description] - Displayed product description.
+  @param {image} [image] - Product card image.
+  @param {string} [fallback_image] - Image URL for an existing card.
+  @param {string} price - Displayed product price.
+  @param {string} [commission] - Displayed referral reward.
+{% enddoc %}
+<div
+  class="gameplay-box gameplay-box-copycode gameplay-box-item"
+  data-product-id="{{ product_id | escape }}"
+  data-variant="{{ variant_id | escape }}"
+  data-url="{{ product_url | escape }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="copy-code-top">
+    <div>
+      <div class="code-wrap">
+        <div class="code-text">{{ code_label | escape }}</div>
+        <div class="code-top">------</div>
+      </div>
+    </div>
+    <div class="copy-wrap">
+      <div class="copy-svg">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 17" fill="none" aria-hidden="true">
+                  <path
+                d="M3.99995 2.31644C3.99995 1.7318 4.52001 1.39453 4.9953 1.39453H9.36584C9.63437 1.39453 9.89162 1.50253 10.0797 1.69422L13.7139 5.39868C13.8972 5.58546 13.9999 5.83662 14.0001 6.09828L14.0046 12.4723C14.0046 13.0569 13.4846 13.3945 13.0093 13.3945H4.99995C4.52472 13.3945 4.00474 13.0573 4.00461 12.4728L3.99995 2.31644ZM4.99999 2.39453L5.00457 12.3945H13.0046L13.0003 6.40729H9.00004V2.39453H4.99999ZM10 3.04098V5.40729H12.3215L10 3.04098Z"
+                fill="black" />
+              <path d="M2 5.39454V14.4073C2 14.9596 2.44772 15.4073 3 15.4073H11V14.4073L3 14.4073V5.39454H2Z"
+                fill="black" />
+          </svg>
+      </div>
+      <div class="copy-btn-top">{{ settings.copy_label | escape }}</div>
+    </div>
+  </div>
+  <div class="code-disscount">{{ settings.discount_prefix | escape }} <span></span> {{ settings.discount_suffix | escape }}</div>
+
+  <div class="invitation-product{% if image == blank and fallback_image == blank %} invitation-product--no-image{% endif %}">
+    {%- if image != blank or fallback_image != blank -%}
+      <div class="invitation-product__image">
+        {%- if image != blank -%}
+          {{ image | image_url: width: 400 | image_tag: widths: '100, 130, 200, 260, 400', sizes: '(max-width: 392px) 104px, (max-width: 768px) 130px, 200px', loading: 'lazy', alt: title }}
+        {%- else -%}
+          <img src="{{ fallback_image | escape }}" alt="{{ title | escape }}" width="200" height="200" loading="lazy">
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+    <div class="invitation-product__info">
+      <div>
+        <p class="invitation-product__title">{{ title | escape }}</p>
+        {%- if description != blank -%}
+          <p class="invitation-product__desc">{{ description | escape }}</p>
+        {%- endif -%}
+      </div>
+      <div class="invitation-product__pricing">
+        <div class="invitation-product__price">
+          <div class="invitation-product__label">{{ settings.price_label | escape }}</div>
+          <div class="invitation-product__value invitation-product__value--highlight">{{ price | escape }}</div>
+        </div>
+        {%- if commission != blank -%}
+          <div class="invitation-product__commission">
+            <div class="invitation-product__label">{{ settings.commission_label | escape }}</div>
+            <div class="invitation-product__value">{{ commission | escape }}</div>
+          </div>
+        {%- endif -%}
+      </div>
+      <button type="button" class="invitation-product__copy-btn">{{ settings.copy_link_label | escape }}</button>
+    </div>
+  </div>
+</div>

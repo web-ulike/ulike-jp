@@ -868,6 +868,10 @@
     margin-left:32px;
   }
 
+  .invitation-product--no-image .invitation-product__info {
+    margin-left: 0;
+  }
+
   .invitation-product__title {
     font-weight: 500;
     font-size: 28px;
@@ -1121,6 +1125,10 @@
       margin-left:15px;
     }
 
+    #referfriend-invitation-content .invitation-product--no-image .invitation-product__info {
+      margin-left: 0;
+    }
+
     #referfriend-invitation-content .invitation-product__pricing {
       flex-wrap: wrap;
       gap: 4px 8px;
@@ -1238,6 +1246,10 @@
       overflow-wrap: anywhere;
     }
 
+    #referfriend-invitation-content .gameplay-box-copycode .invitation-product--no-image {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
     #referfriend-invitation-content .gameplay-box-copycode .invitation-product__image {
       grid-row: span 2;
     }
@@ -1269,6 +1281,7 @@
   var getLoginStatus = '{{ customer.log_in }}' ? true : false;
   window.referFriendMainCopy = {
     error_prefix: {{ section.settings.error_prefix | json }},
+    coupon_unavailable: {{ section.settings.coupon_unavailable | json }},
     insufficient_balance: {{ section.settings.insufficient_balance | json }},
     code_sent: {{ section.settings.code_sent | json }},
     get_code: {{ section.settings.get_code | json }},
@@ -1308,188 +1321,65 @@
       <p>{{ section.settings.invite_step_2 | escape }}</p>
     </div>
   </div>
-  <div
-    class="gameplay-box gameplay-box-copycode gameplay-box-item"
-    data-productId="8184944394481"
-    data-variant="44485783814385"
-    data-url="https://www.ulike.com/products/sapphire-air-10-ipl-hair-removal"
-  >
-    <div class="copy-code-top">
-      <div>
-        <div class="code-wrap">
-          <div class="code-text">{{ section.settings.invitation_code_label | escape }}</div>
-          <div class="code-top">------</div>
+  {%- if section.blocks.size == 0 and section.settings.show_legacy_products -%}
+    {%- render 'refer-friend-product-card',
+      settings: section.settings,
+      product_id: '8184944394481',
+      variant_id: '44485783814385',
+      product_url: 'https://www.ulike.com/products/sapphire-air-10-ipl-hair-removal',
+      code_label: section.settings.invitation_code_label,
+      title: section.settings.product_title,
+      description: section.settings.product_description,
+      image: section.settings.product_image,
+      fallback_image: 'https://cdn.shopify.com/s/files/1/0632/6275/2833/files/product1.png?v=1749714535',
+      price: section.settings.product_price,
+      commission: section.settings.product_commission
+    -%}
+    {%- render 'refer-friend-product-card',
+      settings: section.settings,
+      product_id: '8790509945073',
+      product_url: 'https://www.ulike.com/products/ulike-reglow-led-light-therapy-mask',
+      code_label: section.settings.reglow_code_label,
+      title: section.settings.reglow_title,
+      description: section.settings.reglow_description,
+      image: section.settings.reglow_image,
+      fallback_image: 'https://cdn.shopify.com/s/files/1/0632/6275/2833/files/product2.png?v=1749714534',
+      price: section.settings.reglow_price,
+      commission: section.settings.reglow_commission
+    -%}
+  {%- else -%}
+    {%- for block in section.blocks -%}
+      {%- assign card_product = block.settings.product -%}
+      {%- if card_product != blank -%}
+        {%- liquid
+          assign card_variant = card_product.selected_or_first_available_variant
+          assign card_title = block.settings.title | default: card_product.title
+          assign card_image = block.settings.image | default: card_product.featured_image
+          assign default_description = card_product.description | strip_html | strip_newlines | truncate: 100
+          assign card_description = block.settings.description | default: default_description
+          assign default_price = card_variant.price | money
+          assign card_price = block.settings.price | default: default_price
+        -%}
+        {%- render 'refer-friend-product-card',
+          settings: section.settings,
+          block: block,
+          product_id: card_product.id,
+          variant_id: card_variant.id,
+          product_url: card_product.url,
+          code_label: block.settings.code_label,
+          title: card_title,
+          description: card_description,
+          image: card_image,
+          price: card_price,
+          commission: block.settings.commission
+        -%}
+      {%- elsif request.design_mode -%}
+        <div class="gameplay-box gameplay-box-copycode gameplay-box-item" {{ block.shopify_attributes }}>
+          {{ section.settings.select_product_label | escape }}
         </div>
-      </div>
-      <div class="copy-wrap">
-        <div class="copy-svg">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 17" fill="none">
-            <g id="file-copy">
-              <g id="Union">
-                <path
-                  d="M3.99995 2.31644C3.99995 1.7318 4.52001 1.39453 4.9953 1.39453H9.36584C9.63437 1.39453 9.89162 1.50253 10.0797 1.69422L13.7139 5.39868C13.8972 5.58546 13.9999 5.83662 14.0001 6.09828L14.0046 12.4723C14.0046 13.0569 13.4846 13.3945 13.0093 13.3945H4.99995C4.52472 13.3945 4.00474 13.0573 4.00461 12.4728L3.99995 2.31644ZM4.99999 2.39453L5.00457 12.3945H13.0046L13.0003 6.40729H9.00004V2.39453H4.99999ZM10 3.04098V5.40729H12.3215L10 3.04098Z"
-                  fill="black" />
-                <path d="M2 5.39454V14.4073C2 14.9596 2.44772 15.4073 3 15.4073H11V14.4073L3 14.4073V5.39454H2Z"
-                  fill="black" />
-              </g>
-            </g>
-          </svg>
-        </div>
-        <div class="copy-btn-top">{{ section.settings.copy_label | escape }}</div>
-      </div>
-    </div>
-    <div class="code-disscount">{{ section.settings.discount_prefix | escape }} <span></span> {{ section.settings.discount_suffix | escape }}</div>
-
-    <div class="invitation-product">
-      <div class="invitation-product__image">
-        <img
-          src="{% if section.settings.product_image != blank %}{{ section.settings.product_image | image_url: width: 600 }}{% else %}https://cdn.shopify.com/s/files/1/0632/6275/2833/files/product1.png?v=1749714535{% endif %}"
-          alt="{{ section.settings.product_title | escape }}"
-        >
-      </div>
-      <div class="invitation-product__info">
-        <div>
-          <p class="invitation-product__title">{{ section.settings.product_title | escape }}</p>
-          <p class="invitation-product__desc">{{ section.settings.product_description | escape }}</p>
-        </div>
-        <div class="invitation-product__pricing">
-          <div class="invitation-product__price">
-            <div class="invitation-product__label">{{ section.settings.price_label | escape }}</div>
-            <div class="invitation-product__value invitation-product__value--highlight">{{ section.settings.product_price | escape }}</div>
-          </div>
-          <div class="invitation-product__commission">
-            <div class="invitation-product__label">{{ section.settings.commission_label | escape }}</div>
-            <div class="invitation-product__value">{{ section.settings.product_commission | escape }}</div>
-          </div>
-        </div>
-        <button class="invitation-product__copy-btn">{{ section.settings.copy_link_label | escape }}</button>
-      </div>
-    </div>
-    {% comment %} 第二个 {% endcomment %}
-  </div>
-  {% comment %} <div
-    class="gameplay-box gameplay-box-copycode gameplay-box-item"
-    data-productId="7914926145777"
-    data-variant="43695950823665"
-    data-url="https://www.ulike.com/products/sapphire-air-3-ipl-hair-removal"
-  >
-    <div class="copy-code-top">
-      <div>
-        <div class="code-wrap">
-          <div class="code-text">Air 3 Invitation Code：</div>
-          <div class="code-top">------</div>
-        </div>
-      </div>
-      <div class="copy-wrap">
-        <div class="copy-svg">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 17" fill="none">
-            <g id="file-copy">
-              <g id="Union">
-                <path
-                  d="M3.99995 2.31644C3.99995 1.7318 4.52001 1.39453 4.9953 1.39453H9.36584C9.63437 1.39453 9.89162 1.50253 10.0797 1.69422L13.7139 5.39868C13.8972 5.58546 13.9999 5.83662 14.0001 6.09828L14.0046 12.4723C14.0046 13.0569 13.4846 13.3945 13.0093 13.3945H4.99995C4.52472 13.3945 4.00474 13.0573 4.00461 12.4728L3.99995 2.31644ZM4.99999 2.39453L5.00457 12.3945H13.0046L13.0003 6.40729H9.00004V2.39453H4.99999ZM10 3.04098V5.40729H12.3215L10 3.04098Z"
-                  fill="black" />
-                <path d="M2 5.39454V14.4073C2 14.9596 2.44772 15.4073 3 15.4073H11V14.4073L3 14.4073V5.39454H2Z"
-                  fill="black" />
-              </g>
-            </g>
-          </svg>
-        </div>
-        <div class="copy-btn-top">Copy</div>
-      </div>
-    </div>
-    <div class="code-disscount">Share with a friend and they can get <span></span> off</div>
-    {% comment %}
-      <div class="copy-input">
-        <textarea rows="10" cols="10" class="textarea-content" disabled>------</textarea>
-        <button class="copy-btn">Copy</button>
-      </div>
-    {% endcomment %}
-    <div class="invitation-product">
-      <div class="invitation-product__image">
-        <img
-          src="https://cdn.shopify.com/s/files/1/0632/6275/2833/files/product3.png?v=1749714534"
-          alt="Ulike Air 3"
-        >
-      </div>
-      <div class="invitation-product__info">
-        <div>
-          <p class="invitation-product__title">Ulike Air 3</p>
-          <p class="invitation-product__desc">Long-lasting hair removal from the comfort of home</p>
-        </div>
-        <div class="invitation-product__pricing">
-          <div class="invitation-product__price">
-            <div class="invitation-product__label">Price</div>
-            <div class="invitation-product__value invitation-product__value--highlight">$329</div>
-          </div>
-          <div class="invitation-product__commission">
-            <div class="invitation-product__label">Commission</div>
-            <div class="invitation-product__value">$50</div>
-          </div>
-        </div>
-        <button class="invitation-product__copy-btn">Copy Link</button>
-      </div>
-    </div>
-  </div> {% endcomment %}
-
-  {% comment %} 第三个 {% endcomment %}
-  <div
-    class="gameplay-box gameplay-box-copycode gameplay-box-item"
-    data-productId="8790509945073"
-    data-url="https://www.ulike.com/products/ulike-reglow-led-light-therapy-mask"
-  >
-    {% comment %} <p class="title">My Invitation Code</p> {% endcomment %}
-    <div class="copy-code-top">
-      <div>
-        <div class="code-wrap">
-          <div class="code-text">{{ section.settings.reglow_code_label | escape }}</div>
-          <div class="code-top">------</div>
-        </div>
-      </div>
-      <div class="copy-wrap">
-        <div class="copy-svg">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 17" fill="none">
-            <g id="file-copy">
-              <g id="Union">
-                <path
-                  d="M3.99995 2.31644C3.99995 1.7318 4.52001 1.39453 4.9953 1.39453H9.36584C9.63437 1.39453 9.89162 1.50253 10.0797 1.69422L13.7139 5.39868C13.8972 5.58546 13.9999 5.83662 14.0001 6.09828L14.0046 12.4723C14.0046 13.0569 13.4846 13.3945 13.0093 13.3945H4.99995C4.52472 13.3945 4.00474 13.0573 4.00461 12.4728L3.99995 2.31644ZM4.99999 2.39453L5.00457 12.3945H13.0046L13.0003 6.40729H9.00004V2.39453H4.99999ZM10 3.04098V5.40729H12.3215L10 3.04098Z"
-                  fill="black" />
-                <path d="M2 5.39454V14.4073C2 14.9596 2.44772 15.4073 3 15.4073H11V14.4073L3 14.4073V5.39454H2Z"
-                  fill="black" />
-              </g>
-            </g>
-          </svg>
-        </div>
-        <div class="copy-btn-top">{{ section.settings.copy_label | escape }}</div>
-      </div>
-    </div>
-    <div class="code-disscount">{{ section.settings.discount_prefix | escape }} <span></span> {{ section.settings.discount_suffix | escape }}</div>
-
-    <div class="invitation-product">
-      <div class="invitation-product__image">
-        <img
-          src="{% if section.settings.reglow_image != blank %}{{ section.settings.reglow_image | image_url: width: 600 }}{% else %}https://cdn.shopify.com/s/files/1/0632/6275/2833/files/product2.png?v=1749714534{% endif %}"
-          alt="{{ section.settings.reglow_title | escape }}"
-        >
-      </div>
-      <div class="invitation-product__info">
-        <div>
-          <p class="invitation-product__title">{{ section.settings.reglow_title | escape }}</p>
-          <p class="invitation-product__desc">{{ section.settings.reglow_description | escape }}</p>
-        </div>
-        <div class="invitation-product__pricing">
-          <div class="invitation-product__price">
-            <div class="invitation-product__label">{{ section.settings.price_label | escape }}</div>
-            <div class="invitation-product__value invitation-product__value--highlight">{{ section.settings.reglow_price | escape }}</div>
-          </div>
-          <div class="invitation-product__commission">
-            <div class="invitation-product__label">{{ section.settings.commission_label | escape }}</div>
-            <div class="invitation-product__value">{{ section.settings.reglow_commission | escape }}</div>
-          </div>
-        </div>
-        <button class="invitation-product__copy-btn" data-url>{{ section.settings.copy_link_label | escape }}</button>
-      </div>
-    </div>
-  </div>
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
 
   <div class="gameplay-box">
     <div class="title">{{ section.settings.rewards_title | escape }}<button type="button" class="rewards-more">{{ section.settings.more_label | escape }}&nbsp;&nbsp;></button></div>
@@ -1682,7 +1572,11 @@
     { "type": "text", "id": "invite_heading", "label": "Invitation instructions heading", "default": "How to invite:" },
     { "type": "textarea", "id": "invite_step_1", "label": "Invitation instruction 1", "default": "1. Share your invite code - your friends use it to get a discount when they place an order." },
     { "type": "textarea", "id": "invite_step_2", "label": "Invitation instruction 2", "default": "2. Share your invite link - friends click, order with a discount, and your commision will be paid out." },
-    { "type": "header", "content": "Air 10 card" },
+    { "type": "header", "content": "Product cards" },
+    { "type": "text", "id": "select_product_label", "label": "Empty product block message", "default": "商品を選択してください。" },
+    { "type": "text", "id": "coupon_unavailable", "label": "Invitation code unavailable message", "default": "この商品の紹介コードは現在ご利用いただけません。" },
+    { "type": "checkbox", "id": "show_legacy_products", "label": "Show legacy cards when there are no product blocks", "default": true },
+    { "type": "header", "content": "Legacy Air 10 card" },
     { "type": "text", "id": "invitation_code_label", "label": "Invitation code label", "default": "Air 10 Invitation Code：" },
     { "type": "text", "id": "copy_label", "label": "Copy label", "default": "Copy" },
     { "type": "text", "id": "discount_prefix", "label": "Discount text before amount", "default": "Share with a friend and they can get" },
@@ -1692,7 +1586,7 @@
     { "type": "image_picker", "id": "product_image", "label": "Air 10 image" },
     { "type": "text", "id": "product_price", "label": "Air 10 displayed price", "default": "$349" },
     { "type": "text", "id": "product_commission", "label": "Air 10 displayed commission", "default": "$50" },
-    { "type": "header", "content": "ReGlow card" },
+    { "type": "header", "content": "Legacy ReGlow card" },
     { "type": "text", "id": "reglow_code_label", "label": "ReGlow invitation code label", "default": "ReGlow Invitation Code：" },
     { "type": "image_picker", "id": "reglow_image", "label": "ReGlow image" },
     { "type": "text", "id": "reglow_title", "label": "ReGlow title", "default": "Ulike ReGlow" },
@@ -1763,10 +1657,26 @@
     { "type": "text", "id": "claimed_text", "label": "Claimed text", "default": "people have already claimed" },
     { "type": "text", "id": "claim_amount", "label": "Claim amount", "default": "$100" }
   ],
-  "blocks": [],
+  "blocks": [
+    {
+      "type": "referral_product",
+      "name": "推荐商品",
+      "settings": [
+        { "type": "product", "id": "product", "label": "选择商品" },
+        { "type": "text", "id": "code_label", "label": "邀请码标题", "default": "紹介コード" },
+        { "type": "text", "id": "title", "label": "展示标题（留空使用商品名称）" },
+        { "type": "textarea", "id": "description", "label": "展示描述（留空使用商品简介）" },
+        { "type": "image_picker", "id": "image", "label": "展示图片（留空使用商品主图）" },
+        { "type": "text", "id": "price", "label": "展示价格（留空使用所选变体的价格）" },
+        { "type": "text", "id": "commission", "label": "介绍报酬（留空则隐藏）" }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "Refer Friend Main"
+      "name": "Refer Friend Main",
+      "settings": { "show_legacy_products": false },
+      "blocks": [{ "type": "referral_product" }]
     }
   ]
 }
