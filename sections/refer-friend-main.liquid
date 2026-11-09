@@ -428,8 +428,30 @@
     #referfriend-invitation-content .success-btn {
       margin-top: 0;
     }
+    .refer-friend-hidden-in-details,
+    #referfriend-invitation-content.is-viewing-rewards .rewards-more,
+    #referfriend-invitation-content.is-viewing-rewards .gameplay-box-copycode,
+    #referfriend-invitation-content.is-viewing-rewards .gameplay-box-top,
+    #referfriend-invitation-content.is-viewing-rewards .invitation-record-batch .title,
+    #referfriend-invitation-content:not(.is-viewing-rewards) .has-no-records,
+    #referfriend-invitation-content:not(.is-viewing-rewards) .is-normal-render,
     #referfriend-invitation-content .tabs-title {
       display: none;
+    }
+    #referfriend-invitation-content.is-viewing-rewards .tabs-title {
+      display: flex;
+      gap: 8px;
+    }
+    #referfriend-invitation-content.is-viewing-rewards .tabs {
+      display: block;
+    }
+    #referfriend-invitation-content .rewards-back {
+      flex: none;
+      min-height: 44px;
+      padding-inline: 8px;
+      font-size: 14px;
+      line-height: 20px;
+      text-decoration: underline;
     }
     #referfriend-invitation-content .tabs {
       display: none;
@@ -1470,7 +1492,7 @@
   </div>
 
   <div class="gameplay-box">
-    <div class="title">{{ section.settings.rewards_title | escape }}<span class="rewards-more">{{ section.settings.more_label | escape }}&nbsp;&nbsp;></span></div>
+    <div class="title">{{ section.settings.rewards_title | escape }}<button type="button" class="rewards-more">{{ section.settings.more_label | escape }}&nbsp;&nbsp;></button></div>
     <div class="price-area">
       <div class="pending">
         <p class="ped-price-total">$0</p>
@@ -1483,7 +1505,10 @@
       </div>
     </div>
   </div>
-  <div class="gameplay-box title tabs-title">{{ section.settings.records_title | escape }}</div>
+  <div class="gameplay-box title tabs-title">
+    <span>{{ section.settings.records_title | escape }}</span>
+    <button type="button" class="rewards-back">{{ section.settings.back_to_referrals_label | escape }}</button>
+  </div>
   <!-- 标签区域 -->
   <div class="tabs">
     <div class="tab" data-tab="1">{{ section.settings.invitation_records_label | escape }}</div>
@@ -1495,7 +1520,7 @@
     <div class="gameplay-box invitation-record-batch">
       <div class="title">
         {{ section.settings.records_title | escape }}
-        <span class="rewards-more">{{ section.settings.more_label | escape }}&nbsp;&nbsp;></span>
+        <button type="button" class="rewards-more">{{ section.settings.more_label | escape }}&nbsp;&nbsp;></button>
       </div>
       <div class="invitation-detail" id="invitation-record-list">
         <!-- 订单项会在这里渲染 -->
@@ -1680,6 +1705,7 @@
     { "type": "header", "content": "Rewards and records" },
     { "type": "text", "id": "rewards_title", "label": "Rewards title", "default": "My Rewards" },
     { "type": "text", "id": "more_label", "label": "More link label", "default": "More" },
+    { "type": "text", "id": "back_to_referrals_label", "label": "Back to referrals button label", "default": "友達紹介に戻る" },
     { "type": "text", "id": "pending_rewards_label", "label": "Pending rewards label", "default": "Pending Rewards" },
     { "type": "text", "id": "available_cash_label", "label": "Available cash label", "default": "Cash Available for Withdrawal" },
     { "type": "text", "id": "withdraw_label", "label": "Withdraw button label", "default": "Withdraw" },
