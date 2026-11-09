@@ -34,34 +34,53 @@
         "m_text_alignment": "center",
         "m_text_top": 25,
         "button_text": "詳しく見る＞＞",
-        "button_link": "http://account.ulike.com/account/ReferFriend",
-        "image_desktop": "shopify://shop_images/pc_9cfd21c2-a551-4702-bca8-593cdbe9651d.png",
-        "image_mobile": "shopify://shop_images/Frame_457394945_1.png",
+        "button_link": "http:\/\/account.ulike.com\/account\/ReferFriend",
+        "image_desktop": "shopify:\/\/shop_images\/pc_9cfd21c2-a551-4702-bca8-593cdbe9651d.png",
+        "image_mobile": "shopify:\/\/shop_images\/Frame_457394945_1.png",
         "alt_text": "友達を紹介して5,000円ゲット！"
       }
     },
     "refer_friend_main_6haUw3": {
       "type": "refer-friend-main",
+      "blocks": {
+        "referral_air10_max": {
+          "type": "referral_product",
+          "settings": {
+            "product": "air10-max-ipl-hair-removal",
+            "code_label": "Air 10 MAX紹介コード",
+            "title": "Ulike Air 10",
+            "description": "従来モデルUlike Air 10より2Jアップグレードした28Jの高出力にパワーアップ",
+            "price": "¥69,800（税込）",
+            "commission": "¥ 5,000"
+          }
+        },
+        "referral_x_max": {
+          "type": "referral_product",
+          "settings": {
+            "product": "ulike-x-max-ipl-hair-removal",
+            "code_label": "招待コード ：",
+            "title": "X MAX紹介コード",
+            "description": "Ulike史上最高となる30Jのハイパワー、従来モデルUlike X+より2Jアップグレード",
+            "price": "¥79,800（税込）",
+            "commission": "¥ 5,000"
+          }
+        }
+      },
+      "block_order": [
+        "referral_air10_max",
+        "referral_x_max"
+      ],
       "settings": {
+        "show_legacy_products": false,
         "intro_title": "友達紹介キャンペーン",
         "intro_line_1": "友達を紹介すると、ご注文1件につき5,000円の報酬がもらえる！",
         "intro_line_2": "獲得した報酬はPayPalで受け取れます。",
         "invite_heading": "紹介方法：",
         "invite_step_1": "1. 紹介コードを共有し、友達が注文時にコードを使うとスペシャル割引が受けられます。",
         "invite_step_2": "2. 紹介リンクを共有し、友達がリンクから割引価額で注文すると、あなたに報酬が入ります。",
-        "invitation_code_label": "Air 10 MAX紹介コード",
         "copy_label": "コピー",
         "discount_prefix": "友達にシェアして、友達もクーポンGET。",
         "discount_suffix": "off",
-        "product_title": "Ulike Air 10",
-        "product_description": "従来モデルUlike Air 10より2Jアップグレードした28Jの高出力にパワーアップ",
-        "product_price": "¥69,800（税込）",
-        "product_commission": "¥ 5,000",
-        "reglow_code_label": "招待コード ：",
-        "reglow_title": "X MAX紹介コード",
-        "reglow_description": "Ulike史上最高となる30Jのハイパワー、従来モデルUlike X+より2Jアップグレード",
-        "reglow_price": "¥79,800（税込）",
-        "reglow_commission": "¥ 5,000",
         "price_label": "希望小売価格",
         "commission_label": "紹介報酬",
         "copy_link_label": "リンクをコピーする",
@@ -162,28 +181,28 @@
         "step_qC4rKx": {
           "type": "step",
           "settings": {
-            "image": "shopify://shop_images/Frame_457394651.png",
+            "image": "shopify:\/\/shop_images\/Frame_457394651.png",
             "text": "メールアドレスで登録し、紹介コードを取得します。"
           }
         },
         "step_xKXdkj": {
           "type": "step",
           "settings": {
-            "image": "shopify://shop_images/Frame_457394652.png",
+            "image": "shopify:\/\/shop_images\/Frame_457394652.png",
             "text": "コードをシェアすると、友達はお会計時に割引が受けられます。"
           }
         },
         "step_yD93hF": {
           "type": "step",
           "settings": {
-            "image": "shopify://shop_images/Frame_457394652.png",
+            "image": "shopify:\/\/shop_images\/Frame_457394652.png",
             "text": "お友達が商品を購入します。\n※返品・交換がないことが条件となります。"
           }
         },
         "step_BBVKGa": {
           "type": "step",
           "settings": {
-            "image": "shopify://shop_images/Frame_457394654.jpg",
+            "image": "shopify:\/\/shop_images\/Frame_457394654.jpg",
             "text": "報酬を受け取り、PayPal で引き出せます。"
           }
         }
@@ -205,35 +224,35 @@
           "type": "item",
           "settings": {
             "title": "Q. 友達にリンクをシェアし、紹介コードを使わずに注文してもらった場合でも報酬はもらえますか？",
-            "cont": "<p>A. 報酬を受け取るには、ご注文時に紹介コードのご利用が必要です。</p>"
+            "cont": "<p>A. 報酬を受け取るには、ご注文時に紹介コードのご利用が必要です。<\/p>"
           }
         },
         "item_EkGxeR": {
           "type": "item",
           "settings": {
             "title": "Q. キャンペーンの開始日と終了日はいつですか？",
-            "cont": "<p>A. 本キャンペーンは2026年1月1日から2026年12月31日まで実施されます。なお、本キャンペーンの内容は予告なく変更または終了する場合がございます。あらかじめご了承ください。</p>"
+            "cont": "<p>A. 本キャンペーンは2026年1月1日から2026年12月31日まで実施されます。なお、本キャンペーンの内容は予告なく変更または終了する場合がございます。あらかじめご了承ください。<\/p>"
           }
         },
         "item_DAgqBw": {
           "type": "item",
           "settings": {
             "title": "Q. 「確認待ち報酬」とはどういう意味ですか？",
-            "cont": "<p>A. お友達が商品を受け取られてから15日目が経過し、返品等のキャンセルがないことが確認できた時点で、紹介報酬が正式に確定します。</p>"
+            "cont": "<p>A. お友達が商品を受け取られてから15日目が経過し、返品等のキャンセルがないことが確認できた時点で、紹介報酬が正式に確定します。<\/p>"
           }
         },
         "item_3VPcHt": {
           "type": "item",
           "settings": {
             "title": "Q. 報酬の受取方法を教えてください。",
-            "cont": "<p>A. 報酬はPayPalにてお受け取りいただけます。</p>"
+            "cont": "<p>A. 報酬はPayPalにてお受け取りいただけます。<\/p>"
           }
         },
         "item_UfUKwa": {
           "type": "item",
           "settings": {
             "title": "Q. キャンペーンにおける不正行為には、どのような措置が取られますか？",
-            "cont": "<p>A. 不正な手段により報酬を受け取ったことが判明した場合、当社は適用法令に基づき法的措置を講じ、不正に得た利益の返還を請求いたします。また、損害賠償請求を含め、違反者に対しては厳正に責任を追及いたします。</p>"
+            "cont": "<p>A. 不正な手段により報酬を受け取ったことが判明した場合、当社は適用法令に基づき法的措置を講じ、不正に得た利益の返還を請求いたします。また、損害賠償請求を含め、違反者に対しては厳正に責任を追及いたします。<\/p>"
           }
         }
       },
