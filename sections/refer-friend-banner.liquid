@@ -84,9 +84,10 @@
     }
     #shopify-section-{{ section.id }} .refer-friend-copy--desktop { display: none; }
     #shopify-section-{{ section.id }} .refer-friend-copy--mobile { display: block; width: 100%; }
-    #shopify-section-{{ section.id }} .refer-friend-title {
+    #shopify-section-{{ section.id }} .refer-friend-copy--mobile .refer-friend-title {
       font-size: clamp(14px, {{ se_stts.m_title_size | divided_by: 3.75 }}vw, {{ se_stts.m_title_size | times: 2 }}px);
       line-height: 1.4;
+      text-align: inherit;
     }
     #shopify-section-{{ section.id }} .refer-friend-subtitle {
       margin: 3vw 0 0;
