@@ -1357,8 +1357,11 @@
           assign card_image = block.settings.image | default: card_product.featured_image
           assign default_description = card_product.description | strip_html | strip_newlines | truncate: 100
           assign card_description = block.settings.description | default: default_description
-          assign default_price = card_variant.price | money
-          assign card_price = block.settings.price | default: default_price
+          assign card_price = block.settings.price | strip
+          if card_price == blank
+            assign variant_price = card_variant.price | default: card_product.price
+            assign card_price = variant_price | money_without_trailing_zeros | strip_html
+          endif
         -%}
         {%- render 'refer-friend-product-card',
           settings: section.settings,

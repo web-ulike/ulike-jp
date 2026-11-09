@@ -65,7 +65,7 @@
       <div class="invitation-product__pricing">
         <div class="invitation-product__price">
           <div class="invitation-product__label">{{ settings.price_label | escape }}</div>
-          <div class="invitation-product__value invitation-product__value--highlight">{{ price | escape }}</div>
+          <div class="invitation-product__value invitation-product__value--highlight">{{ price | escape_once }}</div>
         </div>
         {%- if commission != blank -%}
           <div class="invitation-product__commission">
