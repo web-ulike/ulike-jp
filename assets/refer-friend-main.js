@@ -240,22 +240,28 @@
                 });
             }
         }
-        //显示详情页方法
-        const showDatilPage = () => {
+        const $invitation = $('#referfriend-invitation-content');
+        const $overviewSections = $('#refer-friend-banner, .refer-friend-steps, .referfriend-faq, .u-referral-storise')
+            .closest('.shopify-section');
+        const $recordBatch = $invitation.find('.invitation-record-batch');
+        const $rewardsBack = $invitation.find('.rewards-back');
+        const showDetailPage = (tabId = '1') => {
             if (!getLoginStatus) {
                 jumpLoginPage()
-                return
+                return false;
             }
-            $('#refer-friend-banner').hide();
-            $('.rewards-more, .gameplay-box-copycode, .gameplay-box-top, .invitation-record-batch .title').hide();
-            $('#shopify-section-template--19132149956849__30698451-389d-43ce-b548-827c55ad66c4').hide();
-            $('.tabs-title, .tabs').show();
-            $('#referfriend-invitation-content .is-normal-render').show();
-            $('#referfriend-invitation-content .invitation-record-batch').show();
-            $('.refer-friend-steps').hide();
-            $('.referfriend-faq').hide();
-            $('.u-referral-storise').hide();
+            activateRewardsTab(tabId);
+            $invitation.addClass('is-viewing-rewards');
+            $overviewSections.addClass('refer-friend-hidden-in-details');
+            $rewardsBack[0]?.focus();
+            return true;
         }
+        $rewardsBack.click(() => {
+            activateRewardsTab('1');
+            $invitation.removeClass('is-viewing-rewards');
+            $overviewSections.removeClass('refer-friend-hidden-in-details');
+            $invitation.find('.rewards-more')[0]?.focus();
+        });
         //验证邮箱结果显示隐藏
         function emailErrorShowOrHide(val) {
             if (!val) {
@@ -291,14 +297,14 @@
         // 提现成功后查看详情
         $('#referfriend-invitation-content .success-btn').click(() => {
             closeDeliBox()
-            showDatilPage()
-            //查询提现记录
-            renderWithdrawRecords()
+            if (showDetailPage('2')) {
+                renderWithdrawRecords();
+            }
         });
         //点击more按钮 查看佣金明细，切换页面展示逻辑
-        $('#referfriend-invitation-content .price-area,.rewards-more').click(event => {
+        $invitation.find('.price-area, .rewards-more').click(event => {
             if (!event.target.classList.contains('withdraw-btn')) {
-                showDatilPage()
+                showDetailPage();
             }
             //已登录点击更多 金额区域埋点 
             isLoginPriont('老带新，我的奖励，点击更多', 'more-btn', '')
@@ -317,14 +323,13 @@
                 // siteCode: "TEST",
             });
             const $list = $('#invitation-record-list').empty();
-            if (!inviteList.data || inviteList.data.length == 0) {
+            const hasRecords = Boolean(inviteList.data?.length);
+            $recordBatch.toggleClass('has-no-records', !hasRecords);
+            if (!hasRecords) {
                 $list.append(`
                 <p class="no-record">
                     ${escapeHtml(copy.no_records)}
                 </p>`);
-                if (!$('.tabs').is(':visible')) {
-                    $('#referfriend-invitation-content .invitation-record-batch').hide();
-                }
                 return
             }
             inviteList.data.forEach((order, index) => {
@@ -351,7 +356,6 @@
                         </div>
                     </div>
                 </div>`);
-                $('#referfriend-invitation-content .is-normal-render').hide();
             });
         }
         //邀请记录状态转换
@@ -495,7 +499,7 @@
                 // 登录用户账号
                 const user = await window.UlikeCommon.sendUlikeApi('/user/queryLoginUserAccount', {});
                 if (!user?.data?.userId) {
-                    $('.invitation-record-batch').hide();
+                    $recordBatch.addClass('has-no-records');
                     pblicStaFliter('老带新，浏览页面（未登录）', getLoginStatus, '');
                     return { user }; // 只返回 user
                 } else {
@@ -519,22 +523,18 @@
             }
         }
         // 获取所有标签和内容
-        const tabs = document.querySelectorAll('.tab');
-        const tabContents = document.querySelectorAll('.tab-content');
-        // 默认激活第一个标签和内容
-        tabs[0].classList.add('active');
-        tabContents[0].classList.add('active');
+        const tabs = $invitation.find('.tabs .tab').get();
+        const $tabContents = $invitation.find('.tab-content');
+        function activateRewardsTab(tabId) {
+            tabs.forEach(tab => tab.classList.toggle('active', tab.dataset.tab === tabId));
+            $tabContents.removeClass('active').filter('#tab-content-' + tabId).addClass('active');
+        }
+        activateRewardsTab('1');
         // 给每个标签绑定点击事件
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
-                // 移除所有标签和内容的 active 类
-                tabs.forEach(tab => tab.classList.remove('active'));
-                tabContents.forEach(content => content.classList.remove('active'));
-
-                // 给当前点击的标签和相应的内容添加 active 类
-                tab.classList.add('active');
-                const tabId = tab.getAttribute('data-tab');
-                document.getElementById('tab-content-' + tabId).classList.add('active');
+                const tabId = tab.dataset.tab;
+                activateRewardsTab(tabId);
                 if (tabId == '1') {
                     isLoginPriont('老带新，佣金页，点击邀请记录', 'click-record', '')
                     //查询邀请记录
