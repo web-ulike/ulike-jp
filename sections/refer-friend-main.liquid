@@ -1208,6 +1208,31 @@
   }
 
 
+  @media (width < 393px) {
+    #referfriend-invitation-content .gameplay-box-copycode .invitation-product {
+      display: grid;
+      grid-template-columns: min(36%, 104px) minmax(0, 1fr);
+      gap: 8px;
+      overflow-wrap: anywhere;
+    }
+
+    #referfriend-invitation-content .gameplay-box-copycode .invitation-product__image {
+      grid-row: span 2;
+    }
+
+    #referfriend-invitation-content .gameplay-box-copycode .invitation-product__image img {
+      width: 100%;
+    }
+
+    #referfriend-invitation-content .gameplay-box-copycode .invitation-product__info {
+      display: contents;
+    }
+
+    #referfriend-invitation-content .gameplay-box-copycode .invitation-product__copy-btn {
+      grid-column: 1 / -1;
+    }
+  }
+
   @media (max-width: 768px) {
     .login-modal .login-modal-text {
       font-size: 12px;
