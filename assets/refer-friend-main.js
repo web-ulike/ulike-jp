@@ -4,6 +4,7 @@
     document.addEventListener('DOMContentLoaded', () => {
         const copy = window.referFriendMainCopy || {};
         const $invitation = $('#referfriend-invitation-content');
+        const activityId = $invitation.attr('data-activity-id');
         const escapeHtml = (value) => $('<div>').text(value ?? '').html();
         // 复制成功提示的隐藏定时器
         let hideTimer = null;
@@ -435,9 +436,6 @@
             });
         }
 
-        // 文档就绪后执行：渲染订单和提现记录
-        const activityId = '331522644954316801'
-        
         // 调用示例：在需要初始化时执行
         initializeUserAccount().then(({ user, fund, activity }) => {
 
