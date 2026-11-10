@@ -30,13 +30,6 @@
         }}
       </picture>
     {%- endif -%}
-    {%- if section.settings.glow_one != blank -%}
-      {{
-        section.settings.glow_one
-        | image_url: width: 1808
-        | image_tag: class: 'bf-gifts__glow bf-gifts__glow--one', loading: 'lazy', alt: ''
-      }}
-    {%- endif -%}
     {%- if section.settings.glow_two != blank -%}
       {{
         section.settings.glow_two
@@ -126,10 +119,6 @@
     max-width: none;
     mix-blend-mode: screen;
     pointer-events: none;
-  }
-  .bf-gifts__glow--one {
-    right: -941px;
-    top: -610px;
   }
   .bf-gifts__glow--two {
     right: calc(50% + 220px);
@@ -250,11 +239,6 @@
       "type": "image_picker",
       "id": "logo",
       "label": "Logo 图片"
-    },
-    {
-      "type": "image_picker",
-      "id": "glow_one",
-      "label": "背景光效（电脑端右侧）"
     },
     {
       "type": "image_picker",
