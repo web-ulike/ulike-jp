@@ -15,26 +15,33 @@
 -%}
 <section id="bf-gifts-2026-{{ sid }}" class="bf-gifts" aria-label="{{ section.settings.heading | escape }}">
   <div class="bf-gifts__background" aria-hidden="true">
-    <picture>
-      {%- if bg_mobile != blank -%}<source media="(max-width: 767px)" srcset="{{ bg_mobile | image_url: width: 1200 }}">{%- elsif bg_desktop == blank -%}<source media="(max-width: 767px)" srcset="{{ 'bf-gifts-2026-bg-m.png' | asset_url }}">{%- endif -%}
-      {%- if bg_desktop != blank -%}{{ bg_desktop | image_url: width: 2400 | image_tag: loading: loading, widths: '750, 1200, 1800, 2400', sizes: '100vw', alt: '' }}{%- elsif bg_mobile != blank -%}{{ bg_mobile | image_url: width: 1200 | image_tag: loading: loading, alt: '' }}{%- else -%}<img src="{{ 'bf-gifts-2026-bg.png' | asset_url }}" alt="" loading="{{ loading }}" width="1024" height="1024">{%- endif -%}
-    </picture>
-    <img class="bf-gifts__glow bf-gifts__glow--one" src="{{ 'bf-gifts-2026-glow1.svg' | asset_url }}" alt="" loading="lazy">
-    <img class="bf-gifts__glow bf-gifts__glow--two" src="{{ 'bf-gifts-2026-glow2.svg' | asset_url }}" alt="" loading="lazy">
+    {%- if bg_desktop != blank or bg_mobile != blank -%}
+      <picture>
+        {%- if bg_mobile != blank -%}<source media="(max-width: 767px)" srcset="{{ bg_mobile | image_url: width: 1200 }}">{%- endif -%}
+        {%- assign bg_image = bg_desktop | default: bg_mobile -%}
+        {{ bg_image | image_url: width: 2400 | image_tag: loading: loading, widths: '750, 1200, 1800, 2400', sizes: '100vw', alt: '' }}
+      </picture>
+    {%- endif -%}
+    {%- if section.settings.glow_one != blank -%}{{ section.settings.glow_one | image_url: width: 1808 | image_tag: class: 'bf-gifts__glow bf-gifts__glow--one', loading: 'lazy', alt: '' }}{%- endif -%}
+    {%- if section.settings.glow_two != blank -%}{{ section.settings.glow_two | image_url: width: 1808 | image_tag: class: 'bf-gifts__glow bf-gifts__glow--two', loading: 'lazy', alt: '' }}{%- endif -%}
   </div>
   <div class="container bf-gifts__inner">
     <h2 class="bf-gifts__heading">{{ section.settings.heading | escape }}</h2>
     <div class="bf-gifts__cards">
       <div class="bf-gifts__hero">
         <div class="bf-gifts__hero-media" aria-hidden="true">
-          <picture>
-            {%- if gift_mobile != blank -%}<source media="(max-width: 767px)" srcset="{{ gift_mobile | image_url: width: 1200 }}">{%- elsif gift_desktop == blank -%}<source media="(max-width: 767px)" srcset="{{ 'bf-gifts-2026-gift-m.png' | asset_url }}">{%- endif -%}
-            {%- if gift_desktop != blank -%}{{ gift_desktop | image_url: width: 1800 | image_tag: loading: loading, widths: '750, 1200, 1800', sizes: '(max-width: 767px) 100vw, 1200px', alt: '' }}{%- elsif gift_mobile != blank -%}{{ gift_mobile | image_url: width: 1200 | image_tag: loading: loading, alt: '' }}{%- else -%}<img src="{{ 'bf-gifts-2026-gift.png' | asset_url }}" alt="" loading="{{ loading }}" width="1024" height="405">{%- endif -%}
-          </picture>
-          {%- if gift_desktop == blank and gift_mobile == blank -%}<img class="bf-gifts__hero-layer" src="{{ 'bf-gifts-2026-gift-layer.png' | asset_url }}" alt="" width="1515" height="598" loading="{{ loading }}">{%- endif -%}
+          {%- if gift_desktop != blank or gift_mobile != blank -%}
+            <picture>
+              {%- if gift_mobile != blank -%}<source media="(max-width: 767px)" srcset="{{ gift_mobile | image_url: width: 1200 }}">{%- endif -%}
+              {%- assign gift_image = gift_desktop | default: gift_mobile -%}
+              {{ gift_image | image_url: width: 1800 | image_tag: loading: loading, widths: '750, 1200, 1800', sizes: '(max-width: 767px) 100vw, 1200px', alt: '' }}
+            </picture>
+          {%- endif -%}
         </div>
         <div class="bf-gifts__hero-copy">
-          <div class="bf-gifts__logos" aria-label="Ulike × Black Friday"><img src="{{ 'bf-gifts-2026-logo.svg' | asset_url }}" alt="" width="95" height="22"><img src="{{ 'bf-gifts-2026-cross.svg' | asset_url }}" alt="" width="15" height="15"><img src="{{ 'bf-gifts-2026-blackfriday.png' | asset_url }}" alt="" width="102" height="40" loading="lazy"></div>
+          {%- if section.settings.logo != blank -%}
+            <div class="bf-gifts__logos">{{ section.settings.logo | image_url: width: 600 | image_tag: loading: loading, widths: '160, 320, 600', sizes: '(max-width: 767px) 157px, 242px', alt: section.settings.logo.alt }}</div>
+          {%- endif -%}
           <div class="bf-gifts__description {{ reveal_class }}">{{ section.settings.description }}</div>
         </div>
       </div>
@@ -43,9 +50,7 @@
         <div class="bf-gifts__coupons">
           {%- for block in section.blocks -%}
             <div class="bf-gifts__coupon" {{ block.shopify_attributes }}>
-              {%- if block.settings.image != blank -%}{{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '270, 437, 600, 900', sizes: '(max-width: 767px) 270px, 437px', alt: block.settings.alt }}
-              {%- elsif forloop.index == 1 -%}<img src="{{ 'bf-gifts-2026-coupon1.png' | asset_url }}" width="437" height="141" loading="lazy" alt="{{ block.settings.alt | escape }}">
-              {%- elsif forloop.index == 2 -%}<img src="{{ 'bf-gifts-2026-coupon2.png' | asset_url }}" width="437" height="141" loading="lazy" alt="{{ block.settings.alt | escape }}">{%- endif -%}
+              {%- if block.settings.image != blank -%}{{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '270, 437, 600, 900', sizes: '(max-width: 767px) 270px, 437px', alt: block.settings.alt }}{%- endif -%}
             </div>
           {%- endfor -%}
         </div>
@@ -70,7 +75,7 @@
 .bf-gifts__hero-media img { position: absolute; width: 126.6%; max-width: none; height: 147%; left: -20.2%; top: -44.5%; object-fit: cover; }
 .bf-gifts__hero-copy { position: absolute; right: 8.5%; top: 31%; width: 342px; text-align: center; }
 .bf-gifts__logos { display: flex; justify-content: center; align-items: center; gap: 15px; }
-.bf-gifts__logos img { display: block; max-width: none; object-fit: contain; }
+.bf-gifts__logos img { display: block; width: 242px; max-width: 100%; height: auto; object-fit: contain; }
 .bf-gifts__description { margin-top: 31px; font-size: 16px; line-height: 1.5; }
 .bf-gifts__description p, .bf-gifts__cashback-heading p, .bf-gifts__notes p { margin: 0; }
 .bf-gifts__description strong { background: #fbecd8; color: #5d3e1f; font-weight: 500; }
@@ -88,14 +93,11 @@
   .bf-gifts__heading { max-width: 284px; margin: 0 auto 30px; font-size: 24px; }
   .bf-gifts__cards { gap: 20px; }
   .bf-gifts__hero, .bf-gifts__cashback { height: 358px; border: 0; border-radius: 4px; }
-  .bf-gifts__hero-media .bf-gifts__hero-layer { display: none; }
   .bf-gifts__hero-media img { width: 234.2%; height: 88.6%; left: -48.7%; top: 11.4%; }
   .bf-gifts__hero:after { content: ''; position: absolute; inset: 0 0 auto; height: 164px; background: linear-gradient(to bottom, #825c35 27%, rgba(159,117,70,0)); }
   .bf-gifts__hero-copy { z-index: 1; top: 26px; right: 0; width: 100%; padding: 0 12px; }
   .bf-gifts__logos { gap: 10px; }
-  .bf-gifts__logos img:nth-child(1) { width: 61px; height: 14px; }
-  .bf-gifts__logos img:nth-child(2) { width: 10px; height: 10px; }
-  .bf-gifts__logos img:nth-child(3) { width: 66px; height: 26px; }
+  .bf-gifts__logos img { width: 157px; }
   .bf-gifts__description { margin: 18px auto 0; max-width: 320px; font-size: 16px; font-weight: 500; }
   .bf-gifts__cashback { padding: 34px 16px 20px; background: linear-gradient(84deg, #70410f -32%, #86613b 42%, #e4c28e 100%); }
   .bf-gifts__coupons { flex-direction: column; align-items: center; gap: 35px; margin-top: 34px; }
@@ -114,7 +116,10 @@
     {"type":"image_picker","id":"background_image","label":"背景画像（PC）"},
     {"type":"image_picker","id":"background_mobile","label":"背景画像（モバイル）"},
     {"type":"image_picker","id":"gift_image","label":"プレゼント画像（PC）"},
-    {"type":"image_picker","id":"gift_mobile","label":"プレゼント画像（モバイル）"}
+    {"type":"image_picker","id":"gift_mobile","label":"プレゼント画像（モバイル）"},
+    {"type":"image_picker","id":"logo","label":"ロゴ画像"},
+    {"type":"image_picker","id":"glow_one","label":"背景の光（右・PC）"},
+    {"type":"image_picker","id":"glow_two","label":"背景の光（左・PC）"}
   ],
   "blocks": [{"type":"coupon","name":"賞品画像","settings":[{"type":"image_picker","id":"image","label":"賞品画像"},{"type":"text","id":"alt","label":"画像の説明","default":"キャッシュバック賞品"}]}],
   "presets": [{"name":"BF Gifts 2026","blocks":[{"type":"coupon","settings":{"alt":"特賞 10,000円 キャッシュバック 10名様"}},{"type":"coupon","settings":{"alt":"1等 5,000円 キャッシュバック 20名様"}}]}]
