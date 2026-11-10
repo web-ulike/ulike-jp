@@ -28,8 +28,9 @@
         <div class="jp-bf-gift__hero-media" aria-hidden="true">
           <picture>
             {%- if gift_mobile != blank -%}<source media="(max-width: 767px)" srcset="{{ gift_mobile | image_url: width: 1200 }}">{%- elsif gift_desktop == blank -%}<source media="(max-width: 767px)" srcset="{{ 'jp-bf-gift-gift-m.png' | asset_url }}">{%- endif -%}
-            {%- if gift_desktop != blank -%}{{ gift_desktop | image_url: width: 1800 | image_tag: loading: loading, widths: '750, 1200, 1800', sizes: '(max-width: 767px) 100vw, 1200px', alt: '' }}{%- elsif gift_mobile != blank -%}{{ gift_mobile | image_url: width: 1200 | image_tag: loading: loading, alt: '' }}{%- else -%}<img src="{{ 'jp-bf-gift-gift-layer.png' | asset_url }}" alt="" loading="{{ loading }}" width="1515" height="598">{%- endif -%}
+            {%- if gift_desktop != blank -%}{{ gift_desktop | image_url: width: 1800 | image_tag: loading: loading, widths: '750, 1200, 1800', sizes: '(max-width: 767px) 100vw, 1200px', alt: '' }}{%- elsif gift_mobile != blank -%}{{ gift_mobile | image_url: width: 1200 | image_tag: loading: loading, alt: '' }}{%- else -%}<img src="{{ 'jp-bf-gift-gift.png' | asset_url }}" alt="" loading="{{ loading }}" width="1024" height="405">{%- endif -%}
           </picture>
+          {%- if gift_desktop == blank and gift_mobile == blank -%}<img class="jp-bf-gift__hero-layer" src="{{ 'jp-bf-gift-gift-layer.png' | asset_url }}" alt="" width="1515" height="598" loading="{{ loading }}">{%- endif -%}
         </div>
         <div class="jp-bf-gift__hero-copy">
           <div class="jp-bf-gift__logos" aria-label="Ulike × Black Friday"><img src="{{ 'jp-bf-gift-logo.svg' | asset_url }}" alt="" width="95" height="22"><img src="{{ 'jp-bf-gift-cross.svg' | asset_url }}" alt="" width="15" height="15"><img src="{{ 'jp-bf-gift-blackfriday.png' | asset_url }}" alt="" width="102" height="40" loading="lazy"></div>
@@ -86,6 +87,7 @@
   .jp-bf-gift__heading { max-width: 284px; margin: 0 auto 30px; font-size: 24px; }
   .jp-bf-gift__cards { gap: 20px; }
   .jp-bf-gift__hero, .jp-bf-gift__cashback { height: 358px; border: 0; border-radius: 4px; }
+  .jp-bf-gift__hero-media .jp-bf-gift__hero-layer { display: none; }
   .jp-bf-gift__hero-media img { width: 234.2%; height: 88.6%; left: -48.7%; top: 11.4%; }
   .jp-bf-gift__hero:after { content: ''; position: absolute; inset: 0 0 auto; height: 164px; background: linear-gradient(to bottom, #825c35 27%, rgba(159,117,70,0)); }
   .jp-bf-gift__hero-copy { z-index: 1; top: 26px; right: 0; width: 100%; padding: 0 12px; }
