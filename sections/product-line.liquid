@@ -645,7 +645,7 @@
                   <div class="product__discount-tag">{{ block.settings.discount | escape }}</div>
                 {%- endif -%}
               </div>
-              <div class="product__content-wrapper to-top" style="background: {{ block.settings.content_background_gradient | default: block.settings.content_background | default: '#F4F9FF' }};{% if block.settings.copy_color != blank %} --product-copy-color: {{ block.settings.copy_color }};{% endif %}">
+              <div class="product__content-wrapper to-top" style="background: {{ section.settings.content_background_gradient | default: block.settings.content_background | default: '#F4F9FF' }};{% if block.settings.copy_color != blank %} --product-copy-color: {{ block.settings.copy_color }};{% endif %}">
                 {%- if block.settings.tag_image -%}
                   <div class="tag-img">
                     <img src="{{ block.settings.tag_image | image_url }}" alt="">
@@ -856,6 +856,12 @@
       "label": "产品整体区域背景（支持渐变）"
     },
     {
+      "type": "color_background",
+      "id": "content_background_gradient",
+      "label": "内容区域背景（支持渐变）",
+      "info": "应用于所有产品；留空时使用各产品的内容区域背景色。"
+    },
+    {
       "type": "color",
       "id": "badge_text_color",
       "label": "角标文字颜色"
@@ -977,12 +983,6 @@
           "id": "content_background",
           "label": "内容区域背景色",
           "default": "#F4F9FF"
-        },
-        {
-          "type": "color_background",
-          "id": "content_background_gradient",
-          "label": "内容区域背景（支持渐变）",
-          "info": "设置后优先使用此背景；留空时使用内容区域背景色。"
         },
         {
           "type": "color",
