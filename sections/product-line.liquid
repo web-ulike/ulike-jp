@@ -53,6 +53,18 @@
       color: {{ section.settings.title_text_color }};
     }
     {% endif %}
+    {% if section.settings.title_text_gradient_preset or section.settings.title_text_gradient != blank %}
+    .section-{{ section.id }}-padding .product-line h2 {
+      {% if section.settings.title_text_gradient_preset %}
+      background: linear-gradient(191deg, #C3B091 -15.05%, #FFF8EE 57.77%);
+      {% else %}
+      background: {{ section.settings.title_text_gradient }};
+      {% endif %}
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    {% endif %}
     .product-line .product__slide-inner{
       display: flex;
       align-items: stretch;
@@ -758,6 +770,18 @@
       "type": "color",
       "id": "title_text_color",
       "label": "标题文字颜色"
+    },
+    {
+      "type": "checkbox",
+      "id": "title_text_gradient_preset",
+      "label": "使用参考图标题渐变",
+      "default": false
+    },
+    {
+      "type": "color_background",
+      "id": "title_text_gradient",
+      "label": "标题文字渐变",
+      "info": "设置后优先使用渐变；勾选参考图渐变时，以参考图渐变为准。"
     },
     {
       "type": "color_background",
