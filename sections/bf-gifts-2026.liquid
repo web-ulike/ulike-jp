@@ -86,6 +86,9 @@
         </div>
       </div>
       <div class="bf-gifts__cashback">
+        {%- if section.settings.cashback_heading != blank -%}
+          <div class="bf-gifts__cashback-title {{ reveal_class }}">{{ section.settings.cashback_heading }}</div>
+        {%- endif -%}
         {%- if cashback_desktop != blank or cashback_mobile != blank -%}
           <picture>
             {%- if cashback_mobile != blank -%}<source media="(max-width: 767px)" srcset="{{ cashback_mobile | image_url: width: 1200 }}">{%- endif -%}
@@ -155,6 +158,8 @@
   .bf-gifts__hero { background: #634329; }
   .bf-gifts__hero-media picture, .bf-gifts__hero-media img,
   .bf-gifts__cashback picture, .bf-gifts__cashback img { display: block; width: 100%; height: auto; }
+  .bf-gifts__cashback-title { position: absolute; z-index: 1; top: 13.4%; left: 0; width: 100%; padding: 0 12px; text-align: center; color: #fff; font-size: 16px; line-height: 1.3; }
+  .bf-gifts__cashback-title p { margin: 0; }
   .bf-gifts__hero-copy { position: absolute; right: 8.5%; top: 31%; width: 342px; text-align: center; }
   .bf-gifts__logos { display: flex; justify-content: center; align-items: center; }
   .bf-gifts__logos img { display: block; width: 242px; max-width: 100%; height: auto; }
@@ -189,6 +194,7 @@
       gap: 20px;
     }
     .bf-gifts__hero, .bf-gifts__cashback { border-radius: 4px; }
+    .bf-gifts__cashback-title { top: 9.5%; font-weight: 500; }
     .bf-gifts__hero:after { content: ''; position: absolute; inset: 0 0 auto; height: 164px; background: linear-gradient(to bottom, #825c35 27%, rgba(159, 117, 70, 0)); pointer-events: none; }
     .bf-gifts__hero-copy { z-index: 1; top: 26px; right: 0; width: 100%; padding: 0 12px; }
     .bf-gifts__logos img { width: 157px; }
@@ -211,6 +217,12 @@
       "id": "description",
       "label": "赠品说明",
       "default": "<p>期間中にご購入いただいた方全員に、もれなく<strong>Ulikeハートミラー</strong>をプレゼント！</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "cashback_heading",
+      "label": "现金返还标题",
+      "default": "<p>ご購入いただいた方全員に<br/>キャッシュバックが当たるチャンス!</p>"
     },
     {
       "type": "richtext",
