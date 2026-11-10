@@ -3,6 +3,10 @@
   assign bg_mobile = section.settings.background_mobile | default: bg_desktop
   assign gift_desktop = section.settings.gift_image
   assign gift_mobile = section.settings.gift_mobile | default: gift_desktop
+  assign reveal_class = 'to-top'
+  if request.page_type == 'article' or request.page_type == 'blog' or request.design_mode
+    assign reveal_class = ''
+  endif
   assign loading = 'lazy'
   if section.index == 1 or section.index == nil
     assign loading = 'eager'
@@ -29,11 +33,11 @@
         </div>
         <div class="jp-bf-gift__hero-copy">
           <div class="jp-bf-gift__logos" aria-label="Ulike × Black Friday"><img src="{{ 'jp-bf-gift-logo.svg' | asset_url }}" alt="" width="95" height="22"><img src="{{ 'jp-bf-gift-cross.svg' | asset_url }}" alt="" width="15" height="15"><img src="{{ 'jp-bf-gift-blackfriday.png' | asset_url }}" alt="" width="102" height="40" loading="lazy"></div>
-          <div class="jp-bf-gift__description to-top">{{ section.settings.description }}</div>
+          <div class="jp-bf-gift__description {{ reveal_class }}">{{ section.settings.description }}</div>
         </div>
       </div>
       <div class="jp-bf-gift__cashback">
-        <div class="jp-bf-gift__cashback-heading to-top">{{ section.settings.cashback_heading }}</div>
+        <div class="jp-bf-gift__cashback-heading {{ reveal_class }}">{{ section.settings.cashback_heading }}</div>
         <div class="jp-bf-gift__coupons">
           {%- for block in section.blocks -%}
             <div class="jp-bf-gift__coupon" {{ block.shopify_attributes }}>
@@ -45,7 +49,7 @@
         </div>
       </div>
     </div>
-    <div class="jp-bf-gift__notes to-top">{{ section.settings.notes }}</div>
+    <div class="jp-bf-gift__notes {{ reveal_class }}">{{ section.settings.notes }}</div>
   </div>
 </section>
 {% stylesheet %}
