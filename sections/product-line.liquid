@@ -12,14 +12,20 @@
       --border-opacity:1;
       }
           .section-{{ section.id }}-padding {
+        padding-top: calc({{ section.settings.padding_top }}px);
         padding-bottom: calc({{ section.settings.padding_bottom }}px);
         {% if section.settings.products_background != blank %}background: {{ section.settings.products_background }};{% endif %}
+      }
+      {% if section.settings.title_background != blank %}
+      .section-{{ section.id }}-padding {
+        padding-top: 0;
       }
       .section-{{ section.id }}-title {
         display: flow-root;
         padding-top: {{ section.settings.padding_top }}px;
-        {% if section.settings.title_background != blank %}background: {{ section.settings.title_background }};{% endif %}
+        background: {{ section.settings.title_background }};
       }
+      {% endif %}
       .product-line .product-form-wrapper {
         margin-block-start: 0;
     }
@@ -38,12 +44,18 @@
     }
       @media screen and (max-width: 768px){
       .section-{{ section.id }}-padding {
+        padding-top: calc({{ section.settings.mobile_padding_top }}px);
         padding-bottom: calc({{ section.settings.mobile_padding_bottom }}px );
             --buttons-border-width: 1px;
+      }
+      {% if section.settings.title_background != blank %}
+      .section-{{ section.id }}-padding {
+        padding-top: 0;
       }
       .section-{{ section.id }}-title {
         padding-top: {{ section.settings.mobile_padding_top }}px;
       }
+      {% endif %}
     }
     .product-line{
     }
@@ -532,12 +544,17 @@
 </style>
 <section class="section-{{ section.id }}-padding">
   <div class="product-line{% if section.settings.custom_class %} {{ section.settings.custom_class }}{% endif %}">
+    {% if section.settings.title_background != blank %}
     <div class="section-{{ section.id }}-title">
       <div class="container">
         <h2 class="to-top">{{ section.settings.tle }}</h2>
       </div>
     </div>
+    {% endif %}
     <div class="container">
+      {% if section.settings.title_background == blank %}
+        <h2 class="to-top">{{ section.settings.tle }}</h2>
+      {% endif %}
 
       {%- for block in section.blocks -%}
         <div class="product__slide-list" style="--product-line-block-gap-desktop: {{ block.settings.block_gap_desktop | default: 80 }}px; --product-line-block-gap-mobile: {{ block.settings.block_gap_mobile | default: 25 }}px;">
