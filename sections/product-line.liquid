@@ -16,6 +16,16 @@
         padding-bottom: calc({{ section.settings.padding_bottom }}px);
         {% if section.settings.products_background != blank %}background: {{ section.settings.products_background }};{% endif %}
       }
+      {% if section.settings.title_background != blank %}
+      .section-{{ section.id }}-padding {
+        padding-top: 0;
+      }
+      .section-{{ section.id }}-title {
+        display: flow-root;
+        padding-top: {{ section.settings.padding_top }}px;
+        background: {{ section.settings.title_background }};
+      }
+      {% endif %}
       .product-line .product-form-wrapper {
         margin-block-start: 0;
     }
@@ -38,6 +48,14 @@
         padding-bottom: calc({{ section.settings.mobile_padding_bottom }}px );
             --buttons-border-width: 1px;
       }
+      {% if section.settings.title_background != blank %}
+      .section-{{ section.id }}-padding {
+        padding-top: 0;
+      }
+      .section-{{ section.id }}-title {
+        padding-top: {{ section.settings.mobile_padding_top }}px;
+      }
+      {% endif %}
     }
     .product-line{
     }
@@ -551,8 +569,17 @@
 </style>
 <section class="section-{{ section.id }}-padding">
   <div class="product-line{% if section.settings.custom_class %} {{ section.settings.custom_class }}{% endif %}">
+    {% if section.settings.title_background != blank %}
+      <div class="section-{{ section.id }}-title">
+        <div class="container">
+          <h2 class="to-top">{{ section.settings.tle }}</h2>
+        </div>
+      </div>
+    {% endif %}
     <div class="container">
-      <h2 class="to-top">{{ section.settings.tle }}</h2>
+      {% if section.settings.title_background == blank %}
+        <h2 class="to-top">{{ section.settings.tle }}</h2>
+      {% endif %}
 
       {%- for block in section.blocks -%}
         <div class="product__slide-list" style="--product-line-block-gap-desktop: {{ block.settings.block_gap_desktop | default: 80 }}px; --product-line-block-gap-mobile: {{ block.settings.block_gap_mobile | default: 25 }}px;">
@@ -782,6 +809,11 @@
       "id": "title_text_gradient",
       "label": "标题文字渐变",
       "info": "设置后优先使用渐变；勾选参考图渐变时，以参考图渐变为准。"
+    },
+    {
+      "type": "color_background",
+      "id": "title_background",
+      "label": "标题区域背景（支持渐变）"
     },
     {
       "type": "color_background",
