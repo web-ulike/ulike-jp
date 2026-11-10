@@ -130,14 +130,16 @@
     .product__content-wrapper .tag-img{
       margin-bottom: 18px;
     }
-    #shopify-section-{{ section.id }} .product__content-wrapper[style*="--product-copy-color"] h3,
-    #shopify-section-{{ section.id }} .product__content-wrapper[style*="--product-copy-color"] .subtitle,
-    #shopify-section-{{ section.id }} .product__content-wrapper[style*="--product-copy-color"] .des,
-    #shopify-section-{{ section.id }} .product__content-wrapper[style*="--product-copy-color"] .price-notice,
-    #shopify-section-{{ section.id }} .product__content-wrapper[style*="--product-copy-color"] .price-suffix,
-    #shopify-section-{{ section.id }} .product__content-wrapper[style*="--product-copy-color"] .oriprice {
-      color: var(--product-copy-color);
+    {% if section.settings.copy_color != blank %}
+    #shopify-section-{{ section.id }} .product__content-wrapper h3,
+    #shopify-section-{{ section.id }} .product__content-wrapper .subtitle,
+    #shopify-section-{{ section.id }} .product__content-wrapper .des,
+    #shopify-section-{{ section.id }} .product__content-wrapper .price-notice,
+    #shopify-section-{{ section.id }} .product__content-wrapper .price-suffix,
+    #shopify-section-{{ section.id }} .product__content-wrapper .oriprice {
+      color: {{ section.settings.copy_color }};
     }
+    {% endif %}
     .product__content-wrapper h3{
       font-weight: 400;
       color: #000;
@@ -645,7 +647,7 @@
                   <div class="product__discount-tag">{{ block.settings.discount | escape }}</div>
                 {%- endif -%}
               </div>
-              <div class="product__content-wrapper to-top" style="background: {{ section.settings.content_background_gradient | default: block.settings.content_background | default: '#F4F9FF' }};{% if block.settings.copy_color != blank %} --product-copy-color: {{ block.settings.copy_color }};{% endif %}">
+              <div class="product__content-wrapper to-top" style="background: {{ section.settings.content_background_gradient | default: block.settings.content_background | default: '#F4F9FF' }};">
                 {%- if block.settings.tag_image -%}
                   <div class="tag-img">
                     <img src="{{ block.settings.tag_image | image_url }}" alt="">
@@ -859,7 +861,12 @@
       "type": "color_background",
       "id": "content_background_gradient",
       "label": "内容区域背景（支持渐变）",
-      "info": "应用于所有产品；留空时使用各产品的内容区域背景色。"
+      "info": "应用于所有产品；留空时沿用已有的产品背景色。"
+    },
+    {
+      "type": "color",
+      "id": "copy_color",
+      "label": "产品文案颜色"
     },
     {
       "type": "color",
@@ -977,17 +984,6 @@
           "step": 5,
           "unit": "px",
           "default": 25
-        },
-        {
-          "type": "color",
-          "id": "content_background",
-          "label": "内容区域背景色",
-          "default": "#F4F9FF"
-        },
-        {
-          "type": "color",
-          "id": "copy_color",
-          "label": "产品文案颜色"
         },
         {
           "type": "product",
