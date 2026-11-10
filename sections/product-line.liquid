@@ -572,6 +572,35 @@
       white-space: nowrap;
     }
   }
+  {% if section.settings.add_button_background != blank or section.settings.add_button_text_color != blank %}
+  #shopify-section-{{ section.id }} .product-line .product-form__submit,
+  #shopify-section-{{ section.id }} .product-line .product-form__submit:hover {
+    {% if section.settings.add_button_background != blank %}background: {{ section.settings.add_button_background }};{% endif %}
+    {% if section.settings.add_button_text_color != blank %}color: {{ section.settings.add_button_text_color }};{% endif %}
+  }
+  {% if section.settings.add_button_background != blank %}
+  #shopify-section-{{ section.id }} .product-line .product-form__submit .btn-fill {
+    background: {{ section.settings.add_button_background }};
+  }
+  {% endif %}
+  {% endif %}
+  {% if section.settings.buy_button_background != blank or section.settings.buy_button_text_color != blank %}
+  #shopify-section-{{ section.id }} .product-line .btn-buy-now,
+  #shopify-section-{{ section.id }} .product-line .btn-buy-now:hover {
+    {% if section.settings.buy_button_background != blank %}background: {{ section.settings.buy_button_background }};{% endif %}
+    {% if section.settings.buy_button_text_color != blank %}color: {{ section.settings.buy_button_text_color }};{% endif %}
+  }
+  {% endif %}
+  {% if section.settings.sale_price_color != blank %}
+  #shopify-section-{{ section.id }} .product-line .product__content-wrapper .price {
+    color: {{ section.settings.sale_price_color }};
+  }
+  {% endif %}
+  {% if section.settings.compare_price_color != blank %}
+  #shopify-section-{{ section.id }} .product-line .product__content-wrapper .oriprice {
+    color: {{ section.settings.compare_price_color }};
+  }
+  {% endif %}
 </style>
 <section class="section-{{ section.id }}-padding">
   <div class="product-line{% if section.settings.custom_class %} {{ section.settings.custom_class }}{% endif %}">
@@ -835,6 +864,36 @@
       "type": "color_background",
       "id": "badge_background",
       "label": "角标背景（支持渐变）"
+    },
+    {
+      "type": "color_background",
+      "id": "add_button_background",
+      "label": "加购按钮背景"
+    },
+    {
+      "type": "color",
+      "id": "add_button_text_color",
+      "label": "加购按钮文字颜色"
+    },
+    {
+      "type": "color_background",
+      "id": "buy_button_background",
+      "label": "直接购买按钮背景"
+    },
+    {
+      "type": "color",
+      "id": "buy_button_text_color",
+      "label": "直接购买按钮文字颜色"
+    },
+    {
+      "type": "color",
+      "id": "sale_price_color",
+      "label": "销售价格颜色"
+    },
+    {
+      "type": "color",
+      "id": "compare_price_color",
+      "label": "原价颜色"
     },
     {
       "type": "richtext",
