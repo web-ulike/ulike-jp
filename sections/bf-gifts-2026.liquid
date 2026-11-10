@@ -30,13 +30,6 @@
         }}
       </picture>
     {%- endif -%}
-    {%- if section.settings.glow_two != blank -%}
-      {{
-        section.settings.glow_two
-        | image_url: width: 1808
-        | image_tag: class: 'bf-gifts__glow bf-gifts__glow--two', loading: 'lazy', alt: ''
-      }}
-    {%- endif -%}
   </div>
   <div class="container bf-gifts__inner">
     <h2 class="bf-gifts__heading">{{ section.settings.heading | escape }}</h2>
@@ -113,17 +106,6 @@
   .bf-gifts__background picture img {
     object-fit: cover;
   }
-  .bf-gifts__glow {
-    position: absolute;
-    width: 1808px;
-    max-width: none;
-    mix-blend-mode: screen;
-    pointer-events: none;
-  }
-  .bf-gifts__glow--two {
-    right: calc(50% + 220px);
-    top: -143px;
-  }
   .bf-gifts__inner.container {
     position: relative;
     max-width: 1240px;
@@ -146,16 +128,17 @@
   .bf-gifts__hero { background: #634329; }
   .bf-gifts__hero-media picture, .bf-gifts__hero-media img,
   .bf-gifts__cashback picture, .bf-gifts__cashback img { display: block; width: 100%; height: auto; }
-  .bf-gifts__cashback-title { position: absolute; z-index: 1; top: 13.4%; left: 0; width: 100%; padding: 0 12px; text-align: center; color: #fff; font-size: 16px; line-height: 1.3; }
+  .bf-gifts__cashback-title { font-family: 'Noto Sans JP', sans-serif; position: absolute; z-index: 1; top: 13.4%; left: 0; width: 100%; padding: 0 12px; text-align: center; color: #fff; font-size: 16px; line-height: 1.3; }
   .bf-gifts__cashback-title p { margin: 0; }
   .bf-gifts__hero-copy { position: absolute; right: 8.5%; top: 31%; width: 342px; text-align: center; }
   .bf-gifts__logos { display: flex; justify-content: center; align-items: center; }
   .bf-gifts__logos img { display: block; width: 242px; max-width: 100%; height: auto; }
-  .bf-gifts__description { margin-top: 31px; font-size: 16px; line-height: 1.5; }
+  .bf-gifts__description { font-family: 'Noto Sans JP', sans-serif; margin-top: 31px; font-size: 16px; line-height: 1.5; }
   .bf-gifts__description p, .bf-gifts__notes p { margin: 0; }
   .bf-gifts__description strong { background: #fbecd8; color: #5d3e1f; font-weight: 500; }
   .bf-gifts__notes {
     margin-top: 64px;
+    font-family: 'Noto Sans JP', sans-serif;
     color: rgba(255, 255, 255, 0.7);
     font-size: 12px;
     line-height: 1.3;
@@ -164,14 +147,11 @@
     .bf-gifts {
       padding: 50px 0;
     }
-    .bf-gifts__glow {
-      display: none;
-    }
     .bf-gifts__inner.container {
       padding-inline: 16px;
     }
     .bf-gifts__heading {
-      max-width: 284px;
+      max-width: 283px;
       margin: 0 auto 30px;
       font-size: 24px;
     }
@@ -179,11 +159,11 @@
       gap: 20px;
     }
     .bf-gifts__hero, .bf-gifts__cashback { border-radius: 4px; }
-    .bf-gifts__cashback-title { top: 9.5%; font-weight: 500; }
+    .bf-gifts__cashback-title { top: 34px; font-weight: 500; }
     .bf-gifts__hero:after { content: ''; position: absolute; inset: 0 0 auto; height: 164px; background: linear-gradient(to bottom, #825c35 27%, rgba(159, 117, 70, 0)); pointer-events: none; }
     .bf-gifts__hero-copy { z-index: 1; top: 26px; right: 0; width: 100%; padding: 0 12px; }
     .bf-gifts__logos img { width: 157px; }
-    .bf-gifts__description { margin: 18px auto 0; max-width: 320px; font-size: 16px; font-weight: 500; }
+    .bf-gifts__description { margin: 21px auto 0; max-width: 309px; font-size: 16px; font-weight: 500; }
     .bf-gifts__notes { margin-top: 30px; color: rgba(255, 255, 255, 0.5); font-size: 8px; }
   }
 {% endstylesheet %}
@@ -239,11 +219,6 @@
       "type": "image_picker",
       "id": "logo",
       "label": "Logo 图片"
-    },
-    {
-      "type": "image_picker",
-      "id": "glow_two",
-      "label": "背景光效（电脑端左侧）"
     },
     {
       "type": "image_picker",
