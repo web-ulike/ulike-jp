@@ -32,7 +32,10 @@
     {%- endif -%}
   </div>
   <div class="container bf-gifts__inner">
-    <h2 class="bf-gifts__heading">{{ section.settings.heading | escape }}</h2>
+    <h2 class="bf-gifts__heading{% if section.settings.heading_mobile != blank %} bf-gifts__heading--mobile{% endif %}">
+      <span class="bf-gifts__heading-default">{{ section.settings.heading | escape }}</span>
+      {%- if section.settings.heading_mobile != blank -%}<span class="bf-gifts__heading-mobile">{{ section.settings.heading_mobile | escape | newline_to_br }}</span>{%- endif -%}
+    </h2>
     <div class="bf-gifts__cards">
       <div class="bf-gifts__hero">
         <div class="bf-gifts__hero-media" aria-hidden="true">
@@ -120,6 +123,7 @@
     font-weight: 500;
     line-height: 1.3;
   }
+  .bf-gifts__heading-mobile { display: none; }
   .bf-gifts__cards {
     display: grid;
     gap: 80px;
@@ -155,6 +159,8 @@
       margin: 0 auto 30px;
       font-size: 24px;
     }
+    .bf-gifts__heading--mobile .bf-gifts__heading-default { display: none; }
+    .bf-gifts__heading-mobile { display: block; }
     .bf-gifts__cards {
       gap: 20px;
     }
@@ -176,6 +182,13 @@
       "id": "heading",
       "label": "标题",
       "default": "どなたでも参加できるチャンス！"
+    },
+    {
+      "type": "textarea",
+      "id": "heading_mobile",
+      "label": "移动端标题",
+      "info": "可手动换行；留空时使用通用标题。",
+      "default": "どなたでも参加できる\nチャンス！"
     },
     {
       "type": "richtext",
