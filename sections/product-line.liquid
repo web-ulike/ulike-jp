@@ -17,12 +17,19 @@
         {% if section.settings.products_background != blank %}background: {{ section.settings.products_background }};{% endif %}
       }
       {% if section.settings.title_background != blank %}
-      .section-{{ section.id }}-padding {
-        padding-top: 0;
+      .section-{{ section.id }}-padding .product-line h2 {
+        position: relative;
+        isolation: isolate;
       }
-      .section-{{ section.id }}-title {
-        display: flow-root;
-        padding-top: {{ section.settings.padding_top }}px;
+      .section-{{ section.id }}-padding .product-line h2::before {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        top: -{{ section.settings.padding_top }}px;
+        bottom: -100px;
+        left: 50%;
+        width: 100vw;
+        transform: translateX(-50%);
         background: {{ section.settings.title_background }};
       }
       {% endif %}
@@ -49,11 +56,8 @@
             --buttons-border-width: 1px;
       }
       {% if section.settings.title_background != blank %}
-      .section-{{ section.id }}-padding {
-        padding-top: 0;
-      }
-      .section-{{ section.id }}-title {
-        padding-top: {{ section.settings.mobile_padding_top }}px;
+      .section-{{ section.id }}-padding .product-line h2::before {
+        top: -{{ section.settings.mobile_padding_top }}px;
       }
       {% endif %}
     }
@@ -356,6 +360,11 @@
         font-size: 28px;
         margin-bottom: 30px;
       }
+      {% if section.settings.title_background != blank %}
+      .section-{{ section.id }}-padding .product-line h2::before {
+        bottom: -30px;
+      }
+      {% endif %}
     .product-line .product__slide-inner{
       flex-direction: column;
     }
@@ -544,17 +553,8 @@
 </style>
 <section class="section-{{ section.id }}-padding">
   <div class="product-line{% if section.settings.custom_class %} {{ section.settings.custom_class }}{% endif %}">
-    {% if section.settings.title_background != blank %}
-    <div class="section-{{ section.id }}-title">
-      <div class="container">
-        <h2 class="to-top">{{ section.settings.tle }}</h2>
-      </div>
-    </div>
-    {% endif %}
     <div class="container">
-      {% if section.settings.title_background == blank %}
-        <h2 class="to-top">{{ section.settings.tle }}</h2>
-      {% endif %}
+      <h2 class="to-top">{{ section.settings.tle }}</h2>
 
       {%- for block in section.blocks -%}
         <div class="product__slide-list" style="--product-line-block-gap-desktop: {{ block.settings.block_gap_desktop | default: 80 }}px; --product-line-block-gap-mobile: {{ block.settings.block_gap_mobile | default: 25 }}px;">
