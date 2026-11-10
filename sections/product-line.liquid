@@ -2,9 +2,7 @@
     /* number_two-box */
       #shopify-section-{{ section.id }} {
         --text-color: {{  section.settings.text_color.red }}, {{  section.settings.text_color.green }}, {{  section.settings.text_color.blue }};
-        --section-background: {{ section.settings.background.red }}, {{ section.settings.background.green }}, {{ section.settings.background.blue }};
         --color-border: 255, 255, 255;
-        /* background: rgb(var(--section-background, var(--background)));  */
         --color-button-background:#190A0A;
       --buttons-radius:0;
       --buttons-border-width :1px;
@@ -847,12 +845,6 @@
       "type": "color",
       "id": "text_color",
       "label": "Text color",
-      "default": "rgba(0,0,0,0)"
-    },
-    {
-      "type": "color",
-      "id": "background",
-      "label": "Background",
       "default": "rgba(0,0,0,0)"
     },
     {
