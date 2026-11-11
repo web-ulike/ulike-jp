@@ -1,0 +1,105 @@
+{{ 'faq-blog-tree.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'faq-blog-tree.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign faq_menu = section.settings.menu
+  assign initial_article = section.settings.initial_article
+-%}
+
+<faq-blog-tree
+  class="faq-blog-tree"
+  data-section-id="{{ section.id }}"
+  data-breadcrumb-root="{{ section.settings.heading | default: 'FAQ' | escape }}"
+  {% if request.design_mode %}data-design-mode="true"{% endif %}
+  style="--faq-background: {{ section.settings.background }}; --faq-text: {{ section.settings.text_color }}; --faq-accent: {{ section.settings.accent_color }}; --faq-top: {{ section.settings.padding_top }}px; --faq-bottom: {{ section.settings.padding_bottom }}px; --faq-sidebar: {{ section.settings.sidebar_width }}px;"
+  {% if initial_article != blank %}data-initial-article="{{ initial_article.id }}"{% endif %}
+>
+  <section class="container" aria-label="{{ section.settings.heading | default: 'FAQ' | escape }}">
+    {%- if section.settings.heading != blank or section.settings.description != blank -%}
+      <header class="faq-blog-tree__header">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="faq-blog-tree__heading">{{ section.settings.heading | escape }}</h2>
+        {%- endif -%}
+        {%- if section.settings.description != blank -%}
+          <div class="faq-blog-tree__description rte">{{ section.settings.description }}</div>
+        {%- endif -%}
+      </header>
+    {%- endif -%}
+
+    <div class="faq-blog-tree__layout">
+      <nav class="faq-blog-tree__nav" aria-label="{{ section.settings.menu_heading | escape }}">
+        <h3 class="faq-blog-tree__nav-heading">{{ section.settings.menu_heading | escape }}</h3>
+        {%- if faq_menu.links.size > 0 -%}
+          <ul class="faq-blog-tree__list">
+            {%- for item in faq_menu.links -%}
+              {%- assign node_id = section.id | append: '-' | append: forloop.index -%}
+              {%- render 'faq-blog-tree-node', item: item, node_id: node_id, depth: 1, panel_id: section.id -%}
+            {%- endfor -%}
+          </ul>
+        {%- elsif request.design_mode -%}
+          <p class="faq-blog-tree__hint">请选择 FAQ 目录菜单。分类可使用 # 链接，展示内容的项目请选择「博客文章」。</p>
+        {%- else -%}
+          <p class="faq-blog-tree__hint">{{ section.settings.empty_text | escape }}</p>
+        {%- endif -%}
+      </nav>
+
+      <div id="FaqPanel-{{ section.id }}" class="faq-blog-tree__panel" data-faq-panel>
+        <p class="faq-blog-tree__empty" data-faq-empty>{{ section.settings.empty_text | escape }}</p>
+      </div>
+    </div>
+    <p class="faq-blog-tree__sr-only" role="status" aria-live="polite" data-faq-status></p>
+    <noscript><p>{{ section.settings.noscript_text | escape }}</p></noscript>
+    <template data-faq-feedback-template>
+      <footer class="faq-blog-tree__feedback">
+        <p class="faq-blog-tree__feedback-heading">{{ section.settings.feedback_heading | escape }}</p>
+        <div class="faq-blog-tree__feedback-actions" role="group" aria-label="{{ section.settings.feedback_heading | escape }}">
+          <button class="faq-blog-tree__vote" type="button" data-faq-vote="like" aria-label="{{ section.settings.like_label | escape }}" aria-pressed="false">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10v10H4a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h3Zm0 0 5-7c.5-.7 2-.4 2 1v5h5a2 2 0 0 1 2 2.4l-1.4 7A2 2 0 0 1 17.6 20H7"/></svg>
+          </button>
+          <button class="faq-blog-tree__vote" type="button" data-faq-vote="dislike" aria-label="{{ section.settings.dislike_label | escape }}" aria-pressed="false">
+            <svg class="faq-blog-tree__thumb-down" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10v10H4a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h3Zm0 0 5-7c.5-.7 2-.4 2 1v5h5a2 2 0 0 1 2 2.4l-1.4 7A2 2 0 0 1 17.6 20H7"/></svg>
+          </button>
+        </div>
+      </footer>
+    </template>
+  </section>
+</faq-blog-tree>
+
+{% schema %}
+{
+  "name": "FAQ 博客树形目录",
+  "tag": "section",
+  "class": "section-faq-blog-tree",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "使用独立菜单管理最多三级目录。需要展示正文的项目，请通过菜单的资源选择器关联博客文章；仅展开的分类使用 # 链接。点击后内容在本页切换，地址不变。"
+    },
+    { "type": "text", "id": "heading", "label": "标题", "default": "よくあるご質問" },
+    { "type": "richtext", "id": "description", "label": "说明" },
+    { "type": "link_list", "id": "menu", "label": "FAQ 目录菜单" },
+    {
+      "type": "article",
+      "id": "initial_article",
+      "label": "默认显示的文章（可选）",
+      "info": "请选菜单中已关联的文章。留空或不在菜单中时，显示目录里的第一篇文章。"
+    },
+    { "type": "text", "id": "menu_heading", "label": "目录标题", "default": "カテゴリー" },
+    { "type": "text", "id": "empty_text", "label": "没有可显示文章时的提示", "default": "カテゴリーからご覧になりたい項目をお選びください。" },
+    { "type": "text", "id": "noscript_text", "label": "JavaScript 关闭时的提示", "default": "記事のリンクから内容をご確認ください。カテゴリーを展開するには JavaScript を有効にしてください。" },
+    { "type": "header", "content": "文章反馈" },
+    { "type": "text", "id": "feedback_heading", "label": "反馈提示文字", "default": "Was this article helpful?" },
+    { "type": "text", "id": "like_label", "label": "点赞按钮说明", "default": "Helpful" },
+    { "type": "text", "id": "dislike_label", "label": "点踩按钮说明", "default": "Not helpful" },
+    { "type": "paragraph", "content": "点击会触发 faq_feedback 分析事件。选择按文章保存在访客当前浏览器中；不会显示虚构的点赞数。" },
+    { "type": "header", "content": "布局与颜色" },
+    { "type": "range", "id": "sidebar_width", "label": "桌面端目录宽度", "min": 240, "max": 400, "step": 8, "unit": "px", "default": 288 },
+    { "type": "color", "id": "background", "label": "背景颜色", "default": "#FFFFFF" },
+    { "type": "color", "id": "text_color", "label": "文字颜色", "default": "#222222" },
+    { "type": "color", "id": "accent_color", "label": "选中颜色", "default": "#002FA7" },
+    { "type": "range", "id": "padding_top", "label": "顶部间距", "min": 0, "max": 120, "step": 8, "unit": "px", "default": 64 },
+    { "type": "range", "id": "padding_bottom", "label": "底部间距", "min": 0, "max": 120, "step": 8, "unit": "px", "default": 64 }
+  ],
+  "presets": [{ "name": "FAQ 博客树形目录" }]
+}
+{% endschema %}

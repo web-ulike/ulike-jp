@@ -45,6 +45,10 @@
     height: 100%;
   }
 
+  #shopify-section-{{ section.id }} #selectContainer.is-stuck {
+    box-shadow: 0 6px 12px -8px rgba(0, 0, 0, 0.24);
+  }
+
   #selectLeft,
   #selectRight {
     padding: 0 20px;
@@ -77,18 +81,6 @@
     outline: none;
     border-color: #3498db;
     box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
-  }
-
-  #selectContainer.fixed {
-    width: 100%;
-    position: fixed;
-    top: 27px;
-    left: 0;
-    right: 0;
-    border-top: 1px solid #cbcbcb;
-    border-bottom: 1px solid #eee;
-    box-shadow: 0 6px 12px -6px rgba(0, 0, 0, 0.1);
-     top: calc(var(--header-height, 0px) * var(--enable-sticky-header) + var(--announcement-bar-height, 0px) * var(--enable-sticky-announcement-bar) - 50px);
   }
 
   /* 产品详情容器样式 */
@@ -366,7 +358,7 @@
     font-size: 40px;
     font-weight: 500;
     line-height: 80px;
-    padding: 10px;
+    padding: 20px;
     background: #f9f9ff;
   }
 
@@ -418,7 +410,7 @@
 
   .field-title {
     font-size: 18px;
-    line-height: 1.3;
+    line-height: 1.5;
   }
   .field-title strong {
     font-weight: 500;
@@ -460,59 +452,98 @@
     text-align: left;
   }
 
-  /* 显示区域 */
-  .custom-display {
-    padding: 0 20px;
+  /* 下拉选择器样式，仅作用于当前组件 */
+  #shopify-section-{{ section.id }} .custom-display {
+    box-sizing: border-box;
+    padding: 0 40px 0 20px;
     height: 58px;
     line-height: 58px;
     background: #fff;
-    border: 1px solid #000;
-    border-radius: 29px;
+    color: #000;
+    border: 1px solid #cbcbcb;
+    border-radius: 16px;
     cursor: pointer;
     position: relative;
     z-index: 1;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    transition: border-color 300ms cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 300ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  /* 箭头 */
-  .custom-display::after {
-    content: '∨';
+  #shopify-section-{{ section.id }} .custom-display::after {
+    content: '';
     position: absolute;
-    right: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 14px;
-    color: #000;
+    right: 20px;
+    top: calc(50% - 6px);
+    width: 8px;
+    height: 8px;
+    border: solid currentColor;
+    border-width: 0 1.5px 1.5px 0;
+    transform: rotate(45deg);
+    pointer-events: none;
+    transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  /* 下拉面板 */
-  .custom-options {
+  #shopify-section-{{ section.id }} .custom-display[aria-expanded='true']::after {
+    transform: translateY(4px) rotate(225deg);
+  }
+
+  #shopify-section-{{ section.id }} .custom-options {
+    box-sizing: border-box;
     position: absolute;
     top: 100%;
     left: 0;
     width: 100%;
+    padding: 8px;
+    margin-top: 8px;
     background: #fff;
-    border: 1px solid #000;
-    border-radius: 6px;
-    margin-top: 4px;
+    color: #000;
+    border: 1px solid #e5e5e5;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    max-height: 40vh;
+    overscroll-behavior: contain;
     overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #cbcbcb transparent;
     display: none;
     z-index: 10;
   }
 
-  /* 选项项 */
-  .custom-option {
-    padding: 10px;
+  #shopify-section-{{ section.id }} .custom-option {
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    line-height: 24px;
     cursor: pointer;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    transition: background-color 300ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .custom-option:hover {
-    background-color: #f0f0f0;
+  @media (hover: hover) {
+    #shopify-section-{{ section.id }} .custom-display:hover {
+      border-color: #000;
+      background-color: #f7f7f8;
+    }
+
+    #shopify-section-{{ section.id }} .custom-option:hover {
+      background-color: #f0f0f0;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .custom-option:active {
+    background-color: #e5e5e5;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ section.id }} .custom-display,
+    #shopify-section-{{ section.id }} .custom-display::after,
+    #shopify-section-{{ section.id }} .custom-option {
+      transition: none;
+    }
   }
 
   /* 响应式设计 */
@@ -570,10 +601,6 @@
       padding: 20px 0;
       margin-top: 20px;
     }
-    #selectContainer.fixed {
-      top: 8px;
-      gap: 10px;
-    }
 
     #productDetailsContainer .product-area-img-list {
       height: 240px;
@@ -596,12 +623,6 @@
     #productDetailsContainer .btn-diy {
       width: 100%;
       height: 40px;
-    }
-
-    #selectContainer.fixed {
-      top: 46px;
-      padding: 20px 0;
-      top: calc(var(--header-height, 0px) * var(--enable-sticky-header) + var(--announcement-bar-height, 0px) * var(--enable-sticky-announcement-bar) - 20px);
     }
 
     .fields-row .left_comp {
@@ -627,9 +648,27 @@
       object-fit: contain;
     }
 
-    .custom-display {
+    #shopify-section-{{ section.id }} .custom-display {
       height: 45px;
       line-height: 45px;
+      padding: 0 32px 0 12px;
+      border-radius: 12px;
+      font-size: 14px;
+    }
+
+    #shopify-section-{{ section.id }} .custom-display::after {
+      right: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .custom-options {
+      padding: 4px;
+      border-radius: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .custom-option {
+      padding: 12px 8px;
+      font-size: 14px;
+      line-height: 20px;
     }
 
     #productDetailsContainer .product-area-img-list {
@@ -742,9 +781,8 @@
           {% unless forloop.last %}, {% endunless %}
           {% endif %}
         {% endfor %}
-      ];
-
-    console.log(sectionBlocks);
+      ].map((product, index) => ({ ...product, compareSort: index + 1 }))
+        .filter(product => product.id && typeof product.title === 'string' && product.title.trim());
     const groupConfigs = [
       {% for block in se_bks %}
         {% if block.type == 'item' %}
@@ -765,7 +803,6 @@
         {% endif %}
       {% endfor %}
     ];
-    console.log(groupConfigs);
 
 
     const selectLeft = document.getElementById("selectLeft");
@@ -794,8 +831,8 @@
 
     // 创建字段内容
     function createFieldContent(product, index, i) {
-      let _image = product[index][`module_image${i == 0? '' :i}`];
-      let _text = product[index][`module_text${i == 0? '' :i}`];
+      let _image = product[index]?.[`module_image${i == 0? '' :i}`];
+      let _text = product[index]?.[`module_text${i == 0? '' :i}`];
       if (!_image && !_text) return ''; // 如果没有图片和文本则不创建
       const container = document.createElement("div");
       container.className = "field-content-container";
@@ -824,8 +861,8 @@
     function renderCompare() {
       compareContainer.innerHTML = "";
 
-      const _leftProduct = groupConfigs.filter(item => item.module_sort === parseInt(selectLeft.value) + 1);
-      const _rightProduct = groupConfigs.filter(item => item.module_sort === parseInt(selectRight.value) + 1);
+      const _leftProduct = groupConfigs.filter(item => item.module_sort === sectionBlocks[Number(selectLeft.value)].compareSort);
+      const _rightProduct = groupConfigs.filter(item => item.module_sort === sectionBlocks[Number(selectRight.value)].compareSort);
 
       _leftProduct.forEach((group, index) => {
      
@@ -1049,7 +1086,7 @@
       const rightIndex = parseInt(selectRight.value);
 
       // 互斥处理
-      if (leftIndex === rightIndex) {
+      if (sectionBlocks.length > 1 && leftIndex === rightIndex) {
         if (this === selectLeft) {
           selectRight.value = leftIndex === 0 ? 1 : 0;
         } else {
@@ -1071,18 +1108,17 @@
       const selectedOption = nativeSelect.options[nativeSelect.selectedIndex];
       display.textContent = selectedOption ? selectedOption.text : '';
     }
-    // 固定选择容器
-    function handleScroll() {
-      if (window.scrollY > 100) {
-        selectContainer.classList.add('fixed');
-      } else {
-        selectContainer.classList.remove('fixed');
-      }
-    }
     function initCustomSelect(nativeSelect) {
       const wrapper = nativeSelect.parentElement;
       const display = wrapper.querySelector('.custom-display');
       const optsContainer = wrapper.querySelector('.custom-options');
+
+      // 面板与箭头共享同一开合状态。
+      function setOpen(isOpen) {
+        optsContainer.style.display = isOpen ? 'block' : 'none';
+        display.setAttribute('aria-expanded', String(isOpen));
+      }
+      setOpen(false);
 
       // 清空旧选项，防止重复添加
       optsContainer.innerHTML = '';
@@ -1096,7 +1132,7 @@
         div.addEventListener('click', () => {
           nativeSelect.value = div.dataset.value;
           display.textContent = opt.text;
-          optsContainer.style.display = 'none';
+          setOpen(false);
           nativeSelect.dispatchEvent(new Event('change'));
         });
         optsContainer.appendChild(div);
@@ -1107,18 +1143,39 @@
 
       // 展开/关闭
       display.addEventListener('click', () => {
-        optsContainer.style.display =
-          optsContainer.style.display === 'block' ? 'none' : 'block';
+        setOpen(display.getAttribute('aria-expanded') !== 'true');
       });
 
       // 点击外部收起
       document.addEventListener('click', e => {
-        if (!wrapper.contains(e.target)) optsContainer.style.display = 'none';
+        if (!wrapper.contains(e.target)) setOpen(false);
       });
+    }
+
+    // 仅在选择栏贴住视口顶部时显示底部阴影。
+    function initStickyShadow() {
+      let framePending = false;
+      const updateShadow = () => {
+        const { top } = selectContainer.getBoundingClientRect();
+        selectContainer.classList.toggle('is-stuck', top >= -0.5 && top <= 0);
+        framePending = false;
+      };
+      const scheduleUpdate = () => {
+        if (framePending) return;
+        framePending = true;
+        window.requestAnimationFrame(updateShadow);
+      };
+      window.addEventListener('scroll', scheduleUpdate, { passive: true });
+      window.addEventListener('resize', scheduleUpdate);
+      scheduleUpdate();
     }
 
     // 初始化
     function init() {
+      if (!sectionBlocks.length) {
+        selectContainer.closest('.section-box').hidden = true;
+        return;
+      }
       initSelects(); // 先填充 option
       initCustomSelect(selectLeft);
       initCustomSelect(selectRight);
@@ -1126,7 +1183,7 @@
 
       selectLeft.addEventListener("change", onSelectChange);
       selectRight.addEventListener("change", onSelectChange);
-      window.addEventListener('scroll', handleScroll);
+      initStickyShadow();
     }
 
     // 启动应用

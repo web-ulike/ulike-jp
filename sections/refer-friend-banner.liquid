@@ -80,13 +80,14 @@
     #shopify-section-{{ section.id }} .refer-friend-content {
       display: block;
       padding: {{ se_stts.m_text_top }}vw 5vw 92vw;
-      text-align: center;
+      text-align: {{ se_stts.m_text_alignment | default: 'center' }};
     }
     #shopify-section-{{ section.id }} .refer-friend-copy--desktop { display: none; }
     #shopify-section-{{ section.id }} .refer-friend-copy--mobile { display: block; width: 100%; }
-    #shopify-section-{{ section.id }} .refer-friend-title {
+    #shopify-section-{{ section.id }} .refer-friend-copy--mobile .refer-friend-title {
       font-size: clamp(14px, {{ se_stts.m_title_size | divided_by: 3.75 }}vw, {{ se_stts.m_title_size | times: 2 }}px);
       line-height: 1.4;
+      text-align: inherit;
     }
     #shopify-section-{{ section.id }} .refer-friend-subtitle {
       margin: 3vw 0 0;
@@ -179,7 +180,7 @@
       "max": 36,
       "step": 1,
       "unit": "px",
-      "default": 23
+      "default": 22
     },
     {
       "type": "range",
@@ -189,7 +190,13 @@
       "max": 32,
       "step": 1,
       "unit": "px",
-      "default": 21
+      "default": 22
+    },
+    {
+      "type": "text_alignment",
+      "id": "m_text_alignment",
+      "label": "手机端文案对齐",
+      "default": "center"
     },
     {
       "type": "range",

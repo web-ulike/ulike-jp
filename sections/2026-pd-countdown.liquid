@@ -69,7 +69,7 @@
   }
 
   #pd2026-countdown-{{ sid }} .pd2026-countdown__title {
-    color: #190A0A;
+    color: {{ st.title_color | default: '#190A0A' }};
     font-size: 18px;
     line-height: 1.2;
     margin-top: 8px;
@@ -79,6 +79,7 @@
     display: flex;
     align-items: flex-start;
     gap: 8px;
+    color: {{ st.timer_text_color | default: '#190A0A' }};
   }
 
   #pd2026-countdown-{{ sid }} .pd2026-countdown__unit {
@@ -89,7 +90,7 @@
   }
 
   #pd2026-countdown-{{ sid }} .pd2026-countdown__separator {
-    color: #190A0A;
+    color: currentColor;
     font-size: 21px;
     line-height: 36px;
   }
@@ -104,7 +105,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: #FFF;
+    color: {{ st.number_text_color | default: '#FFFFFF' }};
     font-size: 21px;
     font-weight: 400;
   }
@@ -251,6 +252,9 @@
   "settings": [
     { "type": "color", "id": "background_color", "label": "Background color", "default": "#EAF8FF" },
     { "type": "color", "id": "number_background_color", "label": "数字背景颜色", "default": "#190A0A" },
+    { "type": "color", "id": "number_text_color", "label": "倒计时数字颜色", "default": "#FFFFFF" },
+    { "type": "color", "id": "timer_text_color", "label": "倒计时单位和冒号颜色", "default": "#190A0A" },
+    { "type": "color", "id": "title_color", "label": "标题颜色", "default": "#190A0A" },
     { "type": "text", "id": "title", "label": "Title", "default": "終了まであと" },
     { "type": "text", "id": "end_date", "label": "End date", "info": "Example: 2026-07-16T23:59:59+09:00", "default": "2026-07-16T23:59:59+09:00" },
     { "type": "checkbox", "id": "countdown_every_day", "label": "Countdown to 23:59:59 every day", "default": false },

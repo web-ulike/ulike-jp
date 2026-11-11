@@ -28,7 +28,7 @@
     display: grid;
     grid-template-columns: 19% 29%;
     width: 100%;
-    padding: 180px 80px 70px 150px;
+    padding: 180px var(--container-gutter) 70px;
   }
 
   .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__eyebrow {
@@ -112,7 +112,7 @@
   .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__media {
     position: absolute;
     top: 180px;
-    right: 0px;
+    right: 0;
     z-index: 4;
     width: 48%;
     max-width: 920px;
@@ -123,18 +123,37 @@
     display: block;
     width: 100%;
     overflow: hidden;
-    max-height: 520px;
-    background: #f3f4f8;
+    background: transparent;
   }
+
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__media-inner--video.has-played {
+    background: #000;
+  }
+
+  {% if st.image_pc != blank %}
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__media-inner--video {
+      aspect-ratio: {{ st.image_pc.width }} / {{ st.image_pc.height }};
+    }
+
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__media-inner--video .jp-brand-story-hero__video {
+      position: absolute;
+      inset: 0;
+      height: 100%;
+    }
+  {% endif %}
 
   .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__image {
     display: block;
     width: 100%;
+    height: auto;
   }
 
   .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__video {
     display: block;
     width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
   }
 
   .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__play {
@@ -183,7 +202,8 @@
 
   .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stats {
     position: absolute;
-    left: 8%;
+    left: 50%;
+    transform: translateX(-50%);
     bottom: 18%;
     z-index: 3;
     display: flex;
@@ -199,48 +219,50 @@
     display: flex;
     align-items: flex-start;
     color: {{ st.stat_color }};
-    font-size: 73px;
+    font-size: 64px;
     line-height: 1.3;
-    font-weight: 500;
     white-space: nowrap;
   }
 
   .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stat-unit {
+    display: inline-flex;
+    align-items: flex-start;
     margin-left: 2px;
-    margin-top: 10px;
-    font-size: 45px;
+    margin-top: 16px;
+    font-size: 25px;
     line-height: 1;
     font-weight: 600;
   }
 
-  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stat:nth-child(3) .jp-brand-story-hero__stat-unit {
-    margin-top: 16px;
+  .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stat-unit sup {
+    display: inline-block;
+    position: static;
+    margin: 0;
+    padding: 0;
+    font-size: 50%;
+    line-height: 1;
+    vertical-align: top;
   }
 
   .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stat-text {
     color: {{ st.stat_text_color }};
     font-size: 16px;
-    line-height: 1.4;
-    font-weight: 500;
+    line-height: 1.3;
     white-space: nowrap;
-    text-align: right;
-    margin-right: 20%;
+    text-align: center;
   }
 
   @media screen and (max-width: 1200px) {
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__content {
       grid-template-columns: 18% 36%;
       width: 100%;
-      padding-left: 48px;
-      padding-right: 48px;
     }
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__media {
-      right: 48px;
+      right: var(--container-gutter);
       width: 40%;
     }
 
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stats {
-      left: 48px;
       gap: 34px;
     }
 
@@ -270,16 +292,19 @@
     }
 
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__inner {
-      display: block;
+      --container-gutter: 20px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
       min-height: auto;
-      max-width: 100%;
+      isolation: isolate;
     }
 
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__content {
+      grid-area: 1 / 1;
       position: relative;
       display: block;
       width: 100%;
-      padding: 0 20px 0;
+      padding: 0 var(--container-gutter);
     }
 
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__eyebrow {
@@ -296,25 +321,25 @@
 
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__title {
       font-size: 28px;
-      line-height: 1.4;
+      line-height: 1.3;
     }
 
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__desc {
-      margin-top: 20px;
+      margin-top: 24px;
       font-size: 14px;
-      line-height: 1.8;
+      line-height: 1.5;
     }
 
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__button {
-      margin-top: 24px;
+      margin-top: 32px;
     }
 
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__button-link {
-      min-width: 146px;
-      height: 34px;
-      padding: 0 18px;
-      gap: 7px;
-      font-size: 10px;
+      min-width: 140px;
+      height: 30px;
+      padding: 0 20px;
+      gap: 5px;
+      font-size: 12px;
     }
 
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__button-link svg {
@@ -323,26 +348,28 @@
     }
 
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__note {
+      grid-area: 4 / 1;
       position: relative;
       z-index: 4;
-      margin: 20px 20px 0;
-      font-size: 10px;
-      line-height: 1.55;
+      margin: 16px 0 0;
+      font-size: 8px;
+      line-height: 1.5;
     }
 
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__media {
+      grid-area: 2 / 1;
       position: relative;
       top: auto;
       right: auto;
       width: 100%;
       max-width: none;
-      margin-top: 36px;
+      margin-top: 50px;
     }
 
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__image {
       min-height: auto;
       width: 100%;
-      object-fit: cover;
+      object-fit: contain;
     }
 
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__video {
@@ -355,8 +382,8 @@
       top: auto;
       bottom: 18px;
       transform: none;
-      width: 38px;
-      height: 38px;
+      width: 30px;
+      height: 30px;
     }
 
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__play:hover {
@@ -369,18 +396,35 @@
     }
 
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__map {
+      grid-area: 3 / 1;
       position: relative;
+      z-index: 0;
       width: 100%;
+      min-height: 116px;
+      overflow: hidden;
+    }
+
+    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__map img {
+      position: absolute;
+      inset: 0;
+      height: 100%;
+      object-fit: cover;
+      object-position: left center;
     }
 
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stats {
+      grid-area: 3 / 1;
+      position: relative;
       left: auto;
       bottom: auto;
+      transform: none;
       z-index: 4;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 0;
-      padding: 30px 10px 0;
+      align-content: center;
+      min-height: 116px;
+      padding: 24px var(--container-gutter) 32px;
     }
 
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stat {
@@ -390,27 +434,27 @@
 
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stat-number {
       justify-content: center;
-      font-size: 36px;
+      font-size: clamp(28px, 9.6vw, 36px);
+      line-height: 1.1;
     }
 
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stat-unit {
       margin-top: 5px;
-      font-size: 20px;
+      font-size: 12px;
     }
 
     .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stat-text {
       margin-top: 0px;
       font-size: 10px;
-    }
-    .jp-brand-story-hero--{{ sid }} .jp-brand-story-hero__stat:nth-child(3) .jp-brand-story-hero__stat-unit {
-      margin-top: 8px;
+      white-space: normal;
+      overflow-wrap: anywhere;
     }
   }
 </style>
 
 <section class="jp-brand-story-hero jp-brand-story-hero--{{ sid }}">
   <div class="jp-brand-story-hero__inner">
-    <div class="jp-brand-story-hero__content">
+    <div class="jp-brand-story-hero__content container">
       {%- if st.eyebrow != blank -%}
         <div class="jp-brand-story-hero__eyebrow to-top">
           {{ st.eyebrow | newline_to_br }}
@@ -451,7 +495,7 @@
     </div>
 
     <div class="jp-brand-story-hero__media">
-      <div class="jp-brand-story-hero__media-inner">
+      <div class="jp-brand-story-hero__media-inner{% if st.video_url != blank %} jp-brand-story-hero__media-inner--video{% endif %}">
         {%- if st.video_url != blank -%}
           <video
             class="jp-brand-story-hero__video"
@@ -502,7 +546,7 @@
     </div>
 
 
-    <div class="jp-brand-story-hero__stats">
+    <div class="jp-brand-story-hero__stats container">
       {%- for i in (1..3) -%}
         {%- liquid
           assign number_key = 'stat_' | append: i | append: '_number'
@@ -567,7 +611,7 @@
     {%- endif -%}
 
     {%- if st.note != blank -%}
-      <div class="jp-brand-story-hero__note jp-brand-story-hero__note--mobile">
+      <div class="jp-brand-story-hero__note jp-brand-story-hero__note--mobile container">
         {{ st.note }}
       </div>
     {%- endif -%}
@@ -583,6 +627,10 @@
     var playButton = section.querySelector('.jp-brand-story-hero__play');
 
     if (!video || !playButton) return;
+
+    video.addEventListener('playing', function () {
+      video.parentElement.classList.add('has-played');
+    }, { once: true });
 
     playButton.addEventListener('click', function () {
       video.play();
@@ -720,9 +768,10 @@
       "default": "1000"
     },
     {
-      "type": "text",
+      "type": "html",
       "id": "stat_1_unit",
-      "label": "Stat 1 unit",
+      "label": "Stat 1 unit (HTML)",
+      "info": "支持 HTML，例如：万人<sup>*2</sup>、+年、万台<sup>*2</sup>",
       "default": "+"
     },
     {
@@ -738,9 +787,10 @@
       "default": "10"
     },
     {
-      "type": "text",
+      "type": "html",
       "id": "stat_2_unit",
-      "label": "Stat 2 unit",
+      "label": "Stat 2 unit (HTML)",
+      "info": "支持 HTML，例如：万人<sup>*2</sup>、+年、万台<sup>*2</sup>",
       "default": "+"
     },
     {
@@ -756,9 +806,10 @@
       "default": "800"
     },
     {
-      "type": "text",
+      "type": "html",
       "id": "stat_3_unit",
-      "label": "Stat 3 unit",
+      "label": "Stat 3 unit (HTML)",
+      "info": "支持 HTML，例如：万人<sup>*2</sup>、+年、万台<sup>*2</sup>",
       "default": "万台+"
     },
     {

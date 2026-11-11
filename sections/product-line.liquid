@@ -2,19 +2,40 @@
     /* number_two-box */
       #shopify-section-{{ section.id }} {
         --text-color: {{  section.settings.text_color.red }}, {{  section.settings.text_color.green }}, {{  section.settings.text_color.blue }};
-        --section-background: {{ section.settings.background.red }}, {{ section.settings.background.green }}, {{ section.settings.background.blue }};
         --color-border: 255, 255, 255;
-        /* background: rgb(var(--section-background, var(--background)));  */
         --color-button-background:#190A0A;
       --buttons-radius:0;
       --buttons-border-width :1px;
       --color-button-border:0,0,0;
       --border-opacity:1;
       }
+      {% if section.settings.badge_text_color != blank or section.settings.badge_background != blank %}
+      #shopify-section-{{ section.id }} .product-line .tag-box,
+      #shopify-section-{{ section.id }} .product-line .product__discount-tag,
+      #shopify-section-{{ section.id }} .product-line .tag-txt-animate {
+        {% if section.settings.badge_text_color != blank %}color: {{ section.settings.badge_text_color }};{% endif %}
+        {% if section.settings.badge_background != blank %}background: {{ section.settings.badge_background }};{% endif %}
+      }
+      {% endif %}
           .section-{{ section.id }}-padding {
         padding-top: calc({{ section.settings.padding_top }}px);
         padding-bottom: calc({{ section.settings.padding_bottom }}px);
+        {% if section.settings.products_background != blank %}background: {{ section.settings.products_background }};{% endif %}
       }
+      {% if section.settings.title_background != blank %}
+      .section-{{ section.id }}-padding {
+        padding-top: 0;
+      }
+      .section-{{ section.id }}-title {
+        display: flow-root;
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: 100px;
+        background: {{ section.settings.title_background }};
+      }
+      .section-{{ section.id }}-padding .product-line .product-line__title {
+        margin-bottom: 0;
+      }
+      {% endif %}
       .product-line .product-form-wrapper {
         margin-block-start: 0;
     }
@@ -37,6 +58,14 @@
         padding-bottom: calc({{ section.settings.mobile_padding_bottom }}px );
             --buttons-border-width: 1px;
       }
+      {% if section.settings.title_background != blank %}
+      .section-{{ section.id }}-padding {
+        padding-top: 0;
+      }
+      .section-{{ section.id }}-title {
+        padding-top: {{ section.settings.mobile_padding_top }}px;
+      }
+      {% endif %}
     }
     .product-line{
     }
@@ -47,10 +76,26 @@
       text-align: center;
       margin: 0px 0px 100px;
     }
+    {% if section.settings.title_text_color != blank %}
+    .section-{{ section.id }}-padding .product-line h2 {
+      color: {{ section.settings.title_text_color }};
+    }
+    {% endif %}
+    {% if section.settings.title_text_gradient_preset or section.settings.title_text_gradient != blank %}
+    .section-{{ section.id }}-padding .product-line h2 {
+      {% if section.settings.title_text_gradient_preset %}
+      background: linear-gradient(191deg, #C3B091 -15.05%, #FFF8EE 57.77%);
+      {% else %}
+      background: {{ section.settings.title_text_gradient }};
+      {% endif %}
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    {% endif %}
     .product-line .product__slide-inner{
       display: flex;
       align-items: stretch;
-      background: #F4F9FF;
     }
 
     .product-line .product__slide-inner.product__slide-inner_reverse{
@@ -88,6 +133,16 @@
     .product__content-wrapper .tag-img{
       margin-bottom: 18px;
     }
+    {% if section.settings.copy_color != blank %}
+    #shopify-section-{{ section.id }} .product__content-wrapper h3,
+    #shopify-section-{{ section.id }} .product__content-wrapper .subtitle,
+    #shopify-section-{{ section.id }} .product__content-wrapper .des,
+    #shopify-section-{{ section.id }} .product__content-wrapper .price-notice,
+    #shopify-section-{{ section.id }} .product__content-wrapper .price-suffix,
+    #shopify-section-{{ section.id }} .product__content-wrapper .oriprice {
+      color: {{ section.settings.copy_color }};
+    }
+    {% endif %}
     .product__content-wrapper h3{
       font-weight: 400;
       color: #000;
@@ -337,6 +392,11 @@
         font-size: 28px;
         margin-bottom: 30px;
       }
+      {% if section.settings.title_background != blank %}
+      .section-{{ section.id }}-title {
+        padding-bottom: 30px;
+      }
+      {% endif %}
     .product-line .product__slide-inner{
       flex-direction: column;
     }
@@ -522,11 +582,49 @@
       white-space: nowrap;
     }
   }
+  {% if section.settings.add_button_background != blank or section.settings.add_button_text_color != blank %}
+  #shopify-section-{{ section.id }} .product-line .product-form__submit,
+  #shopify-section-{{ section.id }} .product-line .product-form__submit:hover {
+    {% if section.settings.add_button_background != blank %}background: {{ section.settings.add_button_background }};{% endif %}
+    {% if section.settings.add_button_text_color != blank %}color: {{ section.settings.add_button_text_color }};{% endif %}
+  }
+  {% if section.settings.add_button_background != blank %}
+  #shopify-section-{{ section.id }} .product-line .product-form__submit .btn-fill {
+    background: {{ section.settings.add_button_background }};
+  }
+  {% endif %}
+  {% endif %}
+  {% if section.settings.buy_button_background != blank or section.settings.buy_button_text_color != blank %}
+  #shopify-section-{{ section.id }} .product-line .btn-buy-now,
+  #shopify-section-{{ section.id }} .product-line .btn-buy-now:hover {
+    {% if section.settings.buy_button_background != blank %}background: {{ section.settings.buy_button_background }};{% endif %}
+    {% if section.settings.buy_button_text_color != blank %}color: {{ section.settings.buy_button_text_color }};{% endif %}
+  }
+  {% endif %}
+  {% if section.settings.sale_price_color != blank %}
+  #shopify-section-{{ section.id }} .product-line .product__content-wrapper .price {
+    color: {{ section.settings.sale_price_color }};
+  }
+  {% endif %}
+  {% if section.settings.compare_price_color != blank %}
+  #shopify-section-{{ section.id }} .product-line .product__content-wrapper .oriprice {
+    color: {{ section.settings.compare_price_color }};
+  }
+  {% endif %}
 </style>
 <section class="section-{{ section.id }}-padding">
   <div class="product-line{% if section.settings.custom_class %} {{ section.settings.custom_class }}{% endif %}">
+    {% if section.settings.title_background != blank %}
+      <div class="section-{{ section.id }}-title">
+        <div class="container">
+          <h2 class="product-line__title to-top">{{ section.settings.tle }}</h2>
+        </div>
+      </div>
+    {% endif %}
     <div class="container">
-      <h2 class="to-top">{{ section.settings.tle }}</h2>
+      {% if section.settings.title_background == blank %}
+        <h2 class="product-line__title to-top">{{ section.settings.tle }}</h2>
+      {% endif %}
 
       {%- for block in section.blocks -%}
         <div class="product__slide-list" style="--product-line-block-gap-desktop: {{ block.settings.block_gap_desktop | default: 80 }}px; --product-line-block-gap-mobile: {{ block.settings.block_gap_mobile | default: 25 }}px;">
@@ -557,7 +655,7 @@
                   <div class="product__discount-tag">{{ block.settings.discount | escape }}</div>
                 {%- endif -%}
               </div>
-              <div class="product__content-wrapper to-top" style="background-color: {{ block.settings.content_background | default: '#F4F9FF' }};">
+              <div class="product__content-wrapper to-top" style="background: {{ section.settings.content_background_gradient | default: block.settings.content_background | default: '#F4F9FF' }};">
                 {%- if block.settings.tag_image -%}
                   <div class="tag-img">
                     <img src="{{ block.settings.tag_image | image_url }}" alt="">
@@ -741,6 +839,84 @@
       "label": "Title"
     },
     {
+      "type": "color",
+      "id": "title_text_color",
+      "label": "标题文字颜色"
+    },
+    {
+      "type": "checkbox",
+      "id": "title_text_gradient_preset",
+      "label": "使用参考图标题渐变",
+      "default": true
+    },
+    {
+      "type": "color_background",
+      "id": "title_text_gradient",
+      "label": "标题文字渐变",
+      "info": "设置后优先使用渐变；勾选参考图渐变时，以参考图渐变为准。"
+    },
+    {
+      "type": "color_background",
+      "id": "title_background",
+      "label": "标题区域背景（支持渐变）"
+    },
+    {
+      "type": "color_background",
+      "id": "products_background",
+      "label": "产品整体区域背景（支持渐变）"
+    },
+    {
+      "type": "color_background",
+      "id": "content_background_gradient",
+      "label": "内容区域背景（支持渐变）",
+      "info": "应用于所有产品；留空时沿用已有的产品背景色。"
+    },
+    {
+      "type": "color",
+      "id": "copy_color",
+      "label": "产品文案颜色"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "角标文字颜色"
+    },
+    {
+      "type": "color_background",
+      "id": "badge_background",
+      "label": "角标背景（支持渐变）"
+    },
+    {
+      "type": "color_background",
+      "id": "add_button_background",
+      "label": "加购按钮背景"
+    },
+    {
+      "type": "color",
+      "id": "add_button_text_color",
+      "label": "加购按钮文字颜色"
+    },
+    {
+      "type": "color_background",
+      "id": "buy_button_background",
+      "label": "直接购买按钮背景"
+    },
+    {
+      "type": "color",
+      "id": "buy_button_text_color",
+      "label": "直接购买按钮文字颜色"
+    },
+    {
+      "type": "color",
+      "id": "sale_price_color",
+      "label": "销售价格颜色"
+    },
+    {
+      "type": "color",
+      "id": "compare_price_color",
+      "label": "原价颜色"
+    },
+    {
       "type": "richtext",
       "id": "note",
       "label": "Note"
@@ -752,12 +928,6 @@
       "default": "rgba(0,0,0,0)"
     },
     {
-      "type": "color",
-      "id": "background",
-      "label": "Background",
-      "default": "rgba(0,0,0,0)"
-    },
-    {
       "type": "range",
       "id": "padding_top",
       "min": 0,
@@ -765,7 +935,7 @@
       "step": 4,
       "unit": "px",
       "label": "t:sections.global.settings.padding_top.label",
-      "default": 48
+      "default": 100
     },
     {
       "type": "range",
@@ -822,12 +992,6 @@
           "step": 5,
           "unit": "px",
           "default": 25
-        },
-        {
-          "type": "color",
-          "id": "content_background",
-          "label": "内容区域背景色",
-          "default": "#F4F9FF"
         },
         {
           "type": "product",

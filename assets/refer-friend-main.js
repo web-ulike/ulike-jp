@@ -3,6 +3,8 @@
     // 页面加载完成后初始化逻辑
     document.addEventListener('DOMContentLoaded', () => {
         const copy = window.referFriendMainCopy || {};
+        const $invitation = $('#referfriend-invitation-content');
+        const activityId = $invitation.attr('data-activity-id');
         const escapeHtml = (value) => $('<div>').text(value ?? '').html();
         // 复制成功提示的隐藏定时器
         let hideTimer = null;
@@ -54,11 +56,11 @@
                 jumpLoginPage()
                 return
             }
-            const textToCopy = copyText;
-            if (!textToCopy) {
-                return
+            if (!copyText) {
+                showError(copy.coupon_unavailable);
+                return;
             }
-            navigator.clipboard.writeText(textToCopy)
+            navigator.clipboard.writeText(copyText)
                 .then(() => {
                     clearTimeout(hideTimer);
                     $('#referfriend-invitation-content .modal-copysuccess').show();
@@ -77,41 +79,28 @@
             }, 3000);
         }
         // 复制邀请码
-        $('.gameplay-box-copycode .copy-wrap').click(function () {
-            const copyText = $(this).closest('.copy-code-top').find('.code-top').text()
+        $invitation.find('.gameplay-box-copycode .copy-wrap').click(function () {
+            const copyText = $(this).closest('.copy-code-top').find('.code-top').attr('data-code');
             copyTextToClipboard(copyText)
             //复制顶部邀请码埋点
             isLoginPriont('老带新，复制邀请码', 'copy-code', '');
             isLoginPriont('老带新，复制邀请码+复制链接', '1', '')
         });
 
-        $('.gameplay-box-copycode .invitation-product__copy-btn').click(function () {
-            if (!getLoginStatus) {
-                jumpLoginPage()
-                return
-            }
-            const url = $(this).data('url');
-            copyTextFallback(url);
-            $('#referfriend-invitation-content .modal-copysuccess').show();
-            setTimeout(() => {
-                $('#referfriend-invitation-content .modal-copysuccess').fadeOut(300);
-            }, 3000);
+        const legacyCopyEvents = {
+            '8184944394481': '老带新，点击a10',
+            '7914926145777': '老带新，点击A3',
+            '8790509945073': '老带新，点击面罩'
+        };
+        $invitation.find('.gameplay-box-copycode .invitation-product__copy-btn').click(function () {
+            const $button = $(this);
+            const url = $button.attr('data-url');
+            copyTextToClipboard(url);
+            if (!getLoginStatus || !url) return;
 
-            var index = $(this).closest('.gameplay-box-item').index();
-            // 埋点
-            switch (index) {
-                case 1:
-                    isLoginPriont('老带新，点击a10', 'copy-url', '');
-                    break;
-                case 2:
-                    isLoginPriont('老带新，点击A3', 'copy-url', '');
-                    break;
-                case 3:
-                    isLoginPriont('老带新，点击面罩', 'copy-url', '');
-                    break;
-            }
-
-            isLoginPriont('老带新，复制邀请码+复制链接', '2', '')
+            const productId = $button.closest('.gameplay-box-item').attr('data-product-id');
+            isLoginPriont(legacyCopyEvents[productId] || '老带新，复制商品链接', 'copy-url', productId);
+            isLoginPriont('老带新，复制邀请码+复制链接', '2', '');
         });
 
 
@@ -240,22 +229,27 @@
                 });
             }
         }
-        //显示详情页方法
-        const showDatilPage = () => {
+        const $overviewSections = $('#refer-friend-banner, .refer-friend-steps, .referfriend-faq, .u-referral-storise')
+            .closest('.shopify-section');
+        const $recordBatch = $invitation.find('.invitation-record-batch');
+        const $rewardsBack = $invitation.find('.rewards-back');
+        const showDetailPage = (tabId = '1') => {
             if (!getLoginStatus) {
                 jumpLoginPage()
-                return
+                return false;
             }
-            $('#refer-friend-banner').hide();
-            $('.rewards-more, .gameplay-box-copycode, .gameplay-box-top, .invitation-record-batch .title').hide();
-            $('#shopify-section-template--19132149956849__30698451-389d-43ce-b548-827c55ad66c4').hide();
-            $('.tabs-title, .tabs').show();
-            $('#referfriend-invitation-content .is-normal-render').show();
-            $('#referfriend-invitation-content .invitation-record-batch').show();
-            $('.refer-friend-steps').hide();
-            $('.referfriend-faq').hide();
-            $('.u-referral-storise').hide();
+            activateRewardsTab(tabId);
+            $invitation.addClass('is-viewing-rewards');
+            $overviewSections.addClass('refer-friend-hidden-in-details');
+            $rewardsBack[0]?.focus();
+            return true;
         }
+        $rewardsBack.click(() => {
+            activateRewardsTab('1');
+            $invitation.removeClass('is-viewing-rewards');
+            $overviewSections.removeClass('refer-friend-hidden-in-details');
+            $invitation.find('.rewards-more')[0]?.focus();
+        });
         //验证邮箱结果显示隐藏
         function emailErrorShowOrHide(val) {
             if (!val) {
@@ -291,14 +285,14 @@
         // 提现成功后查看详情
         $('#referfriend-invitation-content .success-btn').click(() => {
             closeDeliBox()
-            showDatilPage()
-            //查询提现记录
-            renderWithdrawRecords()
+            if (showDetailPage('2')) {
+                renderWithdrawRecords();
+            }
         });
         //点击more按钮 查看佣金明细，切换页面展示逻辑
-        $('#referfriend-invitation-content .price-area,.rewards-more').click(event => {
+        $invitation.find('.price-area, .rewards-more').click(event => {
             if (!event.target.classList.contains('withdraw-btn')) {
-                showDatilPage()
+                showDetailPage();
             }
             //已登录点击更多 金额区域埋点 
             isLoginPriont('老带新，我的奖励，点击更多', 'more-btn', '')
@@ -317,14 +311,13 @@
                 // siteCode: "TEST",
             });
             const $list = $('#invitation-record-list').empty();
-            if (!inviteList.data || inviteList.data.length == 0) {
+            const hasRecords = Boolean(inviteList.data?.length);
+            $recordBatch.toggleClass('has-no-records', !hasRecords);
+            if (!hasRecords) {
                 $list.append(`
                 <p class="no-record">
                     ${escapeHtml(copy.no_records)}
                 </p>`);
-                if (!$('.tabs').is(':visible')) {
-                    $('#referfriend-invitation-content .invitation-record-batch').hide();
-                }
                 return
             }
             inviteList.data.forEach((order, index) => {
@@ -351,7 +344,6 @@
                         </div>
                     </div>
                 </div>`);
-                $('#referfriend-invitation-content .is-normal-render').hide();
             });
         }
         //邀请记录状态转换
@@ -444,33 +436,32 @@
             });
         }
 
-        // 文档就绪后执行：渲染订单和提现记录
-        const activityId = '331522644954316801'
-        
         // 调用示例：在需要初始化时执行
         initializeUserAccount().then(({ user, fund, activity }) => {
 
             console.log('初始化完成，用户:', user, '资金账户:', fund, '活动:', activity,);
-            if (activity) {
-                // 处理活动数据
+            const coupons = activity?.data?.extend?.inviteCouponCodeList;
+            if (Array.isArray(coupons)) {
+                $invitation.find('.gameplay-box-item[data-product-id]').each((_, item) => {
+                    const $card = $(item);
+                    const { productId, url, variant } = item.dataset;
+                    const coupon = coupons.find(entry => Array.isArray(entry?.productIdList)
+                        && entry.productIdList.some(id => String(id) === productId));
+                    const code = String(coupon?.couponCode ?? '').trim();
+                    if (!code) return;
 
-                let inviteCouponCodeList = activity.data.extend.inviteCouponCodeList || []; 
-                // $('#referfriend-invitation-content .invitation-product__copy-btn').attr("data-url",`https://www.ulike.com/products/sapphire-air-10-ipl-hair-removal?discount=${inviteCode}`);
-                $('.gameplay-box-item').each((index, item) => {
-                    const productId = $(item).attr('data-productId');
-                    const productUrl = $(item).attr('data-url');
-                    const productVariant = $(item).attr('data-variant'); 
-                    const productData = inviteCouponCodeList.find(fitem => {  
-                        return fitem.productIdList.includes(productId);
-                    })
+                    const referralUrl = new URL(url, window.location.href);
+                    referralUrl.searchParams.set('add-discount', code);
+                    if (variant) referralUrl.searchParams.set('variant', variant);
 
-                    if (productData) {
-                        $(item).find('.code-disscount span').text('$' + productData.discountAmount);
-                        $(item).find('.code-top').text(productData.couponCode);
-                        $(item).find('.invitation-product__copy-btn').attr("data-url", productVariant ? `${productUrl}?add-discount=${productData.couponCode}&variant=${productVariant}` : `${productUrl}?add-discount=${productData.couponCode}`); 
-                        $(item).find('.code-disscount').show();
+                    $card.find('.code-top').text(code).attr('data-code', code);
+                    $card.find('.invitation-product__copy-btn').attr('data-url', referralUrl.href);
+                    if (coupon.discountAmount != null) {
+                        const $discount = $card.find('.code-disscount');
+                        $discount.find('span').text('$' + coupon.discountAmount);
+                        $discount.show();
                     }
-                })
+                });
             }
             if (fund) {
                 $('#referfriend-invitation-content .modal-price').text('$' + fund.data.availableAmount);
@@ -495,7 +486,7 @@
                 // 登录用户账号
                 const user = await window.UlikeCommon.sendUlikeApi('/user/queryLoginUserAccount', {});
                 if (!user?.data?.userId) {
-                    $('.invitation-record-batch').hide();
+                    $recordBatch.addClass('has-no-records');
                     pblicStaFliter('老带新，浏览页面（未登录）', getLoginStatus, '');
                     return { user }; // 只返回 user
                 } else {
@@ -519,22 +510,18 @@
             }
         }
         // 获取所有标签和内容
-        const tabs = document.querySelectorAll('.tab');
-        const tabContents = document.querySelectorAll('.tab-content');
-        // 默认激活第一个标签和内容
-        tabs[0].classList.add('active');
-        tabContents[0].classList.add('active');
+        const tabs = $invitation.find('.tabs .tab').get();
+        const $tabContents = $invitation.find('.tab-content');
+        function activateRewardsTab(tabId) {
+            tabs.forEach(tab => tab.classList.toggle('active', tab.dataset.tab === tabId));
+            $tabContents.removeClass('active').filter('#tab-content-' + tabId).addClass('active');
+        }
+        activateRewardsTab('1');
         // 给每个标签绑定点击事件
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
-                // 移除所有标签和内容的 active 类
-                tabs.forEach(tab => tab.classList.remove('active'));
-                tabContents.forEach(content => content.classList.remove('active'));
-
-                // 给当前点击的标签和相应的内容添加 active 类
-                tab.classList.add('active');
-                const tabId = tab.getAttribute('data-tab');
-                document.getElementById('tab-content-' + tabId).classList.add('active');
+                const tabId = tab.dataset.tab;
+                activateRewardsTab(tabId);
                 if (tabId == '1') {
                     isLoginPriont('老带新，佣金页，点击邀请记录', 'click-record', '')
                     //查询邀请记录

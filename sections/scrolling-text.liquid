@@ -4,6 +4,12 @@
     --section-padding-bottom: {{ section.settings.padding_bottom }}px;
     {%- render 'section-variables', section: section -%}
     --section-grid-gap: {{ section.settings.grid_horizontal }}px;
+    --image-height: {{ section.settings.image_size_pc }}px;
+  }
+
+  #shopify-section-{{ section.id }} > .section--padding {
+    padding-top: var(--section-padding-top);
+    padding-bottom: var(--section-padding-bottom);
   }
 
   #shopify-section-{{ section.id }} .scrolling-text__marquee {
@@ -82,8 +88,9 @@
 
   @media screen and (max-width: 740px) {
     #shopify-section-{{ section.id }} {
-      --section-padding-top: min({{ section.settings.padding_top }}px, 20px);
-      --section-padding-bottom: min({{ section.settings.padding_bottom }}px, 20px);
+      --section-padding-top: {{ section.settings.padding_top_mobile }}px;
+      --section-padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+      --image-height: {{ section.settings.image_size_mobile }}px;
     }
 
     #shopify-section-{{ section.id }} .scrolling-text__group {
@@ -95,7 +102,6 @@
   @media screen and (min-width: 741px) {
     #shopify-section-{{ section.id }} .section {
       display: flex;
-      height: 180px;
       align-items: center;
     }
 
@@ -117,10 +123,10 @@
             </div>
           {%- when 'image' -%}
             {%- liquid
-              assign image_height = block.settings.height
-              assign image_height_2x = block.settings.height | times: 2
+              assign image_height = section.settings.image_size_pc | at_least: section.settings.image_size_mobile
+              assign image_height_2x = image_height | times: 2
             -%}
-            <div class="scrolling-text__item with-media" style="--image-height: {{ image_height }}px;" {{ block.shopify_attributes }}>
+            <div class="scrolling-text__item with-media" {{ block.shopify_attributes }}>
               {%- if block.settings.image != blank -%}
                 <img
                   srcset="{{ block.settings.image | image_url: height: image_height }} 1x, {{ block.settings.image | image_url: height: image_height_2x }} 2x"
@@ -227,6 +233,28 @@
   "class": "scrolling-text-section",
   "settings": [
     {
+      "type": "range",
+      "id": "image_size_pc",
+      "min": 20,
+      "max": 300,
+      "step": 4,
+      "default": 100,
+      "unit": "px",
+      "label": "图片尺寸 PC",
+      "info": "统一设置所有图片的显示高度，宽度按原比例缩放。"
+    },
+    {
+      "type": "range",
+      "id": "image_size_mobile",
+      "min": 20,
+      "max": 300,
+      "step": 4,
+      "default": 100,
+      "unit": "px",
+      "label": "图片尺寸 M",
+      "info": "适用于屏幕宽度不超过 740px 的移动端，宽度按原比例缩放。"
+    },
+    {
       "type": "select",
       "id": "direction",
       "options": [
@@ -305,7 +333,7 @@
       "max": 120,
       "step": 4,
       "unit": "px",
-      "label": "t:sections.global.settings.padding_top.label",
+      "label": "模块上间距 PC",
       "default": 36
     },
     {
@@ -315,8 +343,28 @@
       "max": 120,
       "step": 4,
       "unit": "px",
-      "label": "t:sections.global.settings.padding_bottom.label",
+      "label": "模块下间距 PC",
       "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "模块上间距 M",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "模块下间距 M",
+      "default": 20
     },
     {
       "type": "checkbox",
@@ -385,16 +433,6 @@
           "type": "image_picker",
           "id": "image",
           "label": "t:sections.global.settings.image.label"
-        },
-        {
-          "type": "range",
-          "id": "height",
-          "min": 0,
-          "max": 200,
-          "step": 4,
-          "default": 80,
-          "unit": "px",
-          "label": "t:sections.scrolling-text.blocks.image.settings.image_height.label"
         }
       ]
     }
