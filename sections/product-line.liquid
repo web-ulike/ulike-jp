@@ -81,22 +81,31 @@
       text-align: center;
       margin: 0px 0px 100px;
     }
-    {% if section.settings.title_text_color != blank %}
-    .section-{{ section.id }}-padding .product-line h2 {
-      color: {{ section.settings.title_text_color }};
-    }
-    {% endif %}
-    {% if section.settings.title_text_gradient_preset or section.settings.title_text_gradient != blank %}
-    .section-{{ section.id }}-padding .product-line h2 {
-      {% if section.settings.title_text_gradient_preset %}
-      background: linear-gradient(191deg, #C3B091 -15.05%, #FFF8EE 57.77%);
-      {% else %}
-      background: {{ section.settings.title_text_gradient }};
+    {% if section.settings.title_image != blank %}
+      .section-{{ section.id }}-padding .product-line__title-image {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        margin-inline: auto;
+      }
+    {% else %}
+      {% if section.settings.title_text_color != blank %}
+        .section-{{ section.id }}-padding .product-line h2 {
+          color: {{ section.settings.title_text_color }};
+        }
       {% endif %}
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+      {% if section.settings.title_text_gradient_preset or section.settings.title_text_gradient != blank %}
+        .section-{{ section.id }}-padding .product-line h2 {
+          {% if section.settings.title_text_gradient_preset %}
+            background: linear-gradient(191deg, #C3B091 -15.05%, #FFF8EE 57.77%);
+          {% else %}
+            background: {{ section.settings.title_text_gradient }};
+          {% endif %}
+          background-clip: text;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+      {% endif %}
     {% endif %}
     .product-line .product__slide-inner{
       display: flex;
@@ -614,18 +623,33 @@
   }
   {% endif %}
 </style>
+{%- capture product_line_title -%}
+  <h2 class="product-line__title to-top">
+    {%- if section.settings.title_image != blank -%}
+      {%- assign title_image = section.settings.title_image -%}
+      {%- assign title_image_width = title_image.width | at_most: 1200 -%}
+      {%- assign title_image_alt = title_image.alt | default: section.settings.tle | strip_html -%}
+      {{- title_image
+        | image_url: width: title_image_width
+        | image_tag: class: 'product-line__title-image', widths: '240, 360, 540, 720, 960, 1200', alt: title_image_alt
+      -}}
+    {%- else -%}
+      {{- section.settings.tle -}}
+    {%- endif -%}
+  </h2>
+{%- endcapture -%}
 <section class="section-{{ section.id }}-padding">
   <div class="product-line{% if section.settings.custom_class %} {{ section.settings.custom_class }}{% endif %}">
     {% if section.settings.title_background != blank %}
       <div class="section-{{ section.id }}-title">
         <div class="container">
-          <h2 class="product-line__title to-top">{{ section.settings.tle }}</h2>
+          {{ product_line_title }}
         </div>
       </div>
     {% endif %}
     <div class="container">
       {% if section.settings.title_background == blank %}
-        <h2 class="product-line__title to-top">{{ section.settings.tle }}</h2>
+        {{ product_line_title }}
       {% endif %}
 
       {%- for block in section.blocks -%}
@@ -838,6 +862,12 @@
       "type": "text",
       "id": "tle",
       "label": "Title"
+    },
+    {
+      "type": "image_picker",
+      "id": "title_image",
+      "label": "标题图片",
+      "info": "选图后显示图片标题，无需设置文字颜色或渐变。留空时显示文字标题。"
     },
     {
       "type": "color",
