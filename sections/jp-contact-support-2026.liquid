@@ -22,7 +22,7 @@
                     </svg>
                   {% endif %}
                 </span>
-                <span class="to-top appear">{{ block.settings.title | escape }}</span>
+                <span class="to-top">{{ block.settings.title | escape }}</span>
                 <svg class="jp-contact-2026__arrow" viewBox="0 0 8 12" fill="none" aria-hidden="true"><path d="m1 1 5 5-5 5" stroke="currentColor"/></svg>
               {% if block.settings.link != blank %}</a>{% else %}</div>{% endif %}
             </div>
@@ -32,9 +32,9 @@
     </div>
   {% endif %}
   <div class="container jp-contact-2026__container jp-contact-2026__main">
-    {% if section.settings.heading != blank %}<h2 class="jp-contact-2026__heading to-top appear">{{ section.settings.heading | escape }}</h2>{% endif %}
-    {% if section.settings.notice != blank %}<div class="jp-contact-2026__notice to-top appear">{{ section.settings.notice }}</div>{% endif %}
-    {% if section.settings.description != blank %}<div class="jp-contact-2026__description to-top appear">{{ section.settings.description }}</div>{% endif %}
+    {% if section.settings.heading != blank %}<h2 class="jp-contact-2026__heading to-top{% if section.index == 1 or section.index == blank %} appear{% endif %}">{{ section.settings.heading | escape }}</h2>{% endif %}
+    {% if section.settings.notice != blank %}<div class="jp-contact-2026__notice to-top">{{ section.settings.notice }}</div>{% endif %}
+    {% if section.settings.description != blank %}<div class="jp-contact-2026__description to-top">{{ section.settings.description }}</div>{% endif %}
     <div class="jp-contact-2026__cards">
       {% for block in section.blocks %}
         {% unless block.type == 'quick_link' %}
@@ -45,7 +45,7 @@
           %}
           <article class="jp-contact-2026__card jp-contact-2026__card--{{ block.type }}" {{ block.shopify_attributes }}>
             <div class="jp-contact-2026__card-intro">
-              <h3 class="jp-contact-2026__card-heading to-top appear">
+              <h3 class="jp-contact-2026__card-heading to-top">
                 <span class="jp-contact-2026__icon jp-contact-2026__icon--{{ block.settings.icon }}" aria-hidden="true">
                   {% if image != blank %}
                     <picture>
@@ -66,8 +66,8 @@
                 </span>
                 {{ block.settings.title | escape }}
               </h3>
-              {% if block.settings.description != blank %}<div class="jp-contact-2026__card-description to-top appear">{{ block.settings.description }}</div>{% endif %}
-              {% if block.type == 'contact' and block.settings.hours != blank %}<p class="jp-contact-2026__hours to-top appear">{{ block.settings.hours | escape }}</p>{% endif %}
+              {% if block.settings.description != blank %}<div class="jp-contact-2026__card-description to-top">{{ block.settings.description }}</div>{% endif %}
+              {% if block.type == 'contact' and block.settings.hours != blank %}<p class="jp-contact-2026__hours to-top">{{ block.settings.hours | escape }}</p>{% endif %}
             </div>
             {% case block.type %}
               {% when 'contact' %}
@@ -76,15 +76,15 @@
                 {% endif %}
               {% when 'email' %}
                 {% if block.settings.value != blank %}
-                  <a class="jp-contact-2026__value" href="mailto:{{ block.settings.value | escape }}">{{ block.settings.value | escape }}</a>
+                  <a class="jp-contact-2026__value to-top" href="mailto:{{ block.settings.value | escape }}">{{ block.settings.value | escape }}</a>
                   <button class="jp-contact-2026__copy" type="button" data-copy="{{ block.settings.value | escape }}">{{ section.settings.copy_label | escape }}</button>
                 {% endif %}
               {% when 'phone' %}
-                {% if block.settings.value != blank %}<a class="jp-contact-2026__value jp-contact-2026__phone" href="tel:{{ block.settings.value | remove: ' ' | remove: '-' | escape }}">{{ block.settings.value | escape }}</a>{% endif %}
-                {% if block.settings.hours != blank %}<p class="jp-contact-2026__hours">{{ block.settings.hours | escape | newline_to_br }}</p>{% endif %}
+                {% if block.settings.value != blank %}<a class="jp-contact-2026__value jp-contact-2026__phone to-top" href="tel:{{ block.settings.value | remove: ' ' | remove: '-' | escape }}">{{ block.settings.value | escape }}</a>{% endif %}
+                {% if block.settings.hours != blank %}<p class="jp-contact-2026__hours to-top">{{ block.settings.hours | escape | newline_to_br }}</p>{% endif %}
               {% when 'business' %}
                 {% if block.settings.value != blank %}
-                  <a class="jp-contact-2026__value" href="mailto:{{ block.settings.value | escape }}">{{ block.settings.value | escape }}</a>
+                  <a class="jp-contact-2026__value to-top" href="mailto:{{ block.settings.value | escape }}">{{ block.settings.value | escape }}</a>
                   <button class="jp-contact-2026__copy jp-contact-2026__copy--icon" type="button" data-copy="{{ block.settings.value | escape }}" aria-label="{{ section.settings.copy_label | escape }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 3h13v14M3 7h14v14H3zM6 11h8M6 15h8"/></svg></button>
                 {% endif %}
             {% endcase %}
@@ -94,12 +94,17 @@
     </div>
     <p class="jp-contact-2026__status" role="status" aria-live="polite"></p>
   </div>
+  <noscript>
+    <style>
+      #shopify-section-{{ section.id }} .jp-contact-2026 .to-top { opacity: 1; transform: none; }
+    </style>
+  </noscript>
 </jp-contact-support-2026>
 
 {% stylesheet %}
   .jp-contact-2026 { display: block; background: var(--contact-bg); color: var(--contact-ink); }
   .jp-contact-2026 .jp-contact-2026__container { max-width: calc(var(--contact-width) + 2 * var(--container-gutter)); }
-  .jp-contact-2026 .to-top { opacity: 1; transform: none; will-change: auto; }
+  .jp-contact-2026__quick .to-top { display: inline-block; }
   .jp-contact-2026 h2, .jp-contact-2026 h3, .jp-contact-2026 p { margin: 0; }
   .jp-contact-2026 a { color: inherit; text-decoration: none; }
   .jp-contact-2026__quick-wrap { padding-block: 80px; }
@@ -176,6 +181,7 @@
   if (!customElements.get('jp-contact-support-2026')) {
     customElements.define('jp-contact-support-2026', class extends HTMLElement {
       connectedCallback() {
+        this.animationFrame = requestAnimationFrame(() => this.initTextAnimation());
         this.handleClick = async (event) => {
           const button = event.target.closest('[data-copy]');
           if (!button || !this.contains(button)) {
@@ -193,7 +199,33 @@
         this.addEventListener('click', this.handleClick);
       }
 
+      initTextAnimation() {
+        const elements = this.querySelectorAll('.to-top:not(.appear)');
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !window.IntersectionObserver) {
+          elements.forEach((element) => element.classList.add('appear'));
+          return;
+        }
+
+        this.textObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('appear');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          root: null,
+          rootMargin: '0px 0px 50px 0px',
+          threshold: 0.1,
+        });
+        elements.forEach((element) => this.textObserver.observe(element));
+      }
+
       disconnectedCallback() {
+        cancelAnimationFrame(this.animationFrame);
+        if (this.textObserver) {
+          this.textObserver.disconnect();
+        }
         this.removeEventListener('click', this.handleClick);
       }
     });
