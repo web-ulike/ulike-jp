@@ -130,6 +130,14 @@
       {%- endunless -%}
     {%- endif -%}
 
+    {% comment %} SEO 需要添加H1 {% endcomment %}
+    {% assign seo_h1 = page.metafields.seo.seo_h1.value | strip %}
+    {% if seo_h1 != blank %}
+      <h1 class="visually-hidden">
+        {{ seo_h1 }}
+      </h1>
+    {% endif %}
+
     <div id="main" role="main" class="anchor">
       {%- comment -%}
       IMPLEMENTATION NOTE: on collection and search page, the theme was designed to show on mobile the filter bar and/or sort
