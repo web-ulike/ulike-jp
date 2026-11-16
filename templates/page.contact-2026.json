@@ -11,13 +11,38 @@
   "sections": {
     "main-page": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "show_title": true,
         "page_width": "medium"
       }
+    },
+    "jp_image_loop_BqDUH7": {
+      "type": "jp-image-loop",
+      "blocks": {
+        "image_item_aNXNfn": {
+          "type": "image_item",
+          "settings": {
+            "pc_image": "shopify://shop_images/1_1_16878efd-2545-412d-b220-9bd0971ef4a2.jpg",
+            "mobile_image": "shopify://shop_images/1-KV_2cdc3ba1-c0bf-4b4c-aeec-f4ceb8ebc9bb.jpg",
+            "alt_text": "",
+            "item_id": "",
+            "hide_on_pc": false
+          }
+        }
+      },
+      "block_order": [
+        "image_item_aNXNfn"
+      ],
+      "name": "jp-image-loop",
+      "settings": {
+        "anchor_id": "",
+        "container_class": ""
+      }
     }
   },
   "order": [
-    "main-page"
+    "main-page",
+    "jp_image_loop_BqDUH7"
   ]
 }
