@@ -22,7 +22,7 @@
                     </svg>
                   {% endif %}
                 </span>
-                <span class="jp-contact-2026__quick-label"><span class="to-top"{% unless forloop.first %} style="transition-delay: {{ forloop.index0 | times: 0.1 }}s"{% endunless %}>{{ block.settings.title_mobile | default: block.settings.title | escape }}</span>
+                <span class="jp-contact-2026__quick-label"><span class="to-top"{% unless forloop.first %} style="transition-delay: {{ forloop.index0 | times: 0.1 }}s"{% endunless %}><span class="jp-contact-2026__desktop-copy">{{ block.settings.title | escape }}</span><span class="jp-contact-2026__mobile-copy">{{ block.settings.title_mobile | default: block.settings.title | escape }}</span></span>
                 <svg class="jp-contact-2026__arrow" viewBox="0 0 8 12" fill="none" aria-hidden="true"><path d="m1 1 5 5-5 5" stroke="currentColor"/></svg></span>
               {% if block.settings.link != blank %}</a>{% else %}</div>{% endif %}
             </div>
@@ -42,6 +42,10 @@
             assign image = block.settings.image
             assign mobile_image = block.settings.mobile_image | default: image
             assign image = image | default: mobile_image
+            assign mobile_description = block.settings.description_mobile | default: block.settings.description
+            if block.settings.description_mobile == blank and block.settings.icon == 'form'
+              assign mobile_description = mobile_description | replace: '必要事項をご入力のうえ、', '必要事項をご入力のうえ、<br>'
+            endif
           %}
           <article class="jp-contact-2026__card jp-contact-2026__card--{{ block.type }}" {{ block.shopify_attributes }}>
             <div class="jp-contact-2026__card-intro">
@@ -66,7 +70,7 @@
                 </span>
                 {{ block.settings.title | escape }}
               </h3>
-              {% if block.settings.description != blank %}<div class="jp-contact-2026__card-description to-top" style="transition-delay: 0.1s"><div class="jp-contact-2026__desktop-copy">{{ block.settings.description }}</div><div class="jp-contact-2026__mobile-copy">{{ block.settings.description_mobile | default: block.settings.description }}</div></div>{% endif %}
+              {% if block.settings.description != blank or block.settings.description_mobile != blank %}<div class="jp-contact-2026__card-description to-top" style="transition-delay: 0.1s"><div class="jp-contact-2026__desktop-copy">{{ block.settings.description }}</div><div class="jp-contact-2026__mobile-copy">{{ mobile_description }}</div></div>{% endif %}
               {% if block.type == 'contact' and block.settings.hours != blank %}<p class="jp-contact-2026__hours to-top" style="transition-delay: 0.2s">{{ block.settings.hours | escape }}</p>{% endif %}
             </div>
             {% case block.type %}
@@ -173,6 +177,7 @@
     .jp-contact-2026__card-description, .jp-contact-2026__hours { font-size: 14px; line-height: 1.5; }
     .jp-contact-2026__card-description { overflow-wrap: break-word; word-break: normal; line-break: strict; }
     .jp-contact-2026__card--contact .jp-contact-2026__card-intro { width: 100%; }
+    .jp-contact-2026__card--contact { padding-inline: 10px; }
     .jp-contact-2026__card--business .jp-contact-2026__card-description { text-align: left; }
     .jp-contact-2026__value { font-size: 20px; }
     .jp-contact-2026 .jp-contact-2026__phone { font-size: 28px; }
@@ -181,7 +186,7 @@
     .jp-contact-2026__card--business .jp-contact-2026__card-intro { flex: 0 0 100%; }
     .jp-contact-2026__card--business .jp-contact-2026__card-heading { max-width: 270px; margin-inline: auto; }
     .jp-contact-2026__copy--icon { padding: 4px; }
-    .jp-contact-2026__copy--icon svg { width: 18px; height: 18px; }
+    .jp-contact-2026__copy--icon svg, .jp-contact-2026__copy--icon img { width: 18px; height: 18px; }
   }
   @media (prefers-reduced-motion: reduce) { .jp-contact-2026 a, .jp-contact-2026 button { transition: none; } }
 {% endstylesheet %}
