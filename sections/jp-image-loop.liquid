@@ -63,8 +63,8 @@
               {% if bs.pc_image != blank %}
                 <img
                   class="jp-image-loop__image"
-                  src="{{ bs.pc_image | image_url: width: 1920 }}"
-                  srcset="{{ bs.pc_image | image_url: width: 1920 }} 1920w"
+                  src="{{ bs.pc_image | image_url: width: 3840 }}"
+                  srcset="{{ bs.pc_image | image_url: width: 3840 }} 3840w"
                   sizes="(min-width: 1921px) 1920px, 100vw"
                   alt="{{ bs.pc_image.alt | default: bs.alt_text | escape }}"
                   loading="lazy"
