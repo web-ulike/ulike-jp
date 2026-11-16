@@ -178,7 +178,7 @@
            <div class="title-diy ">
               {{section.settings.title}}
               <a href="https://www.ulike.com/pages/referfriend-rules" target="_blank" class="act-rules">
-                Activity Rules
+                {{ section.settings.activity_rules_text | escape }}
                 <img src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/chevron-right.svg?v=1746599015" alt="chevron-right" class="chevron-right">
               </a>
            </div>
@@ -271,6 +271,12 @@
         }
       ],
       "settings": [
+        {
+          "type": "text",
+          "id": "activity_rules_text",
+          "label": "Activity Rules Text",
+          "default": "Activity Rules"
+        },
         {
           "type": "text",
           "id": "title",
