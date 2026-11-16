@@ -22,7 +22,7 @@
                     </svg>
                   {% endif %}
                 </span>
-                <span class="to-top">{{ block.settings.title | escape }}</span>
+                <span class="to-top"{% unless forloop.first %} style="transition-delay: {{ forloop.index0 | times: 0.1 }}s"{% endunless %}>{{ block.settings.title | escape }}</span>
                 <svg class="jp-contact-2026__arrow" viewBox="0 0 8 12" fill="none" aria-hidden="true"><path d="m1 1 5 5-5 5" stroke="currentColor"/></svg>
               {% if block.settings.link != blank %}</a>{% else %}</div>{% endif %}
             </div>
@@ -33,8 +33,8 @@
   {% endif %}
   <div class="container jp-contact-2026__container jp-contact-2026__main">
     {% if section.settings.heading != blank %}<h2 class="jp-contact-2026__heading to-top{% if section.index == 1 or section.index == blank %} appear{% endif %}">{{ section.settings.heading | escape }}</h2>{% endif %}
-    {% if section.settings.notice != blank %}<div class="jp-contact-2026__notice to-top">{{ section.settings.notice }}</div>{% endif %}
-    {% if section.settings.description != blank %}<div class="jp-contact-2026__description to-top">{{ section.settings.description }}</div>{% endif %}
+    {% if section.settings.notice != blank %}<div class="jp-contact-2026__notice to-top" style="transition-delay: 0.1s">{{ section.settings.notice }}</div>{% endif %}
+    {% if section.settings.description != blank %}<div class="jp-contact-2026__description to-top" style="transition-delay: 0.2s">{{ section.settings.description }}</div>{% endif %}
     <div class="jp-contact-2026__cards">
       {% for block in section.blocks %}
         {% unless block.type == 'quick_link' %}
@@ -66,8 +66,8 @@
                 </span>
                 {{ block.settings.title | escape }}
               </h3>
-              {% if block.settings.description != blank %}<div class="jp-contact-2026__card-description to-top">{{ block.settings.description }}</div>{% endif %}
-              {% if block.type == 'contact' and block.settings.hours != blank %}<p class="jp-contact-2026__hours to-top">{{ block.settings.hours | escape }}</p>{% endif %}
+              {% if block.settings.description != blank %}<div class="jp-contact-2026__card-description to-top" style="transition-delay: 0.1s">{{ block.settings.description }}</div>{% endif %}
+              {% if block.type == 'contact' and block.settings.hours != blank %}<p class="jp-contact-2026__hours to-top" style="transition-delay: 0.2s">{{ block.settings.hours | escape }}</p>{% endif %}
             </div>
             {% case block.type %}
               {% when 'contact' %}
@@ -76,15 +76,15 @@
                 {% endif %}
               {% when 'email' %}
                 {% if block.settings.value != blank %}
-                  <a class="jp-contact-2026__value to-top" href="mailto:{{ block.settings.value | escape }}">{{ block.settings.value | escape }}</a>
+                  <a class="jp-contact-2026__value to-top" style="transition-delay: 0.1s" href="mailto:{{ block.settings.value | escape }}">{{ block.settings.value | escape }}</a>
                   <button class="jp-contact-2026__copy" type="button" data-copy="{{ block.settings.value | escape }}">{{ section.settings.copy_label | escape }}</button>
                 {% endif %}
               {% when 'phone' %}
-                {% if block.settings.value != blank %}<a class="jp-contact-2026__value jp-contact-2026__phone to-top" href="tel:{{ block.settings.value | remove: ' ' | remove: '-' | escape }}">{{ block.settings.value | escape }}</a>{% endif %}
-                {% if block.settings.hours != blank %}<p class="jp-contact-2026__hours to-top">{{ block.settings.hours | escape | newline_to_br }}</p>{% endif %}
+                {% if block.settings.value != blank %}<a class="jp-contact-2026__value jp-contact-2026__phone to-top" style="transition-delay: 0.1s" href="tel:{{ block.settings.value | remove: ' ' | remove: '-' | escape }}">{{ block.settings.value | escape }}</a>{% endif %}
+                {% if block.settings.hours != blank %}<p class="jp-contact-2026__hours to-top" style="transition-delay: 0.2s">{{ block.settings.hours | escape | newline_to_br }}</p>{% endif %}
               {% when 'business' %}
                 {% if block.settings.value != blank %}
-                  <a class="jp-contact-2026__value to-top" href="mailto:{{ block.settings.value | escape }}">{{ block.settings.value | escape }}</a>
+                  <a class="jp-contact-2026__value to-top" style="transition-delay: 0.1s" href="mailto:{{ block.settings.value | escape }}">{{ block.settings.value | escape }}</a>
                   <button class="jp-contact-2026__copy jp-contact-2026__copy--icon" type="button" data-copy="{{ block.settings.value | escape }}" aria-label="{{ section.settings.copy_label | escape }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 3h13v14M3 7h14v14H3zM6 11h8M6 15h8"/></svg></button>
                 {% endif %}
             {% endcase %}
