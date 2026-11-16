@@ -22,8 +22,8 @@
                     </svg>
                   {% endif %}
                 </span>
-                <span class="to-top"{% unless forloop.first %} style="transition-delay: {{ forloop.index0 | times: 0.1 }}s"{% endunless %}>{{ block.settings.title | escape }}</span>
-                <svg class="jp-contact-2026__arrow" viewBox="0 0 8 12" fill="none" aria-hidden="true"><path d="m1 1 5 5-5 5" stroke="currentColor"/></svg>
+                <span class="jp-contact-2026__quick-label"><span class="to-top"{% unless forloop.first %} style="transition-delay: {{ forloop.index0 | times: 0.1 }}s"{% endunless %}>{{ block.settings.title_mobile | default: block.settings.title | escape }}</span>
+                <svg class="jp-contact-2026__arrow" viewBox="0 0 8 12" fill="none" aria-hidden="true"><path d="m1 1 5 5-5 5" stroke="currentColor"/></svg></span>
               {% if block.settings.link != blank %}</a>{% else %}</div>{% endif %}
             </div>
           {% endfor %}
@@ -66,7 +66,7 @@
                 </span>
                 {{ block.settings.title | escape }}
               </h3>
-              {% if block.settings.description != blank %}<div class="jp-contact-2026__card-description to-top" style="transition-delay: 0.1s">{{ block.settings.description }}</div>{% endif %}
+              {% if block.settings.description != blank %}<div class="jp-contact-2026__card-description to-top" style="transition-delay: 0.1s"><div class="jp-contact-2026__desktop-copy">{{ block.settings.description }}</div><div class="jp-contact-2026__mobile-copy">{{ block.settings.description_mobile | default: block.settings.description }}</div></div>{% endif %}
               {% if block.type == 'contact' and block.settings.hours != blank %}<p class="jp-contact-2026__hours to-top" style="transition-delay: 0.2s">{{ block.settings.hours | escape }}</p>{% endif %}
             </div>
             {% case block.type %}
@@ -85,7 +85,7 @@
               {% when 'business' %}
                 {% if block.settings.value != blank %}
                   <a class="jp-contact-2026__value to-top" style="transition-delay: 0.1s" href="mailto:{{ block.settings.value | escape }}">{{ block.settings.value | escape }}</a>
-                  <button class="jp-contact-2026__copy jp-contact-2026__copy--icon" type="button" data-copy="{{ block.settings.value | escape }}" aria-label="{{ section.settings.copy_label | escape }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 3h13v14M3 7h14v14H3zM6 11h8M6 15h8"/></svg></button>
+                  <button class="jp-contact-2026__copy jp-contact-2026__copy--icon" type="button" data-copy="{{ block.settings.value | escape }}" aria-label="{{ section.settings.copy_label | escape }}">{% if block.settings.copy_image != blank %}{{ block.settings.copy_image | image_url: width: 72 | image_tag: widths: '24, 48, 72', sizes: '(max-width: 767px) 18px, 24px', loading: 'lazy', alt: '' }}{% else %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 3h13v14M3 7h14v14H3zM6 11h8M6 15h8"/></svg>{% endif %}</button>
                 {% endif %}
             {% endcase %}
           </article>
@@ -110,6 +110,8 @@
   .jp-contact-2026__quick-wrap { padding-block: 80px; }
   .jp-contact-2026__quick-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; }
   .jp-contact-2026__quick { min-height: 80px; border: 1px solid #ddd; display: flex; gap: 16px; align-items: center; justify-content: center; padding: 16px; font-size: 18px; }
+  .jp-contact-2026__quick-label { display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+  .jp-contact-2026__mobile-copy { display: none; }
   .jp-contact-2026__quick-icon { display: block; width: 30px; height: 30px; flex-shrink: 0; }
   .jp-contact-2026__quick-icon svg, .jp-contact-2026__quick-icon img, .jp-contact-2026__icon svg, .jp-contact-2026__icon img { display: block; width: 100%; height: 100%; object-fit: contain; }
   .jp-contact-2026__arrow { width: 6px; height: 12px; color: var(--contact-accent); flex-shrink: 0; }
@@ -134,10 +136,11 @@
   .jp-contact-2026__card--email .jp-contact-2026__value, .jp-contact-2026__card--phone .jp-contact-2026__value { flex: 1; }
   .jp-contact-2026 .jp-contact-2026__phone { font-size: 32px; font-weight: 600; white-space: nowrap; }
   .jp-contact-2026__card--phone > .jp-contact-2026__hours { text-align: center; }
-  .jp-contact-2026__copy { flex-shrink: 0; border: 1px solid var(--contact-accent); color: var(--contact-accent); border-radius: 100px; background: transparent; padding: 5px 24px; font: inherit; font-size: 14px; line-height: 1.5; cursor: pointer; }
+  .jp-contact-2026__copy { position: relative; flex-shrink: 0; border: 1px solid var(--contact-accent); color: var(--contact-accent); border-radius: 100px; background: transparent; padding: 5px 24px; font: inherit; font-size: 14px; line-height: 1.5; cursor: pointer; }
   .jp-contact-2026__copy--icon { border: 0; padding: 8px; border-radius: 4px; }
-  .jp-contact-2026__copy--icon svg { display: block; width: 24px; height: 24px; }
-  .jp-contact-2026__status { min-height: 24px; margin-top: 8px !important; font-size: 14px; color: var(--contact-accent); text-align: center; }
+  .jp-contact-2026__copy--icon svg, .jp-contact-2026__copy--icon img { object-fit: contain; display: block; width: 24px; height: 24px; }
+  .jp-contact-2026__status { display: none; }
+  .jp-contact-2026__status:not(:empty) { display: block; position: absolute; bottom: calc(100% + 8px); right: 0; z-index: 2; width: max-content; max-width: min(260px, 80vw); padding: 8px 12px; border-radius: 4px; background: #171717; color: #fff; font-size: 12px; line-height: 1.5; text-align: center; pointer-events: none; }
   .jp-contact-2026 a, .jp-contact-2026 button { transition: opacity 300ms cubic-bezier(.22,1,.36,1); }
   .jp-contact-2026 a:hover, .jp-contact-2026 button:hover { opacity: .7; }
   .jp-contact-2026 a:active, .jp-contact-2026 button:active { opacity: .5; }
@@ -153,18 +156,24 @@
     .jp-contact-2026 .jp-contact-2026__container { padding-inline: 10px; }
     .jp-contact-2026__quick-wrap { padding-block: 30px; background: var(--contact-quick-bg); }
     .jp-contact-2026__quick-grid { gap: 12px; }
-    .jp-contact-2026__quick { border: 0; min-height: 57px; padding: 0; flex-direction: column; gap: 8px; font-size: 10px; line-height: 1.5; text-align: center; }
-    .jp-contact-2026__arrow { display: none; }
+    .jp-contact-2026__quick { border: 0; min-height: 57px; padding: 0; flex-direction: column; gap: 12px; font-size: 12px; line-height: 1.3; text-align: center; }
+    .jp-contact-2026__arrow { display: block; width: 4px; height: 7px; }
+    .jp-contact-2026__quick-label { gap: 8px; white-space: nowrap; }
+    .jp-contact-2026__desktop-copy { display: none; }
+    .jp-contact-2026__mobile-copy { display: block; }
     .jp-contact-2026__main { padding-top: 40px; padding-bottom: 40px; }
     .jp-contact-2026__heading { font-size: 30px; }
     .jp-contact-2026__notice { margin: 16px 10px 0; padding: 12px 20px; font-size: 14px; line-height: 1.6; }
     .jp-contact-2026__description { margin: 24px 0 32px; font-size: 12px; }
-    .jp-contact-2026__cards { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+    .jp-contact-2026__cards { grid-template-columns: minmax(0, 1fr); gap: 12px; margin-inline: auto; width: calc(100% - 20px); max-width: 334px; }
     .jp-contact-2026__card { padding: 32px 16px; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
     .jp-contact-2026__card-heading { justify-content: center; font-size: 20px; gap: 8px; }
     .jp-contact-2026__icon { width: 26px; height: 26px; flex-basis: 26px; }
     .jp-contact-2026__card--contact { padding: 32px 16px; gap: 24px; }
-    .jp-contact-2026__card-description, .jp-contact-2026__hours { font-size: 12px; line-height: 1.7; }
+    .jp-contact-2026__card-description, .jp-contact-2026__hours { font-size: 14px; line-height: 1.5; }
+    .jp-contact-2026__card-description { overflow-wrap: break-word; word-break: normal; line-break: strict; }
+    .jp-contact-2026__card--contact .jp-contact-2026__card-intro { width: 100%; }
+    .jp-contact-2026__card--business .jp-contact-2026__card-description { text-align: left; }
     .jp-contact-2026__value { font-size: 20px; }
     .jp-contact-2026 .jp-contact-2026__phone { font-size: 28px; }
     .jp-contact-2026__copy { font-size: 12px; padding: 4px 16px; }
@@ -188,13 +197,18 @@
             return;
           }
           const status = this.querySelector('[role="status"]');
+          clearTimeout(this.copyTimeout);
           status.textContent = '';
+          button.append(status);
           try {
             await navigator.clipboard.writeText(button.dataset.copy);
             status.textContent = this.dataset.copied;
           } catch {
             status.textContent = this.dataset.copyError;
           }
+          this.copyTimeout = setTimeout(() => {
+            status.textContent = '';
+          }, 3000);
         };
         this.addEventListener('click', this.handleClick);
       }
@@ -222,6 +236,7 @@
       }
 
       disconnectedCallback() {
+        clearTimeout(this.copyTimeout);
         cancelAnimationFrame(this.animationFrame);
         if (this.textObserver) {
           this.textObserver.disconnect();
@@ -366,6 +381,11 @@
           "type": "image_picker",
           "id": "image",
           "label": "替换图标"
+        },
+        {
+          "type": "text",
+          "id": "title_mobile",
+          "label": "移动端标题（留空使用共用标题）"
         }
       ]
     },
@@ -420,6 +440,11 @@
           "type": "richtext",
           "id": "description",
           "label": "说明文字"
+        },
+        {
+          "type": "richtext",
+          "id": "description_mobile",
+          "label": "移动端说明（留空使用共用说明）"
         },
         {
           "type": "text",
@@ -491,6 +516,11 @@
           "label": "说明文字"
         },
         {
+          "type": "richtext",
+          "id": "description_mobile",
+          "label": "移动端说明（留空使用共用说明）"
+        },
+        {
           "type": "text",
           "id": "value",
           "label": "邮箱地址"
@@ -548,6 +578,11 @@
           "type": "richtext",
           "id": "description",
           "label": "说明文字"
+        },
+        {
+          "type": "richtext",
+          "id": "description_mobile",
+          "label": "移动端说明（留空使用共用说明）"
         },
         {
           "type": "text",
@@ -614,9 +649,19 @@
           "label": "说明文字"
         },
         {
+          "type": "richtext",
+          "id": "description_mobile",
+          "label": "移动端说明（留空使用共用说明）"
+        },
+        {
           "type": "text",
           "id": "value",
           "label": "邮箱地址"
+        },
+        {
+          "type": "image_picker",
+          "id": "copy_image",
+          "label": "复制按钮图标（留空使用 SVG）"
         }
       ]
     }
@@ -630,7 +675,8 @@
           "settings": {
             "title": "よくあるご質問(FAQ)",
             "icon": "faq",
-            "link": "https://jp.ulike.com/pages/faq"
+            "link": "https://jp.ulike.com/pages/faq",
+            "title_mobile": "よくあるご質問"
           }
         },
         {
@@ -668,7 +714,8 @@
             "description": "<p>必要事項をご入力のうえ、フォームよりお問い合わせください。</p>",
             "hours": "受付時間：平日10:00〜18:00",
             "button_label": "フォームから問い合わせる",
-            "link": "https://ticket.quickcep.com/outForm?companyId=2226&worksheetId=6a6872425199d35caf6ee54b&outFormId=6ab22a5985e4730e8b4a4e87&source=1&versionId=3ff688a01bd64f469b48782266e32e55"
+            "link": "https://ticket.quickcep.com/outForm?companyId=2226&worksheetId=6a6872425199d35caf6ee54b&outFormId=6ab22a5985e4730e8b4a4e87&source=1&versionId=3ff688a01bd64f469b48782266e32e55",
+            "description_mobile": "<p>必要事項をご入力のうえ、<br>フォームよりお問い合わせください。</p>"
           }
         },
         {
