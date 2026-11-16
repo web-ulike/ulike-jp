@@ -14,13 +14,13 @@
   {%- endif -%}
   <div class="refer-friend-content container">
     <div class="refer-friend-copy refer-friend-copy--desktop">
-      {%- if se_stts.title != blank -%}<h1 class="refer-friend-title">{{ se_stts.title }}</h1>{%- endif -%}
+      {%- if se_stts.title != blank -%}<div class="refer-friend-title">{{ se_stts.title }}</div>{%- endif -%}
       {%- if se_stts.description != blank -%}
         <div class="refer-friend-description">{{ se_stts.description | escape | newline_to_br }}</div>
       {%- endif -%}
     </div>
     <div class="refer-friend-copy refer-friend-copy--mobile">
-      {%- if mobile_title != blank -%}<h1 class="refer-friend-title">{{ mobile_title }}</h1>{%- endif -%}
+      {%- if mobile_title != blank -%}<div class="refer-friend-title">{{ mobile_title }}</div>{%- endif -%}
       {%- if se_stts.m_subtitle != blank -%}<p class="refer-friend-subtitle">{{ se_stts.m_subtitle | escape }}</p>{%- endif -%}
       {%- if se_stts.m_description != blank -%}
         <div class="refer-friend-description">{{ se_stts.m_description | escape | newline_to_br }}</div>
