@@ -29,7 +29,7 @@
                   {{
                     block.settings.image
                     | image_url: width: 96
-                    | image_tag: widths: '32, 64, 96', sizes: '(max-width: 767px) 40px, 30px', loading: 'lazy', alt: ''
+                    | image_tag: widths: '32, 64, 96', sizes: '(max-width: 767px) clamp(26px, 8vw, 34px), 30px', loading: 'lazy', alt: ''
                   }}
                 {% else %}
                   <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -519,11 +519,14 @@
       background: var(--contact-quick-bg);
     }
     .jp-contact-2026__quick-grid {
-      gap: var(--contact-gap);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: clamp(8px, calc(58.18vw - 178.18px), 40px);
     }
     .jp-contact-2026__quick {
       border: 0;
-      min-height: 57px;
+      min-height: 0;
       padding: 0;
       flex-direction: column;
       gap: var(--contact-gap);
@@ -532,20 +535,21 @@
       text-align: center;
     }
     .jp-contact-2026__quick-icon {
-      width: clamp(34px, 10.67vw, 44px);
-      height: clamp(34px, 10.67vw, 44px);
+      width: clamp(26px, 8vw, 34px);
+      height: clamp(26px, 8vw, 34px);
     }
     .jp-contact-2026__arrow {
       display: block;
-      width: clamp(10px, 3.20vw, 14px);
-      height: clamp(16px, 4.80vw, 20px);
+      width: clamp(4px, 1.1vw, 5px);
+      height: clamp(6px, 1.88vw, 8px);
       overflow: visible;
     }
     .jp-contact-2026__arrow path {
-      stroke-width: 2.5;
+      stroke-width: 1px;
+      vector-effect: non-scaling-stroke;
     }
     .jp-contact-2026__quick-label {
-      gap: var(--contact-gap);
+      gap: clamp(6px, 2.13vw, 9px);
       white-space: normal;
     }
     .jp-contact-2026__desktop-copy {
