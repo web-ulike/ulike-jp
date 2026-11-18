@@ -15,11 +15,41 @@
         let locationUrl = `${_base}/login?returnUrl=${_href}`; //登录路由
 
 
+        // 前端展示人数，不作为真实领取统计；仅在登录弹窗可见时递增。
+        const claimCountElement = $invitation.find('[data-claim-count]')[0];
+        const claimCountText = claimCountElement ? claimCountElement.textContent : '';
+        const claimCountMatch = claimCountText.match(/[0-9][0-9,，]*/);
+        let claimCount = claimCountMatch ? Number(claimCountMatch[0].replace(/[,，]/g, '')) : NaN;
+        let claimCountTimer = null;
+        let isLoginModalOpen = false;
+        const claimCountFormatter = new Intl.NumberFormat('ja-JP');
+
+        function stopClaimCount() {
+            clearTimeout(claimCountTimer);
+            claimCountTimer = null;
+        }
+
+        function startClaimCount() {
+            stopClaimCount();
+            if (!isLoginModalOpen || document.hidden || !Number.isSafeInteger(claimCount)) return;
+
+            claimCountTimer = setTimeout(() => {
+                claimCount += Math.floor(Math.random() * 3) + 1;
+                claimCountElement.textContent = claimCountText.replace(claimCountMatch[0], claimCountFormatter.format(claimCount));
+                startClaimCount();
+            }, 5000 + Math.floor(Math.random() * 5001));
+        }
+
+        document.addEventListener('visibilitychange', startClaimCount);
+        window.addEventListener('pagehide', stopClaimCount);
+
         //判断是否登录方法 未登录记录埋点  跳转至登录页
         function jumpLoginPage() {
             console.log('getLoginStatus',getLoginStatus)
             window.UlikeCommon.commonGtmEvent('老带新，浏览页面，未登录点击', 'more-btn', 'no-login');
             $('.login-modal').fadeIn(200);
+            isLoginModalOpen = true;
+            startClaimCount();
             $('body').addClass('no-scroll');
         
         }
@@ -612,6 +642,8 @@
 
         //关闭登录弹窗
         function loginModalClose() {
+            isLoginModalOpen = false;
+            stopClaimCount();
             $('.login-modal').fadeOut(200);
             $('body').removeClass('no-scroll');
             // 清除校验提示和输入内容

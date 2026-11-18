@@ -1060,6 +1060,11 @@
     font-weight: 500;
   }
 
+  .login-modal .login-modal-count {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
   .login-modal .login-modal-yen {
     flex-shrink: 0;
   }
@@ -1620,7 +1625,7 @@
           </button>
         </form>
         <div class="login-modal-text">
-          <span>{{ section.settings.claim_count | escape }}</span>
+          <span class="login-modal-count" data-claim-count>{{ section.settings.claim_count | escape }}</span>
           <div>{{ section.settings.claimed_text | escape }}</div>
           <span>{{ section.settings.claim_amount | replace: '$', '¥' | escape }}</span>
           <svg class="login-modal-yen" width="32" height="18" viewBox="0 0 32 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
