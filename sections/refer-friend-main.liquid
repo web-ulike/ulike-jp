@@ -1332,9 +1332,6 @@
   <div class="gameplay-box gameplay-box-top  gameplay-box-info">
     <p class="title">{{ section.settings.intro_title | escape }}</p>
     <div class="gameplay-description">
-      <p>{{ section.settings.intro_line_1 | escape }}</p>
-      <p>{{ section.settings.intro_line_2 | escape }}</p>
-
       <p>{{ section.settings.invite_heading | escape }}</p>
       {%- if section.settings.invite_instructions != blank -%}
         <div class="invitation-instructions">{{ section.settings.invite_instructions }}</div>
@@ -1617,25 +1614,13 @@
       "content": "Referral copy"
     },
     { "type": "text", "id": "intro_title", "label": "Introduction title", "default": "Program Introduction" },
-    {
-      "type": "textarea",
-      "id": "intro_line_1",
-      "label": "Introduction text 1",
-      "default": "Invite your friends, and earn $50 cash per order!"
-    },
-    {
-      "type": "textarea",
-      "id": "intro_line_2",
-      "label": "Introduction text 2",
-      "default": "Your cash can be withdrawn via PayPal."
-    },
     { "type": "text", "id": "invite_heading", "label": "Invitation instructions heading", "default": "How to invite:" },
     {
       "type": "html",
       "id": "invite_instructions",
       "label": "Invitation instructions HTML",
       "info": "支持 HTML，可使用 style 设置字号、颜色，使用 br 换行。",
-      "default": "<p><span class=\"invitation-instructions__primary\">1. Share your invite code - your friends use it to get a discount when they place an order.</span> <span class=\"invitation-instructions__secondary\">2. Share your invite link - friends click, order with a discount, and your commission will be paid out.</span></p>"
+      "default": "<p>Invite your friends, and earn $50 cash per order! Your cash can be withdrawn via PayPal.</p><p><span class=\"invitation-instructions__primary\">1. Share your invite code - your friends use it to get a discount when they place an order.</span> <span class=\"invitation-instructions__secondary\">2. Share your invite link - friends click, order with a discount, and your commission will be paid out.</span></p>"
     },
     { "type": "header", "content": "Product cards" },
     {
