@@ -53,7 +53,7 @@
                   </span></span
                 >
                 <svg class="jp-contact-2026__arrow" viewBox="0 0 8 12" fill="none" aria-hidden="true">
-                  <path d="m1 1 5 5-5 5" stroke="currentColor"/>
+                  <path d="m1 1 5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </span>
               {% if block.settings.link != blank %}</a>{% else %}</div>{% endif %}
@@ -273,7 +273,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 16px;
   }
   .jp-contact-2026__mobile-copy {
     display: none;
@@ -294,8 +294,8 @@
     object-fit: contain;
   }
   .jp-contact-2026__arrow {
-    width: 6px;
-    height: 12px;
+    width: 10px;
+    height: 16px;
     color: var(--contact-accent);
     flex-shrink: 0;
   }
@@ -524,11 +524,11 @@
     }
     .jp-contact-2026__arrow {
       display: block;
-      width: 4px;
-      height: 7px;
+      width: 8px;
+      height: 12px;
     }
     .jp-contact-2026__quick-label {
-      gap: 8px;
+      gap: 12px;
       white-space: nowrap;
     }
     .jp-contact-2026__desktop-copy {
