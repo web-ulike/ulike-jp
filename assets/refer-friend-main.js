@@ -455,12 +455,13 @@
                     if (variant) referralUrl.searchParams.set('variant', variant);
 
                     $card.find('.code-top').text(code).attr('data-code', code);
-                    $card.find('.invitation-product__copy-btn').attr('data-url', referralUrl.href);
+                    // $card.find('.invitation-product__copy-btn').attr('data-url', referralUrl.href);
                     // if (coupon.discountAmount != null) {
                     //     const $discount = $card.find('.code-disscount');
-                    //     $discount.find('span').text('$' + coupon.discountAmount);
-                    //     $discount.show();
+                    //     // $discount.find('span').text('$' + coupon.discountAmount);
+                        
                     // }
+                    $discount.show();
                 });
             }
             if (fund) {
