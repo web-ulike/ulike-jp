@@ -824,7 +824,13 @@
         {
           "type": "text",
           "id": "title",
-          "label": "标题"
+          "label": "PC 端文案"
+        },
+        {
+          "type": "text",
+          "id": "title_mobile",
+          "label": "手机端文案",
+          "info": "单独设置手机端显示的文字；留空时使用 PC 端文案。"
         },
         {
           "type": "url",
@@ -855,11 +861,6 @@
           "type": "image_picker",
           "id": "image",
           "label": "替换图标"
-        },
-        {
-          "type": "text",
-          "id": "title_mobile",
-          "label": "移动端标题（留空使用共用标题）"
         }
       ]
     },
@@ -1158,7 +1159,8 @@
           "settings": {
             "title": "配送状況の確認",
             "icon": "tracking",
-            "link": "https://jp.ulike.com/tools/track-my-order?ref=footer"
+            "link": "https://jp.ulike.com/tools/track-my-order?ref=footer",
+            "title_mobile": "配送状況の確認"
           }
         },
         {
@@ -1166,7 +1168,8 @@
           "settings": {
             "title": "取扱説明書",
             "icon": "guide",
-            "link": "https://jp.ulike.com/pages/download-using-guide"
+            "link": "https://jp.ulike.com/pages/download-using-guide",
+            "title_mobile": "取扱説明書"
           }
         },
         {
