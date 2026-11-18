@@ -29,6 +29,17 @@
       font-size: 20px;
       color: #4d4d4d;
     }
+    #referfriend-invitation-content .invitation-instructions {
+      text-wrap: pretty;
+    }
+    #referfriend-invitation-content .invitation-instructions__primary {
+      color: #333333;
+      font-weight: 500;
+    }
+    #referfriend-invitation-content .invitation-instructions__secondary {
+      color: #666666;
+      font-weight: 400;
+    }
     #referfriend-invitation-content .copy-code-top {
       display: flex;
       align-items: center;
@@ -1321,8 +1332,16 @@
       <p>{{ section.settings.intro_line_2 | escape }}</p>
 
       <p>{{ section.settings.invite_heading | escape }}</p>
-      <p>{{ section.settings.invite_step_1 | escape }}</p>
-      <p>{{ section.settings.invite_step_2 | escape }}</p>
+      {%- if section.settings.invite_step_1 != blank or section.settings.invite_step_2 != blank -%}
+        <p class="invitation-instructions">
+          {%- if section.settings.invite_step_1 != blank -%}
+            <span class="invitation-instructions__primary">{{ section.settings.invite_step_1 | escape }}</span>
+          {%- endif -%}
+          {% if section.settings.invite_step_2 != blank %}
+            <span class="invitation-instructions__secondary">{{ section.settings.invite_step_2 | escape }}</span>
+          {%- endif -%}
+        </p>
+      {%- endif -%}
     </div>
   </div>
   {%- if section.blocks.size == 0 and section.settings.show_legacy_products -%}
