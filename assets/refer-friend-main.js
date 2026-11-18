@@ -128,7 +128,7 @@
                 //佣金页点击提现埋点
                 isLoginPriont('老带新，佣金页，点击提现', 'withdraw-btn', '')
             }
-            let emailVal = $('.withdraw .ped-price-total').text().replace('¥', '');
+            let emailVal = $('.withdraw .ped-price-total').text().replace(/[¥円,]/g, '');
             if (Number(emailVal) > 0) {
                 $('.modal-mask,.modal-container').fadeIn(200);
             } else {
@@ -220,7 +220,7 @@
                         $('.modal-header').hide();
                         $('.modal-container').css('height', '344px');
                         $('.modal-body').fadeIn(200);
-                        $('#referfriend-invitation-content .withdraw .ped-price-total').text('¥0');
+                        $('#referfriend-invitation-content .withdraw .ped-price-total').text('0円');
                         //提现成功埋点
                         isLoginPriont('老带新，提现页，进入提现成功页', 'info-successPage', '')
                     }
@@ -465,9 +465,9 @@
                 });
             }
             if (fund) {
-                $('#referfriend-invitation-content .modal-price').text('¥' + fund.data.availableAmount);
-                $('#referfriend-invitation-content .pending .ped-price-total').text('¥' + fund.data.freezeAmount);
-                $('#referfriend-invitation-content .withdraw .ped-price-total').text('¥' + fund.data.availableAmount);
+                $('#referfriend-invitation-content .modal-price').text(Number(fund.data.availableAmount) === 0 ? '0円' : '¥' + fund.data.availableAmount);
+                $('#referfriend-invitation-content .pending .ped-price-total').text(Number(fund.data.freezeAmount) === 0 ? '0円' : '¥' + fund.data.freezeAmount);
+                $('#referfriend-invitation-content .withdraw .ped-price-total').text(Number(fund.data.availableAmount) === 0 ? '0円' : '¥' + fund.data.availableAmount);
             }
 
 
