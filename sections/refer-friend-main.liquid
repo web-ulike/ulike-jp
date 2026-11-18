@@ -1443,11 +1443,11 @@
     </div>
     <div class="price-area">
       <div class="pending">
-        <p class="ped-price-total">$0</p>
+        <p class="ped-price-total">¥0</p>
         <p class="ped-price-des">{{ section.settings.pending_rewards_label | escape }}</p>
       </div>
       <div class="withdraw">
-        <p class="ped-price-total">$0</p>
+        <p class="ped-price-total">¥0</p>
         <p class="ped-price-des">{{ section.settings.available_cash_label | escape }}</p>
         <button class="withdraw-btn">{{ section.settings.withdraw_label | escape }}</button>
       </div>
@@ -1503,7 +1503,7 @@
     </div>
     <div class="modal-header">
       <p class="modal-title">{{ section.settings.withdrawal_title | escape }}</p>
-      <p class="modal-price">$50</p>
+      <p class="modal-price">¥50</p>
       <p class="iput-email-title">
         {{ section.settings.email_label | escape -}}
         <span class="order-status-red asterisk">&nbsp;*</span>
@@ -1623,7 +1623,7 @@
         <div class="login-modal-text">
           <span>{{ section.settings.claim_count | escape }}</span>
           <div>{{ section.settings.claimed_text | escape }}</div>
-          <span>{{ section.settings.claim_amount | escape }}</span>
+          <span>{{ section.settings.claim_amount | replace: '$', '¥' | escape }}</span>
           <svg class width="32" height="18" viewBox="0 0 32 18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="Frame 457393804">
               <path id="Vector" d="M0 0V14.8115H29.8181V0H0ZM28.1681 9.86249C28.0797 9.84475 27.9733 9.84475 27.8666 9.84475C25.9331 9.84475 24.3544 11.406 24.3369 13.3392H5.1441C5.12636 11.4057 3.54766 9.84475 1.61418 9.84475V4.82481C3.51218 4.82481 5.05541 3.31706 5.1441 1.45454H24.3369C24.4253 3.3348 25.9688 4.82481 27.8666 4.82481C27.9733 4.82481 28.0797 4.82481 28.1681 4.80708V9.86249Z" fill="#87C596"/>
@@ -1655,7 +1655,7 @@
       "id": "invite_instructions",
       "label": "Invitation instructions HTML",
       "info": "支持 HTML，可使用 style 设置字号、颜色，使用 br 换行。",
-      "default": "<p>Invite your friends, and earn $50 cash per order! Your cash can be withdrawn via PayPal.</p><p><span class=\"invitation-instructions__primary\">1. Share your invite code - your friends use it to get a discount when they place an order.</span> <span class=\"invitation-instructions__secondary\">2. Share your invite link - friends click, order with a discount, and your commission will be paid out.</span></p>"
+      "default": "<p>Invite your friends, and earn ¥50 cash per order! Your cash can be withdrawn via PayPal.</p><p><span class=\"invitation-instructions__primary\">1. Share your invite code - your friends use it to get a discount when they place an order.</span> <span class=\"invitation-instructions__secondary\">2. Share your invite link - friends click, order with a discount, and your commission will be paid out.</span></p>"
     },
     { "type": "header", "content": "Product cards" },
     {
@@ -1699,8 +1699,8 @@
       "default": "The next-generation in simple, lasting hair removal"
     },
     { "type": "image_picker", "id": "product_image", "label": "Air 10 image" },
-    { "type": "text", "id": "product_price", "label": "Air 10 displayed price", "default": "$349" },
-    { "type": "text", "id": "product_commission", "label": "Air 10 displayed commission", "default": "$50" },
+    { "type": "text", "id": "product_price", "label": "Air 10 displayed price", "default": "¥349" },
+    { "type": "text", "id": "product_commission", "label": "Air 10 displayed commission", "default": "¥50" },
     { "type": "header", "content": "Legacy ReGlow card" },
     {
       "type": "text",
@@ -1716,8 +1716,8 @@
       "label": "ReGlow description",
       "default": "The breakthrough skin renewalmask powered by advanced LEDs"
     },
-    { "type": "text", "id": "reglow_price", "label": "ReGlow displayed price", "default": "$399" },
-    { "type": "text", "id": "reglow_commission", "label": "ReGlow displayed commission", "default": "$50" },
+    { "type": "text", "id": "reglow_price", "label": "ReGlow displayed price", "default": "¥399" },
+    { "type": "text", "id": "reglow_commission", "label": "ReGlow displayed commission", "default": "¥50" },
     { "type": "text", "id": "price_label", "label": "Price label", "default": "Price" },
     { "type": "text", "id": "commission_label", "label": "Commission label", "default": "Commission" },
     { "type": "text", "id": "copy_link_label", "label": "Copy link label", "default": "Copy Link" },
@@ -1875,7 +1875,7 @@
     },
     { "type": "text", "id": "claim_count", "label": "Claim count", "default": "9,874" },
     { "type": "text", "id": "claimed_text", "label": "Claimed text", "default": "people have already claimed" },
-    { "type": "text", "id": "claim_amount", "label": "Claim amount", "default": "$100" }
+    { "type": "text", "id": "claim_amount", "label": "Claim amount", "default": "¥100" }
   ],
   "blocks": [
     {
