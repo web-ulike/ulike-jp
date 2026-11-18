@@ -1389,7 +1389,10 @@
   {%- endif -%}
 
   <div class="gameplay-box">
-    <div class="title">{{ section.settings.rewards_title | escape }}<button type="button" class="rewards-more">{{ section.settings.more_label | escape }}&nbsp;&nbsp;></button></div>
+    <div class="title">
+      {{ section.settings.rewards_title | escape -}}
+      <button type="button" class="rewards-more">{{ section.settings.more_label | escape }}&nbsp;&nbsp;></button>
+    </div>
     <div class="price-area">
       <div class="pending">
         <p class="ped-price-total">$0</p>
@@ -1453,14 +1456,25 @@
     <div class="modal-header">
       <p class="modal-title">{{ section.settings.withdrawal_title | escape }}</p>
       <p class="modal-price">$50</p>
-      <p class="iput-email-title">{{ section.settings.email_label | escape }}<span class="order-status-red asterisk">&nbsp;*</span></p>
+      <p class="iput-email-title">
+        {{ section.settings.email_label | escape -}}
+        <span class="order-status-red asterisk">&nbsp;*</span>
+      </p>
       <input class="withdrawal-email" type="text" placeholder="{{ section.settings.email_placeholder | escape }}">
       <p class="email-default">{{ section.settings.paypal_email_hint | escape }}</p>
       <p class="email-error">{{ section.settings.email_format_error | escape }}</p>
 
-      <p class="iput-code-title">{{ section.settings.code_label | escape }}<span class="order-status-red asterisk">&nbsp;*</span></p>
+      <p class="iput-code-title">
+        {{ section.settings.code_label | escape -}}
+        <span class="order-status-red asterisk">&nbsp;*</span>
+      </p>
       <div class="code-wrapper">
-        <input class="withdrawal-code" type="text" placeholder="{{ section.settings.code_placeholder | escape }}" maxlength="6">
+        <input
+          class="withdrawal-code"
+          type="text"
+          placeholder="{{ section.settings.code_placeholder | escape }}"
+          maxlength="6"
+        >
         <span class="getcode">{{ section.settings.get_code | escape }}</span>
       </div>
       <p class="code-error">{{ section.settings.code_error | escape }}</p>
@@ -1523,11 +1537,23 @@
         <div class="login-modal-desc">{{ section.settings.login_description | escape }}</div>
         <form id="loginForm" novalidate>
           <div class="form-group">
-            <input type="email" class="login-email" name="email" placeholder="{{ section.settings.login_email_placeholder | escape }}" required>
+            <input
+              type="email"
+              class="login-email"
+              name="email"
+              placeholder="{{ section.settings.login_email_placeholder | escape }}"
+              required
+            >
             <div class="error" id="emailError"></div>
           </div>
           <div class="form-group">
-            <input type="password" class="login-password" name="password" placeholder="{{ section.settings.login_password_prompt | escape }}" required>
+            <input
+              type="password"
+              class="login-password"
+              name="password"
+              placeholder="{{ section.settings.login_password_prompt | escape }}"
+              required
+            >
             <div class="error" id="passwordError"></div>
           </div>
           <button class="form-submit" type="submit">
@@ -1575,30 +1601,90 @@
       "content": "Referral copy"
     },
     { "type": "text", "id": "intro_title", "label": "Introduction title", "default": "Program Introduction" },
-    { "type": "textarea", "id": "intro_line_1", "label": "Introduction text 1", "default": "Invite your friends, and earn $50 cash per order!" },
-    { "type": "textarea", "id": "intro_line_2", "label": "Introduction text 2", "default": "Your cash can be withdrawn via PayPal." },
+    {
+      "type": "textarea",
+      "id": "intro_line_1",
+      "label": "Introduction text 1",
+      "default": "Invite your friends, and earn $50 cash per order!"
+    },
+    {
+      "type": "textarea",
+      "id": "intro_line_2",
+      "label": "Introduction text 2",
+      "default": "Your cash can be withdrawn via PayPal."
+    },
     { "type": "text", "id": "invite_heading", "label": "Invitation instructions heading", "default": "How to invite:" },
-    { "type": "textarea", "id": "invite_step_1", "label": "Invitation instruction 1", "default": "1. Share your invite code - your friends use it to get a discount when they place an order." },
-    { "type": "textarea", "id": "invite_step_2", "label": "Invitation instruction 2", "default": "2. Share your invite link - friends click, order with a discount, and your commision will be paid out." },
+    {
+      "type": "textarea",
+      "id": "invite_step_1",
+      "label": "Invitation instruction 1",
+      "default": "1. Share your invite code - your friends use it to get a discount when they place an order."
+    },
+    {
+      "type": "textarea",
+      "id": "invite_step_2",
+      "label": "Invitation instruction 2",
+      "default": "2. Share your invite link - friends click, order with a discount, and your commision will be paid out."
+    },
     { "type": "header", "content": "Product cards" },
-    { "type": "text", "id": "select_product_label", "label": "Empty product block message", "default": "商品を選択してください。" },
-    { "type": "text", "id": "coupon_unavailable", "label": "Invitation code unavailable message", "default": "この商品の紹介コードは現在ご利用いただけません。" },
-    { "type": "checkbox", "id": "show_legacy_products", "label": "Show legacy cards when there are no product blocks", "default": true },
+    {
+      "type": "text",
+      "id": "select_product_label",
+      "label": "Empty product block message",
+      "default": "商品を選択してください。"
+    },
+    {
+      "type": "text",
+      "id": "coupon_unavailable",
+      "label": "Invitation code unavailable message",
+      "default": "この商品の紹介コードは現在ご利用いただけません。"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_legacy_products",
+      "label": "Show legacy cards when there are no product blocks",
+      "default": true
+    },
     { "type": "header", "content": "Legacy Air 10 card" },
-    { "type": "text", "id": "invitation_code_label", "label": "Invitation code label", "default": "Air 10 Invitation Code：" },
+    {
+      "type": "text",
+      "id": "invitation_code_label",
+      "label": "Invitation code label",
+      "default": "Air 10 Invitation Code："
+    },
     { "type": "text", "id": "copy_label", "label": "Copy label", "default": "Copy" },
-    { "type": "text", "id": "discount_prefix", "label": "Discount text before amount", "default": "Share with a friend and they can get" },
+    {
+      "type": "text",
+      "id": "discount_prefix",
+      "label": "Discount text before amount",
+      "default": "Share with a friend and they can get"
+    },
     { "type": "text", "id": "discount_suffix", "label": "Discount text after amount", "default": "off" },
     { "type": "text", "id": "product_title", "label": "Product title", "default": "Ulike Air 10" },
-    { "type": "textarea", "id": "product_description", "label": "Product description", "default": "The next-generation in simple, lasting hair removal" },
+    {
+      "type": "textarea",
+      "id": "product_description",
+      "label": "Product description",
+      "default": "The next-generation in simple, lasting hair removal"
+    },
     { "type": "image_picker", "id": "product_image", "label": "Air 10 image" },
     { "type": "text", "id": "product_price", "label": "Air 10 displayed price", "default": "$349" },
     { "type": "text", "id": "product_commission", "label": "Air 10 displayed commission", "default": "$50" },
     { "type": "header", "content": "Legacy ReGlow card" },
-    { "type": "text", "id": "reglow_code_label", "label": "ReGlow invitation code label", "default": "ReGlow Invitation Code：" },
+    {
+      "type": "text",
+      "id": "reglow_code_label",
+      "label": "ReGlow invitation code label",
+      "default": "ReGlow Invitation Code："
+    },
     { "type": "image_picker", "id": "reglow_image", "label": "ReGlow image" },
     { "type": "text", "id": "reglow_title", "label": "ReGlow title", "default": "Ulike ReGlow" },
-    { "type": "textarea", "id": "reglow_description", "label": "ReGlow description", "default": "The breakthrough skin renewalmask powered by advanced LEDs" },
+    {
+      "type": "textarea",
+      "id": "reglow_description",
+      "label": "ReGlow description",
+      "default": "The breakthrough skin renewalmask powered by advanced LEDs"
+    },
     { "type": "text", "id": "reglow_price", "label": "ReGlow displayed price", "default": "$399" },
     { "type": "text", "id": "reglow_commission", "label": "ReGlow displayed commission", "default": "$50" },
     { "type": "text", "id": "price_label", "label": "Price label", "default": "Price" },
@@ -1607,41 +1693,106 @@
     { "type": "header", "content": "Rewards and records" },
     { "type": "text", "id": "rewards_title", "label": "Rewards title", "default": "My Rewards" },
     { "type": "text", "id": "more_label", "label": "More link label", "default": "More" },
-    { "type": "text", "id": "back_to_referrals_label", "label": "Back to referrals button label", "default": "友達紹介に戻る" },
+    {
+      "type": "text",
+      "id": "back_to_referrals_label",
+      "label": "Back to referrals button label",
+      "default": "友達紹介に戻る"
+    },
     { "type": "text", "id": "pending_rewards_label", "label": "Pending rewards label", "default": "Pending Rewards" },
-    { "type": "text", "id": "available_cash_label", "label": "Available cash label", "default": "Cash Available for Withdrawal" },
+    {
+      "type": "text",
+      "id": "available_cash_label",
+      "label": "Available cash label",
+      "default": "Cash Available for Withdrawal"
+    },
     { "type": "text", "id": "withdraw_label", "label": "Withdraw button label", "default": "Withdraw" },
     { "type": "text", "id": "records_title", "label": "Records title", "default": "Invitation record" },
-    { "type": "text", "id": "invitation_records_label", "label": "Invitation records tab", "default": "Invitation Records" },
-    { "type": "text", "id": "commission_details_label", "label": "Commission details tab", "default": "Commission Details" },
+    {
+      "type": "text",
+      "id": "invitation_records_label",
+      "label": "Invitation records tab",
+      "default": "Invitation Records"
+    },
+    {
+      "type": "text",
+      "id": "commission_details_label",
+      "label": "Commission details tab",
+      "default": "Commission Details"
+    },
     { "type": "text", "id": "type_label", "label": "Type column label", "default": "Type" },
     { "type": "text", "id": "amount_label", "label": "Amount column label", "default": "Amount" },
     { "type": "header", "content": "Record details" },
-    { "type": "text", "id": "no_records", "label": "No records message", "default": "There is no record for the moment." },
+    {
+      "type": "text",
+      "id": "no_records",
+      "label": "No records message",
+      "default": "There is no record for the moment."
+    },
     { "type": "text", "id": "orders_label", "label": "Orders label", "default": "Orders" },
     { "type": "text", "id": "settlement_time_label", "label": "Settlement time label", "default": "Settlement time" },
     { "type": "text", "id": "purchase_time_label", "label": "Purchase time label", "default": "Purchase Time" },
     { "type": "text", "id": "subscribers_label", "label": "Subscribers label", "default": "Subscribers" },
     { "type": "text", "id": "order_status_label", "label": "Order status label", "default": "Order Status" },
     { "type": "text", "id": "order_amount_label", "label": "Order amount label", "default": "Order Amount" },
-    { "type": "text", "id": "commission_settled", "label": "Commission settled status", "default": "Commission settled" },
-    { "type": "text", "id": "commission_pending", "label": "Commission pending status", "default": "Payment successful, commission to be settled" },
+    {
+      "type": "text",
+      "id": "commission_settled",
+      "label": "Commission settled status",
+      "default": "Commission settled"
+    },
+    {
+      "type": "text",
+      "id": "commission_pending",
+      "label": "Commission pending status",
+      "default": "Payment successful, commission to be settled"
+    },
     { "type": "text", "id": "order_refunded", "label": "Order refunded status", "default": "Order refund, invalid" },
-    { "type": "text", "id": "withdrawal_successful", "label": "Withdrawal successful status", "default": "Withdrawal successful" },
+    {
+      "type": "text",
+      "id": "withdrawal_successful",
+      "label": "Withdrawal successful status",
+      "default": "Withdrawal successful"
+    },
     { "type": "text", "id": "withdrawing", "label": "Withdrawing status", "default": "Withdrawing" },
     { "type": "text", "id": "withdrawal_failed", "label": "Withdrawal failed status", "default": "Withdrawal failed" },
-    { "type": "text", "id": "withdraw_account_prefix", "label": "Withdrawal account prefix", "default": "Withdraw, account:" },
-    { "type": "text", "id": "commission_settlement", "label": "Commission settlement type", "default": "Commission settlement" },
+    {
+      "type": "text",
+      "id": "withdraw_account_prefix",
+      "label": "Withdrawal account prefix",
+      "default": "Withdraw, account:"
+    },
+    {
+      "type": "text",
+      "id": "commission_settlement",
+      "label": "Commission settlement type",
+      "default": "Commission settlement"
+    },
     { "type": "header", "content": "Withdrawal dialog" },
     { "type": "text", "id": "copied_success", "label": "Copy success message", "default": "Copied Success" },
     { "type": "text", "id": "error_prefix", "label": "Error prefix", "default": "error:" },
-    { "type": "text", "id": "insufficient_balance", "label": "Insufficient balance message", "default": "The current amount does not support withdrawal" },
+    {
+      "type": "text",
+      "id": "insufficient_balance",
+      "label": "Insufficient balance message",
+      "default": "The current amount does not support withdrawal"
+    },
     { "type": "image_picker", "id": "modal_close_image", "label": "Close icon" },
     { "type": "text", "id": "withdrawal_title", "label": "Withdrawal title", "default": "Withdrawal" },
     { "type": "text", "id": "email_label", "label": "Email label", "default": "Email" },
     { "type": "text", "id": "email_placeholder", "label": "Email placeholder", "default": "Enter email" },
-    { "type": "text", "id": "paypal_email_hint", "label": "PayPal email hint", "default": "Please enter your PayPal email address for withdrawal" },
-    { "type": "text", "id": "email_format_error", "label": "Email format error", "default": "The email format is incorrect." },
+    {
+      "type": "text",
+      "id": "paypal_email_hint",
+      "label": "PayPal email hint",
+      "default": "Please enter your PayPal email address for withdrawal"
+    },
+    {
+      "type": "text",
+      "id": "email_format_error",
+      "label": "Email format error",
+      "default": "The email format is incorrect."
+    },
     { "type": "text", "id": "code_label", "label": "Code label", "default": "Code" },
     { "type": "text", "id": "code_placeholder", "label": "Code placeholder", "default": "Enter code" },
     { "type": "text", "id": "get_code", "label": "Get code button", "default": "Get code" },
@@ -1649,18 +1800,48 @@
     { "type": "text", "id": "code_error", "label": "Code verification error", "default": "Verification code error." },
     { "type": "text", "id": "submit_label", "label": "Submit button", "default": "Submit" },
     { "type": "image_picker", "id": "success_image", "label": "Success image" },
-    { "type": "textarea", "id": "withdrawal_success_text", "label": "Withdrawal success message", "default": "The application has been submitted and it is expected to arrive within one hour." },
-    { "type": "text", "id": "view_withdrawal_details", "label": "Withdrawal details button", "default": "View withdrawal details" },
+    {
+      "type": "textarea",
+      "id": "withdrawal_success_text",
+      "label": "Withdrawal success message",
+      "default": "The application has been submitted and it is expected to arrive within one hour."
+    },
+    {
+      "type": "text",
+      "id": "view_withdrawal_details",
+      "label": "Withdrawal details button",
+      "default": "View withdrawal details"
+    },
     { "type": "header", "content": "Login dialog" },
     { "type": "image_picker", "id": "login_header_image", "label": "Login header image" },
     { "type": "text", "id": "login_title", "label": "Login title", "default": "Earn Big Cash Rewards" },
-    { "type": "text", "id": "login_description", "label": "Login description", "default": "Sign up or log in to get your invite link" },
-    { "type": "text", "id": "login_email_placeholder", "label": "Login email placeholder", "default": "Please enter your email" },
+    {
+      "type": "text",
+      "id": "login_description",
+      "label": "Login description",
+      "default": "Sign up or log in to get your invite link"
+    },
+    {
+      "type": "text",
+      "id": "login_email_placeholder",
+      "label": "Login email placeholder",
+      "default": "Please enter your email"
+    },
     { "type": "text", "id": "login_password_prompt", "label": "Login password placeholder", "default": "Set Password" },
     { "type": "text", "id": "email_required", "label": "Email required error", "default": "Email cannot be empty" },
     { "type": "text", "id": "email_invalid", "label": "Invalid email error", "default": "Invalid email address" },
-    { "type": "text", "id": "password_invalid", "label": "Invalid password error", "default": "Please enter the correct password" },
-    { "type": "text", "id": "password_rule", "label": "Password format error", "default": "Your password requires 6-16 digits, and must contain letters and numbers" },
+    {
+      "type": "text",
+      "id": "password_invalid",
+      "label": "Invalid password error",
+      "default": "Please enter the correct password"
+    },
+    {
+      "type": "text",
+      "id": "password_rule",
+      "label": "Password format error",
+      "default": "Your password requires 6-16 digits, and must contain letters and numbers"
+    },
     { "type": "text", "id": "claim_count", "label": "Claim count", "default": "9,874" },
     { "type": "text", "id": "claimed_text", "label": "Claimed text", "default": "people have already claimed" },
     { "type": "text", "id": "claim_amount", "label": "Claim amount", "default": "$100" }
