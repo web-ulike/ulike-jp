@@ -186,6 +186,7 @@
                 {% endif %}
               {% when 'business' %}
                 {% if block.settings.value != blank %}
+                  <div class="jp-contact-2026__email-row">
                   <a
                     class="jp-contact-2026__value to-top"
                     style="transition-delay: 0.1s"
@@ -213,7 +214,8 @@
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
                         <path d="M8 3h13v14M3 7h14v14H3zM6 11h8M6 15h8"/>
                       </svg>
-                    {% endif %}
+                      </div>
+                {% endif %}
                   </button>
                 {% endif %}
             {% endcase %}
@@ -439,6 +441,7 @@
     width: 24px;
     height: 24px;
   }
+  .jp-contact-2026__email-row { display: contents; }
   .jp-contact-2026__status {
     display: none;
   }
@@ -553,13 +556,17 @@
       font-size: 30px;
     }
     .jp-contact-2026__notice {
-      margin: 16px 10px 0;
+      margin: 16px auto 0;
+      width: calc(100% - 20px);
+      max-width: 334px;
       padding: 12px 15px;
       font-size: 13px;
       line-height: 1.6;
     }
     .jp-contact-2026__description {
-      margin: 24px 0 32px;
+      margin: 20px auto 24px;
+      width: calc(100% - 20px);
+      max-width: 334px;
       font-size: 12px;
     }
     .jp-contact-2026__cards {
@@ -570,7 +577,7 @@
       max-width: 334px;
     }
     .jp-contact-2026__card {
-      padding: 32px 16px;
+      padding: 24px 16px;
       flex-direction: column;
       align-items: center;
       gap: 12px;
@@ -578,6 +585,7 @@
     }
     .jp-contact-2026__card-heading {
       justify-content: center;
+      align-items: flex-start;
       font-size: 20px;
       gap: 8px;
     }
@@ -587,8 +595,8 @@
       flex-basis: 26px;
     }
     .jp-contact-2026__card--contact {
-      padding: 32px 16px;
-      gap: 24px;
+      padding: 24px 16px;
+      gap: 20px;
     }
     .jp-contact-2026__card-description,
     .jp-contact-2026__hours {
@@ -626,13 +634,28 @@
       opacity: 1;
     }
     .jp-contact-2026__card--business {
-      flex-direction: row;
-      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 16px;
+    }
+    .jp-contact-2026__email-row {
+      display: flex;
+      align-items: center;
       justify-content: center;
       gap: 8px;
+      min-width: 0;
+    }
+    .jp-contact-2026__email-row .jp-contact-2026__value {
+      min-width: 0;
+      font-size: clamp(14px, 4.8vw, 18px);
+      white-space: nowrap;
+      overflow-wrap: normal;
+    }
+    .jp-contact-2026__email-row .jp-contact-2026__copy--icon {
+      flex-shrink: 0;
     }
     .jp-contact-2026__card--business .jp-contact-2026__card-intro {
-      flex: 0 0 100%;
+      flex: 0 0 auto;
     }
     .jp-contact-2026__card--business .jp-contact-2026__card-heading {
       max-width: 270px;
