@@ -41,17 +41,16 @@
                   </svg>
                 {% endif %}
               </span>
-              <span class="jp-contact-2026__quick-label"
-                ><span
-                  class="to-top"
-                  {% unless forloop.first %}
-                    style="transition-delay: {{ forloop.index0 | times: 0.1 }}s"
-                  {% endunless %}
-                  ><span class="jp-contact-2026__desktop-copy">{{ block.settings.title | escape }}</span
-                  ><span class="jp-contact-2026__mobile-copy">
-                    {{- block.settings.title_mobile | default: block.settings.title | escape -}}
-                  </span></span
-                >
+              <span
+                class="jp-contact-2026__quick-label to-top"
+                {% unless forloop.first %}
+                  style="transition-delay: {{ forloop.index0 | times: 0.1 }}s"
+                {% endunless %}
+              >
+                <span class="jp-contact-2026__desktop-copy">{{ block.settings.title | escape }}</span>
+                <span class="jp-contact-2026__mobile-copy">
+                  {{- block.settings.title_mobile | default: block.settings.title | escape -}}
+                </span>
                 <svg class="jp-contact-2026__arrow" xmlns="http://www.w3.org/2000/svg" width="8" height="11" viewBox="0 0 8 11" fill="none" aria-hidden="true">
                   <path d="M0.679408 0.655273L6.00195 4.63076L0.655273 9.81076" stroke-width="1.31048" stroke-linecap="round" stroke="#E0004D"/>
                 </svg>
