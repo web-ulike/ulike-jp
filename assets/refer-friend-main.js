@@ -37,7 +37,7 @@
                 claimCount += Math.floor(Math.random() * 3) + 1;
                 claimCountElement.textContent = claimCountText.replace(claimCountMatch[0], claimCountFormatter.format(claimCount));
                 startClaimCount();
-            }, 5000 + Math.floor(Math.random() * 5001));
+            }, 3000 + Math.floor(Math.random() * 2001));
         }
 
         document.addEventListener('visibilitychange', startClaimCount);
