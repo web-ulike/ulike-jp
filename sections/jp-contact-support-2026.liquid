@@ -1,29 +1,61 @@
 {% liquid
   assign quick_links = section.blocks | where: 'type', 'quick_link'
 %}
-<jp-contact-support-2026 class="jp-contact-2026" style="--contact-bg: {{ section.settings.background }}; --contact-ink: {{ section.settings.text_color }}; --contact-accent: {{ section.settings.accent }}; --contact-notice-bg: {{ section.settings.notice_background }}; --contact-quick-bg: {{ section.settings.quick_background }}; --contact-width: {{ section.settings.content_width }}px; --contact-bottom: {{ section.settings.padding_bottom }}px;" data-copied="{{ section.settings.copied_text | escape }}" data-copy-error="{{ section.settings.copy_error | escape }}">
+<jp-contact-support-2026
+  class="jp-contact-2026"
+  style="--contact-bg: {{ section.settings.background }}; --contact-ink: {{ section.settings.text_color }}; --contact-accent: {{ section.settings.accent }}; --contact-notice-bg: {{ section.settings.notice_background }}; --contact-quick-bg: {{ section.settings.quick_background }}; --contact-width: {{ section.settings.content_width }}px; --contact-bottom: {{ section.settings.padding_bottom }}px;"
+  data-copied="{{ section.settings.copied_text | escape }}"
+  data-copy-error="{{ section.settings.copy_error | escape }}"
+>
   {% if quick_links.size > 0 %}
     <div class="jp-contact-2026__quick-wrap">
       <div class="container jp-contact-2026__container">
         <div class="jp-contact-2026__quick-grid">
           {% for block in quick_links %}
             <div class="jp-contact-2026__quick-item" {{ block.shopify_attributes }}>
-              {% if block.settings.link != blank %}<a class="jp-contact-2026__quick" href="{{ block.settings.link }}"{% if section.settings.new_tab %} target="_blank" rel="noopener noreferrer"{% endif %}>{% else %}<div class="jp-contact-2026__quick">{% endif %}
-                <span class="jp-contact-2026__quick-icon" aria-hidden="true">
-                  {% if block.settings.image != blank %}
-                    {{ block.settings.image | image_url: width: 96 | image_tag: widths: '32, 64, 96', sizes: '30px', loading: 'lazy', alt: '' }}
-                  {% else %}
-                    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
-                      {% case block.settings.icon %}
-                        {% when 'faq' %}<circle cx="16" cy="16" r="12"/><path d="M12 12a4 4 0 1 1 6 3.5c-2 1-2 2-2 3.5M16 22v1"/>
-                        {% when 'tracking' %}<path d="M16 28s9-9 9-17a9 9 0 0 0-18 0c0 8 9 17 9 17Z"/><circle cx="16" cy="11" r="3"/><path d="M6 28h20"/>
-                        {% when 'guide' %}<path d="M5 5h9c2 0 2 1 2 2 0-1 1-2 3-2h8v22h-8c-2 0-3 1-3 1s-1-1-3-1H5V5Zm11 2v21M9 10h4M9 14h4M20 10h4M20 14h4"/>
-                      {% endcase %}
-                    </svg>
+              {% if block.settings.link != blank -%}
+                <a
+                  class="jp-contact-2026__quick"
+                  href="{{ block.settings.link }}"
+                  {% if section.settings.new_tab %}
+                    target="_blank" rel="noopener noreferrer"
                   {% endif %}
-                </span>
-                <span class="jp-contact-2026__quick-label"><span class="to-top"{% unless forloop.first %} style="transition-delay: {{ forloop.index0 | times: 0.1 }}s"{% endunless %}><span class="jp-contact-2026__desktop-copy">{{ block.settings.title | escape }}</span><span class="jp-contact-2026__mobile-copy">{{ block.settings.title_mobile | default: block.settings.title | escape }}</span></span>
-                <svg class="jp-contact-2026__arrow" viewBox="0 0 8 12" fill="none" aria-hidden="true"><path d="m1 1 5 5-5 5" stroke="currentColor"/></svg></span>
+                >
+              {%- else %}
+                <div class="jp-contact-2026__quick">
+              {% endif %}
+              <span class="jp-contact-2026__quick-icon" aria-hidden="true">
+                {% if block.settings.image != blank %}
+                  {{
+                    block.settings.image
+                    | image_url: width: 96
+                    | image_tag: widths: '32, 64, 96', sizes: '30px', loading: 'lazy', alt: ''
+                  }}
+                {% else %}
+                  <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
+                    {% case block.settings.icon %}
+                      {% when 'faq' %}<circle cx="16" cy="16" r="12"/><path d="M12 12a4 4 0 1 1 6 3.5c-2 1-2 2-2 3.5M16 22v1"/>
+                      {% when 'tracking' %}<path d="M16 28s9-9 9-17a9 9 0 0 0-18 0c0 8 9 17 9 17Z"/><circle cx="16" cy="11" r="3"/><path d="M6 28h20"/>
+                      {% when 'guide' %}<path d="M5 5h9c2 0 2 1 2 2 0-1 1-2 3-2h8v22h-8c-2 0-3 1-3 1s-1-1-3-1H5V5Zm11 2v21M9 10h4M9 14h4M20 10h4M20 14h4"/>
+                    {% endcase %}
+                  </svg>
+                {% endif %}
+              </span>
+              <span class="jp-contact-2026__quick-label"
+                ><span
+                  class="to-top"
+                  {% unless forloop.first %}
+                    style="transition-delay: {{ forloop.index0 | times: 0.1 }}s"
+                  {% endunless %}
+                  ><span class="jp-contact-2026__desktop-copy">{{ block.settings.title | escape }}</span
+                  ><span class="jp-contact-2026__mobile-copy">
+                    {{- block.settings.title_mobile | default: block.settings.title | escape -}}
+                  </span></span
+                >
+                <svg class="jp-contact-2026__arrow" viewBox="0 0 8 12" fill="none" aria-hidden="true">
+                  <path d="m1 1 5 5-5 5" stroke="currentColor"/>
+                </svg>
+              </span>
               {% if block.settings.link != blank %}</a>{% else %}</div>{% endif %}
             </div>
           {% endfor %}
@@ -32,9 +64,19 @@
     </div>
   {% endif %}
   <div class="container jp-contact-2026__container jp-contact-2026__main">
-    {% if section.settings.heading != blank %}<h2 class="jp-contact-2026__heading to-top{% if section.index == 1 or section.index == blank %} appear{% endif %}">{{ section.settings.heading | escape }}</h2>{% endif %}
-    {% if section.settings.notice != blank %}<div class="jp-contact-2026__notice to-top" style="transition-delay: 0.1s">{{ section.settings.notice }}</div>{% endif %}
-    {% if section.settings.description != blank %}<div class="jp-contact-2026__description to-top" style="transition-delay: 0.2s">{{ section.settings.description }}</div>{% endif %}
+    {% if section.settings.heading != blank %}
+      <h2 class="jp-contact-2026__heading to-top{% if section.index == 1 or section.index == blank %} appear{% endif %}">
+        {{ section.settings.heading | escape }}
+      </h2>
+    {% endif %}
+    {% if section.settings.notice != blank %}
+      <div class="jp-contact-2026__notice to-top" style="transition-delay: 0.1s">{{ section.settings.notice }}</div>
+    {% endif %}
+    {% if section.settings.description != blank %}
+      <div class="jp-contact-2026__description to-top" style="transition-delay: 0.2s">
+        {{ section.settings.description }}
+      </div>
+    {% endif %}
     <div class="jp-contact-2026__cards">
       {% for block in section.blocks %}
         {% unless block.type == 'quick_link' %}
@@ -53,11 +95,27 @@
                 <span class="jp-contact-2026__icon jp-contact-2026__icon--{{ block.settings.icon }}" aria-hidden="true">
                   {% if image != blank %}
                     <picture>
-                      {% if mobile_image != blank %}<source media="(max-width: 767px)" srcset="{{ mobile_image | image_url: width: 64 }} 1x, {{ mobile_image | image_url: width: 128 }} 2x">{% endif %}
-                      {{ image | image_url: width: 128 | image_tag: widths: '32, 64, 128', sizes: '32px', loading: 'lazy', alt: '' }}
+                      {% if mobile_image != blank %}
+                        <source
+                          media="(max-width: 767px)"
+                          srcset="{{ mobile_image | image_url: width: 64 }} 1x, {{ mobile_image | image_url: width: 128 }} 2x"
+                        >
+                      {% endif %}
+                      {{
+                        image
+                        | image_url: width: 128
+                        | image_tag: widths: '32, 64, 128', sizes: '32px', loading: 'lazy', alt: ''
+                      }}
                     </picture>
                   {% else %}
-                    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <svg
+                      viewBox="0 0 32 32"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.7"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
                       {% case block.settings.icon %}
                         {% when 'line' %}<rect x="1" y="1" width="30" height="30" rx="6" fill="#55B848" stroke="none"/><path d="M8 10v10h5M15 10v10M19 20V10l5 10V10" stroke="white" stroke-width="1.5"/>
                         {% when 'form' %}<path d="M13 5H6a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h19a2 2 0 0 0 2-2v-9M12 16l2-7L25 1l5 5-11 10-7 1Z"/>
@@ -70,26 +128,93 @@
                 </span>
                 {{ block.settings.title | escape }}
               </h3>
-              {% if block.settings.description != blank or block.settings.description_mobile != blank %}<div class="jp-contact-2026__card-description to-top" style="transition-delay: 0.1s"><div class="jp-contact-2026__desktop-copy">{{ block.settings.description }}</div><div class="jp-contact-2026__mobile-copy">{{ mobile_description }}</div></div>{% endif %}
-              {% if block.type == 'contact' and block.settings.hours != blank %}<p class="jp-contact-2026__hours to-top" style="transition-delay: 0.2s">{{ block.settings.hours | escape }}</p>{% endif %}
+              {% if block.settings.description != blank or block.settings.description_mobile != blank %}
+                <div class="jp-contact-2026__card-description to-top" style="transition-delay: 0.1s">
+                  <div class="jp-contact-2026__desktop-copy">{{ block.settings.description }}</div>
+                  <div class="jp-contact-2026__mobile-copy">{{ mobile_description }}</div>
+                </div>
+              {% endif %}
+              {% if block.type == 'contact' and block.settings.hours != blank %}
+                <p class="jp-contact-2026__hours to-top" style="transition-delay: 0.2s">
+                  {{ block.settings.hours | escape }}
+                </p>
+              {% endif %}
             </div>
             {% case block.type %}
               {% when 'contact' %}
                 {% if block.settings.link != blank and block.settings.button_label != blank %}
-                  <a class="jp-contact-2026__button" href="{{ block.settings.link }}"{% if section.settings.new_tab %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ block.settings.button_label | escape }}<svg viewBox="0 0 8 12" fill="none" aria-hidden="true"><path d="m1 1 5 5-5 5" stroke="currentColor"/></svg></a>
+                  <a
+                    class="jp-contact-2026__button"
+                    href="{{ block.settings.link }}"
+                    {% if section.settings.new_tab %}
+                      target="_blank" rel="noopener noreferrer"
+                    {% endif %}
+                  >
+                    {{- block.settings.button_label | escape }}
+                    <svg viewBox="0 0 8 12" fill="none" aria-hidden="true">
+                      <path d="m1 1 5 5-5 5" stroke="currentColor"/>
+                    </svg>
+                  </a>
                 {% endif %}
               {% when 'email' %}
                 {% if block.settings.value != blank %}
-                  <a class="jp-contact-2026__value to-top" style="transition-delay: 0.1s" href="mailto:{{ block.settings.value | escape }}">{{ block.settings.value | escape }}</a>
-                  <button class="jp-contact-2026__copy" type="button" data-copy="{{ block.settings.value | escape }}">{{ section.settings.copy_label | escape }}</button>
+                  <a
+                    class="jp-contact-2026__value to-top"
+                    style="transition-delay: 0.1s"
+                    href="mailto:{{ block.settings.value | escape }}"
+                  >
+                    {{- block.settings.value | escape -}}
+                  </a>
+                  <button class="jp-contact-2026__copy" type="button" data-copy="{{ block.settings.value | escape }}">
+                    {{ section.settings.copy_label | escape }}
+                  </button>
                 {% endif %}
               {% when 'phone' %}
-                {% if block.settings.value != blank %}<a class="jp-contact-2026__value jp-contact-2026__phone to-top" style="transition-delay: 0.1s" href="tel:{{ block.settings.value | remove: ' ' | remove: '-' | escape }}">{{ block.settings.value | escape }}</a>{% endif %}
-                {% if block.settings.hours != blank %}<p class="jp-contact-2026__hours to-top" style="transition-delay: 0.2s">{{ block.settings.hours | escape | newline_to_br }}</p>{% endif %}
+                {% if block.settings.value != blank -%}
+                  <a
+                    class="jp-contact-2026__value jp-contact-2026__phone to-top"
+                    style="transition-delay: 0.1s"
+                    href="tel:{{ block.settings.value | remove: ' ' | remove: '-' | escape }}"
+                  >
+                    {{- block.settings.value | escape -}}
+                  </a>
+                {%- endif %}
+                {% if block.settings.hours != blank %}
+                  <p class="jp-contact-2026__hours to-top" style="transition-delay: 0.2s">
+                    {{ block.settings.hours | escape | newline_to_br }}
+                  </p>
+                {% endif %}
               {% when 'business' %}
                 {% if block.settings.value != blank %}
-                  <a class="jp-contact-2026__value to-top" style="transition-delay: 0.1s" href="mailto:{{ block.settings.value | escape }}">{{ block.settings.value | escape }}</a>
-                  <button class="jp-contact-2026__copy jp-contact-2026__copy--icon" type="button" data-copy="{{ block.settings.value | escape }}" aria-label="{{ section.settings.copy_label | escape }}">{% if block.settings.copy_image != blank %}{{ block.settings.copy_image | image_url: width: 72 | image_tag: widths: '24, 48, 72', sizes: '(max-width: 767px) 18px, 24px', loading: 'lazy', alt: '' }}{% else %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 3h13v14M3 7h14v14H3zM6 11h8M6 15h8"/></svg>{% endif %}</button>
+                  <a
+                    class="jp-contact-2026__value to-top"
+                    style="transition-delay: 0.1s"
+                    href="mailto:{{ block.settings.value | escape }}"
+                  >
+                    {{- block.settings.value | escape -}}
+                  </a>
+                  <button
+                    class="jp-contact-2026__copy jp-contact-2026__copy--icon"
+                    type="button"
+                    data-copy="{{ block.settings.value | escape }}"
+                    aria-label="{{ section.settings.copy_label | escape }}"
+                  >
+                    {% if block.settings.copy_image != blank -%}
+                      {{-
+                        block.settings.copy_image
+                        | image_url: width: 72
+                        | image_tag:
+                          widths: '24, 48, 72',
+                          sizes: '(max-width: 767px) 18px, 24px',
+                          loading: 'lazy',
+                          alt: ''
+                      -}}
+                    {%- else %}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                        <path d="M8 3h13v14M3 7h14v14H3zM6 11h8M6 15h8"/>
+                      </svg>
+                    {% endif %}
+                  </button>
                 {% endif %}
             {% endcase %}
           </article>
@@ -106,152 +231,485 @@
 </jp-contact-support-2026>
 
 {% stylesheet %}
-  .jp-contact-2026 { display: block; background: var(--contact-bg); color: var(--contact-ink); }
-  .jp-contact-2026 .jp-contact-2026__container { max-width: calc(var(--contact-width) + 2 * var(--container-gutter)); }
-  .jp-contact-2026__quick .to-top { display: inline-block; }
-  .jp-contact-2026 h2, .jp-contact-2026 h3, .jp-contact-2026 p { margin: 0; }
-  .jp-contact-2026 a { color: inherit; text-decoration: none; }
-  .jp-contact-2026__quick-wrap { padding-block: 80px; }
-  .jp-contact-2026__quick-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; }
-  .jp-contact-2026__quick { min-height: 80px; border: 1px solid #ddd; display: flex; gap: 16px; align-items: center; justify-content: center; padding: 16px; font-size: 18px; }
-  .jp-contact-2026__quick-label { display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
-  .jp-contact-2026__mobile-copy { display: none; }
-  .jp-contact-2026__quick-icon { display: block; width: 30px; height: 30px; flex-shrink: 0; }
-  .jp-contact-2026__quick-icon svg, .jp-contact-2026__quick-icon img, .jp-contact-2026__icon svg, .jp-contact-2026__icon img { display: block; width: 100%; height: 100%; object-fit: contain; }
-  .jp-contact-2026__arrow { width: 6px; height: 12px; color: var(--contact-accent); flex-shrink: 0; }
-  .jp-contact-2026__main { padding-bottom: var(--contact-bottom); }
-  .jp-contact-2026__heading { text-align: center; font-size: 36px; line-height: 1.5; font-weight: 700; }
-  .jp-contact-2026__notice { margin-top: 24px; padding: 20px 24px; border-radius: 100px; color: var(--contact-accent); background: var(--contact-notice-bg); text-align: center; font-size: 24px; font-weight: 500; line-height: 1.6; }
-  .jp-contact-2026__notice p, .jp-contact-2026__description p, .jp-contact-2026__card-description p { margin: 0; }
-  .jp-contact-2026__description { margin: 48px auto; text-align: center; font-size: 16px; line-height: 1.7; }
-  .jp-contact-2026__cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; }
-  .jp-contact-2026__card { min-width: 0; padding: 32px; border: 1px solid #ddd; border-radius: 8px; display: flex; align-items: center; gap: 24px; grid-column: 1 / -1; }
-  .jp-contact-2026__card--contact { grid-column: auto; display: flex; flex-direction: column; align-items: flex-start; gap: 24px; padding: 40px 32px; }
-  .jp-contact-2026__card-intro { flex: 1; min-width: 0; }
-  .jp-contact-2026__card-heading { display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 500; line-height: 1.6; }
-  .jp-contact-2026__icon { width: 30px; height: 30px; flex: 0 0 30px; }
-  .jp-contact-2026__icon--phone { color: #55a856; }
-  .jp-contact-2026__card-description { font-size: 14px; line-height: 1.8; margin-top: 8px; }
-  .jp-contact-2026__hours { font-size: 14px; line-height: 1.7; color: #666; }
-  .jp-contact-2026__card--contact .jp-contact-2026__hours { margin-top: 8px; }
-  .jp-contact-2026 .jp-contact-2026__button { display: inline-flex; align-items: center; justify-content: center; gap: 12px; padding: 6px 28px; border-radius: 100px; background: var(--contact-accent); color: #fff; font-size: 14px; line-height: 1.5; }
-  .jp-contact-2026__button svg { width: 6px; height: 12px; }
-  .jp-contact-2026__value { font-size: 20px; font-weight: 500; overflow-wrap: anywhere; }
-  .jp-contact-2026__card--email .jp-contact-2026__value, .jp-contact-2026__card--phone .jp-contact-2026__value { flex: 1; }
-  .jp-contact-2026 .jp-contact-2026__phone { font-size: 32px; font-weight: 600; white-space: nowrap; }
-  .jp-contact-2026__card--phone > .jp-contact-2026__hours { text-align: center; }
-  .jp-contact-2026__copy { position: relative; flex-shrink: 0; border: 1px solid var(--contact-accent); color: var(--contact-accent); border-radius: 100px; background: transparent; padding: 5px 24px; font: inherit; font-size: 14px; line-height: 1.5; cursor: pointer; }
-  .jp-contact-2026__copy--icon { border: 0; padding: 8px; border-radius: 4px; }
-  .jp-contact-2026__copy--icon svg, .jp-contact-2026__copy--icon img { object-fit: contain; display: block; width: 24px; height: 24px; }
-  .jp-contact-2026__status { display: none; }
-  .jp-contact-2026__status:not(:empty) { display: block; position: absolute; bottom: calc(100% + 8px); right: 0; z-index: 2; width: max-content; max-width: min(260px, 80vw); padding: 8px 12px; border-radius: 4px; background: #171717; color: #fff; font-size: 12px; line-height: 1.5; text-align: center; pointer-events: none; }
-  .jp-contact-2026 a, .jp-contact-2026 button { transition: opacity 300ms cubic-bezier(.22,1,.36,1); }
-  .jp-contact-2026 a:hover, .jp-contact-2026 button:hover { opacity: .7; }
-  .jp-contact-2026 a:active, .jp-contact-2026 button:active { opacity: .5; }
-  .jp-contact-2026 a:focus-visible, .jp-contact-2026 button:focus-visible { outline: 2px solid var(--contact-accent); outline-offset: 4px; }
+  .jp-contact-2026 {
+    display: block;
+    background: var(--contact-bg);
+    color: var(--contact-ink);
+  }
+  .jp-contact-2026 .jp-contact-2026__container {
+    max-width: calc(var(--contact-width) + 2 * var(--container-gutter));
+  }
+  .jp-contact-2026__quick .to-top {
+    display: inline-block;
+  }
+  .jp-contact-2026 h2,
+  .jp-contact-2026 h3,
+  .jp-contact-2026 p {
+    margin: 0;
+  }
+  .jp-contact-2026 a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .jp-contact-2026__quick-wrap {
+    padding-block: 80px;
+  }
+  .jp-contact-2026__quick-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 40px;
+  }
+  .jp-contact-2026__quick {
+    min-height: 80px;
+    border: 1px solid #ddd;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    font-size: 18px;
+  }
+  .jp-contact-2026__quick-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .jp-contact-2026__mobile-copy {
+    display: none;
+  }
+  .jp-contact-2026__quick-icon {
+    display: block;
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+  }
+  .jp-contact-2026__quick-icon svg,
+  .jp-contact-2026__quick-icon img,
+  .jp-contact-2026__icon svg,
+  .jp-contact-2026__icon img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .jp-contact-2026__arrow {
+    width: 6px;
+    height: 12px;
+    color: var(--contact-accent);
+    flex-shrink: 0;
+  }
+  .jp-contact-2026__main {
+    padding-bottom: var(--contact-bottom);
+  }
+  .jp-contact-2026__heading {
+    text-align: center;
+    font-size: 36px;
+    line-height: 1.5;
+    font-weight: 700;
+  }
+  .jp-contact-2026__notice {
+    margin-top: 24px;
+    padding: 20px 24px;
+    border-radius: 100px;
+    color: var(--contact-accent);
+    background: var(--contact-notice-bg);
+    text-align: center;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.6;
+  }
+  .jp-contact-2026__description {
+    margin: 48px auto;
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+  .jp-contact-2026__cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 40px;
+  }
+  .jp-contact-2026__card {
+    min-width: 0;
+    padding: 32px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    grid-column: 1 / -1;
+  }
+  .jp-contact-2026__card--contact {
+    grid-column: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 40px 32px;
+  }
+  .jp-contact-2026__card-intro {
+    flex: 1;
+    min-width: 0;
+  }
+  .jp-contact-2026__card-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.6;
+  }
+  .jp-contact-2026__icon {
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+  }
+  .jp-contact-2026__icon--phone {
+    color: #55a856;
+  }
+  .jp-contact-2026__card-description {
+    font-size: 14px;
+    line-height: 1.8;
+    margin-top: 8px;
+  }
+  .jp-contact-2026__hours {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #666;
+  }
+  .jp-contact-2026__card--contact .jp-contact-2026__hours {
+    margin-top: 8px;
+  }
+  .jp-contact-2026 .jp-contact-2026__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 6px 28px;
+    border-radius: 100px;
+    background: var(--contact-accent);
+    color: #fff;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .jp-contact-2026__button svg {
+    width: 6px;
+    height: 12px;
+  }
+  .jp-contact-2026__value {
+    font-size: 20px;
+    font-weight: 500;
+    overflow-wrap: anywhere;
+  }
+  .jp-contact-2026__card--email .jp-contact-2026__value,
+  .jp-contact-2026__card--phone .jp-contact-2026__value {
+    flex: 1;
+  }
+  .jp-contact-2026 .jp-contact-2026__phone {
+    font-size: 32px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .jp-contact-2026__card--phone > .jp-contact-2026__hours {
+    text-align: center;
+  }
+  .jp-contact-2026__copy {
+    position: relative;
+    flex-shrink: 0;
+    border: 1px solid var(--contact-accent);
+    color: var(--contact-accent);
+    border-radius: 100px;
+    background: transparent;
+    padding: 5px 24px;
+    font: inherit;
+    font-size: 14px;
+    line-height: 1.5;
+    cursor: pointer;
+  }
+  .jp-contact-2026__copy--icon {
+    border: 0;
+    padding: 8px;
+    border-radius: 4px;
+  }
+  .jp-contact-2026__copy--icon svg,
+  .jp-contact-2026__copy--icon img {
+    object-fit: contain;
+    display: block;
+    width: 24px;
+    height: 24px;
+  }
+  .jp-contact-2026__status {
+    display: none;
+  }
+  .jp-contact-2026__status:not(:empty) {
+    display: block;
+    position: absolute;
+    bottom: calc(100% + 8px);
+    right: 0;
+    z-index: 2;
+    width: max-content;
+    max-width: min(260px, 80vw);
+    padding: 8px 12px;
+    border-radius: 4px;
+    background: #171717;
+    color: #fff;
+    font-size: 12px;
+    line-height: 1.5;
+    text-align: center;
+    pointer-events: none;
+  }
+  .jp-contact-2026 a,
+  .jp-contact-2026 button {
+    transition: opacity 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .jp-contact-2026 a:hover,
+  .jp-contact-2026 button:hover {
+    opacity: 0.7;
+  }
+  .jp-contact-2026 a:active,
+  .jp-contact-2026 button:active {
+    opacity: 0.5;
+  }
+  .jp-contact-2026 a:focus-visible,
+  .jp-contact-2026 button:focus-visible {
+    outline: 2px solid var(--contact-accent);
+    outline-offset: 4px;
+  }
   @media (min-width: 768px) and (max-width: 1100px) {
-    .jp-contact-2026__quick-grid { gap: 16px; }
-    .jp-contact-2026__quick { font-size: 14px; gap: 8px; }
-    .jp-contact-2026__card { flex-wrap: wrap; }
-    .jp-contact-2026__card--contact { grid-column: 1 / -1; }
-    .jp-contact-2026__card-intro { flex-basis: 100%; }
-    .jp-contact-2026__card--contact .jp-contact-2026__card-intro { flex-basis: auto; width: 100%; }
-    .jp-contact-2026__value { font-size: 18px; }
+    .jp-contact-2026__quick-grid {
+      gap: 16px;
+    }
+    .jp-contact-2026__quick {
+      font-size: 14px;
+      gap: 8px;
+    }
+    .jp-contact-2026__card {
+      flex-wrap: wrap;
+    }
+    .jp-contact-2026__card--contact {
+      grid-column: 1 / -1;
+    }
+    .jp-contact-2026__card-intro {
+      flex-basis: 100%;
+    }
+    .jp-contact-2026__card--contact .jp-contact-2026__card-intro {
+      flex-basis: auto;
+      width: 100%;
+    }
+    .jp-contact-2026__value {
+      font-size: 18px;
+    }
   }
   @media (max-width: 767px) {
-    .jp-contact-2026 .jp-contact-2026__container { padding-inline: 10px; }
-    .jp-contact-2026__quick-wrap { padding-block: 30px; background: var(--contact-quick-bg); }
-    .jp-contact-2026__quick-grid { gap: 12px; }
-    .jp-contact-2026__quick { border: 0; min-height: 57px; padding: 0; flex-direction: column; gap: 12px; font-size: 12px; line-height: 1.3; text-align: center; }
-    .jp-contact-2026__arrow { display: block; width: 4px; height: 7px; }
-    .jp-contact-2026__quick-label { gap: 8px; white-space: nowrap; }
-    .jp-contact-2026__desktop-copy { display: none; }
-    .jp-contact-2026__mobile-copy { display: block; }
-    .jp-contact-2026__main { padding-top: 40px; padding-bottom: 40px; }
-    .jp-contact-2026__heading { font-size: 30px; }
-    .jp-contact-2026__notice { margin: 16px 10px 0; padding: 12px 20px; font-size: 14px; line-height: 1.6; }
-    .jp-contact-2026__description { margin: 24px 0 32px; font-size: 12px; }
-    .jp-contact-2026__cards { grid-template-columns: minmax(0, 1fr); gap: 12px; margin-inline: auto; width: calc(100% - 20px); max-width: 334px; }
-    .jp-contact-2026__card { padding: 32px 16px; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
-    .jp-contact-2026__card-heading { justify-content: center; font-size: 20px; gap: 8px; }
-    .jp-contact-2026__icon { width: 26px; height: 26px; flex-basis: 26px; }
-    .jp-contact-2026__card--contact { padding: 32px 16px; gap: 24px; }
-    .jp-contact-2026__card-description, .jp-contact-2026__hours { font-size: 14px; line-height: 1.5; }
-    .jp-contact-2026__card-description { overflow-wrap: break-word; word-break: normal; line-break: strict; }
-    .jp-contact-2026__card--contact .jp-contact-2026__card-intro { width: 100%; }
-    .jp-contact-2026__card--contact { padding-inline: 10px; }
-    .jp-contact-2026__card--business .jp-contact-2026__card-description { text-align: left; }
-    .jp-contact-2026__value { font-size: 20px; }
-    .jp-contact-2026 .jp-contact-2026__phone { font-size: 28px; }
-    .jp-contact-2026__copy { font-size: 12px; padding: 4px 16px; }
-    .jp-contact-2026__card--business { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 8px; }
-    .jp-contact-2026__card--business .jp-contact-2026__card-intro { flex: 0 0 100%; }
-    .jp-contact-2026__card--business .jp-contact-2026__card-heading { max-width: 270px; margin-inline: auto; }
-    .jp-contact-2026__status:not(:empty) { left: 50%; right: auto; transform: translateX(-50%); }
-    .jp-contact-2026__copy--icon { padding: 4px; }
-    .jp-contact-2026__copy--icon svg, .jp-contact-2026__copy--icon img { width: 18px; height: 18px; }
+    .jp-contact-2026 .jp-contact-2026__container {
+      padding-inline: 10px;
+    }
+    .jp-contact-2026__quick-wrap {
+      padding-block: 30px;
+      background: var(--contact-quick-bg);
+    }
+    .jp-contact-2026__quick-grid {
+      gap: 12px;
+    }
+    .jp-contact-2026__quick {
+      border: 0;
+      min-height: 57px;
+      padding: 0;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 12px;
+      line-height: 1.3;
+      text-align: center;
+    }
+    .jp-contact-2026__arrow {
+      display: block;
+      width: 4px;
+      height: 7px;
+    }
+    .jp-contact-2026__quick-label {
+      gap: 8px;
+      white-space: nowrap;
+    }
+    .jp-contact-2026__desktop-copy {
+      display: none;
+    }
+    .jp-contact-2026__mobile-copy {
+      display: block;
+    }
+    .jp-contact-2026__main {
+      padding-top: 40px;
+      padding-bottom: 40px;
+    }
+    .jp-contact-2026__heading {
+      font-size: 30px;
+    }
+    .jp-contact-2026__notice {
+      margin: 16px 10px 0;
+      padding: 12px 20px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .jp-contact-2026__description {
+      margin: 24px 0 32px;
+      font-size: 12px;
+    }
+    .jp-contact-2026__cards {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
+      margin-inline: auto;
+      width: calc(100% - 20px);
+      max-width: 334px;
+    }
+    .jp-contact-2026__card {
+      padding: 32px 16px;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      text-align: center;
+    }
+    .jp-contact-2026__card-heading {
+      justify-content: center;
+      font-size: 20px;
+      gap: 8px;
+    }
+    .jp-contact-2026__icon {
+      width: 26px;
+      height: 26px;
+      flex-basis: 26px;
+    }
+    .jp-contact-2026__card--contact {
+      padding: 32px 16px;
+      gap: 24px;
+    }
+    .jp-contact-2026__card-description,
+    .jp-contact-2026__hours {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .jp-contact-2026__card-description {
+      overflow-wrap: break-word;
+      word-break: normal;
+      line-break: strict;
+    }
+    .jp-contact-2026__card--contact .jp-contact-2026__card-intro {
+      width: 100%;
+    }
+    .jp-contact-2026__card--contact {
+      padding-inline: 10px;
+    }
+    .jp-contact-2026__card--business .jp-contact-2026__card-description {
+      text-align: left;
+    }
+    .jp-contact-2026__value {
+      font-size: 20px;
+    }
+    .jp-contact-2026 .jp-contact-2026__phone {
+      font-size: 28px;
+    }
+    .jp-contact-2026__copy {
+      font-size: 12px;
+      padding: 4px 16px;
+    }
+    .jp-contact-2026__card--business {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+    .jp-contact-2026__card--business .jp-contact-2026__card-intro {
+      flex: 0 0 100%;
+    }
+    .jp-contact-2026__card--business .jp-contact-2026__card-heading {
+      max-width: 270px;
+      margin-inline: auto;
+    }
+    .jp-contact-2026__status:not(:empty) {
+      left: 50%;
+      right: auto;
+      transform: translateX(-50%);
+    }
+    .jp-contact-2026__copy--icon {
+      padding: 4px;
+    }
+    .jp-contact-2026__copy--icon svg,
+    .jp-contact-2026__copy--icon img {
+      width: 18px;
+      height: 18px;
+    }
   }
-  @media (prefers-reduced-motion: reduce) { .jp-contact-2026 a, .jp-contact-2026 button { transition: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    .jp-contact-2026 a,
+    .jp-contact-2026 button {
+      transition: none;
+    }
+  }
 {% endstylesheet %}
 
 {% javascript %}
   if (!customElements.get('jp-contact-support-2026')) {
-    customElements.define('jp-contact-support-2026', class extends HTMLElement {
-      connectedCallback() {
-        this.animationFrame = requestAnimationFrame(() => this.initTextAnimation());
-        this.handleClick = async (event) => {
-          const button = event.target.closest('[data-copy]');
-          if (!button || !this.contains(button)) {
+    customElements.define(
+      'jp-contact-support-2026',
+      class extends HTMLElement {
+        connectedCallback() {
+          this.animationFrame = requestAnimationFrame(() => this.initTextAnimation());
+          this.handleClick = async (event) => {
+            const button = event.target.closest('[data-copy]');
+            if (!button || !this.contains(button)) {
+              return;
+            }
+            const status = this.querySelector('[role="status"]');
+            clearTimeout(this.copyTimeout);
+            status.textContent = '';
+            button.append(status);
+            try {
+              await navigator.clipboard.writeText(button.dataset.copy);
+              status.textContent = this.dataset.copied;
+            } catch {
+              status.textContent = this.dataset.copyError;
+            }
+            this.copyTimeout = setTimeout(() => {
+              status.textContent = '';
+            }, 3000);
+          };
+          this.addEventListener('click', this.handleClick);
+        }
+
+        initTextAnimation() {
+          const elements = this.querySelectorAll('.to-top:not(.appear)');
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !window.IntersectionObserver) {
+            elements.forEach((element) => element.classList.add('appear'));
             return;
           }
-          const status = this.querySelector('[role="status"]');
-          clearTimeout(this.copyTimeout);
-          status.textContent = '';
-          button.append(status);
-          try {
-            await navigator.clipboard.writeText(button.dataset.copy);
-            status.textContent = this.dataset.copied;
-          } catch {
-            status.textContent = this.dataset.copyError;
-          }
-          this.copyTimeout = setTimeout(() => {
-            status.textContent = '';
-          }, 3000);
-        };
-        this.addEventListener('click', this.handleClick);
-      }
 
-      initTextAnimation() {
-        const elements = this.querySelectorAll('.to-top:not(.appear)');
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !window.IntersectionObserver) {
-          elements.forEach((element) => element.classList.add('appear'));
-          return;
-        }
-
-        this.textObserver = new IntersectionObserver((entries, observer) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('appear');
-              observer.unobserve(entry.target);
+          this.textObserver = new IntersectionObserver(
+            (entries, observer) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add('appear');
+                  observer.unobserve(entry.target);
+                }
+              });
+            },
+            {
+              root: null,
+              rootMargin: '0px 0px 50px 0px',
+              threshold: 0.1,
             }
-          });
-        }, {
-          root: null,
-          rootMargin: '0px 0px 50px 0px',
-          threshold: 0.1,
-        });
-        elements.forEach((element) => this.textObserver.observe(element));
-      }
-
-      disconnectedCallback() {
-        clearTimeout(this.copyTimeout);
-        cancelAnimationFrame(this.animationFrame);
-        if (this.textObserver) {
-          this.textObserver.disconnect();
+          );
+          elements.forEach((element) => this.textObserver.observe(element));
         }
-        this.removeEventListener('click', this.handleClick);
+
+        disconnectedCallback() {
+          clearTimeout(this.copyTimeout);
+          cancelAnimationFrame(this.animationFrame);
+          if (this.textObserver) {
+            this.textObserver.disconnect();
+          }
+          this.removeEventListener('click', this.handleClick);
+        }
       }
-    });
+    );
   }
 {% endjavascript %}
 
