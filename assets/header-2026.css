@@ -222,10 +222,9 @@
 }
 
 .header-2026__product-heading {
-  display: flex;
+  display: block;
   min-height: 37px;
-  align-items: flex-start;
-  gap: 8px;
+  line-height: 1.1;
 }
 
 .header-2026__product-title {
@@ -243,8 +242,16 @@
   white-space: normal;
 }
 
+.header-2026__product-heading:has(.header-2026__product-badge) .header-2026__product-title {
+  display: inline;
+  overflow-wrap: anywhere;
+}
+
 .header-2026__product-badge {
-  flex: 0 0 auto;
+  display: inline-block;
+  margin-inline-start: 4px;
+  vertical-align: middle;
+  white-space: nowrap;
   padding: 1px 4px;
   color: #fff;
   background: #e0004d;
