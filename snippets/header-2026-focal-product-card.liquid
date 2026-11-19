@@ -28,7 +28,7 @@
   <span class="header-2026__product-copy">
     <span class="header-2026__product-heading">
       <span class="header-2026__product-title">{{ card_title | escape }}</span>
-      {%- if card_badge != blank -%}<span class="header-2026__product-badge">{{ card_badge | escape }}</span>{%- endif -%}
+      {%- if card_badge != blank -%}<span class="header-2026__product-badge"><span>{{ card_badge | escape }}</span></span>{%- endif -%}
     </span>
     {%- if review_count > 0 and rating_value > 0 -%}
       <span class="header-2026__rating" aria-label="{{ rating_value | round: 1 }} / 5">

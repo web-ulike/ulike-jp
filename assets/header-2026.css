@@ -224,6 +224,7 @@
 .header-2026__product-heading {
   display: block;
   min-height: 37px;
+  font-size: 17px;
   line-height: 1.1;
 }
 
@@ -248,10 +249,15 @@
 }
 
 .header-2026__product-badge {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  height: 1lh;
   margin-inline-start: 4px;
-  vertical-align: middle;
+  vertical-align: top;
   white-space: nowrap;
+}
+
+.header-2026__product-badge > span {
   padding: 1px 4px;
   color: #fff;
   background: #e0004d;

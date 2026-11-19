@@ -53,7 +53,7 @@
     <span class="header-2026__product-heading">
       <span class="header-2026__product-title">{{ display_title | escape }}</span>
       {%- if menu_tag != blank -%}
-        <span class="header-2026__product-badge">{{ menu_tag }}</span>
+        <span class="header-2026__product-badge"><span>{{ menu_tag }}</span></span>
       {%- endif -%}
     </span>
     {%- if review_count > 0 and rating_value > 0 -%}
