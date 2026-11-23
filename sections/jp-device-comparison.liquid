@@ -61,7 +61,7 @@
               <span class="visually-hidden">{{ block.settings.title | escape }}</span>
               {% case field %}
                 {% when 'ushr', 'sensor', 'ice', 'app' %}
-                  {% if block.settings[field] %}<span class="jdc__mark jdc__mark--yes" aria-label="対応" role="img">✓</span>{% else %}<span class="jdc__mark" aria-label="非対応" role="img">×</span>{% endif %}
+                  {% render 'jp-device-comparison-icons', field: field, value: block.settings[field], sid: section.id, bid: block.id %}
                 {% when 'skin' %}
                   <ul class="jdc__tones">
                     {% assign tones = block.settings.skin | newline_to_br | split: '<br />' %}
@@ -69,7 +69,7 @@
                   </ul>
                 {% else %}
                   {% unless field == 'slogan' or field == 'audience' or block.settings[field] == blank %}
-                    <svg class="jdc__icon" aria-hidden="true"><use href="#jdc-{{ section.id }}-{{ field }}"></use></svg>
+                    {% render 'jp-device-comparison-icons', field: field, value: block.settings[field], sid: section.id, bid: block.id %}
                   {% endunless %}
                   <span>{{ block.settings[field] | escape | newline_to_br }}</span>
               {% endcase %}
@@ -78,7 +78,6 @@
         </div>
       {% endfor %}
       {% if section.settings.notes != blank %}<p class="jdc__notes">{{ section.settings.notes | escape | newline_to_br }}</p>{% endif %}
-      {% render 'jp-device-comparison-icons', sid: section.id %}
     {% endif %}
   </div>
 </jp-device-comparison>
@@ -184,9 +183,7 @@
   .jdc__label { grid-area: 1 / 2; margin: 0; display: flex; align-items: center; padding: .8em 6% .8em 18%; }
   .jdc__label, .jdc__value { border-top: 1px solid #e4e4e4; }
   .jdc__value { gap: .38em; padding: 1.1em .65em; min-height: clamp(78px, 6vw, 115px); font-size: clamp(14px, .94vw, 18px); line-height: 1.4; }
-  .jdc__icon { display: block; height: 1.85em; width: 5em; }
-  .jdc__mark { display: inline-grid; place-items: center; width: 1.15em; height: 1.15em; border-radius: 50%; background: #888; color: #fff; line-height: 1; }
-  .jdc__mark--yes { background: #e0004d; }
+  .jdc__icon { display: block; width: var(--jdc-icon-width); height: auto; max-width: 100%; flex: none; }
   .jdc__tones { list-style: none; margin: 0; padding: 0; text-align: left; font-size: .85em; }
   .jdc__tones li::before { content: ''; display: inline-block; vertical-align: middle; width: .8em; height: .8em; margin-right: .55em; border-radius: 50%; background: #fff; border: 1px solid #ddd; }
   .jdc__tones li:nth-child(2)::before { background: #ebd8b8; }
