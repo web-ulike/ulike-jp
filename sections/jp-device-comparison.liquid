@@ -216,6 +216,7 @@
     .jdc__copy { width: 100%; text-align: center; word-break: normal; line-break: strict; overflow-wrap: break-word; }
     .jdc__metric:has(.jdc__icon + .jdc__copy) .jdc__value:not([hidden]) {
       display: grid;
+      grid-template-columns: minmax(0, 1fr);
       grid-template-rows: 2.5em auto;
       align-content: start;
       justify-items: center;
