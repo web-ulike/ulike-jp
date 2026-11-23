@@ -3,6 +3,16 @@
     --section-padding-top: {{ section.settings.padding_top }}px;
     --section-padding-bottom: {{ section.settings.padding_bottom }}px;
   }
+
+  #shopify-section-{{ section.id }} .article [itemprop="articleBody"] table {
+    border-collapse: collapse;
+    margin-bottom: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .article [itemprop="articleBody"] th,
+  #shopify-section-{{ section.id }} .article [itemprop="articleBody"] td {
+    border: 1px solid rgb(var(--border-color));
+  }
 </style>
 
 {%- liquid

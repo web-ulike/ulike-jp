@@ -25,52 +25,102 @@
     }
     #referfriend-invitation-content .gameplay-description {
       text-align: left;
-      font-weight: 400;
-      font-size: 20px;
+      font-size: 22px;
       color: #4d4d4d;
+    }
+    #referfriend-invitation-content .invitation-instructions {
+      text-wrap: pretty;
+      font-size: 16px;
+    }
+    #referfriend-invitation-content .invitation-instructions__primary {
+      color: #333333;
+      font-weight: 500;
+    }
+    #referfriend-invitation-content .invitation-instructions__secondary {
+      color: #666666;
+      font-weight: 400;
     }
     #referfriend-invitation-content .copy-code-top {
       display: flex;
       align-items: center;
-      {% comment %} display: inline-block; {% endcomment %}
-      {% comment %} position: relative; {% endcomment %}
-      {% comment %} width: 296px; {% endcomment %}
-      {% comment %} text-align: left; {% endcomment %}
-      {% comment %} margin-bottom: 20px;
-      margin-top: 10px; {% endcomment %}
+      gap: 16px;
+    }
+    #referfriend-invitation-content .copy-code-top > div {
+      min-width: 0;
+    }
+    #referfriend-invitation-content .code-wrap {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 4px 8px;
+      overflow-wrap: anywhere;
+    }
+    #referfriend-invitation-content .code-text {
+      font-size: 24px;
+      line-height: 28px;
+      font-weight: 500;
+      color: #000000;
     }
     #referfriend-invitation-content .code-top {
-      {% comment %} display: inline-block;
-      width: 114px; {% endcomment %}
-      {% comment %} height: 32px; {% endcomment %}
       font-weight: 500;
-      font-size: 28px;
+      font-size: 24px;
+      line-height: 32px;
       color: #000000;
-      text-align: center;
+      text-align: left;
       font-style: normal;
       text-transform: none;
     }
-    #referfriend-invitation-content .code-wrap{
-      display: flex;
-      align-items:center;
+    #referfriend-invitation-content .code-top[data-code]:not([data-code=""]) {
+      color: #e0004d;
     }
-    #referfriend-invitation-content .code-text {
-      font-size: 28px;
+    #referfriend-invitation-content .copy-wrap {
+      display: inline-flex;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      margin: 0;
+      min-height: 32px;
+      padding: 4px 8px;
+      border: 1px solid #d3cde5;
+      border-radius: 6px;
+      background: transparent;
+      color: #666666;
+      font: inherit;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: background-color 300ms cubic-bezier(0.22, 1, 0.36, 1), color 300ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    #referfriend-invitation-content .copy-wrap:hover {
+      background: #e8e2f7;
+      color: #333333;
+    }
+    #referfriend-invitation-content .copy-wrap:active {
+      background: #ddd5f0;
+    }
+    #referfriend-invitation-content .copy-wrap:focus-visible {
+      outline: 2px solid #666666;
+      outline-offset: 2px;
     }
     #referfriend-invitation-content .copy-btn-top {
       font-weight: 400;
-      font-size: 28px;
-      color: #000000;
-      cursor: pointer;
-    }
-    #referfriend-invitation-content .copy-wrap{
-      margin-left: 32px;
-      display: flex;
-      align-items:center;
+      font-size: 14px;
+      line-height: 20px;
+      color: inherit;
     }
     #referfriend-invitation-content .copy-svg {
-      width: 32px;
-      height: 32px;
+      display: flex;
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+    #referfriend-invitation-content .copy-svg svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    #referfriend-invitation-content .copy-svg path {
+      fill: currentColor;
     }
     #referfriend-invitation-content .copy-input {
       position: relative;
@@ -138,7 +188,7 @@
       font-weight: 500;
       font-size: 40px;
       color: #000000;
-      padding:10px 0 0 0;
+      padding: 15px 0 0 0;
     }
     #referfriend-invitation-content .ped-price-des {
       margin: 0;
@@ -278,15 +328,9 @@
       margin-right: 4px;
       width: 18px;
       height: 18px;
-      background-color: #28a745;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      color: white;
-      font-weight: bold;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      display: inline-block;
+      vertical-align: middle;
+      flex-shrink: 0;
     }
     #referfriend-invitation-content .modal-mask {
       position: fixed;
@@ -540,10 +584,10 @@
     }
     #referfriend-invitation-content .code-disscount{
       display: none;
-      font-size: 24px;
+      font-size: 18px;
     }
     #referfriend-invitation-content .code-disscount span{
-      font-weight:700;
+      font-weight:500;
     }
     @media (max-width: 768px) {
       #referfriend-invitation-content {
@@ -562,13 +606,29 @@
       }
       #referfriend-invitation-content .gameplay-description {
         font-weight: 400;
-        font-size: 14px;
+        font-size: 18px;
         color: #000000;
         line-height: 20px;
       }
-      #referfriend-invitation-content .code-top {
+      #referfriend-invitation-content .gameplay-box-info {
+        margin: 40px auto 24px;
+      }
+      #referfriend-invitation-content .gameplay-box-info > .title {
+        display: block;
+        margin: 0 0 12px;
+        line-height: 32px;
+      }
+      #referfriend-invitation-content .gameplay-box-info .gameplay-description {
+        margin: 0;
+      }
+      #referfriend-invitation-content .gameplay-box-info .invitation-instructions {
+        margin-top: 8px;
+        line-height: 1.5;
         font-size: 14px;
-        line-height: 20px;
+      }
+      #referfriend-invitation-content .code-top {
+        font-size: 16px;
+        line-height: 24px;
       }
       #referfriend-invitation-content .code-wrap {
         flex-wrap: wrap;
@@ -576,8 +636,8 @@
         overflow-wrap: anywhere;
       }
       #referfriend-invitation-content .copy-svg {
-        width: 20px;
-        height: 20px;
+        width: 16px;
+        height: 16px;
         {% comment %} top: 4px;
         left: 96px; {% endcomment %}
       }
@@ -848,9 +908,7 @@
   .invitation-product {
     display: flex;
     align-items: flex-start;
-    margin-top: 48px;
-    {% comment %} margin: 40px 0; {% endcomment %}
-    {% comment %} gap: 40px; {% endcomment %}
+    margin-top: 40px;
   }
 
   .invitation-product__image img {
@@ -877,7 +935,7 @@
     font-size: 28px;
     line-height:28px;
     color: #000000;
-    margin-bottom: 16px;
+    margin-bottom: 10px;
   }
 
   .invitation-product__desc {
@@ -1014,8 +1072,17 @@
   }
 
   .login-modal .login-modal-text span{
-    margin: 0 4px;
+    margin: 0 2px;
     font-weight: 500;
+  }
+
+  .login-modal .login-modal-count {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .login-modal .login-modal-yen {
+    flex-shrink: 0;
   }
 
   .login-modal input{
@@ -1317,12 +1384,10 @@
   <div class="gameplay-box gameplay-box-top  gameplay-box-info">
     <p class="title">{{ section.settings.intro_title | escape }}</p>
     <div class="gameplay-description">
-      <p>{{ section.settings.intro_line_1 | escape }}</p>
-      <p>{{ section.settings.intro_line_2 | escape }}</p>
-
       <p>{{ section.settings.invite_heading | escape }}</p>
-      <p>{{ section.settings.invite_step_1 | escape }}</p>
-      <p>{{ section.settings.invite_step_2 | escape }}</p>
+      {%- if section.settings.invite_instructions != blank -%}
+        <div class="invitation-instructions">{{ section.settings.invite_instructions }}</div>
+      {%- endif -%}
     </div>
   </div>
   {%- if section.blocks.size == 0 and section.settings.show_legacy_products -%}
@@ -1389,14 +1454,17 @@
   {%- endif -%}
 
   <div class="gameplay-box">
-    <div class="title">{{ section.settings.rewards_title | escape }}<button type="button" class="rewards-more">{{ section.settings.more_label | escape }}&nbsp;&nbsp;></button></div>
+    <div class="title">
+      {{ section.settings.rewards_title | escape -}}
+      <button type="button" class="rewards-more">{{ section.settings.more_label | escape }}&nbsp;&nbsp;></button>
+    </div>
     <div class="price-area">
       <div class="pending">
-        <p class="ped-price-total">$0</p>
+        <p class="ped-price-total">0円</p>
         <p class="ped-price-des">{{ section.settings.pending_rewards_label | escape }}</p>
       </div>
       <div class="withdraw">
-        <p class="ped-price-total">$0</p>
+        <p class="ped-price-total">0円</p>
         <p class="ped-price-des">{{ section.settings.available_cash_label | escape }}</p>
         <button class="withdraw-btn">{{ section.settings.withdraw_label | escape }}</button>
       </div>
@@ -1433,7 +1501,10 @@
   </div>
 
   <div class="modal-copysuccess">
-    <span class="circle-check"> ✓ </span>
+    <svg class="circle-check" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+      <circle cx="12" cy="12" r="12" fill="#28a745" />
+      <path d="m6.5 12 3.5 3.5 7.5-7.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
     {{ section.settings.copied_success | escape }}
   </div>
   <div class="dlio-error">{{ section.settings.error_prefix | escape }}</div>
@@ -1452,15 +1523,26 @@
     </div>
     <div class="modal-header">
       <p class="modal-title">{{ section.settings.withdrawal_title | escape }}</p>
-      <p class="modal-price">$50</p>
-      <p class="iput-email-title">{{ section.settings.email_label | escape }}<span class="order-status-red asterisk">&nbsp;*</span></p>
+      <p class="modal-price">0円</p>
+      <p class="iput-email-title">
+        {{ section.settings.email_label | escape -}}
+        <span class="order-status-red asterisk">&nbsp;*</span>
+      </p>
       <input class="withdrawal-email" type="text" placeholder="{{ section.settings.email_placeholder | escape }}">
       <p class="email-default">{{ section.settings.paypal_email_hint | escape }}</p>
       <p class="email-error">{{ section.settings.email_format_error | escape }}</p>
 
-      <p class="iput-code-title">{{ section.settings.code_label | escape }}<span class="order-status-red asterisk">&nbsp;*</span></p>
+      <p class="iput-code-title">
+        {{ section.settings.code_label | escape -}}
+        <span class="order-status-red asterisk">&nbsp;*</span>
+      </p>
       <div class="code-wrapper">
-        <input class="withdrawal-code" type="text" placeholder="{{ section.settings.code_placeholder | escape }}" maxlength="6">
+        <input
+          class="withdrawal-code"
+          type="text"
+          placeholder="{{ section.settings.code_placeholder | escape }}"
+          maxlength="6"
+        >
         <span class="getcode">{{ section.settings.get_code | escape }}</span>
       </div>
       <p class="code-error">{{ section.settings.code_error | escape }}</p>
@@ -1523,11 +1605,23 @@
         <div class="login-modal-desc">{{ section.settings.login_description | escape }}</div>
         <form id="loginForm" novalidate>
           <div class="form-group">
-            <input type="email" class="login-email" name="email" placeholder="{{ section.settings.login_email_placeholder | escape }}" required>
+            <input
+              type="email"
+              class="login-email"
+              name="email"
+              placeholder="{{ section.settings.login_email_placeholder | escape }}"
+              required
+            >
             <div class="error" id="emailError"></div>
           </div>
           <div class="form-group">
-            <input type="password" class="login-password" name="password" placeholder="{{ section.settings.login_password_prompt | escape }}" required>
+            <input
+              type="password"
+              class="login-password"
+              name="password"
+              placeholder="{{ section.settings.login_password_prompt | escape }}"
+              required
+            >
             <div class="error" id="passwordError"></div>
           </div>
           <button class="form-submit" type="submit">
@@ -1547,16 +1641,11 @@
           </button>
         </form>
         <div class="login-modal-text">
-          <span>{{ section.settings.claim_count | escape }}</span>
+          <span class="login-modal-count" data-claim-count>{{ section.settings.claim_count | escape }}</span>
           <div>{{ section.settings.claimed_text | escape }}</div>
-          <span>{{ section.settings.claim_amount | escape }}</span>
-          <svg class width="32" height="18" viewBox="0 0 32 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g id="Frame 457393804">
-              <path id="Vector" d="M0 0V14.8115H29.8181V0H0ZM28.1681 9.86249C28.0797 9.84475 27.9733 9.84475 27.8666 9.84475C25.9331 9.84475 24.3544 11.406 24.3369 13.3392H5.1441C5.12636 11.4057 3.54766 9.84475 1.61418 9.84475V4.82481C3.51218 4.82481 5.05541 3.31706 5.1441 1.45454H24.3369C24.4253 3.3348 25.9688 4.82481 27.8666 4.82481C27.9733 4.82481 28.0797 4.82481 28.1681 4.80708V9.86249Z" fill="#87C596"/>
-              <path id="Vector_2" d="M30.8878 2.69629V15.7259H2.1875V17.5078H32.0056V2.69629H30.8878Z" fill="#87C596"/>
-              <path id="Vector_3" d="M15.6481 8.10758C15.5239 8.03662 15.3643 7.96567 15.2401 7.91246L15.0273 7.82377V9.71844C15.1701 9.69448 15.312 9.66591 15.453 9.63279C15.6304 9.59732 15.7723 9.49089 15.8964 9.33124C16.0029 9.1716 16.0738 8.99421 16.0738 8.81683C16.0738 8.62171 16.0383 8.4798 15.9674 8.37338C15.8964 8.26722 15.7723 8.17853 15.6481 8.10758ZM14.3887 4.80826C14.3 4.826 14.229 4.87921 14.1404 4.95016C14.0517 5.02112 13.9807 5.10981 13.9098 5.23398C13.8349 5.36255 13.8038 5.51193 13.8211 5.6597C13.8211 5.87255 13.8743 6.04994 13.9984 6.1741C14.1049 6.29827 14.2645 6.42244 14.4419 6.51113L14.6548 6.61756V4.7373H14.637C14.5483 4.75504 14.4774 4.77278 14.3887 4.80826Z" fill="#87C596"/>
-              <path id="Vector_4" d="M14.7439 2.12891C11.893 2.12891 9.58203 4.43987 9.58203 7.29075C9.58065 10.1416 11.8908 12.4534 14.7417 12.4548C17.5925 12.4562 19.9043 10.1461 19.9057 7.29518V7.29047C19.9057 4.43987 17.5945 2.12891 14.7439 2.12891ZM16.837 8.90493C16.7838 9.10005 16.6773 9.24196 16.5532 9.38414C16.429 9.52605 16.2871 9.63248 16.1452 9.70315C16.0033 9.77411 15.8436 9.82732 15.684 9.88081C15.5244 9.91629 15.3647 9.95176 15.2051 9.9695L15.0099 9.98697V10.306H14.6374V9.96923C14.5133 9.95149 14.4068 9.93347 14.3182 9.91601C14.2295 9.89855 14.123 9.8628 14.0166 9.82732C13.9102 9.79184 13.8037 9.73891 13.6973 9.68542C13.593 9.63294 13.4923 9.57369 13.3958 9.50803C13.2893 9.43708 13.2006 9.33037 13.0942 9.20648C12.9878 9.08231 12.9523 8.95815 12.9346 8.81624C12.9346 8.69207 12.9523 8.5679 12.9878 8.47921C13.041 8.37278 13.0942 8.30183 13.1829 8.24861C13.2792 8.19028 13.3896 8.15959 13.5022 8.15992C13.6441 8.15992 13.7683 8.1954 13.857 8.26635C13.9456 8.3373 13.9989 8.426 14.0166 8.51469C14.0343 8.60338 14.0166 8.67433 13.9989 8.72755C13.9811 8.78076 13.9456 8.81624 13.9102 8.83398L13.7328 8.94041C13.6973 8.97588 13.6618 9.01136 13.6264 9.06457C13.6086 9.11779 13.6618 9.20648 13.786 9.33065C13.8747 9.41934 13.9811 9.49029 14.0876 9.54351C14.194 9.59672 14.2827 9.6322 14.3536 9.6322L14.6197 9.68542V7.66325H14.6374C14.5665 7.62777 14.4778 7.61003 14.4068 7.57456C14.3182 7.53908 14.1762 7.45039 13.9634 7.32622C13.7699 7.21325 13.5961 7.06945 13.449 6.9005C13.3248 6.74086 13.2184 6.58121 13.1652 6.42157C13.0942 6.26193 13.0765 6.06681 13.0942 5.87168C13.1119 5.53466 13.2006 5.28632 13.3603 5.0912C13.5199 4.91382 13.6973 4.77191 13.857 4.68322C14.0127 4.59543 14.1798 4.52976 14.3536 4.4881L14.6552 4.41714V4.15107H15.0277V4.43488C15.1341 4.43488 15.2051 4.43488 15.276 4.45262C15.347 4.45262 15.4179 4.47008 15.5066 4.4881C15.5953 4.50584 15.755 4.54131 15.9678 4.61227C16.1807 4.68322 16.3758 4.78965 16.5177 4.96703C16.6596 5.14441 16.7306 5.28632 16.7306 5.42823C16.7306 5.57013 16.6596 5.71204 16.5354 5.81847C16.4113 5.9249 16.2694 5.97811 16.092 5.97811C15.9146 5.97811 15.7904 5.9249 15.6663 5.81847C15.5598 5.71204 15.5066 5.58787 15.5066 5.4637C15.5066 5.33954 15.5421 5.25084 15.6308 5.14441C15.7195 5.05572 15.755 5.00251 15.755 4.96703C15.755 4.93156 15.684 4.87834 15.5598 4.82513C15.4357 4.77191 15.3292 4.73643 15.2228 4.7187L14.9922 4.70096V6.77634C15.1696 6.84729 15.3647 6.91824 15.5953 7.00693C15.8018 7.07577 16.0033 7.15875 16.1984 7.25527C16.3758 7.34396 16.5532 7.48587 16.6951 7.68099C16.8547 7.87611 16.9257 8.07123 16.9257 8.30183C16.9257 8.51469 16.8902 8.70981 16.837 8.90493Z" fill="#87C596"/>
-            </g>
+          <span>{{ section.settings.claim_amount | replace: '$', '¥' | escape }}</span>
+          <svg class="login-modal-yen" width="24" height="24" viewBox="0 0 256 256" fill="#87C596" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+            <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm46.4-135.2L144,120h16a8,8,0,0,1,0,16H136v16h24a8,8,0,0,1,0,16H136v16a8,8,0,0,1-16,0V168H96a8,8,0,0,1,0-16h24V136H96a8,8,0,0,1,0-16h16L81.6,80.8A8,8,0,1,1,94.4,71.2L128,114.4l33.6-43.2a8,8,0,1,1,12.8,9.6Z"/>
           </svg>
         </div>
       </div>
@@ -1575,73 +1664,181 @@
       "content": "Referral copy"
     },
     { "type": "text", "id": "intro_title", "label": "Introduction title", "default": "Program Introduction" },
-    { "type": "textarea", "id": "intro_line_1", "label": "Introduction text 1", "default": "Invite your friends, and earn $50 cash per order!" },
-    { "type": "textarea", "id": "intro_line_2", "label": "Introduction text 2", "default": "Your cash can be withdrawn via PayPal." },
     { "type": "text", "id": "invite_heading", "label": "Invitation instructions heading", "default": "How to invite:" },
-    { "type": "textarea", "id": "invite_step_1", "label": "Invitation instruction 1", "default": "1. Share your invite code - your friends use it to get a discount when they place an order." },
-    { "type": "textarea", "id": "invite_step_2", "label": "Invitation instruction 2", "default": "2. Share your invite link - friends click, order with a discount, and your commision will be paid out." },
+    {
+      "type": "html",
+      "id": "invite_instructions",
+      "label": "Invitation instructions HTML",
+      "info": "支持 HTML，可使用 style 设置字号、颜色，使用 br 换行。",
+      "default": "<p>Invite your friends, and earn ¥50 cash per order! Your cash can be withdrawn via PayPal.</p><p><span class=\"invitation-instructions__primary\">1. Share your invite code - your friends use it to get a discount when they place an order.</span> <span class=\"invitation-instructions__secondary\">2. Share your invite link - friends click, order with a discount, and your commission will be paid out.</span></p>"
+    },
     { "type": "header", "content": "Product cards" },
-    { "type": "text", "id": "select_product_label", "label": "Empty product block message", "default": "商品を選択してください。" },
-    { "type": "text", "id": "coupon_unavailable", "label": "Invitation code unavailable message", "default": "この商品の紹介コードは現在ご利用いただけません。" },
-    { "type": "checkbox", "id": "show_legacy_products", "label": "Show legacy cards when there are no product blocks", "default": true },
+    {
+      "type": "text",
+      "id": "select_product_label",
+      "label": "Empty product block message",
+      "default": "商品を選択してください。"
+    },
+    {
+      "type": "text",
+      "id": "coupon_unavailable",
+      "label": "Invitation code unavailable message",
+      "default": "この商品の紹介コードは現在ご利用いただけません。"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_legacy_products",
+      "label": "Show legacy cards when there are no product blocks",
+      "default": true
+    },
     { "type": "header", "content": "Legacy Air 10 card" },
-    { "type": "text", "id": "invitation_code_label", "label": "Invitation code label", "default": "Air 10 Invitation Code：" },
+    {
+      "type": "text",
+      "id": "invitation_code_label",
+      "label": "Invitation code label",
+      "default": "Air 10 Invitation Code："
+    },
     { "type": "text", "id": "copy_label", "label": "Copy label", "default": "Copy" },
-    { "type": "text", "id": "discount_prefix", "label": "Discount text before amount", "default": "Share with a friend and they can get" },
+    {
+      "type": "text",
+      "id": "discount_prefix",
+      "label": "Discount text before amount",
+      "default": "Share with a friend and they can get"
+    },
     { "type": "text", "id": "discount_suffix", "label": "Discount text after amount", "default": "off" },
     { "type": "text", "id": "product_title", "label": "Product title", "default": "Ulike Air 10" },
-    { "type": "textarea", "id": "product_description", "label": "Product description", "default": "The next-generation in simple, lasting hair removal" },
+    {
+      "type": "textarea",
+      "id": "product_description",
+      "label": "Product description",
+      "default": "The next-generation in simple, lasting hair removal"
+    },
     { "type": "image_picker", "id": "product_image", "label": "Air 10 image" },
-    { "type": "text", "id": "product_price", "label": "Air 10 displayed price", "default": "$349" },
-    { "type": "text", "id": "product_commission", "label": "Air 10 displayed commission", "default": "$50" },
+    { "type": "text", "id": "product_price", "label": "Air 10 displayed price", "default": "¥349" },
+    { "type": "text", "id": "product_commission", "label": "Air 10 displayed commission", "default": "¥50" },
     { "type": "header", "content": "Legacy ReGlow card" },
-    { "type": "text", "id": "reglow_code_label", "label": "ReGlow invitation code label", "default": "ReGlow Invitation Code：" },
+    {
+      "type": "text",
+      "id": "reglow_code_label",
+      "label": "ReGlow invitation code label",
+      "default": "ReGlow Invitation Code："
+    },
     { "type": "image_picker", "id": "reglow_image", "label": "ReGlow image" },
     { "type": "text", "id": "reglow_title", "label": "ReGlow title", "default": "Ulike ReGlow" },
-    { "type": "textarea", "id": "reglow_description", "label": "ReGlow description", "default": "The breakthrough skin renewalmask powered by advanced LEDs" },
-    { "type": "text", "id": "reglow_price", "label": "ReGlow displayed price", "default": "$399" },
-    { "type": "text", "id": "reglow_commission", "label": "ReGlow displayed commission", "default": "$50" },
+    {
+      "type": "textarea",
+      "id": "reglow_description",
+      "label": "ReGlow description",
+      "default": "The breakthrough skin renewalmask powered by advanced LEDs"
+    },
+    { "type": "text", "id": "reglow_price", "label": "ReGlow displayed price", "default": "¥399" },
+    { "type": "text", "id": "reglow_commission", "label": "ReGlow displayed commission", "default": "¥50" },
     { "type": "text", "id": "price_label", "label": "Price label", "default": "Price" },
     { "type": "text", "id": "commission_label", "label": "Commission label", "default": "Commission" },
     { "type": "text", "id": "copy_link_label", "label": "Copy link label", "default": "Copy Link" },
     { "type": "header", "content": "Rewards and records" },
     { "type": "text", "id": "rewards_title", "label": "Rewards title", "default": "My Rewards" },
     { "type": "text", "id": "more_label", "label": "More link label", "default": "More" },
-    { "type": "text", "id": "back_to_referrals_label", "label": "Back to referrals button label", "default": "友達紹介に戻る" },
+    {
+      "type": "text",
+      "id": "back_to_referrals_label",
+      "label": "Back to referrals button label",
+      "default": "友達紹介に戻る"
+    },
     { "type": "text", "id": "pending_rewards_label", "label": "Pending rewards label", "default": "Pending Rewards" },
-    { "type": "text", "id": "available_cash_label", "label": "Available cash label", "default": "Cash Available for Withdrawal" },
+    {
+      "type": "text",
+      "id": "available_cash_label",
+      "label": "Available cash label",
+      "default": "Cash Available for Withdrawal"
+    },
     { "type": "text", "id": "withdraw_label", "label": "Withdraw button label", "default": "Withdraw" },
     { "type": "text", "id": "records_title", "label": "Records title", "default": "Invitation record" },
-    { "type": "text", "id": "invitation_records_label", "label": "Invitation records tab", "default": "Invitation Records" },
-    { "type": "text", "id": "commission_details_label", "label": "Commission details tab", "default": "Commission Details" },
+    {
+      "type": "text",
+      "id": "invitation_records_label",
+      "label": "Invitation records tab",
+      "default": "Invitation Records"
+    },
+    {
+      "type": "text",
+      "id": "commission_details_label",
+      "label": "Commission details tab",
+      "default": "Commission Details"
+    },
     { "type": "text", "id": "type_label", "label": "Type column label", "default": "Type" },
     { "type": "text", "id": "amount_label", "label": "Amount column label", "default": "Amount" },
     { "type": "header", "content": "Record details" },
-    { "type": "text", "id": "no_records", "label": "No records message", "default": "There is no record for the moment." },
+    {
+      "type": "text",
+      "id": "no_records",
+      "label": "No records message",
+      "default": "There is no record for the moment."
+    },
     { "type": "text", "id": "orders_label", "label": "Orders label", "default": "Orders" },
     { "type": "text", "id": "settlement_time_label", "label": "Settlement time label", "default": "Settlement time" },
     { "type": "text", "id": "purchase_time_label", "label": "Purchase time label", "default": "Purchase Time" },
     { "type": "text", "id": "subscribers_label", "label": "Subscribers label", "default": "Subscribers" },
     { "type": "text", "id": "order_status_label", "label": "Order status label", "default": "Order Status" },
     { "type": "text", "id": "order_amount_label", "label": "Order amount label", "default": "Order Amount" },
-    { "type": "text", "id": "commission_settled", "label": "Commission settled status", "default": "Commission settled" },
-    { "type": "text", "id": "commission_pending", "label": "Commission pending status", "default": "Payment successful, commission to be settled" },
+    {
+      "type": "text",
+      "id": "commission_settled",
+      "label": "Commission settled status",
+      "default": "Commission settled"
+    },
+    {
+      "type": "text",
+      "id": "commission_pending",
+      "label": "Commission pending status",
+      "default": "Payment successful, commission to be settled"
+    },
     { "type": "text", "id": "order_refunded", "label": "Order refunded status", "default": "Order refund, invalid" },
-    { "type": "text", "id": "withdrawal_successful", "label": "Withdrawal successful status", "default": "Withdrawal successful" },
+    {
+      "type": "text",
+      "id": "withdrawal_successful",
+      "label": "Withdrawal successful status",
+      "default": "Withdrawal successful"
+    },
     { "type": "text", "id": "withdrawing", "label": "Withdrawing status", "default": "Withdrawing" },
     { "type": "text", "id": "withdrawal_failed", "label": "Withdrawal failed status", "default": "Withdrawal failed" },
-    { "type": "text", "id": "withdraw_account_prefix", "label": "Withdrawal account prefix", "default": "Withdraw, account:" },
-    { "type": "text", "id": "commission_settlement", "label": "Commission settlement type", "default": "Commission settlement" },
+    {
+      "type": "text",
+      "id": "withdraw_account_prefix",
+      "label": "Withdrawal account prefix",
+      "default": "Withdraw, account:"
+    },
+    {
+      "type": "text",
+      "id": "commission_settlement",
+      "label": "Commission settlement type",
+      "default": "Commission settlement"
+    },
     { "type": "header", "content": "Withdrawal dialog" },
     { "type": "text", "id": "copied_success", "label": "Copy success message", "default": "Copied Success" },
     { "type": "text", "id": "error_prefix", "label": "Error prefix", "default": "error:" },
-    { "type": "text", "id": "insufficient_balance", "label": "Insufficient balance message", "default": "The current amount does not support withdrawal" },
+    {
+      "type": "text",
+      "id": "insufficient_balance",
+      "label": "Insufficient balance message",
+      "default": "The current amount does not support withdrawal"
+    },
     { "type": "image_picker", "id": "modal_close_image", "label": "Close icon" },
     { "type": "text", "id": "withdrawal_title", "label": "Withdrawal title", "default": "Withdrawal" },
     { "type": "text", "id": "email_label", "label": "Email label", "default": "Email" },
     { "type": "text", "id": "email_placeholder", "label": "Email placeholder", "default": "Enter email" },
-    { "type": "text", "id": "paypal_email_hint", "label": "PayPal email hint", "default": "Please enter your PayPal email address for withdrawal" },
-    { "type": "text", "id": "email_format_error", "label": "Email format error", "default": "The email format is incorrect." },
+    {
+      "type": "text",
+      "id": "paypal_email_hint",
+      "label": "PayPal email hint",
+      "default": "Please enter your PayPal email address for withdrawal"
+    },
+    {
+      "type": "text",
+      "id": "email_format_error",
+      "label": "Email format error",
+      "default": "The email format is incorrect."
+    },
     { "type": "text", "id": "code_label", "label": "Code label", "default": "Code" },
     { "type": "text", "id": "code_placeholder", "label": "Code placeholder", "default": "Enter code" },
     { "type": "text", "id": "get_code", "label": "Get code button", "default": "Get code" },
@@ -1649,21 +1846,51 @@
     { "type": "text", "id": "code_error", "label": "Code verification error", "default": "Verification code error." },
     { "type": "text", "id": "submit_label", "label": "Submit button", "default": "Submit" },
     { "type": "image_picker", "id": "success_image", "label": "Success image" },
-    { "type": "textarea", "id": "withdrawal_success_text", "label": "Withdrawal success message", "default": "The application has been submitted and it is expected to arrive within one hour." },
-    { "type": "text", "id": "view_withdrawal_details", "label": "Withdrawal details button", "default": "View withdrawal details" },
+    {
+      "type": "textarea",
+      "id": "withdrawal_success_text",
+      "label": "Withdrawal success message",
+      "default": "The application has been submitted and it is expected to arrive within one hour."
+    },
+    {
+      "type": "text",
+      "id": "view_withdrawal_details",
+      "label": "Withdrawal details button",
+      "default": "View withdrawal details"
+    },
     { "type": "header", "content": "Login dialog" },
     { "type": "image_picker", "id": "login_header_image", "label": "Login header image" },
     { "type": "text", "id": "login_title", "label": "Login title", "default": "Earn Big Cash Rewards" },
-    { "type": "text", "id": "login_description", "label": "Login description", "default": "Sign up or log in to get your invite link" },
-    { "type": "text", "id": "login_email_placeholder", "label": "Login email placeholder", "default": "Please enter your email" },
+    {
+      "type": "text",
+      "id": "login_description",
+      "label": "Login description",
+      "default": "Sign up or log in to get your invite link"
+    },
+    {
+      "type": "text",
+      "id": "login_email_placeholder",
+      "label": "Login email placeholder",
+      "default": "Please enter your email"
+    },
     { "type": "text", "id": "login_password_prompt", "label": "Login password placeholder", "default": "Set Password" },
     { "type": "text", "id": "email_required", "label": "Email required error", "default": "Email cannot be empty" },
     { "type": "text", "id": "email_invalid", "label": "Invalid email error", "default": "Invalid email address" },
-    { "type": "text", "id": "password_invalid", "label": "Invalid password error", "default": "Please enter the correct password" },
-    { "type": "text", "id": "password_rule", "label": "Password format error", "default": "Your password requires 6-16 digits, and must contain letters and numbers" },
-    { "type": "text", "id": "claim_count", "label": "Claim count", "default": "9,874" },
+    {
+      "type": "text",
+      "id": "password_invalid",
+      "label": "Invalid password error",
+      "default": "Please enter the correct password"
+    },
+    {
+      "type": "text",
+      "id": "password_rule",
+      "label": "Password format error",
+      "default": "Your password requires 6-16 digits, and must contain letters and numbers"
+    },
+    { "type": "text", "id": "claim_count", "label": "Claim count", "default": "1,024" },
     { "type": "text", "id": "claimed_text", "label": "Claimed text", "default": "people have already claimed" },
-    { "type": "text", "id": "claim_amount", "label": "Claim amount", "default": "$100" }
+    { "type": "text", "id": "claim_amount", "label": "Claim amount", "default": "¥100" }
   ],
   "blocks": [
     {

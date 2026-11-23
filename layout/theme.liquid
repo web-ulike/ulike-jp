@@ -75,7 +75,7 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11.1.14/swiper-bundle.min.js"></script>
 
     
-    <script src="{{ 'vendor.js' | asset_url }}" defer></script>
+    <script src="{{ 'vendor.min.js' | asset_url }}" defer></script>
     <script src="{{ 'theme.js' | asset_url }}" defer></script>
     <script src="{{ 'custom.js' | asset_url }}" defer></script>
 
@@ -129,6 +129,14 @@
         {%- section 'mini-cart' -%}
       {%- endunless -%}
     {%- endif -%}
+
+    {% comment %} SEO 需要添加H1 {% endcomment %}
+    {% assign seo_h1 = page.metafields.seo.seo_h1.value | strip %}
+    {% if seo_h1 != blank %}
+      <h1 class="visually-hidden">
+        {{ seo_h1 }}
+      </h1>
+    {% endif %}
 
     <div id="main" role="main" class="anchor">
       {%- comment -%}

@@ -6,6 +6,7 @@
         const $invitation = $('#referfriend-invitation-content');
         const activityId = $invitation.attr('data-activity-id');
         const escapeHtml = (value) => $('<div>').text(value ?? '').html();
+        const displayYen = (value) => escapeHtml(String(value ?? '').replaceAll('$', '¥'));
         // 复制成功提示的隐藏定时器
         let hideTimer = null;
         // let getLoginStatus = false//登录状态
@@ -14,11 +15,41 @@
         let locationUrl = `${_base}/login?returnUrl=${_href}`; //登录路由
 
 
+        // 前端展示人数，不作为真实领取统计；仅在登录弹窗可见时递增。
+        const claimCountElement = $invitation.find('[data-claim-count]')[0];
+        const claimCountText = claimCountElement ? claimCountElement.textContent : '';
+        const claimCountMatch = claimCountText.match(/[0-9][0-9,，]*/);
+        let claimCount = claimCountMatch ? Number(claimCountMatch[0].replace(/[,，]/g, '')) : NaN;
+        let claimCountTimer = null;
+        let isLoginModalOpen = false;
+        const claimCountFormatter = new Intl.NumberFormat('ja-JP');
+
+        function stopClaimCount() {
+            clearTimeout(claimCountTimer);
+            claimCountTimer = null;
+        }
+
+        function startClaimCount() {
+            stopClaimCount();
+            if (!isLoginModalOpen || document.hidden || !Number.isSafeInteger(claimCount)) return;
+
+            claimCountTimer = setTimeout(() => {
+                claimCount += Math.floor(Math.random() * 3) + 1;
+                claimCountElement.textContent = claimCountText.replace(claimCountMatch[0], claimCountFormatter.format(claimCount));
+                startClaimCount();
+            }, 3000 + Math.floor(Math.random() * 2001));
+        }
+
+        document.addEventListener('visibilitychange', startClaimCount);
+        window.addEventListener('pagehide', stopClaimCount);
+
         //判断是否登录方法 未登录记录埋点  跳转至登录页
         function jumpLoginPage() {
             console.log('getLoginStatus',getLoginStatus)
             window.UlikeCommon.commonGtmEvent('老带新，浏览页面，未登录点击', 'more-btn', 'no-login');
             $('.login-modal').fadeIn(200);
+            isLoginModalOpen = true;
+            startClaimCount();
             $('body').addClass('no-scroll');
         
         }
@@ -127,7 +158,7 @@
                 //佣金页点击提现埋点
                 isLoginPriont('老带新，佣金页，点击提现', 'withdraw-btn', '')
             }
-            let emailVal = $('.withdraw .ped-price-total').text().replace('$', '');
+            let emailVal = $('.withdraw .ped-price-total').text().replace(/[¥円,]/g, '');
             if (Number(emailVal) > 0) {
                 $('.modal-mask,.modal-container').fadeIn(200);
             } else {
@@ -219,7 +250,7 @@
                         $('.modal-header').hide();
                         $('.modal-container').css('height', '344px');
                         $('.modal-body').fadeIn(200);
-                        $('#referfriend-invitation-content .withdraw .ped-price-total').text('$0');
+                        $('#referfriend-invitation-content .withdraw .ped-price-total').text('0円');
                         //提现成功埋点
                         isLoginPriont('老带新，提现页，进入提现成功页', 'info-successPage', '')
                     }
@@ -338,8 +369,8 @@
                         <div class="description-data">
                             <p class="order-num">${order.extend.orderInfo.orderItem[0].title}</p>
                             <div class="price-detail">
-                                <div class="order-amount"><span>${escapeHtml(copy.order_amount_label)}<a class="show-symbol">:</a></span><br class="hidden-br"/><span class="order-status-red">${order.extend.orderInfo.totalPrice}</span></div>
-                                <div class="order-commission"><span>${escapeHtml(copy.commission_label)}<a class="show-symbol">:</a></span><br class="hidden-br"/><span class="order-status-red">${order.extend.commissionAmount}</span></div>
+                                <div class="order-amount"><span>${escapeHtml(copy.order_amount_label)}<a class="show-symbol">:</a></span><br class="hidden-br"/><span class="order-status-red">${displayYen(order.extend.orderInfo.totalPrice)}</span></div>
+                                <div class="order-commission"><span>${escapeHtml(copy.commission_label)}<a class="show-symbol">:</a></span><br class="hidden-br"/><span class="order-status-red">${displayYen(order.extend.commissionAmount)}</span></div>
                             </div>
                         </div>
                     </div>
@@ -431,7 +462,7 @@
                 $list.append(`
                 <div class="table-content">
                     <div class="base-information"><p>${escapeHtml(withdrawType)}</p><p>${timeToYear(item.createTime)}</p></div>
-                    <div class="base-price"><p>${withdrawAmount}</p><p id="${extraClass}">${escapeHtml(withdrawStatus)}</p></div>
+                    <div class="base-price"><p>${displayYen(withdrawAmount)}</p><p id="${extraClass}">${escapeHtml(withdrawStatus)}</p></div>
                 </div>`);
             });
         }
@@ -458,15 +489,15 @@
                     $card.find('.invitation-product__copy-btn').attr('data-url', referralUrl.href);
                     if (coupon.discountAmount != null) {
                         const $discount = $card.find('.code-disscount');
-                        $discount.find('span').text('$' + coupon.discountAmount);
+                        // $discount.find('span').text('¥' + coupon.discountAmount);
                         $discount.show();
                     }
                 });
             }
             if (fund) {
-                $('#referfriend-invitation-content .modal-price').text('$' + fund.data.availableAmount);
-                $('#referfriend-invitation-content .pending .ped-price-total').text('$' + fund.data.freezeAmount);
-                $('#referfriend-invitation-content .withdraw .ped-price-total').text('$' + fund.data.availableAmount);
+                $('#referfriend-invitation-content .modal-price').text(Number(fund.data.availableAmount) === 0 ? '0円' : '¥' + fund.data.availableAmount);
+                $('#referfriend-invitation-content .pending .ped-price-total').text(Number(fund.data.freezeAmount) === 0 ? '0円' : '¥' + fund.data.freezeAmount);
+                $('#referfriend-invitation-content .withdraw .ped-price-total').text(Number(fund.data.availableAmount) === 0 ? '0円' : '¥' + fund.data.availableAmount);
             }
 
 
@@ -611,6 +642,8 @@
 
         //关闭登录弹窗
         function loginModalClose() {
+            isLoginModalOpen = false;
+            stopClaimCount();
             $('.login-modal').fadeOut(200);
             $('body').removeClass('no-scroll');
             // 清除校验提示和输入内容

@@ -332,9 +332,9 @@
                         <animate-element class="article-banner__meta" data-animate="fade-up" data-animate-delay="{{ delay | times: 250 }}">
                           <ul class="article__top article-banner__meta-list">
                             {%- if block.settings.show_date -%}
-                              <li itemprop="dateCreated pubdate datePublished">
+                              <li itemprop="dateModified">
                                 {%- render 'icon', icon: 'calendar', size: 'xs', class: 'stroke-1' -%}
-                                {{- article.published_at | time_tag: format: 'month_day_year' -}}
+                                {{- article.updated_at | time_tag: format: 'month_day_year' -}}
                               </li>
                             {%- endif -%}
                             {%- if block.settings.show_comments -%}

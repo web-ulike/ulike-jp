@@ -222,10 +222,10 @@
 }
 
 .header-2026__product-heading {
-  display: flex;
+  display: block;
   min-height: 37px;
-  align-items: flex-start;
-  gap: 8px;
+  font-size: 17px;
+  line-height: 1.1;
 }
 
 .header-2026__product-title {
@@ -243,8 +243,21 @@
   white-space: normal;
 }
 
+.header-2026__product-heading:has(.header-2026__product-badge) .header-2026__product-title {
+  display: inline;
+  overflow-wrap: anywhere;
+}
+
 .header-2026__product-badge {
-  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: flex-start;
+  height: 1lh;
+  margin-inline-start: 4px;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.header-2026__product-badge > span {
   padding: 1px 4px;
   color: #fff;
   background: #e0004d;

@@ -177,8 +177,8 @@
         <div class="container">
            <div class="title-diy ">
               {{section.settings.title}}
-              <a href="https://www.ulike.com/pages/referfriend-rules" target="_blank" class="act-rules">
-                Activity Rules
+              <a href="{{ section.settings.activity_rules_link | default: 'https://www.ulike.com/pages/referfriend-rules' | escape }}" target="_blank" class="act-rules">
+                {{ section.settings.activity_rules_text | escape }}
                 <img src="https://cdn.shopify.com/s/files/1/0656/9079/6273/files/chevron-right.svg?v=1746599015" alt="chevron-right" class="chevron-right">
               </a>
            </div>
@@ -271,6 +271,18 @@
         }
       ],
       "settings": [
+        {
+          "type": "text",
+          "id": "activity_rules_text",
+          "label": "Activity Rules Text",
+          "default": "Activity Rules"
+        },
+        {
+          "type": "url",
+          "id": "activity_rules_link",
+          "label": "Activity Rules Link",
+          "info": "留空时使用原活动规则链接：https://www.ulike.com/pages/referfriend-rules"
+        },
         {
           "type": "text",
           "id": "title",
