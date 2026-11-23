@@ -39,7 +39,7 @@
               <strong class="jdc__image">{{ block.settings.title | escape }}</strong>
             {% endif %}
             {% if block.settings.link != blank and block.settings.cta != blank %}
-              <a class="jdc__cta" href="{{ block.settings.link }}">{{ block.settings.cta | escape }}</a>
+              <a class="jdc__cta" href="{{ block.settings.link | escape }}" target="_blank" rel="noopener">{{ block.settings.cta | escape }}</a>
             {% endif %}
           </div>
         {% endfor %}
