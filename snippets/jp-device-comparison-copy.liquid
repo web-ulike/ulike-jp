@@ -1,0 +1,27 @@
+{%- liquid
+  assign copy = value | escape | newline_to_br
+  assign mobile_break = '<br class="jdc__mobile-break">'
+  unless copy contains '<br'
+    case field
+      when 'title'
+        assign wrap = 'を' | append: mobile_break | append: '見つけよう'
+        assign copy = copy | replace: 'を見つけよう', wrap
+      when 'slogan'
+        assign wrap = '、' | append: mobile_break
+        assign goodbye = mobile_break | append: 'サヨナラ。'
+        assign copy = copy | replace_first: '、', wrap | replace: 'サヨナラ。', goodbye
+      when 'audience'
+        assign men = '男性<span class="jdc__desktop-separator">・</span>' | append: mobile_break
+        assign budget = 'コスパ重視で' | append: mobile_break
+        assign separator = '<span class="jdc__desktop-separator">／</span>' | append: mobile_break
+        assign copy = copy | replace: '男性・', men | replace: 'コスパ重視で', budget | replace: '／', separator
+      when 'cooling'
+        assign separator = '<span class="jdc__desktop-separator">／</span>' | append: mobile_break
+        assign copy = copy | replace: '／', separator
+      when 'speed'
+        assign wrap = '秒の' | append: mobile_break | append: '高速フラッシュ'
+        assign copy = copy | replace: '秒の高速フラッシュ', wrap
+    endcase
+  endunless
+-%}
+{{- copy -}}

@@ -14,7 +14,7 @@
   <div class="container jdc__inner">
     <header class="jdc__heading">
       <p{% if animate %} class="to-top"{% endif %}>{{ section.settings.eyebrow | escape }}</p>
-      <h2 id="jdc-title-{{ section.id }}"{% if animate %} class="to-top" style="transition-delay: 0.1s"{% endif %}>{{ section.settings.title | escape }}</h2>
+      <h2 id="jdc-title-{{ section.id }}"{% if animate %} class="to-top" style="transition-delay: 0.1s"{% endif %}>{% render 'jp-device-comparison-copy', field: 'title', value: section.settings.title %}</h2>
     </header>
     {% if first_pair.size > 0 %}
       <div class="jdc__row jdc__selectors">
@@ -71,7 +71,7 @@
                   {% unless field == 'slogan' or field == 'audience' or block.settings[field] == blank %}
                     {% render 'jp-device-comparison-icons', field: field, value: block.settings[field], sid: section.id, bid: block.id %}
                   {% endunless %}
-                  <span>{{ block.settings[field] | escape | newline_to_br }}</span>
+                  <span class="jdc__copy">{% render 'jp-device-comparison-copy', field: field, value: block.settings[field] %}</span>
               {% endcase %}
             </div>
           {% endfor %}
@@ -190,13 +190,15 @@
   .jdc__tones li:nth-child(3)::before { background: #dcb174; }
   .jdc__tones li:nth-child(4)::before { background: #a47d48; }
   .jdc__tones li:nth-child(5)::before { background: #704e26; }
-  .jdc__notes { display: none; }
+  .jdc__mobile-break, .jdc__notes { display: none; }
   @media (max-width: 749px) {
     .jdc { padding: 38px 0 52px; }
     .jdc .jdc__inner { width: 96%; }
     .jdc__heading { margin-bottom: 52px; }
     .jdc__heading p { font-size: 14px; }
-    .jdc__heading h2 { max-width: 15em; font-size: 24px; text-wrap: balance; }
+    .jdc__heading h2 { font-size: clamp(20px, 6.4vw, 24px); line-height: 1.3; text-align: center; }
+    .jdc__mobile-break { display: revert; }
+    .jdc__desktop-separator { display: none; }
     .jdc__row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .jdc [data-slot="1"] { grid-column: 1; }
     .jdc [data-slot="2"] { grid-column: 2; }
@@ -210,7 +212,19 @@
     .jdc__group, .jdc__label { grid-area: auto / 1 / auto / -1; text-align: center; width: 100%; }
     .jdc__group { border: none; border-bottom: 2px solid #e0004d; padding: .25em 0; margin-bottom: 24px; }
     .jdc__label { display: block; padding: .32em; border: none; color: #e0004d; background: linear-gradient(90deg, #ff005803, #e0004d10, #ff005803); font-size: 13px; }
-    .jdc .jdc__value[data-slot] { grid-row: 2; border: none; min-height: 66px; padding: 1em .45em; font-size: 12px; }
+    .jdc .jdc__value[data-slot] { grid-row: 2; border: none; min-height: 66px; padding: 1em .45em; font-size: clamp(10px, 3.12vw, 11.7px); line-height: 1.35; }
+    .jdc__copy { width: 100%; text-align: center; word-break: normal; line-break: strict; overflow-wrap: break-word; }
+    .jdc__metric:has(.jdc__icon + .jdc__copy) .jdc__value:not([hidden]) {
+      display: grid;
+      grid-template-rows: 2.5em auto;
+      align-content: start;
+      justify-items: center;
+      align-items: end;
+    }
+    .jdc__metric:has(.jdc__icon + .jdc__copy) .jdc__copy { grid-row: 2; align-self: start; }
+    .jdc__tones { width: 100%; text-align: center; font-size: .96em; }
+    .jdc__tones li:nth-child(5) { color: #e0004d; }
+    .jdc__picker summary, .jdc__notes { text-align: left; }
     .jdc__metric:has(.jdc__group) .jdc__value[data-slot] { grid-row: 3; }
     .jdc__notes { display: block; margin: 38px 0 0; font-size: 10px; line-height: 1.55; color: #757575; }
   }
