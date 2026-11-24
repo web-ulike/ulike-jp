@@ -120,19 +120,32 @@
       const body = table.querySelector('.jdc__body');
       const mirroredPositions = new WeakMap();
       const options = { passive: true, signal: this.events.signal };
+      let touchScroller;
+      let idleTimer;
+      const trackTouch = (scroller) => {
+        touchScroller = scroller;
+        clearTimeout(idleTimer);
+        idleTimer = setTimeout(() => { touchScroller = undefined; }, 180);
+      };
+      options.signal.addEventListener('abort', () => clearTimeout(idleTimer), { once: true });
       // Keep horizontal scrolling inside the sticky row and the body so the
       // table itself does not become a vertical scroll container.
       for (const [source, target] of [
         [header, body],
         [body, header],
       ]) {
-        source.addEventListener('pointerdown', () => mirroredPositions.delete(source), options);
+        source.addEventListener('pointerdown', (event) => {
+          mirroredPositions.delete(source);
+          if (event.pointerType === 'touch') trackTouch(source);
+        }, options);
         source.addEventListener(
           'scroll',
           () => {
             const mirrored = mirroredPositions.get(source);
             mirroredPositions.delete(source);
             if (Math.abs(source.scrollLeft - mirrored) < 1) return;
+            if (touchScroller && touchScroller !== source) return;
+            if (touchScroller === source) trackTouch(source);
 
             const left = Math.max(0, Math.min(source.scrollLeft, target.scrollWidth - target.clientWidth));
             if (Math.abs(target.scrollLeft - left) >= 1) {
@@ -357,7 +370,6 @@
     }
     .jdc__sticky {
       border-bottom: 1px solid #e4e4e4;
-      transition: top 220ms ease;
     }
     .jdc__head {
       scrollbar-width: none;
@@ -383,7 +395,7 @@
     }
     .jdc__cards .jdc__image {
       width: 100%;
-      height: clamp(76px, 22vw, 92px);
+      height: clamp(82px, 24vw, 100px);
       flex: none;
     }
     .jdc__cards .jdc__cta {
