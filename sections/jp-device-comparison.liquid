@@ -1,7 +1,7 @@
 {%- liquid
   assign fields = 'slogan,audience,effect,power,density,lamps,cooling,ushr,sensor,skin,area,duration,speed,weight,start_cooling,ice,app,lifetime' | split: ','
   assign loading = 'lazy'
-  if section.index == nil or section.index <= 2
+  if section.index == null or section.index <= 2
     assign loading = 'eager'
   endif
   assign animate = false
@@ -12,8 +12,21 @@
 <jp-device-comparison class="jdc" aria-labelledby="jdc-title-{{ section.id }}">
   <div class="container jdc__inner">
     <header class="jdc__heading">
-      <p{% if animate %} class="to-top"{% endif %}>{{ section.settings.eyebrow | escape }}</p>
-      <h1 id="jdc-title-{{ section.id }}"{% if animate %} class="to-top" style="transition-delay: 0.1s"{% endif %}>{% render 'jp-device-comparison-copy', field: 'title', value: section.settings.title %}</h1>
+      <p
+        {% if animate %}
+          class="to-top"
+        {% endif %}
+      >
+        {{ section.settings.eyebrow | escape }}
+      </p>
+      <h1
+        id="jdc-title-{{ section.id }}"
+        {% if animate %}
+          class="to-top" style="transition-delay: 0.1s"
+        {% endif %}
+      >
+        {% render 'jp-device-comparison-copy', field: 'title', value: section.settings.title %}
+      </h1>
     </header>
     {% if section.blocks.size > 0 %}
       <div class="jdc__table" style="--jdc-count: {{ section.blocks.size }}">
@@ -22,12 +35,23 @@
             {% for block in section.blocks %}
               <div class="jdc__card" data-product="{{ block.id }}" {{ block.shopify_attributes }}>
                 {% if block.settings.image != blank %}
-                  {{ block.settings.image | image_url: width: 560 | image_tag: class: 'jdc__image', loading: loading, widths: '144, 240, 360, 560', sizes: '(max-width: 749px) 36vw, 18vw', alt: block.settings.title }}
+                  {{
+                    block.settings.image
+                    | image_url: width: 560
+                    | image_tag:
+                      class: 'jdc__image',
+                      loading: loading,
+                      widths: '144, 240, 360, 560',
+                      sizes: '(max-width: 749px) 36vw, 18vw',
+                      alt: block.settings.title
+                  }}
                 {% else %}
                   <strong class="jdc__image">{{ block.settings.title | escape }}</strong>
                 {% endif %}
                 {% if block.settings.link != blank and block.settings.cta != blank %}
-                  <a class="jdc__cta" href="{{ block.settings.link | escape }}" target="_blank" rel="noopener">{{ block.settings.cta | escape }}</a>
+                  <a class="jdc__cta" href="{{ block.settings.link | escape }}" target="_blank" rel="noopener">
+                    {{- block.settings.cta | escape -}}
+                  </a>
                 {% endif %}
               </div>
             {% endfor %}
@@ -37,23 +61,39 @@
           {% for field in fields %}
             {% assign label = 'label_' | append: field %}
             <div class="jdc__row jdc__metric">
-              <h2 class="jdc__label"><span>{{ section.settings[label] | escape }}</span></h2>
+              <h2 class="jdc__label">
+                <span>{{ section.settings[label] | escape }}</span>
+              </h2>
               {% for block in section.blocks %}
                 <div class="jdc__value" data-product="{{ block.id }}">
                   <span class="visually-hidden">{{ block.settings.title | escape }}</span>
                   {% case field %}
                     {% when 'ushr', 'sensor', 'ice', 'app' %}
-                      {% render 'jp-device-comparison-icons', field: field, value: block.settings[field], sid: section.id, bid: block.id %}
+                      {% render 'jp-device-comparison-icons',
+                        field: field,
+                        value: block.settings[field],
+                        sid: section.id,
+                        bid: block.id
+                      %}
                     {% when 'skin' %}
                       <ul class="jdc__tones">
                         {% assign tones = block.settings.skin | newline_to_br | split: '<br />' %}
-                        {% for tone in tones %}<li>{{ tone | strip | escape }}</li>{% endfor %}
+                        {% for tone in tones %}
+                          <li>{{ tone | strip | escape }}</li>
+                        {% endfor %}
                       </ul>
                     {% else %}
                       {% unless field == 'slogan' or field == 'audience' or block.settings[field] == blank %}
-                        {% render 'jp-device-comparison-icons', field: field, value: block.settings[field], sid: section.id, bid: block.id %}
+                        {% render 'jp-device-comparison-icons',
+                          field: field,
+                          value: block.settings[field],
+                          sid: section.id,
+                          bid: block.id
+                        %}
                       {% endunless %}
-                      <span class="jdc__copy">{% render 'jp-device-comparison-copy', field: field, value: block.settings[field] %}</span>
+                      <span class="jdc__copy">
+                        {%- render 'jp-device-comparison-copy', field: field, value: block.settings[field] -%}
+                      </span>
                   {% endcase %}
                 </div>
               {% endfor %}
@@ -61,7 +101,9 @@
           {% endfor %}
         </div>
       </div>
-      {% if section.settings.notes != blank %}<p class="jdc__notes">{{ section.settings.notes | escape | newline_to_br }}</p>{% endif %}
+      {% if section.settings.notes != blank %}
+        <p class="jdc__notes">{{ section.settings.notes | escape | newline_to_br }}</p>
+      {% endif %}
     {% endif %}
   </div>
 </jp-device-comparison>
@@ -74,14 +116,25 @@
       if (!body) return;
 
       // Separate scroll containers let the product row stick to the page on mobile.
-      for (const [source, target] of [[body, header], [header, body]]) {
-        source.addEventListener('scroll', () => {
-          if (target.scrollLeft !== source.scrollLeft) target.scrollLeft = source.scrollLeft;
-        }, { passive: true, signal: this.events.signal });
+      for (const [source, target] of [
+        [body, header],
+        [header, body],
+      ]) {
+        source.addEventListener(
+          'scroll',
+          () => {
+            if (target.scrollLeft !== source.scrollLeft) target.scrollLeft = source.scrollLeft;
+          },
+          { passive: true, signal: this.events.signal }
+        );
       }
-      this.addEventListener('shopify:block:select', (event) => {
-        event.target.closest('.jdc__card')?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
-      }, { signal: this.events.signal });
+      this.addEventListener(
+        'shopify:block:select',
+        (event) => {
+          event.target.closest('.jdc__card')?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+        },
+        { signal: this.events.signal }
+      );
     }
 
     disconnectedCallback() {
@@ -103,55 +156,245 @@
 {% endstyle %}
 
 {% stylesheet %}
-  .jdc { display: block; background: white; color: #1a1a1a; padding: clamp(36px, 4vw, 72px) 0; }
-  .jdc .jdc__inner { width: 94%; max-width: 1660px; padding: 0; margin: auto; }
-  .jdc__heading { text-align: center; margin-bottom: clamp(20px, 2.5vw, 40px); }
-  .jdc__heading p { margin: 0 0 .65em; font-size: clamp(15px, 1.25vw, 24px); letter-spacing: .1em; color: #888; }
-  .jdc__heading h1 { margin: 0 auto; font-size: clamp(26px, 2.1vw, 40px); font-weight: 600; line-height: 1.35; }
-  .jdc__table { container-type: inline-size; }
-  .jdc__sticky { position: sticky; top: calc(var(--header-height, 0px) * var(--enable-sticky-header, 0) + var(--announcement-bar-height, 0px) * var(--enable-sticky-announcement-bar, 0)); z-index: 2; background: #fff; }
-  body:has(.header-2026--scroll-hidden) .jdc__sticky { top: calc(var(--announcement-bar-height, 0px) * var(--enable-sticky-announcement-bar, 0)); }
-  .jdc__row { display: grid; grid-template-columns: minmax(110px, 17%) repeat(var(--jdc-count), minmax(0, 1fr)); }
-  .jdc__cards::before { content: ''; }
-  .jdc__card, .jdc__value { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow-wrap: anywhere; min-width: 0; background: #fff; }
-  .jdc__card { gap: 8px; padding: 10px 6px; }
-  .jdc__image { display: grid; place-items: center; width: 90%; height: clamp(84px, 8vw, 126px); object-fit: contain; }
-  .jdc__cta { padding: .2em 1.15em; border-radius: 100px; background: #1a1a1a; color: white; font-size: clamp(13px, 1vw, 16px); }
-  .jdc__card:first-child .jdc__cta { background: #e0004d; }
-  .jdc__label { margin: 0; display: flex; align-items: center; padding: .6em; font-size: clamp(14px, 1.1vw, 18px); font-weight: 500; }
-  .jdc__label, .jdc__value { border-top: 1px solid #e4e4e4; }
-  .jdc__value { gap: .3em; padding: .65em .4em; min-height: 58px; font-size: clamp(13px, .94vw, 17px); line-height: 1.4; }
-  .jdc__icon { display: block; width: var(--jdc-icon-width); height: auto; max-width: 100%; flex: none; }
-  .jdc__icon--power { height: 1.1111em; width: auto; }
-  .jdc__tones { list-style: none; margin: 0; padding: 0; text-align: left; font-size: .85em; }
-  .jdc__tones li::before { content: ''; display: inline-block; vertical-align: middle; width: .8em; height: .8em; margin-right: .55em; border-radius: 50%; background: #fff; border: 1px solid #ddd; }
-  .jdc__tones li:nth-child(2)::before { background: #ebd8b8; }
-  .jdc__tones li:nth-child(3)::before { background: #dcb174; }
-  .jdc__tones li:nth-child(4)::before { background: #a47d48; }
-  .jdc__tones li:nth-child(5)::before { background: #704e26; }
-  .jdc__mobile-break, .jdc__notes { display: none; }
+  .jdc {
+    display: block;
+    background: white;
+    color: #1a1a1a;
+    padding: clamp(36px, 4vw, 72px) 0;
+  }
+  .jdc .jdc__inner {
+    width: 94%;
+    max-width: 1660px;
+    padding: 0;
+    margin: auto;
+  }
+  .jdc__heading {
+    text-align: center;
+    margin-bottom: clamp(20px, 2.5vw, 40px);
+  }
+  .jdc__heading p {
+    margin: 0 0 0.65em;
+    font-size: clamp(15px, 1.25vw, 24px);
+    letter-spacing: 0.1em;
+    color: #888;
+  }
+  .jdc__heading h1 {
+    margin: 0 auto;
+    font-size: clamp(26px, 2.1vw, 40px);
+    font-weight: 600;
+    line-height: 1.35;
+  }
+  .jdc__table {
+    container-type: inline-size;
+  }
+  .jdc__sticky {
+    position: sticky;
+    top: calc(
+      var(--header-height, 0px) * var(--enable-sticky-header, 0) + var(--announcement-bar-height, 0px) *
+        var(--enable-sticky-announcement-bar, 0)
+    );
+    z-index: 2;
+    background: #fff;
+  }
+  body:has(.header-2026--scroll-hidden) .jdc__sticky {
+    top: calc(var(--announcement-bar-height, 0px) * var(--enable-sticky-announcement-bar, 0));
+  }
+  .jdc__row {
+    display: grid;
+    grid-template-columns: minmax(110px, 17%) repeat(var(--jdc-count), minmax(0, 1fr));
+  }
+  .jdc__cards::before {
+    content: '';
+  }
+  .jdc__card,
+  .jdc__value {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow-wrap: anywhere;
+    min-width: 0;
+    background: #fff;
+  }
+  .jdc__card {
+    gap: 10px;
+    padding: 15px 6px;
+  }
+  .jdc__image {
+    display: grid;
+    place-items: center;
+    width: 90%;
+    height: clamp(84px, 8vw, 126px);
+    object-fit: contain;
+  }
+  .jdc__cta {
+    padding: 0.2em 1.15em;
+    border-radius: 100px;
+    background: #1a1a1a;
+    color: white;
+    font-size: clamp(13px, 1vw, 16px);
+  }
+  .jdc__card:first-child .jdc__cta {
+    background: #e0004d;
+  }
+  .jdc__label {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    padding: 0.6em;
+    font-size: clamp(14px, 1.1vw, 18px);
+    font-weight: 500;
+  }
+  .jdc__label,
+  .jdc__value {
+    border-top: 1px solid #e4e4e4;
+  }
+  .jdc__value {
+    gap: 0.3em;
+    padding: 0.65em 0.4em;
+    min-height: 58px;
+    font-size: clamp(13px, 0.94vw, 17px);
+    line-height: 1.4;
+  }
+  .jdc__icon {
+    display: block;
+    width: var(--jdc-icon-width);
+    height: auto;
+    max-width: 100%;
+    flex: none;
+  }
+  .jdc__icon--power {
+    height: 1.1111em;
+    width: auto;
+  }
+  .jdc__tones {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    font-size: 0.85em;
+  }
+  .jdc__tones li::before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    width: 0.8em;
+    height: 0.8em;
+    margin-right: 0.55em;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid #ddd;
+  }
+  .jdc__tones li:nth-child(2)::before {
+    background: #ebd8b8;
+  }
+  .jdc__tones li:nth-child(3)::before {
+    background: #dcb174;
+  }
+  .jdc__tones li:nth-child(4)::before {
+    background: #a47d48;
+  }
+  .jdc__tones li:nth-child(5)::before {
+    background: #704e26;
+  }
+  .jdc__mobile-break,
+  .jdc__notes {
+    display: none;
+  }
   @media (max-width: 749px) {
-    .jdc { padding: 38px 0 52px; }
-    .jdc .jdc__inner { width: 96%; }
-    .jdc__heading { margin-bottom: 20px; }
-    .jdc__heading p { font-size: 14px; }
-    .jdc__heading h1 { font-size: clamp(20px, 6.4vw, 24px); line-height: 1.3; text-align: center; }
-    .jdc__mobile-break { display: revert; }
-    .jdc__desktop-separator, .jdc__weight-287 > path:last-child { display: none; }
-    .jdc__weight-287 { transform: translateX(9.44px); }
-    .jdc__scroller { overflow-x: auto; overscroll-behavior-x: contain; }
-    .jdc__sticky { scrollbar-width: none; }
-    .jdc__sticky::-webkit-scrollbar { display: none; }
-    .jdc__row { width: max(100%, calc(var(--jdc-count) * 44cqw)); grid-template-columns: repeat(var(--jdc-count), minmax(0, 1fr)); }
-    .jdc__cards::before { display: none; }
-    .jdc__card { padding: 8px 4px; gap: 6px; }
-    .jdc__image { height: 76px; }
-    .jdc__card .jdc__cta { background: #e0004d; font-size: 13px; }
-    .jdc__label { grid-area: 1 / 1 / 2 / -1; display: block; padding: 0; border: none; color: #b80040; background: #fff5f8; font-size: 14px; font-weight: 600; line-height: 1.4; }
-    .jdc__label > span { display: block; position: sticky; left: 0; width: 100cqw; box-sizing: border-box; padding: 6px 8px; text-align: center; }
-    .jdc__metric > .jdc__value { grid-row: 2; }
-    .jdc__value { border: none; min-height: 52px; padding: .6em .4em; font-size: clamp(11px, 3.12vw, 13px); line-height: 1.35; }
-    .jdc__copy { width: 100%; text-align: center; word-break: normal; line-break: strict; overflow-wrap: break-word; }
+    .jdc {
+      padding: 38px 0 52px;
+    }
+    .jdc .jdc__inner {
+      width: 96%;
+    }
+    .jdc__heading {
+      margin-bottom: 20px;
+    }
+    .jdc__heading p {
+      font-size: 14px;
+    }
+    .jdc__heading h1 {
+      font-size: clamp(20px, 6.4vw, 24px);
+      line-height: 1.3;
+      text-align: center;
+    }
+    .jdc__mobile-break {
+      display: revert;
+    }
+    .jdc__desktop-separator,
+    .jdc__weight-287 > path:last-child {
+      display: none;
+    }
+    .jdc__weight-287 {
+      transform: translateX(9.44px);
+    }
+    .jdc__scroller {
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+    }
+    .jdc__sticky {
+      scrollbar-width: none;
+    }
+    .jdc__sticky::-webkit-scrollbar {
+      display: none;
+    }
+    .jdc__row {
+      width: max(100%, calc(var(--jdc-count) * 44cqw));
+      grid-template-columns: repeat(var(--jdc-count), minmax(0, 1fr));
+    }
+    .jdc__cards::before {
+      display: none;
+    }
+    .jdc__card {
+      padding: 8px 4px;
+      gap: 6px;
+    }
+    .jdc__image {
+      height: 76px;
+    }
+    .jdc__card .jdc__cta {
+      background: #e0004d;
+      font-size: 13px;
+    }
+    .jdc__label {
+      grid-area: 1 / 1 / 2 / -1;
+      display: block;
+      padding: 0;
+      border: none;
+      color: #b80040;
+      background: #fff5f8;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+    .jdc__label > span {
+      display: block;
+      position: sticky;
+      left: 0;
+      width: 100cqw;
+      box-sizing: border-box;
+      padding: 6px 8px;
+      text-align: center;
+    }
+    .jdc__metric > .jdc__value {
+      grid-row: 2;
+    }
+    .jdc__value {
+      border: none;
+      min-height: 52px;
+      padding: 0.6em 0.4em;
+      font-size: clamp(11px, 3.12vw, 13px);
+      line-height: 1.35;
+    }
+    .jdc__copy {
+      width: 100%;
+      text-align: center;
+      word-break: normal;
+      line-break: strict;
+      overflow-wrap: break-word;
+    }
     .jdc__metric:has(.jdc__icon + .jdc__copy) .jdc__value {
       display: grid;
       grid-template-columns: minmax(0, 1fr);
@@ -160,10 +403,25 @@
       justify-items: center;
       align-items: end;
     }
-    .jdc__metric:has(.jdc__icon + .jdc__copy) .jdc__copy { grid-row: 2; align-self: start; }
-    .jdc__tones { width: 100%; text-align: center; font-size: .96em; }
-    .jdc__tones li:nth-child(5) { color: #e0004d; }
-    .jdc__notes { display: block; margin: 38px 0 0; font-size: 10px; line-height: 1.55; color: #757575; }
+    .jdc__metric:has(.jdc__icon + .jdc__copy) .jdc__copy {
+      grid-row: 2;
+      align-self: start;
+    }
+    .jdc__tones {
+      width: 100%;
+      text-align: center;
+      font-size: 0.96em;
+    }
+    .jdc__tones li:nth-child(5) {
+      color: #e0004d;
+    }
+    .jdc__notes {
+      display: block;
+      margin: 38px 0 0;
+      font-size: 10px;
+      line-height: 1.55;
+      color: #757575;
+    }
   }
 {% endstylesheet %}
 
