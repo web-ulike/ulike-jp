@@ -348,24 +348,30 @@
       transform: translateX(9.44px);
     }
     .jdc__table {
+      --jdc-label-width: clamp(86px, 24vw, 112px);
+      --jdc-row-width: max(100%, calc(var(--jdc-label-width) + var(--jdc-count) * 44cqw));
       overflow-x: auto;
       overscroll-behavior-x: contain;
     }
     .jdc .jdc__table > .jdc__sticky {
       position: relative;
       top: 0;
-      width: max(100%, calc(var(--jdc-count) * 44cqw));
+      width: var(--jdc-row-width);
       transform: translateY(var(--jdc-header-y, 0px));
     }
     .jdc__cards.jdc__row {
       width: 100%;
     }
     .jdc__row {
-      width: max(100%, calc(var(--jdc-count) * 44cqw));
-      grid-template-columns: repeat(var(--jdc-count), minmax(0, 1fr));
+      width: var(--jdc-row-width);
+      grid-template-columns: var(--jdc-label-width) repeat(var(--jdc-count), minmax(0, 1fr));
     }
-    .jdc__cards::before {
-      display: none;
+    .jdc__cards::before,
+    .jdc__label {
+      position: sticky;
+      left: 0;
+      z-index: 1;
+      background: #fff;
     }
     .jdc__card {
       padding: 8px 4px;
@@ -379,30 +385,10 @@
       font-size: 13px;
     }
     .jdc__label {
-      grid-area: 1 / 1 / 2 / -1;
-      display: block;
-      padding: 0;
-      border: none;
-      color: #b80040;
-      background: #fff5f8;
-      font-size: 14px;
-      font-weight: 600;
-      line-height: 1.4;
-    }
-    .jdc__label > span {
-      display: block;
-      position: sticky;
-      left: 0;
-      width: 100cqw;
-      box-sizing: border-box;
-      padding: 6px 8px;
-      text-align: center;
-    }
-    .jdc__metric > .jdc__value {
-      grid-row: 2;
+      font-size: 13px;
+      overflow-wrap: anywhere;
     }
     .jdc__value {
-      border: none;
       min-height: 52px;
       padding: 0.6em 0.4em;
       font-size: clamp(11px, 3.12vw, 13px);
