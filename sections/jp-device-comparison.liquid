@@ -118,19 +118,29 @@
       if (!table) return;
       const header = table.querySelector('.jdc__head');
       const body = table.querySelector('.jdc__body');
+      const mirroredPositions = new WeakMap();
+      const options = { passive: true, signal: this.events.signal };
       // Keep horizontal scrolling inside the sticky row and the body so the
       // table itself does not become a vertical scroll container.
       for (const [source, target] of [
         [header, body],
         [body, header],
       ]) {
+        source.addEventListener('pointerdown', () => mirroredPositions.delete(source), options);
         source.addEventListener(
           'scroll',
           () => {
+            const mirrored = mirroredPositions.get(source);
+            mirroredPositions.delete(source);
+            if (Math.abs(source.scrollLeft - mirrored) < 1) return;
+
             const left = Math.max(0, Math.min(source.scrollLeft, target.scrollWidth - target.clientWidth));
-            if (Math.abs(target.scrollLeft - left) >= 1) target.scrollLeft = left;
+            if (Math.abs(target.scrollLeft - left) >= 1) {
+              target.scrollLeft = left;
+              mirroredPositions.set(target, target.scrollLeft);
+            }
           },
-          { passive: true, signal: this.events.signal }
+          options
         );
       }
       this.addEventListener(
@@ -342,7 +352,8 @@
     .jdc__head,
     .jdc__body {
       overflow-x: auto;
-      overscroll-behavior-x: contain;
+      overscroll-behavior-x: none;
+      scroll-behavior: auto;
     }
     .jdc__sticky {
       border-bottom: 1px solid #e4e4e4;
