@@ -65,7 +65,7 @@
                 <span>{{ section.settings[label] | escape }}</span>
               </h2>
               {% for block in section.blocks %}
-                <div class="jdc__value" data-product="{{ block.id }}">
+                <div class="jdc__value{% if forloop.first %} is-selected{% endif %}" data-product="{{ block.id }}">
                   <span class="visually-hidden">{{ block.settings.title | escape }}</span>
                   {% case field %}
                     {% when 'ushr', 'sensor', 'ice', 'app' %}
@@ -151,15 +151,32 @@
       updateHeader();
 
       const cards = [...header.querySelectorAll('.jdc__card')];
+      const cells = table.querySelectorAll('[data-product]');
+      const label = table.querySelector('.jdc__label');
       let selectedCard = header.querySelector('.jdc__card.is-selected');
       const selectProduct = (event) => {
         const product = event.target.closest('[data-product]')?.dataset.product;
         const card = cards.find((item) => item.dataset.product === product);
-        if (!card || card === selectedCard) return;
+        if (!card) return;
 
-        selectedCard?.classList.remove('is-selected');
-        card.classList.add('is-selected');
-        selectedCard = card;
+        if (card !== selectedCard) {
+          for (const cell of cells) {
+            cell.classList.toggle('is-selected', cell.dataset.product === product);
+          }
+          selectedCard = card;
+        }
+
+        if (event.type === 'click' && mobile.matches) {
+          const viewport = table.getBoundingClientRect();
+          const column = card.getBoundingClientRect();
+          const visibleLeft = viewport.left + label.getBoundingClientRect().width;
+          const visibleRight = viewport.left + table.clientWidth;
+          if (column.left < visibleLeft) {
+            table.scrollLeft += column.left - visibleLeft;
+          } else if (column.right > visibleRight) {
+            table.scrollLeft += column.right - visibleRight;
+          }
+        }
       };
       table.addEventListener('click', selectProduct, options);
       table.addEventListener('focusin', selectProduct, options);
@@ -275,6 +292,16 @@
   .jdc__card.is-selected .jdc__cta {
     background: #e0004d;
   }
+  .jdc__card.is-selected,
+  .jdc__value.is-selected {
+    box-shadow: inset 1px 0 #e0004d, inset -1px 0 #e0004d;
+  }
+  .jdc__card.is-selected {
+    box-shadow: inset 1px 0 #e0004d, inset -1px 0 #e0004d, inset 0 1px #e0004d;
+  }
+  .jdc__metric:last-child .jdc__value.is-selected {
+    box-shadow: inset 1px 0 #e0004d, inset -1px 0 #e0004d, inset 0 -1px #e0004d;
+  }
   .jdc__label {
     margin: 0;
     display: flex;
@@ -372,6 +399,7 @@
       max-width: 100%;
       overflow-x: auto;
       overscroll-behavior-x: none;
+      scroll-padding-inline-start: 25%;
     }
     .jdc__sticky {
       position: relative;
