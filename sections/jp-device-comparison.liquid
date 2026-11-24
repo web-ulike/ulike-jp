@@ -361,9 +361,13 @@
     .jdc__table {
       --jdc-label-width: clamp(86px, 24vw, 112px);
       --jdc-row-width: max(100%, calc(var(--jdc-label-width) + var(--jdc-count) * 44cqw));
+      max-width: 100%;
+      /* Clip horizontal overflow without creating a scroll ancestor for the sticky row. */
+      overflow-x: clip;
     }
     .jdc__head,
     .jdc__body {
+      max-width: 100%;
       overflow-x: auto;
       overscroll-behavior-x: none;
       scroll-behavior: auto;
