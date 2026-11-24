@@ -125,8 +125,8 @@
         const bounds = table.getBoundingClientRect();
         let inset = 0;
         for (const bar of [navigation, announcement]) {
-          if (bar && getComputedStyle(bar).position === 'sticky') {
-            inset = Math.max(inset, bar.getBoundingClientRect().bottom);
+          if (bar && getComputedStyle(bar).position === 'sticky' && !bar.classList.contains('header-2026--scroll-hidden')) {
+            inset += bar.offsetHeight;
           }
         }
         const offset = Math.max(0, Math.min(inset - bounds.top, bounds.height - header.offsetHeight));
@@ -135,7 +135,10 @@
       const listen = { passive: true, signal: this.events.signal };
       window.addEventListener('scroll', updateHeader, listen);
       window.addEventListener('resize', updateHeader, listen);
-      navigation?.addEventListener('transitionend', updateHeader, listen);
+      if (navigation) {
+        this.navigationObserver = new MutationObserver(updateHeader);
+        this.navigationObserver.observe(navigation, { attributes: true, attributeFilter: ['class'] });
+      }
       this.resizeObserver = new ResizeObserver(updateHeader);
       this.resizeObserver.observe(table);
       this.resizeObserver.observe(header);
@@ -152,6 +155,7 @@
     disconnectedCallback() {
       this.events.abort();
       this.resizeObserver?.disconnect();
+      this.navigationObserver?.disconnect();
     }
   }
 
