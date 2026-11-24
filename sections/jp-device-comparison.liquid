@@ -37,7 +37,7 @@
           {% for field in fields %}
             {% assign label = 'label_' | append: field %}
             <div class="jdc__row jdc__metric">
-              <h2 class="jdc__label">{{ section.settings[label] | escape }}</h2>
+              <h2 class="jdc__label"><span>{{ section.settings[label] | escape }}</span></h2>
               {% for block in section.blocks %}
                 <div class="jdc__value" data-product="{{ block.id }}">
                   <span class="visually-hidden">{{ block.settings.title | escape }}</span>
@@ -147,7 +147,9 @@
     .jdc__card { padding: 8px 4px; gap: 6px; }
     .jdc__image { height: 76px; }
     .jdc__card .jdc__cta { background: #e0004d; font-size: 13px; }
-    .jdc__label { grid-column: 1 / -1; display: block; position: sticky; left: 0; width: 100cqw; padding: .3em; border: none; text-align: center; color: #e0004d; background: #fff5f8; font-size: 13px; }
+    .jdc__label { grid-area: 1 / 1 / 2 / -1; display: block; padding: 0; border: none; color: #b80040; background: #fff5f8; font-size: 14px; font-weight: 600; line-height: 1.4; }
+    .jdc__label > span { display: block; position: sticky; left: 0; width: 100cqw; box-sizing: border-box; padding: 6px 8px; text-align: center; }
+    .jdc__metric > .jdc__value { grid-row: 2; }
     .jdc__value { border: none; min-height: 52px; padding: .6em .4em; font-size: clamp(11px, 3.12vw, 13px); line-height: 1.35; }
     .jdc__copy { width: 100%; text-align: center; word-break: normal; line-break: strict; overflow-wrap: break-word; }
     .jdc__metric:has(.jdc__icon + .jdc__copy) .jdc__value {
