@@ -151,7 +151,7 @@
       updateHeader();
 
       const cards = [...header.querySelectorAll('.jdc__card')];
-      let selectedCard = cards[0];
+      let selectedCard = header.querySelector('.jdc__card.is-selected');
       const selectProduct = (event) => {
         const product = event.target.closest('[data-product]')?.dataset.product;
         const card = cards.find((item) => item.dataset.product === product);
