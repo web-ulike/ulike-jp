@@ -29,7 +29,7 @@
       </h1>
     </header>
     {% if section.blocks.size > 0 %}
-      <div class="jdc__table" tabindex="0" role="region" aria-labelledby="jdc-title-{{ section.id }}" style="--jdc-count: {{ section.blocks.size }}">
+      <div class="jdc__table" style="--jdc-count: {{ section.blocks.size }}">
         <div class="jdc__sticky">
           <div class="jdc__row jdc__cards">
             {% for block in section.blocks %}
@@ -57,7 +57,7 @@
             {% endfor %}
           </div>
         </div>
-        <div class="jdc__body">
+        <div class="jdc__body" tabindex="0" role="region" aria-labelledby="jdc-title-{{ section.id }}">
           {% for field in fields %}
             {% assign label = 'label_' | append: field %}
             <div class="jdc__row jdc__metric">
@@ -115,34 +115,19 @@
       const table = this.querySelector('.jdc__table');
       if (!table) return;
       const header = table.querySelector('.jdc__sticky');
-      const mobile = window.matchMedia('(max-width: 749px)');
-      const navigation = document.querySelector('.shopify-section--header');
-      const announcement = document.querySelector('.shopify-section--announcement-bar');
-      const updateHeader = () => {
-        if (!mobile.matches) return;
-        // Horizontal overflow contains native sticky positioning. Keep the row
-        // in the same horizontal track and adjust only its vertical position.
-        const bounds = table.getBoundingClientRect();
-        let inset = 0;
-        for (const bar of [navigation, announcement]) {
-          if (bar && getComputedStyle(bar).position === 'sticky' && !bar.classList.contains('header-2026--scroll-hidden')) {
-            inset += bar.offsetHeight;
+      const body = table.querySelector('.jdc__body');
+      const mirrored = new WeakMap();
+      for (const [source, target] of [[header, body], [body, header]]) {
+        source.addEventListener('scroll', () => {
+          const left = source.scrollLeft;
+          if (mirrored.get(source) === left) return;
+          mirrored.delete(source);
+          if (target.scrollLeft !== left) {
+            target.scrollLeft = left;
+            mirrored.set(target, target.scrollLeft);
           }
-        }
-        const offset = Math.max(0, Math.min(inset - bounds.top, bounds.height - header.offsetHeight));
-        header.style.setProperty('--jdc-header-y', offset + 'px');
-      };
-      const listen = { passive: true, signal: this.events.signal };
-      window.addEventListener('scroll', updateHeader, listen);
-      window.addEventListener('resize', updateHeader, listen);
-      if (navigation) {
-        this.navigationObserver = new MutationObserver(updateHeader);
-        this.navigationObserver.observe(navigation, { attributes: true, attributeFilter: ['class'] });
+        }, { passive: true, signal: this.events.signal });
       }
-      this.resizeObserver = new ResizeObserver(updateHeader);
-      this.resizeObserver.observe(table);
-      this.resizeObserver.observe(header);
-      updateHeader();
       this.addEventListener(
         'shopify:block:select',
         (event) => {
@@ -154,8 +139,6 @@
 
     disconnectedCallback() {
       this.events.abort();
-      this.resizeObserver?.disconnect();
-      this.navigationObserver?.disconnect();
     }
   }
 
@@ -350,17 +333,18 @@
     .jdc__table {
       --jdc-label-width: clamp(86px, 24vw, 112px);
       --jdc-row-width: max(100%, calc(var(--jdc-label-width) + var(--jdc-count) * 44cqw));
+    }
+    .jdc__sticky,
+    .jdc__body {
       overflow-x: auto;
       overscroll-behavior-x: contain;
     }
-    .jdc .jdc__table > .jdc__sticky {
-      position: relative;
-      top: 0;
-      width: var(--jdc-row-width);
-      transform: translateY(var(--jdc-header-y, 0px));
+    .jdc__sticky {
+      scrollbar-width: none;
+      transition: top 220ms ease;
     }
-    .jdc__cards.jdc__row {
-      width: 100%;
+    .jdc__sticky::-webkit-scrollbar {
+      display: none;
     }
     .jdc__row {
       width: var(--jdc-row-width);
@@ -423,7 +407,7 @@
     }
     .jdc__notes {
       display: block;
-      margin: 38px 0 0;
+      margin: 52px 0 0;
       font-size: 10px;
       line-height: 1.55;
       color: #757575;
