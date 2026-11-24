@@ -150,23 +150,6 @@
       }, { once: true });
       updateHeader();
 
-      table.addEventListener('click', (event) => {
-        if (!mobile.matches) return;
-        const cell = event.target.closest('[data-product]');
-        if (!cell) return;
-
-        const viewport = table.getBoundingClientRect();
-        const column = cell.getBoundingClientRect();
-        const labelWidth = table.querySelector('.jdc__label').getBoundingClientRect().width;
-        const visibleLeft = viewport.left + labelWidth;
-        const visibleRight = viewport.left + table.clientWidth;
-        if (column.left < visibleLeft) {
-          table.scrollLeft += column.left - visibleLeft;
-        } else if (column.right > visibleRight) {
-          table.scrollLeft += column.right - visibleRight;
-        }
-      }, options);
-
       this.addEventListener(
         'shopify:block:select',
         (event) => {
