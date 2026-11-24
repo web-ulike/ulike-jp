@@ -29,37 +29,35 @@
       </h1>
     </header>
     {% if section.blocks.size > 0 %}
-      <div class="jdc__table" style="--jdc-count: {{ section.blocks.size }}">
+      <div class="jdc__table" tabindex="0" role="region" aria-labelledby="jdc-title-{{ section.id }}" style="--jdc-count: {{ section.blocks.size }}">
         <div class="jdc__sticky">
-          <div class="jdc__head">
-            <div class="jdc__row jdc__cards">
-              {% for block in section.blocks %}
-                <div class="jdc__card" data-product="{{ block.id }}" {{ block.shopify_attributes }}>
-                  {% if block.settings.image != blank %}
-                    {{
-                      block.settings.image
-                      | image_url: width: 560
-                      | image_tag:
-                        class: 'jdc__image',
-                        loading: loading,
-                        widths: '144, 240, 360, 560',
-                        sizes: '(max-width: 749px) 36vw, 18vw',
-                        alt: block.settings.title
-                    }}
-                  {% else %}
-                    <strong class="jdc__image">{{ block.settings.title | escape }}</strong>
-                  {% endif %}
-                  {% if block.settings.link != blank and block.settings.cta != blank %}
-                    <a class="jdc__cta" href="{{ block.settings.link | escape }}" target="_blank" rel="noopener">
-                      {{- block.settings.cta | escape -}}
-                    </a>
-                  {% endif %}
-                </div>
-              {% endfor %}
-            </div>
+          <div class="jdc__row jdc__cards">
+            {% for block in section.blocks %}
+              <div class="jdc__card" data-product="{{ block.id }}" {{ block.shopify_attributes }}>
+                {% if block.settings.image != blank %}
+                  {{
+                    block.settings.image
+                    | image_url: width: 560
+                    | image_tag:
+                      class: 'jdc__image',
+                      loading: loading,
+                      widths: '144, 240, 360, 560',
+                      sizes: '(max-width: 749px) 36vw, 18vw',
+                      alt: block.settings.title
+                  }}
+                {% else %}
+                  <strong class="jdc__image">{{ block.settings.title | escape }}</strong>
+                {% endif %}
+                {% if block.settings.link != blank and block.settings.cta != blank %}
+                  <a class="jdc__cta" href="{{ block.settings.link | escape }}" target="_blank" rel="noopener">
+                    {{- block.settings.cta | escape -}}
+                  </a>
+                {% endif %}
+              </div>
+            {% endfor %}
           </div>
         </div>
-        <div class="jdc__body" tabindex="0" role="region" aria-labelledby="jdc-title-{{ section.id }}">
+        <div class="jdc__body">
           {% for field in fields %}
             {% assign label = 'label_' | append: field %}
             <div class="jdc__row jdc__metric">
@@ -116,46 +114,42 @@
       this.events = new AbortController();
       const table = this.querySelector('.jdc__table');
       if (!table) return;
-      const header = table.querySelector('.jdc__head');
-      const body = table.querySelector('.jdc__body');
-      const mirroredPositions = new WeakMap();
+      const header = table.querySelector('.jdc__sticky');
+      const mobile = window.matchMedia('(max-width: 749px)');
+      const navigation = document.querySelector('.shopify-section--header');
       const options = { passive: true, signal: this.events.signal };
-      let touchScroller;
-      let idleTimer;
-      const trackTouch = (scroller) => {
-        touchScroller = scroller;
-        clearTimeout(idleTimer);
-        idleTimer = setTimeout(() => { touchScroller = undefined; }, 180);
-      };
-      options.signal.addEventListener('abort', () => clearTimeout(idleTimer), { once: true });
-      // Keep horizontal scrolling inside the sticky row and the body so the
-      // table itself does not become a vertical scroll container.
-      for (const [source, target] of [
-        [header, body],
-        [body, header],
-      ]) {
-        source.addEventListener('pointerdown', (event) => {
-          mirroredPositions.delete(source);
-          if (event.pointerType === 'touch') trackTouch(source);
-        }, options);
-        source.addEventListener(
-          'scroll',
-          () => {
-            const mirrored = mirroredPositions.get(source);
-            mirroredPositions.delete(source);
-            if (Math.abs(source.scrollLeft - mirrored) < 1) return;
-            if (touchScroller && touchScroller !== source) return;
-            if (touchScroller === source) trackTouch(source);
+      let frame = 0;
+      const updateHeader = () => {
+        frame = 0;
+        if (!mobile.matches) return;
 
-            const left = Math.max(0, Math.min(source.scrollLeft, target.scrollWidth - target.clientWidth));
-            if (Math.abs(target.scrollLeft - left) >= 1) {
-              target.scrollLeft = left;
-              mirroredPositions.set(target, target.scrollLeft);
-            }
-          },
-          options
-        );
-      }
+        // The table handles horizontal gestures natively. Move its first row
+        // vertically with the page and stop it at the end of the table.
+        const { top } = table.getBoundingClientRect();
+        const inset = parseFloat(getComputedStyle(header).scrollMarginTop) || 0;
+        const limit = table.clientHeight - header.offsetHeight;
+        const offset = Math.max(0, Math.min(inset - top, limit));
+        header.style.setProperty('--jdc-sticky-offset', offset + 'px');
+      };
+      const scheduleHeader = () => {
+        if (mobile.matches && !frame) frame = requestAnimationFrame(updateHeader);
+      };
+
+      window.addEventListener('scroll', scheduleHeader, options);
+      window.addEventListener('resize', scheduleHeader, options);
+      mobile.addEventListener('change', scheduleHeader, options);
+      const sizes = new ResizeObserver(scheduleHeader);
+      sizes.observe(table);
+      sizes.observe(header);
+      const navigationState = new MutationObserver(scheduleHeader);
+      if (navigation) navigationState.observe(navigation, { attributes: true, attributeFilter: ['class'] });
+      options.signal.addEventListener('abort', () => {
+        sizes.disconnect();
+        navigationState.disconnect();
+        cancelAnimationFrame(frame);
+      }, { once: true });
+      updateHeader();
+
       this.addEventListener(
         'shopify:block:select',
         (event) => {
@@ -216,16 +210,17 @@
     container-type: inline-size;
   }
   .jdc__sticky {
-    position: sticky;
-    top: calc(
+    --jdc-sticky-top: calc(
       var(--header-height, 0px) * var(--enable-sticky-header, 0) + var(--announcement-bar-height, 0px) *
         var(--enable-sticky-announcement-bar, 0)
     );
+    position: sticky;
+    top: var(--jdc-sticky-top);
     z-index: 2;
     background: #fff;
   }
   body:has(.header-2026--scroll-hidden) .jdc__sticky {
-    top: calc(var(--announcement-bar-height, 0px) * var(--enable-sticky-announcement-bar, 0));
+    --jdc-sticky-top: calc(var(--announcement-bar-height, 0px) * var(--enable-sticky-announcement-bar, 0));
   }
   .jdc__row {
     display: grid;
@@ -363,24 +358,17 @@
       --jdc-product-width: calc((100cqw - var(--jdc-label-width)) / 2);
       --jdc-row-width: max(100%, calc(var(--jdc-label-width) + var(--jdc-count) * var(--jdc-product-width)));
       max-width: 100%;
-      /* Clip horizontal overflow without creating a scroll ancestor for the sticky row. */
-      overflow-x: clip;
-    }
-    .jdc__head,
-    .jdc__body {
-      max-width: 100%;
       overflow-x: auto;
       overscroll-behavior-x: none;
-      scroll-behavior: auto;
     }
     .jdc__sticky {
+      position: relative;
+      top: 0;
+      transform: translateY(var(--jdc-sticky-offset, 0px));
+      scroll-margin-top: var(--jdc-sticky-top);
+    }
+    .jdc__cards {
       border-bottom: 1px solid #e4e4e4;
-    }
-    .jdc__head {
-      scrollbar-width: none;
-    }
-    .jdc__head::-webkit-scrollbar {
-      display: none;
     }
     .jdc__row {
       width: var(--jdc-row-width);
