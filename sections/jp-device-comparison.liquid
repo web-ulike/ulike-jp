@@ -110,6 +110,7 @@
   .jdc__heading h1 { margin: 0 auto; font-size: clamp(26px, 2.1vw, 40px); font-weight: 600; line-height: 1.35; }
   .jdc__table { container-type: inline-size; }
   .jdc__sticky { position: sticky; top: calc(var(--header-height, 0px) * var(--enable-sticky-header, 0) + var(--announcement-bar-height, 0px) * var(--enable-sticky-announcement-bar, 0)); z-index: 2; background: #fff; }
+  body:has(.header-2026--scroll-hidden) .jdc__sticky { top: calc(var(--announcement-bar-height, 0px) * var(--enable-sticky-announcement-bar, 0)); }
   .jdc__row { display: grid; grid-template-columns: minmax(110px, 17%) repeat(var(--jdc-count), minmax(0, 1fr)); }
   .jdc__cards::before { content: ''; }
   .jdc__card, .jdc__value { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow-wrap: anywhere; min-width: 0; background: #fff; }
