@@ -33,7 +33,7 @@
         <div class="jdc__sticky">
           <div class="jdc__row jdc__cards">
             {% for block in section.blocks %}
-              <div class="jdc__card" data-product="{{ block.id }}" {{ block.shopify_attributes }}>
+              <div class="jdc__card{% if forloop.first %} is-selected{% endif %}" data-product="{{ block.id }}" {{ block.shopify_attributes }}>
                 {% if block.settings.image != blank %}
                   {{
                     block.settings.image
@@ -150,6 +150,20 @@
       }, { once: true });
       updateHeader();
 
+      const cards = [...header.querySelectorAll('.jdc__card')];
+      let selectedCard = cards[0];
+      const selectProduct = (event) => {
+        const product = event.target.closest('[data-product]')?.dataset.product;
+        const card = cards.find((item) => item.dataset.product === product);
+        if (!card || card === selectedCard) return;
+
+        selectedCard?.classList.remove('is-selected');
+        card.classList.add('is-selected');
+        selectedCard = card;
+      };
+      table.addEventListener('click', selectProduct, options);
+      table.addEventListener('focusin', selectProduct, options);
+
       this.addEventListener(
         'shopify:block:select',
         (event) => {
@@ -258,7 +272,7 @@
     color: white;
     font-size: clamp(13px, 1vw, 16px);
   }
-  .jdc__card:first-child .jdc__cta {
+  .jdc__card.is-selected .jdc__cta {
     background: #e0004d;
   }
   .jdc__label {
@@ -397,7 +411,6 @@
       min-height: 24px;
       max-width: 100%;
       padding: 3px 8px;
-      background: #e0004d;
       font-size: 11px;
       line-height: 1.3;
     }
