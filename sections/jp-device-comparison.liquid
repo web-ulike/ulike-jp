@@ -116,17 +116,20 @@
       if (!table) return;
       const header = table.querySelector('.jdc__sticky');
       const body = table.querySelector('.jdc__body');
-      const mirrored = new WeakMap();
-      for (const [source, target] of [[header, body], [body, header]]) {
-        source.addEventListener('scroll', () => {
-          const left = source.scrollLeft;
-          if (mirrored.get(source) === left) return;
-          mirrored.delete(source);
-          if (target.scrollLeft !== left) {
-            target.scrollLeft = left;
-            mirrored.set(target, target.scrollLeft);
-          }
-        }, { passive: true, signal: this.events.signal });
+      // Keep horizontal scrolling inside the sticky row and the body so the
+      // table itself does not become a vertical scroll container.
+      for (const [source, target] of [
+        [header, body],
+        [body, header],
+      ]) {
+        source.addEventListener(
+          'scroll',
+          () => {
+            const left = Math.max(0, Math.min(source.scrollLeft, target.scrollWidth - target.clientWidth));
+            if (Math.abs(target.scrollLeft - left) >= 1) target.scrollLeft = left;
+          },
+          { passive: true, signal: this.events.signal }
+        );
       }
       this.addEventListener(
         'shopify:block:select',
