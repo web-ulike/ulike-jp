@@ -29,8 +29,8 @@
       </h1>
     </header>
     {% if section.blocks.size > 0 %}
-      <div class="jdc__table" style="--jdc-count: {{ section.blocks.size }}">
-        <div class="jdc__sticky jdc__scroller">
+      <div class="jdc__table" tabindex="0" role="region" aria-labelledby="jdc-title-{{ section.id }}" style="--jdc-count: {{ section.blocks.size }}">
+        <div class="jdc__sticky">
           <div class="jdc__row jdc__cards">
             {% for block in section.blocks %}
               <div class="jdc__card" data-product="{{ block.id }}" {{ block.shopify_attributes }}>
@@ -57,7 +57,7 @@
             {% endfor %}
           </div>
         </div>
-        <div class="jdc__body jdc__scroller" tabindex="0" role="region" aria-labelledby="jdc-title-{{ section.id }}">
+        <div class="jdc__body">
           {% for field in fields %}
             {% assign label = 'label_' | append: field %}
             <div class="jdc__row jdc__metric">
@@ -112,22 +112,34 @@
   class JpDeviceComparison extends HTMLElement {
     connectedCallback() {
       this.events = new AbortController();
-      const [header, body] = this.querySelectorAll('.jdc__scroller');
-      if (!body) return;
-
-      // Separate scroll containers let the product row stick to the page on mobile.
-      for (const [source, target] of [
-        [body, header],
-        [header, body],
-      ]) {
-        source.addEventListener(
-          'scroll',
-          () => {
-            if (target.scrollLeft !== source.scrollLeft) target.scrollLeft = source.scrollLeft;
-          },
-          { passive: true, signal: this.events.signal }
-        );
-      }
+      const table = this.querySelector('.jdc__table');
+      if (!table) return;
+      const header = table.querySelector('.jdc__sticky');
+      const mobile = window.matchMedia('(max-width: 749px)');
+      const navigation = document.querySelector('.shopify-section--header');
+      const announcement = document.querySelector('.shopify-section--announcement-bar');
+      const updateHeader = () => {
+        if (!mobile.matches) return;
+        // Horizontal overflow contains native sticky positioning. Keep the row
+        // in the same horizontal track and adjust only its vertical position.
+        const bounds = table.getBoundingClientRect();
+        let inset = 0;
+        for (const bar of [navigation, announcement]) {
+          if (bar && getComputedStyle(bar).position === 'sticky') {
+            inset = Math.max(inset, bar.getBoundingClientRect().bottom);
+          }
+        }
+        const offset = Math.max(0, Math.min(inset - bounds.top, bounds.height - header.offsetHeight));
+        header.style.setProperty('--jdc-header-y', offset + 'px');
+      };
+      const listen = { passive: true, signal: this.events.signal };
+      window.addEventListener('scroll', updateHeader, listen);
+      window.addEventListener('resize', updateHeader, listen);
+      navigation?.addEventListener('transitionend', updateHeader, listen);
+      this.resizeObserver = new ResizeObserver(updateHeader);
+      this.resizeObserver.observe(table);
+      this.resizeObserver.observe(header);
+      updateHeader();
       this.addEventListener(
         'shopify:block:select',
         (event) => {
@@ -139,6 +151,7 @@
 
     disconnectedCallback() {
       this.events.abort();
+      this.resizeObserver?.disconnect();
     }
   }
 
@@ -304,10 +317,10 @@
   }
   @media (max-width: 749px) {
     .jdc {
-      padding: 38px 0 52px;
+      padding: 52px 20px 64px;
     }
     .jdc .jdc__inner {
-      width: 96%;
+      width: 100%;
     }
     .jdc__heading {
       margin-bottom: 20px;
@@ -330,15 +343,18 @@
     .jdc__weight-287 {
       transform: translateX(9.44px);
     }
-    .jdc__scroller {
+    .jdc__table {
       overflow-x: auto;
       overscroll-behavior-x: contain;
     }
-    .jdc__sticky {
-      scrollbar-width: none;
+    .jdc .jdc__table > .jdc__sticky {
+      position: relative;
+      top: 0;
+      width: max(100%, calc(var(--jdc-count) * 44cqw));
+      transform: translateY(var(--jdc-header-y, 0px));
     }
-    .jdc__sticky::-webkit-scrollbar {
-      display: none;
+    .jdc__cards.jdc__row {
+      width: 100%;
     }
     .jdc__row {
       width: max(100%, calc(var(--jdc-count) * 44cqw));
