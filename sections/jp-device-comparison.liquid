@@ -359,8 +359,9 @@
       transform: translateX(9.44px);
     }
     .jdc__table {
-      --jdc-label-width: clamp(86px, 24vw, 112px);
-      --jdc-row-width: max(100%, calc(var(--jdc-label-width) + var(--jdc-count) * 44cqw));
+      --jdc-label-width: clamp(72px, 25cqw, 96px);
+      --jdc-product-width: calc((100cqw - var(--jdc-label-width)) / 2);
+      --jdc-row-width: max(100%, calc(var(--jdc-label-width) + var(--jdc-count) * var(--jdc-product-width)));
       max-width: 100%;
       /* Clip horizontal overflow without creating a scroll ancestor for the sticky row. */
       overflow-x: clip;
