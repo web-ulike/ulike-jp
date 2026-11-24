@@ -1,6 +1,5 @@
 {%- liquid
   assign fields = 'slogan,audience,effect,power,density,lamps,cooling,ushr,sensor,skin,area,duration,speed,weight,start_cooling,ice,app,lifetime' | split: ','
-  assign first_pair = section.blocks | slice: 0, 2
   assign loading = 'lazy'
   if section.index == nil or section.index <= 2
     assign loading = 'eager'
@@ -14,69 +13,54 @@
   <div class="container jdc__inner">
     <header class="jdc__heading">
       <p{% if animate %} class="to-top"{% endif %}>{{ section.settings.eyebrow | escape }}</p>
-      <h2 id="jdc-title-{{ section.id }}"{% if animate %} class="to-top" style="transition-delay: 0.1s"{% endif %}>{% render 'jp-device-comparison-copy', field: 'title', value: section.settings.title %}</h2>
+      <h1 id="jdc-title-{{ section.id }}"{% if animate %} class="to-top" style="transition-delay: 0.1s"{% endif %}>{% render 'jp-device-comparison-copy', field: 'title', value: section.settings.title %}</h1>
     </header>
-    {% if first_pair.size > 0 %}
-      <div class="jdc__row jdc__selectors">
-        {% for initial in first_pair %}
-          {% assign slot = forloop.index %}
-          <details class="jdc__picker" data-slot="{{ forloop.index }}">
-            <summary><span>{{ initial.settings.title | escape }}</span></summary>
-            <div class="jdc__options">
-              {% for block in section.blocks %}
-                <button type="button" data-choice="{{ block.id }}"{% if forloop.index == slot %} hidden{% endif %}>{{ block.settings.title | escape }}</button>
-              {% endfor %}
-            </div>
-          </details>
-        {% endfor %}
-      </div>
-      <div class="jdc__row jdc__cards">
-        {% for block in section.blocks %}
-          <div class="jdc__card" data-product="{{ block.id }}" {% if forloop.index <= 2 %}data-slot="{{ forloop.index }}"{% else %}hidden{% endif %} {{ block.shopify_attributes }}>
-            {% if block.settings.image != blank %}
-              {{ block.settings.image | image_url: width: 560 | image_tag: class: 'jdc__image', loading: loading, widths: '144, 240, 360, 560', sizes: '(max-width: 749px) 36vw, 18vw', alt: block.settings.title }}
-            {% else %}
-              <strong class="jdc__image">{{ block.settings.title | escape }}</strong>
-            {% endif %}
-            {% if block.settings.link != blank and block.settings.cta != blank %}
-              <a class="jdc__cta" href="{{ block.settings.link | escape }}" target="_blank" rel="noopener">{{ block.settings.cta | escape }}</a>
-            {% endif %}
-          </div>
-        {% endfor %}
-      </div>
-      {% for field in fields %}
-        {% liquid
-          assign group = nil
-          case field
-            when 'slogan', 'cooling', 'sensor', 'area', 'weight', 'app', 'lifetime'
-              assign group = 'group_' | append: field
-          endcase
-          assign label = 'label_' | append: field
-        %}
-        <div class="jdc__row jdc__metric">
-          {% if group %}<h3 class="jdc__group">{{ section.settings[group] | escape }}</h3>{% endif %}
-          <h4 class="jdc__label">{{ section.settings[label] | escape }}</h4>
-          {% for block in section.blocks %}
-            <div class="jdc__value" data-product="{{ block.id }}" {% if forloop.index <= 2 %}data-slot="{{ forloop.index }}"{% else %}hidden{% endif %}>
-              <span class="visually-hidden">{{ block.settings.title | escape }}</span>
-              {% case field %}
-                {% when 'ushr', 'sensor', 'ice', 'app' %}
-                  {% render 'jp-device-comparison-icons', field: field, value: block.settings[field], sid: section.id, bid: block.id %}
-                {% when 'skin' %}
-                  <ul class="jdc__tones">
-                    {% assign tones = block.settings.skin | newline_to_br | split: '<br />' %}
-                    {% for tone in tones %}<li>{{ tone | strip | escape }}</li>{% endfor %}
-                  </ul>
+    {% if section.blocks.size > 0 %}
+      <div class="jdc__table" style="--jdc-count: {{ section.blocks.size }}">
+        <div class="jdc__sticky jdc__scroller">
+          <div class="jdc__row jdc__cards">
+            {% for block in section.blocks %}
+              <div class="jdc__card" data-product="{{ block.id }}" {{ block.shopify_attributes }}>
+                {% if block.settings.image != blank %}
+                  {{ block.settings.image | image_url: width: 560 | image_tag: class: 'jdc__image', loading: loading, widths: '144, 240, 360, 560', sizes: '(max-width: 749px) 36vw, 18vw', alt: block.settings.title }}
                 {% else %}
-                  {% unless field == 'slogan' or field == 'audience' or block.settings[field] == blank %}
-                    {% render 'jp-device-comparison-icons', field: field, value: block.settings[field], sid: section.id, bid: block.id %}
-                  {% endunless %}
-                  <span class="jdc__copy">{% render 'jp-device-comparison-copy', field: field, value: block.settings[field] %}</span>
-              {% endcase %}
+                  <strong class="jdc__image">{{ block.settings.title | escape }}</strong>
+                {% endif %}
+                {% if block.settings.link != blank and block.settings.cta != blank %}
+                  <a class="jdc__cta" href="{{ block.settings.link | escape }}" target="_blank" rel="noopener">{{ block.settings.cta | escape }}</a>
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="jdc__body jdc__scroller" tabindex="0" role="region" aria-labelledby="jdc-title-{{ section.id }}">
+          {% for field in fields %}
+            {% assign label = 'label_' | append: field %}
+            <div class="jdc__row jdc__metric">
+              <h2 class="jdc__label">{{ section.settings[label] | escape }}</h2>
+              {% for block in section.blocks %}
+                <div class="jdc__value" data-product="{{ block.id }}">
+                  <span class="visually-hidden">{{ block.settings.title | escape }}</span>
+                  {% case field %}
+                    {% when 'ushr', 'sensor', 'ice', 'app' %}
+                      {% render 'jp-device-comparison-icons', field: field, value: block.settings[field], sid: section.id, bid: block.id %}
+                    {% when 'skin' %}
+                      <ul class="jdc__tones">
+                        {% assign tones = block.settings.skin | newline_to_br | split: '<br />' %}
+                        {% for tone in tones %}<li>{{ tone | strip | escape }}</li>{% endfor %}
+                      </ul>
+                    {% else %}
+                      {% unless field == 'slogan' or field == 'audience' or block.settings[field] == blank %}
+                        {% render 'jp-device-comparison-icons', field: field, value: block.settings[field], sid: section.id, bid: block.id %}
+                      {% endunless %}
+                      <span class="jdc__copy">{% render 'jp-device-comparison-copy', field: field, value: block.settings[field] %}</span>
+                  {% endcase %}
+                </div>
+              {% endfor %}
             </div>
           {% endfor %}
         </div>
-      {% endfor %}
+      </div>
       {% if section.settings.notes != blank %}<p class="jdc__notes">{{ section.settings.notes | escape | newline_to_br }}</p>{% endif %}
     {% endif %}
   </div>
@@ -86,66 +70,22 @@
   class JpDeviceComparison extends HTMLElement {
     connectedCallback() {
       this.events = new AbortController();
-      const options = { signal: this.events.signal };
-      this.pickers = Array.from(this.querySelectorAll('details'));
-      this.pair = this.pickers.map((picker) => picker.querySelector('[data-choice][hidden]').dataset.choice);
-      this.addEventListener('click', (event) => {
-        const button = event.target.closest('[data-choice]');
-        if (button) {
-          const picker = button.closest('details');
-          this.select(Number(picker.dataset.slot) - 1, button.dataset.choice);
-          picker.querySelector('summary').focus();
-        }
-        this.pickers.forEach((picker) => {
-          if (!picker.contains(event.target)) {
-            picker.open = false;
-          }
-        });
-      }, options);
-      document.addEventListener('click', (event) => {
-        if (!this.contains(event.target)) {
-          this.pickers.forEach((picker) => { picker.open = false; });
-        }
-      }, options);
-      this.addEventListener('keydown', (event) => {
-        const picker = event.target.closest('details');
-        if (picker && event.key === 'Escape') {
-          picker.open = false;
-          picker.querySelector('summary').focus();
-        }
-      }, options);
+      const [header, body] = this.querySelectorAll('.jdc__scroller');
+      if (!body) return;
+
+      // Separate scroll containers let the product row stick to the page on mobile.
+      for (const [source, target] of [[body, header], [header, body]]) {
+        source.addEventListener('scroll', () => {
+          if (target.scrollLeft !== source.scrollLeft) target.scrollLeft = source.scrollLeft;
+        }, { passive: true, signal: this.events.signal });
+      }
       this.addEventListener('shopify:block:select', (event) => {
-        const id = event.detail.blockId;
-        if (!this.pair.includes(id)) {
-          this.select(0, id);
-        }
-      }, options);
+        event.target.closest('.jdc__card')?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+      }, { signal: this.events.signal });
     }
 
     disconnectedCallback() {
       this.events.abort();
-    }
-
-    select(slot, id) {
-      const previous = this.pair.indexOf(id);
-      if (previous !== -1) {
-        this.pair[previous] = this.pair[slot];
-      }
-      this.pair[slot] = id;
-      this.querySelectorAll('[data-product]').forEach((cell) => {
-        const index = this.pair.indexOf(cell.dataset.product);
-        cell.hidden = index === -1;
-        cell.dataset.slot = String(index + 1);
-      });
-      this.pickers.forEach((picker, index) => {
-        picker.querySelectorAll('[data-choice]').forEach((button) => {
-          button.hidden = button.dataset.choice === this.pair[index];
-          if (button.hidden) {
-            picker.querySelector('summary span').textContent = button.textContent;
-          }
-        });
-        picker.open = false;
-      });
     }
   }
 
@@ -154,41 +94,32 @@
   }
 {% endjavascript %}
 
-{% stylesheet %}
-  .jdc { display: block; background: white; color: #1a1a1a; padding: clamp(60px, 7vw, 120px) 0; }
-  .jdc .jdc__inner { width: 86%; max-width: 1660px; padding: 0; margin: auto; }
-  .jdc__heading { text-align: center; margin-bottom: clamp(48px, 5vw, 96px); }
-  .jdc__heading p { margin: 0 0 .65em; font-size: clamp(15px, 1.25vw, 24px); letter-spacing: .1em; color: #888; }
-  .jdc__heading h2 { margin: 0 auto; font-size: clamp(26px, 2.1vw, 40px); font-weight: 600; line-height: 1.35; }
-  .jdc__row { display: grid; grid-template-columns: 16% 33% repeat(2, minmax(0, 1fr)); }
-  .jdc [hidden] { display: none; }
-  .jdc [data-slot="1"] { grid-column: 3; grid-row: 1; }
-  .jdc [data-slot="2"] { grid-column: 4; grid-row: 1; }
-  .jdc__selectors { position: relative; z-index: 2; margin-bottom: 2vw; }
-  .jdc__picker { position: relative; width: 76%; margin: 0 auto; font-size: clamp(14px, 1.05vw, 20px); }
-  .jdc__picker summary { list-style: none; position: relative; z-index: 1; border: 1px solid; border-radius: 100px; padding: .78em 2.3em .78em 1.4em; cursor: pointer; background: white; }
-  .jdc__picker summary::-webkit-details-marker { display: none; }
-  .jdc__picker summary::after { content: ''; position: absolute; right: 12%; top: 45%; width: .72em; height: .72em; border: solid currentColor; border-width: 0 1px 1px 0; transform: translateY(-50%) rotate(45deg); }
-  .jdc__options { position: absolute; inset: 50% 0 auto; padding: 1.6em 1.1em .2em; background: #f1f1f1; border-radius: 0 0 1.5em 1.5em; box-shadow: 0 6px 14px #0001; }
-  .jdc__options button { display: block; text-align: left; width: 100%; padding: .65em 0; border-bottom: 1px solid #ccc; }
-  .jdc__options button:last-child { border: 0; }
-  .jdc__card, .jdc__value { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow-wrap: anywhere; min-width: 0; }
-  .jdc__card, .jdc__value { background-color: #fff; }
+{% style %}
   @media (hover: hover) {
-    .jdc:has([data-product][data-slot="1"]:hover) [data-product][data-slot="1"],
-    .jdc:has([data-product][data-slot="2"]:hover) [data-product][data-slot="2"] {
-      background-color: #f6f6f6;
-    }
+    {% for block in section.blocks %}
+      #shopify-section-{{ section.id }} .jdc:has([data-product="{{ block.id }}"]:hover) [data-product="{{ block.id }}"] { background-color: #f6f6f6; }
+    {% endfor %}
   }
-  .jdc__card { gap: clamp(18px, 2vw, 40px); padding: clamp(35px, 5vw, 100px) 8px clamp(25px, 2.5vw, 50px); }
-  .jdc__image { display: grid; place-items: center; width: 86%; height: clamp(130px, 10vw, 192px); object-fit: contain; }
-  .jdc__cta { padding: .17em 1.25em; border-radius: 100px; background: #1a1a1a; color: white; font-size: clamp(14px, 1.05vw, 20px); }
-  .jdc__card[data-slot="1"] .jdc__cta { background: #e0004d; }
-  .jdc__group { grid-area: 1 / 1; width: 74%; align-self: start; margin: 0; padding-top: .5em; border-top: 2px solid #e0004d; }
-  .jdc__group, .jdc__label { font-size: clamp(16px, 1.25vw, 24px); font-weight: 500; }
-  .jdc__label { grid-area: 1 / 2; margin: 0; display: flex; align-items: center; padding: .8em 6% .8em 18%; }
+{% endstyle %}
+
+{% stylesheet %}
+  .jdc { display: block; background: white; color: #1a1a1a; padding: clamp(36px, 4vw, 72px) 0; }
+  .jdc .jdc__inner { width: 94%; max-width: 1660px; padding: 0; margin: auto; }
+  .jdc__heading { text-align: center; margin-bottom: clamp(20px, 2.5vw, 40px); }
+  .jdc__heading p { margin: 0 0 .65em; font-size: clamp(15px, 1.25vw, 24px); letter-spacing: .1em; color: #888; }
+  .jdc__heading h1 { margin: 0 auto; font-size: clamp(26px, 2.1vw, 40px); font-weight: 600; line-height: 1.35; }
+  .jdc__table { container-type: inline-size; }
+  .jdc__sticky { position: sticky; top: calc(var(--header-height, 0px) * var(--enable-sticky-header, 0) + var(--announcement-bar-height, 0px) * var(--enable-sticky-announcement-bar, 0)); z-index: 2; background: #fff; }
+  .jdc__row { display: grid; grid-template-columns: minmax(110px, 17%) repeat(var(--jdc-count), minmax(0, 1fr)); }
+  .jdc__cards::before { content: ''; }
+  .jdc__card, .jdc__value { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow-wrap: anywhere; min-width: 0; background: #fff; }
+  .jdc__card { gap: 8px; padding: 10px 6px; }
+  .jdc__image { display: grid; place-items: center; width: 90%; height: clamp(84px, 8vw, 126px); object-fit: contain; }
+  .jdc__cta { padding: .2em 1.15em; border-radius: 100px; background: #1a1a1a; color: white; font-size: clamp(13px, 1vw, 16px); }
+  .jdc__card:first-child .jdc__cta { background: #e0004d; }
+  .jdc__label { margin: 0; display: flex; align-items: center; padding: .6em; font-size: clamp(14px, 1.1vw, 18px); font-weight: 500; }
   .jdc__label, .jdc__value { border-top: 1px solid #e4e4e4; }
-  .jdc__value { gap: .38em; padding: 1.1em .65em; min-height: clamp(78px, 6vw, 115px); font-size: clamp(14px, .94vw, 18px); line-height: 1.4; }
+  .jdc__value { gap: .3em; padding: .65em .4em; min-height: 58px; font-size: clamp(13px, .94vw, 17px); line-height: 1.4; }
   .jdc__icon { display: block; width: var(--jdc-icon-width); height: auto; max-width: 100%; flex: none; }
   .jdc__icon--power { height: 1.1111em; width: auto; }
   .jdc__tones { list-style: none; margin: 0; padding: 0; text-align: left; font-size: .85em; }
@@ -201,27 +132,24 @@
   @media (max-width: 749px) {
     .jdc { padding: 38px 0 52px; }
     .jdc .jdc__inner { width: 96%; }
-    .jdc__heading { margin-bottom: 52px; }
+    .jdc__heading { margin-bottom: 20px; }
     .jdc__heading p { font-size: 14px; }
-    .jdc__heading h2 { font-size: clamp(20px, 6.4vw, 24px); line-height: 1.3; text-align: center; }
+    .jdc__heading h1 { font-size: clamp(20px, 6.4vw, 24px); line-height: 1.3; text-align: center; }
     .jdc__mobile-break { display: revert; }
     .jdc__desktop-separator, .jdc__weight-287 > path:last-child { display: none; }
     .jdc__weight-287 { transform: translateX(9.44px); }
-    .jdc__row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .jdc [data-slot="1"] { grid-column: 1; }
-    .jdc [data-slot="2"] { grid-column: 2; }
-    .jdc__picker { width: 84%; font-size: 14px; }
-    .jdc__picker summary { padding: .5em 1.8em .5em 1em; }
-    .jdc__selectors { margin-bottom: 0; }
-    .jdc__card { padding: 48px 4px 24px; gap: 26px; }
-    .jdc__image { height: 120px; }
+    .jdc__scroller { overflow-x: auto; overscroll-behavior-x: contain; }
+    .jdc__sticky { scrollbar-width: none; }
+    .jdc__sticky::-webkit-scrollbar { display: none; }
+    .jdc__row { width: max(100%, calc(var(--jdc-count) * 44cqw)); grid-template-columns: repeat(var(--jdc-count), minmax(0, 1fr)); }
+    .jdc__cards::before { display: none; }
+    .jdc__card { padding: 8px 4px; gap: 6px; }
+    .jdc__image { height: 76px; }
     .jdc__card .jdc__cta { background: #e0004d; font-size: 13px; }
-    .jdc__group, .jdc__label { grid-area: auto / 1 / auto / -1; text-align: center; width: 100%; }
-    .jdc__group { border: none; border-bottom: 2px solid #e0004d; padding: .25em 0; margin-bottom: 24px; }
-    .jdc__label { display: block; padding: .32em; border: none; color: #e0004d; background: linear-gradient(90deg, #ff005803, #e0004d10, #ff005803); font-size: 13px; }
-    .jdc .jdc__value[data-slot] { grid-row: 2; border: none; min-height: 66px; padding: 1em .45em; font-size: clamp(10px, 3.12vw, 11.7px); line-height: 1.35; }
+    .jdc__label { grid-column: 1 / -1; display: block; position: sticky; left: 0; width: 100cqw; padding: .3em; border: none; text-align: center; color: #e0004d; background: #fff5f8; font-size: 13px; }
+    .jdc__value { border: none; min-height: 52px; padding: .6em .4em; font-size: clamp(11px, 3.12vw, 13px); line-height: 1.35; }
     .jdc__copy { width: 100%; text-align: center; word-break: normal; line-break: strict; overflow-wrap: break-word; }
-    .jdc__metric:has(.jdc__icon + .jdc__copy) .jdc__value:not([hidden]) {
+    .jdc__metric:has(.jdc__icon + .jdc__copy) .jdc__value {
       display: grid;
       grid-template-columns: minmax(0, 1fr);
       grid-template-rows: 2.5em auto;
@@ -232,15 +160,13 @@
     .jdc__metric:has(.jdc__icon + .jdc__copy) .jdc__copy { grid-row: 2; align-self: start; }
     .jdc__tones { width: 100%; text-align: center; font-size: .96em; }
     .jdc__tones li:nth-child(5) { color: #e0004d; }
-    .jdc__picker summary, .jdc__notes { text-align: left; }
-    .jdc__metric:has(.jdc__group) .jdc__value[data-slot] { grid-row: 3; }
     .jdc__notes { display: block; margin: 38px 0 0; font-size: 10px; line-height: 1.55; color: #757575; }
   }
 {% endstylesheet %}
 
 {% schema %}
 {
-  "name": "製品比較（2機種選択）",
+  "name": "製品比較",
   "settings": [
     {
       "type": "text",
@@ -259,48 +185,6 @@
       "id": "notes",
       "label": "モバイル注記",
       "default": "*1. 国際認証機関CVCにより、SHRモードで1秒に4回フラッシュする際の平均間隔を0.25sとした結果。\n*2. 国際認証機関CVCにて、160㎝の男女3名を対象とした試験結果。お手入れにかかる時間には個人差があります。\n*3.電源投入後、未照射状態の冷却面の温度を指す。国際認証機関CVCによる試験結果：NO: GJW2024-1748、結果はテスト条件により異なる可能性もあります。\n*4.電源投入後、未照射状態の冷却面の温度を指す。社内レポート、結果はテスト条件により異なる可能性もあります。\n*5.30分間連続使用しても皮膚温度を14℃以下にキープ。国際認証機関CVCによる試験結果。\n*6.30分間連続使用しても皮膚温度を16℃以下にキープ。国際認証機関CVCによる試験結果。\n*7.30分間連続使用しても皮膚温度を18℃以下にキープ。国際認証機関CVCによる試験結果。\n*8.30分間連続使用しても皮膚温度を18℃以下にキープ。社内レポート。\n*9.一部使用できない箇所があります。取扱説明書をご確認ください。"
-    },
-    {
-      "type": "text",
-      "id": "group_slogan",
-      "label": "分類名 · 効果",
-      "default": "効果"
-    },
-    {
-      "type": "text",
-      "id": "group_cooling",
-      "label": "分類名 · 痛みレス",
-      "default": "痛みレス"
-    },
-    {
-      "type": "text",
-      "id": "group_sensor",
-      "label": "分類名 · 安全性",
-      "default": "安全性"
-    },
-    {
-      "type": "text",
-      "id": "group_area",
-      "label": "分類名 · 時短",
-      "default": "時短"
-    },
-    {
-      "type": "text",
-      "id": "group_weight",
-      "label": "分類名 · 使用便利",
-      "default": "使用便利"
-    },
-    {
-      "type": "text",
-      "id": "group_app",
-      "label": "分類名 · スマート性",
-      "default": "スマート性"
-    },
-    {
-      "type": "text",
-      "id": "group_lifetime",
-      "label": "分類名 · コスパ",
-      "default": "コスパ"
     },
     {
       "type": "text",
@@ -533,7 +417,7 @@
   ],
   "presets": [
     {
-      "name": "製品比較（2機種選択）",
+      "name": "製品比較",
       "blocks": [
         {
           "type": "device",
