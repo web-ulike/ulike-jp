@@ -336,8 +336,7 @@
           #u-user-popup .policy-agreement {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 30px;
-            margin: 0px;
+            margin: 10px 0px 30px;
           }
 
           #u-user-popup .policy-agreement input[type="checkbox"] {
@@ -836,16 +835,15 @@
               height: 36px;
             }
             #u-user-popup .popup-container {
-      flex-direction: column;
-      }
-      #u-user-popup .policy-agreement{
-          margin-bottom: 12px;
-          margin-top: 10px;
-      }
-       .popup .countdown-inner .countdown-ulike {
-          font-size: 16px;
-          gap: 7px;
-      }
+              flex-direction: column;
+            }
+            #u-user-popup .policy-agreement{
+                margin-bottom: 12px;
+            }
+            .popup .countdown-inner .countdown-ulike {
+              font-size: 16px;
+              gap: 7px;
+            }
        .popup .countdown-inner .countdown-label {
           font-size: 12px;
       }
@@ -1023,7 +1021,9 @@
                 <div class="input-msg-error"></div>
               </div>
 
-              <button type="button" class="btn-primary"><span class="btn-primary__label">{{ se_stts.btn_text }}</span></button>
+              <button type="button" class="btn-primary">
+                <span class="btn-primary__label">{{ se_stts.btn_text }}</span>
+              </button>
               <div class="login-msg-error"></div>
               {% comment %}
                 <div class="social-login">
@@ -1201,7 +1201,8 @@
               localStorage.setItem('ulike-subscribed', 'true');
               trackPopupEvent('vip_subscribe_success', 'success');
             } else if (res.code == 99998) {
-              const repeatEmailMessage = 'このメールアドレスは既に登録されています。別のメールアドレスをご利用ください。';
+              const repeatEmailMessage =
+                'このメールアドレスは既に登録されています。別のメールアドレスをご利用ください。';
               showLoginError(res.message === 'user_subscribe_email_repeat' ? repeatEmailMessage : res.message);
             } else {
               showLoginError(res.message);
@@ -1218,11 +1219,13 @@
       });
 
       function validateEmailField(email) {
-        const message = !email ? errorMessages.emailInvalid :
-          !window.UlikeCommon.validateEmail(email) ? errorMessages.emailFormat : '';
+        const message = !email
+          ? errorMessages.emailInvalid
+          : !window.UlikeCommon.validateEmail(email)
+          ? errorMessages.emailFormat
+          : '';
         const $group = $email.closest('.form-group');
-        $group.toggleClass('form-group-error', Boolean(message))
-          .find('.input-msg-error').text(message);
+        $group.toggleClass('form-group-error', Boolean(message)).find('.input-msg-error').text(message);
         return !message;
       }
 
@@ -1362,7 +1365,16 @@
           this.sSep = s('countdown-separator', ':');
           this.secs = d('seconds-box');
 
-          this.replaceChildren(this.labelEl, this.days, this.daysSep, this.hours, this.mSep, this.mins, this.sSep, this.secs);
+          this.replaceChildren(
+            this.labelEl,
+            this.days,
+            this.daysSep,
+            this.hours,
+            this.mSep,
+            this.mins,
+            this.sSep,
+            this.secs
+          );
           // This design does not show days
           this.days.style.display = 'none';
           this.daysSep.style.display = 'none';
@@ -1465,7 +1477,6 @@
         window.customElements.define('countdown-timer-today', CountdownTimerToday);
       }
     });
-
   </script>
   <style>
     .hide-plug-diy {
