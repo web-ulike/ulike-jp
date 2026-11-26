@@ -1010,10 +1010,8 @@
     transform: translate(-50%,-50%);
     width: 90%;
     max-width: 386px;
-    {% comment %} min-height: 394px; {% endcomment %}
     border-radius: 10px;
     background-color: #fff;
-    {% comment %} overflow: hidden; {% endcomment %}
   }
 
   .login-modal .login-modal-top{
@@ -1644,9 +1642,9 @@
           <span class="login-modal-count" data-claim-count>{{ section.settings.claim_count | escape }}</span>
           <div>{{ section.settings.claimed_text | escape }}</div>
           <span>{{ section.settings.claim_amount | replace: '$', '¥' | escape }}</span>
-          <svg class="login-modal-yen" width="24" height="24" viewBox="0 0 256 256" fill="#87C596" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          {% comment %} <svg class="login-modal-yen" width="24" height="24" viewBox="0 0 256 256" fill="#87C596" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
             <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm46.4-135.2L144,120h16a8,8,0,0,1,0,16H136v16h24a8,8,0,0,1,0,16H136v16a8,8,0,0,1-16,0V168H96a8,8,0,0,1,0-16h24V136H96a8,8,0,0,1,0-16h16L81.6,80.8A8,8,0,1,1,94.4,71.2L128,114.4l33.6-43.2a8,8,0,1,1,12.8,9.6Z"/>
-          </svg>
+          </svg> {% endcomment %}
         </div>
       </div>
     </div>
