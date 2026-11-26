@@ -1116,7 +1116,9 @@
   </div>
 
   <script>
-    window.addEventListener('load', function () {
+    (function ($) {
+      if (!$) return;
+
       const errorMessages = {
         emailInvalid: 'メールアドレスを入力してください',
         emailFormat: '有効なメールアドレスを入力してください！',
@@ -1237,21 +1239,18 @@
         $checkbox.prop('checked', !$checkbox.prop('checked'));
       });
 
-      $(document).on('click', '.g-floating-box', function () {
-        trackPopupEvent('vip_Teaser', 'click');
-        const isSubscribed = localStorage.getItem('ulike-subscribed') === 'true';
-        if (isSubscribed) {
-          thatLogin.hide();
-          thatLoginCoupon.show();
-          return;
-        }
-        thatLogin.show();
-      });
-
       const popupDelay = 4000;
       let timerEnded = false;
       let hasScrolled = false;
       let popupShown = false;
+
+      function isSubscribed() {
+        try {
+          return localStorage.getItem('ulike-subscribed') === 'true';
+        } catch {
+          return false;
+        }
+      }
 
       // 显示弹窗
       function showPopup() {
@@ -1263,6 +1262,8 @@
       }
 
       function checkAndShowPopup() {
+        if (popupShown) return;
+
         const now = new Date();
         const today = [
           now.getFullYear(),
@@ -1300,17 +1301,32 @@
         checkAndShowPopup();
       }
 
-      const isSubscribed = localStorage.getItem('ulike-subscribed') === 'true';
-      if (isSubscribed) {
-        thatLogin.hide();
-      } else {
+      $(document).on('click', '.g-floating-box', function () {
+        popupShown = true;
+        window.removeEventListener('scroll', onUserScroll);
+
+        const subscribed = isSubscribed();
+        thatLogin.stop(true, true).toggle(!subscribed);
+        thatLoginCoupon.stop(true, true).toggle(subscribed);
+        trackPopupEvent('vip_Teaser', 'click');
+      });
+
+      function scheduleAutomaticPopup() {
+        $('.g-floating-box').show();
+        if (popupShown || isSubscribed()) return;
+
         setTimeout(() => {
           timerEnded = true;
           checkAndShowPopup();
         }, popupDelay);
         window.addEventListener('scroll', onUserScroll);
       }
-      $('.g-floating-box').show();
+
+      if (document.readyState === 'complete') {
+        scheduleAutomaticPopup();
+      } else {
+        window.addEventListener('load', scheduleAutomaticPopup, { once: true });
+      }
 
       thatLogin.one('focus', '#login-form .j_popup_email', function () {
         trackPopupEvent('vip_enter email', 'focus');
@@ -1319,7 +1335,7 @@
       thatLogin.one('focus', '#login-form .verification-code', function () {
         trackPopupEvent('vip_enter code', 'focus');
       });
-    });
+    })(window.jQuery);
     document.addEventListener('DOMContentLoaded', function () {
       if (window.location.href.includes('ulikeunitedkingdom.myshopify')) {
         document.querySelector('#u-user-popup').classList.add('hide-plug-diy');
