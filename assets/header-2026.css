@@ -18,6 +18,56 @@
   height: 18px;
 }
 
+.header-2026__account-menu {
+  position: relative;
+}
+
+.header-2026__account-trigger {
+  cursor: pointer;
+  list-style: none;
+}
+
+.header-2026__account-trigger::-webkit-details-marker {
+  display: none;
+}
+
+.header-2026__account-links {
+  position: absolute;
+  z-index: 1;
+  inset-block-start: calc(100% + 8px);
+  inset-inline-end: 0;
+  min-inline-size: 196px;
+  padding: 4px 0;
+  background: #fff;
+  color: #111;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.header-2026__account-links a {
+  display: block;
+  padding: 8px 16px;
+}
+
+.header-2026__account-links a:hover,
+.header-2026__account-links a:focus-visible {
+  background: #f4f4f4;
+}
+
+.header-2026__logout-status {
+  display: block;
+  color: #a00035;
+  font-size: 12px;
+}
+
+.header-2026__logout-status:not(:empty) {
+  padding: 8px 16px;
+}
+
+[data-header-account-logout][aria-busy="true"] {
+  cursor: wait;
+}
+
 @media screen and (min-width: 741px) {
   .header-2026 .header__secondary-links .header__icon-wrapper > svg {
     width: 22px;

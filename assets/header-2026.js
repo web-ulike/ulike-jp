@@ -139,6 +139,58 @@
 
   document.addEventListener('click', handleMobilePanelControl, true);
 
+  let logoutPending = false;
+
+  document.addEventListener('click', async (event) => {
+    const target = event.target instanceof Element ? event.target : null;
+    if (!target) return;
+
+    document.querySelectorAll('.header-2026__account-menu[open]').forEach((menu) => {
+      if (!menu.contains(target)) menu.open = false;
+    });
+
+    const logout = target.closest('[data-header-account-logout]');
+    if (!logout) return;
+    event.preventDefault();
+    if (logoutPending) return;
+
+    logoutPending = true;
+    logout.setAttribute('aria-busy', 'true');
+    const status = logout.parentElement.querySelector('[data-header-logout-status]');
+    status.textContent = '';
+
+    try {
+      const response = await fetch('https://api.ulike.com/user/logout', {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+        signal: AbortSignal.timeout?.(10000),
+      });
+      if (!response.ok) throw new Error('Ulike logout request failed');
+      const result = await response.json();
+      if (String(result?.code) !== '0') throw new Error('Ulike logout was rejected');
+    } catch {
+      status.textContent = 'ログアウトできませんでした。もう一度お試しください。';
+      logout.removeAttribute('aria-busy');
+      logoutPending = false;
+      return;
+    }
+
+    window.location.assign(logout.href);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape' || !(event.target instanceof Element)) return;
+    const menu = event.target.closest('.header-2026__account-menu[open]');
+    if (!menu) return;
+    menu.open = false;
+    menu.querySelector('summary').focus();
+  });
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => initHeader2026());
   } else {

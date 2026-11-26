@@ -27,6 +27,10 @@
           <img src="https://cdn.shopify.com/s/files/1/0553/7392/2352/files/head-user.svg?v=1791601825" width="24" height="24" alt="" aria-hidden="true">
           <span>{% if customer %}{{ 'header.general.account' | t }}{% else %}{{ 'header.general.login' | t }}{% endif %}</span>
         </a>
+        {%- if customer -%}
+          <a href="{{ routes.account_logout_url }}" data-header-account-logout data-no-instant>{{ 'customer.logout.title' | t }}</a>
+          <span class="header-2026__logout-status" data-header-logout-status role="status"></span>
+        {%- endif -%}
       {%- endif -%}
     </nav>
     <section id="header-2026-mobile-products" class="header-2026__mobile-panel header-2026__mobile-products-panel" data-header-2026-panel="products" hidden>
