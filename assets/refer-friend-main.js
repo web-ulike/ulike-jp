@@ -353,6 +353,9 @@
             }
             inviteList.data.forEach((order, index) => {
                 const extraClass = index > 0 ? 'is-normal-render' : '';
+                const orderItem = order.extend.orderInfo.orderItem?.[0];
+                const imageUrl = orderItem?.variant?.image?.url;
+                const productTitle = escapeHtml(orderItem?.title);
                 $list.append(`
                 <div class="render-area ${extraClass}">
                     <div class="description-text">
@@ -365,9 +368,9 @@
                         </div>
                     </div>
                     <div class="description-product">
-                        <div class="description-title"><img src="${order.extend.orderInfo.orderItem[0].variant.image.url}" alt="${escapeHtml(order.extend.orderInfo.orderItem[0].title)}" width="100%" height="100%"></div>
+                        <div class="description-title">${imageUrl ? `<img src="${imageUrl}" alt="${productTitle}" width="100%" height="100%">` : ''}</div>
                         <div class="description-data">
-                            <p class="order-num">${order.extend.orderInfo.orderItem[0].title}</p>
+                            <p class="order-num">${productTitle}</p>
                             <div class="price-detail">
                                 <div class="order-amount"><span>${escapeHtml(copy.order_amount_label)}<a class="show-symbol">:</a></span><br class="hidden-br"/><span class="order-status-red">${displayYen(order.extend.orderInfo.totalPrice)}</span></div>
                                 <div class="order-commission"><span>${escapeHtml(copy.commission_label)}<a class="show-symbol">:</a></span><br class="hidden-br"/><span class="order-status-red">${displayYen(order.extend.commissionAmount)}</span></div>
