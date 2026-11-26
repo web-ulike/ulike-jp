@@ -29,7 +29,15 @@
               {% endif %}
 
               {% if block.settings.text != blank %}
-                <div class="jp-home-service-icons__text">{{ block.settings.text }}</div>
+                <div class="jp-home-service-icons__text{% if block.settings.text_mobile != blank %} jp-home-service-icons__text--desktop{% endif %}">
+                  {{- block.settings.text -}}
+                </div>
+              {% endif %}
+
+              {% if block.settings.text_mobile != blank %}
+                <div class="jp-home-service-icons__text jp-home-service-icons__text--mobile">
+                  {{- block.settings.text_mobile -}}
+                </div>
               {% endif %}
 
               {% if block.settings.link != blank %}
@@ -123,6 +131,10 @@
     white-space: nowrap;
   }
 
+  .jp-home-service-icons--{{ sid }} .jp-home-service-icons__text--mobile {
+    display: none;
+  }
+
   @media screen and (max-width: 989px) {
     .jp-home-service-icons--{{ sid }} {
       --jp-home-service-icons-icon-size: 42px;
@@ -197,6 +209,14 @@
       white-space: nowrap;
       color: #111111;
     }
+
+    .jp-home-service-icons--{{ sid }} .jp-home-service-icons__text--desktop {
+      display: none;
+    }
+
+    .jp-home-service-icons--{{ sid }} .jp-home-service-icons__text--mobile {
+      display: block;
+    }
   }
 </style>
 
@@ -255,8 +275,14 @@
         {
           "type": "text",
           "id": "text",
-          "label": "Text",
+          "label": "PC text",
           "default": "送料無料"
+        },
+        {
+          "type": "text",
+          "id": "text_mobile",
+          "label": "Mobile text",
+          "info": "Uses PC text when left blank."
         },
         {
           "type": "url",
