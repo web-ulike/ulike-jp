@@ -163,6 +163,7 @@
       const response = await fetch('https://api.ulike.com/user/logout', {
         method: 'GET',
         credentials: 'include',
+        cache: 'no-store',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',

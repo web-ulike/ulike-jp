@@ -1,7 +1,7 @@
 <details class="header-2026__account-menu{% if icon %} hidden-phone{% unless show_icons %} hidden-desk{% endunless %}{% endif %}">
   <summary class="header-2026__account-trigger{% if icon %} header__icon-wrapper tap-area{% endif %}">
     {%- if icon -%}
-      <img class="header__custom-icon" src="https://cdn.shopify.com/s/files/1/0553/7392/2352/files/head-user.svg?v=1791601825" width="18" height="18" alt="" aria-hidden="true">
+      {{ icon }}
       <span class="visually-hidden">{{ 'header.general.account' | t }}</span>
     {%- else -%}
       {{ 'header.general.account' | t }}
