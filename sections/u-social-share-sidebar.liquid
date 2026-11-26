@@ -30,6 +30,11 @@
     <div class="u-fixed-side-tools__stack">
       {%- for block in section.blocks -%}
         {%- if block.type == 'badge_item' -%}
+          {%- assign badge_classes = block.settings.custom_class | split: ' ' -%}
+          {%- if customer and badge_classes contains 'g-floating-box' -%}
+            {%- continue -%}
+          {%- endif -%}
+
           {%- assign badge_tag = 'div' -%}
           {%- if block.settings.link != blank -%}
             {%- assign badge_tag = 'a' -%}
@@ -369,7 +374,7 @@
     justify-content: center;
     min-width: 18px;
     font-size: 10px;
-    font-weight: 700;
+    font-weight: 500;
     line-height: 1;
     color: inherit;
   }
