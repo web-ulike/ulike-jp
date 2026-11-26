@@ -1379,7 +1379,7 @@
   id="referfriend-invitation-content"
   data-activity-id="{{ section.settings.activity_id | strip | default: '331522644954316801' | escape }}"
 >
-  <div class="gameplay-box gameplay-box-top  gameplay-box-info">
+  <div class="gameplay-box gameplay-box-top gameplay-box-info to-top">
     <p class="title">{{ section.settings.intro_title | escape }}</p>
     <div class="gameplay-description">
       <p>{{ section.settings.invite_heading | escape }}</p>
@@ -1444,14 +1444,14 @@
           commission: block.settings.commission
         -%}
       {%- elsif request.design_mode -%}
-        <div class="gameplay-box gameplay-box-copycode gameplay-box-item" {{ block.shopify_attributes }}>
+        <div class="gameplay-box gameplay-box-copycode gameplay-box-item to-top" {{ block.shopify_attributes }}>
           {{ section.settings.select_product_label | escape }}
         </div>
       {%- endif -%}
     {%- endfor -%}
   {%- endif -%}
 
-  <div class="gameplay-box">
+  <div class="gameplay-box to-top">
     <div class="title">
       {{ section.settings.rewards_title | escape -}}
       <button type="button" class="rewards-more">{{ section.settings.more_label | escape }}&nbsp;&nbsp;></button>
@@ -1468,19 +1468,19 @@
       </div>
     </div>
   </div>
-  <div class="gameplay-box title tabs-title">
+  <div class="gameplay-box title tabs-title to-top">
     <span>{{ section.settings.records_title | escape }}</span>
     <button type="button" class="rewards-back">{{ section.settings.back_to_referrals_label | escape }}</button>
   </div>
   <!-- 标签区域 -->
-  <div class="tabs">
+  <div class="tabs to-top">
     <div class="tab" data-tab="1">{{ section.settings.invitation_records_label | escape }}</div>
     <div class="tab" data-tab="2">{{ section.settings.commission_details_label | escape }}</div>
   </div>
 
   <!-- 内容区域 -->
   <div id="tab-content-1" class="tab-content">
-    <div class="gameplay-box invitation-record-batch">
+    <div class="gameplay-box invitation-record-batch to-top">
       <div class="title">
         {{ section.settings.records_title | escape }}
         <button type="button" class="rewards-more">{{ section.settings.more_label | escape }}&nbsp;&nbsp;></button>
@@ -1491,11 +1491,13 @@
     </div>
   </div>
   <div id="tab-content-2" class="tab-content">
-    <div class="table-header">
-      <span>{{ section.settings.type_label | escape }}</span>
-      <span>{{ section.settings.amount_label | escape }}</span>
+    <div class="to-top">
+      <div class="table-header">
+        <span>{{ section.settings.type_label | escape }}</span>
+        <span>{{ section.settings.amount_label | escape }}</span>
+      </div>
+      <div class="amount-record-list"></div>
     </div>
-    <div class="amount-record-list"></div>
   </div>
 
   <div class="modal-copysuccess">
