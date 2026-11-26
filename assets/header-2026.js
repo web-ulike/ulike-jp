@@ -1,5 +1,26 @@
 (() => {
   function initHeader2026(root = document) {
+    root.querySelectorAll('.header-2026__account-menu').forEach((menu) => {
+      if (menu.dataset.hoverReady) return;
+      menu.dataset.hoverReady = 'true';
+
+      const trigger = menu.querySelector('summary');
+      menu.addEventListener('pointerenter', (event) => {
+        if (event.pointerType === 'mouse') menu.open = true;
+      });
+      menu.addEventListener('pointerleave', (event) => {
+        if (event.pointerType !== 'mouse') return;
+        const active = document.activeElement;
+        if (active === trigger || !menu.contains(active)) menu.open = false;
+      });
+      trigger.addEventListener('click', (event) => {
+        if (event.pointerType === 'mouse' && menu.open) event.preventDefault();
+      });
+      menu.addEventListener('focusout', (event) => {
+        if (!menu.matches(':hover') && !menu.contains(event.relatedTarget)) menu.open = false;
+      });
+    });
+
     root.querySelectorAll('[data-header-2026-scroll-reveal]').forEach((header) => {
       if (header.dataset.scrollRevealReady) return;
 
