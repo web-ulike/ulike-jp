@@ -100,7 +100,7 @@
             const referralUrl = new URL(`/discount/${encodeURIComponent(code)}`, productUrl);
             referralUrl.searchParams.set('redirect', productUrl.pathname + productUrl.search + productUrl.hash);
 
-            const sender = referrerName ? `${referrerName}さん` : 'お友達';
+            const sender = referrerName ? `${referrerName} さん` : 'お友達';
             const message = [
                 `${sender}からクーポンコードが届きました！ Ulikeの脱毛器購入で、すぐに5,000円引き！`,
                 `ページリンク：${referralUrl.href}`,
@@ -417,9 +417,9 @@
         initializeUserAccount().then(({ fund, activity }) => {
             const coupons = activity?.data?.extend?.inviteCouponCodeList;
             if (Array.isArray(coupons)) {
-                $invitation.find('.gameplay-box-item[data-product-id]').each((_, item) => {
-                    const $card = $(item);
-                    const { productId } = item.dataset;
+                $invitation.find('.gameplay-box-item[data-product-id]').each(function () {
+                    const $card = $(this);
+                    const { productId } = this.dataset;
                     const coupon = coupons.find(entry => Array.isArray(entry?.productIdList)
                         && entry.productIdList.some(id => String(id) === productId));
                     const code = String(coupon?.couponCode ?? '').trim();
@@ -437,43 +437,33 @@
                 $('#referfriend-invitation-content .pending .ped-price-total').text(Number(fund.data.freezeAmount) === 0 ? '0円' : '¥' + fund.data.freezeAmount);
                 $('#referfriend-invitation-content .withdraw .ped-price-total').text(Number(fund.data.availableAmount) === 0 ? '0円' : '¥' + fund.data.availableAmount);
             }
-
-
-        })
-            .catch(err => {
-                console.error(err);
-            });
-
+        }).catch(err => {
+            console.error(err);
+        });
 
         /**
          * 初始化用户、资金账户及活动记录
          * @returns {Promise<{fund?: Object, activity?: Object}>}
          */
         async function initializeUserAccount() {
-            try {
-                // 登录用户账号
-                const user = await window.UlikeCommon.sendUlikeApi('/user/queryLoginUserAccount', {});
-                if (!user?.data?.userId) {
-                    $recordBatch.addClass('has-no-records');
-                    return {};
-                }
-                getLoginStatus = true;
-                referrerName ||= getReferrerName(user.data.userEmail) || getReferrerName(user.data.email);
-                // 查询或创建资金账户
-                const fund = await window.UlikeCommon.sendUlikeApi('/user/me/queryOrCreateFundAccount', { accountType: 'CASH' });
-                // 查询或新增活动项目
-                const activity = await window.UlikeCommon.sendUlikeApi('/promotion/queryOrAddActivityItem', {
-                    activityType: 'INVITE_NEW_ACTIVITY',
-                    activityId: activityId
-                });
-
-                // 查询邀请记录
-                renderOrderData()
-                return { fund, activity };
-            } catch (err) {
-                console.error(err);
-                throw err;
+            // 查询当前登录账号，并用账号邮箱补全推荐人名称。
+            const user = await window.UlikeCommon.sendUlikeApi('/user/queryLoginUserAccount', {});
+            if (!user?.data?.userId) {
+                $recordBatch.addClass('has-no-records');
+                return {};
             }
+            getLoginStatus = true;
+            referrerName ||= getReferrerName(user.data.userEmail) || getReferrerName(user.data.email);
+
+            // 查询或创建资金账户和邀请活动。
+            const fund = await window.UlikeCommon.sendUlikeApi('/user/me/queryOrCreateFundAccount', { accountType: 'CASH' });
+            const activity = await window.UlikeCommon.sendUlikeApi('/promotion/queryOrAddActivityItem', {
+                activityType: 'INVITE_NEW_ACTIVITY',
+                activityId
+            });
+
+            renderOrderData();
+            return { fund, activity };
         }
         // 获取所有标签和内容
         const tabs = $invitation.find('.tabs .tab').get();
@@ -561,10 +551,11 @@
             $('.login-modal').fadeOut(200);
             $('body').removeClass('no-scroll');
             // 清除校验提示和输入内容
-            $('.form-group').each(function(index,item){
-                $(item).removeClass('error').find('.error').text('');
-                $(item).find('input').val('')
-            })
+            $('.form-group').each(function () {
+                const $group = $(this);
+                $group.removeClass('error').find('.error').text('');
+                $group.find('input').val('');
+            });
         });
 
         // 密码长度为 6–16 个字符，至少包含一个字母和一个数字。
