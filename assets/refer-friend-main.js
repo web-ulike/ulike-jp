@@ -5,17 +5,14 @@
         const copy = window.referFriendMainCopy || {};
         const $invitation = $('#referfriend-invitation-content');
         const activityId = $invitation.attr('data-activity-id');
+
+        // 分享文案只显示邮箱中 @ 前面的部分。
         const getReferrerName = (email) => String(email ?? '').trim().split('@', 1)[0];
         let referrerName = getReferrerName($invitation.attr('data-referrer-email'));
         const escapeHtml = (value) => $('<div>').text(value ?? '').html();
         const displayYen = (value) => escapeHtml(String(value ?? '').replaceAll('$', '¥'));
-        // 复制成功提示的隐藏定时器
+        // 复制成功和操作错误提示共用关闭定时器。
         let hideTimer = null;
-        // let getLoginStatus = false//登录状态
-        let _href = window.location.href;
-        let _base = 'https://account.ulike.com'
-        let locationUrl = `${_base}/login?returnUrl=${_href}`; //登录路由
-
 
         // 前端展示人数，不作为真实领取统计；仅在登录弹窗可见时递增。
         const claimCountElement = $invitation.find('[data-claim-count]')[0];
@@ -51,7 +48,6 @@
             isLoginModalOpen = true;
             startClaimCount();
             $('body').addClass('no-scroll');
-        
         }
         // 将文案复制到剪贴板
         function copyTextToClipboard(copyText) {
@@ -87,6 +83,7 @@
             copyTextToClipboard(copyText);
         });
 
+        // 复制整段日文邀请消息，包含商品链接和单独列出的优惠码。
         $invitation.find('.gameplay-box-copycode .invitation-product__copy-btn').click(function () {
             const $card = $(this).closest('.gameplay-box-item');
             const { url, variant } = $card[0].dataset;
@@ -99,6 +96,7 @@
             const productUrl = new URL(url, window.location.href);
             if (variant) productUrl.searchParams.set('variant', variant);
 
+            // 先通过 Shopify 优惠链接应用优惠码，再跳转到对应的商品变体。
             const referralUrl = new URL(`/discount/${encodeURIComponent(code)}`, productUrl);
             referralUrl.searchParams.set('redirect', productUrl.pathname + productUrl.search + productUrl.hash);
 
@@ -114,21 +112,16 @@
 
 
 
-        // 通用点击事件绑定函数
-        function bindClickEvent(selector, handler) {
-            $(selector).click(handler);
-        }
-
         // 打开提现弹窗
-        bindClickEvent('.withdraw-btn', (event) => {
+        $('.withdraw-btn').click((event) => {
             if (!getLoginStatus) {
                 jumpLoginPage()
                 return
             }
             
             event.stopPropagation();
-            let emailVal = $('.withdraw .ped-price-total').text().replace(/[¥円,]/g, '');
-            if (Number(emailVal) > 0) {
+            const availableBalance = $('.withdraw .ped-price-total').text().replace(/[¥円,]/g, '');
+            if (Number(availableBalance) > 0) {
                 $('.modal-mask,.modal-container').fadeIn(200);
             } else {
                 showError(copy.insufficient_balance)
@@ -141,7 +134,7 @@
             $('.modal-mask, .modal-container').fadeOut(200);
             $('.modal-body').fadeOut(200);
         }
-        bindClickEvent('.modal-close', () => {
+        $('.modal-close').click(() => {
             if ($('.modal-body').is(':visible')) {
                 //查询提现记录
                 renderWithdrawRecords()
@@ -201,7 +194,7 @@
         function validCodeFun() {
             const emailVal = $('.withdrawal-email').val().trim();
             const getcode = $('.withdrawal-code').val().trim();
-            const isValid = getcode !== "" && getcode.length === 6;
+            const isValid = getcode.length === 6;
             toggleValidationState('.withdrawal-code', isValid);
 
             if (isValid) {
@@ -261,14 +254,14 @@
         //邮箱边输入边校验
         $('.withdrawal-email').on('input', function () {
             const emailVal = $('.withdrawal-email').val().trim();
-            const isValidEmail = emailVal !== "" && validateEmail(emailVal);
+            const isValidEmail = validateEmail(emailVal);
             toggleValidationState('.withdrawal-email', isValidEmail);
             emailErrorShowOrHide(isValidEmail)
         });
         // 提交按钮点击事件：先校验邮箱，再校验验证码
         $('#referfriend-invitation-content .submit-btn').click(() => {
             const emailVal = $('.withdrawal-email').val().trim();
-            const isValidEmail = emailVal !== "" && validateEmail(emailVal);
+            const isValidEmail = validateEmail(emailVal);
             toggleValidationState('.withdrawal-email', isValidEmail);
 
             if (isValidEmail) validCodeFun();
@@ -289,7 +282,6 @@
 
         // 渲染邀请列表函数
         async function renderOrderData() {
-            // 查询首页查询邀请记录
             const inviteList = await window.UlikeCommon.sendUlikeApi('/promotion/queryBenefitInfoList', {
                 activityId: activityId,
                 activityType: "INVITE_NEW_ACTIVITY",
@@ -297,7 +289,6 @@
                 pageIndex: 1,
                 pageSize: 20,
                 since: "INVITE_HOME",
-                // siteCode: "TEST",
             });
             const $list = $('#invitation-record-list').empty();
             const hasRecords = Boolean(inviteList.data?.length);
@@ -360,18 +351,15 @@
                     return copy.withdrawal_failed;
             }
         };
-        //时间转换器
-        const timeToYear = (val) => {
-            const timestamp = val;
-            const date = new Date(timestamp * 1000); // 转为毫秒
+        // 将接口返回的秒级时间戳格式化为本地时间，显示到分钟。
+        const timeToYear = (timestamp) => {
+            const date = new Date(timestamp * 1000);
             const year = date.getFullYear();
             const month = String(date.getMonth() + 1).padStart(2, '0');
             const day = String(date.getDate()).padStart(2, '0');
             const hours = String(date.getHours()).padStart(2, '0');
             const minutes = String(date.getMinutes()).padStart(2, '0');
-            const seconds = String(date.getSeconds()).padStart(2, '0');
-            const formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}`;
-            return formattedDateTime;
+            return `${year}-${month}-${day} ${hours}:${minutes}`;
         };
 
         // 渲染提现记录列表函数
@@ -384,11 +372,8 @@
                 includeCount: false,
                 flowTypeList: ["WITHDRAW_SUBMITTED", "INVITE_REWARD_RECEIVED"]
             });
-            const $list = $(".amount-record-list").empty();
-            $('.amount-record-list').show()
+            const $list = $('.amount-record-list').empty().show();
             if (!withdrawalRecord.data || withdrawalRecord.data.length == 0) {
-                // table-header
-                //提现状态
                 $list.append(`
                 <p class="no-record">
                     ${escapeHtml(copy.no_records)}
@@ -428,6 +413,7 @@
             });
         }
 
+        // 按商品 ID 回填优惠码，单独复制和分享文案共用卡片上的值。
         initializeUserAccount().then(({ fund, activity }) => {
             const coupons = activity?.data?.extend?.inviteCouponCodeList;
             if (Array.isArray(coupons)) {
@@ -445,6 +431,7 @@
                     }
                 });
             }
+            // 同步弹窗和奖励区域的账户余额。
             if (fund) {
                 $('#referfriend-invitation-content .modal-price').text(Number(fund.data.availableAmount) === 0 ? '0円' : '¥' + fund.data.availableAmount);
                 $('#referfriend-invitation-content .pending .ped-price-total').text(Number(fund.data.freezeAmount) === 0 ? '0円' : '¥' + fund.data.freezeAmount);
@@ -567,13 +554,8 @@
             }
         })
 
-        //点击登录弹窗关闭按钮
-        $('.login-modal-close').click(function () {
-            loginModalClose()
-        });
-
-        //关闭登录弹窗
-        function loginModalClose() {
+        // 关闭登录弹窗时停止计数并清空表单。
+        $('.login-modal-close').click(() => {
             isLoginModalOpen = false;
             stopClaimCount();
             $('.login-modal').fadeOut(200);
@@ -583,9 +565,9 @@
                 $(item).removeClass('error').find('.error').text('');
                 $(item).find('input').val('')
             })
-        }
+        });
 
-        // 密码正则 6-16位数字，并且必须包含字母和数字。
+        // 密码长度为 6–16 个字符，至少包含一个字母和一个数字。
         function isValidPassword(password) {
             const regex = /^(?=.*[A-Za-z])(?=.*\d).{6,16}$/;
             return regex.test(password);
@@ -662,13 +644,5 @@
             $('.form-submit').find('.loading-icon').hide();
             $('.form-submit').removeClass('disabled')
         }
-
-
-
-
-
-
-        // 全局函数：关闭全部邀请弹窗
-        window.closeAll = () => $('#referfriend-invitation-content').hide();
     });
 })();
