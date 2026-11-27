@@ -130,8 +130,7 @@
             const url = $button.attr('data-url');
             const code = $card.find('.code-top').attr('data-code');
             const message = url && code ? [
-                `${referrerEmail ? `${referrerEmail}さん` : 'お友達'}からクーポンコードが届きました！`,
-                'Ulikeの脱毛器購入で、すぐに5,000円引き！',
+                `${referrerEmail ? `${referrerEmail}さん` : 'お友達'}からクーポンコードが届きました！ Ulikeの脱毛器購入で、すぐに5,000円引き！`,
                 `ページリンク：${url}`,
                 `クーポンコード：${code}`
             ].join('\n') : '';
