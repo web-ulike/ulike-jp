@@ -129,8 +129,9 @@
             const $card = $button.closest('.gameplay-box-item');
             const url = $button.attr('data-url');
             const code = $card.find('.code-top').attr('data-code');
+            const referrerName = referrerEmail.split('@', 1)[0];
             const message = url && code ? [
-                `${referrerEmail ? `${referrerEmail}さん` : 'お友達'}からクーポンコードが届きました！ Ulikeの脱毛器購入で、すぐに5,000円引き！`,
+                `${referrerName ? `${referrerName}さん` : 'お友達'}からクーポンコードが届きました！ Ulikeの脱毛器購入で、すぐに5,000円引き！`,
                 `ページリンク：${url}`,
                 `クーポンコード：${code}`
             ].join('\n') : '';
@@ -492,9 +493,11 @@
                     const code = String(coupon?.couponCode ?? '').trim();
                     if (!code) return;
 
-                    const referralUrl = new URL(url, window.location.href);
-                    referralUrl.searchParams.set('add-discount', code);
-                    if (variant) referralUrl.searchParams.set('variant', variant);
+                    const productUrl = new URL(url, window.location.href);
+                    if (variant) productUrl.searchParams.set('variant', variant);
+
+                    const referralUrl = new URL(`/discount/${encodeURIComponent(code)}`, productUrl);
+                    referralUrl.searchParams.set('redirect', productUrl.pathname + productUrl.search + productUrl.hash);
 
                     $card.find('.code-top').text(code).attr('data-code', code);
                     $card.find('.invitation-product__copy-btn').attr('data-url', referralUrl.href);
