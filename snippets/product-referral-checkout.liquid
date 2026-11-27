@@ -1,0 +1,11 @@
+{%- if request.page_type == 'product' and product != blank and request.design_mode == false -%}
+  <div
+    class="alert alert--error"
+    data-product-referral-checkout="{{ product.selected_or_first_available_variant.id }}"
+    role="alert"
+    hidden
+  >
+    クーポン付きの購入手続きを開始できませんでした。ページを再読み込みして、もう一度お試しください。
+  </div>
+  <script src="{{ 'product-referral-checkout.js' | asset_url }}" defer></script>
+{%- endif -%}

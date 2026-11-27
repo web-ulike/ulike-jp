@@ -95,15 +95,13 @@
 
             const productUrl = new URL(url, window.location.href);
             if (variant) productUrl.searchParams.set('variant', variant);
-
-            // 先通过 Shopify 优惠链接应用优惠码，再跳转到对应的商品变体。
-            const referralUrl = new URL(`/discount/${encodeURIComponent(code)}`, productUrl);
-            referralUrl.searchParams.set('redirect', productUrl.pathname + productUrl.search + productUrl.hash);
+            // 由商品页读取优惠码并完成加购、应用优惠和结账跳转。
+            productUrl.searchParams.set('add-discount', code);
 
             const sender = referrerName ? `${referrerName} さん` : 'お友達';
             const message = [
                 `${sender}からクーポンコードが届きました！ Ulikeの脱毛器購入で、すぐに5,000円引き！`,
-                `ページリンク：${referralUrl.href}`,
+                `ページリンク：${productUrl.href}`,
                 `クーポンコード：${code}`
             ].join('\n');
             copyTextToClipboard(message);

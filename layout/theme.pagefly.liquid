@@ -117,6 +117,7 @@ If you plan to remove PageFly, please see the guide in our help center first: ht
   {%- endif -%}
 
   <body class="no-focus-outline {{ feature_classes }}" data-instant-allow-query-string><div class="pagefly-container">
+              {%- render 'product-referral-checkout', product: product -%}
               {{ content_for_layout }}
             </div></body>
 </html>
