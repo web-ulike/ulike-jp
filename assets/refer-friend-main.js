@@ -45,44 +45,14 @@
         document.addEventListener('visibilitychange', startClaimCount);
         window.addEventListener('pagehide', stopClaimCount);
 
-        //判断是否登录方法 未登录记录埋点  跳转至登录页
+        // 打开登录弹窗
         function jumpLoginPage() {
-            console.log('getLoginStatus',getLoginStatus)
-            window.UlikeCommon.commonGtmEvent('老带新，浏览页面，未登录点击', 'more-btn', 'no-login');
             $('.login-modal').fadeIn(200);
             isLoginModalOpen = true;
             startClaimCount();
             $('body').addClass('no-scroll');
         
         }
-        // 已登录埋点公共调用方法
-        function isLoginPriont(name, type, val) {
-            if (getLoginStatus) {
-                window.UlikeCommon.commonGtmEvent(name, type, val);
-            }
-
-        }
-        //曝光埋点  公共过滤方法
-        const onGtmEventList = []//埋点数据集合
-        function pblicStaFliter(name, type, val) {
-            let sendData = {
-                name: name,
-                type: type,
-                value: val
-            }
-            if (onGtmEventList.length == 0) {
-                onGtmEventList.push(sendData)
-                window.UlikeCommon.commonGtmEvent(name, type, val);
-            } else {
-                // 判断是否已有相同 name 的埋点
-                const isExist = onGtmEventList.some(item => item.name === name);
-                if (!isExist) {
-                    onGtmEventList.push(sendData);
-                    window.UlikeCommon.commonGtmEvent(name, type, val);
-                }
-            }
-        }
-
         // 将文案复制到剪贴板
         function copyTextToClipboard(copyText) {
             if (!getLoginStatus) {
@@ -114,20 +84,12 @@
         // 复制邀请码
         $invitation.find('.gameplay-box-copycode .copy-wrap').click(function () {
             const copyText = $(this).closest('.copy-code-top').find('.code-top').attr('data-code');
-            copyTextToClipboard(copyText)
-            //复制顶部邀请码埋点
-            isLoginPriont('老带新，复制邀请码', 'copy-code', '');
-            isLoginPriont('老带新，复制邀请码+复制链接', '1', '')
+            copyTextToClipboard(copyText);
         });
 
-        const legacyCopyEvents = {
-            '8184944394481': '老带新，点击a10',
-            '7914926145777': '老带新，点击A3',
-            '8790509945073': '老带新，点击面罩'
-        };
         $invitation.find('.gameplay-box-copycode .invitation-product__copy-btn').click(function () {
             const $card = $(this).closest('.gameplay-box-item');
-            const { productId, url, variant } = $card[0].dataset;
+            const { url, variant } = $card[0].dataset;
             const code = $card.find('.code-top').attr('data-code');
             if (!url || !code) {
                 copyTextToClipboard('');
@@ -147,9 +109,6 @@
                 `クーポンコード：${code}`
             ].join('\n');
             copyTextToClipboard(message);
-
-            isLoginPriont(legacyCopyEvents[productId] || '老带新，复制商品链接', 'copy-url', productId);
-            isLoginPriont('老带新，复制邀请码+复制链接', '2', '');
         });
 
 
@@ -168,14 +127,6 @@
             }
             
             event.stopPropagation();
-            //判断是否在佣金详情页
-            if (!$('.tabs').is(':visible')) {
-                //首页点击提现埋点
-                isLoginPriont('老带新，我的奖励，点击提现', 'withdraw-btn', '')
-            } else {
-                //佣金页点击提现埋点
-                isLoginPriont('老带新，佣金页，点击提现', 'withdraw-btn', '')
-            }
             let emailVal = $('.withdraw .ped-price-total').text().replace(/[¥円,]/g, '');
             if (Number(emailVal) > 0) {
                 $('.modal-mask,.modal-container').fadeIn(200);
@@ -269,8 +220,6 @@
                         $('.modal-container').css('height', '344px');
                         $('.modal-body').fadeIn(200);
                         $('#referfriend-invitation-content .withdraw .ped-price-total').text('0円');
-                        //提现成功埋点
-                        isLoginPriont('老带新，提现页，进入提现成功页', 'info-successPage', '')
                     }
 
                 }).catch(error => {
@@ -315,13 +264,6 @@
             const isValidEmail = emailVal !== "" && validateEmail(emailVal);
             toggleValidationState('.withdrawal-email', isValidEmail);
             emailErrorShowOrHide(isValidEmail)
-            //输入邮箱埋点
-            pblicStaFliter('老带新，提现页，输入邮箱', 'input-email', '')
-        });
-        //验证码输入埋点
-        $('.withdrawal-code').on('input', function () {
-            //输入验证码埋点
-            pblicStaFliter('老带新，提现页，输入验证码', 'input-code', '')
         });
         // 提交按钮点击事件：先校验邮箱，再校验验证码
         $('#referfriend-invitation-content .submit-btn').click(() => {
@@ -343,8 +285,6 @@
             if (!event.target.classList.contains('withdraw-btn')) {
                 showDetailPage();
             }
-            //已登录点击更多 金额区域埋点 
-            isLoginPriont('老带新，我的奖励，点击更多', 'more-btn', '')
         });
 
         // 渲染邀请列表函数
@@ -528,12 +468,10 @@
                 const user = await window.UlikeCommon.sendUlikeApi('/user/queryLoginUserAccount', {});
                 if (!user?.data?.userId) {
                     $recordBatch.addClass('has-no-records');
-                    pblicStaFliter('老带新，浏览页面（未登录）', getLoginStatus, '');
                     return {};
                 }
                 getLoginStatus = true;
                 referrerName ||= getReferrerName(user.data.userEmail) || getReferrerName(user.data.email);
-                pblicStaFliter('老带新，浏览页面（已登录）', getLoginStatus, '');
                 // 查询或创建资金账户
                 const fund = await window.UlikeCommon.sendUlikeApi('/user/me/queryOrCreateFundAccount', { accountType: 'CASH' });
                 // 查询或新增活动项目
@@ -564,12 +502,10 @@
                 const tabId = tab.dataset.tab;
                 activateRewardsTab(tabId);
                 if (tabId == '1') {
-                    isLoginPriont('老带新，佣金页，点击邀请记录', 'click-record', '')
                     //查询邀请记录
                     renderOrderData()
                 }
                 if (tabId == '2') {
-                    isLoginPriont('老带新，佣金页，点击佣金明细', 'click-pricedetail', '')
                     //查询提现记录
                     $('#referfriend-invitation-content .table-header').hide()
                     $('.amount-record-list').hide()
@@ -587,27 +523,15 @@
 
             // 邮箱地址为空,显示错误提示信息
             if (email === '') {
-                window.UlikeCommon.commonGtmEvent('老带新，登录，邮箱不能为空')
                 $('.form-group').eq(0).addClass('error');
                 $('#emailError').text(copy.email_required);
             }
 
             // 错误邮箱地址，显示错误提示信息
             if (!validateEmail(email) && email !== '') {
-                window.UlikeCommon.commonGtmEvent('老带新，登录，邮箱错误')
                 $('.form-group').eq(0).addClass('error');
                 $('#emailError').text(copy.email_invalid);
             }
-        });
-
-        //监听邮箱输入埋点事件
-        $('#loginForm .login-email').one('input', function() {
-            window.UlikeCommon.commonGtmEvent('老带新，登录，输入邮箱')
-        });
-
-          //监听密码输入埋点事件
-          $('#loginForm .login-password').one('input', function() {
-            window.UlikeCommon.commonGtmEvent('老带新，登录，输入密码') 
         });
 
         //密码输入框失去焦点校验提示信息
@@ -616,10 +540,8 @@
             //密码校验
             if (!isValidPassword(password)) {
                 if(password === ''){
-                    window.UlikeCommon.commonGtmEvent('老带新，登录，密码不能为空')
                     $('#passwordError').text(copy.password_invalid);
                 }else{
-                    window.UlikeCommon.commonGtmEvent('老带新，登录，密码格式错误')
                     $('#passwordError').text(copy.password_rule);
                 }
                 $('.form-group').eq(1).addClass('error');
@@ -710,7 +632,6 @@
                 "since":"LOTTERY_LOGIN",
                 "returnUrl": location.href 
             }
-            window.UlikeCommon.commonGtmEvent('老带新，登录，点击提交')
             showLoading()
             window.UlikeCommon.sendUlikeApi('/user/login',params).then(res => {
                 const {code,data } = res
