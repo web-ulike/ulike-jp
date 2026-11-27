@@ -96,7 +96,7 @@
             const productUrl = new URL(url, window.location.href);
             if (variant) productUrl.searchParams.set('variant', variant);
             // 由商品页读取优惠码并完成加购、应用优惠和结账跳转。
-            productUrl.searchParams.set('add-discount', code);
+            productUrl.searchParams.set('checkout', code);
 
             const sender = referrerName ? `${referrerName} さん` : 'お友達';
             const message = [

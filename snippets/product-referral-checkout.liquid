@@ -2,6 +2,7 @@
   <div
     class="alert alert--error"
     data-product-referral-checkout="{{ product.selected_or_first_available_variant.id }}"
+    data-cart-url="{{ routes.cart_url | escape }}"
     role="alert"
     hidden
   >
