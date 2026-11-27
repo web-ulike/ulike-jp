@@ -5,7 +5,8 @@
         const copy = window.referFriendMainCopy || {};
         const $invitation = $('#referfriend-invitation-content');
         const activityId = $invitation.attr('data-activity-id');
-        let referrerEmail = ($invitation.attr('data-referrer-email') || '').trim();
+        const getReferrerName = (email) => String(email ?? '').trim().split('@', 1)[0];
+        let referrerName = getReferrerName($invitation.attr('data-referrer-email'));
         const escapeHtml = (value) => $('<div>').text(value ?? '').html();
         const displayYen = (value) => escapeHtml(String(value ?? '').replaceAll('$', '¥'));
         // 复制成功提示的隐藏定时器
@@ -82,7 +83,7 @@
             }
         }
 
-        // 将指定选择器的文本复制到剪贴板
+        // 将文案复制到剪贴板
         function copyTextToClipboard(copyText) {
             if (!getLoginStatus) {
                 jumpLoginPage()
@@ -125,20 +126,28 @@
             '8790509945073': '老带新，点击面罩'
         };
         $invitation.find('.gameplay-box-copycode .invitation-product__copy-btn').click(function () {
-            const $button = $(this);
-            const $card = $button.closest('.gameplay-box-item');
-            const url = $button.attr('data-url');
+            const $card = $(this).closest('.gameplay-box-item');
+            const { productId, url, variant } = $card[0].dataset;
             const code = $card.find('.code-top').attr('data-code');
-            const referrerName = referrerEmail.split('@', 1)[0];
-            const message = url && code ? [
-                `${referrerName ? `${referrerName}さん` : 'お友達'}からクーポンコードが届きました！ Ulikeの脱毛器購入で、すぐに5,000円引き！`,
-                `ページリンク：${url}`,
-                `クーポンコード：${code}`
-            ].join('\n') : '';
-            copyTextToClipboard(message);
-            if (!getLoginStatus || !message) return;
+            if (!url || !code) {
+                copyTextToClipboard('');
+                return;
+            }
 
-            const productId = $card.attr('data-product-id');
+            const productUrl = new URL(url, window.location.href);
+            if (variant) productUrl.searchParams.set('variant', variant);
+
+            const referralUrl = new URL(`/discount/${encodeURIComponent(code)}`, productUrl);
+            referralUrl.searchParams.set('redirect', productUrl.pathname + productUrl.search + productUrl.hash);
+
+            const sender = referrerName ? `${referrerName}さん` : 'お友達';
+            const message = [
+                `${sender}からクーポンコードが届きました！ Ulikeの脱毛器購入で、すぐに5,000円引き！`,
+                `ページリンク：${referralUrl.href}`,
+                `クーポンコード：${code}`
+            ].join('\n');
+            copyTextToClipboard(message);
+
             isLoginPriont(legacyCopyEvents[productId] || '老带新，复制商品链接', 'copy-url', productId);
             isLoginPriont('老带新，复制邀请码+复制链接', '2', '');
         });
@@ -479,32 +488,20 @@
             });
         }
 
-        // 调用示例：在需要初始化时执行
-        initializeUserAccount().then(({ user, fund, activity }) => {
-
-            console.log('初始化完成，用户:', user, '资金账户:', fund, '活动:', activity,);
+        initializeUserAccount().then(({ fund, activity }) => {
             const coupons = activity?.data?.extend?.inviteCouponCodeList;
             if (Array.isArray(coupons)) {
                 $invitation.find('.gameplay-box-item[data-product-id]').each((_, item) => {
                     const $card = $(item);
-                    const { productId, url, variant } = item.dataset;
+                    const { productId } = item.dataset;
                     const coupon = coupons.find(entry => Array.isArray(entry?.productIdList)
                         && entry.productIdList.some(id => String(id) === productId));
                     const code = String(coupon?.couponCode ?? '').trim();
                     if (!code) return;
 
-                    const productUrl = new URL(url, window.location.href);
-                    if (variant) productUrl.searchParams.set('variant', variant);
-
-                    const referralUrl = new URL(`/discount/${encodeURIComponent(code)}`, productUrl);
-                    referralUrl.searchParams.set('redirect', productUrl.pathname + productUrl.search + productUrl.hash);
-
                     $card.find('.code-top').text(code).attr('data-code', code);
-                    $card.find('.invitation-product__copy-btn').attr('data-url', referralUrl.href);
                     if (coupon.discountAmount != null) {
-                        const $discount = $card.find('.code-disscount');
-                        // $discount.find('span').text('¥' + coupon.discountAmount);
-                        $discount.show();
+                        $card.find('.code-disscount').show();
                     }
                 });
             }
@@ -523,8 +520,7 @@
 
         /**
          * 初始化用户、资金账户及活动记录
-         * @param {string} activityId - 活动ID，用于查询或新增活动项目
-         * @returns {Promise<{user: Object, fund: Object, activity: Object}>}
+         * @returns {Promise<{fund?: Object, activity?: Object}>}
          */
         async function initializeUserAccount() {
             try {
@@ -533,12 +529,11 @@
                 if (!user?.data?.userId) {
                     $recordBatch.addClass('has-no-records');
                     pblicStaFliter('老带新，浏览页面（未登录）', getLoginStatus, '');
-                    return { user }; // 只返回 user
-                } else {
-                    getLoginStatus = true
-                    referrerEmail ||= String(user.data.userEmail || user.data.email || '').trim();
-                    pblicStaFliter('老带新，浏览页面（已登录）', getLoginStatus, '');
+                    return {};
                 }
+                getLoginStatus = true;
+                referrerName ||= getReferrerName(user.data.userEmail) || getReferrerName(user.data.email);
+                pblicStaFliter('老带新，浏览页面（已登录）', getLoginStatus, '');
                 // 查询或创建资金账户
                 const fund = await window.UlikeCommon.sendUlikeApi('/user/me/queryOrCreateFundAccount', { accountType: 'CASH' });
                 // 查询或新增活动项目
@@ -549,7 +544,7 @@
 
                 // 查询邀请记录
                 renderOrderData()
-                return { user, fund, activity };
+                return { fund, activity };
             } catch (err) {
                 console.error(err);
                 throw err;
