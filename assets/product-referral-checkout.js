@@ -39,7 +39,7 @@
     params.delete('add-discount');
     params.delete('add-dis');
     window.history.replaceState(window.history.state, '', productUrl);
-    window.location.assign(root + 'checkout');
+    window.location.assign('/checkout');
   } catch (error) {
     console.error('Referral checkout:', error);
     notice.hidden = false;
