@@ -5,6 +5,7 @@
         const copy = window.referFriendMainCopy || {};
         const $invitation = $('#referfriend-invitation-content');
         const activityId = $invitation.attr('data-activity-id');
+        let referrerEmail = ($invitation.attr('data-referrer-email') || '').trim();
         const escapeHtml = (value) => $('<div>').text(value ?? '').html();
         const displayYen = (value) => escapeHtml(String(value ?? '').replaceAll('$', '¥'));
         // 复制成功提示的隐藏定时器
@@ -125,11 +126,19 @@
         };
         $invitation.find('.gameplay-box-copycode .invitation-product__copy-btn').click(function () {
             const $button = $(this);
+            const $card = $button.closest('.gameplay-box-item');
             const url = $button.attr('data-url');
-            copyTextToClipboard(url);
-            if (!getLoginStatus || !url) return;
+            const code = $card.find('.code-top').attr('data-code');
+            const message = url && code ? [
+                `${referrerEmail ? `${referrerEmail}さん` : 'お友達'}からクーポンコードが届きました！`,
+                'Ulikeの脱毛器購入で、すぐに5,000円引き！',
+                `ページリンク：${url}`,
+                `クーポンコード：${code}`
+            ].join('\n') : '';
+            copyTextToClipboard(message);
+            if (!getLoginStatus || !message) return;
 
-            const productId = $button.closest('.gameplay-box-item').attr('data-product-id');
+            const productId = $card.attr('data-product-id');
             isLoginPriont(legacyCopyEvents[productId] || '老带新，复制商品链接', 'copy-url', productId);
             isLoginPriont('老带新，复制邀请码+复制链接', '2', '');
         });
@@ -525,6 +534,7 @@
                     return { user }; // 只返回 user
                 } else {
                     getLoginStatus = true
+                    referrerEmail ||= String(user.data.userEmail || user.data.email || '').trim();
                     pblicStaFliter('老带新，浏览页面（已登录）', getLoginStatus, '');
                 }
                 // 查询或创建资金账户

@@ -1378,6 +1378,7 @@
   class="container"
   id="referfriend-invitation-content"
   data-activity-id="{{ section.settings.activity_id | strip | default: '331522644954316801' | escape }}"
+  data-referrer-email="{{ customer.email | escape }}"
 >
   <div class="gameplay-box gameplay-box-top gameplay-box-info to-top">
     <p class="title">{{ section.settings.intro_title | escape }}</p>
